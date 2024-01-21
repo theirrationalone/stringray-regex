@@ -4,10 +4,12 @@ pragma solidity ^0.8.20;
 
 contract DecentralizedAudition {
     error DecentralizedAudition__InvalidDataProvided(string invalidData);
+    error DecentralizedAudition__MustBeGreaterThanZero(string invalidData);
     error DecentralizedAudition__ProposerAlreadyExists(string email);
     error DecentralizedAudition__ProposerNotExists(string email);
 
     uint256 private s_proposerCounter;
+    uint256 private s_auditCounter;
 
     struct AuditProposer {
         uint256 id;
@@ -69,6 +71,8 @@ contract DecentralizedAudition {
     }
 
     struct Audit {
+        uint256 id;
+        string title;
         string startDate;
         string endDate;
         uint256 totalPrizePoolUSD;
@@ -110,7 +114,7 @@ contract DecentralizedAudition {
 
     modifier isValidUintData(string memory _uintKey, uint256 _uintVal) {
         if (_uintVal <= 0) {
-            revert DecentralizedAudition__InvalidDataProvided(_uintKey);
+            revert DecentralizedAudition__MustBeGreaterThanZero(_uintKey);
         }
 
         _;
@@ -126,7 +130,7 @@ contract DecentralizedAudition {
     )
         public
         isValidStringData("name", _name)
-        isValidStringData("email", _email)
+        isValidStringData("email", _email) // threat: could be invalid also
         isValidStringData("country", _locationCountry)
         isValidStringData("state", _locationState)
     {
@@ -153,6 +157,7 @@ contract DecentralizedAudition {
         string calldata _email,
         string calldata _startDate,
         string calldata _endDate,
+        string calldata _title,
         uint256 _totalPrizePoolUSD,
         uint256 _highAwardsUSD,
         uint256 _mediumAwardsUSD,
@@ -174,6 +179,7 @@ contract DecentralizedAudition {
         public
         isValidStringData("start date", _startDate)
         isValidStringData("end date", _startDate)
+        isValidStringData("title", _title)
         isValidUintData("total USD pool prize", _totalPrizePoolUSD)
         isValidUintData("high USD awards", _highAwardsUSD)
         isValidUintData("medium USD awards", _mediumAwardsUSD)
@@ -193,7 +199,11 @@ contract DecentralizedAudition {
             revert DecentralizedAudition__ProposerNotExists(_email);
         }
 
+        // if (keccak256(abi.encodePacked(s_proposedAudits[proposer.id][msg.sender].title)) === )
+
         Audit memory audit = Audit({
+            id: proposer.auditCounter + 1,
+            title: _title,
             startDate: _startDate,
             endDate: _endDate,
             totalPrizePoolUSD: _totalPrizePoolUSD,
@@ -216,5 +226,8 @@ contract DecentralizedAudition {
         });
 
         s_proposedAudits[proposer.id][msg.sender] = audit;
+        s_proposers[msg.sender][_email].auditCounter += 1;
     }
+
+    // function addActor()
 }
