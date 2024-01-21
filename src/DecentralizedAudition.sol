@@ -3,14 +3,19 @@
 pragma solidity ^0.8.20;
 
 contract DecentralizedAudition {
+    error DecentralizedAudition__NameCountryStateAndEmailCannotBeEmpty();
+    error DecentralizedAudition__ProposerAlreadyExists(string email);
+
     uint256 private s_proposerCounter;
 
     struct AuditProposer {
+        uint256 id;
         string name;
         uint256 auditCounter;
         address proposer;
         string email;
-        string headquarter;
+        string locationCountry;
+        string locationState;
         string contactInfo;
         string otherDetails;
     }
@@ -85,6 +90,7 @@ contract DecentralizedAudition {
         string resourceTreeId;
     }
 
+    mapping(address => mapping(string => AuditProposer)) private s_proposers;
     mapping(uint256 => mapping(address => Audit)) private s_proposedAudits;
     mapping(address => mapping(uint256 => Actor)) private s_auditActors;
     mapping(address => mapping(uint256 => SMC)) private s_auditSmartContracts;
@@ -94,5 +100,37 @@ contract DecentralizedAudition {
     mapping(address => mapping(uint256 => KnownIssue)) private s_auditKnownIssues;
     mapping(address => mapping(uint256 => AdditionalIssue)) private s_auditAdditionalIssues;
 
-    function addProposer() public {}
+    function addProposer(
+        string calldata _name,
+        string calldata _email,
+        string calldata _locationCountry,
+        string calldata _locationState,
+        string calldata _contactInfo,
+        string calldata _otherDetails
+    ) public {
+        if (
+            keccak256(abi.encodePacked(_name)) == keccak256(abi.encodePacked(""))
+                || keccak256(abi.encodePacked(_email)) == keccak256(abi.encodePacked(""))
+                || keccak256(abi.encodePacked(_locationCountry)) == keccak256(abi.encodePacked(""))
+                || keccak256(abi.encodePacked(_locationState)) == keccak256(abi.encodePacked(""))
+        ) {
+            revert DecentralizedAudition__NameCountryStateAndEmailCannotBeEmpty();
+        }
+
+        if (s_proposers[msg.sender][_email].id != 0) {
+            revert DecentralizedAudition__ProposerAlreadyExists(_email);
+        }
+
+        AuditProposer({
+            id: ++s_proposerCounter,
+            name: _name,
+            email: _email,
+            proposer: msg.sender,
+            auditCounter: 0,
+            locationCountry: _locationCountry,
+            locationState: _locationState,
+            contactInfo: _contactInfo,
+            otherDetails: _otherDetails
+        });
+    }
 }
