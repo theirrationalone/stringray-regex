@@ -153,6 +153,7 @@ contract DecentralizedAudition {
         s_proposers[msg.sender][_email] = proposer;
     }
 
+    // how can we access proposer specific audits???
     function addAudit(
         string calldata _email,
         string calldata _startDate,
