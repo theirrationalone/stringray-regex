@@ -200,8 +200,6 @@ contract DecentralizedAudition {
             revert DecentralizedAudition__ProposerNotExists(_email);
         }
 
-        // if (keccak256(abi.encodePacked(s_proposedAudits[proposer.id][msg.sender].title)) === )
-
         Audit memory audit = Audit({
             id: proposer.auditCounter + 1,
             title: _title,
