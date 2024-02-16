@@ -15,10 +15,10 @@ contract PlayStringTest is Test {
     function test_copyWithFunction() public {
         string memory oneName = "ANIL KUSHWAHA";
 
-        string memory modifiedName = oneName.copyWithIn(2, 0, 3);
+        string memory modifiedName = oneName.copyWithIn(0, 1, 16);
 
         console2.log("oneName: ", oneName);
-        console2.log("modifiedName:  ANANIKUSHWAHA");
+        console2.log("modifiedName:  ANILANIL KUSA");
         console2.log("modifiedName: ", modifiedName);
     }
 }

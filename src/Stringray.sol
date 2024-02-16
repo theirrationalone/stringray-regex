@@ -11,7 +11,10 @@ library Stringray {
         bytes memory packedString = abi.encodePacked(_string);
         bytes memory packedStringInvariant = abi.encodePacked(_string);
 
-        if (_startIndex >= _endIndex || _targetIndex >= packedString.length || _targetIndex == _startIndex) {
+        if (
+            _startIndex >= _endIndex || _targetIndex >= packedString.length || _targetIndex == _startIndex
+                || _endIndex > packedString.length
+        ) {
             return _string;
         }
 
