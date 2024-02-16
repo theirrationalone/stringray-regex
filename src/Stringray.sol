@@ -3,19 +3,23 @@
 pragma solidity ^0.8.20;
 
 library Stringray {
-    function copyWithIn(uint256[] memory _array, uint256 _targetIndex, uint256 _startIndex, uint256 _endIndex)
+    function copyWithIn(string memory _string, uint256 _targetIndex, uint256 _startIndex, uint256 _endIndex)
         internal
         pure
-        returns (string[] memory)
-    {}
-}
+        returns (string memory)
+    {
+        bytes memory packedString = abi.encodePacked(_string);
+        bytes memory packedStringInvariant = abi.encodePacked(_string);
 
-contract Play {
-    using Stringray for uint256;
+        if (_startIndex >= _endIndex || _targetIndex >= packedString.length || _targetIndex == _startIndex) {
+            return _string;
+        }
 
-    uint256 private myArray;
+        for (uint256 i = _startIndex; i < _endIndex; i++) {
+            packedString[_targetIndex] = packedStringInvariant[i];
+            _targetIndex += 1;
+        }
 
-    function letCopy() public {
-        // myArray.copyWithIn();
+        return string(packedString);
     }
 }
