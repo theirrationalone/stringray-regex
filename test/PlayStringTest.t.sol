@@ -13,23 +13,12 @@ contract PlayStringTest is Test {
     }
 
     function test_copyWithFunction() public {
-        string memory oneName = "ANIL KUSHWAHA";
+        string memory oneName = "ANIL KUSHWAHa";
 
-        string memory dat = "U+1F428";
-        string memory data = "\x1b[32manil\x1b[0m";
+        int256 code = oneName.charCodeAt(12);
 
-        bytes memory packedString = abi.encodePacked(oneName);
+        console2.log("code: ", code);
 
-        bytes memory packedSpace = new bytes(1);
-
-        uint8 unicodeValue = uint8(packedString[0]);
-
-        bytes1 name = bytes1(uint8(255));
-
-        bytes memory datum = new bytes(1);
-
-        datum[0] = name;
-
-        console2.log("unicodeValue: ", string(datum));
+        assertEq(code, 97);
     }
 }
