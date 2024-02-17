@@ -3,6 +3,17 @@
 pragma solidity ^0.8.20;
 
 library Stringray {
+    function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
+        bytes memory packedString = abi.encodePacked(_string);
+        bytes memory packedStringSpace = new bytes(1);
+
+        if (_index >= packedString.length) return "";
+
+        packedStringSpace[0] = packedString[_index];
+
+        return string(packedStringSpace);
+    }
+
     function copyWithIn(string memory _string, uint256 _targetIndex, uint256 _startIndex, uint256 _endIndex)
         internal
         pure
@@ -14,9 +25,7 @@ library Stringray {
         if (
             _startIndex >= _endIndex || _targetIndex >= packedString.length || _targetIndex == _startIndex
                 || _endIndex > packedString.length
-        ) {
-            return _string;
-        }
+        ) return _string;
 
         for (uint256 i = _startIndex; i < _endIndex; i++) {
             packedString[_targetIndex] = packedStringInvariant[i];
