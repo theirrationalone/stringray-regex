@@ -14,6 +14,13 @@ library Stringray {
         return string(packedStringSpace);
     }
 
+    function charCodeAt(string memory _string, uint256 _index) internal pure returns (int8) {
+        bytes memory packedString = abi.encodePacked(_string);
+        if (_index >= packedString.length) return -1;
+
+        return int8(uint8(packedString[_index]));
+    }
+
     function copyWithIn(string memory _string, uint256 _targetIndex, uint256 _startIndex, uint256 _endIndex)
         internal
         pure
