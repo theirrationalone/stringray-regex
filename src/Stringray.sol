@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 library Stringray {
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
-        bytes memory packedString = abi.encodePacked(_string);
+        bytes memory packedString = bytes(_string);
         bytes memory packedStringSpace = new bytes(1);
 
         if (_index >= packedString.length) return "";
@@ -15,7 +15,7 @@ library Stringray {
     }
 
     function charCodeAt(string memory _string, uint256 _index) internal pure returns (int256) {
-        bytes memory packedString = abi.encodePacked(_string);
+        bytes memory packedString = bytes(_string);
         if (_index >= packedString.length) return -1;
 
         return int256(uint256(uint8(packedString[_index])));
@@ -26,7 +26,10 @@ library Stringray {
         pure
         returns (string memory)
     {
-        bytes memory packedString = abi.encodePacked(_string);
+        // converted to bytes but still points to `_string`.
+        bytes memory packedString = bytes(_string);
+
+        // converted to bytes and not points to `_string`.
         bytes memory packedStringInvariant = abi.encodePacked(_string);
 
         if (
