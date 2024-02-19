@@ -195,4 +195,8 @@ library Stringray {
 
         return -1;
     }
+
+    function length(string memory _string) internal pure returns (uint256) {
+        return bytes(_string).length;
+    }
 }

@@ -122,4 +122,12 @@ contract PlayStringTest is Test {
         assertEq(myLastIndexSecond, 6);
         assertEq(invalidLastIndex, -1);
     }
+
+    function test_lengthFunction() public {
+        string memory target = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory newTarget = "";
+
+        assertEq(target.length(), 74);
+        assertEq(newTarget.length(), 0);
+    }
 }
