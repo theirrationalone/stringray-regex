@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.20;
 
+import {console2} from "forge-std/console2.sol";
+
 library Stringray {
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
         bytes memory bytesForm = bytes(_string);
@@ -86,5 +88,27 @@ library Stringray {
         }
 
         return true;
+    }
+
+    function includes(string memory _string, string memory _subString) internal pure returns (bool) {
+        bytes memory bytesForm = bytes(_string);
+        bytes memory subBytesForm = bytes(_subString);
+
+        if (subBytesForm.length <= 0 || subBytesForm.length > bytesForm.length) return false;
+
+        for (uint256 i = 0; i < bytesForm.length; i++) {
+            uint256 k = 0;
+            for (uint256 j = i; j < bytesForm.length; j++) {
+                if (bytesForm[j] != subBytesForm[k]) break;
+
+                if (k == subBytesForm.length - 1) {
+                    return true;
+                }
+
+                k++;
+            }
+        }
+
+        return false;
     }
 }

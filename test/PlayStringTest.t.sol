@@ -72,4 +72,13 @@ contract PlayStringTest is Test {
         assertEq(isEndsWith, true);
         assertEq(isEndsWithTwo, true);
     }
+
+    function test_includesFunction() public {
+        string memory quote = "Imposters are everywhere nowadays!";
+        string memory searchStr = "here nowa";
+
+        bool isIncludes = quote.includes(searchStr);
+
+        assertEq(isIncludes, true);
+    }
 }
