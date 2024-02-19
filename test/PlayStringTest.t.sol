@@ -43,6 +43,33 @@ contract PlayStringTest is Test {
         console2.log("name        : ", name);
         console2.log("modifiedName: ", modifiedName);
 
+        // string memory concatenatedStr = string.concat("a", "b", "c", "d");
+
+        // console2.log("concatenatedStr: ", concatenatedStr);
+
         assertEq(modifiedName, "theirreirratione");
+    }
+
+    function test_endsWithFunction() public {
+        string memory name = "theirrationalone is my name";
+        string memory searchString = "name";
+
+        string memory name_two = "my name is theirrationalone";
+        string memory searchString_two = "is ";
+
+        bool isEndsWith = name.endsWith(searchString);
+
+        bool isEndsWithTwo = name_two.endsWith(searchString_two, 10);
+
+        string memory sixtyEight = "68";
+        bytes memory sixtyEightB = bytes(sixtyEight);
+
+        uint8 sixty = (uint8(sixtyEightB[0]) - 48) * 10;
+        uint8 sixtyEightfinal = sixty + (uint8(sixtyEightB[1]) - 48);
+
+        console2.log("final: ", sixtyEightfinal);
+
+        assertEq(isEndsWith, true);
+        assertEq(isEndsWithTwo, true);
     }
 }
