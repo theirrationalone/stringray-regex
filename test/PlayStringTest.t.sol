@@ -81,4 +81,22 @@ contract PlayStringTest is Test {
 
         assertEq(isIncludes, true);
     }
+
+    function test_indexOfFunction() public {
+        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory suspect = "It's";
+
+        int256 myIndexFirst = traceMe.indexOf(suspect);
+        int256 myIndexSecond = traceMe.indexOf("world", uint256(myIndexFirst + 1));
+
+        int256 invalidIndex = traceMe.indexOf(suspect, 74);
+
+        console2.log("myIndexFirst", myIndexFirst);
+        console2.log("myIndexSecond", myIndexSecond);
+        console2.log("invalidIndex", invalidIndex);
+
+        assertEq(myIndexFirst, 21);
+        assertEq(myIndexSecond, 30);
+        assertEq(invalidIndex, -1);
+    }
 }

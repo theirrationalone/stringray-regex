@@ -111,4 +111,44 @@ library Stringray {
 
         return false;
     }
+
+    function indexOf(string memory _string, string memory _subString) internal pure returns (int256) {
+        return _indexOf(_string, _subString, 0);
+    }
+
+    function indexOf(string memory _string, string memory _subString, uint256 _beginIndex)
+        internal
+        pure
+        returns (int256)
+    {
+        return _indexOf(_string, _subString, _beginIndex);
+    }
+
+    function _indexOf(string memory _target, string memory _search, uint256 _startIndex)
+        private
+        pure
+        returns (int256)
+    {
+        bytes memory bytesForm = bytes(_target);
+        bytes memory subBytesForm = bytes(_search);
+
+        if (subBytesForm.length <= 0 || subBytesForm.length > bytesForm.length || _startIndex >= bytesForm.length) {
+            return -1;
+        }
+
+        for (uint256 i = _startIndex; i < bytesForm.length; i++) {
+            uint256 k = 0;
+            for (uint256 j = i; j < bytesForm.length; j++) {
+                if (bytesForm[j] != subBytesForm[k]) break;
+
+                if (k == subBytesForm.length - 1) {
+                    return int256(i);
+                }
+
+                k++;
+            }
+        }
+
+        return -1;
+    }
 }
