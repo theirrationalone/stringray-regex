@@ -48,14 +48,7 @@ library Stringray {
     }
 
     function endsWith(string memory _string, string memory _searchString) internal pure returns (bool) {
-        bytes memory bytesForm = bytes(_string);
-        bytes memory searchBytesForm = bytes(_searchString);
-
-        uint256 _searchEndIndex = bytesForm.length - 1;
-
-        if (searchBytesForm.length > bytesForm.length || _searchEndIndex < searchBytesForm.length) return false;
-
-        return _endsWith(_searchEndIndex, bytesForm, searchBytesForm);
+        return _endsWith(0, _string, _searchString);
     }
 
     function endsWith(string memory _string, string memory _searchString, uint256 _searchEndIndex)
@@ -63,26 +56,30 @@ library Stringray {
         pure
         returns (bool)
     {
-        bytes memory bytesForm = bytes(_string);
-
-        if (_searchEndIndex >= bytesForm.length) return false;
-
-        bytes memory searchBytesForm = bytes(_searchString);
-
-        if (searchBytesForm.length > bytesForm.length || _searchEndIndex < searchBytesForm.length) return false;
-
-        return _endsWith(_searchEndIndex, bytesForm, searchBytesForm);
+        return _endsWith(_searchEndIndex, _string, _searchString);
     }
 
-    function _endsWith(uint256 _searchEndIndex, bytes memory _target, bytes memory _search)
+    function _endsWith(uint256 _searchEndIndex, string memory _target, string memory _search)
         private
         pure
         returns (bool)
     {
-        uint256 searchStartIndex = _searchEndIndex + 1 - _search.length;
+        bytes memory bytesForm = bytes(_target);
 
-        for (uint256 i = 0; i < _search.length; i++) {
-            if (_search[i] != _target[searchStartIndex]) return false;
+        if (_searchEndIndex == 0) {
+            _searchEndIndex = bytesForm.length - 1;
+        }
+
+        if (_searchEndIndex >= bytesForm.length) return false;
+
+        bytes memory searchBytesForm = bytes(_search);
+
+        if (searchBytesForm.length > bytesForm.length || _searchEndIndex < searchBytesForm.length) return false;
+
+        uint256 searchStartIndex = _searchEndIndex + 1 - searchBytesForm.length;
+
+        for (uint256 i = 0; i < searchBytesForm.length; i++) {
+            if (searchBytesForm[i] != bytesForm[searchStartIndex]) return false;
 
             searchStartIndex += 1;
         }
