@@ -99,4 +99,27 @@ contract PlayStringTest is Test {
         assertEq(myIndexSecond, 30);
         assertEq(invalidIndex, -1);
     }
+
+    function test_lastIndexOfFunction() public {
+        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory suspect = "me";
+
+        int256 myLastIndexFirst = traceMe.lastIndexOf(suspect);
+        int256 myLastIndexSecond = traceMe.lastIndexOf("me", uint256(myLastIndexFirst - 1));
+
+        int256 invalidLastIndex = traceMe.lastIndexOf(suspect, 0);
+
+        console2.log("myLastIndexFirst", myLastIndexFirst);
+        console2.log("myLastIndexSecond", myLastIndexSecond);
+        console2.log("invalidLastIndex", invalidLastIndex);
+
+        string memory testStr = "annnnnnnilzzzzzilaaaa";
+        int256 test = testStr.lastIndexOf("il", 21);
+
+        console2.log("testStr: ", test);
+
+        assertEq(myLastIndexFirst, 62);
+        assertEq(myLastIndexSecond, 6);
+        assertEq(invalidLastIndex, -1);
+    }
 }

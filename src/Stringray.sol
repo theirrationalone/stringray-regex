@@ -148,4 +148,51 @@ library Stringray {
 
         return -1;
     }
+
+    function lastIndexOf(string memory _string, string memory _subString) internal pure returns (int256) {
+        bytes memory bytesForm = bytes(_string);
+        return _lastIndexOf(_string, _subString, bytesForm.length - 1);
+    }
+
+    function lastIndexOf(string memory _string, string memory _subString, uint256 _lastIndex)
+        internal
+        pure
+        returns (int256)
+    {
+        return _lastIndexOf(_string, _subString, _lastIndex);
+    }
+
+    function _lastIndexOf(string memory _target, string memory _search, uint256 _lastIndex)
+        private
+        pure
+        returns (int256)
+    {
+        bytes memory bytesForm = bytes(_target);
+        bytes memory subBytesForm = bytes(_search);
+
+        if (subBytesForm.length <= 0 || subBytesForm.length > bytesForm.length || _lastIndex == 0) {
+            return -1;
+        }
+
+        if (_lastIndex >= bytesForm.length) {
+            _lastIndex = bytesForm.length - 1;
+        }
+
+        for (uint256 i = _lastIndex; i >= 0; i--) {
+            uint256 k = subBytesForm.length - 1;
+            for (uint256 j = i; j >= 0; j--) {
+                if (bytesForm[j] != subBytesForm[k] || j == 0) break;
+
+                if (k == 0) {
+                    return int256(j);
+                }
+
+                k--;
+            }
+
+            if (i == 0) return -1;
+        }
+
+        return -1;
+    }
 }
