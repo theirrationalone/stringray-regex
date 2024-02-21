@@ -141,8 +141,8 @@ contract PlayStringTest is Test {
     }
 
     function test_localeCompareFunction() public {
-        string memory targetEqual = "ANIL";
-        string memory newTargetEqual = "ANIL";
+        string memory targetEqual = "a";
+        string memory newTargetEqual = "a";
 
         string memory targetGreaterThan = "b";
         string memory newTargetGreaterThan = "a";
