@@ -268,6 +268,28 @@ library Stringray {
             uint8 targetValue = uint8(bytesForm[i]);
             uint8 searchValue = uint8(subBytesForm[i]);
 
+            if (
+                targetValue >= 48 &&
+                targetValue <= 57 &&
+                searchValue >= 65 &&
+                searchValue <= 91 &&
+                searchValue >= 97 &&
+                searchValue <= 122
+            ) {
+                return -1;
+            }
+
+            if (
+                searchValue >= 48 &&
+                searchValue <= 57 &&
+                targetValue >= 65 &&
+                targetValue <= 91 &&
+                targetValue >= 97 &&
+                targetValue <= 122
+            ) {
+                return 1;
+            }
+
             if (_ignoreCase) {
                 if (searchValue > targetValue) {
                     if (

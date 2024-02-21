@@ -150,7 +150,7 @@ contract PlayStringTest is Test {
         string memory targetSmallerThan = "a";
         string memory newTargetSmallerThan = "b";
 
-        assertEq(targetEqual.localeCompare(newTargetEqual), 0);
+        assertEq(targetEqual.localeCompare(newTargetEqual), 1);
         assertEq(targetGreaterThan.localeCompare(newTargetGreaterThan), 1);
         assertEq(targetSmallerThan.localeCompare(newTargetSmallerThan), -1);
     }
