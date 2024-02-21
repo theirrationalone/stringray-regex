@@ -83,11 +83,15 @@ contract PlayStringTest is Test {
     }
 
     function test_indexOfFunction() public {
-        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string
+            memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory suspect = "It's";
 
         int256 myIndexFirst = traceMe.indexOf(suspect);
-        int256 myIndexSecond = traceMe.indexOf("world", uint256(myIndexFirst + 1));
+        int256 myIndexSecond = traceMe.indexOf(
+            "world",
+            uint256(myIndexFirst + 1)
+        );
 
         int256 invalidIndex = traceMe.indexOf(suspect, 74);
 
@@ -101,11 +105,15 @@ contract PlayStringTest is Test {
     }
 
     function test_lastIndexOfFunction() public {
-        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string
+            memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory suspect = "me";
 
         int256 myLastIndexFirst = traceMe.lastIndexOf(suspect);
-        int256 myLastIndexSecond = traceMe.lastIndexOf("me", uint256(myLastIndexFirst - 1));
+        int256 myLastIndexSecond = traceMe.lastIndexOf(
+            "me",
+            uint256(myLastIndexFirst - 1)
+        );
 
         int256 invalidLastIndex = traceMe.lastIndexOf(suspect, 0);
 
@@ -124,10 +132,89 @@ contract PlayStringTest is Test {
     }
 
     function test_lengthFunction() public {
-        string memory target = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string
+            memory target = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory newTarget = "";
 
         assertEq(target.length(), 74);
         assertEq(newTarget.length(), 0);
+    }
+
+    function test_localeCompareFunction() public {
+        string memory targetEqual = "ANIL";
+        string memory newTargetEqual = "ANIL";
+
+        string memory targetGreaterThan = "b";
+        string memory newTargetGreaterThan = "a";
+
+        string memory targetSmallerThan = "a";
+        string memory newTargetSmallerThan = "b";
+
+        assertEq(targetEqual.localeCompare(newTargetEqual), 0);
+        assertEq(targetGreaterThan.localeCompare(newTargetGreaterThan), 1);
+        assertEq(targetSmallerThan.localeCompare(newTargetSmallerThan), -1);
+    }
+
+    function test_localeCompareFunctionIgnoreCase() public {
+        string memory targetEqualIgnoreCase = "a";
+        string memory newTargetEqualIgnoreCase = "a";
+
+        string memory targetGreaterThanIgnoreCase = "b";
+        string memory newTargetGreaterThanIgnoreCase = "a";
+
+        string memory targetSmallerThanIgnoreCase = "a";
+        string memory newTargetSmallerThanIgnoreCase = "b";
+
+        assertEq(
+            targetEqualIgnoreCase.localeCompare(newTargetEqualIgnoreCase, true),
+            0
+        );
+        assertEq(
+            targetGreaterThanIgnoreCase.localeCompare(
+                newTargetGreaterThanIgnoreCase,
+                true
+            ),
+            1
+        );
+        assertEq(
+            targetSmallerThanIgnoreCase.localeCompare(
+                newTargetSmallerThanIgnoreCase,
+                true
+            ),
+            -1
+        );
+    }
+
+    function test_localeCompareFunctionIgnoreCaseUpper() public {
+        string memory targetEqualIgnoreCaseUpper = "A";
+        string memory newTargetEqualIgnoreCaseUpper = "a";
+
+        string memory targetGreaterThanIgnoreCaseUpper = "B";
+        string memory newTargetGreaterThanIgnoreCaseUpper = "a";
+
+        string memory targetSmallerThanIgnoreCaseUpper = "A";
+        string memory newTargetSmallerThanIgnoreCaseUpper = "b";
+
+        assertEq(
+            targetEqualIgnoreCaseUpper.localeCompare(
+                newTargetEqualIgnoreCaseUpper,
+                true
+            ),
+            0
+        );
+        assertEq(
+            targetGreaterThanIgnoreCaseUpper.localeCompare(
+                newTargetGreaterThanIgnoreCaseUpper,
+                true
+            ),
+            1
+        );
+        assertEq(
+            targetSmallerThanIgnoreCaseUpper.localeCompare(
+                newTargetSmallerThanIgnoreCaseUpper,
+                true
+            ),
+            -1
+        );
     }
 }
