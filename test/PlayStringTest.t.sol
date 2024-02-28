@@ -83,15 +83,11 @@ contract PlayStringTest is Test {
     }
 
     function test_indexOfFunction() public {
-        string
-            memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory suspect = "It's";
 
         int256 myIndexFirst = traceMe.indexOf(suspect);
-        int256 myIndexSecond = traceMe.indexOf(
-            "world",
-            uint256(myIndexFirst + 1)
-        );
+        int256 myIndexSecond = traceMe.indexOf("world", uint256(myIndexFirst + 1));
 
         int256 invalidIndex = traceMe.indexOf(suspect, 74);
 
@@ -105,15 +101,11 @@ contract PlayStringTest is Test {
     }
 
     function test_lastIndexOfFunction() public {
-        string
-            memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory traceMe = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory suspect = "me";
 
         int256 myLastIndexFirst = traceMe.lastIndexOf(suspect);
-        int256 myLastIndexSecond = traceMe.lastIndexOf(
-            "me",
-            uint256(myLastIndexFirst - 1)
-        );
+        int256 myLastIndexSecond = traceMe.lastIndexOf("me", uint256(myLastIndexFirst - 1));
 
         int256 invalidLastIndex = traceMe.lastIndexOf(suspect, 0);
 
@@ -132,8 +124,7 @@ contract PlayStringTest is Test {
     }
 
     function test_lengthFunction() public {
-        string
-            memory target = "Catch me if you can. It's the world record that nobody caught me till now.";
+        string memory target = "Catch me if you can. It's the world record that nobody caught me till now.";
         string memory newTarget = "";
 
         assertEq(target.length(), 74);
@@ -165,24 +156,9 @@ contract PlayStringTest is Test {
         string memory targetSmallerThanIgnoreCase = "a";
         string memory newTargetSmallerThanIgnoreCase = "b";
 
-        assertEq(
-            targetEqualIgnoreCase.localeCompare(newTargetEqualIgnoreCase, true),
-            0
-        );
-        assertEq(
-            targetGreaterThanIgnoreCase.localeCompare(
-                newTargetGreaterThanIgnoreCase,
-                true
-            ),
-            1
-        );
-        assertEq(
-            targetSmallerThanIgnoreCase.localeCompare(
-                newTargetSmallerThanIgnoreCase,
-                true
-            ),
-            -1
-        );
+        assertEq(targetEqualIgnoreCase.localeCompare(newTargetEqualIgnoreCase, true), 0);
+        assertEq(targetGreaterThanIgnoreCase.localeCompare(newTargetGreaterThanIgnoreCase, true), 1);
+        assertEq(targetSmallerThanIgnoreCase.localeCompare(newTargetSmallerThanIgnoreCase, true), -1);
     }
 
     function test_localeCompareFunctionIgnoreCaseUpper() public {
@@ -195,26 +171,13 @@ contract PlayStringTest is Test {
         string memory targetSmallerThanIgnoreCaseUpper = "A";
         string memory newTargetSmallerThanIgnoreCaseUpper = "b";
 
-        assertEq(
-            targetEqualIgnoreCaseUpper.localeCompare(
-                newTargetEqualIgnoreCaseUpper,
-                true
-            ),
-            0
-        );
-        assertEq(
-            targetGreaterThanIgnoreCaseUpper.localeCompare(
-                newTargetGreaterThanIgnoreCaseUpper,
-                true
-            ),
-            1
-        );
-        assertEq(
-            targetSmallerThanIgnoreCaseUpper.localeCompare(
-                newTargetSmallerThanIgnoreCaseUpper,
-                true
-            ),
-            -1
-        );
+        assertEq(targetEqualIgnoreCaseUpper.localeCompare(newTargetEqualIgnoreCaseUpper, true), 0);
+        assertEq(targetGreaterThanIgnoreCaseUpper.localeCompare(newTargetGreaterThanIgnoreCaseUpper, true), 1);
+        assertEq(targetSmallerThanIgnoreCaseUpper.localeCompare(newTargetSmallerThanIgnoreCaseUpper, true), -1);
+    }
+
+    function testRegex() public {
+        string memory org = "sfs";
+        org.regex("/sfsdf/");
     }
 }
