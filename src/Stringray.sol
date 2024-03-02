@@ -296,17 +296,45 @@ library Stringray {
     }
 
     function regex(string memory _string, string memory _pattern) internal returns (string memory) {
-        uint256 forwardSlash = 47;
-        uint256 backwardSlash = 92;
+        uint8 forwardSlash = 47;
+        uint8 backwardSlash = 92;
+        uint8 questionMark = 63;
+        uint8 exclamationMark = 33;
+        uint8 period = 46;
+        uint8 openSquareBracket = 91;
+        uint8 closeSquareBracket = 93;
+        uint8 openParenthesis = 40;
+        uint8 closeParenthesis = 41;
+        uint8 plusSign = 43;
+        uint8 asterisk = 42;
+        uint8 minusSign = 45;
+        uint8 dollarSign = 36;
+        uint8 carrotSign = 94;
+        uint8 smallB = 98;
+        uint8 bigB = 66;
+        uint8 smallD = 100;
+        uint8 bigD = 68;
+        uint8 smallW = 119;
+        uint8 bigW = 87;
+        uint8 smallS = 115;
+        uint8 bigS = 83;
+        uint8 smallG = 103;
+        uint8 assignmentSign = 61;
+        uint8 greaterThanSign = 62;
+        uint8 lessThanSign = 60;
+        uint8 verticalBar = 124;
+        uint8 colon = 58;
+        uint8 openCurlyBrace = 123;
+        uint8 closeCurlyBrace = 125;
+        uint8 commaSign = 44;
 
         bytes memory stringInBytes = bytes(_string);
         bytes memory patternInBytes = bytes(_pattern);
 
-        require(
-            uint8(patternInBytes[0]) == 47 && uint8(patternInBytes[patternInBytes.length - 1]) == 47,
-            "Stringry: Pattern Invalid"
-        );
-
-        for (uint256 i; i < stringInBytes.length; i++) {}
+        if (
+            uint8(patternInBytes[0]) == forwardSlash && uint8(patternInBytes[patternInBytes.length - 1]) == forwardSlash
+        ) {
+            return _string;
+        }
     }
 }

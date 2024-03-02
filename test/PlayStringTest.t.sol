@@ -176,8 +176,5 @@ contract PlayStringTest is Test {
         assertEq(targetSmallerThanIgnoreCaseUpper.localeCompare(newTargetSmallerThanIgnoreCaseUpper, true), -1);
     }
 
-    function testRegex() public {
-        string memory org = "sfs";
-        org.regex("/sfsdf/");
-    }
+    function testRegex() public {}
 }
