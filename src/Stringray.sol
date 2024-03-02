@@ -296,12 +296,12 @@ library Stringray {
     }
 
     struct PatternMatchedData {
-        uint256 matchedIndex;
+        int256 matchedIndex;
         string subStrMatched;
         bool patternMatched;
     }
 
-    function regex(string memory _string, string memory _pattern) internal returns (bool isValidPattern) {
+    function regex(string memory _string, string memory _pattern) internal returns (PatternMatchedData memory) {
         uint8 forwardSlash = 47;
         uint8 backSlash = 92;
         uint8 questionMark = 63;
@@ -336,58 +336,84 @@ library Stringray {
 
         bytes memory stringInBytes = bytes(_string);
         bytes memory patternInBytes = bytes(_pattern);
+        PatternMatchedData memory patternData;
 
         if (
             uint8(patternInBytes[0]) != forwardSlash || uint8(patternInBytes[patternInBytes.length - 1]) != forwardSlash
         ) {
-            return isValidPattern;
+            return patternData;
         }
 
-        PatternMatchedData memory patternData = wordPattern(backSlash, plusSign, asterisk, stringInBytes);
-
-        isValidPattern = false;
-
         for (uint256 i = 1; i < patternInBytes.length; i++) {
-            if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 1) {
-                if (uint8(patternInBytes[i + 1]) == smallW) {
-                    for (uint256 j; j < stringInBytes.length; j++) {
-                        if (
-                            (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                                || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
-                                || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
-                                || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                                || uint8(stringInBytes[j]) == 95
-                        ) {
-                            isValidPattern = true;
+            patternData = wordPattern(backSlash, plusSign, asterisk, i, stringInBytes, patternInBytes);
+            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+            console2.log("matchedIndex: ", patternData.matchedIndex);
+            console2.log("patternMatched: ", patternData.patternMatched);
+            console2.log("subStrMatched: ", patternData.subStrMatched);
+            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        }
+
+        return patternData;
+    }
+
+    function wordPattern(
+        uint8 backSlash,
+        uint8 plusSign,
+        uint8 asterisk,
+        uint256 i,
+        bytes memory stringInBytes,
+        bytes memory patternInBytes
+    ) private pure returns (PatternMatchedData memory patternData) {
+        uint8 smallW = 119;
+
+        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 1) {
+            if (uint8(patternInBytes[i + 1]) == smallW) {
+                for (uint256 j; j < stringInBytes.length; j++) {
+                    if (
+                        (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                            || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
+                            || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
+                            || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                            || uint8(stringInBytes[j]) == 95
+                    ) {
+                        patternData.matchedIndex = int256(j);
+                        patternData.patternMatched = true;
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
+                        break;
+                    }
+                }
+
+                patternData.matchedIndex = int256(-1);
+            }
+        }
+
+        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
+            if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
+                for (uint256 j; j < stringInBytes.length; j++) {
+                    if (
+                        (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                            || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
+                            || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
+                            || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                            || uint8(stringInBytes[j]) == 95
+                    ) {
+                        if (patternData.matchedIndex + 1 != int256(j)) {
+                            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, ","));
                         }
+
+                        patternData.matchedIndex = int256(j);
+                        patternData.patternMatched = true;
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
                     }
                 }
             }
 
-            if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
-                if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
-                    for (uint256 j; j < stringInBytes.length; j++) {
-                        if (
-                            (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                                || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
-                                || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
-                                || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                                || uint8(stringInBytes[j]) == 95
-                        ) {
-                            isValidPattern = true;
-                        }
-                    }
-                }
-
-                if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
-                    isValidPattern = true;
-                }
+            if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+                patternData.patternMatched = true;
+                patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[0]));
             }
         }
     }
-
-    function wordPattern(uint8 _backslash, uint8 _plusSign, uint8 _asterisk, bytes memory _string)
-        private
-        returns (PatternMatchedData memory)
-    {}
 }

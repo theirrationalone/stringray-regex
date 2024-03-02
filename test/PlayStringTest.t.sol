@@ -184,5 +184,9 @@ contract PlayStringTest is Test {
         console2.log(uint8(bytes("A")[0]));
         console2.log(uint8(bytes("Z")[0]));
         console2.log(uint8(bytes("_")[0]));
+
+        string memory name = "anil!df";
+
+        Stringray.PatternMatchedData memory dat = name.regex("/\\w/");
     }
 }
