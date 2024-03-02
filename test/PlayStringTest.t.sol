@@ -176,5 +176,13 @@ contract PlayStringTest is Test {
         assertEq(targetSmallerThanIgnoreCaseUpper.localeCompare(newTargetSmallerThanIgnoreCaseUpper, true), -1);
     }
 
-    function testRegex() public {}
+    function testRegex() public {
+        console2.log(uint8(bytes("0")[0]));
+        console2.log(uint8(bytes("9")[0]));
+        console2.log(uint8(bytes("a")[0]));
+        console2.log(uint8(bytes("z")[0]));
+        console2.log(uint8(bytes("A")[0]));
+        console2.log(uint8(bytes("Z")[0]));
+        console2.log(uint8(bytes("_")[0]));
+    }
 }

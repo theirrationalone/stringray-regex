@@ -295,9 +295,15 @@ library Stringray {
         return 0;
     }
 
-    function regex(string memory _string, string memory _pattern) internal returns (string memory) {
+    struct PatternMatchedData {
+        uint256 matchedIndex;
+        string subStrMatched;
+        bool patternMatched;
+    }
+
+    function regex(string memory _string, string memory _pattern) internal returns (bool isValidPattern) {
         uint8 forwardSlash = 47;
-        uint8 backwardSlash = 92;
+        uint8 backSlash = 92;
         uint8 questionMark = 63;
         uint8 exclamationMark = 33;
         uint8 period = 46;
@@ -332,9 +338,56 @@ library Stringray {
         bytes memory patternInBytes = bytes(_pattern);
 
         if (
-            uint8(patternInBytes[0]) == forwardSlash && uint8(patternInBytes[patternInBytes.length - 1]) == forwardSlash
+            uint8(patternInBytes[0]) != forwardSlash || uint8(patternInBytes[patternInBytes.length - 1]) != forwardSlash
         ) {
-            return _string;
+            return isValidPattern;
+        }
+
+        PatternMatchedData memory patternData = wordPattern(backSlash, plusSign, asterisk, stringInBytes);
+
+        isValidPattern = false;
+
+        for (uint256 i = 1; i < patternInBytes.length; i++) {
+            if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 1) {
+                if (uint8(patternInBytes[i + 1]) == smallW) {
+                    for (uint256 j; j < stringInBytes.length; j++) {
+                        if (
+                            (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                                || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
+                                || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
+                                || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                                || uint8(stringInBytes[j]) == 95
+                        ) {
+                            isValidPattern = true;
+                        }
+                    }
+                }
+            }
+
+            if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
+                if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
+                    for (uint256 j; j < stringInBytes.length; j++) {
+                        if (
+                            (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                                || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
+                                || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
+                                || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+                                || uint8(stringInBytes[j]) == 95
+                        ) {
+                            isValidPattern = true;
+                        }
+                    }
+                }
+
+                if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+                    isValidPattern = true;
+                }
+            }
         }
     }
+
+    function wordPattern(uint8 _backslash, uint8 _plusSign, uint8 _asterisk, bytes memory _string)
+        private
+        returns (PatternMatchedData memory)
+    {}
 }
