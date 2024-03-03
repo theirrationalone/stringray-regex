@@ -344,7 +344,7 @@ library Stringray {
             return patternData;
         }
 
-        for (uint256 i = 1; i < patternInBytes.length; i++) {
+        for (uint256 i = 1; i < patternInBytes.length - 1; i++) {
             patternData = wordPattern(backSlash, plusSign, asterisk, i, stringInBytes, patternInBytes);
             console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
             console2.log("matchedIndex: ", patternData.matchedIndex);
@@ -366,7 +366,12 @@ library Stringray {
     ) private pure returns (PatternMatchedData memory patternData) {
         uint8 smallW = 119;
 
+        console2.log("before if: ", i);
         if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 1) {
+            console2.log(string(abi.encode(patternInBytes[i])));
+            console2.log(string(abi.encode(patternInBytes[i + 1])));
+            console2.log(string(abi.encode(smallW)));
+            console2.log(i);
             if (uint8(patternInBytes[i + 1]) == smallW) {
                 for (uint256 j; j < stringInBytes.length; j++) {
                     if (
@@ -388,32 +393,32 @@ library Stringray {
             }
         }
 
-        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
-            if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
-                for (uint256 j; j < stringInBytes.length; j++) {
-                    if (
-                        (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                            || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
-                            || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
-                            || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                            || uint8(stringInBytes[j]) == 95
-                    ) {
-                        if (patternData.matchedIndex + 1 != int256(j)) {
-                            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, ","));
-                        }
+        // if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
+        //     if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
+        //         for (uint256 j; j < stringInBytes.length; j++) {
+        //             if (
+        //                 (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+        //                     || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
+        //                     || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
+        //                     || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
+        //                     || uint8(stringInBytes[j]) == 95
+        //             ) {
+        //                 if (patternData.matchedIndex + 1 != int256(j)) {
+        //                     patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, ","));
+        //                 }
 
-                        patternData.matchedIndex = int256(j);
-                        patternData.patternMatched = true;
-                        patternData.subStrMatched =
-                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
-                    }
-                }
-            }
+        //                 patternData.matchedIndex = int256(j);
+        //                 patternData.patternMatched = true;
+        //                 patternData.subStrMatched =
+        //                     string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
+        //             }
+        //         }
+        //     }
 
-            if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
-                patternData.patternMatched = true;
-                patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[0]));
-            }
-        }
+        //     if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+        //         patternData.patternMatched = true;
+        //         patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[0]));
+        //     }
+        // }
     }
 }
