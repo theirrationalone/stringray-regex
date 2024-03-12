@@ -349,22 +349,29 @@ library Stringray {
         patternData.patternLastIndex = 1;
         for (uint256 i = patternData.patternLastIndex; i < patternInBytes.length - 1;) {
             patternData = wordPattern(
-                backSlash, plusSign, asterisk, smallW, i, patternData.matchedEndIndex, stringInBytes, patternInBytes
+                backSlash,
+                plusSign,
+                asterisk,
+                smallW,
+                i,
+                patternData.matchedEndIndex,
+                stringInBytes,
+                patternInBytes,
+                patternData
             );
 
             if (patternData.matchedEndIndex == -1) {
                 return patternData;
             }
 
-            console2.log(patternData.patternLastIndex);
-
             i = patternData.patternLastIndex;
-            // console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-            // console2.log("matchedStartIndex: ", patternData.matchedStartIndex);
-            // console2.log("matchedEndIndex: ", patternData.matchedEndIndex);
-            // console2.log("patternMatched: ", patternData.patternMatched);
-            // console2.log("subStrMatched: ", patternData.subStrMatched);
-            // console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+            console2.log("matchedStartIndex: ", patternData.matchedStartIndex);
+            console2.log("matchedEndIndex: ", patternData.matchedEndIndex);
+            console2.log("patternMatched: ", patternData.patternMatched);
+            console2.log("subStrMatched: ", patternData.subStrMatched);
+            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
         }
 
         return patternData;
@@ -378,8 +385,10 @@ library Stringray {
         uint256 i,
         int256 j,
         bytes memory stringInBytes,
-        bytes memory patternInBytes
+        bytes memory patternInBytes,
+        PatternMatchedData memory lastPatternCollecedData
     ) private pure returns (PatternMatchedData memory patternData) {
+        patternData = lastPatternCollecedData;
         if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
             if (uint8(patternInBytes[i + 1]) == smallW) {
                 uint256 z = uint256(j);
@@ -435,7 +444,14 @@ library Stringray {
                 //         patternData.patternMatched = true;
                 //     }
                 // }
+            } else {
+                patternData.matchedStartIndex = -1;
+                patternData.matchedEndIndex = -1;
+                patternData.patternMatched = false;
+                patternData.patternLastIndex += 1;
             }
+        } else {
+            patternData.patternLastIndex += 1;
         }
 
         // if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
