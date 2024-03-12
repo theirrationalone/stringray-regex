@@ -177,7 +177,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        string memory name = "@#!";
+        string memory name = "ani@l#aas!dv";
 
         Stringray.PatternMatchedData memory patternData1 = name.regex("/\\w/");
         console2.log("\x1b[32m---------------------------------------------------\x1b[0m");

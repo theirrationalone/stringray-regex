@@ -389,12 +389,7 @@ library Stringray {
                     && uint8(patternInBytes[i + 2]) != asterisk
             ) {
                 for (z; z < stringInBytes.length; z++) {
-                    if (
-                        (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
-                            || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
-                            || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
-                            || uint8(stringInBytes[z]) == 95
-                    ) {
+                    if (isWord(z, stringInBytes)) {
                         patternData.matchedStartIndex = int256(z);
                         patternData.matchedEndIndex = int256(z);
                         patternData.patternMatched = true;
@@ -412,12 +407,7 @@ library Stringray {
             } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
                 bool isFoundFirstIndex = false;
                 for (z; z < stringInBytes.length; z++) {
-                    if (
-                        (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
-                            || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
-                            || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
-                            || uint8(stringInBytes[z]) == 95
-                    ) {
+                    if (isWord(z, stringInBytes)) {
                         if (!isFoundFirstIndex) {
                             isFoundFirstIndex = true;
                             patternData.matchedStartIndex = int256(z);
@@ -432,15 +422,35 @@ library Stringray {
                             patternData.matchedStartIndex = -1;
                             patternData.matchedEndIndex = -1;
                             patternData.patternMatched = false;
+                        } else if (isFoundFirstIndex) {
+                            if (z > 0) {
+                                patternData.matchedEndIndex = int256(z - 1);
+                            } else {
+                                patternData.matchedEndIndex = int256(z);
+                            }
+                            break;
+                        }
+                    }
+                }
+            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+                for (z; z < stringInBytes.length; z++) {
+                    if (isWord(z, stringInBytes)) {
+                        patternData.matchedStartIndex = int256(z);
+                        patternData.patternMatched = true;
+
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                    } else {
+                        if (z == 0) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = true;
+                        } else {
+                            patternData.matchedEndIndex = int256(z - 1);
                         }
                         break;
                     }
                 }
-            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
-                patternData.matchedStartIndex = -1;
-                patternData.matchedEndIndex = -1;
-                patternData.patternMatched = true;
-                patternData.patternLastIndex += 1;
             } else {
                 patternData.matchedStartIndex = -1;
                 patternData.matchedEndIndex = -1;
@@ -448,33 +458,16 @@ library Stringray {
             }
         }
         patternData.patternLastIndex += 1;
+    }
 
-        // if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
-        //     if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
-        //         for (uint256 j; j < stringInBytes.length; j++) {
-        //             if (
-        //                 (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-        //                     || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
-        //                     || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
-        //                     || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-        //                     || uint8(stringInBytes[j]) == 95
-        //             ) {
-        //                 if (patternData.matchedIndex + 1 != int256(j)) {
-        //                     patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, ","));
-        //                 }
-
-        //                 patternData.matchedIndex = int256(j);
-        //                 patternData.patternMatched = true;
-        //                 patternData.subStrMatched =
-        //                     string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
-        //             }
-        //         }
-        //     }
-
-        //     if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
-        //         patternData.patternMatched = true;
-        //         patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[0]));
-        //     }
-        // }
+    function isWord(uint256 z, bytes memory stringInBytes) private pure returns (bool) {
+        if (
+            (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
+                || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
+                || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57) || uint8(stringInBytes[z]) == 95
+        ) {
+            return true;
+        }
+        return false;
     }
 }
