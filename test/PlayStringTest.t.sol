@@ -177,16 +177,10 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        console2.log(uint8(bytes("0")[0]));
-        console2.log(uint8(bytes("9")[0]));
-        console2.log(uint8(bytes("a")[0]));
-        console2.log(uint8(bytes("z")[0]));
-        console2.log(uint8(bytes("A")[0]));
-        console2.log(uint8(bytes("Z")[0]));
-        console2.log(uint8(bytes("_")[0]));
+        string memory name = "@#a!v";
 
-        string memory name = "anil!df";
-
-        Stringray.PatternMatchedData memory dat = name.regex("/\\w/");
+        console2.log(name, ": \\w: ", name.regex("/\\w*/").subStrMatched);
+        console2.log(name, ": \\w+: ", name.regex("/\\w*/").subStrMatched);
+        console2.log(name, ": \\w*: ", name.regex("/\\w*/").subStrMatched);
     }
 }

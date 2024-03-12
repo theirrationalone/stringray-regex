@@ -296,8 +296,10 @@ library Stringray {
     }
 
     struct PatternMatchedData {
-        int256 matchedIndex;
+        int256 matchedStartIndex;
+        int256 matchedEndIndex;
         string subStrMatched;
+        uint256 patternLastIndex;
         bool patternMatched;
     }
 
@@ -344,13 +346,25 @@ library Stringray {
             return patternData;
         }
 
-        for (uint256 i = 1; i < patternInBytes.length - 1; i++) {
-            patternData = wordPattern(backSlash, plusSign, asterisk, i, stringInBytes, patternInBytes);
-            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-            console2.log("matchedIndex: ", patternData.matchedIndex);
-            console2.log("patternMatched: ", patternData.patternMatched);
-            console2.log("subStrMatched: ", patternData.subStrMatched);
-            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        patternData.patternLastIndex = 1;
+        for (uint256 i = patternData.patternLastIndex; i < patternInBytes.length - 1;) {
+            patternData = wordPattern(
+                backSlash, plusSign, asterisk, smallW, i, patternData.matchedEndIndex, stringInBytes, patternInBytes
+            );
+
+            if (patternData.matchedEndIndex == -1) {
+                return patternData;
+            }
+
+            console2.log(patternData.patternLastIndex);
+
+            i = patternData.patternLastIndex;
+            // console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+            // console2.log("matchedStartIndex: ", patternData.matchedStartIndex);
+            // console2.log("matchedEndIndex: ", patternData.matchedEndIndex);
+            // console2.log("patternMatched: ", patternData.patternMatched);
+            // console2.log("subStrMatched: ", patternData.subStrMatched);
+            // console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
         }
 
         return patternData;
@@ -360,36 +374,67 @@ library Stringray {
         uint8 backSlash,
         uint8 plusSign,
         uint8 asterisk,
+        uint8 smallW,
         uint256 i,
+        int256 j,
         bytes memory stringInBytes,
         bytes memory patternInBytes
     ) private pure returns (PatternMatchedData memory patternData) {
-        uint8 smallW = 119;
-
-        console2.log("before if: ", i);
-        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 1) {
-            console2.log(string(abi.encode(patternInBytes[i])));
-            console2.log(string(abi.encode(patternInBytes[i + 1])));
-            console2.log(string(abi.encode(smallW)));
-            console2.log(i);
+        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
             if (uint8(patternInBytes[i + 1]) == smallW) {
-                for (uint256 j; j < stringInBytes.length; j++) {
+                uint256 z = uint256(j);
+
+                for (z; z < stringInBytes.length; z++) {
                     if (
-                        (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                            || (uint8(stringInBytes[j]) >= 65 && uint8(stringInBytes[j]) <= 90)
-                            || (uint8(stringInBytes[j]) >= 97 && uint8(stringInBytes[j]) <= 122)
-                            || (uint8(stringInBytes[j]) >= 48 && uint8(stringInBytes[j]) <= 57)
-                            || uint8(stringInBytes[j]) == 95
+                        (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
+                            || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
+                            || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
+                            || uint8(stringInBytes[z]) == 95
                     ) {
-                        patternData.matchedIndex = int256(j);
+                        patternData.matchedStartIndex = int256(z);
+                        patternData.matchedEndIndex = int256(z);
                         patternData.patternMatched = true;
                         patternData.subStrMatched =
-                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[j]));
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                        z += 1;
                         break;
                     }
                 }
 
-                patternData.matchedIndex = int256(-1);
+                patternData.patternLastIndex = i + 1;
+
+                // if (uint8(patternInBytes[i + 2]) == plusSign) {
+                //     for (z; z < stringInBytes.length; z++) {
+                //         if (
+                //             (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
+                //                 || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
+                //                 || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
+                //                 || uint8(stringInBytes[z]) == 95
+                //         ) {
+                //             patternData.matchedEndIndex = int256(z);
+                //             patternData.patternMatched = true;
+                //             patternData.subStrMatched =
+                //                 string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                //         } else {
+                //             break;
+                //         }
+                //     }
+                // } else if (uint8(patternInBytes[i + 2]) == asterisk) {
+                //     for (z; z < stringInBytes.length; z++) {
+                //         if (
+                //             (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
+                //                 || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
+                //                 || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
+                //                 || uint8(stringInBytes[z]) == 95
+                //         ) {
+                //             patternData.matchedEndIndex = int256(z);
+                //             patternData.subStrMatched =
+                //                 string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                //         }
+
+                //         patternData.patternMatched = true;
+                //     }
+                // }
             }
         }
 
