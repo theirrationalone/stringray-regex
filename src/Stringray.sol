@@ -365,13 +365,6 @@ library Stringray {
             }
 
             i = patternData.patternLastIndex;
-
-            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-            console2.log("matchedStartIndex: ", patternData.matchedStartIndex);
-            console2.log("matchedEndIndex: ", patternData.matchedEndIndex);
-            console2.log("patternMatched: ", patternData.patternMatched);
-            console2.log("subStrMatched: ", patternData.subStrMatched);
-            console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
         }
 
         return patternData;
@@ -389,10 +382,12 @@ library Stringray {
         PatternMatchedData memory lastPatternCollecedData
     ) private pure returns (PatternMatchedData memory patternData) {
         patternData = lastPatternCollecedData;
+        uint256 z = uint256(j);
         if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
-            if (uint8(patternInBytes[i + 1]) == smallW) {
-                uint256 z = uint256(j);
-
+            if (
+                uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) != plusSign
+                    && uint8(patternInBytes[i + 2]) != asterisk
+            ) {
                 for (z; z < stringInBytes.length; z++) {
                     if (
                         (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
@@ -405,54 +400,54 @@ library Stringray {
                         patternData.patternMatched = true;
                         patternData.subStrMatched =
                             string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-                        z += 1;
+                        break;
+                    } else {
+                        if (z == stringInBytes.length - 1) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = false;
+                        }
+                    }
+                }
+            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
+                bool isFoundFirstIndex = false;
+                for (z; z < stringInBytes.length; z++) {
+                    if (
+                        (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
+                            || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
+                            || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
+                            || uint8(stringInBytes[z]) == 95
+                    ) {
+                        if (!isFoundFirstIndex) {
+                            isFoundFirstIndex = true;
+                            patternData.matchedStartIndex = int256(z);
+                            patternData.patternMatched = true;
+                        }
+
+                        patternData.matchedEndIndex = int256(z);
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                    } else {
+                        if (!isFoundFirstIndex && z == stringInBytes.length - 1) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = false;
+                        }
                         break;
                     }
                 }
-
-                patternData.patternLastIndex = i + 1;
-
-                // if (uint8(patternInBytes[i + 2]) == plusSign) {
-                //     for (z; z < stringInBytes.length; z++) {
-                //         if (
-                //             (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
-                //                 || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
-                //                 || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
-                //                 || uint8(stringInBytes[z]) == 95
-                //         ) {
-                //             patternData.matchedEndIndex = int256(z);
-                //             patternData.patternMatched = true;
-                //             patternData.subStrMatched =
-                //                 string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-                //         } else {
-                //             break;
-                //         }
-                //     }
-                // } else if (uint8(patternInBytes[i + 2]) == asterisk) {
-                //     for (z; z < stringInBytes.length; z++) {
-                //         if (
-                //             (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
-                //                 || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
-                //                 || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57)
-                //                 || uint8(stringInBytes[z]) == 95
-                //         ) {
-                //             patternData.matchedEndIndex = int256(z);
-                //             patternData.subStrMatched =
-                //                 string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-                //         }
-
-                //         patternData.patternMatched = true;
-                //     }
-                // }
+            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+                patternData.matchedStartIndex = -1;
+                patternData.matchedEndIndex = -1;
+                patternData.patternMatched = true;
+                patternData.patternLastIndex += 1;
             } else {
                 patternData.matchedStartIndex = -1;
                 patternData.matchedEndIndex = -1;
                 patternData.patternMatched = false;
-                patternData.patternLastIndex += 1;
             }
-        } else {
-            patternData.patternLastIndex += 1;
         }
+        patternData.patternLastIndex += 1;
 
         // if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
         //     if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {

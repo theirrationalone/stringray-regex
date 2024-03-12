@@ -1,4 +1,4 @@
-const string = "@#a!v";
+const string = "@#aas!dv";
 
 console.log(`${string}: \/\\w\/: `, string.match(/\w/));
 

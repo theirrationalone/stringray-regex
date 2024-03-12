@@ -177,10 +177,33 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        string memory name = "@#a!v";
+        string memory name = "@#!";
 
-        console2.log(name, ": \\w: ", name.regex("/\\w*/").subStrMatched);
-        console2.log(name, ": \\w+: ", name.regex("/\\w*/").subStrMatched);
-        console2.log(name, ": \\w*: ", name.regex("/\\w*/").subStrMatched);
+        Stringray.PatternMatchedData memory patternData1 = name.regex("/\\w/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\w: ", patternData1.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData1.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData1.matchedEndIndex);
+        console2.log("patternMatched: ", patternData1.patternMatched);
+        console2.log("subStrMatched: ", patternData1.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+        Stringray.PatternMatchedData memory patternData2 = name.regex("/\\w+/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\w+: ", patternData2.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData2.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData2.matchedEndIndex);
+        console2.log("patternMatched: ", patternData2.patternMatched);
+        console2.log("subStrMatched: ", patternData2.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+        Stringray.PatternMatchedData memory patternData3 = name.regex("/\\w*/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\w*: ", patternData3.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData3.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData3.matchedEndIndex);
+        console2.log("patternMatched: ", patternData3.patternMatched);
+        console2.log("subStrMatched: ", patternData3.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
     }
 }
