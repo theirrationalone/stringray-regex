@@ -490,6 +490,29 @@ library Stringray {
                         }
                     }
                 }
+            } else if (uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) == asterisk) {
+                bool isFoundFirstIndex = false;
+                for (z; z < stringInBytes.length; z++) {
+                    if (!isWord(z, stringInBytes)) {
+                        if (!isFoundFirstIndex) {
+                            isFoundFirstIndex = true;
+                            patternData.matchedStartIndex = int256(z);
+                            patternData.patternMatched = true;
+                        }
+
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                    } else {
+                        if (z == 0) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = true;
+                        } else {
+                            patternData.matchedEndIndex = int256(z - 1);
+                        }
+                        break;
+                    }
+                }
             } else {
                 patternData.matchedStartIndex = -1;
                 patternData.matchedEndIndex = -1;
