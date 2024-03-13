@@ -542,16 +542,16 @@ library Stringray {
         PatternMatchedData memory patternData,
         bytes memory stringInBytes,
         uint256 z,
-        bool lastIndexUpdate
+        bool notMatchUpdate
     ) private pure returns (PatternMatchedData memory) {
-        if (!lastIndexUpdate) {
+        if (!notMatchUpdate) {
             patternData.matchedStartIndex = int256(z);
             patternData.matchedEndIndex = int256(z);
             patternData.patternMatched = true;
             patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
         }
 
-        if (lastIndexUpdate) {
+        if (notMatchUpdate) {
             if (z == stringInBytes.length - 1) {
                 patternData.matchedStartIndex = -1;
                 patternData.matchedEndIndex = -1;
