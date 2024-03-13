@@ -522,6 +522,10 @@ library Stringray {
         patternData.patternLastIndex += 1;
     }
 
+    function onlySingle() private pure returns (PatternMatchedData memory) {}
+    function oneOrMore() private pure returns (PatternMatchedData memory) {}
+    function zeroOrMore() private pure returns (PatternMatchedData memory) {}
+
     function isWord(uint256 z, bytes memory stringInBytes) private pure returns (bool) {
         if (
             (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
