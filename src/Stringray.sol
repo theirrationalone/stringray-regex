@@ -420,10 +420,14 @@ library Stringray {
                     }
                 }
             } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
+                bool isFoundFirstIndex = false;
                 for (z; z < stringInBytes.length; z++) {
                     if (isWord(z, stringInBytes)) {
-                        patternData.matchedStartIndex = int256(z);
-                        patternData.patternMatched = true;
+                        if (!isFoundFirstIndex) {
+                            isFoundFirstIndex = true;
+                            patternData.matchedStartIndex = int256(z);
+                            patternData.patternMatched = true;
+                        }
 
                         patternData.subStrMatched =
                             string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
@@ -436,6 +440,54 @@ library Stringray {
                             patternData.matchedEndIndex = int256(z - 1);
                         }
                         break;
+                    }
+                }
+            } else if (
+                uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) != plusSign
+                    && uint8(patternInBytes[i + 2]) != asterisk
+            ) {
+                for (z; z < stringInBytes.length; z++) {
+                    if (!isWord(z, stringInBytes)) {
+                        patternData.matchedStartIndex = int256(z);
+                        patternData.matchedEndIndex = int256(z);
+                        patternData.patternMatched = true;
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                        break;
+                    } else {
+                        if (z == stringInBytes.length - 1) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = false;
+                        }
+                    }
+                }
+            } else if (uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) == plusSign) {
+                bool isFoundFirstIndex = false;
+                for (z; z < stringInBytes.length; z++) {
+                    if (!isWord(z, stringInBytes)) {
+                        if (!isFoundFirstIndex) {
+                            isFoundFirstIndex = true;
+                            patternData.matchedStartIndex = int256(z);
+                            patternData.patternMatched = true;
+                        }
+
+                        patternData.matchedEndIndex = int256(z);
+                        patternData.subStrMatched =
+                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                    } else {
+                        if (!isFoundFirstIndex && z == stringInBytes.length - 1) {
+                            patternData.matchedStartIndex = -1;
+                            patternData.matchedEndIndex = -1;
+                            patternData.patternMatched = false;
+                        } else if (isFoundFirstIndex) {
+                            if (z > 0) {
+                                patternData.matchedEndIndex = int256(z - 1);
+                            } else {
+                                patternData.matchedEndIndex = int256(z);
+                            }
+                            break;
+                        }
                     }
                 }
             } else {

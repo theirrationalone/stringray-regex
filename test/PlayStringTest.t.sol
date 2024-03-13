@@ -177,7 +177,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        string memory name = "ani@l#aas!dv";
+        string memory name = "ani@!$!*+&l#aas!dv";
 
         Stringray.PatternMatchedData memory patternData1 = name.regex("/\\w/");
         console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
@@ -204,6 +204,33 @@ contract PlayStringTest is Test {
         console2.log("matchedEndIndex: ", patternData3.matchedEndIndex);
         console2.log("patternMatched: ", patternData3.patternMatched);
         console2.log("subStrMatched: ", patternData3.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+        Stringray.PatternMatchedData memory patternData4 = name.regex("/\\W/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\W: ", patternData4.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData4.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData4.matchedEndIndex);
+        console2.log("patternMatched: ", patternData4.patternMatched);
+        console2.log("subStrMatched: ", patternData4.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+        Stringray.PatternMatchedData memory patternData5 = name.regex("/\\W+/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\W+: ", patternData5.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData5.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData5.matchedEndIndex);
+        console2.log("patternMatched: ", patternData5.patternMatched);
+        console2.log("subStrMatched: ", patternData5.subStrMatched);
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+
+        Stringray.PatternMatchedData memory patternData6 = name.regex("/\\W*/");
+        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log(name, ": \\W*: ", patternData6.subStrMatched);
+        console2.log("matchedStartIndex: ", patternData6.matchedStartIndex);
+        console2.log("matchedEndIndex: ", patternData6.matchedEndIndex);
+        console2.log("patternMatched: ", patternData6.patternMatched);
+        console2.log("subStrMatched: ", patternData6.subStrMatched);
         console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
     }
 }
