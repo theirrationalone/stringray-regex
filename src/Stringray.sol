@@ -375,22 +375,7 @@ library Stringray {
                 uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) != plusSign
                     && uint8(patternInBytes[i + 2]) != asterisk
             ) {
-                for (z; z < stringInBytes.length; z++) {
-                    if (isWord(z, stringInBytes)) {
-                        patternData.matchedStartIndex = int256(z);
-                        patternData.matchedEndIndex = int256(z);
-                        patternData.patternMatched = true;
-                        patternData.subStrMatched =
-                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-                        break;
-                    } else {
-                        if (z == stringInBytes.length - 1) {
-                            patternData.matchedStartIndex = -1;
-                            patternData.matchedEndIndex = -1;
-                            patternData.patternMatched = false;
-                        }
-                    }
-                }
+                patternData = onlySingle(stringInBytes, patternData, z, false);
             } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
                 bool isFoundFirstIndex = false;
                 for (z; z < stringInBytes.length; z++) {
@@ -446,22 +431,7 @@ library Stringray {
                 uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) != plusSign
                     && uint8(patternInBytes[i + 2]) != asterisk
             ) {
-                for (z; z < stringInBytes.length; z++) {
-                    if (!isWord(z, stringInBytes)) {
-                        patternData.matchedStartIndex = int256(z);
-                        patternData.matchedEndIndex = int256(z);
-                        patternData.patternMatched = true;
-                        patternData.subStrMatched =
-                            string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-                        break;
-                    } else {
-                        if (z == stringInBytes.length - 1) {
-                            patternData.matchedStartIndex = -1;
-                            patternData.matchedEndIndex = -1;
-                            patternData.patternMatched = false;
-                        }
-                    }
-                }
+                patternData = onlySingle(stringInBytes, patternData, z, true);
             } else if (uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) == plusSign) {
                 bool isFoundFirstIndex = false;
                 for (z; z < stringInBytes.length; z++) {
@@ -522,9 +492,62 @@ library Stringray {
         patternData.patternLastIndex += 1;
     }
 
-    function onlySingle() private pure returns (PatternMatchedData memory) {}
+    function onlySingle(
+        bytes memory stringInBytes,
+        PatternMatchedData memory patternData,
+        uint256 z,
+        bool toggleToNegate
+    ) private pure returns (PatternMatchedData memory) {
+        if (!toggleToNegate) {
+            for (z; z < stringInBytes.length; z++) {
+                if (isWord(z, stringInBytes)) {
+                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z);
+                    break;
+                } else {
+                    if (z == stringInBytes.length - 1) {
+                        patternData.matchedStartIndex = -1;
+                        patternData.matchedEndIndex = -1;
+                        patternData.patternMatched = false;
+                    }
+                }
+            }
+        }
+
+        if (toggleToNegate) {
+            for (z; z < stringInBytes.length; z++) {
+                if (!isWord(z, stringInBytes)) {
+                    patternData.matchedStartIndex = int256(z);
+                    patternData.matchedEndIndex = int256(z);
+                    patternData.patternMatched = true;
+                    patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+                    break;
+                } else {
+                    if (z == stringInBytes.length - 1) {
+                        patternData.matchedStartIndex = -1;
+                        patternData.matchedEndIndex = -1;
+                        patternData.patternMatched = false;
+                    }
+                }
+            }
+        }
+
+        return patternData;
+    }
+
     function oneOrMore() private pure returns (PatternMatchedData memory) {}
     function zeroOrMore() private pure returns (PatternMatchedData memory) {}
+
+    function onlySingleDataUpdate(PatternMatchedData memory patternData, bytes memory stringInBytes, uint256 z)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        patternData.matchedStartIndex = int256(z);
+        patternData.matchedEndIndex = int256(z);
+        patternData.patternMatched = true;
+        patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+        return patternData;
+    }
 
     function isWord(uint256 z, bytes memory stringInBytes) private pure returns (bool) {
         if (
