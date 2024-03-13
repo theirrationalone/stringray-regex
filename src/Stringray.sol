@@ -501,9 +501,10 @@ library Stringray {
         if (!toggleToNegate) {
             for (z; z < stringInBytes.length; z++) {
                 if (isWord(z, stringInBytes)) {
-                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z);
+                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, false);
                     break;
                 } else {
+                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, true);
                     if (z == stringInBytes.length - 1) {
                         patternData.matchedStartIndex = -1;
                         patternData.matchedEndIndex = -1;
@@ -537,15 +538,27 @@ library Stringray {
     function oneOrMore() private pure returns (PatternMatchedData memory) {}
     function zeroOrMore() private pure returns (PatternMatchedData memory) {}
 
-    function onlySingleDataUpdate(PatternMatchedData memory patternData, bytes memory stringInBytes, uint256 z)
-        private
-        pure
-        returns (PatternMatchedData memory)
-    {
-        patternData.matchedStartIndex = int256(z);
-        patternData.matchedEndIndex = int256(z);
-        patternData.patternMatched = true;
-        patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+    function onlySingleDataUpdate(
+        PatternMatchedData memory patternData,
+        bytes memory stringInBytes,
+        uint256 z,
+        bool lastIndexUpdate
+    ) private pure returns (PatternMatchedData memory) {
+        if (!lastIndexUpdate) {
+            patternData.matchedStartIndex = int256(z);
+            patternData.matchedEndIndex = int256(z);
+            patternData.patternMatched = true;
+            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+        }
+
+        if (lastIndexUpdate) {
+            if (z == stringInBytes.length - 1) {
+                patternData.matchedStartIndex = -1;
+                patternData.matchedEndIndex = -1;
+                patternData.patternMatched = false;
+            }
+        }
+
         return patternData;
     }
 
