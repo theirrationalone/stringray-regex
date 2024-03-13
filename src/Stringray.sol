@@ -305,6 +305,38 @@ library Stringray {
 
     function regex(string memory _string, string memory _pattern) internal returns (PatternMatchedData memory) {
         uint8 forwardSlash = 47;
+
+        bytes memory stringInBytes = bytes(_string);
+        bytes memory patternInBytes = bytes(_pattern);
+        PatternMatchedData memory patternData;
+
+        if (
+            uint8(patternInBytes[0]) != forwardSlash || uint8(patternInBytes[patternInBytes.length - 1]) != forwardSlash
+        ) {
+            return patternData;
+        }
+
+        patternData.patternLastIndex = 1;
+        for (uint256 i = patternData.patternLastIndex; i < patternInBytes.length - 1;) {
+            patternData = wordPattern(i, patternData.matchedEndIndex, stringInBytes, patternInBytes, patternData);
+
+            if (patternData.matchedEndIndex == -1) {
+                return patternData;
+            }
+
+            i = patternData.patternLastIndex;
+        }
+
+        return patternData;
+    }
+
+    function wordPattern(
+        uint256 i,
+        int256 j,
+        bytes memory stringInBytes,
+        bytes memory patternInBytes,
+        PatternMatchedData memory lastPatternCollecedData
+    ) private pure returns (PatternMatchedData memory patternData) {
         uint8 backSlash = 92;
         uint8 questionMark = 63;
         uint8 exclamationMark = 33;
@@ -336,51 +368,6 @@ library Stringray {
         uint8 closeCurlyBrace = 125;
         uint8 commaSign = 44;
 
-        bytes memory stringInBytes = bytes(_string);
-        bytes memory patternInBytes = bytes(_pattern);
-        PatternMatchedData memory patternData;
-
-        if (
-            uint8(patternInBytes[0]) != forwardSlash || uint8(patternInBytes[patternInBytes.length - 1]) != forwardSlash
-        ) {
-            return patternData;
-        }
-
-        patternData.patternLastIndex = 1;
-        for (uint256 i = patternData.patternLastIndex; i < patternInBytes.length - 1;) {
-            patternData = wordPattern(
-                backSlash,
-                plusSign,
-                asterisk,
-                smallW,
-                i,
-                patternData.matchedEndIndex,
-                stringInBytes,
-                patternInBytes,
-                patternData
-            );
-
-            if (patternData.matchedEndIndex == -1) {
-                return patternData;
-            }
-
-            i = patternData.patternLastIndex;
-        }
-
-        return patternData;
-    }
-
-    function wordPattern(
-        uint8 backSlash,
-        uint8 plusSign,
-        uint8 asterisk,
-        uint8 smallW,
-        uint256 i,
-        int256 j,
-        bytes memory stringInBytes,
-        bytes memory patternInBytes,
-        PatternMatchedData memory lastPatternCollecedData
-    ) private pure returns (PatternMatchedData memory patternData) {
         patternData = lastPatternCollecedData;
         uint256 z = uint256(j);
         if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
