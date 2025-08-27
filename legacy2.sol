@@ -2,8 +2,6 @@
 
 pragma solidity ^0.8.20;
 
-import {console2} from "forge-std/console2.sol";
-
 library Stringray {
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
         bytes memory bytesForm = bytes(_string);
@@ -449,7 +447,10 @@ library Stringray {
         if (uint8(_pattern[_startIndex]) == CARET_SIGN) {
             for (uint256 i = _startIndex + 1; i <= _endIndex;) {
                 if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
-                    finalString = findRange(i, i + 2, _pattern, _string, true);
+                    rangeBounds[rangeBoundCurrentIndex] = i;
+
+                    rangeBounds[rangeBoundCurrentIndex + 1] = i + 2;
+                    rangeBoundCurrentIndex += 2;
                     i = i + 3;
                 } else if (uint8(_pattern[i]) == BACK_SLASH) {
                     if (uint8(_pattern[i + 1]) == SMALL_d) {
@@ -537,44 +538,48 @@ library Stringray {
     }
 
     function findRange(
-        uint256 _lowerBoundIndex,
-        uint256 _upperBoundIndex,
+        uint256[] memory rangeBounds,
+        uint256 rangeBoundCurrentIndex,
         bytes memory _pattern,
         bytes memory _string,
         bool _negation
     ) private pure returns (string memory) {
-        string memory remainingString;
-        int256 foundCharIndex = -1;
+        string memory foundString;
         for (uint256 i = 0; i < _string.length; i++) {
-            uint8 lowerBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
-            uint8 upperBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
+            uint256 value = 0;
+            for (uint256 j = 0; j < rangeBoundCurrentIndex; j += 2) {
+                uint8 lowerBoundUniCode = uint8(_pattern[rangeBounds[j]]);
+                uint8 upperBoundUniCode = uint8(_pattern[rangeBounds[j + 1]]);
 
-            if (lowerBoundUnicode > upperBoundUnicode) {
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression ", _pattern, " Range out of order in character class"
-                    )
-                );
-                revert(errorMsg);
-            }
+                if (lowerBoundUniCode > upperBoundUniCode) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression ",
+                            _pattern,
+                            " Range out of order in character class"
+                        )
+                    );
+                    revert(errorMsg);
+                }
 
-            if (_negation) {
-                if (uint8(_string[i]) < lowerBoundUnicode || uint8(_string[i]) > upperBoundUnicode) {
-                    remainingString = string(abi.encodePacked(remainingString, string(abi.encodePacked(_string[i]))));
-                    if (foundCharIndex == -1) {
-                        foundCharIndex = int256(i);
+                if (_negation) {
+                    if (uint8(_string[i]) >= lowerBoundUniCode && uint8(_string[i]) <= upperBoundUniCode) {
+                        value += 1;
+                    }
+                } else {
+                    if (uint8(_string[i]) < lowerBoundUniCode && uint8(_string[i]) > upperBoundUniCode) {
+                        value += 1;
                     }
                 }
-            } else {
-                if (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode) {
-                    remainingString = string(trimString(_string, i + i));
-                    foundCharIndex = int256(i);
-                    break;
-                }
+            }
+
+            if (value == 0 && rangeBoundCurrentIndex > 0) {
+                foundString = string(abi.encodePacked(_string[i]));
+                break;
             }
         }
 
-        return string(_string);
+        return foundString;
     }
 
     function findSingleChar(
@@ -585,7 +590,6 @@ library Stringray {
         bool _negation
     ) private pure returns (string memory) {
         string memory foundString;
-        console2.log("string main: ", string(_string));
 
         for (uint256 i = 0; i < _string.length; i++) {
             uint256 value = 0;
@@ -602,11 +606,8 @@ library Stringray {
                     }
                 }
             }
-            console2.log("_singleBoundCurrentIndex: ", _singleBoundCurrentIndex);
-            console2.log("value: ", value);
+
             if (value == 0 && _singleBoundCurrentIndex > 0) {
-                console2.log("string main: ", string(_string));
-                console2.log("string: ", string(abi.encodePacked(_string[i])));
                 foundString = string(abi.encodePacked(_string[i]));
                 break;
             }
