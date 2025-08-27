@@ -19,4 +19,4 @@
 
 const newString = "anil0924theirrationalone-KUSHA";
 
-console.log(newString.match(/[^a-z\d]/));
+console.log(newString.match(/[^a-z0-9-]/));

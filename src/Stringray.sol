@@ -421,227 +421,190 @@ library Stringray {
         returns (PatternMatchedData memory patternMatchedData)
     {
         if (_patternIdentifier.patternNameHash == CHARACTER_CLASSES) {
-            patternMatchedData = squareBracketPattern(_patternIdentifier, _patternMatchedData);
+            patternMatchedData = squareBracketsPattern(_patternIdentifier, _patternMatchedData);
         }
     }
 
-    function squareBracketPattern(
+    function squareBracketsPattern(
         PatternIdentifier memory _patternIdentifier,
         PatternMatchedData memory _patternMatchedData
-    ) private pure returns (PatternMatchedData memory patternMatchedData) {
+    ) private pure returns (PatternMatchedData memory) {
         uint256 _startIndex = _patternIdentifier.patternSpecialSeqStartingIdx + 1;
         uint256 _endIndex = _patternIdentifier.patternSpecialSeqEndingIdx - 1;
-        bytes memory _string = _patternMatchedData.remainingString;
         bytes memory _pattern = _patternMatchedData.patternString;
-        bytes memory mainString = _patternMatchedData.mainString;
-
-        uint256[] memory rangeBounds = new uint256[]((_endIndex - _startIndex) * 2);
-        uint256[] memory singleBounds = new uint256[](_endIndex - _startIndex);
-        uint256 rangeBoundCurrentIndex;
-        uint256 singleBoundCurrentIndex;
-
-        string memory finalString;
-        int256 stringIndex = -1;
-        bytes memory _matchedStringIncluded = _string;
-        string memory newFinalString;
-        bool smallDSequence;
 
         if (uint8(_pattern[_startIndex]) == CARET_SIGN) {
-            for (uint256 i = _startIndex + 1; i <= _endIndex;) {
-                if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
-                    finalString = findRange(i, i + 2, _pattern, _string, true);
-                    i = i + 3;
-                } else if (uint8(_pattern[i]) == BACK_SLASH) {
-                    if (uint8(_pattern[i + 1]) == SMALL_d) {
-                        smallDSequence = true;
-                        i += 2;
-                    }
-                } else {
-                    singleBounds[singleBoundCurrentIndex] = i;
-                    singleBoundCurrentIndex++;
-                    i++;
-                }
-            }
-
-            finalString = findRange(rangeBounds, rangeBoundCurrentIndex, _pattern, _string, true);
-
-            if (bytes(finalString).length > 0) {
-                string memory finalStringFirstChunk =
-                    string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
-
-                int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
-
-                if (matchedStrIndex >= 0) {
-                    _matchedStringIncluded = trimString(_string, uint256(matchedStrIndex));
-                    _string = trimString(_string, uint256(matchedStrIndex) + 1);
-                    stringIndex = matchedStrIndex;
-                }
-            }
-
-            newFinalString =
-                findSingleChar(singleBounds, singleBoundCurrentIndex, _pattern, _matchedStringIncluded, true);
+            _patternMatchedData = squareBracketsSpecialSequences(_startIndex, _endIndex, _patternMatchedData, true);
         } else {
-            for (uint256 i = _startIndex; i <= _endIndex;) {
-                if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
-                    rangeBounds[rangeBoundCurrentIndex] = i;
-                    rangeBounds[rangeBoundCurrentIndex + 1] = i + 2;
-                    rangeBoundCurrentIndex += 2;
-                    i = i + 3;
-                } else {
-                    singleBounds[singleBoundCurrentIndex] = i;
-                    singleBoundCurrentIndex++;
-                    i++;
-                }
-            }
-
-            finalString = findRange(rangeBounds, rangeBoundCurrentIndex, _pattern, _string, false);
-
-            if (bytes(finalString).length > 0) {
-                string memory finalStringFirstChunk =
-                    string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
-
-                int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
-
-                if (matchedStrIndex >= 0) {
-                    _matchedStringIncluded = trimString(_string, uint256(matchedStrIndex));
-                    _string = trimString(_string, uint256(matchedStrIndex) + 1);
-                    stringIndex = matchedStrIndex;
-                }
-            }
-
-            newFinalString =
-                findSingleChar(singleBounds, singleBoundCurrentIndex, _pattern, _matchedStringIncluded, false);
+            _patternMatchedData = squareBracketsSpecialSequences(_startIndex, _endIndex, _patternMatchedData, false);
         }
 
-        if (bytes(newFinalString).length > 0) {
-            finalString = newFinalString;
-            string memory finalStringFirstChunk =
-                string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
-
-            int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
-
-            if (matchedStrIndex >= 0) {
-                _string = trimString(_string, uint256(matchedStrIndex) + 1);
-                int256 matchedStrOriginalIndex = indexOf(string(mainString), finalStringFirstChunk);
-                stringIndex = matchedStrOriginalIndex;
-            }
-        } else {
-            _string = _matchedStringIncluded;
-        }
-
-        _patternMatchedData.patternMatchedString = bytes(finalString);
-        _patternMatchedData.remainingString = _string;
-        _patternMatchedData.stringLastMatchedCharIndex = uint256(stringIndex);
-        patternMatchedData = _patternMatchedData;
-        return patternMatchedData;
+        return _patternMatchedData;
     }
 
-    function findRange(
+    function squareBracketsSpecialSequences(
+        uint256 _startIndex,
+        uint256 _endIndex,
+        PatternMatchedData memory _patternMatchedData,
+        bool _negation
+    ) private pure returns (PatternMatchedData memory) {
+        bytes memory _pattern = _patternMatchedData.patternString;
+
+        for (uint256 i = _negation ? _startIndex + 1 : _startIndex; i <= _endIndex;) {
+            if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
+                _patternMatchedData =
+                    findInRange(i, i + 2, _patternMatchedData, _pattern, _patternMatchedData.remainingString, _negation);
+                i = i + 3;
+            } else if (uint8(_pattern[i]) == BACK_SLASH) {
+                if (uint8(_pattern[i + 1]) == SMALL_d) {
+                    _patternMatchedData =
+                        findInNumberRange(_patternMatchedData, _patternMatchedData.remainingString, _negation);
+                    i += 2;
+                }
+            } else {
+                _patternMatchedData =
+                    findSingleChar(i, _patternMatchedData, _pattern, _patternMatchedData.remainingString, _negation);
+                i++;
+            }
+        }
+
+        return _patternMatchedData;
+    }
+
+    function findInRange(
         uint256 _lowerBoundIndex,
         uint256 _upperBoundIndex,
+        PatternMatchedData memory _patternMatchedData,
         bytes memory _pattern,
         bytes memory _string,
         bool _negation
-    ) private pure returns (string memory) {
-        string memory remainingString;
+    ) private pure returns (PatternMatchedData memory) {
+        uint8 lowerBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
+        uint8 upperBoundUnicode = uint8(_pattern[_upperBoundIndex]);
+
+        if (lowerBoundUnicode > upperBoundUnicode) {
+            string memory errorMsg = string(
+                abi.encodePacked(
+                    "SyntaxError: Invalid regular expression ", _pattern, " Range out of order in character class"
+                )
+            );
+            revert(errorMsg);
+        }
+
+        return findPatternStringInRangeBounds(
+            _string, _negation, lowerBoundUnicode, upperBoundUnicode, _patternMatchedData
+        );
+    }
+
+    function findSingleChar(
+        uint256 _singleBoundIndex,
+        PatternMatchedData memory _patternMatchedData,
+        bytes memory _pattern,
+        bytes memory _string,
+        bool _negation
+    ) private pure returns (PatternMatchedData memory) {
+        bytes memory remainingString;
         int256 foundCharIndex = -1;
+        uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
+
         for (uint256 i = 0; i < _string.length; i++) {
-            uint8 lowerBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
-            uint8 upperBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
-
-            if (lowerBoundUnicode > upperBoundUnicode) {
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression ", _pattern, " Range out of order in character class"
-                    )
-                );
-                revert(errorMsg);
-            }
-
             if (_negation) {
-                if (uint8(_string[i]) < lowerBoundUnicode || uint8(_string[i]) > upperBoundUnicode) {
-                    remainingString = string(abi.encodePacked(remainingString, string(abi.encodePacked(_string[i]))));
+                if (uint8(_string[i]) != singleBoundUnicode) {
+                    remainingString = abi.encodePacked(remainingString, string(abi.encodePacked(_string[i])));
                     if (foundCharIndex == -1) {
                         foundCharIndex = int256(i);
                     }
                 }
             } else {
-                if (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode) {
-                    remainingString = string(trimString(_string, i + i));
+                if (uint8(_string[i]) == singleBoundUnicode) {
+                    remainingString = trimString(_string, i);
                     foundCharIndex = int256(i);
                     break;
                 }
             }
         }
 
-        return string(_string);
+        _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
+
+        return _patternMatchedData;
     }
 
-    function findSingleChar(
-        uint256[] memory singleBounds,
-        uint256 _singleBoundCurrentIndex,
-        bytes memory _pattern,
+    function findInNumberRange(PatternMatchedData memory _patternMatchedData, bytes memory _string, bool _negation)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bytes1 zeroUnicode = bytes1(abi.encodePacked("0"));
+        bytes1 nineUnicode = bytes1(abi.encodePacked("9"));
+        uint8 lowerBoundUnicode = uint8(zeroUnicode);
+        uint8 upperBoundUnicode = uint8(nineUnicode);
+
+        return findPatternStringInRangeBounds(
+            _string, _negation, lowerBoundUnicode, upperBoundUnicode, _patternMatchedData
+        );
+    }
+
+    function findPatternStringInRangeBounds(
         bytes memory _string,
-        bool _negation
-    ) private pure returns (string memory) {
-        string memory foundString;
-        console2.log("string main: ", string(_string));
+        bool _negation,
+        uint8 lowerBoundUnicode,
+        uint8 upperBoundUnicode,
+        PatternMatchedData memory _patternMatchedData
+    ) private pure returns (PatternMatchedData memory) {
+        bytes memory remainingString;
+        int256 foundCharIndex = -1;
 
         for (uint256 i = 0; i < _string.length; i++) {
-            uint256 value = 0;
-            for (uint256 j = 0; j < _singleBoundCurrentIndex; j++) {
-                uint8 singleBoundUnicode = uint8(_pattern[singleBounds[j]]);
-
-                if (_negation) {
-                    if (uint8(_string[i]) == singleBoundUnicode) {
-                        value += 1;
-                    }
-                } else {
-                    if (uint8(_string[i]) != singleBoundUnicode) {
-                        value += 1;
-                    }
-                }
-            }
-            console2.log("_singleBoundCurrentIndex: ", _singleBoundCurrentIndex);
-            console2.log("value: ", value);
-            if (value == 0 && _singleBoundCurrentIndex > 0) {
-                console2.log("string main: ", string(_string));
-                console2.log("string: ", string(abi.encodePacked(_string[i])));
-                foundString = string(abi.encodePacked(_string[i]));
-                break;
-            }
-        }
-
-        return foundString;
-    }
-
-    function findInNumberRange(bytes memory _string, bool _negation) private pure returns (string memory) {
-        string memory foundString;
-        for (uint256 i = 0; i < _string.length; i++) {
-            uint256 value = 0;
-
-            bytes1 zeroUnicode = bytes1(abi.encodePacked("0"));
-            bytes1 nineUnicode = bytes1(abi.encodePacked("9"));
-            uint8 lowerBoundUniCode = uint8(zeroUnicode);
-            uint8 upperBoundUniCode = uint8(nineUnicode);
-
             if (_negation) {
-                if (uint8(_string[i]) >= lowerBoundUniCode && uint8(_string[i]) <= upperBoundUniCode) {
-                    value += 1;
+                if (uint8(_string[i]) < lowerBoundUnicode || uint8(_string[i]) > upperBoundUnicode) {
+                    remainingString = abi.encodePacked(remainingString, string(abi.encodePacked(_string[i])));
+                    if (foundCharIndex == -1) {
+                        foundCharIndex = int256(i);
+                    }
                 }
             } else {
-                if (uint8(_string[i]) < lowerBoundUniCode && uint8(_string[i]) > upperBoundUniCode) {
-                    value += 1;
+                if (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode) {
+                    remainingString = trimString(_string, i);
+                    foundCharIndex = int256(i);
+                    break;
                 }
-            }
-
-            if (value == 0) {
-                foundString = string(abi.encodePacked(_string[i]));
-                break;
             }
         }
 
-        return foundString;
+        _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
+
+        return _patternMatchedData;
+    }
+
+    function organizeOutput(
+        int256 foundCharIndex,
+        bytes memory _string,
+        bytes memory remainingString,
+        PatternMatchedData memory _patternMatchedData
+    ) private pure returns (PatternMatchedData memory) {
+        if (foundCharIndex > -1) {
+            bytes memory absoluteRemainingString;
+            bytes memory foundChar = abi.encodePacked(_string[uint256(foundCharIndex)]);
+            int256 firstIndexOfMatchedChar = indexOf(string(remainingString), string(foundChar));
+
+            if (firstIndexOfMatchedChar > -1) {
+                for (uint256 i = 0; i < remainingString.length; i++) {
+                    if (i == uint256(firstIndexOfMatchedChar)) {
+                        continue;
+                    }
+
+                    absoluteRemainingString =
+                        abi.encodePacked(string(absoluteRemainingString), string(abi.encodePacked(remainingString[i])));
+                }
+            }
+
+            _patternMatchedData.remainingString = absoluteRemainingString;
+            _patternMatchedData.patternMatchedString = abi.encodePacked(_string[uint256(foundCharIndex)]);
+            _patternMatchedData.stringLastMatchedCharIndex =
+                uint256(indexOf(string(_patternMatchedData.mainString), string(foundChar)));
+        }
+
+        return _patternMatchedData;
     }
 
     // function plusOneOrMore(
