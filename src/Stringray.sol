@@ -506,6 +506,7 @@ library Stringray {
         bytes memory remainingString;
         int256 foundCharIndex = -1;
         uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
+        bool pwn;
 
         for (uint256 i = 0; i < _string.length; i++) {
             if (_negation) {
@@ -514,16 +515,23 @@ library Stringray {
                     if (foundCharIndex == -1) {
                         foundCharIndex = int256(i);
                     }
+                    pwn = true;
                 }
             } else {
-                if (uint8(_string[i]) == singleBoundUnicode) {
+                if (uint8(_string[i]) == singleBoundUnicode && _patternMatchedData.patternMatchedString.length == 0) {
                     remainingString = trimString(_string, i);
                     foundCharIndex = int256(i);
+                    pwn = true;
                     break;
                 }
             }
         }
 
+        if (!pwn) {
+            remainingString = new bytes(0);
+            _patternMatchedData.remainingString = remainingString;
+            return _patternMatchedData;
+        }
         _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
 
         return _patternMatchedData;
@@ -553,6 +561,7 @@ library Stringray {
     ) private pure returns (PatternMatchedData memory) {
         bytes memory remainingString;
         int256 foundCharIndex = -1;
+        bool pwn;
 
         for (uint256 i = 0; i < _string.length; i++) {
             if (_negation) {
@@ -561,16 +570,26 @@ library Stringray {
                     if (foundCharIndex == -1) {
                         foundCharIndex = int256(i);
                     }
+                    pwn = true;
                 }
             } else {
-                if (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode) {
+                if (
+                    (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode)
+                        && _patternMatchedData.patternMatchedString.length == 0
+                ) {
                     remainingString = trimString(_string, i);
                     foundCharIndex = int256(i);
+                    pwn = true;
                     break;
                 }
             }
         }
 
+        if (!pwn) {
+            remainingString = new bytes(0);
+            _patternMatchedData.remainingString = remainingString;
+            return _patternMatchedData;
+        }
         _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
 
         return _patternMatchedData;
