@@ -295,315 +295,367 @@ library Stringray {
         return 0;
     }
 
+    uint8 private constant FORWARD_SLASH = 47;
+    uint8 private constant BACK_SLASH = 92;
+    uint8 private constant QUESTION_MARK = 63;
+    uint8 private constant EXCLAMATION_MARK = 33;
+    uint8 private constant PERIOD = 46;
+    uint8 private constant OPEN_SQUARE_BRACKET = 91;
+    uint8 private constant CLOSE_SQUARE_BRACKET = 93;
+    uint8 private constant OPEN_PARANTHESIS = 40;
+    uint8 private constant CLOSE_PARANTHESIS = 41;
+    uint8 private constant PLUS_SIGN = 43;
+    uint8 private constant ASTERIK = 42;
+    uint8 private constant MINUS_SIGN = 45;
+    uint8 private constant DOLLAR_SIGN = 36;
+    uint8 private constant CARROT_SIGN = 94;
+    uint8 private constant SMALL_b = 98;
+    uint8 private constant BIG_B = 66;
+    uint8 private constant SMALL_d = 100;
+    uint8 private constant BIG_D = 68;
+    uint8 private constant SMALL_w = 119;
+    uint8 private constant BIG_W = 87;
+    uint8 private constant SMALL_s = 115;
+    uint8 private constant BIG_s = 83;
+    uint8 private constant SMALL_g = 103;
+    uint8 private constant ASSIGNMENT_SIGN = 61;
+    uint8 private constant GREATER_THAN_SIGN = 62;
+    uint8 private constant LESS_THAN_SIGN = 60;
+    uint8 private constant VERTICAL_BAR = 124;
+    uint8 private constant COLON = 58;
+    uint8 private constant OPEN_CURLY_BRACE = 123;
+    uint8 private constant CLOSE_CURLY_BRACE = 125;
+    uint8 private constant COMMA_SIGN = 44;
+
+    // pattern names
+    bytes32 private constant CHARACTER_CLASSES = keccak256(abi.encodePacked("CHARACTER_CLASSES"));
+
     struct PatternMatchedData {
-        int256 matchedStartIndex;
-        int256 matchedEndIndex;
-        string subStrMatched;
-        uint256 patternLastIndex;
-        bool patternMatched;
+        uint256 lastPatternStartingSpecialSeqIdx;
+        uint256 lastPatternEndingSpecialSeqIdx;
+        bytes mainString;
+        bytes remainingString;
+        bytes patternString;
+        bytes patternMatchedString;
+        uint256 stringLastMatchedCharIndex;
     }
 
-    function regex(string memory _string, string memory _pattern) internal returns (PatternMatchedData memory) {
-        uint8 forwardSlash = 47;
+    struct PatternIdentifier {
+        bytes32 patternNameHash;
+        uint256 patternSpecialSeqStartingIdx;
+        uint256 patternSpecialSeqEndingIdx;
+    }
 
-        bytes memory stringInBytes = bytes(_string);
+    function regex(string memory _proposedString, string memory _pattern)
+        internal
+        pure
+        returns (PatternMatchedData memory patternMatchedData)
+    {
+        bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
-        PatternMatchedData memory patternData;
 
         if (
-            uint8(patternInBytes[0]) != forwardSlash || uint8(patternInBytes[patternInBytes.length - 1]) != forwardSlash
+            uint8(patternInBytes[0]) != FORWARD_SLASH
+                || uint8(patternInBytes[patternInBytes.length - 1]) != FORWARD_SLASH
         ) {
-            return patternData;
+            return patternMatchedData;
         }
 
-        patternData.patternLastIndex = 1;
-        for (uint256 i = patternData.patternLastIndex; i < patternInBytes.length - 1;) {
-            patternData = wordPattern(i, patternData.matchedEndIndex, stringInBytes, patternInBytes, patternData);
+        patternMatchedData.mainString = stringInBytes;
+        patternMatchedData.remainingString = stringInBytes;
+        patternMatchedData.patternString = patternInBytes;
+        patternMatchedData.lastPatternStartingSpecialSeqIdx = 1;
+        patternMatchedData.lastPatternEndingSpecialSeqIdx = 1;
 
-            if (patternData.matchedEndIndex == -1) {
-                return patternData;
+        PatternIdentifier memory patternIdentifier;
+        for (uint256 i = 1; i < patternInBytes.length - 1;) {
+            patternIdentifier = identifyPatternCharacter(patternInBytes, i);
+
+            if (patternIdentifier.patternNameHash == bytes32(0)) {
+                i++;
+                continue;
             }
 
-            i = patternData.patternLastIndex;
+            patternMatchedData = patterns(patternIdentifier, patternMatchedData);
+
+            patternMatchedData.lastPatternStartingSpecialSeqIdx = patternIdentifier.patternSpecialSeqStartingIdx;
+            patternMatchedData.lastPatternEndingSpecialSeqIdx = patternIdentifier.patternSpecialSeqEndingIdx;
+            i = patternIdentifier.patternSpecialSeqEndingIdx;
         }
 
-        return patternData;
+        return patternMatchedData;
     }
 
-    function wordPattern(
-        uint256 i,
-        int256 j,
-        bytes memory stringInBytes,
-        bytes memory patternInBytes,
-        PatternMatchedData memory lastPatternCollecedData
-    ) private pure returns (PatternMatchedData memory patternData) {
-        uint8 backSlash = 92;
-        uint8 questionMark = 63;
-        uint8 exclamationMark = 33;
-        uint8 period = 46;
-        uint8 openSquareBracket = 91;
-        uint8 closeSquareBracket = 93;
-        uint8 openParenthesis = 40;
-        uint8 closeParenthesis = 41;
-        uint8 plusSign = 43;
-        uint8 asterisk = 42;
-        uint8 minusSign = 45;
-        uint8 dollarSign = 36;
-        uint8 carrotSign = 94;
-        uint8 smallB = 98;
-        uint8 bigB = 66;
-        uint8 smallD = 100;
-        uint8 bigD = 68;
-        uint8 smallW = 119;
-        uint8 bigW = 87;
-        uint8 smallS = 115;
-        uint8 bigS = 83;
-        uint8 smallG = 103;
-        uint8 assignmentSign = 61;
-        uint8 greaterThanSign = 62;
-        uint8 lessThanSign = 60;
-        uint8 verticalBar = 124;
-        uint8 colon = 58;
-        uint8 openCurlyBrace = 123;
-        uint8 closeCurlyBrace = 125;
-        uint8 commaSign = 44;
-
-        patternData = lastPatternCollecedData;
-        uint256 z = uint256(j);
-        if (uint8(patternInBytes[i]) == backSlash && i < patternInBytes.length - 2) {
-            if (
-                uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) != plusSign
-                    && uint8(patternInBytes[i + 2]) != asterisk
-            ) {
-                patternData = onlySingle(stringInBytes, patternData, z, false);
-            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == plusSign) {
-                patternData = oneOrMore(stringInBytes, patternData, z, false);
-            } else if (uint8(patternInBytes[i + 1]) == smallW && uint8(patternInBytes[i + 2]) == asterisk) {
-                patternData = zeroOrMore(stringInBytes, patternData, z, false);
-            } else if (
-                uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) != plusSign
-                    && uint8(patternInBytes[i + 2]) != asterisk
-            ) {
-                patternData = onlySingle(stringInBytes, patternData, z, true);
-            } else if (uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) == plusSign) {
-                patternData = oneOrMore(stringInBytes, patternData, z, true);
-            } else if (uint8(patternInBytes[i + 1]) == bigW && uint8(patternInBytes[i + 2]) == asterisk) {
-                patternData = zeroOrMore(stringInBytes, patternData, z, true);
-            } else {
-                patternData.matchedStartIndex = -1;
-                patternData.matchedEndIndex = -1;
-                patternData.patternMatched = false;
-            }
-        }
-        patternData.patternLastIndex += 1;
-    }
-
-    function onlySingle(
-        bytes memory stringInBytes,
-        PatternMatchedData memory patternData,
-        uint256 z,
-        bool toggleToNegate
-    ) private pure returns (PatternMatchedData memory) {
-        if (!toggleToNegate) {
-            for (z; z < stringInBytes.length; z++) {
-                if (isWord(z, stringInBytes)) {
-                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, false);
+    function identifyPatternCharacter(bytes memory _pattern, uint256 _currentPatternIndex)
+        private
+        pure
+        returns (PatternIdentifier memory _patternIdentifier)
+    {
+        if (
+            uint8(_pattern[_currentPatternIndex]) == OPEN_SQUARE_BRACKET
+                && uint8(_pattern[_currentPatternIndex - 1]) != OPEN_SQUARE_BRACKET
+        ) {
+            uint256 _closeSquareBracketIndex = _currentPatternIndex + 1;
+            for (uint256 j = _closeSquareBracketIndex; j < _pattern.length - 1; j++) {
+                if (uint8(_pattern[j]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[j - 1]) != BACK_SLASH) {
+                    _closeSquareBracketIndex = j;
                     break;
-                } else {
-                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, true);
                 }
             }
-        }
 
-        if (toggleToNegate) {
-            for (z; z < stringInBytes.length; z++) {
-                if (!isWord(z, stringInBytes)) {
-                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, false);
-                    break;
-                } else {
-                    patternData = onlySingleDataUpdate(patternData, stringInBytes, z, true);
-                }
+            if (_closeSquareBracketIndex > _currentPatternIndex) {
+                _patternIdentifier = PatternIdentifier({
+                    patternNameHash: CHARACTER_CLASSES,
+                    patternSpecialSeqStartingIdx: _currentPatternIndex,
+                    patternSpecialSeqEndingIdx: _closeSquareBracketIndex
+                });
             }
+        } else {
+            _patternIdentifier;
         }
-
-        return patternData;
     }
 
-    function oneOrMore(
-        bytes memory stringInBytes,
-        PatternMatchedData memory patternData,
-        uint256 z,
-        bool toggleToNegate
-    ) private pure returns (PatternMatchedData memory) {
-        if (!toggleToNegate) {
-            bool isFoundFirstIndex = false;
-            for (z; z < stringInBytes.length; z++) {
-                if (isWord(z, stringInBytes)) {
-                    (patternData, isFoundFirstIndex) =
-                        onlyOneOrMoreDataUpdate(patternData, stringInBytes, z, false, isFoundFirstIndex);
-                } else {
-                    (patternData, isFoundFirstIndex) =
-                        onlyOneOrMoreDataUpdate(patternData, stringInBytes, z, true, isFoundFirstIndex);
+    function patterns(PatternIdentifier memory _patternIdentifier, PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (PatternMatchedData memory patternMatchedData)
+    {
+        if (_patternIdentifier.patternNameHash == CHARACTER_CLASSES) {
+            patternMatchedData = squareBracketPattern(_patternIdentifier, _patternMatchedData);
+        }
+    }
 
-                    if (isFoundFirstIndex) {
-                        break;
+    function squareBracketPattern(
+        PatternIdentifier memory _patternIdentifier,
+        PatternMatchedData memory _patternMatchedData
+    ) private pure returns (PatternMatchedData memory patternMatchedData) {
+        uint256 _startIndex = _patternIdentifier.patternSpecialSeqStartingIdx + 1;
+        uint256 _endIndex = _patternIdentifier.patternSpecialSeqEndingIdx - 1;
+        bytes memory _string = _patternMatchedData.remainingString;
+        bytes memory _pattern = _patternMatchedData.patternString;
+        bytes memory mainString = _patternMatchedData.mainString;
+
+        uint256[] memory rangeBounds = new uint256[]((_endIndex - _startIndex) * 2);
+        uint256[] memory singleBounds = new uint256[](_endIndex - _startIndex);
+        uint256 rangeBoundCurrentIndex;
+        uint256 singleBoundCurrentIndex;
+
+        string memory finalString;
+        int256 stringIndex = -1;
+        bytes memory _matchedStringIncluded = _string;
+        string memory newFinalString;
+
+        if (uint8(_pattern[_startIndex]) == CARROT_SIGN) {
+            for (uint256 i = _startIndex + 1; i <= _endIndex;) {
+                if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
+                    rangeBounds[rangeBoundCurrentIndex] = i;
+
+                    rangeBounds[rangeBoundCurrentIndex + 1] = i + 2;
+                    rangeBoundCurrentIndex += 2;
+                    i = i + 3;
+                } else {
+                    singleBounds[singleBoundCurrentIndex] = i;
+                    singleBoundCurrentIndex++;
+                    i++;
+                }
+            }
+
+            finalString = findRange(rangeBounds, rangeBoundCurrentIndex, _pattern, _string, true);
+
+            if (bytes(finalString).length > 0) {
+                string memory finalStringFirstChunk =
+                    string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
+
+                int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
+
+                if (matchedStrIndex >= 0) {
+                    _matchedStringIncluded = trimString(_string, uint256(matchedStrIndex));
+                    _string = trimString(_string, uint256(matchedStrIndex) + 1);
+                    stringIndex = matchedStrIndex;
+                }
+            }
+
+            newFinalString =
+                findSingleChar(singleBounds, singleBoundCurrentIndex, _pattern, _matchedStringIncluded, true);
+        } else {
+            for (uint256 i = _startIndex; i <= _endIndex;) {
+                if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
+                    rangeBounds[rangeBoundCurrentIndex] = i;
+                    rangeBounds[rangeBoundCurrentIndex + 1] = i + 2;
+                    rangeBoundCurrentIndex += 2;
+                    i = i + 3;
+                } else {
+                    singleBounds[singleBoundCurrentIndex] = i;
+                    singleBoundCurrentIndex++;
+                    i++;
+                }
+            }
+
+            finalString = findRange(rangeBounds, rangeBoundCurrentIndex, _pattern, _string, false);
+
+            if (bytes(finalString).length > 0) {
+                string memory finalStringFirstChunk =
+                    string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
+
+                int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
+
+                if (matchedStrIndex >= 0) {
+                    _matchedStringIncluded = trimString(_string, uint256(matchedStrIndex));
+                    _string = trimString(_string, uint256(matchedStrIndex) + 1);
+                    stringIndex = matchedStrIndex;
+                }
+            }
+
+            newFinalString =
+                findSingleChar(singleBounds, singleBoundCurrentIndex, _pattern, _matchedStringIncluded, false);
+        }
+
+        if (bytes(newFinalString).length > 0) {
+            finalString = newFinalString;
+            string memory finalStringFirstChunk =
+                string(abi.encodePacked(bytes(finalString)[bytes(finalString).length - 1]));
+
+            int256 matchedStrIndex = indexOf(string(_string), finalStringFirstChunk);
+
+            if (matchedStrIndex >= 0) {
+                _string = trimString(_string, uint256(matchedStrIndex) + 1);
+                int256 matchedStrOriginalIndex = indexOf(string(mainString), finalStringFirstChunk);
+                stringIndex = matchedStrOriginalIndex;
+            }
+        } else {
+            _string = _matchedStringIncluded;
+        }
+
+        _patternMatchedData.patternMatchedString = bytes(finalString);
+        _patternMatchedData.remainingString = _string;
+        _patternMatchedData.stringLastMatchedCharIndex = uint256(stringIndex);
+        patternMatchedData = _patternMatchedData;
+        return patternMatchedData;
+    }
+
+    function findRange(
+        uint256[] memory rangeBounds,
+        uint256 rangeBoundCurrentIndex,
+        bytes memory _pattern,
+        bytes memory _string,
+        bool _negation
+    ) private pure returns (string memory) {
+        bytes memory remainingString = _string;
+        string memory foundString;
+        for (uint256 i = 0; i < remainingString.length; i++) {
+            uint256 value = 0;
+            for (uint256 j = 0; j < rangeBoundCurrentIndex; j += 2) {
+                uint8 lowerBoundUniCode = uint8(_pattern[rangeBounds[j]]);
+                uint8 upperBoundUniCode = uint8(_pattern[rangeBounds[j + 1]]);
+
+                if (lowerBoundUniCode > upperBoundUniCode) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression ",
+                            _pattern,
+                            " Range out of order in character class"
+                        )
+                    );
+                    revert(errorMsg);
+                }
+
+                if (_negation) {
+                    if (
+                        uint8(remainingString[i]) >= lowerBoundUniCode && uint8(remainingString[i]) <= upperBoundUniCode
+                    ) {
+                        value += 1;
+                    }
+                } else {
+                    if (uint8(remainingString[i]) < lowerBoundUniCode && uint8(remainingString[i]) > upperBoundUniCode)
+                    {
+                        value += 1;
                     }
                 }
             }
+
+            if (value == 0 && rangeBoundCurrentIndex > 0) {
+                foundString = string(abi.encodePacked(remainingString[i]));
+                break;
+            }
         }
 
-        if (toggleToNegate) {
-            bool isFoundFirstIndex = false;
-            for (z; z < stringInBytes.length; z++) {
-                if (!isWord(z, stringInBytes)) {
-                    (patternData, isFoundFirstIndex) =
-                        onlyOneOrMoreDataUpdate(patternData, stringInBytes, z, false, isFoundFirstIndex);
-                } else {
-                    (patternData, isFoundFirstIndex) =
-                        onlyOneOrMoreDataUpdate(patternData, stringInBytes, z, true, isFoundFirstIndex);
+        return foundString;
+    }
 
-                    if (isFoundFirstIndex) {
-                        break;
+    function findSingleChar(
+        uint256[] memory singleBounds,
+        uint256 _singleBoundCurrentIndex,
+        bytes memory _pattern,
+        bytes memory _string,
+        bool _negation
+    ) private pure returns (string memory) {
+        string memory foundString;
+        console2.log("string main: ", string(_string));
+
+        for (uint256 i = 0; i < _string.length; i++) {
+            uint256 value = 0;
+            for (uint256 j = 0; j < _singleBoundCurrentIndex; j++) {
+                uint8 singleBoundUnicode = uint8(_pattern[singleBounds[j]]);
+
+                if (_negation) {
+                    if (uint8(_string[i]) == singleBoundUnicode) {
+                        value += 1;
+                    }
+                } else {
+                    if (uint8(_string[i]) != singleBoundUnicode) {
+                        value += 1;
                     }
                 }
             }
+            console2.log("_singleBoundCurrentIndex: ", _singleBoundCurrentIndex);
+            console2.log("value: ", value);
+            if (value == 0 && _singleBoundCurrentIndex > 0) {
+                console2.log("string main: ", string(_string));
+                console2.log("string: ", string(abi.encodePacked(_string[i])));
+                foundString = string(abi.encodePacked(_string[i]));
+                break;
+            }
         }
 
-        return patternData;
+        return foundString;
     }
 
-    function zeroOrMore(
-        bytes memory stringInBytes,
-        PatternMatchedData memory patternData,
-        uint256 z,
-        bool toggleToNegate
-    ) private pure returns (PatternMatchedData memory) {
-        if (!toggleToNegate) {
-            bool isFoundFirstIndex = false;
-            for (z; z < stringInBytes.length; z++) {
-                if (isWord(z, stringInBytes)) {
-                    (patternData, isFoundFirstIndex) =
-                        onlyZeroOrMoreDataUpdate(patternData, stringInBytes, z, false, isFoundFirstIndex);
-                } else {
-                    (patternData, isFoundFirstIndex) =
-                        onlyZeroOrMoreDataUpdate(patternData, stringInBytes, z, true, isFoundFirstIndex);
-                    break;
-                }
-            }
-        }
-        if (toggleToNegate) {
-            bool isFoundFirstIndex = false;
-            for (z; z < stringInBytes.length; z++) {
-                if (!isWord(z, stringInBytes)) {
-                    (patternData, isFoundFirstIndex) =
-                        onlyZeroOrMoreDataUpdate(patternData, stringInBytes, z, false, isFoundFirstIndex);
-                } else {
-                    (patternData, isFoundFirstIndex) =
-                        onlyZeroOrMoreDataUpdate(patternData, stringInBytes, z, true, isFoundFirstIndex);
-                    break;
-                }
-            }
-        }
+    // function plusOneOrMore(
+    //     uint256 _startPatternIndex,
+    //     bytes memory _lastPatternOutput,
+    //     bytes memory _string,
+    //     bytes memory _pattern
+    // ) private pure returns (bytes memory) {
+    //     string memory lastChar = string(abi.encodePacked(_lastPatternOutput[_lastPatternOutput.length - 1]));
+    //     int256 lastIndex = indexOf(string(_string), lastChar);
 
-        return patternData;
-    }
+    //     bytes memory _trimmedString;
+    //     if (lastIndex >= 0) {
+    //         _trimmedString = trimString(_string, uint256(lastIndex));
+    //     }
 
-    function onlySingleDataUpdate(
-        PatternMatchedData memory patternData,
-        bytes memory stringInBytes,
-        uint256 z,
-        bool notMatchUpdate
-    ) private pure returns (PatternMatchedData memory) {
-        if (!notMatchUpdate) {
-            patternData.matchedStartIndex = int256(z);
-            patternData.matchedEndIndex = int256(z);
-            patternData.patternMatched = true;
-            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
+    //     bool loopFlag = true;
+
+    //     while (loopFlag && _trimmedString.length > 0) {
+    //         string memory output = identifyPatternCharacter(_trimmedString, _pattern, _startPatternIndex);
+    //         int256 newIndex = indexOf(string(_trimmedString), output);
+    //         if (newIndex >= 0) {
+    //             if (lastIndex + 1 != newIndex) break;
+    //             _trimmedString = trimString(_trimmedString, uint256(newIndex));
+    //             _lastPatternOutput = abi.encodePacked(string(_lastPatternOutput), output);
+    //         }
+    //     }
+
+    //     return _lastPatternOutput;
+    // }
+
+    function trimString(bytes memory _string, uint256 _newStartIndex) private pure returns (bytes memory) {
+        bytes memory _newString;
+
+        for (uint256 i = _newStartIndex; i < _string.length; i++) {
+            _newString = abi.encodePacked(_newString, _string[i]);
         }
 
-        if (notMatchUpdate) {
-            if (z == stringInBytes.length - 1) {
-                patternData.matchedStartIndex = -1;
-                patternData.matchedEndIndex = -1;
-                patternData.patternMatched = false;
-            }
-        }
-
-        return patternData;
-    }
-
-    function onlyOneOrMoreDataUpdate(
-        PatternMatchedData memory patternData,
-        bytes memory stringInBytes,
-        uint256 z,
-        bool notMatchUpdate,
-        bool isFoundFirstIndex
-    ) private pure returns (PatternMatchedData memory, bool) {
-        if (!notMatchUpdate) {
-            if (!isFoundFirstIndex) {
-                isFoundFirstIndex = true;
-                patternData.matchedStartIndex = int256(z);
-                patternData.patternMatched = true;
-            }
-
-            patternData.matchedEndIndex = int256(z);
-            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-        }
-
-        if (notMatchUpdate) {
-            if (!isFoundFirstIndex && z == stringInBytes.length - 1) {
-                patternData.matchedStartIndex = -1;
-                patternData.matchedEndIndex = -1;
-                patternData.patternMatched = false;
-            } else if (isFoundFirstIndex) {
-                if (z > 0) {
-                    patternData.matchedEndIndex = int256(z - 1);
-                } else {
-                    patternData.matchedEndIndex = int256(z);
-                }
-            }
-        }
-
-        return (patternData, isFoundFirstIndex);
-    }
-
-    function onlyZeroOrMoreDataUpdate(
-        PatternMatchedData memory patternData,
-        bytes memory stringInBytes,
-        uint256 z,
-        bool notMatchUpdate,
-        bool isFoundFirstIndex
-    ) private pure returns (PatternMatchedData memory, bool) {
-        if (!notMatchUpdate) {
-            if (!isFoundFirstIndex) {
-                isFoundFirstIndex = true;
-                patternData.matchedStartIndex = int256(z);
-                patternData.patternMatched = true;
-            }
-
-            patternData.subStrMatched = string(abi.encodePacked(patternData.subStrMatched, stringInBytes[z]));
-        }
-        if (notMatchUpdate) {
-            if (z == 0) {
-                patternData.matchedStartIndex = -1;
-                patternData.matchedEndIndex = -1;
-                patternData.patternMatched = true;
-            } else {
-                patternData.matchedEndIndex = int256(z - 1);
-            }
-        }
-
-        return (patternData, isFoundFirstIndex);
-    }
-
-    function isWord(uint256 z, bytes memory stringInBytes) private pure returns (bool) {
-        if (
-            (uint8(stringInBytes[z]) >= 65 && uint8(stringInBytes[z]) <= 90)
-                || (uint8(stringInBytes[z]) >= 97 && uint8(stringInBytes[z]) <= 122)
-                || (uint8(stringInBytes[z]) >= 48 && uint8(stringInBytes[z]) <= 57) || uint8(stringInBytes[z]) == 95
-        ) {
-            return true;
-        }
-        return false;
+        return _newString;
     }
 }

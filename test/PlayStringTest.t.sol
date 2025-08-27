@@ -29,8 +29,8 @@ contract PlayStringTest is Test {
 
         console2.log("charCode: ", charCode);
 
-        // a, b, c, d, e, f, g, h, i, j, k, l, m, n
-        // 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111
+        // a,   b,  c,   d,  e,   f,   g,    h,   i,  j,   k,   l,   m,   n,   o,   p,   q,   r,   s,  t
+        // 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116
 
         assertEq(charCode, 111);
     }
@@ -60,14 +60,6 @@ contract PlayStringTest is Test {
         bool isEndsWith = name.endsWith(searchString);
 
         bool isEndsWithTwo = name_two.endsWith(searchString_two, 10);
-
-        string memory sixtyEight = "68";
-        bytes memory sixtyEightB = bytes(sixtyEight);
-
-        uint8 sixty = (uint8(sixtyEightB[0]) - 48) * 10;
-        uint8 sixtyEightfinal = sixty + (uint8(sixtyEightB[1]) - 48);
-
-        console2.log("final: ", sixtyEightfinal);
 
         assertEq(isEndsWith, true);
         assertEq(isEndsWithTwo, true);
@@ -177,60 +169,28 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        string memory name = "ani@!$!*+&l#aas!dv";
+        string memory target = "anil0924theirrationalone-KUSHA";
+        string memory pattern = "/[^a-z0-9b]/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
-        Stringray.PatternMatchedData memory patternData1 = name.regex("/\\w/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\w: ", patternData1.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData1.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData1.matchedEndIndex);
-        console2.log("patternMatched: ", patternData1.patternMatched);
-        console2.log("subStrMatched: ", patternData1.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;
+        uint256 lastPatternEndingSpecialSeqIdx = patternMatchedData.lastPatternEndingSpecialSeqIdx;
+        bytes memory mainString = patternMatchedData.mainString;
+        bytes memory remainingString = patternMatchedData.remainingString;
+        bytes memory patternString = patternMatchedData.patternString;
+        bytes memory patternMatchedString = patternMatchedData.patternMatchedString;
+        uint256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
 
-        Stringray.PatternMatchedData memory patternData2 = name.regex("/\\w+/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\w+: ", patternData2.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData2.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData2.matchedEndIndex);
-        console2.log("patternMatched: ", patternData2.patternMatched);
-        console2.log("subStrMatched: ", patternData2.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-
-        Stringray.PatternMatchedData memory patternData3 = name.regex("/\\w*/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\w*: ", patternData3.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData3.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData3.matchedEndIndex);
-        console2.log("patternMatched: ", patternData3.patternMatched);
-        console2.log("subStrMatched: ", patternData3.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-
-        Stringray.PatternMatchedData memory patternData4 = name.regex("/\\W/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\W: ", patternData4.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData4.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData4.matchedEndIndex);
-        console2.log("patternMatched: ", patternData4.patternMatched);
-        console2.log("subStrMatched: ", patternData4.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-
-        Stringray.PatternMatchedData memory patternData5 = name.regex("/\\W+/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\W+: ", patternData5.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData5.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData5.matchedEndIndex);
-        console2.log("patternMatched: ", patternData5.patternMatched);
-        console2.log("subStrMatched: ", patternData5.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-
-        Stringray.PatternMatchedData memory patternData6 = name.regex("/\\W*/");
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
-        console2.log(name, ": \\W*: ", patternData6.subStrMatched);
-        console2.log("matchedStartIndex: ", patternData6.matchedStartIndex);
-        console2.log("matchedEndIndex: ", patternData6.matchedEndIndex);
-        console2.log("patternMatched: ", patternData6.patternMatched);
-        console2.log("subStrMatched: ", patternData6.subStrMatched);
-        console2.log("\x1b[32m---------------------------------------------------\x1b[0m");
+        console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
+        console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
+        console2.log("mainString                      : ", string(mainString));
+        console2.logBytes(mainString);
+        console2.log("remainingString                 : ", string(remainingString));
+        console2.logBytes(remainingString);
+        console2.log("patternString                   : ", string(patternString));
+        console2.logBytes(patternString);
+        console2.log("patternMatchedString            : ", string(patternMatchedString));
+        console2.logBytes(patternMatchedString);
+        console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
     }
 }
