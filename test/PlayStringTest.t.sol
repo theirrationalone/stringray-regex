@@ -171,6 +171,7 @@ contract PlayStringTest is Test {
     function testRegex() public {
         string memory target = "anil0924theirrationalone-KUSHA";
         string memory pattern = "/[^a-z\\dA-Z]/";
+        // string memory pattern = "/[a-z\\dA-Z]/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
         uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;
@@ -179,6 +180,7 @@ contract PlayStringTest is Test {
         bytes memory remainingString = patternMatchedData.remainingString;
         bytes memory patternString = patternMatchedData.patternString;
         bytes memory patternMatchedString = patternMatchedData.patternMatchedString;
+        bytes1 patternMatchedChar = patternMatchedData.patternMatchedChar;
         uint256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
 
         console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
@@ -187,6 +189,8 @@ contract PlayStringTest is Test {
         console2.logBytes(mainString);
         console2.log("remainingString                 : ", string(remainingString));
         console2.logBytes(remainingString);
+        console2.log("patternMatchedChar              : ", string(abi.encodePacked(patternMatchedChar)));
+        console2.logBytes1(patternMatchedChar);
         console2.log("patternString                   : ", string(patternString));
         console2.logBytes(patternString);
         console2.log("patternMatchedString            : ", string(patternMatchedString));

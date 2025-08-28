@@ -337,6 +337,7 @@ library Stringray {
         bytes remainingString;
         bytes patternString;
         bytes patternMatchedString;
+        bytes1 patternMatchedChar;
         uint256 stringLastMatchedCharIndex;
     }
 
@@ -368,21 +369,43 @@ library Stringray {
         patternMatchedData.lastPatternEndingSpecialSeqIdx = 1;
 
         PatternIdentifier memory patternIdentifier;
-        for (uint256 i = 1; i < patternInBytes.length - 1;) {
-            patternIdentifier = identifyPatternCharacter(patternInBytes, i);
 
-            if (patternIdentifier.patternNameHash == bytes32(0)) {
-                i++;
-                continue;
+        for (uint256 s = 0; s < stringInBytes.length; s++) {
+            bool matchFound;
+            for (uint256 i = 1; i < patternInBytes.length - 1;) {
+                patternIdentifier = identifyPatternCharacter(patternInBytes, i);
+
+                bytes32 _patternHash = patternIdentifier.patternNameHash;
+                if (_patternHash == bytes32(0)) {
+                    i++;
+                    continue;
+                }
+
+                uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx + 1;
+                uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx - 1;
+
+                matchFound = patterns(_startIndex, _endIndex, _patternHash, patternInBytes, stringInBytes[s]);
+
+                patternMatchedData.lastPatternStartingSpecialSeqIdx = patternIdentifier.patternSpecialSeqStartingIdx;
+                patternMatchedData.lastPatternEndingSpecialSeqIdx = patternIdentifier.patternSpecialSeqEndingIdx;
+
+                if (matchFound) {
+                    patternMatchedData.patternMatchedChar = stringInBytes[s];
+                    patternMatchedData.patternMatchedString = abi.encodePacked(
+                        string(patternMatchedData.patternMatchedString), string(abi.encodePacked(stringInBytes[s]))
+                    );
+
+                    patternMatchedData.stringLastMatchedCharIndex = s;
+                    patternMatchedData.remainingString = trimString(stringInBytes, s + 1);
+                }
+
+                i = patternIdentifier.patternSpecialSeqEndingIdx;
             }
 
-            patternMatchedData = patterns(patternIdentifier, patternMatchedData);
-
-            patternMatchedData.lastPatternStartingSpecialSeqIdx = patternIdentifier.patternSpecialSeqStartingIdx;
-            patternMatchedData.lastPatternEndingSpecialSeqIdx = patternIdentifier.patternSpecialSeqEndingIdx;
-            i = patternIdentifier.patternSpecialSeqEndingIdx;
+            if (matchFound) {
+                return patternMatchedData;
+            }
         }
-
         return patternMatchedData;
     }
 
@@ -415,70 +438,130 @@ library Stringray {
         }
     }
 
-    function patterns(PatternIdentifier memory _patternIdentifier, PatternMatchedData memory _patternMatchedData)
-        private
-        pure
-        returns (PatternMatchedData memory patternMatchedData)
-    {
-        if (_patternIdentifier.patternNameHash == CHARACTER_CLASSES) {
-            patternMatchedData = squareBracketsPattern(_patternIdentifier, _patternMatchedData);
+    function patterns(
+        uint256 _startIndex,
+        uint256 _endIndex,
+        bytes32 _patternHash,
+        bytes memory _pattern,
+        bytes1 _targetChar
+    ) private pure returns (bool) {
+        bool matchFound;
+
+        if (_patternHash == CHARACTER_CLASSES) {
+            matchFound = squareBracketsPattern(_startIndex, _endIndex, _pattern, _targetChar);
+
+            if (matchFound) {
+                return matchFound;
+            }
         }
+
+        return matchFound;
     }
 
-    function squareBracketsPattern(
-        PatternIdentifier memory _patternIdentifier,
-        PatternMatchedData memory _patternMatchedData
-    ) private pure returns (PatternMatchedData memory) {
-        uint256 _startIndex = _patternIdentifier.patternSpecialSeqStartingIdx + 1;
-        uint256 _endIndex = _patternIdentifier.patternSpecialSeqEndingIdx - 1;
-        bytes memory _pattern = _patternMatchedData.patternString;
+    function squareBracketsPattern(uint256 _startIndex, uint256 _endIndex, bytes memory _pattern, bytes1 _targetChar)
+        private
+        pure
+        returns (bool)
+    {
+        bool matchFound;
 
         if (uint8(_pattern[_startIndex]) == CARET_SIGN) {
-            _patternMatchedData = squareBracketsSpecialSequences(_startIndex, _endIndex, _patternMatchedData, true);
+            matchFound = squareBracketsSpecialSequences(_startIndex, _endIndex, _pattern, _targetChar, true);
+
+            if (matchFound) {
+                return matchFound;
+            }
         } else {
-            _patternMatchedData = squareBracketsSpecialSequences(_startIndex, _endIndex, _patternMatchedData, false);
+            matchFound = squareBracketsSpecialSequences(_startIndex, _endIndex, _pattern, _targetChar, false);
+
+            if (matchFound) {
+                return matchFound;
+            }
         }
 
-        return _patternMatchedData;
+        return matchFound;
     }
 
     function squareBracketsSpecialSequences(
         uint256 _startIndex,
         uint256 _endIndex,
-        PatternMatchedData memory _patternMatchedData,
+        bytes memory _pattern,
+        bytes1 _targetChar,
         bool _negation
-    ) private pure returns (PatternMatchedData memory) {
-        bytes memory _pattern = _patternMatchedData.patternString;
+    ) private pure returns (bool) {
+        uint256 startingIndex = _negation ? _startIndex + 1 : _startIndex;
+        bool matchFound;
+        bool[] memory allTruthFlags = new bool[](_endIndex - startingIndex);
+        uint256 currentAllTruthFlagsIdx;
 
-        for (uint256 i = _negation ? _startIndex + 1 : _startIndex; i <= _endIndex;) {
+        for (uint256 i = startingIndex; i <= _endIndex;) {
             if (uint8(_pattern[i + 1]) == MINUS_SIGN && i + 1 < _endIndex) {
-                _patternMatchedData =
-                    findInRange(i, i + 2, _patternMatchedData, _pattern, _patternMatchedData.remainingString, _negation);
+                matchFound = findInRange(i, i + 2, _pattern, _targetChar, _negation);
+
+                if (!_negation && matchFound) {
+                    return true;
+                }
+
+                allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                currentAllTruthFlagsIdx++;
                 i = i + 3;
             } else if (uint8(_pattern[i]) == BACK_SLASH) {
                 if (uint8(_pattern[i + 1]) == SMALL_d) {
-                    _patternMatchedData =
-                        findInNumberRange(_patternMatchedData, _patternMatchedData.remainingString, _negation);
+                    matchFound = findInNumberRange(_targetChar, _negation);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
+                    i += 2;
+                }
+
+                if (uint8(_pattern[i + 1]) == SMALL_w) {
+                    // NOTE: below chunk is just the copy of above chunk inside "SMALL_d"
+                    // TODO: Needed to be implemented for "SMALL_w"
+                    matchFound = findInNumberRange(_targetChar, _negation);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
                     i += 2;
                 }
             } else {
-                _patternMatchedData =
-                    findSingleChar(i, _patternMatchedData, _pattern, _patternMatchedData.remainingString, _negation);
+                matchFound = findSingleChar(i, _pattern, _targetChar, _negation);
+
+                if (!_negation && matchFound) {
+                    return true;
+                }
+
+                allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                currentAllTruthFlagsIdx++;
                 i++;
             }
         }
 
-        return _patternMatchedData;
+        matchFound = true;
+        for (uint256 m = 0; m < currentAllTruthFlagsIdx; m++) {
+            if (allTruthFlags[m] == false && _negation) {
+                matchFound = false;
+                break;
+            }
+        }
+
+        return matchFound;
     }
 
     function findInRange(
         uint256 _lowerBoundIndex,
         uint256 _upperBoundIndex,
-        PatternMatchedData memory _patternMatchedData,
         bytes memory _pattern,
-        bytes memory _string,
+        bytes1 _targetChar,
         bool _negation
-    ) private pure returns (PatternMatchedData memory) {
+    ) private pure returns (bool) {
         uint8 lowerBoundUnicode = uint8(_pattern[_lowerBoundIndex]);
         uint8 upperBoundUnicode = uint8(_pattern[_upperBoundIndex]);
 
@@ -491,108 +574,55 @@ library Stringray {
             revert(errorMsg);
         }
 
-        return findPatternStringInRangeBounds(
-            _string, _negation, lowerBoundUnicode, upperBoundUnicode, _patternMatchedData
-        );
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
     }
 
-    function findSingleChar(
-        uint256 _singleBoundIndex,
-        PatternMatchedData memory _patternMatchedData,
-        bytes memory _pattern,
-        bytes memory _string,
-        bool _negation
-    ) private pure returns (PatternMatchedData memory) {
-        bytes memory remainingString;
-        int256 foundCharIndex = -1;
-        uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
-        bool pwn;
-
-        for (uint256 i = 0; i < _string.length; i++) {
-            if (_negation) {
-                if (uint8(_string[i]) != singleBoundUnicode) {
-                    remainingString = abi.encodePacked(remainingString, string(abi.encodePacked(_string[i])));
-                    if (foundCharIndex == -1) {
-                        foundCharIndex = int256(i);
-                    }
-                    pwn = true;
-                }
-            } else {
-                if (uint8(_string[i]) == singleBoundUnicode && _patternMatchedData.patternMatchedString.length == 0) {
-                    remainingString = trimString(_string, i);
-                    foundCharIndex = int256(i);
-                    pwn = true;
-                    break;
-                }
-            }
-        }
-
-        if (!pwn) {
-            remainingString = new bytes(0);
-            _patternMatchedData.remainingString = remainingString;
-            return _patternMatchedData;
-        }
-        _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
-
-        return _patternMatchedData;
-    }
-
-    function findInNumberRange(PatternMatchedData memory _patternMatchedData, bytes memory _string, bool _negation)
+    function findSingleChar(uint256 _singleBoundIndex, bytes memory _pattern, bytes1 _targetChar, bool _negation)
         private
         pure
-        returns (PatternMatchedData memory)
+        returns (bool)
     {
+        uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
+
+        if (_negation) {
+            if (uint8(_targetChar) != singleBoundUnicode) {
+                return true;
+            }
+            return false;
+        }
+
+        if (uint8(_targetChar) == singleBoundUnicode) {
+            return true;
+        }
+        return false;
+    }
+
+    function findInNumberRange(bytes1 _targetChar, bool _negation) private pure returns (bool) {
         bytes1 zeroUnicode = bytes1(abi.encodePacked("0"));
         bytes1 nineUnicode = bytes1(abi.encodePacked("9"));
         uint8 lowerBoundUnicode = uint8(zeroUnicode);
         uint8 upperBoundUnicode = uint8(nineUnicode);
 
-        return findPatternStringInRangeBounds(
-            _string, _negation, lowerBoundUnicode, upperBoundUnicode, _patternMatchedData
-        );
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
     }
 
     function findPatternStringInRangeBounds(
-        bytes memory _string,
-        bool _negation,
         uint8 lowerBoundUnicode,
         uint8 upperBoundUnicode,
-        PatternMatchedData memory _patternMatchedData
-    ) private pure returns (PatternMatchedData memory) {
-        bytes memory remainingString;
-        int256 foundCharIndex = -1;
-        bool pwn;
-
-        for (uint256 i = 0; i < _string.length; i++) {
-            if (_negation) {
-                if (uint8(_string[i]) < lowerBoundUnicode || uint8(_string[i]) > upperBoundUnicode) {
-                    remainingString = abi.encodePacked(remainingString, string(abi.encodePacked(_string[i])));
-                    if (foundCharIndex == -1) {
-                        foundCharIndex = int256(i);
-                    }
-                    pwn = true;
-                }
-            } else {
-                if (
-                    (uint8(_string[i]) >= lowerBoundUnicode && uint8(_string[i]) <= upperBoundUnicode)
-                        && _patternMatchedData.patternMatchedString.length == 0
-                ) {
-                    remainingString = trimString(_string, i);
-                    foundCharIndex = int256(i);
-                    pwn = true;
-                    break;
-                }
+        bytes1 _targetChar,
+        bool _negation
+    ) private pure returns (bool) {
+        if (_negation) {
+            if (uint8(_targetChar) < lowerBoundUnicode || uint8(_targetChar) > upperBoundUnicode) {
+                return true;
             }
+            return false;
         }
 
-        if (!pwn) {
-            remainingString = new bytes(0);
-            _patternMatchedData.remainingString = remainingString;
-            return _patternMatchedData;
+        if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
+            return true;
         }
-        _patternMatchedData = organizeOutput(foundCharIndex, _string, remainingString, _patternMatchedData);
-
-        return _patternMatchedData;
+        return false;
     }
 
     function organizeOutput(
