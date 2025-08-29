@@ -17,6 +17,6 @@
 // console.log(`${string}: \/\\W*\/: `, string.match(/\W*/));
 // console.log(`${string}: \/\\W*\/: `, /\W*/.test(string));
 
-const newString = "anil0924theirrationalone-KUSHA";
+const newString = "_1Zanil0924t heirrationalone-KUSHA";
 
-console.log(newString.match(/[\d\D]/));
+console.log(newString.match(/[\s]/));

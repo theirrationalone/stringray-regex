@@ -519,9 +519,31 @@ library Stringray {
                 }
 
                 if (uint8(_pattern[i + 1]) == SMALL_w) {
-                    // NOTE: below chunk is just the copy of above chunk inside "SMALL_d"
-                    // TODO: Needed to be implemented for "SMALL_w"
-                    matchFound = findInNumberRange(_targetChar, _negation);
+                    matchFound = findInWordCharsRange(_targetChar, _negation);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
+                    i += 2;
+                }
+
+                if (uint8(_pattern[i + 1]) == BIG_D) {
+                    matchFound = findInNumberRange(_targetChar, _negation, true);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
+                    i += 2;
+                }
+
+                if (uint8(_pattern[i + 1]) == BIG_W) {
+                    matchFound = findInWordCharsRange(_targetChar, _negation, true);
 
                     if (!_negation && matchFound) {
                         return true;
@@ -546,7 +568,7 @@ library Stringray {
 
         matchFound = true;
         for (uint256 m = 0; m < currentAllTruthFlagsIdx; m++) {
-            if (allTruthFlags[m] == false && _negation) {
+            if (allTruthFlags[m] == false) {
                 matchFound = false;
                 break;
             }
@@ -584,6 +606,14 @@ library Stringray {
     {
         uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
 
+        return _findSingleChar(singleBoundUnicode, _targetChar, _negation);
+    }
+
+    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation)
+        private
+        pure
+        returns (bool)
+    {
         if (_negation) {
             if (uint8(_targetChar) != singleBoundUnicode) {
                 return true;
@@ -598,12 +628,59 @@ library Stringray {
     }
 
     function findInNumberRange(bytes1 _targetChar, bool _negation) private pure returns (bool) {
-        bytes1 zeroUnicode = bytes1(abi.encodePacked("0"));
-        bytes1 nineUnicode = bytes1(abi.encodePacked("9"));
-        uint8 lowerBoundUnicode = uint8(zeroUnicode);
-        uint8 upperBoundUnicode = uint8(nineUnicode);
+        return _findInNumberRange(_targetChar, _negation, false);
+    }
+
+    function findInNumberRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        return _findInNumberRange(_targetChar, _negation, _bigCase);
+    }
+
+    function _findInNumberRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        _negation = _bigCase || _negation;
+
+        bytes1 zero = bytes1(abi.encodePacked("0"));
+        bytes1 nine = bytes1(abi.encodePacked("9"));
+        uint8 lowerBoundUnicode = uint8(zero);
+        uint8 upperBoundUnicode = uint8(nine);
 
         return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
+    }
+
+    function findInWordCharsRange(bytes1 _targetChar, bool _negation) private pure returns (bool) {
+        return _findInWordCharsRange(_targetChar, _negation, false);
+    }
+
+    function findInWordCharsRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        return _findInWordCharsRange(_targetChar, _negation, _bigCase);
+    }
+
+    function _findInWordCharsRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        _negation = _bigCase || _negation;
+
+        bytes1 lowerBoundWord = bytes1(abi.encodePacked("a"));
+        bytes1 upperBoundWord = bytes1(abi.encodePacked("z"));
+        uint8 lowerBoundUnicode = uint8(lowerBoundWord);
+        uint8 upperBoundUnicode = uint8(upperBoundWord);
+
+        bool found = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
+
+        if ((!found && !_negation) || (found && _negation)) {
+            lowerBoundWord = bytes1(abi.encodePacked("A"));
+            upperBoundWord = bytes1(abi.encodePacked("Z"));
+            lowerBoundUnicode = uint8(lowerBoundWord);
+            upperBoundUnicode = uint8(upperBoundWord);
+            found = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
+        }
+
+        if ((!found && !_negation) || (found && _negation)) {
+            found = _findInNumberRange(_targetChar, _negation, false);
+        }
+
+        if ((!found && !_negation) || (found && _negation)) {
+            found = _findSingleChar(uint8(bytes1(abi.encodePacked("_"))), _targetChar, _negation);
+        }
+
+        return found;
     }
 
     function findPatternStringInRangeBounds(
