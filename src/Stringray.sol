@@ -316,7 +316,7 @@ library Stringray {
     uint8 private constant SMALL_w = 119;
     uint8 private constant BIG_W = 87;
     uint8 private constant SMALL_s = 115;
-    uint8 private constant BIG_s = 83;
+    uint8 private constant BIG_S = 83;
     uint8 private constant SMALL_g = 103;
     uint8 private constant ASSIGNMENT_SIGN = 61;
     uint8 private constant GREATER_THAN_SIGN = 62;
@@ -530,6 +530,18 @@ library Stringray {
                     i += 2;
                 }
 
+                if (uint8(_pattern[i + 1]) == SMALL_s) {
+                    matchFound = findInWhiteSpaceRange(_targetChar, _negation);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
+                    i += 2;
+                }
+
                 if (uint8(_pattern[i + 1]) == BIG_D) {
                     matchFound = findInNumberRange(_targetChar, _negation, true);
 
@@ -544,6 +556,18 @@ library Stringray {
 
                 if (uint8(_pattern[i + 1]) == BIG_W) {
                     matchFound = findInWordCharsRange(_targetChar, _negation, true);
+
+                    if (!_negation && matchFound) {
+                        return true;
+                    }
+
+                    allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
+                    currentAllTruthFlagsIdx++;
+                    i += 2;
+                }
+
+                if (uint8(_pattern[i + 1]) == BIG_S) {
+                    matchFound = findInWhiteSpaceRange(_targetChar, _negation, true);
 
                     if (!_negation && matchFound) {
                         return true;
@@ -636,7 +660,11 @@ library Stringray {
     }
 
     function _findInNumberRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
-        _negation = _bigCase || _negation;
+        if ((_bigCase || _negation) && !(_bigCase && _negation)) {
+            _negation = true;
+        } else if (_bigCase && _negation) {
+            _negation = false;
+        }
 
         bytes1 zero = bytes1(abi.encodePacked("0"));
         bytes1 nine = bytes1(abi.encodePacked("9"));
@@ -655,7 +683,11 @@ library Stringray {
     }
 
     function _findInWordCharsRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
-        _negation = _bigCase || _negation;
+        if ((_bigCase || _negation) && !(_bigCase && _negation)) {
+            _negation = true;
+        } else if (_bigCase && _negation) {
+            _negation = false;
+        }
 
         bytes1 lowerBoundWord = bytes1(abi.encodePacked("a"));
         bytes1 upperBoundWord = bytes1(abi.encodePacked("z"));
@@ -678,6 +710,37 @@ library Stringray {
 
         if ((!found && !_negation) || (found && _negation)) {
             found = _findSingleChar(uint8(bytes1(abi.encodePacked("_"))), _targetChar, _negation);
+        }
+
+        return found;
+    }
+
+    function findInWhiteSpaceRange(bytes1 _targetChar, bool _negation) private pure returns (bool) {
+        return _findInWhiteSpaceRange(_targetChar, _negation, false);
+    }
+
+    function findInWhiteSpaceRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        return _findInWhiteSpaceRange(_targetChar, _negation, _bigCase);
+    }
+
+    function _findInWhiteSpaceRange(bytes1 _targetChar, bool _negation, bool _bigCase) private pure returns (bool) {
+        if ((_bigCase || _negation) && !(_bigCase && _negation)) {
+            _negation = true;
+        } else if (_bigCase && _negation) {
+            _negation = false;
+        }
+
+        bytes1 lowerBoundWhiteSpace = bytes1(abi.encodePacked("\t"));
+        bytes1 upperBoundWhiteSpace = bytes1(abi.encodePacked("\r"));
+        bytes1 singleBoundWhiteSpace = bytes1(abi.encodePacked(" "));
+        uint8 lowerBoundUnicode = uint8(lowerBoundWhiteSpace);
+        uint8 upperBoundUnicode = uint8(upperBoundWhiteSpace);
+        uint8 singleBoundUnicode = uint8(singleBoundWhiteSpace);
+
+        bool found = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
+
+        if ((!found && !_negation) || (found && _negation)) {
+            found = _findSingleChar(singleBoundUnicode, _targetChar, _negation);
         }
 
         return found;
