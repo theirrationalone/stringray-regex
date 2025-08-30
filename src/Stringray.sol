@@ -516,9 +516,7 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
-                }
-
-                if (uint8(_pattern[i + 1]) == SMALL_w) {
+                } else if (uint8(_pattern[i + 1]) == SMALL_w) {
                     matchFound = findInWordCharsRange(_targetChar, _negation);
 
                     if (!_negation && matchFound) {
@@ -528,9 +526,7 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
-                }
-
-                if (uint8(_pattern[i + 1]) == SMALL_s) {
+                } else if (uint8(_pattern[i + 1]) == SMALL_s) {
                     matchFound = findInWhiteSpaceRange(_targetChar, _negation);
 
                     if (!_negation && matchFound) {
@@ -540,9 +536,7 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
-                }
-
-                if (uint8(_pattern[i + 1]) == BIG_D) {
+                } else if (uint8(_pattern[i + 1]) == BIG_D) {
                     matchFound = findInNumberRange(_targetChar, _negation, true);
 
                     if (!_negation && matchFound) {
@@ -552,9 +546,7 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
-                }
-
-                if (uint8(_pattern[i + 1]) == BIG_W) {
+                } else if (uint8(_pattern[i + 1]) == BIG_W) {
                     matchFound = findInWordCharsRange(_targetChar, _negation, true);
 
                     if (!_negation && matchFound) {
@@ -564,9 +556,7 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
-                }
-
-                if (uint8(_pattern[i + 1]) == BIG_S) {
+                } else if (uint8(_pattern[i + 1]) == BIG_S) {
                     matchFound = findInWhiteSpaceRange(_targetChar, _negation, true);
 
                     if (!_negation && matchFound) {
@@ -576,6 +566,17 @@ library Stringray {
                     allTruthFlags[currentAllTruthFlagsIdx] = matchFound;
                     currentAllTruthFlagsIdx++;
                     i += 2;
+                } else {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression ",
+                            _pattern,
+                            " '\\",
+                            _pattern[i + 1],
+                            "', out of order in character class"
+                        )
+                    );
+                    revert(errorMsg);
                 }
             } else {
                 matchFound = findSingleChar(i, _pattern, _targetChar, _negation);
