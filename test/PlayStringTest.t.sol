@@ -169,9 +169,9 @@ contract PlayStringTest is Test {
     }
 
     function testRegex() public {
-        string memory target = "Zanil0924t\\\\bheirrationalone-KUSHA";
+        string memory target = "1Zanil0924theirrationalone-KUSHA";
         // string memory pattern = "/[^a-z\\dA-Z]/";
-        string memory pattern = "/[^\\b]/";
+        string memory pattern = "/[^\\d\\D]/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
         uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;
@@ -180,8 +180,10 @@ contract PlayStringTest is Test {
         bytes memory remainingString = patternMatchedData.remainingString;
         bytes memory patternString = patternMatchedData.patternString;
         bytes memory patternMatchedString = patternMatchedData.patternMatchedString;
+        bytes memory remainingPatternString = patternMatchedData.remainingPatternString;
+        bytes memory lastPatternAtom = patternMatchedData.lastPatternAtom;
         bytes1 patternMatchedChar = patternMatchedData.patternMatchedChar;
-        uint256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
+        int256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
 
         console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
         console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
@@ -194,6 +196,10 @@ contract PlayStringTest is Test {
         console2.log("patternString                   : ", string(patternString));
         console2.logBytes(patternString);
         console2.log("patternMatchedString            : ", string(patternMatchedString));
+        console2.logBytes(patternMatchedString);
+        console2.log("remainingPatternString          : ", string(remainingPatternString));
+        console2.logBytes(lastPatternAtom);
+        console2.log("lastPatternAtom                 : ", string(lastPatternAtom));
         console2.logBytes(patternMatchedString);
         console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
     }
