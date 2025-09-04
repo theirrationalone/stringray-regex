@@ -394,13 +394,14 @@ library Stringray {
             patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex - 1;
             patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex + 1;
 
-            bytes memory remainingPatternString = trimString(patternInBytes, _endIndex + 1, patternInBytes.length - 3);
+            bytes memory remainingPatternString =
+                trimString(patternInBytes, _endIndex + 2, int256(patternInBytes.length - 2));
             patternMatchedData.remainingPatternString = remainingPatternString;
 
             patternMatchedData =
                 patterns(_startIndex, _endIndex, _patternHash, patternMatchedData, patternInBytes, stringInBytes);
 
-            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex - 1, _endIndex + 1);
+            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex - 1, int256(_endIndex + 1));
 
             i = patternIdentifier.patternSpecialSeqEndingIdx == patternIdentifier.patternSpecialSeqStartingIdx
                 ? patternIdentifier.patternSpecialSeqEndingIdx + 1
@@ -454,23 +455,10 @@ library Stringray {
             });
         } else if (
             uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
-                && (uint8(_pattern[_currentPatternIndex + 1]) >= 48 && uint8(_pattern[_currentPatternIndex + 1]) <= 57)
-                && (
-                    (uint8(_pattern[_currentPatternIndex + 2]) == CLOSE_CURLY_BRACE)
-                        || (
-                            (uint8(_pattern[_currentPatternIndex + 2]) == COMMA_SIGN)
-                                && (
-                                    (
-                                        (
-                                            uint8(_pattern[_currentPatternIndex + 3]) >= 48
-                                                && uint8(_pattern[_currentPatternIndex + 3]) <= 57
-                                        ) && (uint8(_pattern[_currentPatternIndex + 4]) == CLOSE_CURLY_BRACE)
-                                    ) || (uint8(_pattern[_currentPatternIndex + 3]) == CLOSE_CURLY_BRACE)
-                                )
-                        )
-                )
+                && uint8(_pattern[_currentPatternIndex + 1]) != CLOSE_CURLY_BRACE
+                && uint8(_pattern[_currentPatternIndex + 1]) != COMMA_SIGN
         ) {
-            uint256 endingIndex;
+            uint256 endingIndex = _currentPatternIndex + 1;
 
             for (uint256 i = _currentPatternIndex + 1; i < _pattern.length; i++) {
                 if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
@@ -479,14 +467,68 @@ library Stringray {
                 }
             }
 
-            _patternIdentifier = PatternIdentifier({
-                patternNameHash: QUANTIFIER_CURLY_BRACES_BOUNDED,
-                patternSpecialSeqStartingIdx: _currentPatternIndex,
-                patternSpecialSeqEndingIdx: endingIndex
-            });
+            uint256 commaOccurence;
+            bool validPattern = true;
+
+            if (endingIndex > _currentPatternIndex + 1) {
+                for (uint256 i = _currentPatternIndex + 1; i < endingIndex; i++) {
+                    if (uint8(_pattern[i]) == COMMA_SIGN) {
+                        commaOccurence += 1;
+                        if (commaOccurence > 1) {
+                            validPattern = false;
+                            break;
+                        }
+                    } else if (uint8(_pattern[i]) < 48 || uint8(_pattern[i]) > 57) {
+                        validPattern = false;
+                        break;
+                    }
+                }
+
+                if (validPattern) {
+                    _patternIdentifier = PatternIdentifier({
+                        patternNameHash: QUANTIFIER_CURLY_BRACES_BOUNDED,
+                        patternSpecialSeqStartingIdx: _currentPatternIndex,
+                        patternSpecialSeqEndingIdx: endingIndex
+                    });
+                }
+            }
         } else {
             _patternIdentifier;
         }
+
+        // } else if (
+        //     uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
+        //         && (uint8(_pattern[_currentPatternIndex + 1]) >= 48 && uint8(_pattern[_currentPatternIndex + 1]) <= 57)
+        //         && (
+        //             (uint8(_pattern[_currentPatternIndex + 2]) == CLOSE_CURLY_BRACE)
+        //                 || (
+        //                     (uint8(_pattern[_currentPatternIndex + 2]) == COMMA_SIGN)
+        //                         && (
+        //                             (
+        //                                 (
+        //                                     uint8(_pattern[_currentPatternIndex + 3]) >= 48
+        //                                         && uint8(_pattern[_currentPatternIndex + 3]) <= 57
+        //                                 ) && (uint8(_pattern[_currentPatternIndex + 4]) == CLOSE_CURLY_BRACE)
+        //                             ) || (uint8(_pattern[_currentPatternIndex + 3]) == CLOSE_CURLY_BRACE)
+        //                         )
+        //                 )
+        //         )
+        // ) {
+        //     uint256 endingIndex;
+
+        //     for (uint256 i = _currentPatternIndex + 1; i < _pattern.length; i++) {
+        //         if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
+        //             endingIndex = i;
+        //             break;
+        //         }
+        //     }
+
+        //     _patternIdentifier = PatternIdentifier({
+        //         patternNameHash: QUANTIFIER_CURLY_BRACES_BOUNDED,
+        //         patternSpecialSeqStartingIdx: _currentPatternIndex,
+        //         patternSpecialSeqEndingIdx: endingIndex
+        //     });
+        // }
     }
 
     function patterns(
@@ -510,13 +552,10 @@ library Stringray {
         }
 
         if (_patternHash == QUANTIFIER_PLUS) {
-            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
-            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+            (bytes32 _atomPatternHash, bytes memory lastPatternAtom, bool isHashEmpty) =
+                findQuantifierLastAtom(_patternMatchedData);
 
-            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
-
-            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
-            if (_atomPatternHash == bytes32(0)) {
+            if (isHashEmpty) {
                 return _patternMatchedData;
             }
 
@@ -539,13 +578,10 @@ library Stringray {
         }
 
         if (_patternHash == QUANTIFIER_ASTERISK) {
-            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
-            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+            (bytes32 _atomPatternHash, bytes memory lastPatternAtom, bool isHashEmpty) =
+                findQuantifierLastAtom(_patternMatchedData);
 
-            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
-
-            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
-            if (_atomPatternHash == bytes32(0)) {
+            if (isHashEmpty) {
                 return _patternMatchedData;
             }
 
@@ -572,13 +608,10 @@ library Stringray {
         }
 
         if (_patternHash == QUANTIFIER_QUESTION_MARK) {
-            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
-            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+            (bytes32 _atomPatternHash, bytes memory lastPatternAtom, bool isHashEmpty) =
+                findQuantifierLastAtom(_patternMatchedData);
 
-            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
-
-            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
-            if (_atomPatternHash == bytes32(0)) {
+            if (isHashEmpty) {
                 return _patternMatchedData;
             }
 
@@ -598,12 +631,196 @@ library Stringray {
         }
 
         if (_patternHash == QUANTIFIER_CURLY_BRACES_BOUNDED) {
-            console2.log("pattern: ", string(_pattern));
-            console2.log("pattern starting index: ", _patternMatchedData.lastPatternStartingSpecialSeqIdx);
-            console2.log("pattern ending index  : ", _patternMatchedData.lastPatternEndingSpecialSeqIdx);
+            (bytes32 _atomPatternHash, bytes memory lastPatternAtom, bool isHashEmpty) =
+                findQuantifierLastAtom(_patternMatchedData);
+
+            if (isHashEmpty) {
+                return _patternMatchedData;
+            }
+
+            (uint256 min, int256 max, bool commaFound) = minMaxBracketBoundFinder(_patternMatchedData);
+
+            if (max > -1 && (min > uint256(max))) {
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: ", _pattern, ": numbers out of order in {} quantifier"
+                    )
+                );
+                revert(errorMsg);
+            }
+
+            if (_atomPatternHash == CHARACTER_CLASSES) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                (bytes memory matchedSubString, int256 stringLastMatchedCharIndex) =
+                    BracketBoundMatchFinder(_string, lastPatternAtom, _atomPatternHash, min, max, commaFound);
+
+                _patternMatchedData.patternMatchedString = matchedSubString;
+                _patternMatchedData.remainingString = trimString(_string, uint256(stringLastMatchedCharIndex) + 1, -1);
+                if (stringLastMatchedCharIndex > -1) {
+                    _patternMatchedData.patternMatchedChar = _string[uint256(stringLastMatchedCharIndex)];
+                    _patternMatchedData.stringLastMatchedCharIndex = stringLastMatchedCharIndex;
+                }
+            }
         }
 
         return _patternMatchedData;
+    }
+
+    function BracketBoundMatchFinder(
+        bytes memory _string,
+        bytes memory lastPatternAtom,
+        bytes32 _atomPatternHash,
+        uint256 min,
+        int256 max,
+        bool commaFound
+    ) private pure returns (bytes memory, int256) {
+        bool matchFound;
+        bytes memory matchedSubString;
+        int256 stringLastMatchedCharIndex = -1;
+
+        for (uint256 i = 0; i < _string.length; i++) {
+            matchFound = quantifierPattern(lastPatternAtom, _string[i], _atomPatternHash);
+
+            if (matchedSubString.length < min && (max == -1 && !commaFound)) {
+                if (matchFound) {
+                    matchedSubString = abi.encodePacked(string(matchedSubString), string(abi.encodePacked(_string[i])));
+
+                    if (matchedSubString.length == min) {
+                        stringLastMatchedCharIndex = int256(i);
+                        break;
+                    }
+                } else {
+                    matchedSubString = new bytes(0);
+                }
+            } else if (min > 0 && (max == -1 && commaFound)) {
+                if (matchFound) {
+                    matchedSubString = abi.encodePacked(string(matchedSubString), string(abi.encodePacked(_string[i])));
+                } else {
+                    if (matchedSubString.length < min) {
+                        matchedSubString = new bytes(0);
+                    } else {
+                        stringLastMatchedCharIndex = int256(i);
+                        break;
+                    }
+                }
+            } else if (min > 0 && (max > 0 && uint256(max) >= min)) {
+                if (matchFound) {
+                    matchedSubString = abi.encodePacked(string(matchedSubString), string(abi.encodePacked(_string[i])));
+                    if (matchedSubString.length == uint256(max)) {
+                        stringLastMatchedCharIndex = int256(i);
+                        break;
+                    }
+                } else {
+                    if (matchedSubString.length < min) {
+                        matchedSubString = new bytes(0);
+                    } else if (matchedSubString.length == min) {
+                        stringLastMatchedCharIndex = int256(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return (matchedSubString, stringLastMatchedCharIndex);
+    }
+
+    function minMaxBracketBoundFinder(PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (uint256, int256, bool)
+    {
+        uint256 startIndex = _patternMatchedData.lastPatternStartingSpecialSeqIdx + 1;
+        uint256 endIndex = _patternMatchedData.lastPatternEndingSpecialSeqIdx - 1;
+        bytes memory remainingPatternString =
+            trimString(_patternMatchedData.patternString, startIndex, int256(endIndex));
+
+        bytes memory minOccurence;
+        bytes memory maxOccurence;
+        bool commaFound;
+
+        uint256 min;
+        int256 max = -1;
+
+        for (uint256 i = 0; i < remainingPatternString.length; i++) {
+            if (uint8(remainingPatternString[i]) == COMMA_SIGN) {
+                commaFound = true;
+                minOccurence = trimString(remainingPatternString, 0, int256(i - 1));
+                maxOccurence = trimString(remainingPatternString, i + 1, -1);
+                break;
+            }
+        }
+
+        if (!commaFound) {
+            min = strToIntConverter(remainingPatternString);
+        }
+
+        if (commaFound && maxOccurence.length > 0) {
+            min = strToIntConverter(minOccurence);
+            max = int256(strToIntConverter(maxOccurence));
+        } else if (commaFound && maxOccurence.length == 0) {
+            min = strToIntConverter(minOccurence);
+        }
+
+        return (min, max, commaFound);
+    }
+
+    function strToIntConverter(bytes memory stringOccurence) private pure returns (uint256) {
+        uint256 stringLength = stringOccurence.length;
+        uint256 convertedToInteger;
+        uint8 stringUnicode;
+        uint256 multiplier = 1;
+
+        uint256 integerForm;
+
+        if (stringLength == 1) {
+            stringUnicode = uint8(stringOccurence[0]);
+
+            integerForm = integerUnicodeTranslator(stringUnicode);
+        } else {
+            for (uint256 i = stringLength - 1; i >= 0;) {
+                stringUnicode = uint8(stringOccurence[i]);
+
+                convertedToInteger = integerUnicodeTranslator(stringUnicode);
+
+                integerForm += (multiplier * convertedToInteger);
+                multiplier *= 10;
+
+                if (i == 0) {
+                    break;
+                }
+
+                i--;
+            }
+        }
+
+        return integerForm;
+    }
+
+    function integerUnicodeTranslator(uint8 stringUnicode) private pure returns (uint256 convertedToInteger) {
+        if (stringUnicode == 48) {
+            convertedToInteger = 0;
+        } else if (stringUnicode == 49) {
+            convertedToInteger = 1;
+        } else if (stringUnicode == 50) {
+            convertedToInteger = 2;
+        } else if (stringUnicode == 51) {
+            convertedToInteger = 3;
+        } else if (stringUnicode == 52) {
+            convertedToInteger = 4;
+        } else if (stringUnicode == 53) {
+            convertedToInteger = 5;
+        } else if (stringUnicode == 54) {
+            convertedToInteger = 6;
+        } else if (stringUnicode == 55) {
+            convertedToInteger = 7;
+        } else if (stringUnicode == 56) {
+            convertedToInteger = 8;
+        } else if (stringUnicode == 57) {
+            convertedToInteger = 9;
+        }
     }
 
     function quantifierPattern(bytes memory lastPatternAtom, bytes1 _targetChar, bytes32 _atomPatternHash)
@@ -618,6 +835,25 @@ library Stringray {
         }
 
         return matchFound;
+    }
+
+    function findQuantifierLastAtom(PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (bytes32, bytes memory, bool)
+    {
+        bool isHashEmpty;
+        bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
+        lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+
+        PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
+
+        bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
+        if (_atomPatternHash == bytes32(0)) {
+            isHashEmpty = true;
+        }
+
+        return (_atomPatternHash, lastPatternAtom, isHashEmpty);
     }
 
     function squareBracketsPattern(uint256 _startIndex, uint256 _endIndex, bytes memory _pattern, bytes1 _targetChar)
@@ -972,18 +1208,18 @@ library Stringray {
     //     return _lastPatternOutput;
     // }
 
-    function trimString(bytes memory _string, uint256 _newStartIndex, uint256 _newEndingIndex)
+    function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
         private
         pure
         returns (bytes memory)
     {
         bytes memory _newString;
 
-        if (_newEndingIndex <= 0) {
-            _newEndingIndex = _string.length - 1;
+        if (_newEndingIndex <= -1) {
+            _newEndingIndex = int256(_string.length) - 1;
         }
 
-        for (uint256 i = _newStartIndex; i <= _newEndingIndex; i++) {
+        for (uint256 i = _newStartIndex; i <= uint256(_newEndingIndex); i++) {
             _newString = abi.encodePacked(_newString, _string[i]);
         }
 

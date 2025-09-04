@@ -18,6 +18,6 @@
 // console.log(`${string}: \/\\W*\/: `, /\W*/.test(string));
 
 // const newString = "anil10924theirrationalone-KUSHA";
-const newString = "a1{}}}}12i1l6k2ush23";
+const newString = "10924theirrationalone-KUSHA";
 
-console.log(newString.match(/[a-z]1{}{,3}/));
+console.log(newString.match(/[a-z]{3,2}/));
