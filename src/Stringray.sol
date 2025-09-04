@@ -305,7 +305,7 @@ library Stringray {
     uint8 private constant OPEN_PARANTHESIS = 40;
     uint8 private constant CLOSE_PARANTHESIS = 41;
     uint8 private constant PLUS_SIGN = 43;
-    uint8 private constant ASTERIK = 42;
+    uint8 private constant ASTERSIK = 42;
     uint8 private constant MINUS_SIGN = 45;
     uint8 private constant DOLLAR_SIGN = 36;
     uint8 private constant CARET_SIGN = 94;
@@ -330,6 +330,7 @@ library Stringray {
     // pattern names
     bytes32 private constant CHARACTER_CLASSES = keccak256(abi.encodePacked("CHARACTER_CLASSES"));
     bytes32 private constant QUANTIFIER_PLUS = keccak256(abi.encodePacked("QUANTIFIER_PLUS"));
+    bytes32 private constant QUANTIFIER_ASTERISK = keccak256(abi.encodePacked("QUANTIFIER_ASTERISK"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -436,6 +437,12 @@ library Stringray {
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
+        } else if (uint8(_pattern[_currentPatternIndex]) == ASTERSIK) {
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: QUANTIFIER_ASTERISK,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex
+            });
         } else {
             _patternIdentifier;
         }
@@ -476,7 +483,40 @@ library Stringray {
                 for (uint256 s = 0; s < _patternMatchedData.remainingString.length;) {
                     bytes1 targetChar = _patternMatchedData.remainingString[s];
 
-                    matchFound = quantifierPlusPattern(lastPatternAtom, targetChar, _atomPatternHash);
+                    matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
+
+                    if (matchFound) {
+                        int256 targetCharIdx = indexOf(string(_string), string(abi.encodePacked(targetChar)));
+                        if (targetCharIdx > -1) {
+                            _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (_patternHash == QUANTIFIER_ASTERISK) {
+            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
+            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+
+            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
+
+            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
+            if (_atomPatternHash == bytes32(0)) {
+                return _patternMatchedData;
+            }
+
+            if (_atomPatternHash == CHARACTER_CLASSES) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                for (uint256 s = 0; s < _string.length; s++) {
+                    bytes1 targetChar = _string[s];
+
+                    matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
 
                     if (matchFound) {
                         int256 targetCharIdx = indexOf(string(_string), string(abi.encodePacked(targetChar)));
@@ -493,7 +533,7 @@ library Stringray {
         return _patternMatchedData;
     }
 
-    function quantifierPlusPattern(bytes memory lastPatternAtom, bytes1 _targetChar, bytes32 _atomPatternHash)
+    function quantifierPattern(bytes memory lastPatternAtom, bytes1 _targetChar, bytes32 _atomPatternHash)
         private
         pure
         returns (bool)
