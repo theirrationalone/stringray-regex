@@ -393,12 +393,14 @@ library Stringray {
             bytes memory remainingPatternString = trimString(patternInBytes, _endIndex + 1, patternInBytes.length - 3);
             patternMatchedData.remainingPatternString = remainingPatternString;
 
-            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex - 1, _endIndex + 1);
-
             patternMatchedData =
                 patterns(_startIndex, _endIndex, _patternHash, patternMatchedData, patternInBytes, stringInBytes);
 
-            i = patternIdentifier.patternSpecialSeqEndingIdx;
+            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex - 1, _endIndex + 1);
+
+            i = patternIdentifier.patternSpecialSeqEndingIdx == patternIdentifier.patternSpecialSeqStartingIdx
+                ? patternIdentifier.patternSpecialSeqEndingIdx + 1
+                : patternIdentifier.patternSpecialSeqEndingIdx;
         }
 
         return patternMatchedData;
@@ -468,6 +470,7 @@ library Stringray {
 
         if (_patternHash == QUANTIFIER_PLUS) {
             for (uint256 s = 0; s < _patternMatchedData.remainingString.length; s++) {
+                console2.log("last atom: ", string(_patternMatchedData.lastPatternAtom));
                 matchFound = quantifierPlusPattern();
 
                 if (matchFound) {
