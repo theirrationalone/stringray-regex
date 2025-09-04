@@ -456,25 +456,36 @@ library Stringray {
                 matchFound = squareBracketsPattern(_startIndex, _endIndex, _pattern, _string[s]);
 
                 if (matchFound) {
-                    _patternMatchedData.patternMatchedChar = _string[s];
-                    _patternMatchedData.patternMatchedString = abi.encodePacked(
-                        string(_patternMatchedData.patternMatchedString), string(abi.encodePacked(_string[s]))
-                    );
-
-                    _patternMatchedData.stringLastMatchedCharIndex = int256(s);
-                    _patternMatchedData.remainingString = trimString(_string, s + 1, 0);
-                    return _patternMatchedData;
+                    return organizeOutput(s, _string, _patternMatchedData);
                 }
             }
         }
 
         if (_patternHash == QUANTIFIER_PLUS) {
-            for (uint256 s = 0; s < _patternMatchedData.remainingString.length; s++) {
-                console2.log("last atom: ", string(_patternMatchedData.lastPatternAtom));
-                matchFound = quantifierPlusPattern();
+            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
+            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
 
-                if (matchFound) {
-                    return organizeOutput(s, _string, _patternMatchedData);
+            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
+
+            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
+            if (_atomPatternHash == bytes32(0)) {
+                return _patternMatchedData;
+            }
+
+            if (_atomPatternHash == CHARACTER_CLASSES) {
+                for (uint256 s = 0; s < _patternMatchedData.remainingString.length;) {
+                    bytes1 targetChar = _patternMatchedData.remainingString[s];
+
+                    matchFound = quantifierPlusPattern(lastPatternAtom, targetChar, _atomPatternHash);
+
+                    if (matchFound) {
+                        int256 targetCharIdx = indexOf(string(_string), string(abi.encodePacked(targetChar)));
+                        if (targetCharIdx > -1) {
+                            _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
+                        }
+                    } else {
+                        break;
+                    }
                 }
             }
         }
@@ -482,7 +493,19 @@ library Stringray {
         return _patternMatchedData;
     }
 
-    function quantifierPlusPattern() private pure returns (bool) {}
+    function quantifierPlusPattern(bytes memory lastPatternAtom, bytes1 _targetChar, bytes32 _atomPatternHash)
+        private
+        pure
+        returns (bool)
+    {
+        bool matchFound;
+
+        if (_atomPatternHash == CHARACTER_CLASSES) {
+            matchFound = squareBracketsPattern(2, lastPatternAtom.length - 2, lastPatternAtom, _targetChar);
+        }
+
+        return matchFound;
+    }
 
     function squareBracketsPattern(uint256 _startIndex, uint256 _endIndex, bytes memory _pattern, bytes1 _targetChar)
         private
