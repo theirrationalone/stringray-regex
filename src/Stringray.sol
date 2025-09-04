@@ -331,6 +331,9 @@ library Stringray {
     bytes32 private constant CHARACTER_CLASSES = keccak256(abi.encodePacked("CHARACTER_CLASSES"));
     bytes32 private constant QUANTIFIER_PLUS = keccak256(abi.encodePacked("QUANTIFIER_PLUS"));
     bytes32 private constant QUANTIFIER_ASTERISK = keccak256(abi.encodePacked("QUANTIFIER_ASTERISK"));
+    bytes32 private constant QUANTIFIER_QUESTION_MARK = keccak256(abi.encodePacked("QUANTIFIER_QUESTION_MARK"));
+    bytes32 private constant QUANTIFIER_CURLY_BRACES_BOUNDED =
+        keccak256(abi.encodePacked("QUANTIFIER_CURLY_BRACES_BOUNDED"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -443,6 +446,44 @@ library Stringray {
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
+        } else if (uint8(_pattern[_currentPatternIndex]) == QUESTION_MARK) {
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: QUANTIFIER_QUESTION_MARK,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex
+            });
+        } else if (
+            uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
+                && (uint8(_pattern[_currentPatternIndex + 1]) >= 48 && uint8(_pattern[_currentPatternIndex + 1]) <= 57)
+                && (
+                    (uint8(_pattern[_currentPatternIndex + 2]) == CLOSE_CURLY_BRACE)
+                        || (
+                            (uint8(_pattern[_currentPatternIndex + 2]) == COMMA_SIGN)
+                                && (
+                                    (
+                                        (
+                                            uint8(_pattern[_currentPatternIndex + 3]) >= 48
+                                                && uint8(_pattern[_currentPatternIndex + 3]) <= 57
+                                        ) && (uint8(_pattern[_currentPatternIndex + 4]) == CLOSE_CURLY_BRACE)
+                                    ) || (uint8(_pattern[_currentPatternIndex + 3]) == CLOSE_CURLY_BRACE)
+                                )
+                        )
+                )
+        ) {
+            uint256 endingIndex;
+
+            for (uint256 i = _currentPatternIndex + 1; i < _pattern.length; i++) {
+                if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
+                    endingIndex = i;
+                    break;
+                }
+            }
+
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: QUANTIFIER_CURLY_BRACES_BOUNDED,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: endingIndex
+            });
         } else {
             _patternIdentifier;
         }
@@ -528,6 +569,38 @@ library Stringray {
                     }
                 }
             }
+        }
+
+        if (_patternHash == QUANTIFIER_QUESTION_MARK) {
+            bytes memory lastPatternAtom = _patternMatchedData.lastPatternAtom;
+            lastPatternAtom = abi.encodePacked("/", lastPatternAtom, "/");
+
+            PatternIdentifier memory patternIdentifier = identifyPatternCharacter(lastPatternAtom, 1);
+
+            bytes32 _atomPatternHash = patternIdentifier.patternNameHash;
+            if (_atomPatternHash == bytes32(0)) {
+                return _patternMatchedData;
+            }
+
+            if (_atomPatternHash == CHARACTER_CLASSES) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                bytes1 targetChar = _string[0];
+
+                matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
+
+                if (matchFound) {
+                    _patternMatchedData = organizeOutput(0, _string, _patternMatchedData);
+                }
+            }
+        }
+
+        if (_patternHash == QUANTIFIER_CURLY_BRACES_BOUNDED) {
+            console2.log("pattern: ", string(_pattern));
+            console2.log("pattern starting index: ", _patternMatchedData.lastPatternStartingSpecialSeqIdx);
+            console2.log("pattern ending index  : ", _patternMatchedData.lastPatternEndingSpecialSeqIdx);
         }
 
         return _patternMatchedData;
