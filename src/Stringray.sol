@@ -334,6 +334,7 @@ library Stringray {
     bytes32 private constant QUANTIFIER_QUESTION_MARK = keccak256(abi.encodePacked("QUANTIFIER_QUESTION_MARK"));
     bytes32 private constant QUANTIFIER_CURLY_BRACES_BOUNDED =
         keccak256(abi.encodePacked("QUANTIFIER_CURLY_BRACES_BOUNDED"));
+    bytes32 private constant SINGLE_CHARACTER = keccak256(abi.encodePacked("SINGLE_CHARACTER"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -346,6 +347,7 @@ library Stringray {
         bytes patternMatchedString;
         bytes1 patternMatchedChar;
         int256 stringLastMatchedCharIndex;
+        uint256 trimmedStringLength;
     }
 
     struct PatternIdentifier {
@@ -388,11 +390,11 @@ library Stringray {
                 continue;
             }
 
-            uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx + 1;
-            uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx - 1;
+            uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx;
+            uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx;
 
-            patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex - 1;
-            patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex + 1;
+            patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex;
+            patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex;
 
             bytes memory remainingPatternString =
                 trimString(patternInBytes, _endIndex + 2, int256(patternInBytes.length - 2));
@@ -401,11 +403,12 @@ library Stringray {
             patternMatchedData =
                 patterns(_startIndex, _endIndex, _patternHash, patternMatchedData, patternInBytes, stringInBytes);
 
-            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex - 1, int256(_endIndex + 1));
+            patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex, int256(_endIndex));
 
-            i = patternIdentifier.patternSpecialSeqEndingIdx == patternIdentifier.patternSpecialSeqStartingIdx
-                ? patternIdentifier.patternSpecialSeqEndingIdx + 1
-                : patternIdentifier.patternSpecialSeqEndingIdx;
+            i = patternIdentifier.patternSpecialSeqEndingIdx = patternIdentifier.patternSpecialSeqEndingIdx + 1;
+            // i = patternIdentifier.patternSpecialSeqEndingIdx == patternIdentifier.patternSpecialSeqStartingIdx
+            //     ? patternIdentifier.patternSpecialSeqEndingIdx + 1
+            //     : patternIdentifier.patternSpecialSeqEndingIdx;
         }
 
         return patternMatchedData;
@@ -493,7 +496,11 @@ library Stringray {
                 }
             }
         } else {
-            _patternIdentifier;
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: SINGLE_CHARACTER,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex
+            });
         }
 
         // } else if (
@@ -543,7 +550,7 @@ library Stringray {
 
         if (_patternHash == CHARACTER_CLASSES) {
             for (uint256 s = 0; s < _string.length; s++) {
-                matchFound = squareBracketsPattern(_startIndex, _endIndex, _pattern, _string[s]);
+                matchFound = squareBracketsPattern(_startIndex + 1, _endIndex - 1, _pattern, _string[s]);
 
                 if (matchFound) {
                     return organizeOutput(s, _string, _patternMatchedData);
@@ -566,7 +573,11 @@ library Stringray {
                     matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
 
                     if (matchFound) {
-                        int256 targetCharIdx = indexOf(string(_string), string(abi.encodePacked(targetChar)));
+                        int256 targetCharIdx = indexOf(
+                            string(_string),
+                            string(abi.encodePacked(targetChar)),
+                            _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+                        );
                         if (targetCharIdx > -1) {
                             _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
                         }
@@ -575,6 +586,8 @@ library Stringray {
                     }
                 }
             }
+
+            if (_atomPatternHash == SINGLE_CHARACTER) {}
         }
 
         if (_patternHash == QUANTIFIER_ASTERISK) {
@@ -596,10 +609,7 @@ library Stringray {
                     matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
 
                     if (matchFound) {
-                        int256 targetCharIdx = indexOf(string(_string), string(abi.encodePacked(targetChar)));
-                        if (targetCharIdx > -1) {
-                            _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
-                        }
+                        _patternMatchedData = organizeOutput(s, _string, _patternMatchedData);
                     } else {
                         break;
                     }
@@ -662,6 +672,35 @@ library Stringray {
                 if (stringLastMatchedCharIndex > -1) {
                     _patternMatchedData.patternMatchedChar = _string[uint256(stringLastMatchedCharIndex)];
                     _patternMatchedData.stringLastMatchedCharIndex = stringLastMatchedCharIndex;
+                }
+            }
+        }
+
+        if (_patternHash == SINGLE_CHARACTER) {
+            for (uint256 s = 0; s < _patternMatchedData.remainingString.length;) {
+                bytes1 targetChar = _patternMatchedData.remainingString[s];
+                matchFound = findSingleChar(_startIndex, _pattern, targetChar, false);
+
+                if (matchFound) {
+                    int256 targetCharIdx = indexOf(
+                        string(_string),
+                        string(abi.encodePacked(targetChar)),
+                        _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+                    );
+                    if (targetCharIdx > -1) {
+                        _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
+                    }
+
+                    break;
+                } else {
+                    if (_patternMatchedData.patternMatchedString.length > 0) {
+                        _patternMatchedData.patternMatchedChar = bytes1("");
+                        _patternMatchedData.patternMatchedString = new bytes(0);
+                        _patternMatchedData.stringLastMatchedCharIndex = -1;
+                        break;
+                    }
+
+                    s++;
                 }
             }
         }
@@ -1175,7 +1214,8 @@ library Stringray {
         );
 
         _patternMatchedData.stringLastMatchedCharIndex = int256(foundCharIndex);
-        _patternMatchedData.remainingString = trimString(_string, foundCharIndex + 1, 0);
+        _patternMatchedData.remainingString = trimString(_string, foundCharIndex + 1, -1);
+        _patternMatchedData.trimmedStringLength = _string.length - _patternMatchedData.remainingString.length;
         return _patternMatchedData;
     }
 
