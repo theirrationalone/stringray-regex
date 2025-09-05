@@ -587,7 +587,9 @@ library Stringray {
                 }
             }
 
-            if (_atomPatternHash == SINGLE_CHARACTER) {}
+            if (_atomPatternHash == SINGLE_CHARACTER) {
+                _patternMatchedData = singleCharacterFinder(_patternMatchedData, _startIndex - 1, true);
+            }
         }
 
         if (_patternHash == QUANTIFIER_ASTERISK) {
@@ -615,6 +617,24 @@ library Stringray {
                     }
                 }
             }
+
+            if (_atomPatternHash == SINGLE_CHARACTER) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                for (uint256 s = 0; s < _string.length; s++) {
+                    bytes1 targetChar = _string[s];
+
+                    matchFound = findSingleChar(_startIndex - 1, _pattern, targetChar, false);
+
+                    if (matchFound) {
+                        _patternMatchedData = organizeOutput(s, _string, _patternMatchedData);
+                    } else {
+                        break;
+                    }
+                }
+            }
         }
 
         if (_patternHash == QUANTIFIER_QUESTION_MARK) {
@@ -633,6 +653,20 @@ library Stringray {
                 bytes1 targetChar = _string[0];
 
                 matchFound = quantifierPattern(lastPatternAtom, targetChar, _atomPatternHash);
+
+                if (matchFound) {
+                    _patternMatchedData = organizeOutput(0, _string, _patternMatchedData);
+                }
+            }
+
+            if (_atomPatternHash == SINGLE_CHARACTER) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                bytes1 targetChar = _string[0];
+
+                matchFound = findSingleChar(_startIndex - 1, _pattern, targetChar, false);
 
                 if (matchFound) {
                     _patternMatchedData = organizeOutput(0, _string, _patternMatchedData);
@@ -674,34 +708,68 @@ library Stringray {
                     _patternMatchedData.stringLastMatchedCharIndex = stringLastMatchedCharIndex;
                 }
             }
+
+            if (_atomPatternHash == SINGLE_CHARACTER) {
+                _patternMatchedData.patternMatchedChar = bytes1("");
+                _patternMatchedData.patternMatchedString = new bytes(0);
+                _patternMatchedData.stringLastMatchedCharIndex = -1;
+
+                (bytes memory matchedSubString, int256 stringLastMatchedCharIndex) =
+                    BracketBoundMatchFinder(_string, lastPatternAtom, _atomPatternHash, min, max, commaFound);
+
+                _patternMatchedData.patternMatchedString = matchedSubString;
+                _patternMatchedData.remainingString = trimString(_string, uint256(stringLastMatchedCharIndex) + 1, -1);
+                if (stringLastMatchedCharIndex > -1) {
+                    _patternMatchedData.patternMatchedChar = _string[uint256(stringLastMatchedCharIndex)];
+                    _patternMatchedData.stringLastMatchedCharIndex = stringLastMatchedCharIndex;
+                }
+            }
         }
 
         if (_patternHash == SINGLE_CHARACTER) {
-            for (uint256 s = 0; s < _patternMatchedData.remainingString.length;) {
-                bytes1 targetChar = _patternMatchedData.remainingString[s];
-                matchFound = findSingleChar(_startIndex, _pattern, targetChar, false);
+            _patternMatchedData = singleCharacterFinder(_patternMatchedData, _startIndex, false);
+        }
 
-                if (matchFound) {
-                    int256 targetCharIdx = indexOf(
-                        string(_string),
-                        string(abi.encodePacked(targetChar)),
-                        _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
-                    );
-                    if (targetCharIdx > -1) {
-                        _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
-                    }
+        return _patternMatchedData;
+    }
 
-                    break;
-                } else {
-                    if (_patternMatchedData.patternMatchedString.length > 0) {
-                        _patternMatchedData.patternMatchedChar = bytes1("");
-                        _patternMatchedData.patternMatchedString = new bytes(0);
-                        _patternMatchedData.stringLastMatchedCharIndex = -1;
-                        break;
-                    }
+    function singleCharacterFinder(PatternMatchedData memory _patternMatchedData, uint256 _startIndex, bool repeat)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bool matchFound;
+        for (uint256 s = 0; s < _patternMatchedData.remainingString.length;) {
+            bytes1 targetChar = _patternMatchedData.remainingString[s];
+            matchFound = findSingleChar(_startIndex, _patternMatchedData.patternString, targetChar, false);
 
-                    s++;
+            if (matchFound) {
+                int256 targetCharIdx = indexOf(
+                    string(_patternMatchedData.mainString),
+                    string(abi.encodePacked(targetChar)),
+                    _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+                );
+                if (targetCharIdx > -1) {
+                    _patternMatchedData =
+                        organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
                 }
+
+                if (!repeat) {
+                    break;
+                }
+            } else {
+                if (_patternMatchedData.patternMatchedString.length > 0 && !repeat) {
+                    _patternMatchedData.patternMatchedChar = bytes1("");
+                    _patternMatchedData.patternMatchedString = new bytes(0);
+                    _patternMatchedData.stringLastMatchedCharIndex = -1;
+                    break;
+                }
+
+                if (repeat) {
+                    break;
+                }
+
+                s++;
             }
         }
 
@@ -871,6 +939,10 @@ library Stringray {
 
         if (_atomPatternHash == CHARACTER_CLASSES) {
             matchFound = squareBracketsPattern(2, lastPatternAtom.length - 2, lastPatternAtom, _targetChar);
+        }
+
+        if (_atomPatternHash == SINGLE_CHARACTER) {
+            matchFound = findSingleChar(1, lastPatternAtom, _targetChar, false);
         }
 
         return matchFound;
