@@ -171,7 +171,7 @@ contract PlayStringTest is Test {
     function testRegex() public {
         string memory target = "0924theirrationaaaaaaaal221one-KUSHA";
         // string memory pattern = "/[^a-z\\dA-Z]/";
-        string memory pattern = "/a{5,5}/";
+        string memory pattern = "/(((asdff[a-z]))[a-x])/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
         uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;

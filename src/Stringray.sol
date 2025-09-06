@@ -335,6 +335,7 @@ library Stringray {
     bytes32 private constant QUANTIFIER_CURLY_BRACES_BOUNDED =
         keccak256(abi.encodePacked("QUANTIFIER_CURLY_BRACES_BOUNDED"));
     bytes32 private constant SINGLE_CHARACTER = keccak256(abi.encodePacked("SINGLE_CHARACTER"));
+    bytes32 private constant GROUP = keccak256(abi.encodePacked("GROUP"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -495,6 +496,82 @@ library Stringray {
                     });
                 }
             }
+        } else if (
+            uint8(_pattern[_currentPatternIndex]) == OPEN_PARANTHESIS
+                && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH
+        ) {
+            uint256 numOpenParanthesis = 1;
+            uint256 numCloseParanthesis;
+            uint256 currentPatternEndingIndex = _currentPatternIndex + 1;
+            bool openSquareBracketFoundInsideGroup;
+            bool closeSquareBracketFoundInsideGroup;
+            for (uint256 p = currentPatternEndingIndex; p < _pattern.length; p++) {
+                if (!closeSquareBracketFoundInsideGroup) {
+                    if (
+                        openSquareBracketFoundInsideGroup && uint8(_pattern[p]) != CLOSE_SQUARE_BRACKET
+                            && uint8(_pattern[p]) == CLOSE_PARANTHESIS
+                    ) {
+                        string memory errorMsg = string(
+                            abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": missing ]")
+                        );
+                        revert(errorMsg);
+                    }
+
+                    if (!openSquareBracketFoundInsideGroup && uint8(_pattern[p]) == OPEN_SQUARE_BRACKET) {
+                        openSquareBracketFoundInsideGroup = true;
+                        continue;
+                    }
+
+                    if (
+                        openSquareBracketFoundInsideGroup
+                            && (
+                                (uint8(_pattern[p]) != CLOSE_SQUARE_BRACKET && uint8(_pattern[p]) != CLOSE_PARANTHESIS)
+                                    || (uint8(_pattern[p]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[p - 1]) == BACK_SLASH)
+                            )
+                    ) {
+                        continue;
+                    }
+
+                    if (
+                        openSquareBracketFoundInsideGroup
+                            && (uint8(_pattern[p]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[p - 1]) != BACK_SLASH)
+                    ) {
+                        closeSquareBracketFoundInsideGroup = true;
+                        continue;
+                    }
+                }
+
+                if (uint8(_pattern[p]) == CLOSE_PARANTHESIS && uint8(_pattern[p - 1]) != BACK_SLASH) {
+                    numCloseParanthesis += 1;
+
+                    if (numOpenParanthesis == numCloseParanthesis) {
+                        currentPatternEndingIndex = p;
+                    }
+                } else if (uint8(_pattern[p]) == OPEN_PARANTHESIS && uint8(_pattern[p - 1]) != BACK_SLASH) {
+                    numOpenParanthesis += 1;
+                }
+            }
+
+            if (numOpenParanthesis != numCloseParanthesis) {
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: ",
+                        _pattern,
+                        ": Un",
+                        numOpenParanthesis > numCloseParanthesis ? "terminated" : "matched",
+                        " group"
+                    )
+                );
+                revert(errorMsg);
+            }
+
+            if (currentPatternEndingIndex > _currentPatternIndex + 1) {
+                _patternIdentifier = PatternIdentifier({
+                    patternNameHash: GROUP,
+                    patternSpecialSeqStartingIdx: _currentPatternIndex,
+                    patternSpecialSeqEndingIdx: currentPatternEndingIndex
+                });
+            }
         } else {
             _patternIdentifier = PatternIdentifier({
                 patternNameHash: SINGLE_CHARACTER,
@@ -502,40 +579,6 @@ library Stringray {
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
         }
-
-        // } else if (
-        //     uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
-        //         && (uint8(_pattern[_currentPatternIndex + 1]) >= 48 && uint8(_pattern[_currentPatternIndex + 1]) <= 57)
-        //         && (
-        //             (uint8(_pattern[_currentPatternIndex + 2]) == CLOSE_CURLY_BRACE)
-        //                 || (
-        //                     (uint8(_pattern[_currentPatternIndex + 2]) == COMMA_SIGN)
-        //                         && (
-        //                             (
-        //                                 (
-        //                                     uint8(_pattern[_currentPatternIndex + 3]) >= 48
-        //                                         && uint8(_pattern[_currentPatternIndex + 3]) <= 57
-        //                                 ) && (uint8(_pattern[_currentPatternIndex + 4]) == CLOSE_CURLY_BRACE)
-        //                             ) || (uint8(_pattern[_currentPatternIndex + 3]) == CLOSE_CURLY_BRACE)
-        //                         )
-        //                 )
-        //         )
-        // ) {
-        //     uint256 endingIndex;
-
-        //     for (uint256 i = _currentPatternIndex + 1; i < _pattern.length; i++) {
-        //         if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
-        //             endingIndex = i;
-        //             break;
-        //         }
-        //     }
-
-        //     _patternIdentifier = PatternIdentifier({
-        //         patternNameHash: QUANTIFIER_CURLY_BRACES_BOUNDED,
-        //         patternSpecialSeqStartingIdx: _currentPatternIndex,
-        //         patternSpecialSeqEndingIdx: endingIndex
-        //     });
-        // }
     }
 
     function patterns(
