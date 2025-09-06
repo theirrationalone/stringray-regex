@@ -769,11 +769,58 @@ library Stringray {
             }
         }
 
+        if (_patternHash == GROUP) {
+            _patternMatchedData = groupFinder(_startIndex, _endIndex, _patternMatchedData);
+        }
+
         if (_patternHash == SINGLE_CHARACTER) {
             _patternMatchedData = singleCharacterFinder(_patternMatchedData, _startIndex, false);
         }
 
         return _patternMatchedData;
+    }
+
+    function groupFinder(uint256 _startIndex, uint256 _endIndex, PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bytes memory trimmedPattern =
+            trimString(_patternMatchedData.patternString, _startIndex + 1, int256(_endIndex - 1));
+
+        bytes memory newPattern = abi.encodePacked("/", string(trimmedPattern), "/");
+
+        PatternMatchedData memory newPatternData = regex(string(_patternMatchedData.mainString), string(newPattern));
+
+        uint256 lastPatternStartingSpecialSeqIdx = newPatternData.lastPatternStartingSpecialSeqIdx;
+        uint256 lastPatternEndingSpecialSeqIdx = newPatternData.lastPatternEndingSpecialSeqIdx;
+        bytes memory mainString = newPatternData.mainString;
+        bytes memory remainingString = newPatternData.remainingString;
+        bytes memory patternString = newPatternData.patternString;
+        bytes memory patternMatchedString = newPatternData.patternMatchedString;
+        bytes memory remainingPatternString = newPatternData.remainingPatternString;
+        bytes memory lastPatternAtom = newPatternData.lastPatternAtom;
+        bytes1 patternMatchedChar = newPatternData.patternMatchedChar;
+        int256 stringLastMatchedCharIndex = newPatternData.stringLastMatchedCharIndex;
+
+        console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
+        console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
+        console2.log("mainString                      : ", string(mainString));
+        console2.logBytes(mainString);
+        console2.log("remainingString                 : ", string(remainingString));
+        console2.logBytes(remainingString);
+        console2.log("patternMatchedChar              : ", string(abi.encodePacked(patternMatchedChar)));
+        console2.logBytes1(patternMatchedChar);
+        console2.log("patternString                   : ", string(patternString));
+        console2.logBytes(patternString);
+        console2.log("patternMatchedString            : ", string(patternMatchedString));
+        console2.logBytes(patternMatchedString);
+        console2.log("remainingPatternString          : ", string(remainingPatternString));
+        console2.logBytes(lastPatternAtom);
+        console2.log("lastPatternAtom                 : ", string(lastPatternAtom));
+        console2.logBytes(patternMatchedString);
+        console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
+        console2.log("inside library ends here..............................");
     }
 
     function singleCharacterFinder(PatternMatchedData memory _patternMatchedData, uint256 _startIndex, bool repeat)
