@@ -20,4 +20,4 @@
 // const newString = "anil10924theirrationalone-KUSHA";
 const newString = "bcdedeaa0924thabcaceirrtionaal21one-KUSHA";
 
-console.log(/(a(bc(ac)))/.exec(newString));
+console.log(/ab/.exec(newString));
