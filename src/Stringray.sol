@@ -401,8 +401,14 @@ library Stringray {
             uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx;
             uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx;
 
-            patternMatchedData =
-                patterns(_startIndex, _endIndex, _patternHash, patternMatchedData, patternInBytes, stringInBytes);
+            patternMatchedData = patterns(
+                _startIndex,
+                _endIndex,
+                _patternHash,
+                patternMatchedData,
+                patternInBytes,
+                patternMatchedData.remainingString
+            );
 
             if (!patternMatchedData.matchedWithPreceedingAtom) {
                 patternMatchedData.remainingString = trimString(patternMatchedData.remainingString, 1, -1);
@@ -615,11 +621,34 @@ library Stringray {
         bool matchFound;
 
         if (_patternHash == CHARACTER_CLASSES) {
-            for (uint256 s = 0; s < _string.length; s++) {
-                matchFound = squareBracketsPattern(_startIndex + 1, _endIndex - 1, _pattern, _string[s]);
+            (,, bool isHashEmpty) = findQuantifierLastAtom(_patternMatchedData);
+
+            if (isHashEmpty) {
+                for (uint256 s = 0; s < _patternMatchedData.mainString.length; s++) {
+                    matchFound = squareBracketsPattern(
+                        _startIndex + 1, _endIndex - 1, _pattern, _patternMatchedData.mainString[s]
+                    );
+
+                    if (matchFound) {
+                        return organizeOutput(s, _patternMatchedData.mainString, _patternMatchedData);
+                    }
+                }
+            } else {
+                bytes1 currentChar = _patternMatchedData.remainingString[0];
+
+                matchFound = squareBracketsPattern(_startIndex + 1, _endIndex - 1, _pattern, currentChar);
 
                 if (matchFound) {
-                    return organizeOutput(s, _string, _patternMatchedData);
+                    int256 targetCharIdx = indexOf(
+                        string(_patternMatchedData.mainString),
+                        string(abi.encodePacked(currentChar)),
+                        _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+                    );
+
+                    if (targetCharIdx > -1) {
+                        _patternMatchedData =
+                            organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
+                    }
                 }
             }
         }
@@ -806,13 +835,14 @@ library Stringray {
 
                 if (currentChar == _pattern[_startIndex]) {
                     int256 targetCharIdx = indexOf(
-                        string(_string),
+                        string(_patternMatchedData.mainString),
                         string(abi.encodePacked(currentChar)),
                         _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
                     );
 
                     if (targetCharIdx > -1) {
-                        _patternMatchedData = organizeOutput(uint256(targetCharIdx), _string, _patternMatchedData);
+                        _patternMatchedData =
+                            organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
                     }
                 }
             }
