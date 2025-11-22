@@ -207,8 +207,321 @@ contract PlayStringTest is Test {
     }
 
     function testRegexLiteralMatchingTwo() public {
+        string memory target = "abc\\";
+        string memory pattern = "/abc\\/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThree() public {
+        string memory target = "abc\\";
+        string memory pattern = "/abc\\\\/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFour() public {
+        string memory target = "abc/";
+        string memory pattern = "/abc\\//";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFive() public {
+        string memory target = "abc.";
+        string memory pattern = "/abc\\./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingSix() public {
+        string memory target = "abc*";
+        string memory pattern = "/abc\\*/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingSeven() public {
+        string memory target = "abc+";
+        string memory pattern = "/abc\\+/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingEight() public {
+        string memory target = "abc?";
+        string memory pattern = "/abc\\?/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTen() public {
         string memory target = "abc(";
         string memory pattern = "/abc\\(/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingEleven() public {
+        string memory target = "abc)";
+        string memory pattern = "/abc\\)/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwelve() public {
+        string memory target = "abc[";
+        string memory pattern = "/abc\\[/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirteen() public {
+        string memory target = "abc]";
+        string memory pattern = "/abc\\]/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourteen() public {
+        string memory target = "abc{";
+        string memory pattern = "/abc\\{/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFifteen() public {
+        string memory target = "abc}";
+        string memory pattern = "/abc\\}/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingSixteen() public {
+        string memory target = "abc|";
+        string memory pattern = "/abc\\|/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingSeventeen() public {
+        string memory target = "V1.0";
+        string memory pattern = "/V1\\.0/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingEighteen() public {
+        string memory target = "abx";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingNineteen() public {
+        string memory target = "ab";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwenty() public {
+        string memory target = "acb";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyOne() public {
+        string memory target = "abc";
+        string memory pattern = "/a b c/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyTwo() public {
+        string memory target = "a\nbcabcabc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyThree() public {
+        string memory target = "a\tbc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyFour() public {
+        string memory target = "a\\tbc";
+        string memory pattern = "/a\\tbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyFive() public {
+        string memory target = "a\\nbc";
+        string memory pattern = "/a\\nbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentySix() public {
+        // string memory target = "a\vbc"; // special seq \v: throws invalid escape seqence in solidity
+        string memory target = "a\\vbc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentySeven() public {
+        // string memory target = "a\fbc"; // special seq \f: throws invalid escape seqence in solidity
+        string memory target = "a\\fbc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyEight() public {
+        string memory target = "a\rbc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingTwentyNine() public {
+        string memory target = "a\rbc";
+        string memory pattern = "/a\rbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirty() public {
+        string memory target = "a\\rbc";
+        string memory pattern = "/a\\rbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyOne() public {
+        string memory target = "a\nbc";
+        string memory pattern = "/a\nbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyTwo() public {
+        string memory target = "a\tbc";
+        string memory pattern = "/a\tbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyThree() public {
+        // @info: Solidity is able to detect byte order mark "\uFEFF"
+        // It simply ignores the BOM
+        // string memory target = "\uabc"; // special seq \u: throws invalid escape seqence in solidity (without BOM)
+        string memory target = "\uFEFFabc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyFour() public {
+        string memory target = "\\uabc";
+        string memory pattern = "/\\uabc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyFive() public {
+        string memory target = "a\r\nbc";
+        string memory pattern = "/a\rbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtySix() public {
+        string memory target = "a\r\nbc";
+        string memory pattern = "/a\nbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtySeven() public {
+        string memory target = "a\r\nbc";
+        string memory pattern = "/a\r\nbc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyEight() public {
+        string memory target = "a\x00bc"; // NULL
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingThirtyNine() public {
+        string memory target = "a\x07bc"; // BEL
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourty() public {
+        string memory target = "a\x06bc"; // ACK
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtyOne() public {
+        string memory target = "a\x05bc"; // ENQ
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtyTwo() public {
+        string memory target = "a\x1Abc"; // SUB
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtyThree() public {
+        string memory target = "a\x1Bbc"; // ESC
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtyFour() public {
+        string memory target = "&amp;abc";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtyFive() public {
+        string memory target = "&lt;abc&gt;";
+        string memory pattern = "/abc/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtySix() public {
+        string memory target = "ab\\c";
+        string memory pattern = "/ab\\c/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexLiteralMatchingFourtySeven() public {
+        string memory target = "abc > file.sol";
+        string memory pattern = "/abc > f/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }

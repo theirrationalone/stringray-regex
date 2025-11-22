@@ -305,7 +305,7 @@ library Stringray {
     uint8 private constant OPEN_PARANTHESIS = 40;
     uint8 private constant CLOSE_PARANTHESIS = 41;
     uint8 private constant PLUS_SIGN = 43;
-    uint8 private constant ASTERSIK = 42;
+    uint8 private constant ASTERISK = 42;
     uint8 private constant MINUS_SIGN = 45;
     uint8 private constant DOLLAR_SIGN = 36;
     uint8 private constant CARET_SIGN = 94;
@@ -336,7 +336,8 @@ library Stringray {
         keccak256(abi.encodePacked("QUANTIFIER_CURLY_BRACES_BOUNDED"));
     bytes32 private constant SINGLE_CHARACTER = keccak256(abi.encodePacked("SINGLE_CHARACTER"));
     bytes32 private constant GROUP = keccak256(abi.encodePacked("GROUP"));
-    bytes32 private constant METACHARACTER = keccak256(abi.encodePacked("METACHARACTER"));
+    bytes32 private constant META_CHARACTER = keccak256(abi.encodePacked("META_CHARACTER"));
+    bytes32 private constant ESCAPE_CHARACTER = keccak256(abi.encodePacked("ESCAPE_CHARACTER"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -391,6 +392,12 @@ library Stringray {
         PatternIdentifier memory patternIdentifier;
 
         for (uint256 i = 1; i < patternInBytes.length - 1;) {
+            if (patternMatchedData.remainingString.length == 0) {
+                uint256 zero = 0;
+                patternMatchedData.patternMatchedString = bytes("");
+                patternMatchedData.patternMatchedChar = bytes1("");
+                return patternMatchedData;
+            }
             patternIdentifier = identifyPatternCharacter(patternInBytes, i);
 
             bytes32 _patternHash = patternIdentifier.patternNameHash;
@@ -399,15 +406,8 @@ library Stringray {
                 continue;
             }
 
-            if (_patternHash == SINGLE_CHARACTER) {
-                console2.log("single pattern hash: ");
-            }
-
             uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx;
             uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx;
-
-            console2.log("pre _startIndex: ", _startIndex);
-            console2.log("pre _endIndex: ", _endIndex);
 
             patternMatchedData = patterns(
                 _startIndex,
@@ -418,18 +418,8 @@ library Stringray {
                 patternMatchedData.remainingString
             );
 
-            console2.log("back to regex...!");
-            console2.log("patternMatchedData.matchedWithPreceedingAtom: ", patternMatchedData.matchedWithPreceedingAtom);
-            console2.log("patternMatchedData.remainingString: ", string(patternMatchedData.remainingString));
-            console2.log(
-                "patternMatchedData.patternMatchedChar: ",
-                string(abi.encodePacked(patternMatchedData.patternMatchedChar))
-            );
-            console2.log("patternMatchedData.patternMatchedString: ", string(patternMatchedData.patternMatchedString));
-
             if (!patternMatchedData.matchedWithPreceedingAtom) {
                 patternMatchedData.remainingString = trimString(patternMatchedData.remainingString, 1, -1);
-                console2.log("passed here");
                 patternMatchedData.patternMatchedChar = bytes1(0);
                 patternMatchedData.patternMatchedString = new bytes(0);
 
@@ -450,34 +440,13 @@ library Stringray {
             patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex;
             patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex;
 
-            console2.log("_startIndex: ", _startIndex);
-            console2.log("_endIndex: ", _endIndex);
-            console2.log(
-                "patternMatchedData.lastPatternStartingSpecialSeqIdx: ",
-                patternMatchedData.lastPatternStartingSpecialSeqIdx
-            );
-            console2.log(
-                "patternMatchedData.lastPatternEndingSpecialSeqIdx: ", patternMatchedData.lastPatternEndingSpecialSeqIdx
-            );
-
             bytes memory remainingPatternString =
                 trimString(patternInBytes, _endIndex + 2, int256(patternInBytes.length - 2));
-            console2.log("remainingPatternString: ", string(remainingPatternString));
             patternMatchedData.remainingPatternString = remainingPatternString;
-            console2.log("-lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
             patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex, int256(_endIndex));
-            console2.log("lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
-            if (uint8(patternMatchedData.lastPatternAtom[patternMatchedData.lastPatternAtom.length - 1]) == BACK_SLASH)
-            {
-                patternMatchedData.lastPatternAtom =
-                    abi.encodePacked(patternMatchedData.lastPatternAtom, patternInBytes[_startIndex + 1]);
-            }
-            console2.log("lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
             patternMatchedData.matchedWithPreceedingAtom = false;
 
             i = patternIdentifier.patternSpecialSeqEndingIdx = patternIdentifier.patternSpecialSeqEndingIdx + 1;
-            console2.log("i: ", i);
-            console2.log("pattern length: ", patternInBytes.length);
         }
 
         return patternMatchedData;
@@ -513,7 +482,7 @@ library Stringray {
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
-        } else if (uint8(_pattern[_currentPatternIndex]) == ASTERSIK) {
+        } else if (uint8(_pattern[_currentPatternIndex]) == ASTERISK) {
             _patternIdentifier = PatternIdentifier({
                 patternNameHash: QUANTIFIER_ASTERISK,
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
@@ -640,13 +609,22 @@ library Stringray {
                     patternSpecialSeqEndingIdx: currentPatternEndingIndex
                 });
             }
-        } else if (isDotMetacharacter(_pattern, _currentPatternIndex)) {
+        } else if (isDotMeta_character(_pattern, _currentPatternIndex)) {
             _patternIdentifier = PatternIdentifier({
-                patternNameHash: METACHARACTER,
+                patternNameHash: META_CHARACTER,
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
+        } else if (
+            uint8(_pattern[_currentPatternIndex]) == BACK_SLASH && _isEscapeSequence(_pattern, _currentPatternIndex + 1)
+        ) {
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: ESCAPE_CHARACTER,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex + 1
+            });
         } else {
+            console2.log("yes it's a single character!");
             _patternIdentifier = PatternIdentifier({
                 patternNameHash: SINGLE_CHARACTER,
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
@@ -870,8 +848,12 @@ library Stringray {
             _patternMatchedData = groupFinder(_startIndex, _endIndex, _patternMatchedData);
         }
 
-        if (_patternHash == METACHARACTER) {
-            _patternMatchedData = metaCharacterPattern(_patternMatchedData, _startIndex);
+        if (_patternHash == META_CHARACTER) {
+            _patternMatchedData = meta_CharacterPattern(_patternMatchedData, _startIndex);
+        }
+
+        if (_patternHash == ESCAPE_CHARACTER) {
+            _patternMatchedData = singleCharacterFinder(_patternMatchedData, _endIndex, false);
         }
 
         if (_patternHash == SINGLE_CHARACTER) {
@@ -880,9 +862,7 @@ library Stringray {
             if (isHashEmpty) {
                 _patternMatchedData = singleCharacterFinder(_patternMatchedData, _startIndex, false);
             } else {
-                console2.log("reached here!");
-                bytes1 currentChar = _patternMatchedData.remainingString[0]; // this LoC breaked, there's a bug...!
-                console2.log("also reached here!");
+                bytes1 currentChar = _patternMatchedData.remainingString[0];
                 console2.log("-------------");
                 console2.log("pattern char: ", string(abi.encodePacked(_pattern[_startIndex])));
                 console2.log("target char : ", string(abi.encodePacked(currentChar)));
@@ -891,11 +871,12 @@ library Stringray {
                 console2.log("------END-------");
 
                 bytes1 patternChar = _pattern[_startIndex];
-                if (uint8(patternChar) == BACK_SLASH) {
-                    patternChar = _pattern[_startIndex + 1];
-                }
+                // activating below if statement also activates the following BUG.
+                // BUG: target = "abc\\", pattern = "/abc\\/"
+                // if (uint8(patternChar) == BACK_SLASH) {
+                //     patternChar = _pattern[_startIndex + 1];
+                // }
 
-                console2.log("pattern char: ", string(abi.encodePacked(_pattern[_startIndex + 1])));
                 if (currentChar == patternChar) {
                     int256 targetCharIdx = indexOf(
                         string(_patternMatchedData.mainString),
@@ -903,14 +884,10 @@ library Stringray {
                         _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
                     );
 
-                    console2.log("targetCharIdx: ", targetCharIdx);
-
                     if (targetCharIdx > -1) {
                         _patternMatchedData =
                             organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
                     }
-
-                    console2.log("mission complete!");
                 }
             }
         }
@@ -918,7 +895,63 @@ library Stringray {
         return _patternMatchedData;
     }
 
-    function _dotMetaCharacter(PatternMatchedData memory _patternMatchedData, uint8 targetCharCode, bool negation)
+    function _isEscapeSequence(bytes memory _pattern, uint256 _attachedIndex) private pure returns (bool) {
+        if (uint8(_pattern[_attachedIndex]) == FORWARD_SLASH && _pattern.length - 1 != _attachedIndex) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == DOT) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == ASTERISK) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == PLUS_SIGN) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == QUESTION_MARK) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == OPEN_PARANTHESIS) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == CLOSE_PARANTHESIS) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == OPEN_SQUARE_BRACKET) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == CLOSE_SQUARE_BRACKET) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == OPEN_CURLY_BRACE) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == CLOSE_CURLY_BRACE) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == VERTICAL_BAR) {
+            return true;
+        }
+
+        if (uint8(_pattern[_attachedIndex]) == BACK_SLASH) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function _dotMeta_Character(PatternMatchedData memory _patternMatchedData, uint8 targetCharCode, bool negation)
         private
         pure
         returns (bool)
@@ -941,14 +974,14 @@ library Stringray {
         }
     }
 
-    function dotMetaCharacter(PatternMatchedData memory _patternMatchedData)
+    function dotMeta_Character(PatternMatchedData memory _patternMatchedData)
         private
         pure
         returns (PatternMatchedData memory)
     {
         bytes1 currentChar = _patternMatchedData.remainingString[0];
         uint8 targetCharCode = uint8(currentChar);
-        bool matchFound = _dotMetaCharacter(_patternMatchedData, targetCharCode, false);
+        bool matchFound = _dotMeta_Character(_patternMatchedData, targetCharCode, false);
         if (matchFound) {
             int256 targetCharIdx = indexOf(
                 string(_patternMatchedData.mainString),
@@ -963,17 +996,17 @@ library Stringray {
         return _patternMatchedData;
     }
 
-    function metaCharacterPattern(PatternMatchedData memory _patternMatchedData, uint256 metaCharacterIndex)
+    function meta_CharacterPattern(PatternMatchedData memory _patternMatchedData, uint256 meta_CharacterIndex)
         private
         pure
         returns (PatternMatchedData memory)
     {
-        if (isDotMetacharacter(_patternMatchedData.patternString, metaCharacterIndex)) {
-            return dotMetaCharacter(_patternMatchedData);
+        if (isDotMeta_character(_patternMatchedData.patternString, meta_CharacterIndex)) {
+            return dotMeta_Character(_patternMatchedData);
         }
     }
 
-    function isDotMetacharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
+    function isDotMeta_character(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
         if (uint8(_pattern[_currentPatternIndex]) == DOT && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH) {
             return true;
         }
