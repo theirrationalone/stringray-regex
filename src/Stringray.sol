@@ -299,7 +299,7 @@ library Stringray {
     uint8 private constant BACK_SLASH = 92;
     uint8 private constant QUESTION_MARK = 63;
     uint8 private constant EXCLAMATION_MARK = 33;
-    uint8 private constant PERIOD = 46;
+    uint8 private constant DOT = 46;
     uint8 private constant OPEN_SQUARE_BRACKET = 91;
     uint8 private constant CLOSE_SQUARE_BRACKET = 93;
     uint8 private constant OPEN_PARANTHESIS = 40;
@@ -336,6 +336,7 @@ library Stringray {
         keccak256(abi.encodePacked("QUANTIFIER_CURLY_BRACES_BOUNDED"));
     bytes32 private constant SINGLE_CHARACTER = keccak256(abi.encodePacked("SINGLE_CHARACTER"));
     bytes32 private constant GROUP = keccak256(abi.encodePacked("GROUP"));
+    bytes32 private constant METACHARACTER = keccak256(abi.encodePacked("METACHARACTER"));
 
     struct PatternMatchedData {
         uint256 lastPatternStartingSpecialSeqIdx;
@@ -385,21 +386,16 @@ library Stringray {
         patternMatchedData.previousLastPatternStartingSpecialSeqIdx = 1;
         patternMatchedData.previousLastPatternEndingSpecialSeqIdx = 1;
         patternMatchedData.matchedWithPreceedingAtom = false;
-
         PatternIdentifier memory patternIdentifier;
-
         for (uint256 i = 1; i < patternInBytes.length - 1;) {
             patternIdentifier = identifyPatternCharacter(patternInBytes, i);
-
             bytes32 _patternHash = patternIdentifier.patternNameHash;
             if (_patternHash == bytes32(0)) {
                 i++;
                 continue;
             }
-
             uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx;
             uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx;
-
             patternMatchedData = patterns(
                 _startIndex,
                 _endIndex,
@@ -409,37 +405,36 @@ library Stringray {
                 patternMatchedData.remainingString
             );
 
-            if (!patternMatchedData.matchedWithPreceedingAtom) {
-                patternMatchedData.remainingString = trimString(patternMatchedData.remainingString, 1, -1);
-                patternMatchedData.patternMatchedChar = bytes1(0);
-                patternMatchedData.patternMatchedString = new bytes(0);
+            // if (!patternMatchedData.matchedWithPreceedingAtom) {
+            //     patternMatchedData.remainingString = trimString(patternMatchedData.remainingString, 1, -1);
+            //     patternMatchedData.patternMatchedChar = bytes1(0);
+            //     patternMatchedData.patternMatchedString = new bytes(0);
 
-                patternMatchedData.lastPatternAtom = patternMatchedData.previousLastPatternAtom;
+            //     patternMatchedData.lastPatternAtom = patternMatchedData.previousLastPatternAtom;
 
-                patternMatchedData.lastPatternStartingSpecialSeqIdx =
-                    patternMatchedData.previousLastPatternStartingSpecialSeqIdx;
+            //     patternMatchedData.lastPatternStartingSpecialSeqIdx =
+            //         patternMatchedData.previousLastPatternStartingSpecialSeqIdx;
 
-                patternMatchedData.lastPatternEndingSpecialSeqIdx =
-                    patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
+            //     patternMatchedData.lastPatternEndingSpecialSeqIdx =
+            //         patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
 
-                i = patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
+            //     i = patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
 
-                if (patternMatchedData.remainingString.length == 0) return patternMatchedData;
-                continue;
-            }
+            //     if (patternMatchedData.remainingString.length == 0) return patternMatchedData;
+            //     continue;
+            // }
 
             patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex;
             patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex;
 
             bytes memory remainingPatternString =
-                trimString(patternInBytes, _endIndex + 2, int256(patternInBytes.length - 2));
+                trimString(patternInBytes, _endIndex + 1, int256(patternInBytes.length - 2));
             patternMatchedData.remainingPatternString = remainingPatternString;
             patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex, int256(_endIndex));
             patternMatchedData.matchedWithPreceedingAtom = false;
 
             i = patternIdentifier.patternSpecialSeqEndingIdx = patternIdentifier.patternSpecialSeqEndingIdx + 1;
         }
-
         return patternMatchedData;
     }
 
@@ -447,5 +442,143 @@ library Stringray {
         private
         pure
         returns (PatternIdentifier memory _patternIdentifier)
-    {}
+    {
+        _patternIdentifier = identifyMetacharacters(_pattern, _currentPatternIndex);
+
+        if (_patternIdentifier.patternNameHash != bytes32(0)) {
+            return _patternIdentifier;
+        }
+    }
+
+    function identifyMetacharacters(bytes memory _pattern, uint256 _currentPatternIndex)
+        private
+        pure
+        returns (PatternIdentifier memory _patternIdentifier)
+    {
+        if (isDotMetacharacter(_pattern, _currentPatternIndex)) {
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: METACHARACTER,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex
+            });
+        }
+    }
+
+    function isDotMetacharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
+        if (uint8(_pattern[_currentPatternIndex]) == DOT && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH) {
+            return true;
+        }
+        return false;
+    }
+
+    function patterns(
+        uint256 _startIndex,
+        uint256 _endIndex,
+        bytes32 _patternHash,
+        PatternMatchedData memory _patternMatchedData,
+        bytes memory _pattern,
+        bytes memory _string
+    ) private pure returns (PatternMatchedData memory) {
+        bool matchFound;
+
+        if (_patternHash == METACHARACTER) {
+            _patternMatchedData = metaCharacterPattern(_patternMatchedData, _startIndex);
+        }
+
+        return _patternMatchedData;
+    }
+
+    function metaCharacterPattern(PatternMatchedData memory _patternMatchedData, uint256 metaCharacterIndex)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        if (isDotMetacharacter(_patternMatchedData.patternString, metaCharacterIndex)) {
+            return dotMetaCharacter(_patternMatchedData);
+        }
+    }
+
+    function dotMetaCharacter(PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bytes1 currentChar = _patternMatchedData.remainingString[0];
+        uint8 targetCharCode = uint8(currentChar);
+        bool matchFound = _dotMetaCharacter(_patternMatchedData, targetCharCode, false);
+        if (matchFound) {
+            int256 targetCharIdx = indexOf(
+                string(_patternMatchedData.mainString),
+                string(abi.encodePacked(currentChar)),
+                _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+            );
+            if (targetCharIdx > -1) {
+                _patternMatchedData =
+                    organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
+            }
+        }
+        return _patternMatchedData;
+    }
+
+    function _dotMetaCharacter(PatternMatchedData memory _patternMatchedData, uint8 targetCharCode, bool negation)
+        private
+        pure
+        returns (bool)
+    {
+        uint8 newlineCode = uint8(bytes1(abi.encodePacked("\n")));
+        uint8 carriageReturnCode = uint8(bytes1(abi.encodePacked("\r")));
+
+        if (negation) {
+            if (targetCharCode == newlineCode || targetCharCode == carriageReturnCode) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (targetCharCode != newlineCode && targetCharCode != carriageReturnCode) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function organizeOutput(uint256 foundCharIndex, bytes memory _string, PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        _patternMatchedData.patternMatchedChar = _string[foundCharIndex];
+        _patternMatchedData.patternMatchedString = abi.encodePacked(
+            string(_patternMatchedData.patternMatchedString), string(abi.encodePacked(_string[foundCharIndex]))
+        );
+
+        _patternMatchedData.stringLastMatchedCharIndex = int256(foundCharIndex);
+        _patternMatchedData.remainingString = trimString(_string, foundCharIndex + 1, -1);
+        _patternMatchedData.trimmedStringLength = _string.length - _patternMatchedData.remainingString.length;
+        _patternMatchedData.previousLastPatternAtom = _patternMatchedData.lastPatternAtom;
+        _patternMatchedData.matchedWithPreceedingAtom = true;
+        _patternMatchedData.previousLastPatternStartingSpecialSeqIdx =
+            _patternMatchedData.lastPatternStartingSpecialSeqIdx;
+        _patternMatchedData.previousLastPatternEndingSpecialSeqIdx = _patternMatchedData.lastPatternEndingSpecialSeqIdx;
+        return _patternMatchedData;
+    }
+
+    function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
+        private
+        pure
+        returns (bytes memory)
+    {
+        bytes memory _newString;
+
+        if (_newEndingIndex <= -1) {
+            _newEndingIndex = int256(_string.length) - 1;
+        }
+
+        for (uint256 i = _newStartIndex; i <= uint256(_newEndingIndex); i++) {
+            _newString = abi.encodePacked(_newString, _string[i]);
+        }
+
+        return _newString;
+    }
 }
