@@ -399,8 +399,15 @@ library Stringray {
                 continue;
             }
 
+            if (_patternHash == SINGLE_CHARACTER) {
+                console2.log("single pattern hash: ");
+            }
+
             uint256 _startIndex = patternIdentifier.patternSpecialSeqStartingIdx;
             uint256 _endIndex = patternIdentifier.patternSpecialSeqEndingIdx;
+
+            console2.log("pre _startIndex: ", _startIndex);
+            console2.log("pre _endIndex: ", _endIndex);
 
             patternMatchedData = patterns(
                 _startIndex,
@@ -411,8 +418,18 @@ library Stringray {
                 patternMatchedData.remainingString
             );
 
+            console2.log("back to regex...!");
+            console2.log("patternMatchedData.matchedWithPreceedingAtom: ", patternMatchedData.matchedWithPreceedingAtom);
+            console2.log("patternMatchedData.remainingString: ", string(patternMatchedData.remainingString));
+            console2.log(
+                "patternMatchedData.patternMatchedChar: ",
+                string(abi.encodePacked(patternMatchedData.patternMatchedChar))
+            );
+            console2.log("patternMatchedData.patternMatchedString: ", string(patternMatchedData.patternMatchedString));
+
             if (!patternMatchedData.matchedWithPreceedingAtom) {
                 patternMatchedData.remainingString = trimString(patternMatchedData.remainingString, 1, -1);
+                console2.log("passed here");
                 patternMatchedData.patternMatchedChar = bytes1(0);
                 patternMatchedData.patternMatchedString = new bytes(0);
 
@@ -433,13 +450,34 @@ library Stringray {
             patternMatchedData.lastPatternStartingSpecialSeqIdx = _startIndex;
             patternMatchedData.lastPatternEndingSpecialSeqIdx = _endIndex;
 
+            console2.log("_startIndex: ", _startIndex);
+            console2.log("_endIndex: ", _endIndex);
+            console2.log(
+                "patternMatchedData.lastPatternStartingSpecialSeqIdx: ",
+                patternMatchedData.lastPatternStartingSpecialSeqIdx
+            );
+            console2.log(
+                "patternMatchedData.lastPatternEndingSpecialSeqIdx: ", patternMatchedData.lastPatternEndingSpecialSeqIdx
+            );
+
             bytes memory remainingPatternString =
                 trimString(patternInBytes, _endIndex + 2, int256(patternInBytes.length - 2));
+            console2.log("remainingPatternString: ", string(remainingPatternString));
             patternMatchedData.remainingPatternString = remainingPatternString;
+            console2.log("-lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
             patternMatchedData.lastPatternAtom = trimString(patternInBytes, _startIndex, int256(_endIndex));
+            console2.log("lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
+            if (uint8(patternMatchedData.lastPatternAtom[patternMatchedData.lastPatternAtom.length - 1]) == BACK_SLASH)
+            {
+                patternMatchedData.lastPatternAtom =
+                    abi.encodePacked(patternMatchedData.lastPatternAtom, patternInBytes[_startIndex + 1]);
+            }
+            console2.log("lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
             patternMatchedData.matchedWithPreceedingAtom = false;
 
             i = patternIdentifier.patternSpecialSeqEndingIdx = patternIdentifier.patternSpecialSeqEndingIdx + 1;
+            console2.log("i: ", i);
+            console2.log("pattern length: ", patternInBytes.length);
         }
 
         return patternMatchedData;
@@ -842,19 +880,37 @@ library Stringray {
             if (isHashEmpty) {
                 _patternMatchedData = singleCharacterFinder(_patternMatchedData, _startIndex, false);
             } else {
-                bytes1 currentChar = _patternMatchedData.remainingString[0];
+                console2.log("reached here!");
+                bytes1 currentChar = _patternMatchedData.remainingString[0]; // this LoC breaked, there's a bug...!
+                console2.log("also reached here!");
+                console2.log("-------------");
+                console2.log("pattern char: ", string(abi.encodePacked(_pattern[_startIndex])));
+                console2.log("target char : ", string(abi.encodePacked(currentChar)));
+                console2.log("pattern: ", string(_pattern));
+                console2.log("index: ", _startIndex);
+                console2.log("------END-------");
 
-                if (currentChar == _pattern[_startIndex]) {
+                bytes1 patternChar = _pattern[_startIndex];
+                if (uint8(patternChar) == BACK_SLASH) {
+                    patternChar = _pattern[_startIndex + 1];
+                }
+
+                console2.log("pattern char: ", string(abi.encodePacked(_pattern[_startIndex + 1])));
+                if (currentChar == patternChar) {
                     int256 targetCharIdx = indexOf(
                         string(_patternMatchedData.mainString),
                         string(abi.encodePacked(currentChar)),
                         _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
                     );
 
+                    console2.log("targetCharIdx: ", targetCharIdx);
+
                     if (targetCharIdx > -1) {
                         _patternMatchedData =
                             organizeOutput(uint256(targetCharIdx), _patternMatchedData.mainString, _patternMatchedData);
                     }
+
+                    console2.log("mission complete!");
                 }
             }
         }
@@ -1373,6 +1429,11 @@ library Stringray {
         returns (bool)
     {
         uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
+
+        console2.log("-------------");
+        console2.log("pattern char: ", string(abi.encodePacked(_pattern[_singleBoundIndex])));
+        console2.log("target char : ", string(abi.encodePacked(_targetChar)));
+        console2.log("------END-------");
 
         return _findSingleChar(singleBoundUnicode, _targetChar, _negation);
     }
