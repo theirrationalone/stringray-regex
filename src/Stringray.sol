@@ -616,13 +616,6 @@ library Stringray {
                     patternSpecialSeqEndingIdx: currentPatternEndingIndex
                 });
             }
-        } else if (isDotMetaCharacter(_remainingPattern, 1)) {
-            console2.log("detected that it's a dot metaCharacter!");
-            _patternIdentifier = PatternIdentifier({
-                patternNameHash: META_CHARACTER,
-                patternSpecialSeqStartingIdx: _currentPatternIndex,
-                patternSpecialSeqEndingIdx: _currentPatternIndex
-            });
         } else if (
             uint8(_pattern[_currentPatternIndex]) == BACK_SLASH && _isEscapeSequence(_pattern, _currentPatternIndex + 1)
         ) {
@@ -631,6 +624,13 @@ library Stringray {
                 patternNameHash: ESCAPE_CHARACTER,
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
                 patternSpecialSeqEndingIdx: _currentPatternIndex + 1
+            });
+        } else if (isMetaCharacter(_remainingPattern, 1)) {
+            console2.log("detected that it's a metaCharacter!");
+            _patternIdentifier = PatternIdentifier({
+                patternNameHash: META_CHARACTER,
+                patternSpecialSeqStartingIdx: _currentPatternIndex,
+                patternSpecialSeqEndingIdx: _currentPatternIndex
             });
         } else {
             console2.log("yes it's a single character!");
@@ -858,7 +858,7 @@ library Stringray {
         }
 
         if (_patternHash == META_CHARACTER) {
-            _patternMatchedData = metaCharacterPattern(_patternMatchedData, _startIndex);
+            _patternMatchedData = metaCharacter(_patternMatchedData);
         }
 
         if (_patternHash == ESCAPE_CHARACTER) {
@@ -909,62 +909,24 @@ library Stringray {
     }
 
     function _isEscapeSequence(bytes memory _pattern, uint256 _attachedIndex) private pure returns (bool) {
-        if (uint8(_pattern[_attachedIndex]) == FORWARD_SLASH && _pattern.length - 1 != _attachedIndex) {
+        if (
+            uint8(_pattern[_attachedIndex]) == FORWARD_SLASH && _pattern.length - 1 != _attachedIndex
+                || uint8(_pattern[_attachedIndex]) == DOT || uint8(_pattern[_attachedIndex]) == ASTERISK
+                || uint8(_pattern[_attachedIndex]) == PLUS_SIGN || uint8(_pattern[_attachedIndex]) == QUESTION_MARK
+                || uint8(_pattern[_attachedIndex]) == OPEN_PARANTHESIS
+                || uint8(_pattern[_attachedIndex]) == CLOSE_PARANTHESIS
+                || uint8(_pattern[_attachedIndex]) == OPEN_SQUARE_BRACKET
+                || uint8(_pattern[_attachedIndex]) == CLOSE_SQUARE_BRACKET
+                || uint8(_pattern[_attachedIndex]) == OPEN_CURLY_BRACE
+                || uint8(_pattern[_attachedIndex]) == CLOSE_CURLY_BRACE || uint8(_pattern[_attachedIndex]) == VERTICAL_BAR
+                || uint8(_pattern[_attachedIndex]) == BACK_SLASH
+        ) {
             return true;
         }
-
-        if (uint8(_pattern[_attachedIndex]) == DOT) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == ASTERISK) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == PLUS_SIGN) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == QUESTION_MARK) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == OPEN_PARANTHESIS) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == CLOSE_PARANTHESIS) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == OPEN_SQUARE_BRACKET) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == CLOSE_SQUARE_BRACKET) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == OPEN_CURLY_BRACE) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == CLOSE_CURLY_BRACE) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == VERTICAL_BAR) {
-            return true;
-        }
-
-        if (uint8(_pattern[_attachedIndex]) == BACK_SLASH) {
-            return true;
-        }
-
         return false;
     }
 
-    function _dotMeta_Character(PatternMatchedData memory _patternMatchedData, uint8 targetCharCode, bool negation)
+    function _metaCharacter(PatternMatchedData memory _patternMatchedData, uint8 targetCharCode, bool negation)
         private
         pure
         returns (bool)
@@ -987,14 +949,14 @@ library Stringray {
         }
     }
 
-    function dotMeta_Character(PatternMatchedData memory _patternMatchedData)
+    function metaCharacter(PatternMatchedData memory _patternMatchedData)
         private
         pure
         returns (PatternMatchedData memory)
     {
         bytes1 currentChar = _patternMatchedData.remainingString[0];
         uint8 targetCharCode = uint8(currentChar);
-        bool matchFound = _dotMeta_Character(_patternMatchedData, targetCharCode, false);
+        bool matchFound = _metaCharacter(_patternMatchedData, targetCharCode, false);
         if (matchFound) {
             int256 targetCharIdx = indexOf(
                 string(_patternMatchedData.mainString),
@@ -1009,25 +971,37 @@ library Stringray {
         return _patternMatchedData;
     }
 
-    function metaCharacterPattern(PatternMatchedData memory _patternMatchedData, uint256 metaCharacterIndex)
-        private
-        pure
-        returns (PatternMatchedData memory)
-    {
-        if (uint8(_patternMatchedData.patternString[metaCharacterIndex]) == DOT) {
-            return dotMeta_Character(_patternMatchedData);
-        }
-    }
+    // function metaCharacterPattern(PatternMatchedData memory _patternMatchedData, uint256 metaCharacterIndex)
+    //     private
+    //     pure
+    //     returns (PatternMatchedData memory)
+    // {
+    //     if (uint8(_patternMatchedData.patternString[metaCharacterIndex]) == DOT) {
+    //         return metaCharacter(_patternMatchedData);
+    // }
 
-    function isDotMetaCharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
-        console2.log("isDotMetaCharacter _pattern: ", string(_pattern));
-        console2.log("isDotMetaCharacter currentPatternIndex: ", _currentPatternIndex);
-        if (
-            _pattern.length > 2 && uint8(_pattern[_currentPatternIndex]) == DOT && _currentPatternIndex > 0
-                && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH
-        ) {
-            console2.log("returned true");
-            return true;
+    // @Last: we did a patch here
+    function isMetaCharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
+        console2.log("isMetaCharacter _pattern: ", string(_pattern));
+        console2.log("isMetaCharacter currentPatternIndex: ", _currentPatternIndex);
+        if (_pattern.length > 2 && _currentPatternIndex > 0 && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH)
+        {
+            if (
+                uint8(_pattern[_currentPatternIndex]) == DOT || uint8(_pattern[_currentPatternIndex]) == ASTERISK
+                    || uint8(_pattern[_currentPatternIndex]) == PLUS_SIGN
+                    || uint8(_pattern[_currentPatternIndex]) == QUESTION_MARK
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_PARANTHESIS
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_PARANTHESIS
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_SQUARE_BRACKET
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_SQUARE_BRACKET
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_CURLY_BRACE
+                    || uint8(_pattern[_currentPatternIndex]) == VERTICAL_BAR
+                    || uint8(_pattern[_currentPatternIndex]) == BACK_SLASH
+                    || uint8(_pattern[_currentPatternIndex]) == FORWARD_SLASH
+            ) {
+                return true;
+            }
         }
         return false;
     }

@@ -180,6 +180,7 @@ contract PlayStringTest is Test {
         bytes1 patternMatchedChar = patternMatchedData.patternMatchedChar;
         int256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
 
+        console2.log("---------------------Test Result---------------------");
         console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
         console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
         console2.log("mainString                      : ", string(mainString));
@@ -196,6 +197,7 @@ contract PlayStringTest is Test {
         console2.log("lastPatternAtom                 : ", string(lastPatternAtom));
         console2.logBytes(lastPatternAtom);
         console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
+        console2.log("---------------------Test Result End---------------------");
         console2.logBytes(patternMatchedString);
     }
 
@@ -203,6 +205,7 @@ contract PlayStringTest is Test {
         string memory target = "abc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -210,6 +213,7 @@ contract PlayStringTest is Test {
         string memory target = "abc\\";
         string memory pattern = "/abc\\/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -217,6 +221,7 @@ contract PlayStringTest is Test {
         string memory target = "abc\\";
         string memory pattern = "/abc\\\\/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -224,6 +229,7 @@ contract PlayStringTest is Test {
         string memory target = "abc/";
         string memory pattern = "/abc\\//";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -231,6 +237,7 @@ contract PlayStringTest is Test {
         string memory target = "abc.";
         string memory pattern = "/abc\\./";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -238,6 +245,7 @@ contract PlayStringTest is Test {
         string memory target = "abc*";
         string memory pattern = "/abc\\*/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -245,13 +253,15 @@ contract PlayStringTest is Test {
         string memory target = "abc+";
         string memory pattern = "/abc\\+/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
-    function testRegexLiteralMatchingEight() public {
+    function testRegexLiteralMatchingEightz() public {
         string memory target = "abc?";
         string memory pattern = "/abc\\?/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -259,6 +269,7 @@ contract PlayStringTest is Test {
         string memory target = "abc(";
         string memory pattern = "/abc\\(/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -266,6 +277,7 @@ contract PlayStringTest is Test {
         string memory target = "abc)";
         string memory pattern = "/abc\\)/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -273,6 +285,7 @@ contract PlayStringTest is Test {
         string memory target = "abc[";
         string memory pattern = "/abc\\[/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -280,6 +293,7 @@ contract PlayStringTest is Test {
         string memory target = "abc]";
         string memory pattern = "/abc\\]/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -287,6 +301,7 @@ contract PlayStringTest is Test {
         string memory target = "abc{";
         string memory pattern = "/abc\\{/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -294,6 +309,7 @@ contract PlayStringTest is Test {
         string memory target = "abc}";
         string memory pattern = "/abc\\}/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -301,6 +317,7 @@ contract PlayStringTest is Test {
         string memory target = "abc|";
         string memory pattern = "/abc\\|/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -308,6 +325,7 @@ contract PlayStringTest is Test {
         string memory target = "V1.0";
         string memory pattern = "/V1\\.0/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -315,6 +333,7 @@ contract PlayStringTest is Test {
         string memory target = "abx";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -322,6 +341,7 @@ contract PlayStringTest is Test {
         string memory target = "ab";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -329,6 +349,7 @@ contract PlayStringTest is Test {
         string memory target = "acb";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -336,13 +357,16 @@ contract PlayStringTest is Test {
         string memory target = "abc";
         string memory pattern = "/a b c/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
     function testRegexLiteralMatchingTwentyTwo() public {
-        string memory target = "a\nbcabcabc";
+        string memory target = "a\nbcabcabc"; // at idx 6 it's c
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(patternMatchedData.stringLastMatchedCharIndex, 6);
+        assertEq(string(abi.encodePacked("/", patternMatchedData.patternMatchedString, "/")), pattern);
         printOutput(patternMatchedData);
     }
 
@@ -350,6 +374,7 @@ contract PlayStringTest is Test {
         string memory target = "a\tbc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -357,6 +382,7 @@ contract PlayStringTest is Test {
         string memory target = "a\\tbc";
         string memory pattern = "/a\\tbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -364,6 +390,7 @@ contract PlayStringTest is Test {
         string memory target = "a\\nbc";
         string memory pattern = "/a\\nbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -372,6 +399,7 @@ contract PlayStringTest is Test {
         string memory target = "a\\vbc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -380,6 +408,7 @@ contract PlayStringTest is Test {
         string memory target = "a\\fbc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -387,6 +416,7 @@ contract PlayStringTest is Test {
         string memory target = "a\rbc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -394,6 +424,7 @@ contract PlayStringTest is Test {
         string memory target = "a\rbc";
         string memory pattern = "/a\rbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -401,6 +432,7 @@ contract PlayStringTest is Test {
         string memory target = "a\\rbc";
         string memory pattern = "/a\\rbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -408,6 +440,7 @@ contract PlayStringTest is Test {
         string memory target = "a\nbc";
         string memory pattern = "/a\nbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -415,6 +448,7 @@ contract PlayStringTest is Test {
         string memory target = "a\tbc";
         string memory pattern = "/a\tbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -425,6 +459,7 @@ contract PlayStringTest is Test {
         string memory target = "\uFEFFabc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(abi.encodePacked("/", patternMatchedData.patternMatchedString, "/")), pattern);
         printOutput(patternMatchedData);
     }
 
@@ -432,6 +467,7 @@ contract PlayStringTest is Test {
         string memory target = "\\uabc";
         string memory pattern = "/\\uabc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -439,6 +475,7 @@ contract PlayStringTest is Test {
         string memory target = "a\r\nbc";
         string memory pattern = "/a\rbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -446,6 +483,7 @@ contract PlayStringTest is Test {
         string memory target = "a\r\nbc";
         string memory pattern = "/a\nbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -453,6 +491,7 @@ contract PlayStringTest is Test {
         string memory target = "a\r\nbc";
         string memory pattern = "/a\r\nbc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -460,6 +499,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x00bc"; // NULL
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -467,6 +507,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x07bc"; // BEL
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -474,6 +515,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x06bc"; // ACK
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -481,6 +523,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x05bc"; // ENQ
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -488,6 +531,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x1Abc"; // SUB
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -495,6 +539,7 @@ contract PlayStringTest is Test {
         string memory target = "a\x1Bbc"; // ESC
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -502,6 +547,7 @@ contract PlayStringTest is Test {
         string memory target = "&amp;abc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -509,6 +555,7 @@ contract PlayStringTest is Test {
         string memory target = "&lt;abc&gt;";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertNotEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -516,6 +563,7 @@ contract PlayStringTest is Test {
         string memory target = "ab\\c";
         string memory pattern = "/ab\\c/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(patternMatchedData.patternMatchedString), string(patternMatchedData.mainString));
         printOutput(patternMatchedData);
     }
 
@@ -523,6 +571,7 @@ contract PlayStringTest is Test {
         string memory target = "abc > file.sol";
         string memory pattern = "/abc > f/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        assertEq(string(abi.encodePacked("/", patternMatchedData.patternMatchedString, "/")), pattern);
         printOutput(patternMatchedData);
     }
 
@@ -552,6 +601,13 @@ contract PlayStringTest is Test {
     function testRegexDotMetacharacterFour() public {
         string memory target = "\\ab";
         string memory pattern = "/\\\\.b/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterFive() public {
+        string memory target = "a.";
+        string memory pattern = "/.\\./";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }
