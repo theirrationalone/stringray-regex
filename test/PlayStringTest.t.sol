@@ -591,23 +591,102 @@ contract PlayStringTest is Test {
     }
 
     function testRegexDotMetacharacterThree() public {
-        // string memory target = "\n";
-        string memory target = "\r";
-        string memory pattern = "/./";
-        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
-        printOutput(patternMatchedData);
-    }
-
-    function testRegexDotMetacharacterFour() public {
+        // target = "\a"; // special seq \b: throws invalid escape seqence in solidity
         string memory target = "\\ab";
         string memory pattern = "/\\\\.b/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }
 
-    function testRegexDotMetacharacterFive() public {
+    function testRegexDotMetacharacterFour() public {
         string memory target = "a.";
         string memory pattern = "/.\\./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterFive() public {
+        string memory target = "\n";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterSix() public {
+        string memory target = "\n\r";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterSeven() public {
+        string memory target = "\r\n";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterEight() public {
+        string memory target = "\t";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterNine() public {
+        string memory target = " ";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterTen() public {
+        // target = "\b"; // special seq \b: throws invalid escape seqence in solidity
+        string memory target = "\\b";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterEleven() public {
+        // target = "\0"; // special seq \0: throws invalid escape seqence in solidity
+        string memory target = "\\0";
+        string memory pattern = "/.0/";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterTwelve() public {
+        string memory target = "\u200B";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterThirteen() public {
+        string memory target = "\u200D";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterFourteen() public {
+        string memory target = "\u200C";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterFifteen() public {
+        string memory target = "\uFEFF";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexQuestionMarkMetacharacterOne() public {
+        string memory target = "ab";
+        string memory pattern = "/ab?/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }

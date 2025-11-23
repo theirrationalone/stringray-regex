@@ -394,6 +394,7 @@ library Stringray {
         PatternIdentifier memory patternIdentifier;
 
         for (uint256 i = 1; i < patternInBytes.length - 1;) {
+            console2.log("back to regex, remaining string length: ", patternMatchedData.remainingString.length);
             if (patternMatchedData.remainingString.length == 0) {
                 uint256 zero = 0;
                 patternMatchedData.patternMatchedString = bytes("");
@@ -496,6 +497,7 @@ library Stringray {
                 patternSpecialSeqEndingIdx: _currentPatternIndex
             });
         } else if (uint8(_pattern[_currentPatternIndex]) == QUESTION_MARK) {
+            console2.log("in question mark");
             _patternIdentifier = PatternIdentifier({
                 patternNameHash: QUANTIFIER_QUESTION_MARK,
                 patternSpecialSeqStartingIdx: _currentPatternIndex,
@@ -765,12 +767,16 @@ library Stringray {
         }
 
         if (_patternHash == QUANTIFIER_QUESTION_MARK) {
+            console2.log("in question mark in patterns func");
             (bytes32 _atomPatternHash, bytes memory lastPatternAtom, bool isHashEmpty) =
                 findQuantifierLastAtom(_patternMatchedData);
 
+            console2.log("last atom: ", string(lastPatternAtom));
             if (isHashEmpty) {
+                console2.log("hash is empty");
                 return _patternMatchedData;
             }
+            console2.log("not empty");
 
             if (_atomPatternHash == CHARACTER_CLASSES) {
                 _patternMatchedData.patternMatchedChar = bytes1("");
@@ -787,16 +793,23 @@ library Stringray {
             }
 
             if (_atomPatternHash == SINGLE_CHARACTER) {
-                _patternMatchedData.patternMatchedChar = bytes1("");
-                _patternMatchedData.patternMatchedString = new bytes(0);
-                _patternMatchedData.stringLastMatchedCharIndex = -1;
-
+                console2.log("previous hash was a single character");
+                console2.log("remaining string: ", string(_string));
+                console2.log(
+                    "_patternMatchedData.stringLastMatchedCharIndex: ", _patternMatchedData.stringLastMatchedCharIndex
+                );
                 bytes1 targetChar = _string[0];
 
                 matchFound = findSingleChar(_startIndex - 1, _pattern, targetChar, false);
 
                 if (matchFound) {
+                    console2.log("match found organizing output");
                     _patternMatchedData = organizeOutput(0, _string, _patternMatchedData);
+                    _patternMatchedData.stringLastMatchedCharIndex += 1;
+                } else {
+                    _patternMatchedData.patternMatchedChar = bytes1("");
+                    _patternMatchedData.patternMatchedString = new bytes(0);
+                    _patternMatchedData.stringLastMatchedCharIndex = -1;
                 }
             }
         }
