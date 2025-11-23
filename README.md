@@ -5,3 +5,4 @@
 ## Stringray
 
 1. **Literals Sequences Done ✅**
+2. Done Literals with dot meta-character ✅

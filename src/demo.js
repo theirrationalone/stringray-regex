@@ -18,11 +18,11 @@
 // console.log(`${string}: \/\\W*\/: `, /\W*/.test(string));
 
 // const newString = "anil10924theirrationalone-KUSHA";
-const newString = "a\rbc";
+const newString = "\\\\";
 
 // \d not working in solidity
 // console.log(/\d/.exec(newString));
 
 // . not working in solidity
 console.log("string: ", newString);
-console.log(/a\rbc/.exec(newString));
+console.log(/\\\\/.exec(newString));

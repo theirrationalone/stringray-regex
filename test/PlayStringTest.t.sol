@@ -526,17 +526,32 @@ contract PlayStringTest is Test {
         printOutput(patternMatchedData);
     }
 
-    function testRegexDotMetacharacterFirst() public {
+    function testRegexDotMetacharacterOne() public {
         string memory target = "abc";
         string memory pattern = "/./";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }
 
-    function testRegexDotMetacharacterSecond() public {
+    function testRegexDotMetacharacterTwo() public {
         // string memory target = "\n";
         string memory target = "\r";
         string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterThree() public {
+        // string memory target = "\n";
+        string memory target = "\r";
+        string memory pattern = "/./";
+        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        printOutput(patternMatchedData);
+    }
+
+    function testRegexDotMetacharacterFour() public {
+        string memory target = "\\ab";
+        string memory pattern = "/\\\\.b/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
         printOutput(patternMatchedData);
     }
