@@ -339,9 +339,36 @@ library Stringray {
     bytes32 private constant META_CHARACTER = keccak256(abi.encodePacked("META_CHARACTER"));
     bytes32 private constant ESCAPE_CHARACTER = keccak256(abi.encodePacked("ESCAPE_CHARACTER"));
 
-    struct PatternMatchedData {}
+    struct PatternMatchedData {
+        bytes mainTargetString;
+        bytes mainPatternString;
+        bytes remainingMainString;
+        bytes remainingPatternString;
+        uint256 lastPatternStartingSpecialSeqIndex;
+        uint256 lastPatternEndingSpecialSeqIndex;
+        uint256 secondLastPatternStartingSpecialSeqIndex;
+        uint256 secondLastPatternEndingSpecialSeqIndex;
+        bytes32 lastPatternHash;
+        bytes32 secondlastPatternHash;
+        bytes lastPatternAtom;
+        bytes secondLastPatternAtom;
+        uint256 lastPatternAtomStartingIndex;
+        uint256 lastPatternAtomEndingIndex;
+        uint256 secondLastPatternAtomStartingIndex;
+        uint256 secondLastPatternAtomEndingIndex;
+        uint256 targetStringFirstMatchedCharIndex;
+        uint256 targetStringLastMatchedCharIndex;
+        bytes targetStringFirstMatchedChar;
+        bytes targetStringLasttMatchedChar;
+        uint256 trimmedStringLength;
+        bool matchedWithPreceedingAtom;
+    }
 
-    struct PatternIdentifier {}
+    struct PatternIdentifier {
+        bytes32 patternNameHash;
+        uint256 patternSpecialSeqStartingIdx;
+        uint256 patternSpecialSeqEndingIdx;
+    }
 
     function regex(string memory _proposedString, string memory _pattern)
         internal
