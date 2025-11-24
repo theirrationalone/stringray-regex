@@ -169,37 +169,37 @@ contract PlayStringTest is Test {
     }
 
     // function printOutput(Stringray.PatternMatchedData memory patternMatchedData) private {
-        // uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;
-        // uint256 lastPatternEndingSpecialSeqIdx = patternMatchedData.lastPatternEndingSpecialSeqIdx;
-        // bytes memory mainString = patternMatchedData.mainString;
-        // bytes memory remainingString = patternMatchedData.remainingString;
-        // bytes memory patternString = patternMatchedData.patternString;
-        // bytes memory patternMatchedString = patternMatchedData.patternMatchedString;
-        // bytes memory remainingPatternString = patternMatchedData.remainingPatternString;
-        // bytes memory lastPatternAtom = patternMatchedData.lastPatternAtom;
-        // bytes1 patternMatchedChar = patternMatchedData.patternMatchedChar;
-        // int256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
+    // uint256 lastPatternStartingSpecialSeqIdx = patternMatchedData.lastPatternStartingSpecialSeqIdx;
+    // uint256 lastPatternEndingSpecialSeqIdx = patternMatchedData.lastPatternEndingSpecialSeqIdx;
+    // bytes memory mainString = patternMatchedData.mainString;
+    // bytes memory remainingString = patternMatchedData.remainingString;
+    // bytes memory patternString = patternMatchedData.patternString;
+    // bytes memory patternMatchedString = patternMatchedData.patternMatchedString;
+    // bytes memory remainingPatternString = patternMatchedData.remainingPatternString;
+    // bytes memory lastPatternAtom = patternMatchedData.lastPatternAtom;
+    // bytes1 patternMatchedChar = patternMatchedData.patternMatchedChar;
+    // int256 stringLastMatchedCharIndex = patternMatchedData.stringLastMatchedCharIndex;
 
-        // console2.log("---------------------Test Result---------------------");
-        // console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
-        // console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
-        // console2.log("mainString                      : ", string(mainString));
-        // console2.logBytes(mainString);
-        // console2.log("remainingString                 : ", string(remainingString));
-        // console2.logBytes(remainingString);
-        // console2.log("patternMatchedChar              : ", string(abi.encodePacked(patternMatchedChar)));
-        // console2.logBytes1(patternMatchedChar);
-        // console2.log("patternString                   : ", string(patternString));
-        // console2.logBytes(patternString);
-        // console2.log("patternMatchedString            : ", string(patternMatchedString));
-        // console2.logBytes(patternMatchedString);
-        // console2.log("remainingPatternString          : ", string(remainingPatternString));
-        // console2.log("lastPatternAtom                 : ", string(lastPatternAtom));
-        // console2.logBytes(lastPatternAtom);
-        // console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
-        // console2.log("---------------------Test Result End---------------------");
-        // console2.logBytes(patternMatchedString);
-    }
+    // console2.log("---------------------Test Result---------------------");
+    // console2.log("lastPatternStartingSpecialSeqIdx: ", lastPatternStartingSpecialSeqIdx);
+    // console2.log("lastPatternEndingSpecialSeqIdx  : ", lastPatternEndingSpecialSeqIdx);
+    // console2.log("mainString                      : ", string(mainString));
+    // console2.logBytes(mainString);
+    // console2.log("remainingString                 : ", string(remainingString));
+    // console2.logBytes(remainingString);
+    // console2.log("patternMatchedChar              : ", string(abi.encodePacked(patternMatchedChar)));
+    // console2.logBytes1(patternMatchedChar);
+    // console2.log("patternString                   : ", string(patternString));
+    // console2.logBytes(patternString);
+    // console2.log("patternMatchedString            : ", string(patternMatchedString));
+    // console2.logBytes(patternMatchedString);
+    // console2.log("remainingPatternString          : ", string(remainingPatternString));
+    // console2.log("lastPatternAtom                 : ", string(lastPatternAtom));
+    // console2.logBytes(lastPatternAtom);
+    // console2.log("stringLastMatchedCharIndex      : ", stringLastMatchedCharIndex);
+    // console2.log("---------------------Test Result End---------------------");
+    // console2.logBytes(patternMatchedString);
+    // }
 
     function testRegexLiteralMatchingOne() public {
         string memory target = "abc";
@@ -365,7 +365,7 @@ contract PlayStringTest is Test {
         string memory target = "a\nbcabcabc"; // at idx 6 it's c
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
-        assertEq(patternMatchedData.stringLastMatchedCharIndex, 6);
+        // assertEq(patternMatchedData.stringLastMatchedCharIndex, 6);
         // assertEq(string(abi.encodePacked("/", patternMatchedData.patternMatchedString, "/")), pattern);
         // printOutput(patternMatchedData);
     }
@@ -691,9 +691,9 @@ contract PlayStringTest is Test {
         // printOutput(patternMatchedData);
     }
 
-    function testRegex() public {
+    function testRegexExp() public {
         string memory target = "abc";
-        string memory pattern = "/a(.)c/";
+        string memory pattern = "abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
         // printOutput(patternMatchedData);

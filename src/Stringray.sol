@@ -342,26 +342,28 @@ library Stringray {
     struct PatternMatchedData {
         bytes mainTargetString;
         bytes mainPatternString;
+        bytes orgPatternString;
         bytes remainingMainString;
         bytes remainingPatternString;
-        uint256 lastPatternStartingSpecialSeqIndex;
-        uint256 lastPatternEndingSpecialSeqIndex;
-        uint256 secondLastPatternStartingSpecialSeqIndex;
-        uint256 secondLastPatternEndingSpecialSeqIndex;
+        int256 lastPatternStartingSpecialSeqIndex;
+        int256 lastPatternEndingSpecialSeqIndex;
+        int256 secondLastPatternStartingSpecialSeqIndex;
+        int256 secondLastPatternEndingSpecialSeqIndex;
         bytes32 lastPatternHash;
         bytes32 secondlastPatternHash;
         bytes lastPatternAtom;
         bytes secondLastPatternAtom;
-        uint256 lastPatternAtomStartingIndex;
-        uint256 lastPatternAtomEndingIndex;
-        uint256 secondLastPatternAtomStartingIndex;
-        uint256 secondLastPatternAtomEndingIndex;
-        uint256 targetStringFirstMatchedCharIndex;
-        uint256 targetStringLastMatchedCharIndex;
-        bytes targetStringFirstMatchedChar;
-        bytes targetStringLasttMatchedChar;
+        int256 lastPatternAtomStartingIndex;
+        int256 lastPatternAtomEndingIndex;
+        int256 secondLastPatternAtomStartingIndex;
+        int256 secondLastPatternAtomEndingIndex;
+        int256 targetStringFirstMatchedCharIndex;
+        int256 targetStringLastMatchedCharIndex;
+        bytes1 targetStringFirstMatchedChar;
+        bytes1 targetStringLasttMatchedChar;
         uint256 trimmedStringLength;
         bool matchedWithPreceedingAtom;
+        bool isPatternFullMatch;
     }
 
     struct PatternIdentifier {
@@ -378,12 +380,55 @@ library Stringray {
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
 
-        if (
-            uint8(patternInBytes[0]) != FORWARD_SLASH
-                || uint8(patternInBytes[patternInBytes.length - 1]) != FORWARD_SLASH
-        ) {
-            return patternMatchedData;
+        uint8 patternFirstChar = uint8(patternInBytes[0]);
+        uint8 patternLastChar = uint8(patternInBytes[patternInBytes.length - 1]);
+
+        if (patternFirstChar != FORWARD_SLASH || patternLastChar != FORWARD_SLASH) {
+            string memory errorMsg = string(
+                abi.encodePacked(
+                    "SyntaxError: Invalid regular expression: ",
+                    _pattern,
+                    ": missing ",
+                    string(abi.encodePacked(FORWARD_SLASH))
+                )
+            );
+            revert(errorMsg);
         }
+
+        patternMatchedData = initializePatternMatchedData(stringInBytes, patternInBytes);
+    }
+
+    function initializePatternMatchedData(bytes memory _string, bytes memory _pattern)
+        private
+        pure
+        returns (PatternMatchedData memory patternMatchedData)
+    {
+        bytes memory trimmedPattern = trimString(_pattern, 1, -1);
+        patternMatchedData.mainTargetString = _string;
+        patternMatchedData.mainPatternString = trimmedPattern;
+        patternMatchedData.orgPatternString = _pattern;
+        patternMatchedData.remainingMainString = _string;
+        patternMatchedData.remainingPatternString = trimmedPattern;
+        patternMatchedData.lastPatternStartingSpecialSeqIndex = -1;
+        patternMatchedData.lastPatternEndingSpecialSeqIndex = -1;
+        patternMatchedData.secondLastPatternStartingSpecialSeqIndex = -1;
+        patternMatchedData.secondLastPatternEndingSpecialSeqIndex = -1;
+        patternMatchedData.lastPatternAtomStartingIndex = -1;
+        patternMatchedData.lastPatternAtomEndingIndex = -1;
+        patternMatchedData.secondLastPatternAtomStartingIndex = -1;
+        patternMatchedData.secondLastPatternAtomEndingIndex = -1;
+        patternMatchedData.targetStringFirstMatchedCharIndex = -1;
+        patternMatchedData.targetStringLastMatchedCharIndex = -1;
+        // @note: members below are set to their default values
+        // patternMatchedData.lastPatternHash = bytes32("");
+        // patternMatchedData.secondlastPatternHash = bytes32("");
+        // patternMatchedData.lastPatternAtom = bytes("");
+        // patternMatchedData.secondLastPatternAtom = bytes("");
+        // patternMatchedData.targetStringFirstMatchedChar = bytes1("");
+        // patternMatchedData.targetStringLasttMatchedChar = bytes1("");
+        // patternMatchedData.trimmedStringLength = 0;
+        // patternMatchedData.matchedWithPreceedingAtom = false;
+        // patternMatchedData.isPatternFullMatch = false;
     }
 
     function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
