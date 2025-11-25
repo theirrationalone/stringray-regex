@@ -345,14 +345,20 @@ library Stringray {
         bytes orgPatternString;
         bytes remainingMainString;
         bytes remainingPatternString;
+        int256 currentPatternStartingSpecialSeqIndex;
         int256 lastPatternStartingSpecialSeqIndex;
-        int256 lastPatternEndingSpecialSeqIndex;
         int256 secondLastPatternStartingSpecialSeqIndex;
+        int256 currentPatternEndingSpecialSeqIndex;
+        int256 lastPatternEndingSpecialSeqIndex;
         int256 secondLastPatternEndingSpecialSeqIndex;
+        bytes32 currentPatternHash;
         bytes32 lastPatternHash;
         bytes32 secondlastPatternHash;
+        bytes currentPatternAtom;
         bytes lastPatternAtom;
         bytes secondLastPatternAtom;
+        int256 currentPatternAtomStartingIndex;
+        int256 currentPatternAtomEndingIndex;
         int256 lastPatternAtomStartingIndex;
         int256 lastPatternAtomEndingIndex;
         int256 secondLastPatternAtomStartingIndex;
@@ -361,9 +367,11 @@ library Stringray {
         int256 targetStringLastMatchedCharIndex;
         bytes1 targetStringFirstMatchedChar;
         bytes1 targetStringLasttMatchedChar;
+        bytes targetStringMatchedString;
         uint256 trimmedStringLength;
         bool isMatchedWithPreceedingAtom;
         bool isPatternFullMatch;
+        bool isCurrentPatternMatch;
     }
 
     function regex(string memory _proposedString, string memory _pattern)
@@ -400,22 +408,19 @@ library Stringray {
             return patternMatchedData;
         }
 
-        printPatternMatchedData(patternMatchedData);
-
         patternMatchedData = processPatternMatching(patternMatchedData);
+        printPatternMatchedData(patternMatchedData);
     }
 
     function processPatternMatching(PatternMatchedData memory patternMatchedData)
         private
         pure
-        returns (PatternMatchedData memory _patternMatchedData)
+        returns (PatternMatchedData memory)
     {
         bytes memory pattern = patternMatchedData.mainPatternString;
-
-        for (uint256 patternCurrentCharIndex = 0; patternCurrentCharIndex < pattern.length;) {
+        for (int256 patternCurrentCharIndex = 0; patternCurrentCharIndex < int256(pattern.length);) {
             patternMatchedData = identifyPatternSequence(patternMatchedData, patternCurrentCharIndex);
-
-            if (patternMatchedData.lastPatternHash == bytes32(0)) {
+            if (patternMatchedData.currentPatternHash == bytes32(0)) {
                 bytes memory leftmostPatternString = trimString(
                     patternMatchedData.orgPatternString, 0, patternMatchedData.lastPatternStartingSpecialSeqIndex + 1
                 );
@@ -438,14 +443,139 @@ library Stringray {
                     string(abi.encodePacked("PatternError: Invalid pattern sequence: ", string(errorInPattern)));
                 revert(errorMsg);
             }
+
+            patternMatchedData = matchPatternSequence(patternMatchedData);
+            patternCurrentCharIndex++;
         }
+        return patternMatchedData;
     }
 
-    function identifyPatternSequence(PatternMatchedData memory patternMatchedData, uint256 patternCurrentCharIndex)
+    function matchPatternSequence(PatternMatchedData memory patternMatchedData)
         private
         pure
         returns (PatternMatchedData memory _patternMatchedData)
     {
+        if (patternMatchedData.currentPatternHash == SINGLE_CHARACTER) {
+            _patternMatchedData = singleCharacterFinder(
+                patternMatchedData, uint256(patternMatchedData.currentPatternStartingSpecialSeqIndex), false
+            );
+        }
+    }
+
+    function singleCharacterFinder(PatternMatchedData memory _patternMatchedData, uint256 _startIndex, bool repeat)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bool matchFound;
+        for (uint256 s = 0; s < _patternMatchedData.remainingMainString.length;) {
+            bytes1 targetChar = _patternMatchedData.remainingMainString[s];
+            matchFound = findSingleChar(_startIndex, _patternMatchedData.mainPatternString, targetChar, false);
+            if (matchFound) {
+                int256 targetCharIdx = indexOf(
+                    string(_patternMatchedData.mainTargetString),
+                    string(abi.encodePacked(targetChar)),
+                    _patternMatchedData.trimmedStringLength // lays bug: infinite loop MOOG, on removing it
+                );
+                if (targetCharIdx > -1) {
+                    _patternMatchedData = organizeOutput(
+                        uint256(targetCharIdx), _patternMatchedData.mainTargetString, _patternMatchedData
+                    );
+                }
+
+                if (!repeat) {
+                    break;
+                }
+            } else {
+                if (_patternMatchedData.targetStringMatchedString.length > 0 && !repeat) {
+                    console2.log("not matched resetting...");
+                    _patternMatchedData.targetStringMatchedString = new bytes(0);
+                    _patternMatchedData.targetStringFirstMatchedChar = bytes1("");
+                    _patternMatchedData.targetStringLasttMatchedChar = bytes1("");
+                    _patternMatchedData.targetStringFirstMatchedCharIndex = -1;
+                    _patternMatchedData.targetStringLastMatchedCharIndex = -1;
+                    break;
+                }
+
+                if (repeat) {
+                    break;
+                }
+
+                s++;
+            }
+        }
+
+        return _patternMatchedData;
+    }
+
+    function findSingleChar(uint256 _singleBoundIndex, bytes memory _pattern, bytes1 _targetChar, bool _negation)
+        private
+        pure
+        returns (bool)
+    {
+        uint8 singleBoundUnicode = uint8(_pattern[_singleBoundIndex]);
+        return _findSingleChar(singleBoundUnicode, _targetChar, _negation);
+    }
+
+    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation)
+        private
+        pure
+        returns (bool)
+    {
+        if (_negation) {
+            if (uint8(_targetChar) != singleBoundUnicode) {
+                return true;
+            }
+            return false;
+        }
+
+        if (uint8(_targetChar) == singleBoundUnicode) {
+            return true;
+        }
+        return false;
+    }
+
+    function identifyPatternSequence(PatternMatchedData memory patternMatchedData, int256 patternCurrentCharIndex)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        bytes1 currentPatternChar = patternMatchedData.mainPatternString[uint256(patternCurrentCharIndex)];
+        // @note: start implementing from here...
+        if (uint8(currentPatternChar) == QUESTION_MARK) {
+            patternMatchedData.secondlastPatternHash = patternMatchedData.lastPatternHash;
+            patternMatchedData.lastPatternHash = patternMatchedData.currentPatternHash;
+            patternMatchedData.currentPatternHash = QUANTIFIER_QUESTION_MARK;
+
+            patternMatchedData.secondLastPatternStartingSpecialSeqIndex =
+                patternMatchedData.lastPatternStartingSpecialSeqIndex;
+            patternMatchedData.secondLastPatternEndingSpecialSeqIndex =
+                patternMatchedData.lastPatternEndingSpecialSeqIndex;
+
+            patternMatchedData.lastPatternStartingSpecialSeqIndex =
+                patternMatchedData.currentPatternStartingSpecialSeqIndex;
+            patternMatchedData.lastPatternEndingSpecialSeqIndex = patternMatchedData.currentPatternEndingSpecialSeqIndex;
+
+            patternMatchedData.currentPatternStartingSpecialSeqIndex = patternCurrentCharIndex;
+            patternMatchedData.currentPatternEndingSpecialSeqIndex = patternCurrentCharIndex;
+        } else {
+            patternMatchedData.secondlastPatternHash = patternMatchedData.lastPatternHash;
+            patternMatchedData.lastPatternHash = patternMatchedData.currentPatternHash;
+            patternMatchedData.currentPatternHash = SINGLE_CHARACTER;
+
+            patternMatchedData.secondLastPatternStartingSpecialSeqIndex =
+                patternMatchedData.lastPatternStartingSpecialSeqIndex;
+            patternMatchedData.secondLastPatternEndingSpecialSeqIndex =
+                patternMatchedData.lastPatternEndingSpecialSeqIndex;
+
+            patternMatchedData.lastPatternStartingSpecialSeqIndex =
+                patternMatchedData.currentPatternStartingSpecialSeqIndex;
+            patternMatchedData.lastPatternEndingSpecialSeqIndex = patternMatchedData.currentPatternEndingSpecialSeqIndex;
+
+            patternMatchedData.currentPatternStartingSpecialSeqIndex = patternCurrentCharIndex;
+            patternMatchedData.currentPatternEndingSpecialSeqIndex = patternCurrentCharIndex;
+        }
+
         return patternMatchedData;
     }
 
@@ -460,10 +590,14 @@ library Stringray {
         patternMatchedData.orgPatternString = _pattern;
         patternMatchedData.remainingMainString = _string;
         patternMatchedData.remainingPatternString = trimmedPattern;
+        patternMatchedData.currentPatternStartingSpecialSeqIndex = -1;
+        patternMatchedData.currentPatternEndingSpecialSeqIndex = -1;
         patternMatchedData.lastPatternStartingSpecialSeqIndex = -1;
         patternMatchedData.lastPatternEndingSpecialSeqIndex = -1;
         patternMatchedData.secondLastPatternStartingSpecialSeqIndex = -1;
         patternMatchedData.secondLastPatternEndingSpecialSeqIndex = -1;
+        patternMatchedData.currentPatternAtomStartingIndex = -1;
+        patternMatchedData.currentPatternAtomEndingIndex = -1;
         patternMatchedData.lastPatternAtomStartingIndex = -1;
         patternMatchedData.lastPatternAtomEndingIndex = -1;
         patternMatchedData.secondLastPatternAtomStartingIndex = -1;
@@ -472,37 +606,71 @@ library Stringray {
         patternMatchedData.targetStringLastMatchedCharIndex = -1;
 
         // @note: members below are set to their default values
+        // patternMatchedData.currentPatternHash = bytes32("");
         // patternMatchedData.lastPatternHash = bytes32("");
         // patternMatchedData.secondlastPatternHash = bytes32("");
+        // patternMatchedData.currentPatternAtom = bytes("");
         // patternMatchedData.lastPatternAtom = bytes("");
         // patternMatchedData.secondLastPatternAtom = bytes("");
         // patternMatchedData.targetStringFirstMatchedChar = bytes1("");
         // patternMatchedData.targetStringLasttMatchedChar = bytes1("");
+        // patternMatchedData.targetStringMatchedString = bytes("");
         // patternMatchedData.trimmedStringLength = 0;
         // patternMatchedData.isMatchedWithPreceedingAtom = false;
         // patternMatchedData.isPatternFullMatch = false;
+        // patternMatchedData.isCurrentPatternMatch = false;
     }
 
     function printPatternMatchedData(PatternMatchedData memory patternMatchedData) private pure {
+        console2.log("-------------------------Start------------------------------");
         console2.log("patternMatchedData.mainTargetString      : ", string(patternMatchedData.mainTargetString));
         console2.log("patternMatchedData.mainPatternString     : ", string(patternMatchedData.mainPatternString));
         console2.log("patternMatchedData.orgPatternString      : ", string(patternMatchedData.orgPatternString));
         console2.log("patternMatchedData.remainingMainString   : ", string(patternMatchedData.remainingMainString));
         console2.log("patternMatchedData.remainingPatternString: ", string(patternMatchedData.remainingPatternString));
         console2.log(
-            "patternMatchedData.lastPatternStartingSpecialSeqIndex: ",
-            patternMatchedData.lastPatternStartingSpecialSeqIndex
+            "patternMatchedData.currentPatternStartingSpecialSeqIndex: ",
+            patternMatchedData.currentPatternStartingSpecialSeqIndex
         );
         console2.log(
-            "patternMatchedData.lastPatternEndingSpecialSeqIndex: ", patternMatchedData.lastPatternEndingSpecialSeqIndex
+            "patternMatchedData.currentPatternEndingSpecialSeqIndex: ",
+            patternMatchedData.currentPatternEndingSpecialSeqIndex
+        );
+        console2.log(
+            "patternMatchedData.lastPatternStartingSpecialSeqIndex: ",
+            patternMatchedData.lastPatternStartingSpecialSeqIndex
         );
         console2.log(
             "patternMatchedData.secondLastPatternStartingSpecialSeqIndex: ",
             patternMatchedData.secondLastPatternStartingSpecialSeqIndex
         );
         console2.log(
+            "patternMatchedData.lastPatternEndingSpecialSeqIndex: ", patternMatchedData.lastPatternEndingSpecialSeqIndex
+        );
+        console2.log(
             "patternMatchedData.secondLastPatternEndingSpecialSeqIndex: ",
             patternMatchedData.secondLastPatternEndingSpecialSeqIndex
+        );
+        console2.log("-----------");
+        console2.log("patternMatchedData.currentPatternHash: ");
+        console2.logBytes32(patternMatchedData.currentPatternHash);
+        console2.log("-----------");
+        console2.log("-----------");
+        console2.log("patternMatchedData.lastPatternHash: ");
+        console2.logBytes32(patternMatchedData.lastPatternHash);
+        console2.log("-----------");
+        console2.log("-----------");
+        console2.log("patternMatchedData.secondlastPatternHash: ");
+        console2.logBytes32(patternMatchedData.secondlastPatternHash);
+        console2.log("-----------");
+        console2.log("patternMatchedData.currentPatternAtom: ", string(patternMatchedData.currentPatternAtom));
+        console2.log("patternMatchedData.lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
+        console2.log("patternMatchedData.secondLastPatternAtom: ", string(patternMatchedData.secondLastPatternAtom));
+        console2.log(
+            "patternMatchedData.currentPatternAtomStartingIndex: ", patternMatchedData.currentPatternAtomStartingIndex
+        );
+        console2.log(
+            "patternMatchedData.currentPatternAtomEndingIndex: ", patternMatchedData.currentPatternAtomEndingIndex
         );
         console2.log(
             "patternMatchedData.lastPatternAtomStartingIndex: ", patternMatchedData.lastPatternAtomStartingIndex
@@ -529,8 +697,6 @@ library Stringray {
             "patternMatchedData.secondlastPatternHash: ",
             string(abi.encodePacked(patternMatchedData.secondlastPatternHash))
         );
-        console2.log("patternMatchedData.lastPatternAtom: ", string(patternMatchedData.lastPatternAtom));
-        console2.log("patternMatchedData.secondLastPatternAtom: ", string(patternMatchedData.secondLastPatternAtom));
         console2.log(
             "patternMatchedData.targetStringFirstMatchedChar: ",
             string(abi.encodePacked(patternMatchedData.targetStringFirstMatchedChar))
@@ -539,9 +705,62 @@ library Stringray {
             "patternMatchedData.targetStringLasttMatchedChar: ",
             string(abi.encodePacked(patternMatchedData.targetStringLasttMatchedChar))
         );
+        console2.log(
+            "patternMatchedData.targetStringMatchedString: ", string(patternMatchedData.targetStringMatchedString)
+        );
         console2.log("patternMatchedData.trimmedStringLength: ", patternMatchedData.trimmedStringLength);
         console2.log("patternMatchedData.isMatchedWithPreceedingAtom: ", patternMatchedData.isMatchedWithPreceedingAtom);
         console2.log("patternMatchedData.isPatternFullMatch: ", patternMatchedData.isPatternFullMatch);
+        console2.log("patternMatchedData.isCurrentPatternMatch: ", patternMatchedData.isCurrentPatternMatch);
+        console2.log("------------------------End-------------------------------");
+    }
+
+    function organizeOutput(uint256 foundCharIndex, bytes memory _string, PatternMatchedData memory _patternMatchedData)
+        private
+        pure
+        returns (PatternMatchedData memory)
+    {
+        if (_patternMatchedData.targetStringFirstMatchedCharIndex == -1) {
+            _patternMatchedData.targetStringFirstMatchedCharIndex = int256(foundCharIndex);
+            _patternMatchedData.targetStringFirstMatchedChar = _string[foundCharIndex];
+        }
+
+        _patternMatchedData.targetStringLastMatchedCharIndex = int256(foundCharIndex);
+        _patternMatchedData.targetStringLasttMatchedChar = _string[foundCharIndex];
+
+        _patternMatchedData.targetStringMatchedString = abi.encodePacked(
+            string(_patternMatchedData.targetStringMatchedString), string(abi.encodePacked(_string[foundCharIndex]))
+        );
+
+        _patternMatchedData.remainingMainString = trimString(_string, foundCharIndex + 1, -1);
+
+        _patternMatchedData.trimmedStringLength = _string.length - _patternMatchedData.remainingMainString.length;
+
+        _patternMatchedData.secondLastPatternAtom = _patternMatchedData.lastPatternAtom;
+        _patternMatchedData.lastPatternAtom = _patternMatchedData.currentPatternAtom;
+
+        bytes memory newPatternAtom;
+        for (
+            int256 i = _patternMatchedData.currentPatternStartingSpecialSeqIndex;
+            i <= _patternMatchedData.currentPatternEndingSpecialSeqIndex;
+            i++
+        ) {
+            newPatternAtom = abi.encodePacked(newPatternAtom, _patternMatchedData.mainPatternString[uint256(i)]);
+        }
+        _patternMatchedData.currentPatternAtom = newPatternAtom;
+
+        _patternMatchedData.secondLastPatternAtomStartingIndex = _patternMatchedData.lastPatternAtomStartingIndex;
+        _patternMatchedData.secondLastPatternAtomEndingIndex = _patternMatchedData.lastPatternAtomEndingIndex;
+
+        _patternMatchedData.lastPatternAtomStartingIndex = _patternMatchedData.currentPatternAtomStartingIndex;
+        _patternMatchedData.lastPatternAtomEndingIndex = _patternMatchedData.currentPatternAtomEndingIndex;
+
+        _patternMatchedData.currentPatternAtomStartingIndex = _patternMatchedData.currentPatternStartingSpecialSeqIndex;
+        _patternMatchedData.currentPatternAtomEndingIndex = _patternMatchedData.currentPatternEndingSpecialSeqIndex;
+
+        _patternMatchedData.isMatchedWithPreceedingAtom = true;
+        _patternMatchedData.isCurrentPatternMatch = true;
+        return _patternMatchedData;
     }
 
     function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
