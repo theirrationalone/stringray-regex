@@ -693,7 +693,7 @@ contract PlayStringTest is Test {
 
     function testRegexExp() public {
         string memory target = "abc";
-        string memory pattern = "abc/";
+        string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
 
         // printOutput(patternMatchedData);
