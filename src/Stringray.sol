@@ -345,6 +345,8 @@ library Stringray {
         bytes orgPatternString;
         bytes remainingMainString;
         bytes remainingPatternString;
+        int256 firstPatternStartingSpecialSeqIndex;
+        int256 firstPatternEndingSpecialSeqIndex;
         int256 currentPatternStartingSpecialSeqIndex;
         int256 lastPatternStartingSpecialSeqIndex;
         int256 secondLastPatternStartingSpecialSeqIndex;
@@ -409,7 +411,6 @@ library Stringray {
         }
 
         patternMatchedData = processPatternMatching(patternMatchedData);
-        printPatternMatchedData(patternMatchedData);
     }
 
     function processPatternMatching(PatternMatchedData memory patternMatchedData)
@@ -445,6 +446,12 @@ library Stringray {
             }
 
             patternMatchedData = matchPatternSequence(patternMatchedData);
+
+            if (!patternMatchedData.isMatchedWithPreceedingAtom && patternMatchedData.remainingMainString.length > 0) {
+                patternCurrentCharIndex = 0;
+                continue;
+            }
+
             patternCurrentCharIndex++;
         }
         return patternMatchedData;
@@ -455,10 +462,13 @@ library Stringray {
         pure
         returns (PatternMatchedData memory _patternMatchedData)
     {
+        printPatternMatchedData(patternMatchedData);
         if (patternMatchedData.currentPatternHash == SINGLE_CHARACTER) {
             _patternMatchedData = singleCharacterFinder(
                 patternMatchedData, uint256(patternMatchedData.currentPatternStartingSpecialSeqIndex), false
             );
+
+            printPatternMatchedData(_patternMatchedData);
         }
     }
 
@@ -488,12 +498,32 @@ library Stringray {
                 }
             } else {
                 if (_patternMatchedData.targetStringMatchedString.length > 0 && !repeat) {
-                    console2.log("not matched resetting...");
                     _patternMatchedData.targetStringMatchedString = new bytes(0);
+
                     _patternMatchedData.targetStringFirstMatchedChar = bytes1("");
+                    _patternMatchedData.targetStringFirstMatchedCharIndex = -1;
+
                     _patternMatchedData.targetStringLasttMatchedChar = bytes1("");
                     _patternMatchedData.targetStringFirstMatchedCharIndex = -1;
+
                     _patternMatchedData.targetStringLastMatchedCharIndex = -1;
+
+                    _patternMatchedData.remainingMainString = trimString(_patternMatchedData.remainingMainString, s, -1);
+                    _patternMatchedData.secondLastPatternAtom = bytes("");
+                    _patternMatchedData.lastPatternAtom = bytes("");
+                    _patternMatchedData.currentPatternAtom = bytes("");
+
+                    _patternMatchedData.secondLastPatternAtomStartingIndex = -1;
+                    _patternMatchedData.secondLastPatternAtomEndingIndex = -1;
+
+                    _patternMatchedData.lastPatternAtomStartingIndex = -1;
+                    _patternMatchedData.lastPatternAtomEndingIndex = -1;
+
+                    _patternMatchedData.currentPatternAtomStartingIndex = -1;
+                    _patternMatchedData.currentPatternAtomEndingIndex = -1;
+
+                    _patternMatchedData.isMatchedWithPreceedingAtom = false;
+                    _patternMatchedData.isCurrentPatternMatch = false;
                     break;
                 }
 

@@ -699,7 +699,7 @@ contract PlayStringTest is Test {
     // }
 
     function testRegexStart() public {
-        string memory target = "ababc";
+        string memory target = "zababc";
         string memory pattern = "/abc/";
         Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
     }
