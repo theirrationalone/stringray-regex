@@ -327,7 +327,37 @@ library Stringray {
     uint8 private constant CLOSE_CURLY_BRACE = 125;
     uint8 private constant COMMA_SIGN = 44;
 
-    function regex(string memory _proposedString, string memory _pattern) internal pure {}
+    function regex(string memory _proposedString, string memory _pattern) internal pure {
+        validateRegex(_pattern);
+        bytes memory stringInBytes = bytes(_proposedString);
+        bytes memory patternInBytes = bytes(_pattern);
+    }
+
+    function validateRegex(string memory _pattern) private pure {
+        bytes memory patternInBytes = bytes(_pattern);
+        if (patternInBytes.length <= 2) {
+            string memory errorMsg = string(
+                abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, " , required: /valid_seq/")
+            );
+            revert(errorMsg);
+        }
+
+        uint8 patternFirstChar = uint8(patternInBytes[0]);
+        uint8 patternLastChar = uint8(patternInBytes[patternInBytes.length - 1]);
+
+        if (patternFirstChar != FORWARD_SLASH || patternLastChar != FORWARD_SLASH) {
+            string memory errorMsg = string(
+                abi.encodePacked(
+                    "SyntaxError: Invalid regular expression: ",
+                    _pattern,
+                    ": missing ",
+                    string(abi.encodePacked(FORWARD_SLASH)),
+                    " , required: /valid_seq/"
+                )
+            );
+            revert(errorMsg);
+        }
+    }
 
     function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
         private
