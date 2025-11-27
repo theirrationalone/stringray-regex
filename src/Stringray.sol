@@ -327,10 +327,40 @@ library Stringray {
     uint8 private constant CLOSE_CURLY_BRACE = 125;
     uint8 private constant COMMA_SIGN = 44;
 
+    bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
+
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
+        bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, int256(patternInBytes.length - 2));
+    }
+
+    function nuclearFission(bytes memory _pattern) private pure {
+        int256 patternLength = int256(_pattern.length);
+        for (int256 particleIdx = 0; particleIdx < patternLength;) {
+            (bytes memory atom, bytes32 atomType, int256 atomEndIdx) = classifyAtom(_pattern, uint256(particleIdx));
+
+            particleIdx = atomEndIdx + 1;
+        }
+    }
+
+    function classifyAtom(bytes memory _pattern, uint256 _particleIdx)
+        private
+        pure
+        returns (bytes memory, bytes32, int256)
+    {
+        bytes1 particle = _pattern[_particleIdx];
+        bytes memory atom;
+
+        if (isLiteralAtom(particle)) {
+            atom = abi.encodePacked(particle);
+            return (atom, LITERAL_ATOM, int256(_particleIdx));
+        }
+    }
+
+    function isLiteralAtom(bytes1 _particle) private pure returns (bool) {
+        return true;
     }
 
     function validateRegex(string memory _pattern) private pure {
