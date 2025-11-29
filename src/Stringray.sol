@@ -328,6 +328,18 @@ library Stringray {
     uint8 private constant COMMA_SIGN = 44;
 
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
+    bytes32 private constant ASTERISK_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant QUESTION_MARK_GREEDY_QUANTIFIER_ATOM = "?_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant N_RANGE_GREEDY_QUANTIFIER_ATOM = "{N}_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM = "{N,}_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM = "{N,M}_GREEDY_QUANTIFIER_ATOM";
+    bytes32 private constant ASTERISK_LAZY_QUANTIFIER_ATOM = "*?_LAZY_QUANTIFIER_ATOM";
+    bytes32 private constant PLUS_LAZY_QUANTIFIER_ATOM = "+?_LAZY_QUANTIFIER_ATOM";
+    bytes32 private constant QUESTION_MARK_LAZY_QUANTIFIER_ATOM = "??_LAZY_QUANTIFIER_ATOM";
+    bytes32 private constant N_RANGE_LAZY_QUANTIFIER_ATOM = "{N}?_LAZY_QUANTIFIER_ATOM";
+    bytes32 private constant N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM = "{N,}?_LAZY_QUANTIFIER_ATOM";
+    bytes32 private constant N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM = "{N,M}?_LAZY_QUANTIFIER_ATOM";
 
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
@@ -345,21 +357,52 @@ library Stringray {
         }
     }
 
-    function classifyAtom(bytes memory _pattern, uint256 _particleIdx)
+    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
         returns (bytes memory, bytes32, int256)
     {
-        bytes1 particle = _pattern[_particleIdx];
         bytes memory atom;
 
-        if (isLiteralAtom(particle)) {
-            atom = abi.encodePacked(particle);
-            return (atom, LITERAL_ATOM, int256(_particleIdx));
+        if (isLiteralAtom(_pattern, _currentParticleIdx)) {
+            atom = abi.encodePacked("particle");
+            return (atom, LITERAL_ATOM, int256(_currentParticleIdx));
         }
     }
 
-    function isLiteralAtom(bytes1 _particle) private pure returns (bool) {
+    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool) {
+        return true;
+    }
+
+    function isAsteriskGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool)
+    {
+        return true;
+    }
+
+    function isPlusGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool)
+    {
+        return true;
+    }
+
+    function isQuestionMarkGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool)
+    {
+        return true;
+    }
+
+    function isRangeGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool)
+    {
         return true;
     }
 
