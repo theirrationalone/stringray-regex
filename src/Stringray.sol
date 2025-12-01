@@ -421,8 +421,26 @@ library Stringray {
 
         uint8 patternFirstChar = uint8(patternInBytes[0]);
         uint8 patternLastChar = uint8(patternInBytes[patternInBytes.length - 1]);
+        uint8 patternSecondLastChar = uint8(patternInBytes[patternInBytes.length - 2]);
+        uint8 patternThirdLastChar = uint8(patternInBytes[patternInBytes.length - 3]);
 
         if (patternFirstChar != FORWARD_SLASH || patternLastChar != FORWARD_SLASH) {
+            string memory errorMsg = string(
+                abi.encodePacked(
+                    "SyntaxError: Invalid regular expression: ",
+                    _pattern,
+                    ": missing ",
+                    string(abi.encodePacked(FORWARD_SLASH)),
+                    " , required: /valid_seq/"
+                )
+            );
+            revert(errorMsg);
+        }
+
+        if (
+            patternLastChar == FORWARD_SLASH
+                && (patternSecondLastChar == BACK_SLASH && patternThirdLastChar != BACK_SLASH)
+        ) {
             string memory errorMsg = string(
                 abi.encodePacked(
                     "SyntaxError: Invalid regular expression: ",
@@ -520,32 +538,24 @@ library Stringray {
         }
     }
 
-    function isMetaCharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
-        console2.log("isMetaCharacter _pattern: ", string(_pattern));
-        console2.log("isMetaCharacter currentPatternIndex: ", _currentPatternIndex);
+    function isEscapeLiteral(bytes memory _pattern, uint256 _currentPatternIdx) private pure returns (bool, uint256) {
+        uint8 _targetChar = uint8(_pattern[_currentPatternIdx]);
 
-        if (true) {}
+        if (_targetChar == BACK_SLASH && _currentPatternIdx < _pattern.length - 1) {
+            uint8 _nextChar = uint8(_pattern[_currentPatternIdx + 1]);
 
-        if (_pattern.length > 2 && _currentPatternIndex > 0 && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH)
-        {
             if (
-                uint8(_pattern[_currentPatternIndex]) == DOT || uint8(_pattern[_currentPatternIndex]) == ASTERISK
-                    || uint8(_pattern[_currentPatternIndex]) == PLUS_SIGN
-                    || uint8(_pattern[_currentPatternIndex]) == QUESTION_MARK
-                    || uint8(_pattern[_currentPatternIndex]) == OPEN_PARANTHESIS
-                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_PARANTHESIS
-                    || uint8(_pattern[_currentPatternIndex]) == OPEN_SQUARE_BRACKET
-                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_SQUARE_BRACKET
-                    || uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
-                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_CURLY_BRACE
-                    || uint8(_pattern[_currentPatternIndex]) == VERTICAL_BAR
-                    || uint8(_pattern[_currentPatternIndex]) == BACK_SLASH
-                    || uint8(_pattern[_currentPatternIndex]) == FORWARD_SLASH
+                _nextChar == DOLLAR_SIGN || _nextChar == OPEN_PARANTHESIS || _nextChar == CLOSE_PARANTHESIS
+                    || _nextChar == ASTERISK || _nextChar == PLUS_SIGN || _nextChar == DOT || _nextChar == FORWARD_SLASH
+                    || _nextChar == QUESTION_MARK || _nextChar == OPEN_SQUARE_BRACKET || _nextChar == CLOSE_SQUARE_BRACKET
+                    || _nextChar == BACK_SLASH || _nextChar == CARET_SIGN || _nextChar == OPEN_CURLY_BRACE
+                    || _nextChar == CLOSE_CURLY_BRACE || _nextChar == VERTICAL_BAR
             ) {
-                return true;
+                return (true, _currentPatternIdx + 1);
             }
         }
-        return false;
+
+        return (false, 0);
     }
 
     function findPatternStringInRangeBounds(
