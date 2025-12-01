@@ -472,6 +472,12 @@ library Stringray {
         }
 
         if (!flag) {
+            lowerBoundUnicode = 47;
+            upperBoundUnicode = 47;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
             lowerBoundUnicode = 58;
             upperBoundUnicode = 62;
             flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
@@ -512,6 +518,34 @@ library Stringray {
         ) {
             return (true, _currentParticleIdx);
         }
+    }
+
+    function isMetaCharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
+        console2.log("isMetaCharacter _pattern: ", string(_pattern));
+        console2.log("isMetaCharacter currentPatternIndex: ", _currentPatternIndex);
+
+        if (true) {}
+
+        if (_pattern.length > 2 && _currentPatternIndex > 0 && uint8(_pattern[_currentPatternIndex - 1]) != BACK_SLASH)
+        {
+            if (
+                uint8(_pattern[_currentPatternIndex]) == DOT || uint8(_pattern[_currentPatternIndex]) == ASTERISK
+                    || uint8(_pattern[_currentPatternIndex]) == PLUS_SIGN
+                    || uint8(_pattern[_currentPatternIndex]) == QUESTION_MARK
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_PARANTHESIS
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_PARANTHESIS
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_SQUARE_BRACKET
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_SQUARE_BRACKET
+                    || uint8(_pattern[_currentPatternIndex]) == OPEN_CURLY_BRACE
+                    || uint8(_pattern[_currentPatternIndex]) == CLOSE_CURLY_BRACE
+                    || uint8(_pattern[_currentPatternIndex]) == VERTICAL_BAR
+                    || uint8(_pattern[_currentPatternIndex]) == BACK_SLASH
+                    || uint8(_pattern[_currentPatternIndex]) == FORWARD_SLASH
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function findPatternStringInRangeBounds(
