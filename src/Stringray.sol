@@ -363,47 +363,51 @@ library Stringray {
         returns (bytes memory, bytes32, int256)
     {
         bytes memory atom;
+        bool isTrue;
+        uint256 atomLastIdx;
 
-        if (isLiteralAtom(_pattern, _currentParticleIdx)) {
+        (isTrue, atomLastIdx) = isLiteralAtom(_pattern, _currentParticleIdx);
+
+        if (isTrue) {
             atom = abi.encodePacked("particle");
             return (atom, LITERAL_ATOM, int256(_currentParticleIdx));
         }
     }
 
-    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool) {
-        return true;
+    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
+        return (true, 0);
     }
 
     function isAsteriskGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool)
+        returns (bool, uint256)
     {
-        return true;
+        return (true, 0);
     }
 
     function isPlusGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool)
+        returns (bool, uint256)
     {
-        return true;
+        return (true, 0);
     }
 
     function isQuestionMarkGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool)
+        returns (bool, uint256)
     {
-        return true;
+        return (true, 0);
     }
 
     function isRangeGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool)
+        returns (bool, uint256)
     {
-        return true;
+        return (true, 0);
     }
 
     function validateRegex(string memory _pattern) private pure {
@@ -430,6 +434,100 @@ library Stringray {
             );
             revert(errorMsg);
         }
+    }
+
+    function isBigAlphabet(bytes1 _targetChar) private pure returns (bool) {
+        uint8 lowerBoundUnicode = 65;
+        uint8 upperBoundUnicode = 90;
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+    }
+
+    function isSmallAlphabet(bytes1 _targetChar) private pure returns (bool) {
+        uint8 lowerBoundUnicode = 97;
+        uint8 upperBoundUnicode = 122;
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+    }
+
+    function isDigit(bytes1 _targetChar) private pure returns (bool) {
+        uint8 lowerBoundUnicode = 48;
+        uint8 upperBoundUnicode = 57;
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+    }
+
+    function isPunctuation(bytes1 _targetChar) private pure returns (bool) {
+        uint8 lowerBoundUnicode = 0;
+        uint8 upperBoundUnicode = 35;
+        bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+
+        if (!flag) {
+            lowerBoundUnicode = 37;
+            upperBoundUnicode = 39;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
+            lowerBoundUnicode = 44;
+            upperBoundUnicode = 45;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
+            lowerBoundUnicode = 58;
+            upperBoundUnicode = 62;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
+            lowerBoundUnicode = 64;
+            upperBoundUnicode = 64;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
+            lowerBoundUnicode = 95;
+            upperBoundUnicode = 96;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        if (!flag) {
+            lowerBoundUnicode = 126;
+            upperBoundUnicode = 127;
+            flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        }
+
+        return flag;
+    }
+
+    function isForwardSlash(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
+        uint8 _targetChar = uint8(_pattern[_currentParticleIdx]);
+
+        // @note: Solidity specific
+        if (_targetChar == FORWARD_SLASH && _currentParticleIdx == 0) {
+            return (true, _currentParticleIdx);
+        }
+
+        if (_currentParticleIdx > 0 && uint8(_pattern[_currentParticleIdx - 1]) == BACK_SLASH) {
+            return (true,);
+        }
+    }
+
+    function findPatternStringInRangeBounds(
+        uint8 lowerBoundUnicode,
+        uint8 upperBoundUnicode,
+        bytes1 _targetChar,
+        bool _negation
+    ) private pure returns (bool) {
+        if (_negation) {
+            if (uint8(_targetChar) < lowerBoundUnicode || uint8(_targetChar) > upperBoundUnicode) {
+                return true;
+            }
+            return false;
+        }
+
+        if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
+            return true;
+        }
+        return false;
     }
 
     function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
