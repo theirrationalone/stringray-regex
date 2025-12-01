@@ -520,7 +520,7 @@ library Stringray {
         }
     }
 
-    function isMetaCharacter(bytes memory _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
+    function isMetaCharacter(bytes memoryc _pattern, uint256 _currentPatternIndex) private pure returns (bool) {
         console2.log("isMetaCharacter _pattern: ", string(_pattern));
         console2.log("isMetaCharacter currentPatternIndex: ", _currentPatternIndex);
 
