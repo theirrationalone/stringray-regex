@@ -501,13 +501,16 @@ library Stringray {
     function isForwardSlash(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
         uint8 _targetChar = uint8(_pattern[_currentParticleIdx]);
 
-        // @note: Solidity specific
-        if (_targetChar == FORWARD_SLASH && _currentParticleIdx == 0) {
+        if (_targetChar == FORWARD_SLASH) {
             return (true, _currentParticleIdx);
         }
 
-        if (_currentParticleIdx > 0 && uint8(_pattern[_currentParticleIdx - 1]) == BACK_SLASH) {
-            return (true,);
+        // @note: Solidity specific
+        if (
+            _targetChar == BACK_SLASH
+                && (_currentParticleIdx < _pattern.length - 1 && uint8(_pattern[_currentParticleIdx + 1]) == FORWARD_SLASH)
+        ) {
+            return (true, _currentParticleIdx);
         }
     }
 
