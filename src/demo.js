@@ -25,4 +25,4 @@ const newString = "bba\\.-z";
 
 // . not working in solidity
 console.log("string: ", newString);
-console.log(/-z\/.exec(newString));
+console.log(/-z\\/.exec(newString));

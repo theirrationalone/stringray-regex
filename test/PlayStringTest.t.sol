@@ -701,6 +701,7 @@ contract PlayStringTest is Test {
     function testRegexStart() public {
         string memory target = "zxwza";
         string memory pattern = "/abc/";
-        Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        // Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
+        console2.log("ascii: ", uint8(abi.encodePacked("b")[0]));
     }
 }

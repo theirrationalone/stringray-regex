@@ -374,6 +374,14 @@ library Stringray {
         }
     }
 
+    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        return (true, 0);
+    }
+
     function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
         return (true, 0);
     }
@@ -522,22 +530,6 @@ library Stringray {
         return flag;
     }
 
-    function isForwardSlash(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
-        uint8 _targetChar = uint8(_pattern[_currentParticleIdx]);
-
-        if (_targetChar == FORWARD_SLASH) {
-            return (true, _currentParticleIdx);
-        }
-
-        // @note: Solidity specific
-        if (
-            _targetChar == BACK_SLASH
-                && (_currentParticleIdx < _pattern.length - 1 && uint8(_pattern[_currentParticleIdx + 1]) == FORWARD_SLASH)
-        ) {
-            return (true, _currentParticleIdx);
-        }
-    }
-
     function isEscapeLiteral(bytes memory _pattern, uint256 _currentPatternIdx) private pure returns (bool, uint256) {
         uint8 _targetChar = uint8(_pattern[_currentPatternIdx]);
 
@@ -550,8 +542,56 @@ library Stringray {
                     || _nextChar == QUESTION_MARK || _nextChar == OPEN_SQUARE_BRACKET || _nextChar == CLOSE_SQUARE_BRACKET
                     || _nextChar == BACK_SLASH || _nextChar == CARET_SIGN || _nextChar == OPEN_CURLY_BRACE
                     || _nextChar == CLOSE_CURLY_BRACE || _nextChar == VERTICAL_BAR
+                    || _nextChar == uint8(abi.encodePacked("t")[0]) || _nextChar == uint8(abi.encodePacked("n")[0])
+                    || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
+                    || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
             ) {
                 return (true, _currentPatternIdx + 1);
+            }
+        }
+
+        if (_targetChar == BACK_SLASH && _currentPatternIdx < _pattern.length - 3) {
+            uint8 _nextCharFirst = uint8(_pattern[_currentPatternIdx + 1]);
+            uint8 _nextCharSecond = uint8(_pattern[_currentPatternIdx + 2]);
+            bytes1 _nextCharThird = _pattern[_currentPatternIdx + 3];
+
+            if (_nextCharFirst == uint8(abi.encodePacked("x")[0]) || _nextCharFirst == uint8(abi.encodePacked("X")[0]))
+            {
+                if (
+                    _nextCharSecond == uint8(abi.encodePacked("0")[0])
+                        || _nextCharSecond == uint8(abi.encodePacked("1")[0])
+                ) {
+                    if (isDigit(_nextCharThird)) {
+                        return (true, _currentPatternIdx + 3);
+                    }
+
+                    if (
+                        uint8(_nextCharThird) == uint8(abi.encodePacked("a")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("A")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("b")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("B")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("c")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("C")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("d")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("D")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("e")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("E")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
+                            || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
+                    ) {
+                        return (true, _currentPatternIdx + 3);
+                    }
+                }
+
+                if (
+                    _nextCharSecond == uint8(abi.encodePacked("7")[0])
+                        && (
+                            uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
+                        )
+                ) {
+                    return (true, _currentPatternIdx + 3);
+                }
             }
         }
 
