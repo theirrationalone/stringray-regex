@@ -615,8 +615,9 @@ library Stringray {
         returns (bool, uint256)
     {
         uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
+        uint256 patternLastIndex = _pattern.length - 1;
 
-        if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
+        if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
 
             if (
@@ -624,7 +625,7 @@ library Stringray {
                     || _nextChar == ASTERISK || _nextChar == PLUS_SIGN || _nextChar == DOT || _nextChar == FORWARD_SLASH
                     || _nextChar == QUESTION_MARK || _nextChar == OPEN_SQUARE_BRACKET || _nextChar == CLOSE_SQUARE_BRACKET
                     || _nextChar == BACK_SLASH || _nextChar == CARET_SIGN || _nextChar == OPEN_CURLY_BRACE
-                    || _nextChar == CLOSE_CURLY_BRACE || _nextChar == VERTICAL_BAR
+                    || _nextChar == CLOSE_CURLY_BRACE || _nextChar == VERTICAL_BAR || _nextChar == COMMA_SIGN
                     || _nextChar == uint8(abi.encodePacked("t")[0]) || _nextChar == uint8(abi.encodePacked("n")[0])
                     || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
                     || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
@@ -679,52 +680,61 @@ library Stringray {
         }
 
         if (_targetChar == OPEN_CURLY_BRACE) {
-            if (_currentParticleIndex == _pattern.length - 1) {
+            uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
+            uint256 patternNAndInfinityRangeMaxIndex = _currentParticleIndex + 3;
+            uint256 patternNRangeMaxIndex = _currentParticleIndex + 2;
+            uint256 nextParticleIndex = _currentParticleIndex + 1;
+
+            uint8 patternNRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 2]);
+            uint8 patternNAndInfinityRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 3]);
+            uint8 patternNAndMRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 4]);
+
+            if (_currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
             }
 
-            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
-                if (!isDigit(_pattern[_currentParticleIndex + 1])) {
+            if (patternNRangeMaxIndex <= patternLastIndex) {
+                if (!isDigit(_pattern[nextParticleIndex])) {
                     return (true, _currentParticleIndex);
                 }
-            }
 
-            if (_currentParticleIndex + 2 <= _pattern.length - 1) {
-                if (
-                    uint8(_pattern[_currentParticleIndex + 2]) != COMMA_SIGN
-                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
-                ) {
+                if (patternNRangeMaxIndexChar != CLOSE_CURLY_BRACE && patternNRangeMaxIndexChar != COMMA_SIGN) {
                     return (true, _currentParticleIndex);
                 }
-            }
 
-            if (_currentParticleIndex + 3 <= _pattern.length - 1) {
-                if (
-                    uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN
-                        && !isDigit(_pattern[_currentParticleIndex + 3])
-                        && uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE
-                ) {
-                    return (true, _currentParticleIndex);
-                }
-            }
+                if (patternNRangeMaxIndexChar == COMMA_SIGN) {
+                    if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
+                        if (
+                            !isDigit(_pattern[_currentParticleIndex + 3])
+                                && patternNAndInfinityRangeMaxIndexChar != CLOSE_CURLY_BRACE
+                        ) {
+                            return (true, _currentParticleIndex);
+                        }
 
-            if (_currentParticleIndex + 4 <= _pattern.length - 1) {
-                if (
-                    uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN
-                        && isDigit(_pattern[_currentParticleIndex + 3])
-                        && uint8(_pattern[_currentParticleIndex + 4]) != CLOSE_CURLY_BRACE
-                ) {
-                    return (true, _currentParticleIndex);
+                        if (isDigit(_pattern[_currentParticleIndex + 3])) {
+                            if (patternNAndMRangeMaxIndex <= patternLastIndex) {
+                                if (patternNAndMRangeMaxIndexChar != CLOSE_CURLY_BRACE) {
+                                    return (true, _currentParticleIndex);
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
                 }
+            } else {
+                return (true, _currentParticleIndex);
             }
         }
 
         if (isDigit(_pattern[_currentParticleIndex])) {
-            if (_currentParticleIndex == 0 || _currentParticleIndex == _pattern.length - 1) {
+            if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
             }
 
-            if (_currentParticleIndex > 0) {
+            if (_currentParticleIndex > 0 && _currentParticleIndex < patternLastIndex) {
                 if (
                     uint8(_pattern[_currentParticleIndex - 1]) != OPEN_CURLY_BRACE
                         && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
@@ -732,41 +742,176 @@ library Stringray {
                     return (true, _currentParticleIndex);
                 }
 
-                if (uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN) {
-                    if (_currentParticleIndex > 1) {}
-                    return (true, _currentParticleIndex);
-                }
-            }
+                if (uint8(_pattern[_currentParticleIndex - 1]) == OPEN_CURLY_BRACE) {
+                    if (_currentParticleIndex + 1 <= patternLastIndex) {
+                        if (
+                            uint8(_pattern[_currentParticleIndex + 1]) != COMMA_SIGN
+                                && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
+                        ) {
+                            return (true, _currentParticleIndex);
+                        }
 
-            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
-                if (
-                    uint8(_pattern[_currentParticleIndex + 1]) != COMMA_SIGN
-                        && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
-                ) {
-                    return (true, _currentParticleIndex);
-                }
-            }
+                        if (uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN) {
+                            if (_currentParticleIndex + 2 <= patternLastIndex) {
+                                if (
+                                    !isDigit(_pattern[_currentParticleIndex + 2])
+                                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
+                                ) {
+                                    return (true, _currentParticleIndex);
+                                }
 
-            if (_currentParticleIndex + 2 <= _pattern.length - 1) {
-                if (
-                    uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN
-                        && !isDigit(_pattern[_currentParticleIndex + 2])
-                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
-                ) {
-                    return (true, _currentParticleIndex);
+                                if (isDigit(_pattern[_currentParticleIndex + 2])) {
+                                    if (_currentParticleIndex + 3 <= patternLastIndex) {
+                                        if (uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE) {
+                                            return (true, _currentParticleIndex);
+                                        }
+                                    } else {
+                                        return (true, _currentParticleIndex);
+                                    }
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
                 }
-            }
 
-            if (_currentParticleIndex + 3 <= _pattern.length - 1) {
                 if (
-                    uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN
-                        && isDigit(_pattern[_currentParticleIndex + 2])
-                        && uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE
+                    uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN
+                        && (
+                            _currentParticleIndex + 1 <= patternLastIndex
+                                && uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE
+                        )
                 ) {
+                    if (_currentParticleIndex > 1) {
+                        if (!isDigit(_pattern[_currentParticleIndex - 2])) {
+                            return (true, _currentParticleIndex);
+                        }
+
+                        if (isDigit(_pattern[_currentParticleIndex - 2])) {
+                            if (_currentParticleIndex > 2) {
+                                if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
+                                    return (true, _currentParticleIndex);
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
+                } else {
                     return (true, _currentParticleIndex);
                 }
             }
         }
+
+        if (_targetChar == COMMA_SIGN) {
+            if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
+                return (true, _currentParticleIndex);
+            }
+
+            if (_currentParticleIndex > 0) {
+                if (!isDigit(_pattern[_currentParticleIndex - 1])) {
+                    return (true, _currentParticleIndex);
+                }
+
+                if (isDigit(_pattern[_currentParticleIndex - 1])) {
+                    if (_currentParticleIndex > 1) {
+                        if (uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE) {
+                            return (true, _currentParticleIndex);
+                        }
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
+
+                    if (_currentParticleIndex + 1 <= patternLastIndex) {
+                        if (
+                            !isDigit(_pattern[_currentParticleIndex + 1])
+                                && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
+                        ) {
+                            return (true, _currentParticleIndex);
+                        }
+
+                        if (isDigit(_pattern[_currentParticleIndex + 1])) {
+                            if (_currentParticleIndex + 2 <= patternLastIndex) {
+                                if (uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE) {
+                                    return (true, _currentParticleIndex);
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
+                }
+            }
+        }
+
+        if (_targetChar == CLOSE_CURLY_BRACE) {
+            if (_currentParticleIndex == 0) {
+                return (true, _currentParticleIndex);
+            }
+
+            if (_currentParticleIndex > 0) {
+                if (
+                    !isDigit(_pattern[_currentParticleIndex - 1])
+                        && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+
+                if (_currentParticleIndex > 1) {
+                    if (isDigit(_pattern[_currentParticleIndex - 1])) {
+                        if (uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN) {
+                            return (true, _currentParticleIndex);
+                        }
+
+                        if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
+                            if (_currentParticleIndex > 2) {
+                                if (!isDigit(_pattern[_currentParticleIndex - 3])) {
+                                    return (true, _currentParticleIndex);
+                                }
+
+                                if (isDigit(_pattern[_currentParticleIndex - 3])) {
+                                    if (_currentParticleIndex > 3) {
+                                        if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
+                                            return (true, _currentParticleIndex);
+                                        }
+                                    } else {
+                                        return (true, _currentParticleIndex);
+                                    }
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    }
+
+                    if (uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN) {
+                        if (!isDigit(_pattern[_currentParticleIndex - 2])) {
+                            return (true, _currentParticleIndex);
+                        }
+
+                        if (isDigit(_pattern[_currentParticleIndex - 2])) {
+                            if (_currentParticleIndex > 2) {
+                                if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
+                                    return (true, _currentParticleIndex);
+                                }
+                            } else {
+                                return (true, _currentParticleIndex);
+                            }
+                        }
+                    }
+                } else {
+                    return (true, _currentParticleIndex);
+                }
+            }
+        }
+
         return (false, 0);
     }
 
