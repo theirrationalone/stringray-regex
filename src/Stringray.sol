@@ -386,12 +386,91 @@ library Stringray {
         return (true, 0);
     }
 
-    function isAsteriskGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+    function isGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool, uint256)
+        returns (bool, bytes32, uint256)
     {
-        return (true, 0);
+        uint8 currentParticle = uint8(_pattern[_currentParticleIdx]);
+        bool greedyQuantifier;
+        bytes32 quantifierType;
+        uint256 lastIndex;
+
+        if (currentParticle == ASTERISK) {
+            greedyQuantifier = true;
+            quantifierType = ASTERISK_GREEDY_QUANTIFIER_ATOM;
+            lastIndex = _currentParticleIdx;
+            return (greedyQuantifier, quantifierType, lastIndex);
+        }
+
+        if (!greedyQuantifier && currentParticle == PLUS_SIGN) {
+            greedyQuantifier = true;
+            quantifierType = PLUS_GREEDY_QUANTIFIER_ATOM;
+            lastIndex = _currentParticleIdx;
+            return (greedyQuantifier, quantifierType, lastIndex);
+        }
+
+        if (!greedyQuantifier && currentParticle == QUESTION_MARK) {
+            greedyQuantifier = true;
+            quantifierType = QUESTION_MARK_GREEDY_QUANTIFIER_ATOM;
+            lastIndex = _currentParticleIdx;
+            return (greedyQuantifier, quantifierType, lastIndex);
+        }
+
+        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
+            if (_pattern.length - 1 >= _currentParticleIdx + 2) {
+                if (
+                    isDigit(_pattern[_currentParticleIdx + 1])
+                        && uint8(_pattern[_currentParticleIdx + 2]) == CLOSE_CURLY_BRACE
+                ) {
+                    greedyQuantifier = true;
+                    quantifierType = N_RANGE_GREEDY_QUANTIFIER_ATOM;
+                    lastIndex = _currentParticleIdx + 2;
+                    return (greedyQuantifier, quantifierType, lastIndex);
+                }
+            }
+        }
+
+        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
+            if (_pattern.length - 1 >= _currentParticleIdx + 3) {
+                if (
+                    isDigit(_pattern[_currentParticleIdx + 1]) && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
+                        && uint8(_pattern[_currentParticleIdx + 3]) == CLOSE_CURLY_BRACE
+                ) {
+                    greedyQuantifier = true;
+                    quantifierType = N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM;
+                    lastIndex = _currentParticleIdx + 3;
+                    return (greedyQuantifier, quantifierType, lastIndex);
+                }
+            }
+        }
+
+        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
+            if (_pattern.length - 1 >= _currentParticleIdx + 4) {
+                if (
+                    isDigit(_pattern[_currentParticleIdx + 1]) && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
+                        && isDigit(_pattern[_currentParticleIdx + 4])
+                        && uint8(_pattern[_currentParticleIdx + 4]) == CLOSE_CURLY_BRACE
+                ) {
+                    if (uint8(_pattern[_currentParticleIdx + 1]) > uint8(_pattern[_currentParticleIdx + 4])) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: ",
+                                _pattern,
+                                ": numbers out of order in {} quantifier"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+
+                    greedyQuantifier = true;
+                    quantifierType = N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM;
+                    lastIndex = _currentParticleIdx + 4;
+                }
+            }
+        }
+
+        return (greedyQuantifier, quantifierType, lastIndex);
     }
 
     function isPlusGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
@@ -530,11 +609,15 @@ library Stringray {
         return flag;
     }
 
-    function isEscapeLiteral(bytes memory _pattern, uint256 _currentPatternIdx) private pure returns (bool, uint256) {
-        uint8 _targetChar = uint8(_pattern[_currentPatternIdx]);
+    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
 
-        if (_targetChar == BACK_SLASH && _currentPatternIdx < _pattern.length - 1) {
-            uint8 _nextChar = uint8(_pattern[_currentPatternIdx + 1]);
+        if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
+            uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
 
             if (
                 _nextChar == DOLLAR_SIGN || _nextChar == OPEN_PARANTHESIS || _nextChar == CLOSE_PARANTHESIS
@@ -546,14 +629,14 @@ library Stringray {
                     || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
                     || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
             ) {
-                return (true, _currentPatternIdx + 1);
+                return (true, _currentParticleIndex + 1);
             }
         }
 
-        if (_targetChar == BACK_SLASH && _currentPatternIdx < _pattern.length - 3) {
-            uint8 _nextCharFirst = uint8(_pattern[_currentPatternIdx + 1]);
-            uint8 _nextCharSecond = uint8(_pattern[_currentPatternIdx + 2]);
-            bytes1 _nextCharThird = _pattern[_currentPatternIdx + 3];
+        if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 3) {
+            uint8 _nextCharFirst = uint8(_pattern[_currentParticleIndex + 1]);
+            uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
+            bytes1 _nextCharThird = _pattern[_currentParticleIndex + 3];
 
             if (_nextCharFirst == uint8(abi.encodePacked("x")[0]) || _nextCharFirst == uint8(abi.encodePacked("X")[0]))
             {
@@ -562,7 +645,7 @@ library Stringray {
                         || _nextCharSecond == uint8(abi.encodePacked("1")[0])
                 ) {
                     if (isDigit(_nextCharThird)) {
-                        return (true, _currentPatternIdx + 3);
+                        return (true, _currentParticleIndex + 3);
                     }
 
                     if (
@@ -579,7 +662,7 @@ library Stringray {
                             || uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
                             || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
                     ) {
-                        return (true, _currentPatternIdx + 3);
+                        return (true, _currentParticleIndex + 3);
                     }
                 }
 
@@ -590,11 +673,100 @@ library Stringray {
                                 || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
                         )
                 ) {
-                    return (true, _currentPatternIdx + 3);
+                    return (true, _currentParticleIndex + 3);
                 }
             }
         }
 
+        if (_targetChar == OPEN_CURLY_BRACE) {
+            if (_currentParticleIndex == _pattern.length - 1) {
+                return (true, _currentParticleIndex);
+            }
+
+            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
+                if (!isDigit(_pattern[_currentParticleIndex + 1])) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 2 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 2]) != COMMA_SIGN
+                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 3 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN
+                        && !isDigit(_pattern[_currentParticleIndex + 3])
+                        && uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 4 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN
+                        && isDigit(_pattern[_currentParticleIndex + 3])
+                        && uint8(_pattern[_currentParticleIndex + 4]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+        }
+
+        if (isDigit(_pattern[_currentParticleIndex])) {
+            if (_currentParticleIndex == 0 || _currentParticleIndex == _pattern.length - 1) {
+                return (true, _currentParticleIndex);
+            }
+
+            if (_currentParticleIndex > 0) {
+                if (
+                    uint8(_pattern[_currentParticleIndex - 1]) != OPEN_CURLY_BRACE
+                        && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+
+                if (uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN) {
+                    if (_currentParticleIndex > 1) {}
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 1]) != COMMA_SIGN
+                        && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 2 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN
+                        && !isDigit(_pattern[_currentParticleIndex + 2])
+                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+
+            if (_currentParticleIndex + 3 <= _pattern.length - 1) {
+                if (
+                    uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN
+                        && isDigit(_pattern[_currentParticleIndex + 2])
+                        && uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE
+                ) {
+                    return (true, _currentParticleIndex);
+                }
+            }
+        }
         return (false, 0);
     }
 
