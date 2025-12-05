@@ -355,9 +355,14 @@ library Stringray {
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) = classifyAtom(_pattern, uint256(particleIdx));
 
+            console2.log("atom bytes form: ");
+            console2.logBytes(atom);
             console2.log("atom: ", string(atom));
-            console2.log("atomType: ");
-            console2.logBytes32(atomType);
+            if (atomType == LITERAL_ATOM) {
+                console2.log("ATOM TYPE HASH: ");
+                console2.logBytes32(atomType);
+                console2.log("atomType: LITERAL ATOM");
+            }
             console2.log("atomEndIdx: ", atomEndIdx);
 
             particleIdx = atomEndIdx + 1;
@@ -376,7 +381,7 @@ library Stringray {
         (isTrue, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx);
 
         if (isTrue) {
-            atom = trimString(_pattern, atomLastIdx, -1);
+            atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
             return (atom, LITERAL_ATOM, int256(_currentParticleIdx));
         }
 
@@ -395,6 +400,13 @@ library Stringray {
     function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bool flag = isBigAlphabet(_pattern[_currentParticleIdx]);
+        if (!flag) {
+            flag = isSmallAlphabet(_pattern[_currentParticleIdx]);
+        }
+
+        console2.log("flag: ", flag);
+        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+        console2.log("---");
 
         return (flag, lastMatchedParticleIndex);
     }
@@ -940,6 +952,13 @@ library Stringray {
             }
             return false;
         }
+
+        console2.log("---------");
+        console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
+        console2.log("targetChar ascii code: ", uint8(_targetChar));
+        console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
+        console2.log("upperBoundUnicode: ", upperBoundUnicode);
+        console2.log("---------");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;

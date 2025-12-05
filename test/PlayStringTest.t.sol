@@ -698,10 +698,9 @@ contract PlayStringTest is Test {
     //     // printOutput(patternMatchedData);
     // }
 
-    function testRegexStart() public {
-        string memory target = "zxwza";
+    function testRegexStart() public pure {
+        string memory target = "dummy";
         string memory pattern = "/abc/";
-        // Stringray.PatternMatchedData memory patternMatchedData = target.regex(pattern);
-        console2.log("ascii: ", uint8(abi.encodePacked("b")[0]));
+        target.regex(pattern);
     }
 }
