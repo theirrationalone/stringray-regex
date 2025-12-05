@@ -700,7 +700,7 @@ contract PlayStringTest is Test {
 
     function testRegexStart() public pure {
         string memory target = "dummy";
-        string memory pattern = "/abc/";
+        string memory pattern = "/aBc/";
         target.regex(pattern);
     }
 }

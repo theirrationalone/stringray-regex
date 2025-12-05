@@ -355,6 +355,8 @@ library Stringray {
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) = classifyAtom(_pattern, uint256(particleIdx));
 
+            console2.log("---In nuclearFission---");
+            console2.log("Iteration no: ", particleIdx + 1);
             console2.log("atom bytes form: ");
             console2.logBytes(atom);
             console2.log("atom: ", string(atom));
@@ -364,6 +366,7 @@ library Stringray {
                 console2.log("atomType: LITERAL ATOM");
             }
             console2.log("atomEndIdx: ", atomEndIdx);
+            console2.log("---");
 
             particleIdx = atomEndIdx + 1;
         }
@@ -404,6 +407,7 @@ library Stringray {
             flag = isSmallAlphabet(_pattern[_currentParticleIdx]);
         }
 
+        console2.log("---In isLiteralAtom---");
         console2.log("flag: ", flag);
         console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
         console2.log("---");
@@ -953,12 +957,12 @@ library Stringray {
             return false;
         }
 
-        console2.log("---------");
+        console2.log("---In findPatternStringInRangeBounds---");
         console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
         console2.log("targetChar ascii code: ", uint8(_targetChar));
         console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
         console2.log("upperBoundUnicode: ", upperBoundUnicode);
-        console2.log("---------");
+        console2.log("---");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;
