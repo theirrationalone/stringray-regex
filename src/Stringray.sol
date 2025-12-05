@@ -327,6 +327,7 @@ library Stringray {
     uint8 private constant CLOSE_CURLY_BRACE = 125;
     uint8 private constant COMMA_SIGN = 44;
 
+    bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
     bytes32 private constant ASTERISK_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
     bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
@@ -346,12 +347,18 @@ library Stringray {
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
         bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, int256(patternInBytes.length - 2));
+        nuclearFission(filteredPatternInBytes);
     }
 
     function nuclearFission(bytes memory _pattern) private pure {
         int256 patternLength = int256(_pattern.length);
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) = classifyAtom(_pattern, uint256(particleIdx));
+
+            console2.log("atom: ", string(atom));
+            console2.log("atomType: ");
+            console2.logBytes32(atomType);
+            console2.log("atomEndIdx: ", atomEndIdx);
 
             particleIdx = atomEndIdx + 1;
         }
@@ -366,12 +373,14 @@ library Stringray {
         bool isTrue;
         uint256 atomLastIdx;
 
-        (isTrue, atomLastIdx) = isLiteralAtom(_pattern, _currentParticleIdx);
+        (isTrue, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx);
 
         if (isTrue) {
-            atom = abi.encodePacked("particle");
+            atom = trimString(_pattern, atomLastIdx, -1);
             return (atom, LITERAL_ATOM, int256(_currentParticleIdx));
         }
+
+        return (atom, INVALID_ATOM, int256(atomLastIdx));
     }
 
     function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx)
@@ -379,11 +388,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        return (true, 0);
+        (bool flag, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
+        return (flag, lastMatchedParticleIndex);
     }
 
     function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
-        return (true, 0);
+        uint256 lastMatchedParticleIndex = _currentParticleIdx;
+        bool flag = isBigAlphabet(_pattern[_currentParticleIdx]);
+
+        return (flag, lastMatchedParticleIndex);
     }
 
     function isGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
