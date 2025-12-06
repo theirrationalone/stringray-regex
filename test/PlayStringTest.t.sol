@@ -698,9 +698,27 @@ contract PlayStringTest is Test {
     //     // printOutput(patternMatchedData);
     // }
 
-    function testRegexStart() public pure {
+    function testRegexAlphabetsClassification() public pure {
         string memory target = "dummy";
-        string memory pattern = "/aBc/";
+        string memory pattern = "/abcdzABCDZ/";
+        target.regex(pattern);
+    }
+
+    function testRegexPunctuationClassification() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/ !\"#%&',:;<=>@_/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitsClassification() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/12911/";
+        target.regex(pattern);
+    }
+
+    function testRegexMetaCharsAndEscapeSeequences() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/{/";
         target.regex(pattern);
     }
 }

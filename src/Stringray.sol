@@ -402,9 +402,20 @@ library Stringray {
 
     function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
-        bool flag = isBigAlphabet(_pattern[_currentParticleIdx]);
+        bytes1 targetChar = _pattern[_currentParticleIdx];
+
+        bool flag = isBigAlphabet(targetChar);
+
         if (!flag) {
-            flag = isSmallAlphabet(_pattern[_currentParticleIdx]);
+            flag = isSmallAlphabet(targetChar);
+        }
+
+        if (!flag) {
+            flag = isPunctuation(targetChar);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
         }
 
         console2.log("---In isLiteralAtom---");
