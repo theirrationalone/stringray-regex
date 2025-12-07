@@ -385,7 +385,12 @@ library Stringray {
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
-            return (atom, LITERAL_ATOM, int256(_currentParticleIdx));
+            console2.log("---In classifyAtom---");
+            console2.log("atom: ", string(atom));
+            console2.log("atomLastIdx: ", atomLastIdx);
+            console2.log("atomLastIdx cast: ", int256(atomLastIdx));
+            console2.log("---");
+            return (atom, LITERAL_ATOM, int256(atomLastIdx));
         }
 
         return (atom, INVALID_ATOM, int256(atomLastIdx));
@@ -670,6 +675,7 @@ library Stringray {
                     || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
                     || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
             ) {
+                console2.log("came upto here!");
                 return (true, _currentParticleIndex + 1);
             }
         }
@@ -728,11 +734,6 @@ library Stringray {
             uint256 patternNRangeMaxIndex = _currentParticleIndex + 2;
             uint256 nextParticleIndex = _currentParticleIndex + 1;
 
-            // BUG: is here!
-            uint8 patternNRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 2]);
-            uint8 patternNAndInfinityRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 3]);
-            uint8 patternNAndMRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 4]);
-
             if (_currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
             }
@@ -746,24 +747,27 @@ library Stringray {
 
                 console2.log("passed second if check!");
 
-                if (patternNRangeMaxIndexChar != CLOSE_CURLY_BRACE && patternNRangeMaxIndexChar != COMMA_SIGN) {
+                if (
+                    uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
+                        && uint8(_pattern[patternNRangeMaxIndex]) != COMMA_SIGN
+                ) {
                     return (true, _currentParticleIndex);
                 }
 
                 console2.log("passed third if check!");
 
-                if (patternNRangeMaxIndexChar == COMMA_SIGN) {
+                if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
                         if (
-                            !isDigit(_pattern[_currentParticleIndex + 3])
-                                && patternNAndInfinityRangeMaxIndexChar != CLOSE_CURLY_BRACE
+                            !isDigit(_pattern[patternNAndInfinityRangeMaxIndex])
+                                && uint8(_pattern[patternNAndInfinityRangeMaxIndex]) != CLOSE_CURLY_BRACE
                         ) {
                             return (true, _currentParticleIndex);
                         }
 
-                        if (isDigit(_pattern[_currentParticleIndex + 3])) {
+                        if (isDigit(_pattern[patternNAndInfinityRangeMaxIndex])) {
                             if (patternNAndMRangeMaxIndex <= patternLastIndex) {
-                                if (patternNAndMRangeMaxIndexChar != CLOSE_CURLY_BRACE) {
+                                if (uint8(_pattern[patternNAndMRangeMaxIndex]) != CLOSE_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
                                 }
                             } else {
