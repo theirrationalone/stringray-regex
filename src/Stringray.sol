@@ -402,6 +402,22 @@ library Stringray {
         returns (bool, uint256)
     {
         (bool flag, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
+        if (flag) {
+            (flag,, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1);
+            return (flag, lastMatchedParticleIndex);
+        }
+
+        if (!flag) {
+            (flag,, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx);
+            if (flag) {
+                string memory errorMsg = string(
+                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
+                );
+
+                revert(errorMsg);
+            }
+        }
+
         return (flag, lastMatchedParticleIndex);
     }
 
