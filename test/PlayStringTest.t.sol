@@ -733,4 +733,10 @@ contract PlayStringTest is Test {
         string memory pattern = "/{1/";
         target.regex(pattern);
     }
+
+    function testRegexMetaCharsAndEscapeSequencesCase4() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/{1}/";
+        target.regex(pattern);
+    }
 }
