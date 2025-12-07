@@ -360,11 +360,11 @@ library Stringray {
             console2.log("atom bytes form: ");
             console2.logBytes(atom);
             console2.log("atom: ", string(atom));
-            if (atomType == LITERAL_ATOM) {
-                console2.log("ATOM TYPE HASH: ");
-                console2.logBytes32(atomType);
-                console2.log("atomType: LITERAL ATOM");
-            }
+
+            console2.log("ATOM TYPE HASH: ");
+            console2.logBytes32(atomType);
+            console2.log("atomType: LITERAL ATOM");
+
             console2.log("atomEndIdx: ", atomEndIdx);
             console2.log("---");
 
@@ -380,8 +380,9 @@ library Stringray {
         bytes memory atom;
         bool isTrue;
         uint256 atomLastIdx;
+        bytes32 atomType;
 
-        (isTrue, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx);
+        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -390,25 +391,26 @@ library Stringray {
             console2.log("atomLastIdx: ", atomLastIdx);
             console2.log("atomLastIdx cast: ", int256(atomLastIdx));
             console2.log("---");
-            return (atom, LITERAL_ATOM, int256(atomLastIdx));
+            return (atom, atomType, int256(atomLastIdx));
         }
 
-        return (atom, INVALID_ATOM, int256(atomLastIdx));
+        return (atom, atomType, int256(atomLastIdx));
     }
 
     function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx)
         private
         pure
-        returns (bool, uint256)
+        returns (bool, bytes32, uint256)
     {
+        bytes32 atomType = INVALID_ATOM;
         (bool flag, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
         if (flag) {
-            (flag,, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1);
-            return (flag, lastMatchedParticleIndex);
+            (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1);
+            return (flag, atomType, lastMatchedParticleIndex);
         }
 
         if (!flag) {
-            (flag,, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx);
+            (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx);
             if (flag) {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
@@ -417,7 +419,7 @@ library Stringray {
             }
         }
 
-        return (flag, lastMatchedParticleIndex);
+        return (flag, atomType, lastMatchedParticleIndex);
     }
 
     function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
@@ -445,6 +447,12 @@ library Stringray {
 
         return (flag, lastMatchedParticleIndex);
     }
+
+    function isLazyQuantifierAtom(bytes32 lastQuantifierType, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool)
+    {}
 
     function isGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
         private
