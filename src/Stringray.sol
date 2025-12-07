@@ -413,7 +413,6 @@ library Stringray {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
                 );
-
                 revert(errorMsg);
             }
         }

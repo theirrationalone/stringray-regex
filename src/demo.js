@@ -25,4 +25,4 @@ const newString = "dummy";
 
 // . not working in solidity
 console.log("string: ", newString);
-console.log(/d{1}/.exec(newString));
+console.log(/d{1}?*/.exec(newString));
