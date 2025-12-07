@@ -674,6 +674,7 @@ library Stringray {
             }
         }
 
+        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
         if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 3) {
             uint8 _nextCharFirst = uint8(_pattern[_currentParticleIndex + 1]);
             uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
@@ -719,12 +720,15 @@ library Stringray {
             }
         }
 
+        console2.log("traversed through special \\x.. escape sequences!");
+
         if (_targetChar == OPEN_CURLY_BRACE) {
             uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
             uint256 patternNAndInfinityRangeMaxIndex = _currentParticleIndex + 3;
             uint256 patternNRangeMaxIndex = _currentParticleIndex + 2;
             uint256 nextParticleIndex = _currentParticleIndex + 1;
 
+            // BUG: is here!
             uint8 patternNRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 2]);
             uint8 patternNAndInfinityRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 3]);
             uint8 patternNAndMRangeMaxIndexChar = uint8(_pattern[_currentParticleIndex + 4]);
@@ -733,14 +737,20 @@ library Stringray {
                 return (true, _currentParticleIndex);
             }
 
+            console2.log("passed first if check!");
+
             if (patternNRangeMaxIndex <= patternLastIndex) {
                 if (!isDigit(_pattern[nextParticleIndex])) {
                     return (true, _currentParticleIndex);
                 }
 
+                console2.log("passed second if check!");
+
                 if (patternNRangeMaxIndexChar != CLOSE_CURLY_BRACE && patternNRangeMaxIndexChar != COMMA_SIGN) {
                     return (true, _currentParticleIndex);
                 }
+
+                console2.log("passed third if check!");
 
                 if (patternNRangeMaxIndexChar == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
@@ -764,10 +774,14 @@ library Stringray {
                         return (true, _currentParticleIndex);
                     }
                 }
+
+                console2.log("passed fourth if check!");
             } else {
                 return (true, _currentParticleIndex);
             }
         }
+
+        console2.log("traversed through range open curly bracket check!");
 
         if (isDigit(_pattern[_currentParticleIndex])) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
