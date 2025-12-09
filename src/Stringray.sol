@@ -386,11 +386,11 @@ library Stringray {
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
-            console2.log("---In classifyAtom---");
-            console2.log("atom: ", string(atom));
-            console2.log("atomLastIdx: ", atomLastIdx);
-            console2.log("atomLastIdx cast: ", int256(atomLastIdx));
-            console2.log("---");
+            // console2.log("---In classifyAtom---");
+            // console2.log("atom: ", string(atom));
+            // console2.log("atomLastIdx: ", atomLastIdx);
+            // console2.log("atomLastIdx cast: ", int256(atomLastIdx));
+            // console2.log("---");
             return (atom, atomType, int256(atomLastIdx));
         }
 
@@ -402,15 +402,31 @@ library Stringray {
         pure
         returns (bool, bytes32, uint256)
     {
-        bytes32 atomType = INVALID_ATOM;
-        (bool flag, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
-        if (flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1);
+        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
+        if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
+            (flag, atomType, lastMatchedParticleIndex) =
+                isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomtype);
+            if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
+                (flag, atomType, lastMatchedParticleIndex) =
+                    isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
+                if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
+                    (flag, atomType, lastMatchedParticleIndex) =
+                        isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
+                    if (flag) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+                }
+            }
             return (flag, atomType, lastMatchedParticleIndex);
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx);
+            (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx, atomType);
             if (flag) {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
@@ -422,7 +438,12 @@ library Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
-    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx) private pure returns (bool, uint256) {
+    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool, bytes32, uint256)
+    {
+        bytes32 atomTye = INVALID_ATOM;
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bytes1 targetChar = _pattern[_currentParticleIdx];
 
@@ -440,29 +461,55 @@ library Stringray {
             (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
         }
 
-        console2.log("---In isLiteralAtom---");
-        console2.log("flag: ", flag);
-        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-        console2.log("---");
+        if (flag) {
+            atomTye = LITERAL_ATOM;
+        }
 
-        return (flag, lastMatchedParticleIndex);
+        // console2.log("---In isLiteralAtom---");
+        // console2.log("flag: ", flag);
+        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+        // console2.log("---");
+
+        return (flag, atomType, lastMatchedParticleIndex);
     }
 
-    function isLazyQuantifierAtom(bytes32 lastQuantifierType, uint256 _currentParticleIdx)
-        private
-        pure
-        returns (bool)
-    {}
+    function isLazyQuantifierAtom(
+        bytes memory _pattern,
+        bytes32 _lastGreedyQuantifierAtomType,
+        uint256 _currentParticleIdx
+    ) private pure returns (bool, bytes32, uint256) {
+        bytes32 lazyQuantifierAtomType;
+        bool flag;
+        if (uint8(_pattern[_currentParticleIdx]) == QUESTION_MARK) {
+            if (_lastGreedyQuantifierAtomType == ASTERISK_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = ASTERISK_LAZY_QUANTIFIER_ATOM;
+            } else if (_lastGreedyQuantifierAtomType == PLUS_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = PLUS_LAZY_QUANTIFIER_ATOM;
+            } else if (_lastGreedyQuantifierAtomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = QUESTION_MARK_LAZY_QUANTIFIER_ATOM;
+            } else if (_lastGreedyQuantifierAtomType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = N_RANGE_LAZY_QUANTIFIER_ATOM;
+            } else if (_lastGreedyQuantifierAtomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM;
+            } else if (_lastGreedyQuantifierAtomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                lazyQuantifierAtomType = N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM;
+            }
+            flag = true;
+        } else {
+            lazyQuantifierAtomType = INVALID_ATOM;
+        }
+        return (flag, lazyQuantifierAtomType, _currentParticleIdx);
+    }
 
-    function isGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+    function isGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes32 _lastAtomType)
         private
         pure
         returns (bool, bytes32, uint256)
     {
         uint8 currentParticle = uint8(_pattern[_currentParticleIdx]);
         bool greedyQuantifier;
-        bytes32 quantifierType;
-        uint256 lastIndex;
+        bytes32 quantifierType = _lastAtomType;
+        uint256 lastIndex = _currentParticleIdx;
 
         if (currentParticle == ASTERISK) {
             greedyQuantifier = true;
@@ -698,12 +745,12 @@ library Stringray {
                     || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
                     || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
             ) {
-                console2.log("came upto here!");
+                // console2.log("came upto here!");
                 return (true, _currentParticleIndex + 1);
             }
         }
 
-        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
+        // console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
         if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 3) {
             uint8 _nextCharFirst = uint8(_pattern[_currentParticleIndex + 1]);
             uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
@@ -749,7 +796,7 @@ library Stringray {
             }
         }
 
-        console2.log("traversed through special \\x.. escape sequences!");
+        // console2.log("traversed through special \\x.. escape sequences!");
 
         if (_targetChar == OPEN_CURLY_BRACE) {
             uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
@@ -761,14 +808,14 @@ library Stringray {
                 return (true, _currentParticleIndex);
             }
 
-            console2.log("passed first if check!");
+            // console2.log("passed first if check!");
 
             if (patternNRangeMaxIndex <= patternLastIndex) {
                 if (!isDigit(_pattern[nextParticleIndex])) {
                     return (true, _currentParticleIndex);
                 }
 
-                console2.log("passed second if check!");
+                // console2.log("passed second if check!");
 
                 if (
                     uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
@@ -777,7 +824,7 @@ library Stringray {
                     return (true, _currentParticleIndex);
                 }
 
-                console2.log("passed third if check!");
+                // console2.log("passed third if check!");
 
                 if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
@@ -802,13 +849,13 @@ library Stringray {
                     }
                 }
 
-                console2.log("passed fourth if check!");
+                // console2.log("passed fourth if check!");
             } else {
                 return (true, _currentParticleIndex);
             }
         }
 
-        console2.log("traversed through range open curly bracket check!");
+        // console2.log("traversed through range open curly bracket check!");
 
         if (isDigit(_pattern[_currentParticleIndex])) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
@@ -1009,12 +1056,12 @@ library Stringray {
             return false;
         }
 
-        console2.log("---In findPatternStringInRangeBounds---");
-        console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
-        console2.log("targetChar ascii code: ", uint8(_targetChar));
-        console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
-        console2.log("upperBoundUnicode: ", upperBoundUnicode);
-        console2.log("---");
+        // console2.log("---In findPatternStringInRangeBounds---");
+        // console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
+        // console2.log("targetChar ascii code: ", uint8(_targetChar));
+        // console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
+        // console2.log("upperBoundUnicode: ", upperBoundUnicode);
+        // console2.log("---");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;
