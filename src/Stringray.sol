@@ -405,7 +405,7 @@ library Stringray {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
             (flag, atomType, lastMatchedParticleIndex) =
-                isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomtype);
+                isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);
             if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
@@ -443,7 +443,7 @@ library Stringray {
         pure
         returns (bool, bytes32, uint256)
     {
-        bytes32 atomTye = INVALID_ATOM;
+        bytes32 atomType = INVALID_ATOM;
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bytes1 targetChar = _pattern[_currentParticleIdx];
 
@@ -462,7 +462,7 @@ library Stringray {
         }
 
         if (flag) {
-            atomTye = LITERAL_ATOM;
+            atomType = LITERAL_ATOM;
         }
 
         // console2.log("---In isLiteralAtom---");
