@@ -509,6 +509,7 @@ library Stringray {
         uint8 currentParticle = uint8(_pattern[_currentParticleIdx]);
         bool greedyQuantifier;
         bytes32 quantifierType = _lastAtomType;
+        // @info: This yields BUG!
         uint256 lastIndex = _currentParticleIdx;
 
         if (currentParticle == ASTERISK) {
