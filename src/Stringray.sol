@@ -422,6 +422,10 @@ library Stringray {
                     }
                 }
             }
+
+            if (!flag) {
+                lastMatchedParticleIndex--;
+            }
             return (flag, atomType, lastMatchedParticleIndex);
         }
 
@@ -509,7 +513,6 @@ library Stringray {
         uint8 currentParticle = uint8(_pattern[_currentParticleIdx]);
         bool greedyQuantifier;
         bytes32 quantifierType = _lastAtomType;
-        // @info: This yields BUG!
         uint256 lastIndex = _currentParticleIdx;
 
         if (currentParticle == ASTERISK) {
@@ -587,30 +590,6 @@ library Stringray {
         }
 
         return (greedyQuantifier, quantifierType, lastIndex);
-    }
-
-    function isPlusGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        return (true, 0);
-    }
-
-    function isQuestionMarkGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        return (true, 0);
-    }
-
-    function isRangeGreedyQuantifierAtom(bytes memory _pattern, uint256 _currentParticleIdx)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        return (true, 0);
     }
 
     function validateRegex(string memory _pattern) private pure {

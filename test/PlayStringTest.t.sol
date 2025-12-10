@@ -734,10 +734,10 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase4() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/{1}/";
-        target.regex(pattern);
+    function testRegexMetaCharsAndEscapeSequencesCase4() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase4();
     }
 
     function testRegexMetaCharsAndEscapeSequencesCase5() public pure {
@@ -749,6 +749,16 @@ contract PlayStringTest is Test {
     function testRegexMetaCharsAndEscapeSequencesCase6() public pure {
         string memory target = "dummy";
         string memory pattern = "/d{1}?/";
+        target.regex(pattern);
+    }
+}
+
+contract DummyContract {
+    using Stringray for string;
+
+    function regexMetaCharsAndEscapeSequencesCase4() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/{1}/";
         target.regex(pattern);
     }
 }
