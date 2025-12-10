@@ -386,11 +386,11 @@ library Stringray {
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
-            // console2.log("---In classifyAtom---");
-            // console2.log("atom: ", string(atom));
-            // console2.log("atomLastIdx: ", atomLastIdx);
-            // console2.log("atomLastIdx cast: ", int256(atomLastIdx));
-            // console2.log("---");
+            console2.log("---In classifyAtom---");
+            console2.log("atom: ", string(atom));
+            console2.log("atomLastIdx: ", atomLastIdx);
+            console2.log("atomLastIdx cast: ", int256(atomLastIdx));
+            console2.log("---");
             return (atom, atomType, int256(atomLastIdx));
         }
 
@@ -431,6 +431,10 @@ library Stringray {
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx, atomType);
+            console2.log("flag for jackless greedy quantifier atom.............");
+            console2.log("flag: ", flag);
+            console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+            console2.log("---");
             if (flag) {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
@@ -469,10 +473,10 @@ library Stringray {
             atomType = LITERAL_ATOM;
         }
 
-        // console2.log("---In isLiteralAtom---");
-        // console2.log("flag: ", flag);
-        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-        // console2.log("---");
+        console2.log("---In isLiteralAtom---");
+        console2.log("flag: ", flag);
+        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+        console2.log("---");
 
         return (flag, atomType, lastMatchedParticleIndex);
     }
@@ -564,6 +568,7 @@ library Stringray {
             }
         }
 
+        // BUG: Ghost|Phantom, vars yields issue (let's find it using console log)
         if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
             if (_pattern.length - 1 >= _currentParticleIdx + 4) {
                 if (
@@ -585,6 +590,7 @@ library Stringray {
                     greedyQuantifier = true;
                     quantifierType = N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM;
                     lastIndex = _currentParticleIdx + 4;
+                    console2.log("yes it was a n and m range greedy quantifier atom");
                 }
             }
         }
@@ -725,12 +731,12 @@ library Stringray {
                     || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
                     || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
             ) {
-                // console2.log("came upto here!");
+                console2.log("came upto here!");
                 return (true, _currentParticleIndex + 1);
             }
         }
 
-        // console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
+        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
         if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 3) {
             uint8 _nextCharFirst = uint8(_pattern[_currentParticleIndex + 1]);
             uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
@@ -776,7 +782,7 @@ library Stringray {
             }
         }
 
-        // console2.log("traversed through special \\x.. escape sequences!");
+        console2.log("traversed through special \\x.. escape sequences!");
 
         if (_targetChar == OPEN_CURLY_BRACE) {
             uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
@@ -788,14 +794,14 @@ library Stringray {
                 return (true, _currentParticleIndex);
             }
 
-            // console2.log("passed first if check!");
+            console2.log("passed first if check!");
 
             if (patternNRangeMaxIndex <= patternLastIndex) {
                 if (!isDigit(_pattern[nextParticleIndex])) {
                     return (true, _currentParticleIndex);
                 }
 
-                // console2.log("passed second if check!");
+                console2.log("passed second if check!");
 
                 if (
                     uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
@@ -804,7 +810,7 @@ library Stringray {
                     return (true, _currentParticleIndex);
                 }
 
-                // console2.log("passed third if check!");
+                console2.log("passed third if check!");
 
                 if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
@@ -829,13 +835,13 @@ library Stringray {
                     }
                 }
 
-                // console2.log("passed fourth if check!");
+                console2.log("passed fourth if check!");
             } else {
                 return (true, _currentParticleIndex);
             }
         }
 
-        // console2.log("traversed through range open curly bracket check!");
+        console2.log("traversed through range open curly bracket check!");
 
         if (isDigit(_pattern[_currentParticleIndex])) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
@@ -1036,12 +1042,12 @@ library Stringray {
             return false;
         }
 
-        // console2.log("---In findPatternStringInRangeBounds---");
-        // console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
-        // console2.log("targetChar ascii code: ", uint8(_targetChar));
-        // console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
-        // console2.log("upperBoundUnicode: ", upperBoundUnicode);
-        // console2.log("---");
+        console2.log("---In findPatternStringInRangeBounds---");
+        console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
+        console2.log("targetChar ascii code: ", uint8(_targetChar));
+        console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
+        console2.log("upperBoundUnicode: ", upperBoundUnicode);
+        console2.log("---");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;
