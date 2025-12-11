@@ -424,6 +424,7 @@ library Stringray {
             }
 
             if (!flag) {
+                flag = true;
                 lastMatchedParticleIndex--;
             }
             return (flag, atomType, lastMatchedParticleIndex);
