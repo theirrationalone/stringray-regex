@@ -770,7 +770,7 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase9();
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase10() public {
+    function testRegexMetaCharsAndEscapeSequencesCase10() public pure {
         string memory target = "dummy";
         string memory pattern = "/d{1,1}/";
         target.regex(pattern);

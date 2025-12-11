@@ -573,7 +573,7 @@ library Stringray {
             if (_pattern.length - 1 >= _currentParticleIdx + 4) {
                 if (
                     isDigit(_pattern[_currentParticleIdx + 1]) && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
-                        && isDigit(_pattern[_currentParticleIdx + 4])
+                        && isDigit(_pattern[_currentParticleIdx + 3])
                         && uint8(_pattern[_currentParticleIdx + 4]) == CLOSE_CURLY_BRACE
                 ) {
                     if (uint8(_pattern[_currentParticleIdx + 1]) > uint8(_pattern[_currentParticleIdx + 4])) {
