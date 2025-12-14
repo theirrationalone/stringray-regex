@@ -811,6 +811,10 @@ library Stringray {
                     return (true, _currentParticleIndex);
                 }
 
+                if (uint8(_pattern[patternNRangeMaxIndex]) == CLOSE_CURLY_BRACE) {
+                    return (false, 0);
+                }
+
                 console2.log("passed third if check!");
 
                 if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
@@ -822,10 +826,16 @@ library Stringray {
                             return (true, _currentParticleIndex);
                         }
 
+                        if (uint8(_pattern[patternNAndInfinityRangeMaxIndex]) == CLOSE_CURLY_BRACE) {
+                            return (false, 0);
+                        }
+
                         if (isDigit(_pattern[patternNAndInfinityRangeMaxIndex])) {
                             if (patternNAndMRangeMaxIndex <= patternLastIndex) {
                                 if (uint8(_pattern[patternNAndMRangeMaxIndex]) != CLOSE_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
+                                } else {
+                                    return (false, 0);
                                 }
                             } else {
                                 return (true, _currentParticleIndex);
