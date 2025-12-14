@@ -994,7 +994,7 @@ library Stringray {
                     if (isDigit(_pattern[_currentParticleIndex - 1])) {
                         console2.log("inside last particle is a digit...");
                         if (
-                            uint8(_pattern[_currentParticleIndex - 2]) != COMMA
+                            uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN
                                 && uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE
                         ) {
                             return (true, _currentParticleIndex);
