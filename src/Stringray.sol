@@ -965,8 +965,9 @@ library Stringray {
                 }
             }
         }
-
+        console2.log("passed upto comma check: ");
         if (_targetChar == CLOSE_CURLY_BRACE) {
+            console2.log("into CLOSE CURLY BRACE: ");
             if (_currentParticleIndex == 0) {
                 return (true, _currentParticleIndex);
             }
@@ -981,9 +982,12 @@ library Stringray {
 
                 if (_currentParticleIndex > 1) {
                     if (isDigit(_pattern[_currentParticleIndex - 1])) {
+                        console2.log("inside last particle is a digit...");
                         if (uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN) {
                             return (true, _currentParticleIndex);
                         }
+
+                        console2.log("Passed last particle is digit and second last is not comma");
 
                         if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
                             if (_currentParticleIndex > 2) {
