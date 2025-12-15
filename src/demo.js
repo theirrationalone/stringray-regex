@@ -119,42 +119,71 @@ string:  naexd{1,1}ummy
 null
 */
 
-newString = "aa\baexd{1,1}ummy";
-console.log("string: ", newString);
-console.log(/\b/.exec(newString));
+// newString = "aa\baexd{1,1}ummy";
+// console.log("string: ", newString);
+// console.log(/\b/.exec(newString));
 
-// why index is 0???
-/* ---output---
-string:  aaexd{1,1}ummy
-[ '', index: 0, input: 'aa\baexd{1,1}ummy', groups: undefined ]
+// // why index is 0???
+// /* ---output---
+// string:  aaexd{1,1}ummy
+// [ '', index: 0, input: 'aa\baexd{1,1}ummy', groups: undefined ]
+// */
+
+// newString = "aa\Baexd{1,1}ummy";
+// console.log("string: ", newString);
+// console.log(/\b/.exec(newString));
+
+// // the actual input was "aa\Baexd{1,1}ummy" why it truncated \ ? and why still index is 0 ?
+// /* ---output---
+// string:  aaBaexd{1,1}ummy
+// [ '', index: 0, input: 'aaBaexd{1,1}ummy', groups: undefined ]
+//  */
+
+// newString = "aa\Baexd{1,1}ummy";
+// console.log("string: ", newString);
+// console.log(/\B/.exec(newString));
+
+// // again, the actual input was "aa\Baexd{1,1}ummy" why it truncated \ ? and why this time index comes out to be 1 ?
+// /* ---output---
+// string:  aaBaexd{1,1}ummy
+// [ '', index: 1, input: 'aaBaexd{1,1}ummy', groups: undefined ]
+// */
+
+// newString = "aa\baexd{1,1}ummy";
+// console.log("string: ", newString);
+// console.log(/\B/.exec(newString));
+
+// // why also this time index comes out to be 1 ?
+// /* ---output---
+// string:  aaexd{1,1}ummy
+// [ '', index: 1, input: 'aa\baexd{1,1}ummy', groups: undefined ]
+// */
+
+newString = "a-aRa ";
+console.log("string: ", newString);
+console.log(/\B/.exec(newString)); // expected index position: 3
+
+/*
+js reads from left to right so...
+ a - a R a 
+0 1 2 3 4 5
 */
 
-newString = "aa\Baexd{1,1}ummy";
+newString = "a-aRaf-_anil_-JS ";
 console.log("string: ", newString);
-console.log(/\b/.exec(newString));
+console.log(/\banil_/.exec(newString)); // expected index position: null because word boundry starts from index 7
 
-// the actual input was "aa\Baexd{1,1}ummy" why it truncated \ ? and why still index is 0 ?
-/* ---output---
-string:  aaBaexd{1,1}ummy
-[ '', index: 0, input: 'aaBaexd{1,1}ummy', groups: undefined ]
- */
-
-newString = "aa\Baexd{1,1}ummy";
-console.log("string: ", newString);
-console.log(/\B/.exec(newString));
-
-// again, the actual input was "aa\Baexd{1,1}ummy" why it truncated \ ? and why this time index comes out to be 1 ?
-/* ---output---
-string:  aaBaexd{1,1}ummy
-[ '', index: 1, input: 'aaBaexd{1,1}ummy', groups: undefined ]
+/*
+---prominent underscore _ case
+js reads from left to right so...
+ a - a R a f - _ a n i l _ - J S  
+0 1 2 3 4 5 6 7 8 9 1011121314151617
 */
 
-newString = "aa\baexd{1,1}ummy";
+newString = "a-aRaf-_anil_-JS ";
 console.log("string: ", newString);
-console.log(/\B/.exec(newString));
+console.log(/\b_anil_/.exec(newString)); // expected start index position: 7, end index position: 13
 
-// why also this time index comes out to be 1 ?
-/* ---output---
-string:  aaexd{1,1}ummy
-[ '', index: 1, input: 'aa\baexd{1,1}ummy', groups: undefined ]
-*/
+newString = "Ra-aRaf-_anil_-JS ";
+console.log("string: ", newString);
+console.log(/\R/.exec(newString));

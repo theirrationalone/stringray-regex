@@ -704,9 +704,21 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexPunctuationClassification() public pure {
+    function testRegexPunctuationClassificationCase1() public pure {
         string memory target = "dummy";
         string memory pattern = "/ !\"#%&',:;<=>@_/";
+        target.regex(pattern);
+    }
+
+    function testRegexPunctuationClassificationCase2() public pure {
+        string memory target = "\ndummy";
+        string memory pattern = "/\n/";
+        target.regex(pattern);
+    }
+
+    function testRegexPunctuationClassificationCase3() public pure {
+        string memory target = "\ndummy";
+        string memory pattern = "/\\n/";
         target.regex(pattern);
     }
 

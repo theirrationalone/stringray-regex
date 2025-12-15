@@ -346,6 +346,8 @@ library Stringray {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
+        console2.log("ORIGINAL TARGET STRING: ", _proposedString);
+        console2.log("ORIGINAL PATTERN STRING: ", _pattern);
         bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, int256(patternInBytes.length - 2));
         nuclearFission(filteredPatternInBytes);
     }
@@ -721,68 +723,52 @@ library Stringray {
 
         if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
+            if (_currentParticleIndex < _pattern.length - 3) {
+                if (_nextChar == uint8(abi.encodePacked("x")[0]) || _nextChar == uint8(abi.encodePacked("X")[0])) {
+                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
+                    bytes1 _nextCharThird = _pattern[_currentParticleIndex + 3];
+                    if (
+                        _nextCharSecond == uint8(abi.encodePacked("0")[0])
+                            || _nextCharSecond == uint8(abi.encodePacked("1")[0])
+                    ) {
+                        if (isDigit(_nextCharThird)) {
+                            return (true, _currentParticleIndex + 3);
+                        }
 
-            if (
-                _nextChar == DOLLAR_SIGN || _nextChar == OPEN_PARANTHESIS || _nextChar == CLOSE_PARANTHESIS
-                    || _nextChar == ASTERISK || _nextChar == PLUS_SIGN || _nextChar == DOT || _nextChar == FORWARD_SLASH
-                    || _nextChar == QUESTION_MARK || _nextChar == OPEN_SQUARE_BRACKET || _nextChar == CLOSE_SQUARE_BRACKET
-                    || _nextChar == BACK_SLASH || _nextChar == CARET_SIGN || _nextChar == OPEN_CURLY_BRACE
-                    || _nextChar == CLOSE_CURLY_BRACE || _nextChar == VERTICAL_BAR || _nextChar == COMMA_SIGN
-                    || _nextChar == uint8(abi.encodePacked("t")[0]) || _nextChar == uint8(abi.encodePacked("n")[0])
-                    || _nextChar == uint8(abi.encodePacked("v")[0]) || _nextChar == uint8(abi.encodePacked("f")[0])
-                    || _nextChar == uint8(abi.encodePacked("r")[0]) || _nextChar == uint8(abi.encodePacked("0")[0])
-            ) {
-                console2.log("came upto here!");
-                return (true, _currentParticleIndex + 1);
-            }
-        }
-
-        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
-        if (_targetChar == BACK_SLASH && _currentParticleIndex < _pattern.length - 3) {
-            uint8 _nextCharFirst = uint8(_pattern[_currentParticleIndex + 1]);
-            uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
-            bytes1 _nextCharThird = _pattern[_currentParticleIndex + 3];
-
-            if (_nextCharFirst == uint8(abi.encodePacked("x")[0]) || _nextCharFirst == uint8(abi.encodePacked("X")[0]))
-            {
-                if (
-                    _nextCharSecond == uint8(abi.encodePacked("0")[0])
-                        || _nextCharSecond == uint8(abi.encodePacked("1")[0])
-                ) {
-                    if (isDigit(_nextCharThird)) {
-                        return (true, _currentParticleIndex + 3);
+                        if (
+                            uint8(_nextCharThird) == uint8(abi.encodePacked("a")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("A")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("b")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("B")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("c")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("C")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("d")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("D")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("e")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("E")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
+                                || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
+                        ) {
+                            return (true, _currentParticleIndex + 3);
+                        }
                     }
 
                     if (
-                        uint8(_nextCharThird) == uint8(abi.encodePacked("a")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("A")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("b")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("B")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("c")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("C")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("d")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("D")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("e")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("E")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
-                            || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
+                        _nextCharSecond == uint8(abi.encodePacked("7")[0])
+                            && (
+                                uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
+                                    || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
+                            )
                     ) {
                         return (true, _currentParticleIndex + 3);
                     }
                 }
-
-                if (
-                    _nextCharSecond == uint8(abi.encodePacked("7")[0])
-                        && (
-                            uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
-                        )
-                ) {
-                    return (true, _currentParticleIndex + 3);
-                }
             }
+
+            return (true, _currentParticleIndex + 1);
         }
 
+        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
         console2.log("traversed through special \\x.. escape sequences!");
 
         if (_targetChar == OPEN_CURLY_BRACE) {
