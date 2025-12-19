@@ -862,6 +862,10 @@ library Stringray {
                             return (true, _currentParticleIndex);
                         }
 
+                        if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
+                            return (false, 0);
+                        }
+
                         if (uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN) {
                             if (_currentParticleIndex + 2 <= patternLastIndex) {
                                 if (
@@ -871,10 +875,16 @@ library Stringray {
                                     return (true, _currentParticleIndex);
                                 }
 
+                                if (uint8(_pattern[_currentParticleIndex + 2]) == CLOSE_CURLY_BRACE) {
+                                    return (false, 0);
+                                }
+
                                 if (isDigit(_pattern[_currentParticleIndex + 2])) {
                                     if (_currentParticleIndex + 3 <= patternLastIndex) {
                                         if (uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE) {
                                             return (true, _currentParticleIndex);
+                                        } else {
+                                            return (false, 0);
                                         }
                                     } else {
                                         return (true, _currentParticleIndex);
@@ -905,6 +915,8 @@ library Stringray {
                             if (_currentParticleIndex > 2) {
                                 if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
+                                } else {
+                                    return (false, 0);
                                 }
                             } else {
                                 return (true, _currentParticleIndex);
@@ -946,10 +958,16 @@ library Stringray {
                             return (true, _currentParticleIndex);
                         }
 
+                        if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
+                            return (false, 0);
+                        }
+
                         if (isDigit(_pattern[_currentParticleIndex + 1])) {
                             if (_currentParticleIndex + 2 <= patternLastIndex) {
-                                if (uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE) {
+                                if (uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
+                                } else {
+                                    return (false, 0);
                                 }
                             } else {
                                 return (true, _currentParticleIndex);
@@ -986,6 +1004,10 @@ library Stringray {
                             return (true, _currentParticleIndex);
                         }
 
+                        if (uint8(_pattern[_currentParticleIndex - 2]) == OPEN_CURLY_BRACE) {
+                            return (false, 0);
+                        }
+
                         console2.log("Passed last particle is digit and second last is not comma");
 
                         if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
@@ -998,6 +1020,8 @@ library Stringray {
                                     if (_currentParticleIndex > 3) {
                                         if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
                                             return (true, _currentParticleIndex);
+                                        } else {
+                                            return (false, 0);
                                         }
                                     } else {
                                         return (true, _currentParticleIndex);
