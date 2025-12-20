@@ -168,22 +168,6 @@ contract PlayStringTest is Test {
         assertEq(targetSmallerThanIgnoreCaseUpper.localeCompare(newTargetSmallerThanIgnoreCaseUpper, true), -1);
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase1() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/d{1}?/";
-        target.regex(pattern);
-    }
-
-    function testRegexMetaCharsAndEscapeSequencesCase2() public {
-        DummyContract dummyCt = new DummyContract();
-        vm.expectRevert();
-        dummyCt.regexMetaCharsAndEscapeSequencesCase7();
-    }
-}
-
-contract DummyContract {
-    using Stringray for string;
-
     function testRegexLiteralsCase1() public pure {
         string memory target = "dummy";
         string memory pattern = "/abcdefghijklmnopqrstuvwxyz/";
@@ -220,25 +204,65 @@ contract DummyContract {
         target.regex(pattern);
     }
 
-    function testRegexLiteralsCase6() public pure {
+    function testRegexLiteralsCase7() public pure {
         string memory target = "dummy";
-        string memory pattern = "/\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9/";
+        string memory pattern = "/ !\"#%&',:;<=>@_~/";
         target.regex(pattern);
     }
 
-    function regexMetaCharsAndEscapeSequencesCase4() public pure {
+    function testRegexLiteralsCase8() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/\\ \\!\\\"\\#\\%\\&\\'\\,\\:\\;\\<\\=\\>\\@\\_\\~/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase9() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/${/";
+        target.regex(pattern);
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase0() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}?/";
+        target.regex(pattern);
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase1() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase1();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase2() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase2();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase3() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase3();
+    }
+}
+
+contract DummyContract {
+    using Stringray for string;
+
+    function regexMetaCharsAndEscapeSequencesCase1() public pure {
         string memory target = "dummy";
         string memory pattern = "/{1}/";
         target.regex(pattern);
     }
 
-    function regexMetaCharsAndEscapeSequencesCase7() public pure {
+    function regexMetaCharsAndEscapeSequencesCase2() public pure {
         string memory target = "dummy";
         string memory pattern = "/{1,}/";
         target.regex(pattern);
     }
 
-    function regexMetaCharsAndEscapeSequencesCase9() public pure {
+    function regexMetaCharsAndEscapeSequencesCase3() public pure {
         string memory target = "dummy";
         string memory pattern = "/{1,1}/";
         target.regex(pattern);

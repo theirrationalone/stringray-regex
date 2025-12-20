@@ -724,12 +724,14 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
+        console2.log("---");
+        console2.log("---In isEscapeLiteral---");
         uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
-            if (_currentParticleIndex < _pattern.length - 3) {
+            if (_currentParticleIndex + 3 <= _pattern.length) {
                 if (_nextChar == uint8(abi.encodePacked("x")[0]) || _nextChar == uint8(abi.encodePacked("X")[0])) {
                     uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
                     bytes1 _nextCharThird = _pattern[_currentParticleIndex + 3];

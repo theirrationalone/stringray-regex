@@ -187,3 +187,15 @@ console.log(/\b_anil_/.exec(newString)); // expected start index position: 7, en
 newString = "Ra-aRaf-_anil_-JS ";
 console.log("string: ", newString);
 console.log(/\R/.exec(newString));
+
+newString = " !\"#%&',:;<=>@_~";
+console.log("string: ", newString);
+console.log(/\ \!\"\#\%\&\'\,\:\;\<\=\>\@\_\~/.exec(newString));
+
+newString = " !\"#%&',:;<=>@_~";
+console.log("string: ", newString);
+console.log(/ !"#%&',:;<=>@_~/.exec(newString));
+
+newString = "${";
+console.log("string: ", newString);
+console.log(/{/.exec(newString));
