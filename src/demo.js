@@ -196,6 +196,14 @@ newString = " !\"#%&',:;<=>@_~";
 console.log("string: ", newString);
 console.log(/ !"#%&',:;<=>@_~/.exec(newString));
 
-newString = "${";
+// newString = "[";
+// console.log("string: ", newString);
+// console.log(/[/.exec(newString));
+
+newString = "]";
 console.log("string: ", newString);
-console.log(/{/.exec(newString));
+console.log(/]/.exec(newString));
+
+newString = "[]";
+console.log("string: ", newString);
+console.log(/[[]]/.exec(newString));
