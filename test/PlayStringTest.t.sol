@@ -184,6 +184,48 @@ contract PlayStringTest is Test {
 contract DummyContract {
     using Stringray for string;
 
+    function testRegexLiteralsCase1() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/abcdefghijklmnopqrstuvwxyz/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase2() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/ABCDEFGHIJKLMNOPQRSTUVWXYZ/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase3() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/0123456789/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase4() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/\\a\\b\\c\\d\\e\\f\\g\\h\\i\\j\\k\\l\\m\\n\\o\\p\\q\\r\\s\\t\\u\\v\\w\\x\\y\\z/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase5() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/\\A\\B\\C\\D\\E\\F\\G\\H\\I\\J\\K\\L\\M\\N\\O\\P\\Q\\R\\S\\T\\U\\V\\W\\X\\Y\\Z/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase6() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase6() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9/";
+        target.regex(pattern);
+    }
+
     function regexMetaCharsAndEscapeSequencesCase4() public pure {
         string memory target = "dummy";
         string memory pattern = "/{1}/";

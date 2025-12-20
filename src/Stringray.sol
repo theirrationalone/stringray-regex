@@ -413,6 +413,7 @@ library Stringray {
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
                     // @question: is it irrelevent??
+                    // @answer: No, Actually it saves GAS by eliminating one more big iteration
                     (flag, atomType, lastMatchedParticleIndex) =
                         isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                     if (flag) {
