@@ -412,6 +412,7 @@ library Stringray {
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
+                    // @question: is it irrelevent??
                     (flag, atomType, lastMatchedParticleIndex) =
                         isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                     if (flag) {
@@ -572,6 +573,7 @@ library Stringray {
         }
 
         // BUG: Ghost|Phantom, vars yields issue (let's find it using console log)
+        // @status: resolved!
         if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
             if (_pattern.length - 1 >= _currentParticleIdx + 4) {
                 if (
@@ -579,7 +581,10 @@ library Stringray {
                         && isDigit(_pattern[_currentParticleIdx + 3])
                         && uint8(_pattern[_currentParticleIdx + 4]) == CLOSE_CURLY_BRACE
                 ) {
-                    if (uint8(_pattern[_currentParticleIdx + 1]) > uint8(_pattern[_currentParticleIdx + 4])) {
+                    // @BUG: there was a bug: uint8(_pattern[_currentParticleIdx + 4]) however it should be
+                    // uint8(_pattern[_currentParticleIdx + 3])
+                    // @status: resolved!
+                    if (uint8(_pattern[_currentParticleIdx + 1]) > uint8(_pattern[_currentParticleIdx + 3])) {
                         string memory errorMsg = string(
                             abi.encodePacked(
                                 "SyntaxError: Invalid regular expression: ",
