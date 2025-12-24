@@ -234,21 +234,25 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase3();
     }
 
+    function testRegexMetaCharsAndEscapeSequencesCase3a() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase3a();
+    }
+
     function testRegexMetaCharsAndEscapeSequencesCase4() public {
         DummyContract dummyCt = new DummyContract();
         dummyCt.regexMetaCharsAndEscapeSequencesCase4();
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase5() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/d{1}/";
-        target.regex(pattern);
+    function testRegexMetaCharsAndEscapeSequencesCase5() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase5();
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase6() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/d{1}?/";
-        target.regex(pattern);
+    function testRegexMetaCharsAndEscapeSequencesCase6() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase6();
     }
 
     function testRegexMetaCharsAndEscapeSequencesCase7() public {
@@ -275,11 +279,269 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase10();
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase20() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/d{1}??/";
-        target.regex(pattern);
+    function testRegexMetaCharsAndEscapeSequencesCase11() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase11();
     }
+
+    function testRegexMetaCharsAndEscapeSequencesCase12() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase12();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase13() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase13();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase14() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase14();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase15() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase15();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase16() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase16();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase17() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase17();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase18() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase18();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase19() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase19();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase20() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase20();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase21() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase21();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase22() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase22();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase23() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase23();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase24() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase24();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase25() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase25();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase26() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase26();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase27() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase27();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase28() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase28();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase29() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase29();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase30() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase30();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase31() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase31();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase32() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase32();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase33() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase33();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase34() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase34();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase35() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase35();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase36() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase36();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase37() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase37();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase38() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase38();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase39() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase39();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase40() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase40();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase41() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase41();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase42() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase42();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase43() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase43();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase44() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase44();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase45() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase45();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase46() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase46();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase47() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase47();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase48() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase48();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase49() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase49();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase50() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase50();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase51() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase51();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase52() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase52();
+    }
+
+    // function testRegexMetaCharsAndEscapeSequencesCase7() public {
+    //     DummyContract dummyCt = new DummyContract();
+    //     vm.expectRevert();
+    //     dummyCt.regexMetaCharsAndEscapeSequencesCase7();
+    // }
+
+    // function testRegexMetaCharsAndEscapeSequencesCase8() public {
+    //     DummyContract dummyCt = new DummyContract();
+    //     vm.expectRevert();
+    //     dummyCt.regexMetaCharsAndEscapeSequencesCase8();
+    // }
+
+    // function testRegexMetaCharsAndEscapeSequencesCase9() public {
+    //     DummyContract dummyCt = new DummyContract();
+    //     vm.expectRevert();
+    //     dummyCt.regexMetaCharsAndEscapeSequencesCase9();
+    // }
+
+    // function testRegexMetaCharsAndEscapeSequencesCase10() public {
+    //     DummyContract dummyCt = new DummyContract();
+    //     vm.expectRevert();
+    //     dummyCt.regexMetaCharsAndEscapeSequencesCase10();
+    // }
+
+    // function testRegexMetaCharsAndEscapeSequencesCase20() public pure {
+    //     string memory target = "dummy";
+    //     string memory pattern = "/d{1}??/";
+    //     target.regex(pattern);
+    // }
 }
 
 contract DummyContract {
@@ -303,33 +565,327 @@ contract DummyContract {
         target.regex(pattern);
     }
 
+    function regexMetaCharsAndEscapeSequencesCase3a() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/{2,1}/";
+        target.regex(pattern);
+    }
+
     function regexMetaCharsAndEscapeSequencesCase4() public pure {
         string memory target = "dummy";
         string memory pattern = "/{,1}/";
         target.regex(pattern);
     }
 
+    function regexMetaCharsAndEscapeSequencesCase5() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase6() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?/";
+        target.regex(pattern);
+    }
+
     function regexMetaCharsAndEscapeSequencesCase7() public pure {
         string memory target = "dummy";
-        string memory pattern = "/d{1}+/";
+        string memory pattern = "/m{1}??/";
         target.regex(pattern);
     }
 
     function regexMetaCharsAndEscapeSequencesCase8() public pure {
         string memory target = "dummy";
-        string memory pattern = "/d{1}*/";
+        string memory pattern = "/m{1}?{1}/";
         target.regex(pattern);
     }
 
     function regexMetaCharsAndEscapeSequencesCase9() public pure {
         string memory target = "dummy";
-        string memory pattern = "/d{1}{1}/";
+        string memory pattern = "/m{1}?{1,}/";
         target.regex(pattern);
     }
 
     function regexMetaCharsAndEscapeSequencesCase10() public pure {
         string memory target = "dummy";
-        string memory pattern = "/d{1}?+/";
+        string memory pattern = "/m{1}?{1,1}/";
         target.regex(pattern);
     }
+
+    function regexMetaCharsAndEscapeSequencesCase11() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?{2,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase12() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?{,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase13() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase14() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?\\a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase15() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase16() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m{1}?*/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase17() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase18() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase19() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+??/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase20() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?{1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase21() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?{1,}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase22() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?{1,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase23() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?{2,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase24() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?{,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase25() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase26() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?\\a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase27() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase28() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m+?*/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase29() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase30() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase31() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*??/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase32() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?{1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase33() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?{1,}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase34() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?{1,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase35() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?{2,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase36() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?{,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase37() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase38() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?\\a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase39() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase40() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m*?*/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase41() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m?/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase42() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase43() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m???/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase44() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??{1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase45() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??{1,}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase46() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??{1,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase47() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??{2,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase48() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??{,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase49() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase50() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??\\a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase51() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase52() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/m??*/";
+        target.regex(pattern);
+    }
+
+    // function regexMetaCharsAndEscapeSequencesCase7() public pure {
+    //     string memory target = "dummy";
+    //     string memory pattern = "/d{1}+/";
+    //     target.regex(pattern);
+    // }
+
+    // function regexMetaCharsAndEscapeSequencesCase8() public pure {
+    //     string memory target = "dummy";
+    //     string memory pattern = "/d{1}*/";
+    //     target.regex(pattern);
+    // }
+
+    // function regexMetaCharsAndEscapeSequencesCase9() public pure {
+    //     string memory target = "dummy";
+    //     string memory pattern = "/d{1}{1}/";
+    //     target.regex(pattern);
+    // }
+
+    // function regexMetaCharsAndEscapeSequencesCase10() public pure {
+    //     string memory target = "dummy";
+    //     string memory pattern = "/d{1}?+/";
+    //     target.regex(pattern);
+    // }
 }
