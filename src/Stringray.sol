@@ -409,6 +409,7 @@ library Stringray {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);
             if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
+                console2.log("Yes it has a greedy quantifier atom");
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -417,6 +418,19 @@ library Stringray {
                     (flag, atomType, lastMatchedParticleIndex) =
                         isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                     if (flag) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+                } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
+                    (flag, atomType, lastMatchedParticleIndex) =
+                        isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex, atomType);
+                    console2.log("Flag: ", flag);
+                    if (flag) {
+                        console2.log("Yes flag is true, expecting a revert...");
                         string memory errorMsg = string(
                             abi.encodePacked(
                                 "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
@@ -509,7 +523,7 @@ library Stringray {
             }
             flag = true;
         } else {
-            lazyQuantifierAtomType = INVALID_ATOM;
+            lazyQuantifierAtomType = _lastGreedyQuantifierAtomType;
         }
         return (flag, lazyQuantifierAtomType, _currentParticleIdx);
     }

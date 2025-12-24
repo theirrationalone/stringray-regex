@@ -207,3 +207,11 @@ console.log(/]/.exec(newString));
 newString = "[]";
 console.log("string: ", newString);
 console.log(/[[]]/.exec(newString));
+
+newString = "{,1}";
+console.log("string: ", newString);
+console.log(/{,1}/.exec(newString));
+
+newString = "{,1}";
+console.log("string: ", newString);
+console.log(/d{1}?{1}/.exec(newString));

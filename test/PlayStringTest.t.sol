@@ -216,12 +216,6 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexMetaCharsAndEscapeSequencesCase0() public pure {
-        string memory target = "dummy";
-        string memory pattern = "/d{1}?/";
-        target.regex(pattern);
-    }
-
     function testRegexMetaCharsAndEscapeSequencesCase1() public {
         DummyContract dummyCt = new DummyContract();
         vm.expectRevert();
@@ -238,6 +232,47 @@ contract PlayStringTest is Test {
         DummyContract dummyCt = new DummyContract();
         vm.expectRevert();
         dummyCt.regexMetaCharsAndEscapeSequencesCase3();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase4() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase4();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase5() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}/";
+        target.regex(pattern);
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase6() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}?/";
+        target.regex(pattern);
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase7() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase7();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase8() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase8();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase9() public {
+        DummyContract dummyCt = new DummyContract();
+        vm.expectRevert();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase9();
+    }
+
+    function testRegexMetaCharsAndEscapeSequencesCase20() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}??/";
+        target.regex(pattern);
     }
 }
 
@@ -259,6 +294,30 @@ contract DummyContract {
     function regexMetaCharsAndEscapeSequencesCase3() public pure {
         string memory target = "dummy";
         string memory pattern = "/{1,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase4() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/{,1}/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase7() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}+/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase8() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}*/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase9() public pure {
+        string memory target = "dummy";
+        string memory pattern = "/d{1}{1}/";
         target.regex(pattern);
     }
 }
