@@ -424,6 +424,19 @@ library Stringray {
                             )
                         );
                         revert(errorMsg);
+                    } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
+                        (flag, atomType, lastMatchedParticleIndex) =
+                            isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex, atomType);
+                        console2.log("Flag under lazy: ", flag);
+                        if (flag) {
+                            console2.log("Yes flag is true under lazy, expecting a revert...");
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
                     }
                 } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
                     (flag, atomType, lastMatchedParticleIndex) =
