@@ -347,7 +347,7 @@ library Stringray {
     bytes32 private constant NOT_DIGIT = "NOT_DIGIT";
     bytes32 private constant UNICODE_PROPERTY_NEGATION = "UNICODE_PROPERTY_NEGATION";
     bytes32 private constant NOT_WHITESPACE = "NOT_WHITESPACE";
-    bytes32 private constant NOT_WORD = "NOT_WORD";
+    bytes32 private constant NOT_WORD_CHARACTER = "NOT_WORD_CHARACTER";
     bytes32 private constant NULL_CHARACTER = "NULL_CHARACTER";
     bytes32 private constant OCTAL = "OCTAL";
     bytes32 private constant ASTERISK_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
@@ -386,8 +386,7 @@ library Stringray {
 
             console2.log("ATOM TYPE HASH: ");
             console2.logBytes32(atomType);
-            console2.log("atomType: LITERAL ATOM");
-
+            printAtomType(atomType);
             console2.log("atomEndIdx: ", atomEndIdx);
             console2.log("---");
 
@@ -539,66 +538,49 @@ library Stringray {
 
                 if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
                     atomType = WORD_BOUNDARY;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("c")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("c")[0])) {
                     atomType = CONTROL_PREFIX;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
                     atomType = DIGIT;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
                     atomType = FORMFEED;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("k")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("k")[0])) {
                     atomType = NAMED_BACKREFERENCE_PREFIX;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
                     atomType = NEWLINE;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("p")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("p")[0])) {
                     atomType = UNICODE_PROPERTY;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
                     atomType = CARRIAGE_RETURN;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
                     atomType = WHITESPACE;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
                     atomType = TAB;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("u")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("u")[0])) {
                     atomType = UNICODE_ESCAPE;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
                     atomType = VERTICAL_TAB;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
                     atomType = WORD_CHARACTER;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
                     atomType = NOT_WORD_BOUNDARY;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
                     atomType = NOT_DIGIT;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("P")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("P")[0])) {
                     atomType = UNICODE_PROPERTY_NEGATION;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
                     atomType = NOT_WHITESPACE;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
-                    atomType = NOT_WORD;
-                }
-                if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
+                    atomType = NOT_WORD_CHARACTER;
+                } else if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
                     atomType = NULL_CHARACTER;
-                }
-                if (
+                } else if (
                     lastMatchedParticle >= uint8(abi.encodePacked("1")[0])
                         && lastMatchedParticle <= uint8(abi.encodePacked("7")[0])
                 ) {
                     atomType = OCTAL;
+                } else {
+                    atomType = LITERAL_ATOM;
                 }
             } else {
                 atomType = LITERAL_ATOM;
@@ -611,6 +593,80 @@ library Stringray {
         console2.log("---");
 
         return (flag, atomType, lastMatchedParticleIndex);
+    }
+
+    function printAtomType(bytes32 atomType) private pure {
+        if (atomType == LITERAL_ATOM) {
+            console2.log("Atom Type: LITERAL_ATOM");
+        } else if (atomType == WORD_BOUNDARY) {
+            console2.log("Atom Type: WORD_BOUNDARY");
+        } else if (atomType == CONTROL_PREFIX) {
+            console2.log("Atom Type: CONTROL_PREFIX");
+        } else if (atomType == DIGIT) {
+            console2.log("Atom Type: DIGIT");
+        } else if (atomType == FORMFEED) {
+            console2.log("Atom Type: FORMFEED");
+        } else if (atomType == NAMED_BACKREFERENCE_PREFIX) {
+            console2.log("Atom Type: NAMED_BACKREFERENCE_PREFIX");
+        } else if (atomType == NEWLINE) {
+            console2.log("Atom Type: NEWLINE");
+        } else if (atomType == UNICODE_PROPERTY) {
+            console2.log("Atom Type: UNICODE_PROPERTY");
+        } else if (atomType == CARRIAGE_RETURN) {
+            console2.log("Atom Type: CARRIAGE_RETURN");
+        } else if (atomType == WHITESPACE) {
+            console2.log("Atom Type: WHITESPACE");
+        } else if (atomType == TAB) {
+            console2.log("Atom Type: TAB");
+        } else if (atomType == UNICODE_ESCAPE) {
+            console2.log("Atom Type: UNICODE_ESCAPE");
+        } else if (atomType == VERTICAL_TAB) {
+            console2.log("Atom Type: VERTICAL_TAB");
+        } else if (atomType == WORD_CHARACTER) {
+            console2.log("Atom Type: WORD_CHARACTER");
+        } else if (atomType == HEX_ESCAPE) {
+            console2.log("Atom Type: HEX_ESCAPE");
+        } else if (atomType == NOT_WORD_BOUNDARY) {
+            console2.log("Atom Type: NOT_WORD_BOUNDARY");
+        } else if (atomType == NOT_DIGIT) {
+            console2.log("Atom Type: NOT_DIGIT");
+        } else if (atomType == UNICODE_PROPERTY_NEGATION) {
+            console2.log("Atom Type: UNICODE_PROPERTY_NEGATION");
+        } else if (atomType == NOT_WHITESPACE) {
+            console2.log("Atom Type: NOT_WHITESPACE");
+        } else if (atomType == NOT_WORD_CHARACTER) {
+            console2.log("Atom Type: NOT_WORD_CHARACTER");
+        } else if (atomType == NULL_CHARACTER) {
+            console2.log("Atom Type: NULL_CHARACTER");
+        } else if (atomType == OCTAL) {
+            console2.log("Atom Type: OCTAL");
+        } else if (atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: ASTERISK_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == PLUS_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: PLUS_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: QUESTION_MARK_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_RANGE_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM");
+        } else if (atomType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: ASTERISK_LAZY_QUANTIFIER_ATOM");
+        } else if (atomType == PLUS_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: PLUS_LAZY_QUANTIFIER_ATOM");
+        } else if (atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: QUESTION_MARK_LAZY_QUANTIFIER_ATOM");
+        } else if (atomType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_RANGE_LAZY_QUANTIFIER_ATOM");
+        } else if (atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM");
+        } else if (atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
+            console2.log("Atom Type: N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM");
+        } else {
+            console2.log("Atom Type: INVALID_ATOM");
+        }
     }
 
     function isLazyQuantifierAtom(

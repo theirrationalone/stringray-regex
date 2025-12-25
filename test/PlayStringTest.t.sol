@@ -666,6 +666,11 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase79();
     }
 
+    function testRegexMetaCharsAndEscapeSequencesCase80() public {
+        DummyContract dummyCt = new DummyContract();
+        dummyCt.regexMetaCharsAndEscapeSequencesCase80();
+    }
+
     function testExperiment() public pure {
         string memory expStr = "\u0031";
         console2.log("expStr: ", expStr);
@@ -1152,6 +1157,13 @@ contract DummyContract {
     function regexMetaCharsAndEscapeSequencesCase79() public pure {
         string memory target = "dummy";
         string memory pattern = "/m*\\a/";
+        target.regex(pattern);
+    }
+
+    function regexMetaCharsAndEscapeSequencesCase80() public pure {
+        string memory target = "dummy";
+        string memory pattern =
+            "/\\b\\c\\d\\f\\k\\n\\p\\r\\s\\t\\u\\v\\w\\xa\\x0F\\x1A\\x0a\\x1F\\B\\D\\P\\S\\W\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9a1234567890/";
         target.regex(pattern);
     }
 }
