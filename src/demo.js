@@ -212,6 +212,11 @@ newString = "{,1}";
 console.log("string: ", newString);
 console.log(/{,1}/.exec(newString));
 
-newString = "{,1}";
+// invalid case
+// newString = "{,1}";
+// console.log("string: ", newString);
+// console.log(/d{1}?{1}/.exec(newString));
+
+newString = "zA{a,Z 1}";
 console.log("string: ", newString);
-console.log(/d{1}?{1}/.exec(newString));
+console.log(/\Z/.exec(newString));

@@ -665,6 +665,11 @@ contract PlayStringTest is Test {
         DummyContract dummyCt = new DummyContract();
         dummyCt.regexMetaCharsAndEscapeSequencesCase79();
     }
+
+    function testExperiment() public pure {
+        string memory expStr = "\u0031";
+        console2.log("expStr: ", expStr);
+    }
 }
 
 contract DummyContract {
