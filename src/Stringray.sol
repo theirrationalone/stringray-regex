@@ -922,6 +922,7 @@ library Stringray {
                         _nextCharSecond == uint8(abi.encodePacked("0")[0])
                             || _nextCharSecond == uint8(abi.encodePacked("1")[0])
                     ) {
+                        // @BUG: Logically invalid code...!
                         if (isDigit(_nextCharThird)) {
                             return (true, _currentParticleIndex + 3);
                         }

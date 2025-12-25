@@ -672,7 +672,11 @@ contract PlayStringTest is Test {
     }
 
     function testExperiment() public pure {
-        string memory expStr = "\u0031";
+        // string memory expStr = "\u0031";
+        // string memory expStr = "\u2764";
+        // string memory expStr = "\u1F680000";
+        // console2.log("expStr code: ", uint8(abi.encodePacked("\x61")[0]));
+        string memory expStr = "\x70";
         console2.log("expStr: ", expStr);
     }
 }
@@ -1162,8 +1166,9 @@ contract DummyContract {
 
     function regexMetaCharsAndEscapeSequencesCase80() public pure {
         string memory target = "dummy";
+        // string memory pattern = "/\\x61/";
         string memory pattern =
-            "/\\b\\c\\d\\f\\k\\n\\p\\r\\s\\t\\u\\v\\w\\xa\\x0F\\x1A\\x0a\\x1F\\B\\D\\P\\S\\W\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9a1234567890/";
+            "/\\b\\c\\d\\f\\k\\n\\p\\r\\s\\t\\u\\v\\w\\xa\\x0F\\x1A\\x0a\\x1F\\B\\D\\P\\S\\W\\0\\1\\2\\3\\4\\5\\6\\7\\8\\9a1234567890\\x7f\\x7F\\X7f\\X7F/";
         target.regex(pattern);
     }
 }
