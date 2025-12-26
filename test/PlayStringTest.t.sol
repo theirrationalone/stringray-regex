@@ -676,7 +676,10 @@ contract PlayStringTest is Test {
         // string memory expStr = "\u2764";
         // string memory expStr = "\u1F680000";
         // console2.log("expStr code: ", uint8(abi.encodePacked("\x61")[0]));
-        string memory expStr = "\x70";
+        // string memory expStr = "\x70";
+        // string memory expStr = hex"F09FA684";
+        string memory expStr = unicode"🦄";
+
         console2.log("expStr: ", expStr);
     }
 }
