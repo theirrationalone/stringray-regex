@@ -587,6 +587,14 @@ library Stringray {
             }
         }
 
+        if (!flag) {
+            (flag, lastMatchedParticleIndex) = isRangeLiteral(_pattern, _currentParticleIdx);
+
+            if (flag) {
+                atomType = LITERAL_ATOM;
+            }
+        }
+
         console2.log("---In isLiteralAtom---");
         console2.log("flag: ", flag);
         console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
@@ -902,66 +910,13 @@ library Stringray {
         return flag;
     }
 
-    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
     {
-        console2.log("---");
-        console2.log("---In isEscapeLiteral---");
         uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
         uint256 patternLastIndex = _pattern.length - 1;
-
-        if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
-            uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
-            if (_currentParticleIndex + 3 <= _pattern.length) {
-                if (_nextChar == uint8(abi.encodePacked("x")[0]) || _nextChar == uint8(abi.encodePacked("X")[0])) {
-                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
-                    bytes1 _nextCharThird = _pattern[_currentParticleIndex + 3];
-                    if (
-                        _nextCharSecond == uint8(abi.encodePacked("0")[0])
-                            || _nextCharSecond == uint8(abi.encodePacked("1")[0])
-                    ) {
-                        // @BUG: Logically invalid code...!
-                        if (isDigit(_nextCharThird)) {
-                            return (true, _currentParticleIndex + 3);
-                        }
-
-                        if (
-                            uint8(_nextCharThird) == uint8(abi.encodePacked("a")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("A")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("b")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("B")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("c")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("C")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("d")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("D")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("e")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("E")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
-                                || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
-                        ) {
-                            return (true, _currentParticleIndex + 3);
-                        }
-                    }
-
-                    if (
-                        _nextCharSecond == uint8(abi.encodePacked("7")[0])
-                            && (
-                                uint8(_nextCharThird) == uint8(abi.encodePacked("f")[0])
-                                    || uint8(_nextCharThird) == uint8(abi.encodePacked("F")[0])
-                            )
-                    ) {
-                        return (true, _currentParticleIndex + 3);
-                    }
-                }
-            }
-
-            return (true, _currentParticleIndex + 1);
-        }
-
-        console2.log("traversed through special escape punctuations, new lines, whitespaces, and null sequences!");
-        console2.log("traversed through special \\x.. escape sequences!");
 
         if (_targetChar == OPEN_CURLY_BRACE) {
             uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
@@ -1247,6 +1202,73 @@ library Stringray {
         }
 
         return (false, 0);
+    }
+
+    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        console2.log("---");
+        console2.log("---In isEscapeLiteral---");
+        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
+        uint256 patternLastIndex = _pattern.length - 1;
+
+        if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
+            uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
+            uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
+            uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
+            uint8 bigXASCIICode = uint8(abi.encodePacked("X")[0]);
+
+            if (_nextChar == smalluASCIICode) {
+                if (_currentParticleIndex + 5 <= patternLastIndex) {
+                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
+                    uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
+                    uint8 _nextCharFourth = uint8(_pattern[_currentParticleIndex + 4]);
+                    uint8 _nextCharFifth = uint8(_pattern[_currentParticleIndex + 5]);
+                    if (
+                        isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)
+                            && isHexadecimal(_nextCharFourth) && isHexadecimal(_nextCharFifth)
+                    ) {
+                        return (true, _currentParticleIndex + 5);
+                    }
+                }
+            }
+
+            if (_nextChar == smallxASCIICode || _nextChar == bigXASCIICode) {
+                if (_currentParticleIndex + 3 <= patternLastIndex) {
+                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
+                    uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
+
+                    if (isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)) {
+                        return (true, _currentParticleIndex + 3);
+                    }
+                }
+            }
+
+            return (true, _currentParticleIndex + 1);
+        }
+
+        return (false, 0);
+    }
+
+    function isHexadecimal(uint8 _char) private pure returns (bool) {
+        uint8 smallaASCIICode = uint8(abi.encodePacked("a")[0]);
+        uint8 smallfASCIICode = uint8(abi.encodePacked("f")[0]);
+        uint8 bigAASCIICode = uint8(abi.encodePacked("A")[0]);
+        uint8 bigFASCIICode = uint8(abi.encodePacked("F")[0]);
+
+        if (isDigit(bytes1(_char))) {
+            return true;
+        }
+
+        if (
+            (_char >= smallaASCIICode && _char <= smallfASCIICode) || (_char >= bigAASCIICode && _char <= bigFASCIICode)
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     function findPatternStringInRangeBounds(
