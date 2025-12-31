@@ -1323,7 +1323,7 @@ library Stringray {
                 }
             }
 
-            if (_nexChar == smallcASCIICode) {
+            if (_nextChar == smallcASCIICode) {
                 if (_currentParticleIndex + 2 <= patternLastIndex) {
                     return (true, _currentParticleIndex + 2);
                 }
