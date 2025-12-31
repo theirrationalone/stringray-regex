@@ -1219,6 +1219,7 @@ library Stringray {
             uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
             uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
             uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
+            uint8 smallkASCIICode = uint8(abi.encodePacked("k")[0]);
 
             if (_nextChar == smalluASCIICode) {
                 if (uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
@@ -1329,10 +1330,31 @@ library Stringray {
                 }
             }
 
+            if (_nextChar == smallkASCIICode) {
+                if (_currentParticleIndex + 5 <= patternLastIndex) {
+                    if (
+                        uint8(_pattern[_currentParticleIndex + 2]) == LESS_THAN_SIGN
+                            && (
+                                isSmallAlphabet(_pattern[_currentParticleIndex + 3])
+                                    || isBigAlphabet(_pattern[_currentParticleIndex + 3])
+                                    || uint8(_pattern[_currentParticleIndex + 3]) == uint8(abi.encodePacked("_")[0])
+                                    || uint8(_pattern[_currentParticleIndex + 3]) == uint8(abi.encodePacked("$")[0])
+                            )
+                    ) {
+                        // TODO: Complete the \k functionality
+                    }
+                }
+            }
+
             return (true, _currentParticleIndex + 1);
         }
 
         return (false, 0);
+    }
+
+    function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool) {
+        // TODO: Complete this function
+        return false;
     }
 
     function hexToDec(bytes memory _hexString) private pure returns (uint256) {
