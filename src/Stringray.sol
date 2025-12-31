@@ -1218,9 +1218,85 @@ library Stringray {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
             uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
             uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
-            uint8 bigXASCIICode = uint8(abi.encodePacked("X")[0]);
 
             if (_nextChar == smalluASCIICode) {
+                if (uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
+                    if (
+                        _currentParticleIndex + 4 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 4]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))) {
+                            return (true, _currentParticleIndex + 4);
+                        }
+                    } else if (
+                        _currentParticleIndex + 5 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 5]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (
+                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
+                        ) {
+                            return (true, _currentParticleIndex + 5);
+                        }
+                    } else if (
+                        _currentParticleIndex + 6 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 6]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (
+                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
+                        ) {
+                            return (true, _currentParticleIndex + 6);
+                        }
+                    } else if (
+                        _currentParticleIndex + 7 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 7]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (
+                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
+                        ) {
+                            return (true, _currentParticleIndex + 7);
+                        }
+                    } else if (
+                        _currentParticleIndex + 8 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 8]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (
+                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 7]))
+                        ) {
+                            return (true, _currentParticleIndex + 8);
+                        }
+                    } else if (
+                        _currentParticleIndex + 9 <= patternLastIndex
+                            && uint8(_pattern[_currentParticleIndex + 9]) == CLOSE_CURLY_BRACE
+                    ) {
+                        if (
+                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 7]))
+                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 8]))
+                        ) {
+                            bytes memory hexString =
+                                trimString(_pattern, _currentParticleIndex + 3, int256(_currentParticleIndex + 8));
+                            uint256 decValue = hexToDec(hexString);
+
+                            if (decValue <= 1114111) {
+                                return (true, _currentParticleIndex + 9);
+                            }
+                        }
+                    }
+                }
+
                 if (_currentParticleIndex + 5 <= patternLastIndex) {
                     uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
                     uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
@@ -1235,7 +1311,7 @@ library Stringray {
                 }
             }
 
-            if (_nextChar == smallxASCIICode || _nextChar == bigXASCIICode) {
+            if (_nextChar == smallxASCIICode) {
                 if (_currentParticleIndex + 3 <= patternLastIndex) {
                     uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
                     uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
@@ -1250,6 +1326,51 @@ library Stringray {
         }
 
         return (false, 0);
+    }
+
+    function hexToDec(bytes memory _hexString) private pure returns (uint256) {
+        uint256 hexStringLastIndex = _hexString.length - 1;
+        uint256 decimal;
+        uint256 exp;
+        uint256 base;
+
+        for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
+            uint256 digit;
+            if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("a")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("A")[0])
+            ) {
+                digit = 10;
+            } else if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("b")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("B")[0])
+            ) {
+                digit = 11;
+            } else if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("c")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("C")[0])
+            ) {
+                digit = 12;
+            } else if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("d")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("D")[0])
+            ) {
+                digit = 13;
+            } else if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("e")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("E")[0])
+            ) {
+                digit = 14;
+            } else if (
+                uint8(_hexString[hi]) == uint8(abi.encodePacked("f")[0])
+                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("F")[0])
+            ) {
+                digit = 15;
+            }
+
+            decimal += (digit * (base ** exp));
+            exp++;
+        }
     }
 
     function isHexadecimal(uint8 _char) private pure returns (bool) {

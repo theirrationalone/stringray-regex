@@ -220,3 +220,7 @@ console.log(/{,1}/.exec(newString));
 newString = "zA{a,Z 1}";
 console.log("string: ", newString);
 console.log(/\Z/.exec(newString));
+
+newString = "X41A";
+console.log("string: ", newString);
+console.log(/\X41/.exec(newString));
