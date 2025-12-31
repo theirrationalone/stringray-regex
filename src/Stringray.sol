@@ -1218,6 +1218,7 @@ library Stringray {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
             uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
             uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
+            uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
 
             if (_nextChar == smalluASCIICode) {
                 if (uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
@@ -1319,6 +1320,12 @@ library Stringray {
                     if (isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)) {
                         return (true, _currentParticleIndex + 3);
                     }
+                }
+            }
+
+            if (_nexChar == smallcASCIICode) {
+                if (_currentParticleIndex + 2 <= patternLastIndex) {
+                    return (true, _currentParticleIndex + 2);
                 }
             }
 

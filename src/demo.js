@@ -224,3 +224,7 @@ console.log(/\Z/.exec(newString));
 newString = "X41A";
 console.log("string: ", newString);
 console.log(/\X41/.exec(newString));
+
+newString = "c1";
+console.log("string: ", newString);
+console.log(/[\c1]/u.exec(newString));
