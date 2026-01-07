@@ -225,6 +225,14 @@ newString = "X41A";
 console.log("string: ", newString);
 console.log(/\X41/.exec(newString));
 
+// newString = "c1";
+// console.log("string: ", newString);
+// console.log(/[\c1]/u.exec(newString));
+
 newString = "c1";
 console.log("string: ", newString);
-console.log(/[\c1]/u.exec(newString));
+console.log(/(?<first_question>ABC)\k<first_question>/.exec(newString));
+
+newString = "c1";
+console.log("string: ", newString);
+console.log(/\p/.exec(newString));

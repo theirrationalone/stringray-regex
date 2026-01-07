@@ -1332,16 +1332,39 @@ library Stringray {
 
             if (_nextChar == smallkASCIICode) {
                 if (_currentParticleIndex + 5 <= patternLastIndex) {
-                    if (
-                        uint8(_pattern[_currentParticleIndex + 2]) == LESS_THAN_SIGN
-                            && (
-                                isSmallAlphabet(_pattern[_currentParticleIndex + 3])
-                                    || isBigAlphabet(_pattern[_currentParticleIndex + 3])
-                                    || uint8(_pattern[_currentParticleIndex + 3]) == uint8(abi.encodePacked("_")[0])
-                                    || uint8(_pattern[_currentParticleIndex + 3]) == uint8(abi.encodePacked("$")[0])
-                            )
-                    ) {
-                        // TODO: Complete the \k functionality
+                    (bool isValidGroupName, uint256 lastMatchedIndex) =
+                        validateGroupName(_pattern, _currentParticleIndex + 2);
+                    if (isValidGroupName) {
+                        // TODO: be sure group name exist to its left
+                        // bytes memory groupName =
+                        //     trimString(_pattern, _currentParticleIndex + 2, int256(lastMatchedIndex));
+                        // int256 groupIndex = indexOf(string(_pattern), string(groupName));
+                        // if (groupIndex > 1 && groupIndex < _currentParticleIndex) {
+                        //     if (uint8(_pattern[uint256(groupIndex) - 1]) == QUESTION_MARK) {
+                        //         if (uint8(_pattern[uint256(groupIndex) - 2]) == OPEN_PARANTHESIS) {
+                        //             for (
+                        //                 uint256 i = uint256(groupIndex) + groupName.length;
+                        //                 i < _currentParticleIndex;
+                        //                 i++
+                        //             ) {
+                        //                 if (uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                        //                     return (true, lastMatchedIndex);
+                        //                 }
+                        //             }
+
+                        //             string memory errorMsg = string(
+                        //                 abi.encodePacked(
+                        //                     "SyntaxError: Invalid regular expression: ",
+                        //                     _pattern,
+                        //                     ": Unterminated group",
+                        //                 )
+                        //             );
+                        //             revert(errorMsg);
+                        //         }
+                        //     }
+                        // }
+
+                        return (true, lastMatchedIndex);
                     }
                 }
             }
@@ -1352,9 +1375,29 @@ library Stringray {
         return (false, 0);
     }
 
-    function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool) {
-        // TODO: Complete this function
-        return false;
+    function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {
+        if (uint8(_pattern[_indexToStartFrom]) == LESS_THAN_SIGN) {
+            if (
+                isSmallAlphabet(_pattern[_indexToStartFrom + 1]) || isBigAlphabet(_pattern[_indexToStartFrom + 1])
+                    || uint8(_pattern[_indexToStartFrom + 1]) == uint8(abi.encodePacked("_")[0])
+                    || uint8(_pattern[_indexToStartFrom + 1]) == uint8(abi.encodePacked("$")[0])
+            ) {
+                for (uint256 i = _indexToStartFrom + 2; i < _pattern.length; i++) {
+                    if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
+                        return (true, i);
+                    }
+
+                    if (
+                        !isSmallAlphabet(_pattern[i]) && !isBigAlphabet(_pattern[i])
+                            && !(uint8(_pattern[i]) == uint8(abi.encodePacked("_")[0]))
+                            && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i])
+                    ) {
+                        return (false, 0);
+                    }
+                }
+            }
+        }
+        return (false, 0);
     }
 
     function hexToDec(bytes memory _hexString) private pure returns (uint256) {
