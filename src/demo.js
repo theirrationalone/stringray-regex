@@ -233,6 +233,6 @@ newString = "c1";
 console.log("string: ", newString);
 console.log(/(?<first_question>ABC)\k<first_question>/.exec(newString));
 
-newString = "c1";
+newString = "papaya";
 console.log("string: ", newString);
-console.log(/\p/.exec(newString));
+console.log(/\p/u.exec(newString));

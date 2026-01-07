@@ -1369,6 +1369,10 @@ library Stringray {
                 }
             }
 
+            if (true) {
+                // TODO: Complete \p functionality
+            }
+
             return (true, _currentParticleIndex + 1);
         }
 
@@ -1443,6 +1447,8 @@ library Stringray {
             decimal += (digit * (base ** exp));
             exp++;
         }
+
+        return decimal;
     }
 
     function isHexadecimal(uint8 _char) private pure returns (bool) {
