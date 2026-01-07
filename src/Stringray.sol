@@ -1209,66 +1209,81 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        console2.log("---");
-        console2.log("---In isEscapeLiteral---");
-        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
-        uint256 patternLastIndex = _pattern.length - 1;
+        if (uint8(_pattern[_currentParticleIndex]) == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
+            // uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
+            // uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
+            // uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
+            // uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
+            // uint8 smallkASCIICode = uint8(abi.encodePacked("k")[0]);
+            // uint8 smallpASCIICode = uint8(abi.encodePacked("p")[0]);
+            // uint8 bigPASCIICode = uint8(abi.encodePacked("P")[0]);
+            bool isValid;
+            uint256 lastMatchedIndex;
 
-        if (_targetChar == BACK_SLASH && _currentParticleIndex < patternLastIndex) {
-            uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
-            uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
-            uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
-            uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
-            uint8 smallkASCIICode = uint8(abi.encodePacked("k")[0]);
-            uint8 smallpASCIICode = uint8(abi.encodePacked("p")[0]);
-            uint8 bigPASCIICode = uint8(abi.encodePacked("P")[0]);
+            // if (_nextChar == smalluASCIICode) {
+            (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
 
-            if (_nextChar == smalluASCIICode) {
-                (bool isValid, uint256 lastMatchedIndex) =
-                    validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
-
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            if (isValid) {
+                return (true, lastMatchedIndex);
             }
+            // }
 
-            if (_nextChar == smallxASCIICode) {
-                (bool isValid, uint256 lastMatchedIndex) =
-                    validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
+            // if (_nextChar == smallxASCIICode) {
+            (isValid, lastMatchedIndex) = validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            if (isValid) {
+                return (true, lastMatchedIndex);
             }
+            // }
 
-            if (_nextChar == smallcASCIICode) {
-                (bool isValid, uint256 lastMatchedIndex) =
-                    validateBackslash_c_controlEscape(_pattern, _currentParticleIndex);
+            // if (_nextChar == smallcASCIICode) {
+            (isValid, lastMatchedIndex) = validateBackslash_c_controlEscape(_pattern, _currentParticleIndex);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            if (isValid) {
+                return (true, lastMatchedIndex);
             }
+            // }
 
-            if (_nextChar == smallkASCIICode) {
-                (bool isValid, uint256 lastMatchedIndex) =
-                    validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
+            // if (_nextChar == smallkASCIICode) {
+            (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            if (isValid) {
+                return (true, lastMatchedIndex);
             }
+            // }
 
-            if (_nextChar == smallpASCIICode || _nextChar == bigPASCIICode) {
-                (bool isValid, uint256 lastMatchedIndex) =
-                    validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
+            // if (_nextChar == smallpASCIICode || _nextChar == bigPASCIICode) {
+            (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            if (isValid) {
+                return (true, lastMatchedIndex);
+            }
+            // }
+
+            (isValid, lastMatchedIndex) =
+                validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
+
+            if (isValid) {
+                return (true, lastMatchedIndex);
             }
 
             return (true, _currentParticleIndex + 1);
+        }
+
+        return (false, 0);
+    }
+
+    function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
+
+        for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++) {
+            if (!isDigit(_pattern[i])) {
+                return (true, i - 1);
+            }
         }
 
         return (false, 0);
@@ -1279,7 +1294,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        uint256 patternLastIndex = _pattern.length;
+        uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 3 <= patternLastIndex) {
             if (
@@ -1301,6 +1316,8 @@ library Stringray {
                 }
             }
         }
+
+        return (false, 0);
     }
 
     function validateBackslash_k_groupEscape(bytes memory _pattern, uint256 _indexToStartFrom)
@@ -1308,7 +1325,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        uint256 patternLastIndex = _pattern.length;
+        uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 5 <= patternLastIndex) {
             if (uint8(_pattern[_indexToStartFrom + 2]) == LESS_THAN_SIGN) {
@@ -1347,8 +1364,8 @@ library Stringray {
                     revert(errorMsg);
                 }
             }
-            return (false, 0);
         }
+        return (false, 0);
     }
 
     function validateBackslash_c_controlEscape(bytes memory _pattern, uint256 _indexToStartFrom)
@@ -1356,7 +1373,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        uint256 patternLastIndex = _pattern.length;
+        uint256 patternLastIndex = _pattern.length - 1;
         if (_indexToStartFrom + 2 <= patternLastIndex) {
             return (true, _indexToStartFrom + 2);
         }
@@ -1369,7 +1386,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        uint256 patternLastIndex = _pattern.length;
+        uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 3 <= patternLastIndex) {
             uint8 _nextCharSecond = uint8(_pattern[_indexToStartFrom + 2]);
