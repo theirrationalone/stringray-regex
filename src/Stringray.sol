@@ -1220,163 +1220,294 @@ library Stringray {
             uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
             uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
             uint8 smallkASCIICode = uint8(abi.encodePacked("k")[0]);
+            uint8 smallpASCIICode = uint8(abi.encodePacked("p")[0]);
+            uint8 bigPASCIICode = uint8(abi.encodePacked("P")[0]);
 
             if (_nextChar == smalluASCIICode) {
-                if (uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
-                    if (
-                        _currentParticleIndex + 4 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 4]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))) {
-                            return (true, _currentParticleIndex + 4);
-                        }
-                    } else if (
-                        _currentParticleIndex + 5 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 5]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (
-                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
-                        ) {
-                            return (true, _currentParticleIndex + 5);
-                        }
-                    } else if (
-                        _currentParticleIndex + 6 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 6]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (
-                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
-                        ) {
-                            return (true, _currentParticleIndex + 6);
-                        }
-                    } else if (
-                        _currentParticleIndex + 7 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 7]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (
-                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
-                        ) {
-                            return (true, _currentParticleIndex + 7);
-                        }
-                    } else if (
-                        _currentParticleIndex + 8 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 8]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (
-                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 7]))
-                        ) {
-                            return (true, _currentParticleIndex + 8);
-                        }
-                    } else if (
-                        _currentParticleIndex + 9 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 9]) == CLOSE_CURLY_BRACE
-                    ) {
-                        if (
-                            isHexadecimal(uint8(_pattern[_currentParticleIndex + 3]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 4]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 5]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 6]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 7]))
-                                && isHexadecimal(uint8(_pattern[_currentParticleIndex + 8]))
-                        ) {
-                            bytes memory hexString =
-                                trimString(_pattern, _currentParticleIndex + 3, int256(_currentParticleIndex + 8));
-                            uint256 decValue = hexToDec(hexString);
+                (bool isValid, uint256 lastMatchedIndex) =
+                    validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
 
-                            if (decValue <= 1114111) {
-                                return (true, _currentParticleIndex + 9);
-                            }
-                        }
-                    }
-                }
-
-                if (_currentParticleIndex + 5 <= patternLastIndex) {
-                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
-                    uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
-                    uint8 _nextCharFourth = uint8(_pattern[_currentParticleIndex + 4]);
-                    uint8 _nextCharFifth = uint8(_pattern[_currentParticleIndex + 5]);
-                    if (
-                        isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)
-                            && isHexadecimal(_nextCharFourth) && isHexadecimal(_nextCharFifth)
-                    ) {
-                        return (true, _currentParticleIndex + 5);
-                    }
+                if (isValid) {
+                    return (true, lastMatchedIndex);
                 }
             }
 
             if (_nextChar == smallxASCIICode) {
-                if (_currentParticleIndex + 3 <= patternLastIndex) {
-                    uint8 _nextCharSecond = uint8(_pattern[_currentParticleIndex + 2]);
-                    uint8 _nextCharThird = uint8(_pattern[_currentParticleIndex + 3]);
+                (bool isValid, uint256 lastMatchedIndex) =
+                    validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
 
-                    if (isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)) {
-                        return (true, _currentParticleIndex + 3);
-                    }
+                if (isValid) {
+                    return (true, lastMatchedIndex);
                 }
             }
 
             if (_nextChar == smallcASCIICode) {
-                if (_currentParticleIndex + 2 <= patternLastIndex) {
-                    return (true, _currentParticleIndex + 2);
+                (bool isValid, uint256 lastMatchedIndex) =
+                    validateBackslash_c_controlEscape(_pattern, _currentParticleIndex);
+
+                if (isValid) {
+                    return (true, lastMatchedIndex);
                 }
             }
 
             if (_nextChar == smallkASCIICode) {
-                if (_currentParticleIndex + 5 <= patternLastIndex) {
-                    (bool isValidGroupName, uint256 lastMatchedIndex) =
-                        validateGroupName(_pattern, _currentParticleIndex + 2);
-                    if (isValidGroupName) {
-                        // TODO: be sure group name exist to its left
-                        // bytes memory groupName =
-                        //     trimString(_pattern, _currentParticleIndex + 2, int256(lastMatchedIndex));
-                        // int256 groupIndex = indexOf(string(_pattern), string(groupName));
-                        // if (groupIndex > 1 && groupIndex < _currentParticleIndex) {
-                        //     if (uint8(_pattern[uint256(groupIndex) - 1]) == QUESTION_MARK) {
-                        //         if (uint8(_pattern[uint256(groupIndex) - 2]) == OPEN_PARANTHESIS) {
-                        //             for (
-                        //                 uint256 i = uint256(groupIndex) + groupName.length;
-                        //                 i < _currentParticleIndex;
-                        //                 i++
-                        //             ) {
-                        //                 if (uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
-                        //                     return (true, lastMatchedIndex);
-                        //                 }
-                        //             }
+                (bool isValid, uint256 lastMatchedIndex) =
+                    validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
-                        //             string memory errorMsg = string(
-                        //                 abi.encodePacked(
-                        //                     "SyntaxError: Invalid regular expression: ",
-                        //                     _pattern,
-                        //                     ": Unterminated group",
-                        //                 )
-                        //             );
-                        //             revert(errorMsg);
-                        //         }
-                        //     }
-                        // }
-
-                        return (true, lastMatchedIndex);
-                    }
+                if (isValid) {
+                    return (true, lastMatchedIndex);
                 }
             }
 
-            if (true) {
-                // TODO: Complete \p functionality
+            if (_nextChar == smallpASCIICode || _nextChar == bigPASCIICode) {
+                (bool isValid, uint256 lastMatchedIndex) =
+                    validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
+
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
 
             return (true, _currentParticleIndex + 1);
         }
 
         return (false, 0);
+    }
+
+    function validateBackslash_p_propertyNameEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length;
+
+        if (_indexToStartFrom + 3 <= patternLastIndex) {
+            if (
+                uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE
+                    && uint8(_pattern[_indexToStartFrom + 3]) == CLOSE_CURLY_BRACE
+            ) {
+                string memory errorMsg = string(
+                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid property name")
+                );
+                revert(errorMsg);
+            }
+
+            if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
+                (bool isValidPropertyName, uint256 lastMatchedIndex) =
+                    validatePropertyNameAndSyntax(_pattern, _indexToStartFrom + 3);
+
+                if (isValidPropertyName) {
+                    return (true, lastMatchedIndex);
+                }
+            }
+        }
+    }
+
+    function validateBackslash_k_groupEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length;
+
+        if (_indexToStartFrom + 5 <= patternLastIndex) {
+            if (uint8(_pattern[_indexToStartFrom + 2]) == LESS_THAN_SIGN) {
+                if (
+                    isSmallAlphabet(_pattern[_indexToStartFrom + 3]) || isBigAlphabet(_pattern[_indexToStartFrom + 3])
+                        || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("_")[0])
+                        || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("$")[0])
+                ) {
+                    for (uint256 i = _indexToStartFrom + 4; i < patternLastIndex; i++) {
+                        if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
+                            // TODO: be sure group name exist to its left
+                            return (true, i);
+                        }
+
+                        if (
+                            !isSmallAlphabet(_pattern[i]) && !isBigAlphabet(_pattern[i])
+                                && !(uint8(_pattern[i]) == uint8(abi.encodePacked("_")[0]))
+                                && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i])
+                        ) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: ",
+                                    _pattern,
+                                    ": Invalid capture group name"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
+                    }
+                } else {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid capture group name"
+                        )
+                    );
+                    revert(errorMsg);
+                }
+            }
+            return (false, 0);
+        }
+    }
+
+    function validateBackslash_c_controlEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length;
+        if (_indexToStartFrom + 2 <= patternLastIndex) {
+            return (true, _indexToStartFrom + 2);
+        }
+
+        return (false, 0);
+    }
+
+    function validateBackslash_x_UnicodeEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length;
+
+        if (_indexToStartFrom + 3 <= patternLastIndex) {
+            uint8 _nextCharSecond = uint8(_pattern[_indexToStartFrom + 2]);
+            uint8 _nextCharThird = uint8(_pattern[_indexToStartFrom + 3]);
+
+            if (isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird)) {
+                return (true, _indexToStartFrom + 3);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function validateBackslash_u_UnicodeEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
+
+        if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
+            if (
+                _indexToStartFrom + 4 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 4]) == CLOSE_CURLY_BRACE
+            ) {
+                if (isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))) {
+                    return (true, _indexToStartFrom + 4);
+                }
+            } else if (
+                _indexToStartFrom + 5 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 5]) == CLOSE_CURLY_BRACE
+            ) {
+                if (
+                    isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 4]))
+                ) {
+                    return (true, _indexToStartFrom + 5);
+                }
+            } else if (
+                _indexToStartFrom + 6 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 6]) == CLOSE_CURLY_BRACE
+            ) {
+                if (
+                    isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 4]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 5]))
+                ) {
+                    return (true, _indexToStartFrom + 6);
+                }
+            } else if (
+                _indexToStartFrom + 7 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 7]) == CLOSE_CURLY_BRACE
+            ) {
+                if (
+                    isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 4]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 5]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 6]))
+                ) {
+                    return (true, _indexToStartFrom + 7);
+                }
+            } else if (
+                _indexToStartFrom + 8 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 8]) == CLOSE_CURLY_BRACE
+            ) {
+                if (
+                    isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 4]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 5]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 6]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 7]))
+                ) {
+                    return (true, _indexToStartFrom + 8);
+                }
+            } else if (
+                _indexToStartFrom + 9 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 9]) == CLOSE_CURLY_BRACE
+            ) {
+                if (
+                    isHexadecimal(uint8(_pattern[_indexToStartFrom + 3]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 4]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 5]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 6]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 7]))
+                        && isHexadecimal(uint8(_pattern[_indexToStartFrom + 8]))
+                ) {
+                    bytes memory hexString = trimString(_pattern, _indexToStartFrom + 3, int256(_indexToStartFrom + 8));
+                    uint256 decValue = hexToDec(hexString);
+
+                    if (decValue <= 1114111) {
+                        return (true, _indexToStartFrom + 9);
+                    }
+                }
+            }
+        }
+
+        if (_indexToStartFrom + 5 <= patternLastIndex) {
+            uint8 _nextCharSecond = uint8(_pattern[_indexToStartFrom + 2]);
+            uint8 _nextCharThird = uint8(_pattern[_indexToStartFrom + 3]);
+            uint8 _nextCharFourth = uint8(_pattern[_indexToStartFrom + 4]);
+            uint8 _nextCharFifth = uint8(_pattern[_indexToStartFrom + 5]);
+            if (
+                isHexadecimal(_nextCharSecond) && isHexadecimal(_nextCharThird) && isHexadecimal(_nextCharFourth)
+                    && isHexadecimal(_nextCharFifth)
+            ) {
+                return (true, _indexToStartFrom + 5);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function validatePropertyNameAndSyntax(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 propertyNameEndIdx;
+        for (uint256 i = _indexToStartFrom; i < _pattern.length; i++) {
+            if (uint8(_pattern[_indexToStartFrom]) == CLOSE_CURLY_BRACE) {
+                propertyNameEndIdx = i - 1;
+            }
+        }
+
+        if (propertyNameEndIdx == 0) {
+            string memory errorMsg = string(
+                abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid property name")
+            );
+            revert(errorMsg);
+        }
+
+        bytes memory propertyName = trimString(_pattern, _indexToStartFrom, int256(propertyNameEndIdx));
+
+        bool isValidProperty = validatePropertyName(propertyName);
+
+        if (isValidProperty) {
+            return (true, propertyNameEndIdx + 1);
+        }
+
+        return (false, 0);
+    }
+
+    function validatePropertyName(bytes memory propertyName) private pure returns (bool) {
+        return true;
     }
 
     function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {

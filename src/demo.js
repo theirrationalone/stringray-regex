@@ -233,6 +233,10 @@ newString = "c1";
 console.log("string: ", newString);
 console.log(/(?<first_question>ABC)\k<first_question>/.exec(newString));
 
-newString = "papaya";
+newString = "paPaya";
 console.log("string: ", newString);
-console.log(/\p/u.exec(newString));
+console.log(/\p{Uppercase_Letter}/u.exec(newString));
+
+newString = "xzabbzxabcdefghijj";
+console.log("string: ", newString);
+console.log(/(a(b(c(d(e(f(g(h(i(j))))))))))\10/.exec(newString));
