@@ -740,7 +740,20 @@ contract PlayStringTest is Test {
     function testRegexUnicodeEscapeCase9() public {
         string memory target = "anything";
         // BUG: found with extended unicode codepoint detection
-        string memory pattern = "/\\u{FFF01b}/";
+        // @status: resolved
+        string memory pattern = "/\\u{FA10b9}/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase10() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u{10FFFF}/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase11() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u{110000}/";
         target.regex(pattern);
     }
 

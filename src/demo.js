@@ -242,3 +242,7 @@ console.log(/\p{Uppercase_Letter}/u.exec(newString));
 newString = "xzabbzxabcdefghijj";
 console.log("string: ", newString);
 console.log(/(a(b(c(d(e(f(g(h(i(j))))))))))\10/.exec(newString));
+
+newString = "u{FA10B9}";
+console.log("string: ", newString);
+console.log(/\u{FA10B9}/u.exec(newString));

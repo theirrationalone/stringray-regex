@@ -1298,8 +1298,6 @@ library Stringray {
 
             if (_nextChar == uint8(abi.encodePacked("x")[0])) {
                 (isValid, lastMatchedIndex) = validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
-                console2.log("isValid: ", isValid);
-                console2.log("lastMatchedIndex: ", lastMatchedIndex);
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -1335,12 +1333,10 @@ library Stringray {
                     validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 
                 if (isValid) {
-                    console2.log("gotcha here!");
                     return (true, lastMatchedIndex);
                 }
             }
 
-            console2.log("yep returning intent...");
             return (true, _currentParticleIndex + 1);
         }
 
@@ -1482,6 +1478,7 @@ library Stringray {
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
+            // @info: BUG: OVERFLOW BUG resides in this function.
             if (
                 _indexToStartFrom + 4 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 4]) == CLOSE_CURLY_BRACE
             ) {
@@ -1543,9 +1540,17 @@ library Stringray {
                 ) {
                     bytes memory hexString = trimString(_pattern, _indexToStartFrom + 3, int256(_indexToStartFrom + 8));
                     uint256 decValue = hexToDec(hexString);
+                    console2.log("decimal of hexString: ", string(hexString), " is: ", decValue);
 
                     if (decValue <= 1114111) {
                         return (true, _indexToStartFrom + 9);
+                    } else {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid Unicode escape"
+                            )
+                        );
+                        revert(errorMsg);
                     }
                 }
             }
@@ -1630,7 +1635,7 @@ library Stringray {
         uint256 hexStringLastIndex = _hexString.length - 1;
         uint256 decimal;
         uint256 exp;
-        uint256 base;
+        uint256 base = 16;
 
         for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
             uint256 digit;
@@ -1664,13 +1669,56 @@ library Stringray {
                     || uint8(_hexString[hi]) == uint8(abi.encodePacked("F")[0])
             ) {
                 digit = 15;
+            } else if (isDigit(_hexString[hi])) {
+                digit = asciiToDigit(uint8(_hexString[hi]));
             }
 
             decimal += (digit * (base ** exp));
+            console2.log("-----------");
+            console2.log("digit: ", digit);
+            console2.log("exp: ", exp);
+            console2.log("base: ", base);
+            console2.log("decimal: ", decimal);
+            console2.log("-----------");
             exp++;
+
+            if (hi == 0) break;
         }
 
         return decimal;
+    }
+
+    function asciiToDigit(uint8 _asciiCode) private pure returns (uint256) {
+        if (_asciiCode == uint8(abi.encodePacked("0")[0])) {
+            return 0;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("1")[0])) {
+            return 1;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("2")[0])) {
+            return 2;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("3")[0])) {
+            return 3;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("4")[0])) {
+            return 4;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("5")[0])) {
+            return 5;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("6")[0])) {
+            return 6;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("7")[0])) {
+            return 7;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("8")[0])) {
+            return 8;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("9")[0])) {
+            return 9;
+        }
     }
 
     function isHexadecimal(uint8 _char) private pure returns (bool) {
