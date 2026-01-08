@@ -671,6 +671,24 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase80();
     }
 
+    function testRegexHexEscapeCase1() public {
+        string memory target = "anything";
+        string memory pattern = "/\\xFF/";
+        target.regex(pattern);
+    }
+
+    function testRegexHexEscapeCase2() public {
+        string memory target = "anything";
+        string memory pattern = "/\\x00/";
+        target.regex(pattern);
+    }
+
+    function testRegexHexEscapeCase3() public {
+        string memory target = "anything";
+        string memory pattern = "/\\x0G/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";

@@ -521,6 +521,9 @@ library Stringray {
             (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
         }
 
+        console2.log("flag: ", flag);
+        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+
         if (flag) {
             if (
                 _currentParticleIdx + 1 < lastMatchedParticleIndex
@@ -1295,6 +1298,8 @@ library Stringray {
 
             if (_nextChar == uint8(abi.encodePacked("x")[0])) {
                 (isValid, lastMatchedIndex) = validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
+                console2.log("isValid: ", isValid);
+                console2.log("lastMatchedIndex: ", lastMatchedIndex);
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -1325,13 +1330,17 @@ library Stringray {
                 }
             }
 
-            (isValid, lastMatchedIndex) =
-                validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
+            if (isDigit(_pattern[_currentParticleIndex + 1])) {
+                (isValid, lastMatchedIndex) =
+                    validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    console2.log("gotcha here!");
+                    return (true, lastMatchedIndex);
+                }
             }
 
+            console2.log("yep returning intent...");
             return (true, _currentParticleIndex + 1);
         }
 
