@@ -689,6 +689,61 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexUnicodeEscapeCase1() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u000/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase2() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u0000/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase3() public {
+        string memory target = "anything";
+        string memory pattern = "/\\uffff/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase4() public {
+        string memory target = "anything";
+        string memory pattern = "/\\uFFFF/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase5() public {
+        string memory target = "anything";
+        string memory pattern = "/\\ufffg/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase6() public {
+        string memory target = "anything";
+        string memory pattern = "/\\uFFFGg/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase7() public {
+        string memory target = "anything";
+        string memory pattern = "/\\uFFF1Gg/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase8() public {
+        string memory target = "anything";
+        string memory pattern = "/\\uFFF01bGg/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeEscapeCase9() public {
+        string memory target = "anything";
+        // BUG: found with extended unicode codepoint detection
+        string memory pattern = "/\\u{FFF01b}/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
