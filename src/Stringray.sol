@@ -523,13 +523,35 @@ library Stringray {
 
         if (flag) {
             if (
-                _currentParticleIdx + 3 == lastMatchedParticleIndex
-                    && (
-                        uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("x")[0])
-                            || uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("X")[0])
-                    )
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("x")[0])
             ) {
                 atomType = HEX_ESCAPE;
+            } else if (
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("u")[0])
+            ) {
+                atomType = UNICODE_ESCAPE;
+            } else if (
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("K")[0])
+            ) {
+                atomType = NAMED_BACKREFERENCE_PREFIX;
+            } else if (
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("p")[0])
+            ) {
+                atomType = UNICODE_PROPERTY;
+            } else if (
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("P")[0])
+            ) {
+                atomType = UNICODE_PROPERTY_NEGATION;
+            } else if (
+                _currentParticleIdx + 1 < lastMatchedParticleIndex
+                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("c")[0])
+            ) {
+                atomType = CONTROL_PREFIX;
             } else if (
                 _currentParticleIdx + 1 == lastMatchedParticleIndex
                     && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
@@ -538,26 +560,18 @@ library Stringray {
 
                 if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
                     atomType = WORD_BOUNDARY;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("c")[0])) {
-                    atomType = CONTROL_PREFIX;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
                     atomType = DIGIT;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
                     atomType = FORMFEED;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("k")[0])) {
-                    atomType = NAMED_BACKREFERENCE_PREFIX;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
                     atomType = NEWLINE;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("p")[0])) {
-                    atomType = UNICODE_PROPERTY;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
                     atomType = CARRIAGE_RETURN;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
                     atomType = WHITESPACE;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
                     atomType = TAB;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("u")[0])) {
-                    atomType = UNICODE_ESCAPE;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
                     atomType = VERTICAL_TAB;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
@@ -566,8 +580,6 @@ library Stringray {
                     atomType = NOT_WORD_BOUNDARY;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
                     atomType = NOT_DIGIT;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("P")[0])) {
-                    atomType = UNICODE_PROPERTY_NEGATION;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
                     atomType = NOT_WHITESPACE;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
