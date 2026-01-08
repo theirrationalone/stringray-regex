@@ -915,6 +915,41 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
+        bool isValid;
+        uint256 lastMatchedIndex;
+
+        (isValid, lastMatchedIndex) = isOpenCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
+
+        if (isValid) {
+            return (true, lastMatchedIndex);
+        }
+
+        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex);
+
+        if (isValid) {
+            return (true, lastMatchedIndex);
+        }
+
+        (isValid, lastMatchedIndex) = isCommaOfRangeEscape(_pattern, _currentParticleIndex);
+
+        if (isValid) {
+            return (true, lastMatchedIndex);
+        }
+
+        (isValid, lastMatchedIndex) = isCloseCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
+
+        if (isValid) {
+            return (true, lastMatchedIndex);
+        }
+
+        return (false, 0);
+    }
+
+    function isOpenCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
         uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
         uint256 patternLastIndex = _pattern.length - 1;
 
@@ -985,7 +1020,15 @@ library Stringray {
             }
         }
 
-        console2.log("traversed through range open curly bracket check!");
+        return (false, 0);
+    }
+
+    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
 
         if (isDigit(_pattern[_currentParticleIndex])) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
@@ -1078,6 +1121,17 @@ library Stringray {
             }
         }
 
+        return (false, 0);
+    }
+
+    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
+        uint256 patternLastIndex = _pattern.length - 1;
+
         if (_targetChar == COMMA_SIGN) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
@@ -1126,9 +1180,17 @@ library Stringray {
                 }
             }
         }
-        console2.log("passed upto comma check: ");
+        return (false, 0);
+    }
+
+    function isCloseCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
+
         if (_targetChar == CLOSE_CURLY_BRACE) {
-            console2.log("into CLOSE CURLY BRACE: ");
             if (_currentParticleIndex == 0) {
                 return (true, _currentParticleIndex);
             }
@@ -1143,7 +1205,6 @@ library Stringray {
 
                 if (_currentParticleIndex > 1) {
                     if (isDigit(_pattern[_currentParticleIndex - 1])) {
-                        console2.log("inside last particle is a digit...");
                         if (
                             uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN
                                 && uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE
@@ -1154,8 +1215,6 @@ library Stringray {
                         if (uint8(_pattern[_currentParticleIndex - 2]) == OPEN_CURLY_BRACE) {
                             return (false, 0);
                         }
-
-                        console2.log("Passed last particle is digit and second last is not comma");
 
                         if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
                             if (_currentParticleIndex > 2) {
@@ -1210,55 +1269,49 @@ library Stringray {
         returns (bool, uint256)
     {
         if (uint8(_pattern[_currentParticleIndex]) == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
-            // uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
-            // uint8 smalluASCIICode = uint8(abi.encodePacked("u")[0]);
-            // uint8 smallxASCIICode = uint8(abi.encodePacked("x")[0]);
-            // uint8 smallcASCIICode = uint8(abi.encodePacked("c")[0]);
-            // uint8 smallkASCIICode = uint8(abi.encodePacked("k")[0]);
-            // uint8 smallpASCIICode = uint8(abi.encodePacked("p")[0]);
-            // uint8 bigPASCIICode = uint8(abi.encodePacked("P")[0]);
+            uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
             bool isValid;
             uint256 lastMatchedIndex;
 
-            // if (_nextChar == smalluASCIICode) {
-            (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
+            if (_nextChar == uint8(abi.encodePacked("u")[0])) {
+                (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
-            // }
 
-            // if (_nextChar == smallxASCIICode) {
-            (isValid, lastMatchedIndex) = validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
+            if (_nextChar == uint8(abi.encodePacked("x")[0])) {
+                (isValid, lastMatchedIndex) = validateBackslash_x_UnicodeEscape(_pattern, _currentParticleIndex);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
-            // }
 
-            // if (_nextChar == smallcASCIICode) {
-            (isValid, lastMatchedIndex) = validateBackslash_c_controlEscape(_pattern, _currentParticleIndex);
+            if (_nextChar == uint8(abi.encodePacked("c")[0])) {
+                (isValid, lastMatchedIndex) = validateBackslash_c_controlEscape(_pattern, _currentParticleIndex);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
-            // }
 
-            // if (_nextChar == smallkASCIICode) {
-            (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
+            if (_nextChar == uint8(abi.encodePacked("k")[0])) {
+                (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
-            // }
 
-            // if (_nextChar == smallpASCIICode || _nextChar == bigPASCIICode) {
-            (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
+            if (_nextChar == uint8(abi.encodePacked("p")[0]) || _nextChar == uint8(abi.encodePacked("P")[0])) {
+                (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
 
-            if (isValid) {
-                return (true, lastMatchedIndex);
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
             }
-            // }
 
             (isValid, lastMatchedIndex) =
                 validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
