@@ -1587,10 +1587,15 @@ library Stringray {
     {
         uint256 propertyNameEndIdx;
         for (uint256 i = _indexToStartFrom; i < _pattern.length; i++) {
-            if (uint8(_pattern[_indexToStartFrom]) == CLOSE_CURLY_BRACE) {
+            // @info: BUG: if (uint8(_pattern[_indexToStartFrom]) == CLOSE_CURLY_BRACE) and missing a break keyword.
+            // @status: resolved!
+            if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
                 propertyNameEndIdx = i - 1;
+                break;
             }
         }
+
+        console2.log("property name end index: ", propertyNameEndIdx);
 
         if (propertyNameEndIdx == 0) {
             string memory errorMsg = string(
@@ -1611,6 +1616,7 @@ library Stringray {
     }
 
     function validatePropertyName(bytes memory propertyName) private pure returns (bool) {
+        console2.log("property name: ", string(propertyName));
         return true;
     }
 

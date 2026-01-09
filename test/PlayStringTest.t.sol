@@ -865,6 +865,24 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexPropertyEscapeCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\p{}/";
+        target.regex(pattern);
+    }
+
+    function testRegexPropertyEscapeCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\p{lasun}/";
+        target.regex(pattern);
+    }
+
+    function testRegexPropertyEscapeCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\p{lasun}a/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
