@@ -859,6 +859,12 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupNamedBackreferenceEscapeCase13() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<_$theLongestGroup_named$backReference_idNo12911>/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
