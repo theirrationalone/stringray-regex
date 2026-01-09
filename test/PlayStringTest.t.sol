@@ -671,73 +671,73 @@ contract PlayStringTest is Test {
         dummyCt.regexMetaCharsAndEscapeSequencesCase80();
     }
 
-    function testRegexHexEscapeCase1() public {
+    function testRegexHexEscapeCase1() public pure {
         string memory target = "anything";
         string memory pattern = "/\\xFF/";
         target.regex(pattern);
     }
 
-    function testRegexHexEscapeCase2() public {
+    function testRegexHexEscapeCase2() public pure {
         string memory target = "anything";
         string memory pattern = "/\\x00/";
         target.regex(pattern);
     }
 
-    function testRegexHexEscapeCase3() public {
+    function testRegexHexEscapeCase3() public pure {
         string memory target = "anything";
         string memory pattern = "/\\x0G/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase1() public {
+    function testRegexUnicodeEscapeCase1() public pure {
         string memory target = "anything";
         string memory pattern = "/\\u000/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase2() public {
+    function testRegexUnicodeEscapeCase2() public pure {
         string memory target = "anything";
         string memory pattern = "/\\u0000/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase3() public {
+    function testRegexUnicodeEscapeCase3() public pure {
         string memory target = "anything";
         string memory pattern = "/\\uffff/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase4() public {
+    function testRegexUnicodeEscapeCase4() public pure {
         string memory target = "anything";
         string memory pattern = "/\\uFFFF/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase5() public {
+    function testRegexUnicodeEscapeCase5() public pure {
         string memory target = "anything";
         string memory pattern = "/\\ufffg/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase6() public {
+    function testRegexUnicodeEscapeCase6() public pure {
         string memory target = "anything";
         string memory pattern = "/\\uFFFGg/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase7() public {
+    function testRegexUnicodeEscapeCase7() public pure {
         string memory target = "anything";
         string memory pattern = "/\\uFFF1Gg/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase8() public {
+    function testRegexUnicodeEscapeCase8() public pure {
         string memory target = "anything";
         string memory pattern = "/\\uFFF01bGg/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase9() public {
+    function testRegexUnicodeEscapeCase9() public pure {
         string memory target = "anything";
         // BUG: found with extended unicode codepoint detection
         // @status: resolved
@@ -745,15 +745,45 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase10() public {
+    function testRegexUnicodeEscapeCase10() public pure {
         string memory target = "anything";
         string memory pattern = "/\\u{10FFFF}/";
         target.regex(pattern);
     }
 
-    function testRegexUnicodeEscapeCase11() public {
+    function testRegexUnicodeEscapeCase11() public pure {
         string memory target = "anything";
         string memory pattern = "/\\u{110000}/";
+        target.regex(pattern);
+    }
+
+    function testRegexControlEscapeCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\cab/";
+        target.regex(pattern);
+    }
+
+    function testRegexControlEscapeCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\cZa/";
+        target.regex(pattern);
+    }
+
+    function testRegexControlEscapeCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\c1/";
+        target.regex(pattern);
+    }
+
+    function testRegexControlEscapeCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\CI/";
+        target.regex(pattern);
+    }
+
+    function testRegexControlEscapeCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\C0/";
         target.regex(pattern);
     }
 

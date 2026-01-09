@@ -245,4 +245,12 @@ console.log(/(a(b(c(d(e(f(g(h(i(j))))))))))\10/.exec(newString));
 
 newString = "u{FA10B9}";
 console.log("string: ", newString);
-console.log(/\u{FA10B9}/u.exec(newString));
+console.log(/\u{10ffff}/u.exec(newString));
+
+newString = "Ci";
+console.log("string: ", newString);
+console.log(/\Ci/.exec(newString));
+
+newString = "\t";
+console.log("string: ", newString);
+console.log(/\ci/.exec(newString));

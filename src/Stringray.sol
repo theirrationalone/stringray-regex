@@ -1309,6 +1309,8 @@ library Stringray {
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
+                } else {
+                    return (true, _currentParticleIndex);
                 }
             }
 
@@ -1445,7 +1447,9 @@ library Stringray {
     {
         uint256 patternLastIndex = _pattern.length - 1;
         if (_indexToStartFrom + 2 <= patternLastIndex) {
-            return (true, _indexToStartFrom + 2);
+            if (isBigAlphabet(_pattern[_indexToStartFrom + 2]) || isSmallAlphabet(_pattern[_indexToStartFrom + 2])) {
+                return (true, _indexToStartFrom + 2);
+            }
         }
 
         return (false, 0);
@@ -1719,6 +1723,7 @@ library Stringray {
         if (_asciiCode == uint8(abi.encodePacked("9")[0])) {
             return 9;
         }
+        return type(uint256).max;
     }
 
     function isHexadecimal(uint8 _char) private pure returns (bool) {
