@@ -1399,14 +1399,18 @@ library Stringray {
     {
         uint256 patternLastIndex = _pattern.length - 1;
 
-        if (_indexToStartFrom + 5 <= patternLastIndex) {
+        // @info: BUG: if (_indexToStartFrom + 5 <= patternLastIndex)
+        // @status: resolved!
+        if (_indexToStartFrom + 4 <= patternLastIndex) {
             if (uint8(_pattern[_indexToStartFrom + 2]) == LESS_THAN_SIGN) {
                 if (
                     isSmallAlphabet(_pattern[_indexToStartFrom + 3]) || isBigAlphabet(_pattern[_indexToStartFrom + 3])
                         || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("_")[0])
                         || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("$")[0])
                 ) {
-                    for (uint256 i = _indexToStartFrom + 4; i < patternLastIndex; i++) {
+                    // @info: BUG: for (uint256 i = _indexToStartFrom + 4; i < patternLastIndex; i++)
+                    // @status: resolved!
+                    for (uint256 i = _indexToStartFrom + 4; i <= patternLastIndex; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             // TODO: be sure group name exist to its left
                             return (true, i);

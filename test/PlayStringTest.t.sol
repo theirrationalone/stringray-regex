@@ -787,6 +787,78 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupNamedBackreferenceEscapeCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<_>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<1a>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<anil>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<_anil$>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<$anil_>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase6() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<a$ni_l>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase7() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<1a$ni_l>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase8() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<%a$ni_l>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase9() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<an1l>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase10() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<anil10>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase11() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<$an_i1l10>/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupNamedBackreferenceEscapeCase12() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\k<$an_i#1l10>/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
