@@ -334,6 +334,7 @@ library Stringray {
     bytes32 private constant DIGIT = "DIGIT";
     bytes32 private constant FORMFEED = "FORMFEED";
     bytes32 private constant NAMED_BACKREFERENCE_PREFIX = "NAMED_BACKREFERENCE_PREFIX";
+    bytes32 private constant DIGIT_BACKREFERENCE_PREFIX = "DIGIT_BACKREFERENCE_PREFIX";
     bytes32 private constant NEWLINE = "NEWLINE";
     bytes32 private constant UNICODE_PROPERTY = "UNICODE_PROPERTY";
     bytes32 private constant CARRIAGE_RETURN = "CARRIAGE_RETURN";
@@ -556,6 +557,11 @@ library Stringray {
             ) {
                 atomType = CONTROL_PREFIX;
             } else if (
+                _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1])
+                    && isDigit(_pattern[lastMatchedParticleIndex])
+            ) {
+                atomType = DIGIT_BACKREFERENCE_PREFIX;
+            } else if (
                 _currentParticleIdx + 1 == lastMatchedParticleIndex
                     && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
             ) {
@@ -631,6 +637,8 @@ library Stringray {
             console2.log("Atom Type: FORMFEED");
         } else if (atomType == NAMED_BACKREFERENCE_PREFIX) {
             console2.log("Atom Type: NAMED_BACKREFERENCE_PREFIX");
+        } else if (atomType == DIGIT_BACKREFERENCE_PREFIX) {
+            console2.log("Atom Type: DIGIT_BACKREFERENCE_PREFIX");
         } else if (atomType == NEWLINE) {
             console2.log("Atom Type: NEWLINE");
         } else if (atomType == UNICODE_PROPERTY) {
@@ -1351,12 +1359,28 @@ library Stringray {
         returns (bool, uint256)
     {
         uint256 patternLastIndex = _pattern.length - 1;
+        // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
+        // @status: resolved!
+        for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
+            // @info: BUG: no return statement for the end itertion if last character is also a digit
+            // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
+            // @status: resolved
 
-        for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++) {
+            // @path: below LoC
+            if (i == patternLastIndex && isDigit(_pattern[i])) {
+                return (true, i);
+            }
+
             if (!isDigit(_pattern[i])) {
                 return (true, i - 1);
             }
         }
+
+        // TODO: Add functionality to verify whether specific number of groups exist
+        // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
+        // then read digits as plain literals
+        // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
+        // because in all cases \0, \00, \000, ..., all are null characters
 
         return (false, 0);
     }

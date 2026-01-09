@@ -883,6 +883,90 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexPropertyEscapeCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\P{}/";
+        target.regex(pattern);
+    }
+
+    function testRegexPropertyEscapeCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\P{lasun}/";
+        target.regex(pattern);
+    }
+
+    function testRegexPropertyEscapeCase6() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\P{lasun}a/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\9/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\99/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\9999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\99999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase6() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\999999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase7() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\9999999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase8() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\99999999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase9() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\999999999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase10() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\9999999999/";
+        target.regex(pattern);
+    }
+
+    function testRegexDigitBackreferenceEscapeCase11() public pure {
+        string memory target = "anything";
+        string memory pattern = "/\\111111111a/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
