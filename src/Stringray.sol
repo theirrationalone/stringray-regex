@@ -557,8 +557,8 @@ library Stringray {
             ) {
                 atomType = CONTROL_PREFIX;
             } else if (
-                _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1])
-                    && isDigit(_pattern[lastMatchedParticleIndex])
+                _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
+                    && isDigit(_pattern[lastMatchedParticleIndex], false)
             ) {
                 atomType = DIGIT_BACKREFERENCE_PREFIX;
             } else if (
@@ -762,7 +762,7 @@ library Stringray {
         if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
             if (_pattern.length - 1 >= _currentParticleIdx + 2) {
                 if (
-                    isDigit(_pattern[_currentParticleIdx + 1])
+                    isDigit(_pattern[_currentParticleIdx + 1], false)
                         && uint8(_pattern[_currentParticleIdx + 2]) == CLOSE_CURLY_BRACE
                 ) {
                     greedyQuantifier = true;
@@ -776,7 +776,8 @@ library Stringray {
         if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
             if (_pattern.length - 1 >= _currentParticleIdx + 3) {
                 if (
-                    isDigit(_pattern[_currentParticleIdx + 1]) && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
+                    isDigit(_pattern[_currentParticleIdx + 1], false)
+                        && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
                         && uint8(_pattern[_currentParticleIdx + 3]) == CLOSE_CURLY_BRACE
                 ) {
                     greedyQuantifier = true;
@@ -792,8 +793,9 @@ library Stringray {
         if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
             if (_pattern.length - 1 >= _currentParticleIdx + 4) {
                 if (
-                    isDigit(_pattern[_currentParticleIdx + 1]) && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
-                        && isDigit(_pattern[_currentParticleIdx + 3])
+                    isDigit(_pattern[_currentParticleIdx + 1], false)
+                        && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
+                        && isDigit(_pattern[_currentParticleIdx + 3], false)
                         && uint8(_pattern[_currentParticleIdx + 4]) == CLOSE_CURLY_BRACE
                 ) {
                     // @BUG: there was a bug: uint8(_pattern[_currentParticleIdx + 4]) however it should be
@@ -877,10 +879,10 @@ library Stringray {
         return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
     }
 
-    function isDigit(bytes1 _targetChar) private pure returns (bool) {
+    function isDigit(bytes1 _targetChar, bool _negation) private pure returns (bool) {
         uint8 lowerBoundUnicode = 48;
         uint8 upperBoundUnicode = 57;
-        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
+        return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
     }
 
     function isPunctuation(bytes1 _targetChar) private pure returns (bool) {
@@ -932,6 +934,19 @@ library Stringray {
 
         return flag;
     }
+
+    function isWord(bytes1 _targetChar, bool _negation) private pure returns (bool) {
+        if (
+            isSmallAlphabet(_targetChar) || isBigAlphabet(_targetChar) || isDigit(_targetChar, false)
+                || uint8(_targetChar) == uint8(abi.encodePacked("_")[0])
+        ) {
+            return _negation ? false : true;
+        } else {
+            return _negation ? true : false;
+        }
+    }
+
+    function isWhitespace(bytes1 _targetChar, bool _negation) private pure returns (bool) {}
 
     function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
         private
@@ -989,7 +1004,7 @@ library Stringray {
             console2.log("passed first if check!");
 
             if (patternNRangeMaxIndex <= patternLastIndex) {
-                if (!isDigit(_pattern[nextParticleIndex])) {
+                if (!isDigit(_pattern[nextParticleIndex], false)) {
                     return (true, _currentParticleIndex);
                 }
 
@@ -1011,7 +1026,7 @@ library Stringray {
                 if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
                         if (
-                            !isDigit(_pattern[patternNAndInfinityRangeMaxIndex])
+                            !isDigit(_pattern[patternNAndInfinityRangeMaxIndex], false)
                                 && uint8(_pattern[patternNAndInfinityRangeMaxIndex]) != CLOSE_CURLY_BRACE
                         ) {
                             return (true, _currentParticleIndex);
@@ -1021,7 +1036,7 @@ library Stringray {
                             return (false, 0);
                         }
 
-                        if (isDigit(_pattern[patternNAndInfinityRangeMaxIndex])) {
+                        if (isDigit(_pattern[patternNAndInfinityRangeMaxIndex], false)) {
                             if (patternNAndMRangeMaxIndex <= patternLastIndex) {
                                 if (uint8(_pattern[patternNAndMRangeMaxIndex]) != CLOSE_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
@@ -1053,7 +1068,7 @@ library Stringray {
     {
         uint256 patternLastIndex = _pattern.length - 1;
 
-        if (isDigit(_pattern[_currentParticleIndex])) {
+        if (isDigit(_pattern[_currentParticleIndex], false)) {
             if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
             }
@@ -1082,7 +1097,7 @@ library Stringray {
                         if (uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN) {
                             if (_currentParticleIndex + 2 <= patternLastIndex) {
                                 if (
-                                    !isDigit(_pattern[_currentParticleIndex + 2])
+                                    !isDigit(_pattern[_currentParticleIndex + 2], false)
                                         && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
                                 ) {
                                     return (true, _currentParticleIndex);
@@ -1092,7 +1107,7 @@ library Stringray {
                                     return (false, 0);
                                 }
 
-                                if (isDigit(_pattern[_currentParticleIndex + 2])) {
+                                if (isDigit(_pattern[_currentParticleIndex + 2], false)) {
                                     if (_currentParticleIndex + 3 <= patternLastIndex) {
                                         if (uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE) {
                                             return (true, _currentParticleIndex);
@@ -1120,11 +1135,11 @@ library Stringray {
                         )
                 ) {
                     if (_currentParticleIndex > 1) {
-                        if (!isDigit(_pattern[_currentParticleIndex - 2])) {
+                        if (!isDigit(_pattern[_currentParticleIndex - 2], false)) {
                             return (true, _currentParticleIndex);
                         }
 
-                        if (isDigit(_pattern[_currentParticleIndex - 2])) {
+                        if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
                             if (_currentParticleIndex > 2) {
                                 if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
@@ -1161,11 +1176,11 @@ library Stringray {
             }
 
             if (_currentParticleIndex > 0) {
-                if (!isDigit(_pattern[_currentParticleIndex - 1])) {
+                if (!isDigit(_pattern[_currentParticleIndex - 1], false)) {
                     return (true, _currentParticleIndex);
                 }
 
-                if (isDigit(_pattern[_currentParticleIndex - 1])) {
+                if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
                     if (_currentParticleIndex > 1) {
                         if (uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE) {
                             return (true, _currentParticleIndex);
@@ -1176,7 +1191,7 @@ library Stringray {
 
                     if (_currentParticleIndex + 1 <= patternLastIndex) {
                         if (
-                            !isDigit(_pattern[_currentParticleIndex + 1])
+                            !isDigit(_pattern[_currentParticleIndex + 1], false)
                                 && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
                         ) {
                             return (true, _currentParticleIndex);
@@ -1186,7 +1201,7 @@ library Stringray {
                             return (false, 0);
                         }
 
-                        if (isDigit(_pattern[_currentParticleIndex + 1])) {
+                        if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
                             if (_currentParticleIndex + 2 <= patternLastIndex) {
                                 if (uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
@@ -1220,14 +1235,14 @@ library Stringray {
 
             if (_currentParticleIndex > 0) {
                 if (
-                    !isDigit(_pattern[_currentParticleIndex - 1])
+                    !isDigit(_pattern[_currentParticleIndex - 1], false)
                         && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
                 ) {
                     return (true, _currentParticleIndex);
                 }
 
                 if (_currentParticleIndex > 1) {
-                    if (isDigit(_pattern[_currentParticleIndex - 1])) {
+                    if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
                         if (
                             uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN
                                 && uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE
@@ -1241,11 +1256,11 @@ library Stringray {
 
                         if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
                             if (_currentParticleIndex > 2) {
-                                if (!isDigit(_pattern[_currentParticleIndex - 3])) {
+                                if (!isDigit(_pattern[_currentParticleIndex - 3], false)) {
                                     return (true, _currentParticleIndex);
                                 }
 
-                                if (isDigit(_pattern[_currentParticleIndex - 3])) {
+                                if (isDigit(_pattern[_currentParticleIndex - 3], false)) {
                                     if (_currentParticleIndex > 3) {
                                         if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
                                             return (true, _currentParticleIndex);
@@ -1263,11 +1278,11 @@ library Stringray {
                     }
 
                     if (uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN) {
-                        if (!isDigit(_pattern[_currentParticleIndex - 2])) {
+                        if (!isDigit(_pattern[_currentParticleIndex - 2], false)) {
                             return (true, _currentParticleIndex);
                         }
 
-                        if (isDigit(_pattern[_currentParticleIndex - 2])) {
+                        if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
                             if (_currentParticleIndex > 2) {
                                 if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
                                     return (true, _currentParticleIndex);
@@ -1338,7 +1353,7 @@ library Stringray {
                 }
             }
 
-            if (isDigit(_pattern[_currentParticleIndex + 1])) {
+            if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
                 (isValid, lastMatchedIndex) =
                     validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 
@@ -1367,11 +1382,11 @@ library Stringray {
             // @status: resolved
 
             // @path: below LoC
-            if (i == patternLastIndex && isDigit(_pattern[i])) {
+            if (i == patternLastIndex && isDigit(_pattern[i], false)) {
                 return (true, i);
             }
 
-            if (!isDigit(_pattern[i])) {
+            if (!isDigit(_pattern[i], false)) {
                 return (true, i - 1);
             }
         }
@@ -1443,7 +1458,7 @@ library Stringray {
                         if (
                             !isSmallAlphabet(_pattern[i]) && !isBigAlphabet(_pattern[i])
                                 && !(uint8(_pattern[i]) == uint8(abi.encodePacked("_")[0]))
-                                && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i])
+                                && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i], false)
                         ) {
                             string memory errorMsg = string(
                                 abi.encodePacked(
@@ -1659,7 +1674,7 @@ library Stringray {
                     if (
                         !isSmallAlphabet(_pattern[i]) && !isBigAlphabet(_pattern[i])
                             && !(uint8(_pattern[i]) == uint8(abi.encodePacked("_")[0]))
-                            && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i])
+                            && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0])) && !isDigit(_pattern[i], false)
                     ) {
                         return (false, 0);
                     }
@@ -1707,7 +1722,7 @@ library Stringray {
                     || uint8(_hexString[hi]) == uint8(abi.encodePacked("F")[0])
             ) {
                 digit = 15;
-            } else if (isDigit(_hexString[hi])) {
+            } else if (isDigit(_hexString[hi], false)) {
                 digit = asciiToDigit(uint8(_hexString[hi]));
             }
 
@@ -1766,7 +1781,7 @@ library Stringray {
         uint8 bigAASCIICode = uint8(abi.encodePacked("A")[0]);
         uint8 bigFASCIICode = uint8(abi.encodePacked("F")[0]);
 
-        if (isDigit(bytes1(_char))) {
+        if (isDigit(bytes1(_char), false)) {
             return true;
         }
 
