@@ -946,16 +946,10 @@ library Stringray {
         }
     }
 
-    function isWhitespace(bytes memory targetString, uint256 currentCharIndex, bool _negation)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function isWhitespace(bytes1 _targetChar, bool _negation) private pure returns (bool) {
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
-        bytes1 _targetChar = targetString[currentCharIndex];
         bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
-        uint256 lastIndex = currentCharIndex;
 
         if (!flag) {
             if (_targetChar == abi.encodePacked(" ")[0]) {
@@ -963,76 +957,15 @@ library Stringray {
             }
         }
 
-        if (!flag) {
-            if (uint8(_targetChar) == BACK_SLASH) {
-                if (currentCharIndex + 3 < targetString.length) {
-                    if (targetString[currentCharIndex + 1] == abi.encodePacked("x")[0]) {
-                        if (
-                            targetString[currentCharIndex + 2] == abi.encodePacked("A")[0]
-                                || targetString[currentCharIndex + 2] == abi.encodePacked("a")[0]
-                        ) {
-                            if (targetString[currentCharIndex + 3] == abi.encodePacked("0")[0]) {
-                                flag = true;
-                                lastIndex = currentCharIndex + 3;
-                            }
-                        }
-                    }
-                }
-
-                if (!flag) {
-                    if (currentCharIndex + 5 < targetString.length) {
-                        if (targetString[currentCharIndex + 1] == abi.encodePacked("u")[0]) {
-                            if (
-                                targetString[currentCharIndex + 2] == abi.encodePacked("2")[0]
-                                    && targetString[currentCharIndex + 3] == abi.encodePacked("0")[0]
-                                    && targetString[currentCharIndex + 4] == abi.encodePacked("2")[0]
-                                    && (
-                                        targetString[currentCharIndex + 5] == abi.encodePacked("8")[0]
-                                            || targetString[currentCharIndex + 5] == abi.encodePacked("9")[0]
-                                    )
-                            ) {
-                                flag = true;
-                                lastIndex = currentCharIndex + 5;
-                            }
-
-                            if (!flag) {
-                                if (
-                                    (
-                                        targetString[currentCharIndex + 2] == abi.encodePacked("f")[0]
-                                            || targetString[currentCharIndex + 2] == abi.encodePacked("F")[0]
-                                    )
-                                        && (
-                                            targetString[currentCharIndex + 3] == abi.encodePacked("e")[0]
-                                                || targetString[currentCharIndex + 3] == abi.encodePacked("E")[0]
-                                        )
-                                        && (
-                                            targetString[currentCharIndex + 4] == abi.encodePacked("f")[0]
-                                                || targetString[currentCharIndex + 4] == abi.encodePacked("F")[0]
-                                        )
-                                        && (
-                                            targetString[currentCharIndex + 5] == abi.encodePacked("f")[0]
-                                                || targetString[currentCharIndex + 5] == abi.encodePacked("F")[0]
-                                        )
-                                ) {
-                                    flag = true;
-                                    lastIndex = currentCharIndex + 5;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         if (_negation && !flag) {
-            return (true, lastIndex);
+            return true;
         }
 
         if (!_negation && flag) {
-            return (true, lastIndex);
+            return true;
         }
 
-        return (false, lastIndex);
+        return false;
     }
 
     function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)

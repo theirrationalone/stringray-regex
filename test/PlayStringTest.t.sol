@@ -1001,6 +1001,11 @@ contract PlayStringTest is Test {
         console2.logBytes(bytesVer);
         console2.log("Decimal version: ", decForm);
         console2.log("string length: ", bytesVer.length);
+
+        string memory aString = unicode"✅";
+
+        console2.log("astring: ", aString);
+        console2.logBytes(abi.encodePacked("160"));
     }
 }
 
