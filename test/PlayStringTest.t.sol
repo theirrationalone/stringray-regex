@@ -974,9 +974,23 @@ contract PlayStringTest is Test {
         // console2.log("expStr code: ", uint8(abi.encodePacked("\x61")[0]));
         // string memory expStr = "\x70";
         // string memory expStr = hex"F09FA684";
-        string memory expStr = unicode"🦄";
+        string memory expStr = "\n";
+        bytes memory bytesVer = abi.encodePacked(expStr);
+        uint8 decForm = uint8(bytesVer[0]);
 
         console2.log("expStr: ", expStr);
+        console2.log("bytes version: ");
+        console2.logBytes(bytesVer);
+        console2.log("Decimal version: ", decForm);
+        console2.log("string length: ", bytesVer.length);
+
+        string memory newExpStr = "\\n\n";
+        bytes memory newBytesVer = abi.encodePacked(newExpStr);
+
+        console2.log("newExpStr: ", newExpStr);
+        console2.log("new bytes version: ");
+        console2.logBytes(newBytesVer);
+        console2.log("string length: ", newBytesVer.length);
     }
 }
 
