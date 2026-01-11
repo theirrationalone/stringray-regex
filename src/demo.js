@@ -254,3 +254,7 @@ console.log(/\Ci/.exec(newString));
 newString = "\t";
 console.log("string: ", newString);
 console.log(/\ci/.exec(newString));
+
+newString = "A0\xa0";
+console.log("string: ", newString);
+console.log(/\s/.exec(newString));

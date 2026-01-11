@@ -991,6 +991,16 @@ contract PlayStringTest is Test {
         console2.log("new bytes version: ");
         console2.logBytes(newBytesVer);
         console2.log("string length: ", newBytesVer.length);
+        expStr = "\\xA0";
+        bytesVer = abi.encodePacked(expStr);
+        decForm = uint8(bytesVer[0]);
+        console2.logBytes("160");
+
+        console2.log("expStr: ", expStr);
+        console2.log("bytes version: ");
+        console2.logBytes(bytesVer);
+        console2.log("Decimal version: ", decForm);
+        console2.log("string length: ", bytesVer.length);
     }
 }
 
