@@ -1006,6 +1006,47 @@ contract PlayStringTest is Test {
 
         console2.log("astring: ", aString);
         console2.logBytes(abi.encodePacked("160"));
+        bytes memory byteStr = "\xa000";
+        console2.log("-------------------");
+        console2.logBytes(byteStr);
+        string memory str = string(byteStr);
+        console2.logBytes1(abi.encodePacked(str)[0]);
+        console2.log("str: ", str);
+        console2.log("-------------------");
+        console2.log("---------nbsp----------");
+        string memory nbsp = unicode"anil�";
+        console2.log("nbsp: ", nbsp);
+        console2.logBytes(abi.encodePacked(nbsp));
+        console2.log(abi.encodePacked(nbsp).length);
+        console2.log("-------------------");
+        console2.log("---------A0----------");
+        string memory a0 = unicode"\xc2\xa0";
+        console2.log("a0: ", a0);
+        console2.logBytes(abi.encodePacked(a0));
+        console2.log(abi.encodePacked(a0).length);
+        string memory anotherForm = unicode"\u00a0";
+        console2.log("anotherForm: ", anotherForm);
+        console2.logBytes(abi.encodePacked(anotherForm));
+        console2.log(abi.encodePacked(anotherForm).length);
+        console2.log("-------------------");
+        console2.log("---------line separator----------");
+        string memory lineSeparator = unicode"\u2028";
+        console2.log("lineSeparator: ", lineSeparator);
+        console2.logBytes(abi.encodePacked(lineSeparator));
+        console2.log("length: ", abi.encodePacked(lineSeparator).length);
+        console2.log("-------------------");
+        console2.log("---------paragraph separator----------");
+        string memory paragraphSeparator = unicode"\u2029";
+        console2.log("paragraphSeparator: ", paragraphSeparator);
+        console2.logBytes(abi.encodePacked(paragraphSeparator));
+        console2.log("length: ", abi.encodePacked(paragraphSeparator).length);
+        console2.log("-------------------");
+        console2.log("---------byte order mark----------");
+        string memory byteOrderMark = unicode"\ufeff";
+        console2.log("byteOrderMark: ", byteOrderMark);
+        console2.logBytes(abi.encodePacked(byteOrderMark));
+        console2.log("length: ", abi.encodePacked(byteOrderMark).length);
+        console2.log("-------------------");
     }
 }
 

@@ -947,6 +947,9 @@ library Stringray {
     }
 
     function isWhitespace(bytes1 _targetChar, bool _negation) private pure returns (bool) {
+        // @info: this function is still inaccurate
+        // @TODO: implement some logic to interpolate whitespace hex strings to identify them
+        // @status: just explored and got the idea, now about to begin the implementation...🚀
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
         bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
