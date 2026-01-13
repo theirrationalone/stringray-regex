@@ -1042,9 +1042,16 @@ contract PlayStringTest is Test {
         console2.log("length: ", abi.encodePacked(paragraphSeparator).length);
         console2.log("-------------------");
         console2.log("---------byte order mark----------");
+        // string memory byteOrderMark = unicode"\u00F7";
         string memory byteOrderMark = unicode"\ufeff";
         console2.log("byteOrderMark: ", byteOrderMark);
         console2.logBytes(abi.encodePacked(byteOrderMark));
+        bytes memory randomByte = hex"c3b7";
+        string memory randomString = unicode"÷";
+        console2.log(string(randomByte));
+        console2.logBytes(randomByte);
+        console2.log("random string: ");
+        console2.logBytes(abi.encodePacked(randomString));
         console2.log("length: ", abi.encodePacked(byteOrderMark).length);
         console2.log("-------------------");
     }

@@ -255,6 +255,6 @@ newString = "\t";
 console.log("string: ", newString);
 console.log(/\ci/.exec(newString));
 
-newString = "A0\xa0";
+newString = "A0\uc3bf";
 console.log("string: ", newString);
 console.log(/\s/.exec(newString));
