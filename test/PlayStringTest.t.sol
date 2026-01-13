@@ -1051,9 +1051,17 @@ contract PlayStringTest is Test {
         console2.log(string(randomByte));
         console2.logBytes(randomByte);
         console2.log("random string: ");
-        console2.logBytes(abi.encodePacked(randomString));
+        console2.logBytes1(abi.encodePacked(randomString)[0]);
         console2.log("length: ", abi.encodePacked(byteOrderMark).length);
         console2.log("-------------------");
+        // 195/2 => 97 rem = 1
+        // 97/2 => 48 rem = 1
+        // 48/2 => 24 rem = 0
+        // 24/2 = 12 rem = 0
+        // 12/2 => 6 rem = 0
+        // 6/2 => 3 rem = 0
+        // 3/2 => 1 rem = 1
+        // 11000011
     }
 }
 
