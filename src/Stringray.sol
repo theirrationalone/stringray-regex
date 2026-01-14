@@ -946,12 +946,19 @@ library Stringray {
         }
     }
 
-    function isWhitespace(bytes1 _targetChar, bool _negation) private pure returns (bool) {
+    function isWhitespace(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
+        private
+        pure
+        returns (bool, uint256)
+    {
         // @info: this function is still inaccurate
         // @TODO: implement some logic to interpolate whitespace hex strings to identify them
         // @status: just explored and got the idea, now about to begin the implementation...🚀
+        // @status: completed!
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
+        uint256 lastIndex = _currentParticleIndex;
+        bytes1 _targetChar = _pattern[lastIndex];
         bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
 
         if (!flag) {
@@ -960,15 +967,36 @@ library Stringray {
             }
         }
 
+        if (!flag) {
+            if (_targetChar == 0xc2) {
+                if (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xa0) {
+                    flag = true;
+                    lastIndex = _currentParticleIndex + 1;
+                }
+            }
+        }
+
+        if (!flag) {
+            if (_targetChar == 0xe2) {
+                if (
+                    _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x80
+                        && (_pattern[_currentParticleIndex + 2] == 0xa8 || _pattern[_currentParticleIndex + 2] == 0xa9)
+                ) {
+                    flag = true;
+                    lastIndex = _currentParticleIndex + 2;
+                }
+            }
+        }
+
         if (_negation && !flag) {
-            return true;
+            return (true, lastIndex);
         }
 
         if (!_negation && flag) {
-            return true;
+            return (true, lastIndex);
         }
 
-        return false;
+        return (false, 0);
     }
 
     function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
