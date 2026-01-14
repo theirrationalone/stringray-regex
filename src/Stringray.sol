@@ -955,6 +955,10 @@ library Stringray {
         // @TODO: implement some logic to interpolate whitespace hex strings to identify them
         // @status: just explored and got the idea, now about to begin the implementation...🚀
         // @status: completed!
+
+        // @info: Please Note-1: These lower and upper bounds also have bitmask applied however they all are 1 byte
+        // and as we know 1-byte atoms masking is also zero(0) bits manipulation so that would have no effect at all.
+        // that's why we're directly converting things like \t, \n, \v, etc, to 1-byte atoms and validating them to.
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
         uint256 lastIndex = _currentParticleIndex;
@@ -962,6 +966,7 @@ library Stringray {
         bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
 
         if (!flag) {
+            // @ref: #Note-1: just like below...
             if (_targetChar == abi.encodePacked(" ")[0]) {
                 flag = true;
             }
