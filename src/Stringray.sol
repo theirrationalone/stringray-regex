@@ -616,6 +616,10 @@ library Stringray {
             }
         }
 
+        if (!flag) {
+            (flag, lastMatchedParticleIndex) = isUnicodeLiteral(_pattern, _currentParticleIdx);
+        }
+
         console2.log("---In isLiteralAtom---");
         console2.log("flag: ", flag);
         console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
@@ -1002,6 +1006,192 @@ library Stringray {
         }
 
         return (false, 0);
+    }
+
+    function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        bool flag;
+        uint256 lastMatchedIndex;
+
+        (flag, lastMatchedIndex) = cUnicodeRange(_pattern, _currentParticleIndex);
+
+        if (!flag) {
+            // TODO: Implement d unicode range detection logic...
+        }
+    }
+
+    function cUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        bool flag;
+        uint256 lastMatchedIndex;
+
+        (flag, lastMatchedIndex) = c2UnicodeRange(_pattern, _currentParticleIndex);
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c3UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c4UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c5UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c6UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c7UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c8UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = c9UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = caUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = cbUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ccUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = cdUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ceUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = cfUnicodeRange(_pattern, _currentParticleIndex);
+        }
+    }
+
+    function c2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc2) {}
+    }
+
+    function c3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc3) {}
+    }
+
+    function c4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc4) {}
+    }
+
+    function c5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc5) {}
+    }
+
+    function c6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc6) {}
+    }
+
+    function c7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc7) {}
+    }
+
+    function c8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc8) {}
+    }
+
+    function c9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xc9) {}
+    }
+
+    function caUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xca) {}
+    }
+
+    function cbUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xcb) {}
+    }
+
+    function ccUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xcc) {}
+    }
+
+    function cdUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xcd) {}
+    }
+
+    function ceUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xce) {}
+    }
+
+    function cfUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xcf) {}
     }
 
     function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
