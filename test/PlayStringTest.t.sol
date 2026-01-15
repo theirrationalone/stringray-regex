@@ -1058,6 +1058,8 @@ contract PlayStringTest is Test {
         console2.logBytes1(0xc2);
         console2.logBytes1(0xa0);
         console2.logBytes2(0xc2a0);
+        console2.log(uint8(0x80));
+        console2.log(uint8(0xbf));
         console2.log("-------------------");
         // 195/2 => 97 rem = 1
         // 97/2 => 48 rem = 1

@@ -1087,7 +1087,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc2) {}
+        if (_pattern[_currentParticleIndex] == 0xc2) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1095,7 +1103,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc3) {}
+        if (_pattern[_currentParticleIndex] == 0xc3) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1103,7 +1119,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc4) {}
+        if (_pattern[_currentParticleIndex] == 0xc4) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1111,7 +1135,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc5) {}
+        if (_pattern[_currentParticleIndex] == 0xc5) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1119,7 +1151,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc6) {}
+        if (_pattern[_currentParticleIndex] == 0xc6) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1127,7 +1167,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc7) {}
+        if (_pattern[_currentParticleIndex] == 0xc7) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1135,7 +1183,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc8) {}
+        if (_pattern[_currentParticleIndex] == 0xc8) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function c9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1143,7 +1199,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xc9) {}
+        if (_pattern[_currentParticleIndex] == 0xc9) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function caUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1151,7 +1215,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xca) {}
+        if (_pattern[_currentParticleIndex] == 0xca) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function cbUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1159,7 +1231,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xcb) {}
+        if (_pattern[_currentParticleIndex] == 0xcb) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function ccUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1167,7 +1247,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xcc) {}
+        if (_pattern[_currentParticleIndex] == 0xcc) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function cdUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1175,7 +1263,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xcd) {}
+        if (_pattern[_currentParticleIndex] == 0xcd) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function ceUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1183,7 +1279,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xce) {}
+        if (_pattern[_currentParticleIndex] == 0xce) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function cfUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1191,7 +1295,31 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        if (_pattern[_currentParticleIndex] == 0xcf) {}
+        if (_pattern[_currentParticleIndex] == 0xcf) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function lastByte80bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_currentParticleIndex + 1 < _pattern.length) {
+            // 0x80 = 128
+            // 0xbf = 191
+            if (uint8(_pattern[_currentParticleIndex + 1]) >= 128 && uint8(_pattern[_currentParticleIndex + 1]) <= 191)
+            {
+                return (true, _currentParticleIndex + 1);
+            }
+        }
+        return (false, 0);
     }
 
     function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
