@@ -1020,7 +1020,333 @@ library Stringray {
 
         if (!flag) {
             // TODO: Implement d unicode range detection logic...
+            (flag, lastMatchedIndex) = dUnicodeRange(_pattern, _currentParticleIndex);
         }
+    }
+
+    function dUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        bool flag;
+        uint256 lastMatchedIndex;
+
+        (flag, lastMatchedIndex) = d0UnicodeRange(_pattern, _currentParticleIndex);
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d1UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d2UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d3UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d4UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d5UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d6UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d7UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d8UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = d9UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = daUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = dbUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = dcUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ddUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = deUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = dfUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        return (flag, lastMatchedIndex);
+    }
+
+    function d0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd0) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd1) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd2) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd3) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd4) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd5) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd6) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd7) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd8) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function d9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xd9) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function daUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xda) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function dbUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xdb) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function dcUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xdc) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function ddUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xdd) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function deUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xde) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function dfUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_pattern[_currentParticleIndex] == 0xdf) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
     }
 
     function cUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
@@ -1080,6 +1406,8 @@ library Stringray {
         if (!flag) {
             (flag, lastMatchedIndex) = cfUnicodeRange(_pattern, _currentParticleIndex);
         }
+
+        return (flag, lastMatchedIndex);
     }
 
     function c2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
