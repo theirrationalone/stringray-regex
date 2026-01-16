@@ -1020,8 +1020,140 @@ library Stringray {
 
         if (!flag) {
             // TODO: Implement d unicode range detection logic...
+            // @status: done
             (flag, lastMatchedIndex) = dUnicodeRange(_pattern, _currentParticleIndex);
         }
+
+        if (!flag) {
+            // TODO: Implement e unicode range detection logic...
+            (flag, lastMatchedIndex) = eUnicodeRange(_pattern, _currentParticleIndex);
+        }
+    }
+
+    function eUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        bool flag;
+        uint256 lastMatchedIndex;
+
+        (flag, lastMatchedIndex) = e0UnicodeRange(_pattern, _currentParticleIndex);
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e1UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e2UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e3UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e4UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e5UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e6UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e7UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e8UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e9UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = eaUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ebUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ecUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = edUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = eeUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = efUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        return (flag, lastMatchedIndex);
+    }
+
+    function e0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e0 a0 80 - e0 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            (bool flag, uint256 lastMatchedParticleIndex) = secondLastBytea0bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                return (true, lastMatchedParticleIndex);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e1 80 80 - e1 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e2 80 80 - e2 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function dUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
@@ -1631,6 +1763,22 @@ library Stringray {
             }
         }
 
+        return (false, 0);
+    }
+
+    function secondLastBytea0bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_currentParticleIndex + 1 < _pattern.length) {
+            // 0xa0 = 160
+            // 0xbf = 191
+            if (uint8(_pattern[_currentParticleIndex + 1]) >= 160 && uint8(_pattern[_currentParticleIndex + 1]) <= 191)
+            {
+                return lastByte80bfValidator(_pattern, _currentParticleIndex + 1);
+            }
+        }
         return (false, 0);
     }
 
