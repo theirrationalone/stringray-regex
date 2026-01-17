@@ -367,6 +367,8 @@ library Stringray {
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
+        console2.log("string in bytes:");
+        console2.logBytes(stringInBytes);
         bytes memory patternInBytes = bytes(_pattern);
         console2.log("ORIGINAL TARGET STRING: ", _proposedString);
         console2.log("ORIGINAL PATTERN STRING: ", _pattern);
@@ -1028,6 +1030,197 @@ library Stringray {
             // TODO: Implement e unicode range detection logic...
             (flag, lastMatchedIndex) = eUnicodeRange(_pattern, _currentParticleIndex);
         }
+
+        if (!flag) {
+            // TODO: Implement f unicode range detection logic...
+            (flag, lastMatchedIndex) = fUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        return (false, 0);
+    }
+
+    function fUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        bool flag;
+        uint256 lastMatchedIndex;
+
+        (flag, lastMatchedIndex) = e0UnicodeRange(_pattern, _currentParticleIndex);
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e1UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e2UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e3UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e4UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e5UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e6UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e7UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e8UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = e9UnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = eaUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ebUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = ecUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = edUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = eeUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedIndex) = efUnicodeRange(_pattern, _currentParticleIndex);
+        }
+
+        return (flag, lastMatchedIndex);
+    }
+
+    function f0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // f0 90 80 80 - f0 bf bf bf
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            (bool flag, uint256 lastMatchedParticleIndex) = secondByte90bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                    if (flag) {
+                        return (true, lastMatchedParticleIndex);
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function f1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // f1 80 80 80 - f1 bf bf bf
+        if (_pattern[_currentParticleIndex] == 0xf1) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                    if (flag) {
+                        return (true, lastMatchedParticleIndex);
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function f2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // f2 80 80 80 - f2 bf bf bf
+        if (_pattern[_currentParticleIndex] == 0xf2) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                    if (flag) {
+                        return (true, lastMatchedParticleIndex);
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function f3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // f3 80 80 80 - f3 bf bf bf
+        if (_pattern[_currentParticleIndex] == 0xf3) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                    if (flag) {
+                        return (true, lastMatchedParticleIndex);
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function f4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // f4 80 80 80 - f4 8f bf bf
+        if (_pattern[_currentParticleIndex] == 0xf4) {
+            (bool flag, uint256 lastMatchedParticleIndex) = secondByte808fValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                    if (flag) {
+                        return (true, lastMatchedParticleIndex);
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function eUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
@@ -1143,6 +1336,266 @@ library Stringray {
     {
         // e2 80 80 - e2 bf bf
         if (_pattern[_currentParticleIndex] == 0xe2) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e3 80 80 - e3 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e4 80 80 - e4 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe4) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e5 80 80 - e5 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe5) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e6 80 80 - e6 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe6) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e7 80 80 - e7 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe7) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e8 80 80 - e8 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe8) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function e9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // e9 80 80 - e9 bf bf
+        if (_pattern[_currentParticleIndex] == 0xe9) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function eaUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // ea 80 80 - ea bf bf
+        if (_pattern[_currentParticleIndex] == 0xea) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function ebUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // eb 80 80 - eb bf bf
+        if (_pattern[_currentParticleIndex] == 0xeb) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function ecUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // ec 80 80 - ec bf bf
+        if (_pattern[_currentParticleIndex] == 0xec) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function edUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // ed 80 80 - ec 9f bf
+        if (_pattern[_currentParticleIndex] == 0xed) {
+            (bool flag, uint256 lastMatchedParticleIndex) = secondLastByte809fValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+    
+    function eeUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // ee 80 80 - ee bf bf
+        if (_pattern[_currentParticleIndex] == 0xee) {
+            (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
+
+            if (flag) {
+                (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
+                if (flag) {
+                    return (true, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function efUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // ef 80 80 - ef bf bf
+        if (_pattern[_currentParticleIndex] == 0xef) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
 
             if (flag) {
@@ -1777,6 +2230,54 @@ library Stringray {
             if (uint8(_pattern[_currentParticleIndex + 1]) >= 160 && uint8(_pattern[_currentParticleIndex + 1]) <= 191)
             {
                 return lastByte80bfValidator(_pattern, _currentParticleIndex + 1);
+            }
+        }
+        return (false, 0);
+    }
+
+    function secondLastByte809fValidator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_currentParticleIndex + 1 < _pattern.length) {
+            // 0x80 = 128
+            // 0x9f = 159
+            if (uint8(_pattern[_currentParticleIndex + 1]) >= 128 && uint8(_pattern[_currentParticleIndex + 1]) <= 159)
+            {
+                return (true, _currentParticleIndex + 1);
+            }
+        }
+        return (false, 0);
+    }
+
+    function secondByte808fValidator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_currentParticleIndex + 1 < _pattern.length) {
+            // 0x80 = 128
+            // 0x8f = 143
+            if (uint8(_pattern[_currentParticleIndex + 1]) >= 128 && uint8(_pattern[_currentParticleIndex + 1]) <= 143)
+            {
+                return (true, _currentParticleIndex + 1);
+            }
+        }
+        return (false, 0);
+    }
+
+    function secondByte90bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (_currentParticleIndex + 1 < _pattern.length) {
+            // 0x90 = 144
+            // 0xbf = 191
+            if (uint8(_pattern[_currentParticleIndex + 1]) >= 144 && uint8(_pattern[_currentParticleIndex + 1]) <= 191)
+            {
+                return (true, _currentParticleIndex + 1);
             }
         }
         return (false, 0);
