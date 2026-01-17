@@ -1554,7 +1554,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // ed 80 80 - ec 9f bf
+        // ed 80 80 - ed 9f bf
         if (_pattern[_currentParticleIndex] == 0xed) {
             (bool flag, uint256 lastMatchedParticleIndex) = secondLastByte809fValidator(_pattern, _currentParticleIndex);
 
