@@ -1043,66 +1043,22 @@ library Stringray {
         bool flag;
         uint256 lastMatchedIndex;
 
-        (flag, lastMatchedIndex) = e0UnicodeRange(_pattern, _currentParticleIndex);
+        (flag, lastMatchedIndex) = f0UnicodeRange(_pattern, _currentParticleIndex);
 
         if (!flag) {
-            (flag, lastMatchedIndex) = e1UnicodeRange(_pattern, _currentParticleIndex);
+            (flag, lastMatchedIndex) = f1UnicodeRange(_pattern, _currentParticleIndex);
         }
 
         if (!flag) {
-            (flag, lastMatchedIndex) = e2UnicodeRange(_pattern, _currentParticleIndex);
+            (flag, lastMatchedIndex) = f2UnicodeRange(_pattern, _currentParticleIndex);
         }
 
         if (!flag) {
-            (flag, lastMatchedIndex) = e3UnicodeRange(_pattern, _currentParticleIndex);
+            (flag, lastMatchedIndex) = f3UnicodeRange(_pattern, _currentParticleIndex);
         }
 
         if (!flag) {
-            (flag, lastMatchedIndex) = e4UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = e5UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = e6UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = e7UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = e8UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = e9UnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = eaUnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = ebUnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = ecUnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = edUnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = eeUnicodeRange(_pattern, _currentParticleIndex);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedIndex) = efUnicodeRange(_pattern, _currentParticleIndex);
+            (flag, lastMatchedIndex) = f4UnicodeRange(_pattern, _currentParticleIndex);
         }
 
         return (flag, lastMatchedIndex);
