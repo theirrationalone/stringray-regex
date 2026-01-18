@@ -967,6 +967,13 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexUnicodeCodepointsInPatternCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/😂+/";
+        target.regex(pattern);
+
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
@@ -1072,7 +1079,7 @@ contract PlayStringTest is Test {
         // 12/2 => 6 rem = 0
         // 6/2 => 3 rem = 0
         // 3/2 => 1 rem = 1
-        // 11000011
+        // 11000011        
     }
 }
 

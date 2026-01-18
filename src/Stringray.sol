@@ -352,7 +352,9 @@ library Stringray {
     bytes32 private constant NULL_CHARACTER = "NULL_CHARACTER";
     bytes32 private constant OCTAL = "OCTAL";
     bytes32 private constant ASTERISK_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
-    bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
+    // @info: BUG: bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
+    // @status: resolved!
+    bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "+_GREEDY_QUANTIFIER_ATOM";
     bytes32 private constant QUESTION_MARK_GREEDY_QUANTIFIER_ATOM = "?_GREEDY_QUANTIFIER_ATOM";
     bytes32 private constant N_RANGE_GREEDY_QUANTIFIER_ATOM = "{N}_GREEDY_QUANTIFIER_ATOM";
     bytes32 private constant N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM = "{N,}_GREEDY_QUANTIFIER_ATOM";
@@ -367,11 +369,15 @@ library Stringray {
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
-        console2.log("string in bytes:");
-        console2.logBytes(stringInBytes);
         bytes memory patternInBytes = bytes(_pattern);
+        console2.log("----------------");
         console2.log("ORIGINAL TARGET STRING: ", _proposedString);
         console2.log("ORIGINAL PATTERN STRING: ", _pattern);
+        console2.log("string in bytes: ");
+        console2.logBytes(stringInBytes);
+        console2.log("pattern in bytes: ");
+        console2.logBytes(patternInBytes);
+        console2.log("----------------");
         bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, int256(patternInBytes.length - 2));
         nuclearFission(filteredPatternInBytes);
     }
@@ -431,8 +437,8 @@ library Stringray {
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);
-            if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
                 console2.log("Yes it has a greedy quantifier atom");
+            if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -481,6 +487,7 @@ library Stringray {
                 flag = true;
                 lastMatchedParticleIndex--;
             }
+
             return (flag, atomType, lastMatchedParticleIndex);
         }
 
@@ -620,6 +627,10 @@ library Stringray {
 
         if (!flag) {
             (flag, lastMatchedParticleIndex) = isUnicodeLiteral(_pattern, _currentParticleIdx);
+
+            if (flag) {
+                atomType = LITERAL_ATOM;
+            }
         }
 
         console2.log("---In isLiteralAtom---");
@@ -1033,10 +1044,14 @@ library Stringray {
 
         if (!flag) {
             // TODO: Implement f unicode range detection logic...
+            console2.log("departed through here...");
             (flag, lastMatchedIndex) = fUnicodeRange(_pattern, _currentParticleIndex);
         }
 
-        return (false, 0);
+        // @info: BUG: (false, 0)
+        // @status: resolved!
+        // return (false, 0);
+        return (flag, lastMatchedIndex);
     }
 
     function fUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
@@ -1070,7 +1085,10 @@ library Stringray {
         returns (bool, uint256)
     {
         // f0 90 80 80 - f0 bf bf bf
+        console2.log("departed through here also...");
         if (_pattern[_currentParticleIndex] == 0xf0) {
+            console2.log("yeah that's came true: ", _pattern[_currentParticleIndex] == 0xf0);
+            console2.logBytes1(_pattern[_currentParticleIndex]);
             (bool flag, uint256 lastMatchedParticleIndex) = secondByte90bfValidator(_pattern, _currentParticleIndex);
 
             if (flag) {
@@ -1078,6 +1096,7 @@ library Stringray {
                 if (flag) {
                     (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
                     if (flag) {
+                        console2.log("fulfilling all requirements...!");
                         return (true, lastMatchedParticleIndex);
                     }
                 }
