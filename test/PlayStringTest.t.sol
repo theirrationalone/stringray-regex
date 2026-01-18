@@ -969,9 +969,27 @@ contract PlayStringTest is Test {
 
     function testRegexUnicodeCodepointsInPatternCase1() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/😂+/";
+        string memory pattern = unicode"/😂/";
         target.regex(pattern);
 
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/bug🦟/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/⌨️keyboard/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/test🧪tube/";
+        target.regex(pattern);
     }
 
     function testExperiment() public pure {
