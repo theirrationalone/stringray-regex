@@ -641,6 +641,11 @@ library Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
+    function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, bytes32, uint256) {
+        // @TODO: Complete the character class detection implementation.
+        // @status: incomplete
+    }
+
     function printAtomType(bytes32 atomType) private pure {
         if (atomType == LITERAL_ATOM) {
             console2.log("Atom Type: LITERAL_ATOM");
