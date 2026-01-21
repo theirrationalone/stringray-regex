@@ -258,3 +258,62 @@ console.log(/\ci/.exec(newString));
 newString = "A0\uc3bf";
 console.log("string: ", newString);
 console.log(/\s/.exec(newString));
+
+// newString = "v-alicez";
+// newString = "=?vanil(-alicez";
+// newString = "!?vanil(-alicez";
+// newString = "><!?vanil(-alicez";
+// newString = "!<!?vanil(-alicez";
+// newString = ")cvanil(-alicez";
+// newString = ")d|cvanil(-alicez";
+// newString = ")|d|cvanil(-alicez";
+// newString = ",)|d|cvanil(-alicez";
+// newString = "u,)|d|cvanil(-alicez";
+// newString = "_{u,)|d|cvanil(-alicez";
+// newString = "_x{u,)|d|cvanil(-alicez";
+// newString = "_pIx{u,)|d|cvanil(-alicez";
+// newString = "_=pIx{u,)|d|cvanil(-alicez";
+// newString = "_=pIx{u,)|d|cvanil(-alicez";
+// newString = "b]_=pIx{u,)|d|cvanil(-alicez";
+// newString = "z]b]_=pIx{u,)|d|cvanil(-alicez";
+// newString = "z]b]_=padIx{u,)|cd|cvanil(-ajbd]licez";
+// newString = "z]b]_=pad8Ix{u,)|cd|cvanilk(-ajbd]licez";
+newString = "z]b]_=pad8AIx{u,)|cd|cvanilk(-ajbd]licez";
+console.log("string: ", newString);
+// console.log(/[abc/.exec(newString)); // throws error
+// console.log(/[z-a]/.exec(newString)); // throws error
+// console.log(/[a-\d]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[a-\s]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(?=a)]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(?!a)]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(?<=a)]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(?<!a)]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(abc)]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[(a|c)d]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[a|d]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[{2,3}]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\u123]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\u{1233}]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\xzv]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\p{InvalidProperty}]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\p{InvalidProperty}]/u.exec(newString)); // throws error
+// console.log(/[\p{Script=FakeScript}]/u.exec(newString)); // throws error
+// console.log(/[\p{Script=FakeScript}]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[[abc]]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[abc]d]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\k]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\8]/.exec(newString)); // does not throw error, reads as literals instead
+console.log(/[\101]/.exec(newString)); // does not throw error, reads as literals instead
+
+
+// Steps to install nodejs in WSL Ubuntu
+
+// 1. sudo apt update
+// 2. sudo apt upgrade
+// 3. sudo apt-get install curl
+// 4. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+// 5. source ~/.bashrc
+// 6. command -v nvm
+// 7. nvm install --lts
+// 8. node --version
+// 9. npm --version
