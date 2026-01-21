@@ -971,7 +971,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/😂/";
         target.regex(pattern);
-
     }
 
     function testRegexUnicodeCodepointsInPatternCase2() public pure {
@@ -1097,7 +1096,7 @@ contract PlayStringTest is Test {
         // 12/2 => 6 rem = 0
         // 6/2 => 3 rem = 0
         // 3/2 => 1 rem = 1
-        // 11000011        
+        // 11000011
     }
 }
 

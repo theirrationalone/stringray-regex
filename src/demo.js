@@ -278,7 +278,8 @@ console.log(/\s/.exec(newString));
 // newString = "z]b]_=pIx{u,)|d|cvanil(-alicez";
 // newString = "z]b]_=padIx{u,)|cd|cvanil(-ajbd]licez";
 // newString = "z]b]_=pad8Ix{u,)|cd|cvanilk(-ajbd]licez";
-newString = "z]b]_=pad8AIx{u,)|cd|cvanilk(-ajbd]licez";
+// newString = "az]b]_=pad8AIx{u,)|cd|[]cvanilk(-ajbd]licez";
+newString = "_";
 console.log("string: ", newString);
 // console.log(/[abc/.exec(newString)); // throws error
 // console.log(/[z-a]/.exec(newString)); // throws error
@@ -303,7 +304,9 @@ console.log("string: ", newString);
 // console.log(/[abc]d]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[\k]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[\8]/.exec(newString)); // does not throw error, reads as literals instead
-console.log(/[\101]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\101]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/za[]/.exec(newString)); // does not throw error, reads as literals instead
+console.log(/[\\-_]/.exec(newString)); // does not throw error, reads as literals instead
 
 
 // Steps to install nodejs in WSL Ubuntu

@@ -123,11 +123,7 @@ library Stringray {
         return _indexOf(_string, _subString, _beginIndex);
     }
 
-    function _indexOf(string memory _target, string memory _search, uint256 _startIndex)
-        private
-        pure
-        returns (int256)
-    {
+    function _indexOf(string memory _target, string memory _search, uint256 _startIndex) private pure returns (int256) {
         bytes memory bytesForm = bytes(_target);
         bytes memory subBytesForm = bytes(_search);
 
@@ -435,10 +431,10 @@ library Stringray {
                 patternMatchedData.lastPatternAtom = patternMatchedData.previousLastPatternAtom;
 
                 patternMatchedData.lastPatternStartingSpecialSeqIdx =
-                    patternMatchedData.previousLastPatternStartingSpecialSeqIdx;
+                patternMatchedData.previousLastPatternStartingSpecialSeqIdx;
 
                 patternMatchedData.lastPatternEndingSpecialSeqIdx =
-                    patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
+                patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
 
                 i = patternMatchedData.previousLastPatternEndingSpecialSeqIdx;
 
@@ -574,10 +570,8 @@ library Stringray {
 
                     if (
                         openSquareBracketFoundInsideGroup
-                            && (
-                                (uint8(_pattern[p]) != CLOSE_SQUARE_BRACKET && uint8(_pattern[p]) != CLOSE_PARANTHESIS)
-                                    || (uint8(_pattern[p]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[p - 1]) == BACK_SLASH)
-                            )
+                            && ((uint8(_pattern[p]) != CLOSE_SQUARE_BRACKET && uint8(_pattern[p]) != CLOSE_PARANTHESIS)
+                                || (uint8(_pattern[p]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[p - 1]) == BACK_SLASH))
                     ) {
                         continue;
                     }
@@ -938,8 +932,8 @@ library Stringray {
                 || uint8(_pattern[_attachedIndex]) == OPEN_SQUARE_BRACKET
                 || uint8(_pattern[_attachedIndex]) == CLOSE_SQUARE_BRACKET
                 || uint8(_pattern[_attachedIndex]) == OPEN_CURLY_BRACE
-                || uint8(_pattern[_attachedIndex]) == CLOSE_CURLY_BRACE || uint8(_pattern[_attachedIndex]) == VERTICAL_BAR
-                || uint8(_pattern[_attachedIndex]) == BACK_SLASH
+                || uint8(_pattern[_attachedIndex]) == CLOSE_CURLY_BRACE
+                || uint8(_pattern[_attachedIndex]) == VERTICAL_BAR || uint8(_pattern[_attachedIndex]) == BACK_SLASH
         ) {
             return true;
         }
@@ -1484,11 +1478,7 @@ library Stringray {
         return _findSingleChar(singleBoundUnicode, _targetChar, _negation);
     }
 
-    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation)
-        private
-        pure
-        returns (bool)
-    {
+    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation) private pure returns (bool) {
         if (_negation) {
             if (uint8(_targetChar) != singleBoundUnicode) {
                 return true;
@@ -1634,7 +1624,7 @@ library Stringray {
         _patternMatchedData.previousLastPatternAtom = _patternMatchedData.lastPatternAtom;
         _patternMatchedData.matchedWithPreceedingAtom = true;
         _patternMatchedData.previousLastPatternStartingSpecialSeqIdx =
-            _patternMatchedData.lastPatternStartingSpecialSeqIdx;
+        _patternMatchedData.lastPatternStartingSpecialSeqIdx;
         _patternMatchedData.previousLastPatternEndingSpecialSeqIdx = _patternMatchedData.lastPatternEndingSpecialSeqIdx;
         return _patternMatchedData;
     }

@@ -123,11 +123,7 @@ library Stringray {
         return _indexOf(_string, _subString, _beginIndex);
     }
 
-    function _indexOf(string memory _target, string memory _search, uint256 _startIndex)
-        private
-        pure
-        returns (int256)
-    {
+    function _indexOf(string memory _target, string memory _search, uint256 _startIndex) private pure returns (int256) {
         bytes memory bytesForm = bytes(_target);
         bytes memory subBytesForm = bytes(_search);
 
@@ -565,7 +561,7 @@ library Stringray {
         _patternMatchedData.previousLastPatternAtom = _patternMatchedData.lastPatternAtom;
         _patternMatchedData.matchedWithPreceedingAtom = true;
         _patternMatchedData.previousLastPatternStartingSpecialSeqIdx =
-            _patternMatchedData.lastPatternStartingSpecialSeqIdx;
+        _patternMatchedData.lastPatternStartingSpecialSeqIdx;
         _patternMatchedData.previousLastPatternEndingSpecialSeqIdx = _patternMatchedData.lastPatternEndingSpecialSeqIdx;
         return _patternMatchedData;
     }

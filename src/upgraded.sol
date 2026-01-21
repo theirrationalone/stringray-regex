@@ -123,11 +123,7 @@ library Stringray {
         return _indexOf(_string, _subString, _beginIndex);
     }
 
-    function _indexOf(string memory _target, string memory _search, uint256 _startIndex)
-        private
-        pure
-        returns (int256)
-    {
+    function _indexOf(string memory _target, string memory _search, uint256 _startIndex) private pure returns (int256) {
         bytes memory bytesForm = bytes(_target);
         bytes memory subBytesForm = bytes(_search);
 
@@ -547,11 +543,7 @@ library Stringray {
         return _findSingleChar(singleBoundUnicode, _targetChar, _negation);
     }
 
-    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation)
-        private
-        pure
-        returns (bool)
-    {
+    function _findSingleChar(uint8 singleBoundUnicode, bytes1 _targetChar, bool _negation) private pure returns (bool) {
         if (_negation) {
             if (uint8(_targetChar) != singleBoundUnicode) {
                 return true;
@@ -578,12 +570,12 @@ library Stringray {
             patternMatchedData.currentPatternHash = QUANTIFIER_QUESTION_MARK;
 
             patternMatchedData.secondLastPatternStartingSpecialSeqIndex =
-                patternMatchedData.lastPatternStartingSpecialSeqIndex;
+            patternMatchedData.lastPatternStartingSpecialSeqIndex;
             patternMatchedData.secondLastPatternEndingSpecialSeqIndex =
-                patternMatchedData.lastPatternEndingSpecialSeqIndex;
+            patternMatchedData.lastPatternEndingSpecialSeqIndex;
 
             patternMatchedData.lastPatternStartingSpecialSeqIndex =
-                patternMatchedData.currentPatternStartingSpecialSeqIndex;
+            patternMatchedData.currentPatternStartingSpecialSeqIndex;
             patternMatchedData.lastPatternEndingSpecialSeqIndex = patternMatchedData.currentPatternEndingSpecialSeqIndex;
 
             patternMatchedData.currentPatternStartingSpecialSeqIndex = patternCurrentCharIndex;
@@ -594,12 +586,12 @@ library Stringray {
             patternMatchedData.currentPatternHash = SINGLE_CHARACTER;
 
             patternMatchedData.secondLastPatternStartingSpecialSeqIndex =
-                patternMatchedData.lastPatternStartingSpecialSeqIndex;
+            patternMatchedData.lastPatternStartingSpecialSeqIndex;
             patternMatchedData.secondLastPatternEndingSpecialSeqIndex =
-                patternMatchedData.lastPatternEndingSpecialSeqIndex;
+            patternMatchedData.lastPatternEndingSpecialSeqIndex;
 
             patternMatchedData.lastPatternStartingSpecialSeqIndex =
-                patternMatchedData.currentPatternStartingSpecialSeqIndex;
+            patternMatchedData.currentPatternStartingSpecialSeqIndex;
             patternMatchedData.lastPatternEndingSpecialSeqIndex = patternMatchedData.currentPatternEndingSpecialSeqIndex;
 
             patternMatchedData.currentPatternStartingSpecialSeqIndex = patternCurrentCharIndex;
