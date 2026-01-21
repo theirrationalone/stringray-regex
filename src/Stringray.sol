@@ -325,6 +325,7 @@ library Stringray {
 
     bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
+    bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
     bytes32 private constant WORD_BOUNDARY = "WORD_BOUNDARY";
     bytes32 private constant CONTROL_PREFIX = "CONTROL_PREFIX";
     bytes32 private constant DIGIT = "DIGIT";
@@ -430,6 +431,11 @@ library Stringray {
         returns (bool, bytes32, uint256)
     {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
+
+        if (!flag) {
+            (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx);
+        }
+
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);
@@ -693,22 +699,30 @@ library Stringray {
             }
         }
 
-        if (flag) {
-            // @TODO: verify whether character class has invalid ranges of charcters...
-        }
-
-        if (lastMatchedParticleIndex > _currentParticleIndex) {
+        if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             for (uint256 i = _currentParticleIndex + 2; i < lastMatchedParticleIndex - 1; i++) {
                 if (uint8(_pattern[i]) == MINUS_SIGN) {
                     if (uint8(_pattern[i - 1]) <= 127 && uint8(_pattern[i + 1]) <= 127) {
-                        if (uint8(_pattern[i - 1]) == BACK_SLASH && uint8(_pattern[i - 2]) == BACK_SLASH) {
-                            if (uint8(_pattern[i - 1]) > uint8(_pattern[i + 1])) {
-                                // @TODO: throw error
+                        if (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH) {
+                            if (
+                                (uint8(_pattern[i + 1]) != BACK_SLASH || uint8(_pattern[i + 2]) == BACK_SLASH)
+                                    && uint8(_pattern[i - 1]) > uint8(_pattern[i + 1])
+                            ) {
+                                string memory errorMsg = string(
+                                    abi.encodePacked(
+                                        "SyntaxError: Invalid regular expression: ",
+                                        _pattern,
+                                        ": Range out of order in character class"
+                                    )
+                                );
+                                revert(errorMsg);
                             }
                         }
                     }
                 }
             }
+
+            return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
         }
 
         return (false, INVALID_ATOM, 0);

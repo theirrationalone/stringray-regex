@@ -306,6 +306,7 @@ console.log("string: ", newString);
 // console.log(/[\8]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[\101]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/za[]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[_-\\]/.exec(newString)); // throws error
 console.log(/[\\-_]/.exec(newString)); // does not throw error, reads as literals instead
 
 
