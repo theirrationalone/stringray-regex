@@ -1,4 +1,8 @@
 {
     "solidity.formatter": "forge",
-    "editor.defaultFormatter": "JuanBlanco.solidity"
+    "editor.defaultFormatter": "JuanBlanco.solidity",
+    "solidity.soliumRules": {},
+    "[solidity]": {
+        "editor.defaultFormatter": "JuanBlanco.solidity"
+    }
 }

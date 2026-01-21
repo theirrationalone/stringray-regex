@@ -645,39 +645,56 @@ library Stringray {
         // @TODO: Complete the character class detection implementation.
         // @status: incomplete
         uint256 lastMatchedParticleIndex;
+        bool flag;
+
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
-            if (_currentParticleIndex > 0 && uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH) {
-                if (_currentParticleIndex + 1 < _pattern.length) {
-                    if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: ", _pattern, ": Empty Character class"
-                            )
-                        );
-                        revert(errorMsg);
-                    }
-
-                    if (_currentParticleIndex + 2 < _pattern.length) {
-                        for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
-                            if (uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && uint8(_pattern[i - 1]) != BACK_SLASH) {
-                                lastMatchedParticleIndex = i;
-                                break;
-                            }
-
-                            if (i == _pattern.length - 1) {
-                                string memory errorMsg = string(
-                                    abi.encodePacked(
-                                        "SyntaxError: Invalid regular expression: ",
-                                        _pattern,
-                                        ": Unterminated Character class"
-                                    )
-                                );
-                                revert(errorMsg);
-                            }
-                        }
-                    }
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ", _pattern, ": Empty Character class"
+                        )
+                    );
+                    revert(errorMsg);
                 }
             }
+
+            if (_currentParticleIndex == 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH) {
+                return (false, INVALID_ATOM, 0);
+            }
+
+            if (
+                _currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH
+                    && uint8(_pattern[_currentParticleIndex - 2]) != BACK_SLASH
+            ) {
+                return (false, INVALID_ATOM, 0);
+            }
+
+            if (_currentParticleIndex + 2 < _pattern.length) {
+                for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
+                    if (
+                        uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
+                            && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+                    ) {
+                        flag = true;
+                        lastMatchedParticleIndex = i;
+                        break;
+                    }
+                }
+
+                if (!flag) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated Character class"
+                        )
+                    );
+                    revert(errorMsg);
+                }
+            }
+        }
+
+        if (flag) {
+            // @TODO: verify whether character class has invalid ranges of charcters...
         }
 
         if (lastMatchedParticleIndex > _currentParticleIndex) {
@@ -693,6 +710,8 @@ library Stringray {
                 }
             }
         }
+
+        return (false, INVALID_ATOM, 0);
     }
 
     function printAtomType(bytes32 atomType) private pure {
