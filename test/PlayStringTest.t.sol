@@ -991,6 +991,128 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexUnicodeCodepointsInPatternCase5() public pure {
+        string memory target = "anything";
+        // string memory pattern = unicode"/(❁´◡`❁)/";
+        string memory pattern = unicode"/❁/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase6() public pure {
+        string memory target = "anything";
+        // string memory pattern = unicode"/(❁´◡`❁)/";
+        string memory pattern = unicode"/´/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase7() public pure {
+        string memory target = "anything";
+        // string memory pattern = unicode"/(❁´◡`❁)/";
+        string memory pattern = unicode"/◡/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase8() public pure {
+        string memory target = "anything";
+        // string memory pattern = unicode"/(❁´◡`❁)/";
+        string memory pattern = unicode"/`/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase9() public pure {
+        string memory target = "anything";
+        // string memory pattern = unicode"/(❁´◡`❁)/";
+        string memory pattern = unicode"/~/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase10() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/¼/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase11() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/þ/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase12() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/·/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase13() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/é/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase14() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/α/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase15() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/߿/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase16() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/ࠀ/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase17() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/ह/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase18() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/က/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase19() public pure {
+        string memory target = "anything";
+        // @info: wrong hex by chat gpt: 0xE284A2 ❌ -> 0xE282A2 ✅
+        string memory pattern = unicode"/₢/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase20() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/Ⰲ/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase21() public pure {
+        string memory target = "anything";
+        // @info: wrong hex by chat gpt: 0xE3A081 ❌ -> 0xE38181 ✅
+        string memory pattern = unicode"/ぁ/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase22() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/𐀀/";
+        target.regex(pattern);
+    }
+
+    function testRegexUnicodeCodepointsInPatternCase23() public pure {
+        string memory target = "anything";
+        // @info: wrong hex by chat gpt: 0xF1808080 ❌ -> 0xF0A08080 ✅
+        string memory pattern = unicode"/𠀀/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
