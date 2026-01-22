@@ -1113,6 +1113,12 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassDetectionCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[abc]/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";

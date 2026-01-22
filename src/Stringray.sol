@@ -702,7 +702,7 @@ library Stringray {
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             for (uint256 i = _currentParticleIndex + 2; i < lastMatchedParticleIndex - 1; i++) {
                 if (uint8(_pattern[i]) == MINUS_SIGN) {
-                    // @BUG: Actuall a character could be a unicode codepoint of more than one byte
+                    // @BUG: Actually a character could be a unicode codepoint of more than one byte
                     // In that case the below logic would fail to validate a range set
                     // @status: not fixed
                     if (uint8(_pattern[i - 1]) <= 127 && uint8(_pattern[i + 1]) <= 127) {
