@@ -722,6 +722,28 @@ library Stringray {
                 }
             }
 
+            for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
+                if (uint8(_pattern[i]) == BACK_SLASH) {
+                    if (
+                        uint8(_pattern[i + 1]) == uint8(abi.encodePacked("p")[0])
+                            || uint8(_pattern[i + 1]) == uint8(abi.encodePacked("P")[0])
+                    ) {
+                        (bool isValid,) = validateBackslash_p_propertyNameEscape(_pattern, i);
+
+                        if (!isValid) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: ",
+                                    _pattern,
+                                    ": Invalid property name in character class"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
+                    }
+                }
+            }
+
             return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
         }
 

@@ -297,7 +297,7 @@ console.log("string: ", newString);
 // console.log(/[\u{1233}]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[\xzv]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[\p{InvalidProperty}]/.exec(newString)); // does not throw error, reads as literals instead
-// console.log(/[\p{InvalidProperty}]/u.exec(newString)); // throws error
+console.log(/[\p{InvalidProperty}]/u.exec(newString)); // throws error
 // console.log(/[\p{Script=FakeScript}]/u.exec(newString)); // throws error
 // console.log(/[\p{Script=FakeScript}]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[[abc]]/.exec(newString)); // does not throw error, reads as literals instead
@@ -307,7 +307,7 @@ console.log("string: ", newString);
 // console.log(/[\101]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/za[]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[_-\\]/.exec(newString)); // throws error
-console.log(/[\\-_]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[\\-_]/.exec(newString)); // does not throw error, reads as literals instead
 
 
 // Steps to install nodejs in WSL Ubuntu
