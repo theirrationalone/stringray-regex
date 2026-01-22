@@ -732,6 +732,7 @@ library Stringray {
                             || uint8(_pattern[i + 1]) == uint8(abi.encodePacked("P")[0])
                     ) {
                         (bool isValid,) = validateBackslash_p_propertyNameEscape(_pattern, i);
+                        console2.log("passing through here...");
 
                         if (!isValid) {
                             string memory errorMsg = string(
@@ -1131,6 +1132,10 @@ library Stringray {
         }
 
         return (false, 0);
+    }
+
+    function utf8HexToUnicodeHex(bytes memory _utf8Hex) private pure returns (bytes memory) {
+        // @TODO: Implement utf8 hexadecimal to unicode hexadecimal conversion logic
     }
 
     function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)

@@ -1113,9 +1113,105 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexUnicodeCodepointsInPatternCase24() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/™/";
+        target.regex(pattern);
+    }
+
     function testRegexCharacterClassDetectionCase1() public pure {
         string memory target = "anything";
         string memory pattern = unicode"/[abc]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[0-9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[9-0]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[z-a]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase6() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[z\\-A]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase7() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[z\\\\-A]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase8() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[zA-\\]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase9() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[zA-\\\\]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase10() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[za-\\\\]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase11() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase12() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[\\p]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase13() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[\\p{}]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase14() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[\\p{]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase15() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[\\p}]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase16() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[\\p{subliminal}}]/";
         target.regex(pattern);
     }
 
@@ -1216,6 +1312,7 @@ contract PlayStringTest is Test {
         console2.log(uint8(0x90));
         console2.log(uint8(0x8f));
         console2.log(uint8(0xbf));
+        console2.log(uint256(0xE284A2));
         console2.log("-------------------");
         // 195/2 => 97 rem = 1
         // 97/2 => 48 rem = 1
