@@ -649,7 +649,7 @@ library Stringray {
         returns (bool, bytes32, uint256)
     {
         // @TODO: Complete the character class detection implementation.
-        // @status: incomplete
+        // @status: Implementation finished ~ Jan 22, 2026 03:54 PM IST
         uint256 lastMatchedParticleIndex;
         bool flag;
 
