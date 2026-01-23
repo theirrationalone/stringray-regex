@@ -1171,7 +1171,6 @@ library Stringray {
                 byte2Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, false);
             }
         }
-        console2.log("passed upto here?");
         return concatenate2BytesBinary(byte1Binary, byte2Binary);
     }
 
@@ -1186,12 +1185,20 @@ library Stringray {
     {
         bytes memory decodedBinary = abi.encodePacked(byte1Binary, byte2Binary);
         uint256 bl = decodedBinary.length;
-        decodedBinary =
-            abi.encodePacked(bl % 4 == 1 ? "0" : bl % 4 == 2 ? "00" : bl % 4 == 3 ? "000" : "", decodedBinary);
+        decodedBinary = abi.encodePacked(
+            bl % 8 == 1
+                ? "0000000"
+                : bl % 8 == 2
+                    ? "000000"
+                    : bl % 8 == 3
+                        ? "00000"
+                        : bl % 8 == 4 ? "0000" : bl % 8 == 5 ? "000" : bl % 8 == 6 ? "00" : bl % 8 == 7 ? "0" : "",
+            decodedBinary
+        );
 
         bytes memory decodedHex;
-        for (uint256 i = 0; i < decodedBinary.length; i += 4) {
-            bytes memory byteHex = binToHex(trimString(decodedBinary, i, int256(i + 3)));
+        for (uint256 i = 0; i < decodedBinary.length; i += 8) {
+            bytes memory byteHex = binToHex(trimString(decodedBinary, i, int256(i + 7)));
             decodedHex = abi.encodePacked(decodedHex, byteHex);
         }
 
@@ -1203,9 +1210,10 @@ library Stringray {
         bytes memory hexEqv;
         uint256 binLen = _bin.length;
         for (uint8 i = 0; i < binLen; i++) {
-            decEqv += _bin[i] == 0x30 ? 0 : uint8(2 ** (binLen - 1) - i);
+            // @BUG: precedence bug: uint8(2 ** (binLen - 1) - i)
+            // @status: fixed uint8(2 ** ((binLen - 1) - i))
+            decEqv += _bin[i] == 0x30 ? 0 : uint8(2 ** ((binLen - 1) - i));
         }
-
         bytes memory tempHexEqv = abi.encodePacked(decEqv);
         hexEqv = abi.encodePacked(tempHexEqv[tempHexEqv.length - 1]);
 
