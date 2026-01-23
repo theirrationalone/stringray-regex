@@ -1314,6 +1314,16 @@ contract PlayStringTest is Test {
         console2.log(uint8(0xbf));
         console2.log(uint256(0xE284A2));
         console2.log("-------------------");
+        console2.log("----------hex-conversion-verification----------");
+        console2.log("0x80: ", uint8(0x80));
+        console2.log("0xbf: ", uint8(0xbf));
+        console2.log("0xc2: ", uint8(0xc2));
+        // 0xf4 = 244 = 11110100
+        // 244 = 244/2 = 122(0) = 122/2 = 61(0) = 61/2 = 30(1) = 30/2 = 15(0) = 15/2 = 7(1) = 7/2 = 3(1) = 3/2 = 1(1) = 11110100
+        console2.log("0xf4: ", uint8(0xf4));
+        console2.log("0xff: ", uint8(0xff));
+
+        console2.log("----------------------------");
         // 195/2 => 97 rem = 1
         // 97/2 => 48 rem = 1
         // 48/2 => 24 rem = 0
@@ -1322,6 +1332,32 @@ contract PlayStringTest is Test {
         // 6/2 => 3 rem = 0
         // 3/2 => 1 rem = 1
         // 11000011
+        uint256 binary;
+        uint8 decimal = 213;
+        uint8 decimalCpy = decimal;
+        uint8 expCounter;
+        while (true) {
+            binary += (decimal % 2) * (10 ** expCounter);
+            if (decimal == 1) {
+                break;
+            }
+            decimal = decimal / 2;
+            expCounter++;
+        }
+
+        console2.log("binary of ", decimalCpy, " is: ", binary);
+
+        uint256 strippedBinary;
+        expCounter = 0;
+        uint256 usableBits = 6;
+        for (uint8 i = 0; i < usableBits; i++) {
+            // @BUG: last bit as 0 dilemma
+            strippedBinary += (binary % 2) * (10 ** expCounter);
+            binary = binary >> 1;
+            expCounter++;
+        }
+
+        console2.log("strippedBinary: ", strippedBinary);
     }
 }
 

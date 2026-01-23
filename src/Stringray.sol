@@ -1136,6 +1136,77 @@ library Stringray {
 
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) private pure returns (bytes memory) {
         // @TODO: Implement utf8 hexadecimal to unicode hexadecimal conversion logic
+        uint256 numBytes = _utf8Hex.length;
+        bytes memory unicodeHex;
+
+        if (numBytes == 1) {
+            unicodeHex = oneByteUtf8HexDecode(_utf8Hex);
+        }
+
+        if (numBytes == 2) {
+            unicodeHex = twoBytesUtf8HexDecode(_utf8Hex);
+        }
+
+        if (numBytes == 3) {
+            unicodeHex = threeBytesUtf8HexDecode(_utf8Hex);
+        }
+
+        if (numBytes == 4) {
+            unicodeHex = fourBytesUtf8HexDecode(_utf8Hex);
+        }
+        return unicodeHex;
+    }
+
+    function oneByteUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
+        return _utf8Hex;
+    }
+
+    function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
+        uint128 binary;
+        for (uint256 i = 0; i < _utf8Hex.length; i++) {
+            binary = stripPrefixCodesAndConcatenateBinary(binary, hexToBinary(_utf8Hex[i]), 2, i == 0 ? true : false);
+        }
+    }
+
+    function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
+
+    function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
+
+    function stripPrefixCodesAndConcatenateBinary(
+        uint128 oldBinary,
+        uint128 newBinary,
+        uint8 markerBytes,
+        bool isLeadingByte
+    ) private pure returns (uint128) {
+        if (markerBytes == 2 && isLeadingByte) {}
+    }
+
+    function stripPrefixCodes(uint128 binary, uint8 usableBits) private pure returns (uint128) {
+        uint256 strippedBinary;
+        uint8 expCounter;
+        for (uint8 i = 0; i < usableBits; i++) {
+            strippedBinary += (binary % 2) * (10 ** expCounter);
+            binary = binary >> 1;
+            expCounter++;
+        }
+    }
+
+    function hexToBinary(bytes1 _hex) private pure returns (uint128) {
+        uint8 decimal = uint8(_hex);
+        uint128 binary = decimalToBinary(decimal);
+    }
+
+    function decimalToBinary(uint8 decimal) private pure returns (uint128) {
+        uint256 binary;
+        uint8 expCounter;
+        while (true) {
+            binary += (decimal % 2) * (10 ** expCounter);
+            if (decimal == 1) {
+                break;
+            }
+            decimal = decimal / 2;
+            expCounter++;
+        }
     }
 
     function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2925,6 +2996,7 @@ library Stringray {
         uint256 exp;
         uint256 base = 16;
 
+        // @BUG: Reinvented the wheel too verbose
         for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
             uint256 digit;
             if (
