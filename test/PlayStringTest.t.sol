@@ -1332,42 +1332,49 @@ contract PlayStringTest is Test {
         // 6/2 => 3 rem = 0
         // 3/2 => 1 rem = 1
         // 11000011
-        uint256 binary;
+        string memory binary;
         uint8 decimal = 213;
         uint8 decimalCpy = decimal;
-        uint8 expCounter;
         while (decimal != 0) {
-            binary += (decimal % 2) * (10 ** expCounter);
-            // if (decimal == 1) {
-            //     break;
-            // }
+            binary = decimal % 2 == 0 ? string(abi.encodePacked("0", binary)) : string(abi.encodePacked("1", binary));
             decimal = decimal >> 1;
-            expCounter++;
         }
 
         console2.log("binary of ", decimalCpy, " is: ", binary);
 
-        decimal = 213;
-        uint256 strippedBinary;
-        expCounter = 0;
-        uint256 usableBits = 6;
+        string memory strippedBinary;
+        uint8 usableBits = 6;
         for (uint8 i = 0; i < usableBits; i++) {
-            // @BUG: last bit as 0 dilemma
-            // 213 => 11010101
-            strippedBinary += (decimal % 2) * (10 ** expCounter);
-            decimal = decimal >> 1;
-            expCounter++;
+            strippedBinary = decimalCpy % 2 == 0
+                ? string(abi.encodePacked("0", strippedBinary))
+                : string(abi.encodePacked("1", strippedBinary));
+            decimalCpy = decimalCpy >> 1;
         }
 
         console2.log("strippedBinary: ", strippedBinary);
-        console2.log("expCounter: ", expCounter);
-        string memory bin = "10001";
-        console2.logBytes(abi.encodePacked(bin));
+        console2.log("strippedBinary bytes form: ");
+        console2.logBytes(bytes(strippedBinary));
+        console2.log("strippedBinary length: ", bytes(strippedBinary).length);
+        string memory n = "10";
+        bytes memory temp = abi.encodePacked(n);
+        console2.logBytes(abi.encodePacked(temp[temp.length - 1]));
+        console2.log(string(abi.encodePacked("111", temp)));
+    }
+
+    function testRegexTesting() public {
+        DummyContract dContract = new DummyContract();
+        dContract.regexUtf8HexToUnicodeHex();
     }
 }
 
 contract DummyContract {
     using Stringray for string;
+
+    function regexUtf8HexToUnicodeHex() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes2(0xc2b7));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+    }
 
     function regexMetaCharsAndEscapeSequencesCase1() public pure {
         string memory target = "dummy";

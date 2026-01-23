@@ -1134,7 +1134,7 @@ library Stringray {
         return (false, 0);
     }
 
-    function utf8HexToUnicodeHex(bytes memory _utf8Hex) private pure returns (bytes memory) {
+    function utf8HexToUnicodeHex(bytes memory _utf8Hex) internal pure returns (bytes memory) {
         // @TODO: Implement utf8 hexadecimal to unicode hexadecimal conversion logic
         uint256 numBytes = _utf8Hex.length;
         bytes memory unicodeHex;
@@ -1162,62 +1162,78 @@ library Stringray {
     }
 
     function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
-        uint256 byte1Binary;
-        uint256 byte2Binary;
-        uint8 byte2ContinuationExp;
+        string memory byte1Binary;
+        string memory byte2Binary;
         for (uint256 i = 0; i < _utf8Hex.length; i++) {
             if (i == 0) {
-                (byte1Binary,) = stripPrefixCodes(uint8(_utf8Hex[i]), 2, true);
+                byte1Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, true);
             } else {
-                (byte2Binary, byte2ContinuationExp) = stripPrefixCodes(uint8(_utf8Hex[i]), 2, false);
+                byte2Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, false);
             }
         }
-
-        concatenate2BytesBinary(byte1Binary, byte2Binary, byte2ContinuationExp);
+        console2.log("passed upto here?");
+        return concatenate2BytesBinary(byte1Binary, byte2Binary);
     }
 
     function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
 
     function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
 
-    function concatenate2BytesBinary(uint256 byte1Binary, uint256 byte2Binary, uint8 byte2ContinuationExp)
+    function concatenate2BytesBinary(string memory byte1Binary, string memory byte2Binary)
         private
         pure
-        returns (uint128)
+        returns (bytes memory)
     {
-        //
+        bytes memory decodedBinary = abi.encodePacked(byte1Binary, byte2Binary);
+        uint256 bl = decodedBinary.length;
+        decodedBinary =
+            abi.encodePacked(bl % 4 == 1 ? "0" : bl % 4 == 2 ? "00" : bl % 4 == 3 ? "000" : "", decodedBinary);
+
+        bytes memory decodedHex;
+        for (uint256 i = 0; i < decodedBinary.length; i += 4) {
+            bytes memory byteHex = binToHex(trimString(decodedBinary, i, int256(i + 3)));
+            decodedHex = abi.encodePacked(decodedHex, byteHex);
+        }
+
+        return decodedHex;
     }
 
-    function binaryLength(uint256 binary) private pure returns (uint256) {
-        string memory binaryStr;
-        while (binary != 0) {
-            binaryStr = binary % 2 == 0 ? abi.encodePacked(binaryStr, "0") : abi.encodePacked(binaryStr, "1");
-            binary = binary >> 1;
+    function binToHex(bytes memory _bin) private pure returns (bytes memory) {
+        uint8 decEqv;
+        bytes memory hexEqv;
+        uint256 binLen = _bin.length;
+        for (uint8 i = 0; i < binLen; i++) {
+            decEqv += _bin[i] == 0x30 ? 0 : uint8(2 ** (binLen - 1) - i);
         }
+
+        bytes memory tempHexEqv = abi.encodePacked(decEqv);
+        hexEqv = abi.encodePacked(tempHexEqv[tempHexEqv.length - 1]);
+
+        return hexEqv;
     }
 
     function stripPrefixCodes(uint8 decimal, uint8 markerBytes, bool isLeadingByte)
         private
         pure
-        returns (uint256, uint8)
+        returns (string memory)
     {
-        uint256 strippedBinary;
-        uint8 expCounter;
+        string memory strippedBinary;
         uint8 usableBits = isLeadingByte ? 8 - (markerBytes + 1) : 6;
         for (uint8 i = 0; i < usableBits; i++) {
-            strippedBinary += (decimal % 2) * (10 ** expCounter);
+            strippedBinary = decimal % 2 == 0
+                ? string(abi.encodePacked("0", strippedBinary))
+                : string(abi.encodePacked("1", strippedBinary));
             decimal = decimal >> 1;
-            expCounter++;
         }
-        return (strippedBinary, expCounter);
+        return strippedBinary;
     }
 
-    function hexToBinary(bytes1 _hex) private pure returns (uint128) {
+    function hexToBinary(bytes1 _hex) private pure returns (uint256) {
         uint8 decimal = uint8(_hex);
-        uint128 binary = decimalToBinary(decimal);
+        uint256 binary = decimalToBinary(decimal);
     }
 
-    function decimalToBinary(uint8 decimal) private pure returns (uint128) {
+    function decimalToBinary(uint8 decimal) private pure returns (uint256) {
         uint256 binary;
         uint8 expCounter;
         while (decimal != 0) {
@@ -1225,6 +1241,7 @@ library Stringray {
             decimal = decimal >> 1;
             expCounter++;
         }
+        return binary;
     }
 
     function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
