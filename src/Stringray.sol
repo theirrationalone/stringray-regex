@@ -1162,8 +1162,8 @@ library Stringray {
     }
 
     function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
-        string memory byte1Binary;
-        string memory byte2Binary;
+        bytes memory byte1Binary;
+        bytes memory byte2Binary;
         for (uint256 i = 0; i < _utf8Hex.length; i++) {
             if (i == 0) {
                 byte1Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, true);
@@ -1178,7 +1178,7 @@ library Stringray {
 
     function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
 
-    function concatenate2BytesBinary(string memory byte1Binary, string memory byte2Binary)
+    function concatenate2BytesBinary(bytes memory byte1Binary, bytes memory byte2Binary)
         private
         pure
         returns (bytes memory)
@@ -1223,14 +1223,13 @@ library Stringray {
     function stripPrefixCodes(uint8 decimal, uint8 markerBytes, bool isLeadingByte)
         private
         pure
-        returns (string memory)
+        returns (bytes memory)
     {
-        string memory strippedBinary;
+        bytes memory strippedBinary;
         uint8 usableBits = isLeadingByte ? 8 - (markerBytes + 1) : 6;
         for (uint8 i = 0; i < usableBits; i++) {
-            strippedBinary = decimal % 2 == 0
-                ? string(abi.encodePacked("0", strippedBinary))
-                : string(abi.encodePacked("1", strippedBinary));
+            strippedBinary =
+                decimal % 2 == 0 ? abi.encodePacked("0", strippedBinary) : abi.encodePacked("1", strippedBinary);
             decimal = decimal >> 1;
         }
         return strippedBinary;
