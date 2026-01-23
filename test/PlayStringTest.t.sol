@@ -1336,28 +1336,33 @@ contract PlayStringTest is Test {
         uint8 decimal = 213;
         uint8 decimalCpy = decimal;
         uint8 expCounter;
-        while (true) {
+        while (decimal != 0) {
             binary += (decimal % 2) * (10 ** expCounter);
-            if (decimal == 1) {
-                break;
-            }
-            decimal = decimal / 2;
+            // if (decimal == 1) {
+            //     break;
+            // }
+            decimal = decimal >> 1;
             expCounter++;
         }
 
         console2.log("binary of ", decimalCpy, " is: ", binary);
 
+        decimal = 213;
         uint256 strippedBinary;
         expCounter = 0;
         uint256 usableBits = 6;
         for (uint8 i = 0; i < usableBits; i++) {
             // @BUG: last bit as 0 dilemma
-            strippedBinary += (binary % 2) * (10 ** expCounter);
-            binary = binary >> 1;
+            // 213 => 11010101
+            strippedBinary += (decimal % 2) * (10 ** expCounter);
+            decimal = decimal >> 1;
             expCounter++;
         }
 
         console2.log("strippedBinary: ", strippedBinary);
+        console2.log("expCounter: ", expCounter);
+        string memory bin = "10001";
+        console2.logBytes(abi.encodePacked(bin));
     }
 }
 

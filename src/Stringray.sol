@@ -1162,33 +1162,54 @@ library Stringray {
     }
 
     function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
-        uint128 binary;
+        uint256 byte1Binary;
+        uint256 byte2Binary;
+        uint8 byte2ContinuationExp;
         for (uint256 i = 0; i < _utf8Hex.length; i++) {
-            binary = stripPrefixCodesAndConcatenateBinary(binary, hexToBinary(_utf8Hex[i]), 2, i == 0 ? true : false);
+            if (i == 0) {
+                (byte1Binary,) = stripPrefixCodes(uint8(_utf8Hex[i]), 2, true);
+            } else {
+                (byte2Binary, byte2ContinuationExp) = stripPrefixCodes(uint8(_utf8Hex[i]), 2, false);
+            }
         }
+
+        concatenate2BytesBinary(byte1Binary, byte2Binary, byte2ContinuationExp);
     }
 
     function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
 
     function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
 
-    function stripPrefixCodesAndConcatenateBinary(
-        uint128 oldBinary,
-        uint128 newBinary,
-        uint8 markerBytes,
-        bool isLeadingByte
-    ) private pure returns (uint128) {
-        if (markerBytes == 2 && isLeadingByte) {}
+    function concatenate2BytesBinary(uint256 byte1Binary, uint256 byte2Binary, uint8 byte2ContinuationExp)
+        private
+        pure
+        returns (uint128)
+    {
+        //
     }
 
-    function stripPrefixCodes(uint128 binary, uint8 usableBits) private pure returns (uint128) {
+    function binaryLength(uint256 binary) private pure returns (uint256) {
+        string memory binaryStr;
+        while (binary != 0) {
+            binaryStr = binary % 2 == 0 ? abi.encodePacked(binaryStr, "0") : abi.encodePacked(binaryStr, "1");
+            binary = binary >> 1;
+        }
+    }
+
+    function stripPrefixCodes(uint8 decimal, uint8 markerBytes, bool isLeadingByte)
+        private
+        pure
+        returns (uint256, uint8)
+    {
         uint256 strippedBinary;
         uint8 expCounter;
+        uint8 usableBits = isLeadingByte ? 8 - (markerBytes + 1) : 6;
         for (uint8 i = 0; i < usableBits; i++) {
-            strippedBinary += (binary % 2) * (10 ** expCounter);
-            binary = binary >> 1;
+            strippedBinary += (decimal % 2) * (10 ** expCounter);
+            decimal = decimal >> 1;
             expCounter++;
         }
+        return (strippedBinary, expCounter);
     }
 
     function hexToBinary(bytes1 _hex) private pure returns (uint128) {
@@ -1199,12 +1220,9 @@ library Stringray {
     function decimalToBinary(uint8 decimal) private pure returns (uint128) {
         uint256 binary;
         uint8 expCounter;
-        while (true) {
+        while (decimal != 0) {
             binary += (decimal % 2) * (10 ** expCounter);
-            if (decimal == 1) {
-                break;
-            }
-            decimal = decimal / 2;
+            decimal = decimal >> 1;
             expCounter++;
         }
     }
