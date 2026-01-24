@@ -1361,19 +1361,147 @@ contract PlayStringTest is Test {
         console2.log(string(abi.encodePacked("111", temp)));
     }
 
-    function testRegexTesting() public {
+    function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
-        dContract.regexUtf8HexToUnicodeHex();
+        dContract.regexUtf8HexToUnicodeHex2BytesCase1();
+        dContract.regexUtf8HexToUnicodeHex2BytesCase2();
+        dContract.regexUtf8HexToUnicodeHex2BytesCase3();
+        dContract.regexUtf8HexToUnicodeHex2BytesCase4();
+        dContract.regexUtf8HexToUnicodeHex2BytesCase5();
+        dContract.regexUtf8HexToUnicodeHex3BytesCase1();
+        dContract.regexUtf8HexToUnicodeHex3BytesCase2();
+        dContract.regexUtf8HexToUnicodeHex3BytesCase3();
+        dContract.regexUtf8HexToUnicodeHex3BytesCase4();
+        dContract.regexUtf8HexToUnicodeHex3BytesCase5();
+        dContract.regexUtf8HexToUnicodeHex4BytesCase1();
+        dContract.regexUtf8HexToUnicodeHex4BytesCase2();
+        dContract.regexUtf8HexToUnicodeHex4BytesCase3();
+        dContract.regexUtf8HexToUnicodeHex4BytesCase4();
+        dContract.regexUtf8HexToUnicodeHex4BytesCase5();
     }
 }
 
 contract DummyContract {
     using Stringray for string;
 
-    function regexUtf8HexToUnicodeHex() public pure {
+    function regexUtf8HexToUnicodeHex2BytesCase1() public pure {
         bytes memory utf8Hex = abi.encodePacked(bytes2(0xc2b7));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x00b7));
         bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
         console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex2BytesCase2() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes2(0xc2a9));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x00a9));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex2BytesCase3() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes2(0xc3a9));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x00e9));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex2BytesCase4() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes2(0xc3b1));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x00f1));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex2BytesCase5() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes2(0xdfbf));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x07ff));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex3BytesCase1() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes3(0xe282a2));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x20a2));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex3BytesCase2() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes3(0xe284a2));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x2122));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex3BytesCase3() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes3(0xe282ac));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x20ac));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex3BytesCase4() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes3(0xe38181));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0x3041));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex3BytesCase5() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes3(0xefbfbf));
+        bytes memory unicodeHex = abi.encodePacked(bytes2(0xffff));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex4BytesCase1() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes4(0xf0908080));
+        bytes memory unicodeHex = abi.encodePacked(bytes3(0x010000));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex4BytesCase2() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes4(0xf0a08080));
+        bytes memory unicodeHex = abi.encodePacked(bytes3(0x020000));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex4BytesCase3() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes4(0xf09f92a9));
+        bytes memory unicodeHex = abi.encodePacked(bytes3(0x01f4a9));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex4BytesCase4() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes4(0xf1808080));
+        bytes memory unicodeHex = abi.encodePacked(bytes3(0x040000));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
+    }
+
+    function regexUtf8HexToUnicodeHex4BytesCase5() public pure {
+        bytes memory utf8Hex = abi.encodePacked(bytes4(0xf48fbfbf));
+        bytes memory unicodeHex = abi.encodePacked(bytes3(0x10ffff));
+        bytes memory unicodeHexEqv = Stringray.utf8HexToUnicodeHex(utf8Hex);
+        console2.logBytes(unicodeHexEqv);
+        assert(keccak256(unicodeHexEqv) == keccak256(unicodeHex));
     }
 
     function regexMetaCharsAndEscapeSequencesCase1() public pure {

@@ -1162,30 +1162,54 @@ library Stringray {
     }
 
     function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
-        bytes memory byte1Binary;
-        bytes memory byte2Binary;
-        for (uint256 i = 0; i < _utf8Hex.length; i++) {
-            if (i == 0) {
-                byte1Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, true);
-            } else {
-                byte2Binary = stripPrefixCodes(uint8(_utf8Hex[i]), 2, false);
-            }
-        }
+        bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 2, true);
+        bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 2, false);
         return concatenate2BytesBinary(byte1Binary, byte2Binary);
     }
 
-    function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
+    function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
+        bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 3, true);
+        bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 3, false);
+        bytes memory byte3Binary = stripPrefixCodes(uint8(_utf8Hex[2]), 3, false);
+        return concatenate3BytesBinary(byte1Binary, byte2Binary, byte3Binary);
+    }
 
-    function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {}
+    function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
+        bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 4, true);
+        bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 4, false);
+        bytes memory byte3Binary = stripPrefixCodes(uint8(_utf8Hex[2]), 4, false);
+        bytes memory byte4Binary = stripPrefixCodes(uint8(_utf8Hex[3]), 4, false);
+        return concatenate4BytesBinary(byte1Binary, byte2Binary, byte3Binary, byte4Binary);
+    }
+
+    function concatenate4BytesBinary(
+        bytes memory byte1Binary,
+        bytes memory byte2Binary,
+        bytes memory byte3Binary,
+        bytes memory byte4Binary
+    ) private pure returns (bytes memory) {
+        return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary, byte3Binary, byte4Binary));
+    }
+
+    function concatenate3BytesBinary(bytes memory byte1Binary, bytes memory byte2Binary, bytes memory byte3Binary)
+        private
+        pure
+        returns (bytes memory)
+    {
+        return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary, byte3Binary));
+    }
 
     function concatenate2BytesBinary(bytes memory byte1Binary, bytes memory byte2Binary)
         private
         pure
         returns (bytes memory)
     {
-        bytes memory decodedBinary = abi.encodePacked(byte1Binary, byte2Binary);
-        uint256 bl = decodedBinary.length;
-        decodedBinary = abi.encodePacked(
+        return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary));
+    }
+
+    function concatenateBinaries(bytes memory fullBinary) private pure returns (bytes memory) {
+        uint256 bl = fullBinary.length;
+        fullBinary = abi.encodePacked(
             bl % 8 == 1
                 ? "0000000"
                 : bl % 8 == 2
@@ -1193,12 +1217,12 @@ library Stringray {
                     : bl % 8 == 3
                         ? "00000"
                         : bl % 8 == 4 ? "0000" : bl % 8 == 5 ? "000" : bl % 8 == 6 ? "00" : bl % 8 == 7 ? "0" : "",
-            decodedBinary
+            fullBinary
         );
 
         bytes memory decodedHex;
-        for (uint256 i = 0; i < decodedBinary.length; i += 8) {
-            bytes memory byteHex = binToHex(trimString(decodedBinary, i, int256(i + 7)));
+        for (uint256 i = 0; i < fullBinary.length; i += 8) {
+            bytes memory byteHex = binToHex(trimString(fullBinary, i, int256(i + 7)));
             decodedHex = abi.encodePacked(decodedHex, byteHex);
         }
 
