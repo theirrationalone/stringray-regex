@@ -3105,11 +3105,11 @@ library Stringray {
 
     function binToDec(bytes memory binary) private pure returns (uint256) {
         uint256 exp;
-        uint256 base = 16;
+        uint256 base = 2;
         uint256 decimal;
 
         for (uint256 bi = binary.length - 1; bi >= 0; bi--) {
-            decimal += binary[bi] == 0x30 ? 0 : 2 ** exp;
+            decimal += binary[bi] == 0x30 ? 0 : base ** exp;
             if (bi == 0) break;
             exp++;
         }
@@ -3130,6 +3130,19 @@ library Stringray {
             binary = decimal % 2 == 0 ? abi.encodePacked("0", binary) : abi.encodePacked("1", binary);
             decimal = decimal >> 1;
         }
+
+        uint256 bl = binary.length;
+        binary = abi.encodePacked(
+            bl % 8 == 1
+                ? "0000000"
+                : bl % 8 == 2
+                    ? "000000"
+                    : bl % 8 == 3
+                        ? "00000"
+                        : bl % 8 == 4 ? "0000" : bl % 8 == 5 ? "000" : bl % 8 == 6 ? "00" : bl % 8 == 7 ? "0" : "",
+            binary
+        );
+
         console2.logBytes(binary);
         console2.log("---");
         return binary;

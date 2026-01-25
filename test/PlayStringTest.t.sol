@@ -1362,7 +1362,7 @@ contract PlayStringTest is Test {
         console2.log("temp length: ", temp.length);
         console2.logBytes2(bytes2(temp));
         console2.log(string(abi.encodePacked("111", temp)));
-        bytes memory someHex = abi.encodePacked(hex"10FFFF");
+        bytes memory someHex = abi.encodePacked(hex"01E921");
         console2.logBytes(someHex);
         uint256 dec = Stringray.hexToDec(someHex);
         console2.log("decimal: ", dec);
