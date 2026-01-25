@@ -705,12 +705,63 @@ library Stringray {
                     // @BUG: Actually a character could be a unicode codepoint of more than one byte
                     // In that case the below logic would fail to validate a range set
                     // @status: not fixed
-                    if (uint8(_pattern[i - 1]) <= 127 && uint8(_pattern[i + 1]) <= 127) {
-                        if (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH) {
-                            if (
-                                (uint8(_pattern[i + 1]) != BACK_SLASH || uint8(_pattern[i + 2]) == BACK_SLASH)
-                                    && uint8(_pattern[i - 1]) > uint8(_pattern[i + 1])
-                            ) {
+                    if (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH) {
+                        if ((uint8(_pattern[i + 1]) != BACK_SLASH || uint8(_pattern[i + 2]) == BACK_SLASH)) {
+                            bool flag;
+                            uint256 firstUnicodeIndex;
+                            uint256 lastUnicodeIndex;
+                            if (uint8(_pattern[i - 1]) != BACK_SLASH) {
+                                if (i >= 5 && _currentParticleIndex < i - 5) {
+                                    firstUnicodeIndex = i - 5;
+                                    (flag, lastUnicodeIndex) = fUnicodeRange(_pattern, firstUnicodeIndex);
+                                } else if (i >= 4 && _currentParticleIndex < i - 4) {
+                                    firstUnicodeIndex = i - 4;
+                                    (flag, lastUnicodeIndex) = eUnicodeRange(_pattern, firstUnicodeIndex);
+                                } else if (i >= 3 && _currentParticleIndex < i - 3) {
+                                    firstUnicodeIndex = i - 3;
+                                    (flag, lastUnicodeIndex) = cUnicodeRange(_pattern, firstUnicodeIndex);
+                                    if (!flag) {
+                                        (flag, lastUnicodeIndex) = dUnicodeRange(_pattern, firstUnicodeIndex);
+                                    }
+                                }
+                            }
+
+                            uint256 leftAtomDecimal;
+                            if (flag) {
+                                bytes memory unicodeHex = utf8HexToUnicodeHex(
+                                    trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex))
+                                );
+                                leftAtomDecimal = hexToDec(unicodeHex);
+                            } else {
+                                leftAtomDecimal = uint8(_pattern[i - 1]);
+                            }
+
+                            if (uint8(_pattern[i + 1]) != BACK_SLASH) {
+                                firstUnicodeIndex = i + 1;
+                                flag = false;
+                                if (i + 5 < lastMatchedParticleIndex) {
+                                    (flag, lastUnicodeIndex) = fUnicodeRange(_pattern, firstUnicodeIndex);
+                                } else if (i + 4 < lastMatchedParticleIndex) {
+                                    (flag, lastUnicodeIndex) = eUnicodeRange(_pattern, firstUnicodeIndex);
+                                } else if (i + 3 < lastMatchedParticleIndex) {
+                                    (flag, lastUnicodeIndex) = cUnicodeRange(_pattern, firstUnicodeIndex);
+                                    if (!flag) {
+                                        (flag, lastUnicodeIndex) = dUnicodeRange(_pattern, firstUnicodeIndex);
+                                    }
+                                }
+                            }
+
+                            uint256 rightAtomDecimal;
+                            if (flag) {
+                                bytes memory unicodeHex = utf8HexToUnicodeHex(
+                                    trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex))
+                                );
+                                rightAtomDecimal = hexToDec(unicodeHex);
+                            } else {
+                                rightAtomDecimal = uint8(_pattern[i + 1]);
+                            }
+
+                            if (leftAtomDecimal > rightAtomDecimal) {
                                 string memory errorMsg = string(
                                     abi.encodePacked(
                                         "SyntaxError: Invalid regular expression: ",
@@ -1257,22 +1308,6 @@ library Stringray {
             decimal = decimal >> 1;
         }
         return strippedBinary;
-    }
-
-    function hexToBinary(bytes1 _hex) private pure returns (uint256) {
-        uint8 decimal = uint8(_hex);
-        uint256 binary = decimalToBinary(decimal);
-    }
-
-    function decimalToBinary(uint8 decimal) private pure returns (uint256) {
-        uint256 binary;
-        uint8 expCounter;
-        while (decimal != 0) {
-            binary += (decimal % 2) * (10 ** expCounter);
-            decimal = decimal >> 1;
-            expCounter++;
-        }
-        return binary;
     }
 
     function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -3056,62 +3091,48 @@ library Stringray {
         return (false, 0);
     }
 
-    function hexToDec(bytes memory _hexString) private pure returns (uint256) {
+    function hexToDec(bytes memory _hexString) internal pure returns (uint256) {
         uint256 hexStringLastIndex = _hexString.length - 1;
-        uint256 decimal;
+        bytes memory hexFullBinary;
+
+        for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
+            bytes memory binary = hexToBinary(_hexString[hi]);
+            hexFullBinary = abi.encodePacked(binary, hexFullBinary);
+            if (hi == 0) break;
+        }
+        return binToDec(hexFullBinary);
+    }
+
+    function binToDec(bytes memory binary) private pure returns (uint256) {
         uint256 exp;
         uint256 base = 16;
+        uint256 decimal;
 
-        // @BUG: Reinvented the wheel too verbose
-        for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
-            uint256 digit;
-            if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("a")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("A")[0])
-            ) {
-                digit = 10;
-            } else if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("b")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("B")[0])
-            ) {
-                digit = 11;
-            } else if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("c")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("C")[0])
-            ) {
-                digit = 12;
-            } else if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("d")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("D")[0])
-            ) {
-                digit = 13;
-            } else if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("e")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("E")[0])
-            ) {
-                digit = 14;
-            } else if (
-                uint8(_hexString[hi]) == uint8(abi.encodePacked("f")[0])
-                    || uint8(_hexString[hi]) == uint8(abi.encodePacked("F")[0])
-            ) {
-                digit = 15;
-            } else if (isDigit(_hexString[hi], false)) {
-                digit = asciiToDigit(uint8(_hexString[hi]));
-            }
-
-            decimal += (digit * (base ** exp));
-            console2.log("-----------");
-            console2.log("digit: ", digit);
-            console2.log("exp: ", exp);
-            console2.log("base: ", base);
-            console2.log("decimal: ", decimal);
-            console2.log("-----------");
+        for (uint256 bi = binary.length - 1; bi >= 0; bi--) {
+            decimal += binary[bi] == 0x30 ? 0 : 2 ** exp;
+            if (bi == 0) break;
             exp++;
-
-            if (hi == 0) break;
         }
 
         return decimal;
+    }
+
+    function hexToBinary(bytes1 _hex) private pure returns (bytes memory) {
+        uint8 decimal = uint8(_hex);
+        bytes memory binary = decimalToBinaryAscii(decimal);
+        return binary;
+    }
+
+    function decimalToBinaryAscii(uint8 decimal) private pure returns (bytes memory) {
+        console2.log("decccc: ", decimal);
+        bytes memory binary;
+        while (decimal != 0) {
+            binary = decimal % 2 == 0 ? abi.encodePacked("0", binary) : abi.encodePacked("1", binary);
+            decimal = decimal >> 1;
+        }
+        console2.logBytes(binary);
+        console2.log("---");
+        return binary;
     }
 
     function asciiToDigit(uint8 _asciiCode) private pure returns (uint256) {

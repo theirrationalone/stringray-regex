@@ -1313,6 +1313,7 @@ contract PlayStringTest is Test {
         console2.log(uint8(0x8f));
         console2.log(uint8(0xbf));
         console2.log(uint256(0xE284A2));
+        console2.log(uint256(0x10ffff));
         console2.log("-------------------");
         console2.log("----------hex-conversion-verification----------");
         console2.log("0x80: ", uint8(0x80));
@@ -1358,7 +1359,13 @@ contract PlayStringTest is Test {
         string memory n = "10";
         bytes memory temp = abi.encodePacked(n);
         console2.logBytes(abi.encodePacked(temp[temp.length - 1]));
+        console2.log("temp length: ", temp.length);
+        console2.logBytes2(bytes2(temp));
         console2.log(string(abi.encodePacked("111", temp)));
+        bytes memory someHex = abi.encodePacked(hex"10FFFF");
+        console2.logBytes(someHex);
+        uint256 dec = Stringray.hexToDec(someHex);
+        console2.log("decimal: ", dec);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
