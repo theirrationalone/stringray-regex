@@ -3052,6 +3052,10 @@ library Stringray {
 
         bytes memory propertyName = trimString(_pattern, _indexToStartFrom, int256(propertyNameEndIdx));
 
+        if (propertyName.length < 2) {
+            return (false, 0);
+        }
+
         bool isValidProperty = validatePropertyName(propertyName);
 
         if (isValidProperty) {
@@ -3062,9 +3066,41 @@ library Stringray {
     }
 
     function validatePropertyName(bytes memory propertyName) private pure returns (bool) {
-        console2.log("property name: ", string(propertyName));
-        return true;
+        int256 equalsToIndex = indexOf(string(propertyName), "=");
+        bytes32 propertyValueHash;
+
+        if (equalsToIndex > 1) {
+            bytes memory propertyKey = trimString(propertyName, 0, equalsToIndex - 1);
+            bytes32 propertyKeyHash = keccak256(propertyKey);
+            propertyValueHash = keccak256(trimString(propertyName, uint256(equalsToIndex) + 1, -1));
+
+            if (propertyKeyHash == keccak256(abi.encodePacked("General_Category")) || keccak256(abi.encodePacked("gc")))
+            {
+                return isGeneralCategoryValue(propertyValueHash);
+            }
+
+            if (propertyKeyHash == keccak256(abi.encodePacked("Script")) || keccak256(abi.encodePacked("sc"))) {
+                return isScriptValue(propertyValueHash);
+            }
+
+            if (
+                propertyKeyHash == keccak256(abi.encodePacked("Script_Extensions"))
+                    || keccak256(abi.encodePacked("scx"))
+            ) {
+                return isScriptExtensionsValue(propertyValueHash);
+            }
+        }
+
+        propertyValueHash = keccak256(propertyName);
+
+        return isBinaryValue(propertyValueHash);
     }
+
+    function isGeneralCategoryValue(bytes32 propertyValueHash) private pure returns (bool) {}
+
+    function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {}
+    function isScriptExtensionsValue(bytes32 propertyValueHash) private pure returns (bool) {}
+    function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {}
 
     function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {
         if (uint8(_pattern[_indexToStartFrom]) == LESS_THAN_SIGN) {
