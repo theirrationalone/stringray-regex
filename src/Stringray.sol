@@ -3552,10 +3552,129 @@ library Stringray {
     }
 
     function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {
-        // if (
-        //     propertyValueHash == ADLAM || propertyValueHash == CAUCASIAN_ALBANIAN || propertyValueHash == SH_ADLAM
-        //         || propertyValueHash == SH_ADLAM || propertyValueHash == SH_CAUCASIAN_ALBANIAN
-        // ) {}
+        if (
+            propertyValueHash == Adlam || propertyValueHash == Caucasian_Albanian || propertyValueHash == Ahom
+                || propertyValueHash == Arabic || propertyValueHash == Imperial_Aramaic || propertyValueHash == Armenian
+                || propertyValueHash == Avestan || propertyValueHash == Balinese || propertyValueHash == Bamum
+                || propertyValueHash == Bassa_Vah || propertyValueHash == Batak || propertyValueHash == Bengali
+                || propertyValueHash == Beria_Erfe || propertyValueHash == Bhaiksuki || propertyValueHash == Bopomofo
+                || propertyValueHash == Brahmi || propertyValueHash == Braille || propertyValueHash == Buginese
+                || propertyValueHash == Buhid || propertyValueHash == Chakma || propertyValueHash == Canadian_Aboriginal
+                || propertyValueHash == Carian || propertyValueHash == Cham || propertyValueHash == Cherokee
+                || propertyValueHash == Chorasmian || propertyValueHash == Coptic || propertyValueHash == Cypro_Minoan
+                || propertyValueHash == Cypriot || propertyValueHash == Cyrillic || propertyValueHash == Devanagari
+                || propertyValueHash == Dives_Akuru || propertyValueHash == Dogra || propertyValueHash == Deseret
+                || propertyValueHash == Duployan || propertyValueHash == Egyptian_Hieroglyphs
+                || propertyValueHash == Elbasan || propertyValueHash == Elymaic || propertyValueHash == Ethiopic
+                || propertyValueHash == Garay || propertyValueHash == Georgian || propertyValueHash == Glagolitic
+                || propertyValueHash == Gunjala_Gondi || propertyValueHash == Masaram_Gondi
+                || propertyValueHash == Gothic || propertyValueHash == Grantha || propertyValueHash == Greek
+                || propertyValueHash == Gujarati || propertyValueHash == Gurung_Khema || propertyValueHash == Gurmukhi
+                || propertyValueHash == Hangul || propertyValueHash == Han || propertyValueHash == Hanunoo
+                || propertyValueHash == Hatran || propertyValueHash == Hebrew || propertyValueHash == Hiragana
+                || propertyValueHash == Anatolian_Hieroglyphs || propertyValueHash == Pahawh_Hmong
+                || propertyValueHash == Nyiakeng_Puachue_Hmong || propertyValueHash == Katakana_Or_Hiragana
+                || propertyValueHash == Old_Hungarian || propertyValueHash == Old_Italic
+                || propertyValueHash == Javanese || propertyValueHash == Kayah_Li || propertyValueHash == Katakana
+                || propertyValueHash == Kawi || propertyValueHash == Kharoshthi || propertyValueHash == Khmer
+                || propertyValueHash == Khojki || propertyValueHash == Khitan_Small_Script
+                || propertyValueHash == Kannada || propertyValueHash == Kirat_Rai || propertyValueHash == Kaithi
+                || propertyValueHash == Tai_Tham || propertyValueHash == Lao || propertyValueHash == Latin
+                || propertyValueHash == Lepcha || propertyValueHash == Limbu || propertyValueHash == Linear_A
+                || propertyValueHash == Linear_B || propertyValueHash == Lisu || propertyValueHash == Lycian
+                || propertyValueHash == Lydian || propertyValueHash == Mahajani || propertyValueHash == Makasar
+                || propertyValueHash == Mandaic || propertyValueHash == Manichaean || propertyValueHash == Marchen
+                || propertyValueHash == Medefaidrin || propertyValueHash == Mende_Kikakui
+                || propertyValueHash == Meroitic_Cursive || propertyValueHash == Meroitic_Hieroglyphs
+                || propertyValueHash == Malayalam || propertyValueHash == Modi || propertyValueHash == Mongolian
+                || propertyValueHash == Mro || propertyValueHash == Meetei_Mayek || propertyValueHash == Multani
+                || propertyValueHash == Myanmar || propertyValueHash == Nag_Mundari || propertyValueHash == Nandinagari
+                || propertyValueHash == Old_North_Arabian || propertyValueHash == Nabataean || propertyValueHash == Newa
+                || propertyValueHash == Nko || propertyValueHash == Nushu || propertyValueHash == Ogham
+                || propertyValueHash == Ol_Chiki || propertyValueHash == Ol_Onal || propertyValueHash == Old_Turkic
+                || propertyValueHash == Oriya || propertyValueHash == Osage || propertyValueHash == Osmanya
+                || propertyValueHash == Old_Uyghur || propertyValueHash == Palmyrene || propertyValueHash == Pau_Cin_Hau
+                || propertyValueHash == Old_Permic || propertyValueHash == Phags_Pa
+                || propertyValueHash == Inscriptional_Pahlavi || propertyValueHash == Psalter_Pahlavi
+                || propertyValueHash == Phoenician || propertyValueHash == Miao
+                || propertyValueHash == Inscriptional_Parthian || propertyValueHash == Rejang
+                || propertyValueHash == Hanifi_Rohingya || propertyValueHash == Runic || propertyValueHash == Samaritan
+                || propertyValueHash == Old_South_Arabian || propertyValueHash == Saurashtra
+                || propertyValueHash == SignWriting || propertyValueHash == Shavian || propertyValueHash == Sharada
+                || propertyValueHash == Siddham || propertyValueHash == Sidetic || propertyValueHash == Khudawadi
+                || propertyValueHash == Sinhala || propertyValueHash == Sogdian || propertyValueHash == Old_Sogdian
+                || propertyValueHash == Sora_Sompeng || propertyValueHash == Soyombo || propertyValueHash == Sundanese
+                || propertyValueHash == Sunuwar || propertyValueHash == Syloti_Nagri || propertyValueHash == Syriac
+                || propertyValueHash == Tagbanwa || propertyValueHash == Takri || propertyValueHash == Tai_Le
+                || propertyValueHash == New_Tai_Lue || propertyValueHash == Tamil || propertyValueHash == Tangut
+                || propertyValueHash == Tai_Viet || propertyValueHash == Tai_Yo || propertyValueHash == Telugu
+                || propertyValueHash == Tifinagh || propertyValueHash == Tagalog || propertyValueHash == Thaana
+                || propertyValueHash == Thai || propertyValueHash == Tibetan || propertyValueHash == Tirhuta
+                || propertyValueHash == Tangsa || propertyValueHash == Todhri || propertyValueHash == Tolong_Siki
+                || propertyValueHash == Toto || propertyValueHash == Tulu_Tigalari || propertyValueHash == Ugaritic
+                || propertyValueHash == Vai || propertyValueHash == Vithkuqi || propertyValueHash == Warang_Citi
+                || propertyValueHash == Wancho || propertyValueHash == Old_Persian || propertyValueHash == Cuneiform
+                || propertyValueHash == Yezidi || propertyValueHash == Yi || propertyValueHash == Zanabazar_Square
+                || propertyValueHash == Inherited || propertyValueHash == Common || propertyValueHash == Unknown
+                || propertyValueHash == Adlm || propertyValueHash == Aghb || propertyValueHash == Arab
+                || propertyValueHash == Armi || propertyValueHash == Armn || propertyValueHash == Avst
+                || propertyValueHash == Bali || propertyValueHash == Bamu || propertyValueHash == Bass
+                || propertyValueHash == Batk || propertyValueHash == Beng || propertyValueHash == Berf
+                || propertyValueHash == Bhks || propertyValueHash == Bopo || propertyValueHash == Brah
+                || propertyValueHash == Brai || propertyValueHash == Bugi || propertyValueHash == Buhd
+                || propertyValueHash == Cakm || propertyValueHash == Cans || propertyValueHash == Cari
+                || propertyValueHash == Cher || propertyValueHash == Chrs || propertyValueHash == Copt
+                || propertyValueHash == Cpmn || propertyValueHash == Cprt || propertyValueHash == Cyrl
+                || propertyValueHash == Deva || propertyValueHash == Diak || propertyValueHash == Dogr
+                || propertyValueHash == Dsrt || propertyValueHash == Dupl || propertyValueHash == Egyp
+                || propertyValueHash == Elba || propertyValueHash == Elym || propertyValueHash == Ethi
+                || propertyValueHash == Gara || propertyValueHash == Geor || propertyValueHash == Glag
+                || propertyValueHash == Gong || propertyValueHash == Gonm || propertyValueHash == Goth
+                || propertyValueHash == Gran || propertyValueHash == Grek || propertyValueHash == Gujr
+                || propertyValueHash == Gukh || propertyValueHash == Guru || propertyValueHash == Hang
+                || propertyValueHash == Hani || propertyValueHash == Hano || propertyValueHash == Hatr
+                || propertyValueHash == Hebr || propertyValueHash == Hira || propertyValueHash == Hluw
+                || propertyValueHash == Hmng || propertyValueHash == Hmnp || propertyValueHash == Hrkt
+                || propertyValueHash == Hung || propertyValueHash == Ital || propertyValueHash == Java
+                || propertyValueHash == Kali || propertyValueHash == Kana || propertyValueHash == Khar
+                || propertyValueHash == Khmr || propertyValueHash == Khoj || propertyValueHash == Kits
+                || propertyValueHash == Knda || propertyValueHash == Krai || propertyValueHash == Kthi
+                || propertyValueHash == Lana || propertyValueHash == Laoo || propertyValueHash == Latn
+                || propertyValueHash == Lepc || propertyValueHash == Limb || propertyValueHash == Lina
+                || propertyValueHash == Linb || propertyValueHash == Lyci || propertyValueHash == Lydi
+                || propertyValueHash == Mahj || propertyValueHash == Maka || propertyValueHash == Mand
+                || propertyValueHash == Mansi || propertyValueHash == Marc || propertyValueHash == Medf
+                || propertyValueHash == Mend || propertyValueHash == Merc || propertyValueHash == Mero
+                || propertyValueHash == Mlym || propertyValueHash == Mong || propertyValueHash == Mroo
+                || propertyValueHash == Mtei || propertyValueHash == Mult || propertyValueHash == Mymr
+                || propertyValueHash == Nagm || propertyValueHash == Nand || propertyValueHash == Narb
+                || propertyValueHash == Nbat || propertyValueHash == Nkoo || propertyValueHash == Nshu
+                || propertyValueHash == Ogam || propertyValueHash == Olck || propertyValueHash == Onao
+                || propertyValueHash == Orkh || propertyValueHash == Orya || propertyValueHash == Osge
+                || propertyValueHash == Osma || propertyValueHash == Ougr || propertyValueHash == Palm
+                || propertyValueHash == Pauc || propertyValueHash == Perm || propertyValueHash == Phag
+                || propertyValueHash == Phli || propertyValueHash == Phlp || propertyValueHash == Phnx
+                || propertyValueHash == Plrd || propertyValueHash == Prti || propertyValueHash == Rjng
+                || propertyValueHash == Rohg || propertyValueHash == Runr || propertyValueHash == Samr
+                || propertyValueHash == Sarb || propertyValueHash == Saur || propertyValueHash == Sgnw
+                || propertyValueHash == Shaw || propertyValueHash == Shrd || propertyValueHash == Sidd
+                || propertyValueHash == Sidt || propertyValueHash == Sind || propertyValueHash == Sinh
+                || propertyValueHash == Sogd || propertyValueHash == Sogo || propertyValueHash == Sora
+                || propertyValueHash == Soyo || propertyValueHash == Sund || propertyValueHash == Sunu
+                || propertyValueHash == Sylo || propertyValueHash == Syrc || propertyValueHash == Tagb
+                || propertyValueHash == Takr || propertyValueHash == Tale || propertyValueHash == Talu
+                || propertyValueHash == Taml || propertyValueHash == Tang || propertyValueHash == Tavt
+                || propertyValueHash == Tayo || propertyValueHash == Telu || propertyValueHash == Tfng
+                || propertyValueHash == Tglg || propertyValueHash == Thaa || propertyValueHash == Tibt
+                || propertyValueHash == Tirh || propertyValueHash == Tnsa || propertyValueHash == Todr
+                || propertyValueHash == Tols || propertyValueHash == Tutg || propertyValueHash == Ugar
+                || propertyValueHash == Vaii || propertyValueHash == Vith || propertyValueHash == Wara
+                || propertyValueHash == Wcho || propertyValueHash == Xpeo || propertyValueHash == Xsux
+                || propertyValueHash == Yezi || propertyValueHash == Yiii || propertyValueHash == Zanb
+                || propertyValueHash == Zinh || propertyValueHash == Zyyy || propertyValueHash == Zzzz
+        ) {
+            return true;
+        }
     }
 
     function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {}
