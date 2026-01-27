@@ -364,80 +364,429 @@ library Stringray {
     bytes32 private constant N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM = "{N,M}?_LAZY_QUANTIFIER_ATOM";
 
     // PROPERTY ESCAPE NAMES...
-    bytes32 LETTER = keccak256(abi.encodePacked("Letter"));
-    bytes32 UPPERCASE_LETTER = keccak256(abi.encodePacked("Uppercase_Letter"));
-    bytes32 LOWERCASE_LETTER = keccak256(abi.encodePacked("Lowercase_Letter"));
-    bytes32 TITLECASE_LETTER = keccak256(abi.encodePacked("Titlecase_Letter"));
-    bytes32 MODIFIER_LETTER = keccak256(abi.encodePacked("Modifier_Letter"));
-    bytes32 OTHER_LETTER = keccak256(abi.encodePacked("Other_Letter"));
-    bytes32 SH_LETTER = keccak256(abi.encodePacked("L"));
-    bytes32 SH_UPPERCASE_LETTER = keccak256(abi.encodePacked("Lu"));
-    bytes32 SH_LOWERCASE_LETTER = keccak256(abi.encodePacked("Ll"));
-    bytes32 SH_TITLECASE_LETTER = keccak256(abi.encodePacked("Lt"));
-    bytes32 SH_MODIFIER_LETTER = keccak256(abi.encodePacked("Lm"));
-    bytes32 SH_OTHER_LETTER = keccak256(abi.encodePacked("Lo"));
-    bytes32 MARK = keccak256(abi.encodePacked("Mark"));
-    bytes32 NONSPACING_MARK = keccak256(abi.encodePacked("Nonspacing_Mark"));
-    bytes32 SPACING_MARK = keccak256(abi.encodePacked("Spacing_Mark"));
-    bytes32 ENCLOSING_MARK = keccak256(abi.encodePacked("Enclosing_Mark"));
-    bytes32 SH_MARK = keccak256(abi.encodePacked("M"));
-    bytes32 SH_NONSPACING_MARK = keccak256(abi.encodePacked("Mn"));
-    bytes32 SH_SPACING_MARK = keccak256(abi.encodePacked("Mc"));
-    bytes32 SH_ENCLOSING_MARK = keccak256(abi.encodePacked("Me"));
-    bytes32 NUMBER = keccak256(abi.encodePacked("Number"));
-    bytes32 DECIMAL_NUMBER = keccak256(abi.encodePacked("Decimal_Number"));
-    bytes32 LETTER_NUMBER = keccak256(abi.encodePacked("Letter_Number"));
-    bytes32 OTHER_NUMBER = keccak256(abi.encodePacked("Other_Number"));
-    bytes32 SH_NUMBER = keccak256(abi.encodePacked("N"));
-    bytes32 SH_DECIMAL_NUMBER = keccak256(abi.encodePacked("Nd"));
-    bytes32 SH_LETTER_NUMBER = keccak256(abi.encodePacked("Nl"));
-    bytes32 SH_OTHER_NUMBER = keccak256(abi.encodePacked("No"));
-    bytes32 PUNCTUATION = keccak256(abi.encodePacked("Punctuation"));
-    bytes32 CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Connector_Punctuation"));
-    bytes32 DASH_PUNCTUATION = keccak256(abi.encodePacked("Dash_Punctuation"));
-    bytes32 OPEN_PUNCTUATION = keccak256(abi.encodePacked("Open_Punctuation"));
-    bytes32 CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Close_Punctuation"));
-    bytes32 INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Initial_Punctuation"));
-    bytes32 FINAL_PUNCTUATION = keccak256(abi.encodePacked("Final_Punctuation"));
-    bytes32 OTHER_PUNCTUATION = keccak256(abi.encodePacked("Other_Punctuation"));
-    bytes32 SH_PUNCTUATION = keccak256(abi.encodePacked("P"));
-    bytes32 SH_CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Pc"));
-    bytes32 SH_DASH_PUNCTUATION = keccak256(abi.encodePacked("Pd"));
-    bytes32 SH_OPEN_PUNCTUATION = keccak256(abi.encodePacked("Ps"));
-    bytes32 SH_CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Pe"));
-    bytes32 SH_INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Pi"));
-    bytes32 SH_FINAL_PUNCTUATION = keccak256(abi.encodePacked("Pf"));
-    bytes32 SH_OTHER_PUNCTUATION = keccak256(abi.encodePacked("Po"));
-    bytes32 SYMBOL = keccak256(abi.encodePacked("Symbol"));
-    bytes32 MATH_SYMBOL = keccak256(abi.encodePacked("Math_Symbol"));
-    bytes32 CURRENCY_SYMBOL = keccak256(abi.encodePacked("Currency_Symbol"));
-    bytes32 MODIFIER_SYMBOL = keccak256(abi.encodePacked("Modifier_Symbol"));
-    bytes32 OTHER_SYMBOL = keccak256(abi.encodePacked("Other_Symbol"));
-    bytes32 SH_SYMBOL = keccak256(abi.encodePacked("S"));
-    bytes32 SH_MATH_SYMBOL = keccak256(abi.encodePacked("Sm"));
-    bytes32 SH_CURRENCY_SYMBOL = keccak256(abi.encodePacked("Sc"));
-    bytes32 SH_MODIFIER_SYMBOL = keccak256(abi.encodePacked("Sk"));
-    bytes32 SH_OTHER_SYMBOL = keccak256(abi.encodePacked("So"));
-    bytes32 SEPARATOR = keccak256(abi.encodePacked("Separator"));
-    bytes32 SPACE_SEPARATOR = keccak256(abi.encodePacked("Space_Separator"));
-    bytes32 LINE_SEPARATOR = keccak256(abi.encodePacked("Line_Separator"));
-    bytes32 PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Paragraph_Separator"));
-    bytes32 SH_SEPARATOR = keccak256(abi.encodePacked("Z"));
-    bytes32 SH_SPACE_SEPARATOR = keccak256(abi.encodePacked("Zs"));
-    bytes32 SH_LINE_SEPARATOR = keccak256(abi.encodePacked("Zl"));
-    bytes32 SH_PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Zp"));
-    bytes32 OTHER = keccak256(abi.encodePacked("Other"));
-    bytes32 CONTROL = keccak256(abi.encodePacked("Control"));
-    bytes32 FORMAT = keccak256(abi.encodePacked("Format"));
-    bytes32 SURROGATE = keccak256(abi.encodePacked("Surrogate"));
-    bytes32 PRIVATE_USE = keccak256(abi.encodePacked("Private_Use"));
-    bytes32 UNASSIGNED = keccak256(abi.encodePacked("Unassigned"));
-    bytes32 SH_OTHER = keccak256(abi.encodePacked("C"));
-    bytes32 SH_CONTROL = keccak256(abi.encodePacked("Cc"));
-    bytes32 SH_FORMAT = keccak256(abi.encodePacked("Cf"));
-    bytes32 SH_SURROGATE = keccak256(abi.encodePacked("Cs"));
-    bytes32 SH_PRIVATE_USE = keccak256(abi.encodePacked("Co"));
-    bytes32 SH_UNASSIGNED = keccak256(abi.encodePacked("Cn"));
+    // General Category: 30
+    bytes32 private constant LETTER = keccak256(abi.encodePacked("Letter"));
+    bytes32 private constant UPPERCASE_LETTER = keccak256(abi.encodePacked("Uppercase_Letter"));
+    bytes32 private constant LOWERCASE_LETTER = keccak256(abi.encodePacked("Lowercase_Letter"));
+    bytes32 private constant TITLECASE_LETTER = keccak256(abi.encodePacked("Titlecase_Letter"));
+    bytes32 private constant MODIFIER_LETTER = keccak256(abi.encodePacked("Modifier_Letter"));
+    bytes32 private constant OTHER_LETTER = keccak256(abi.encodePacked("Other_Letter"));
+    bytes32 private constant SH_LETTER = keccak256(abi.encodePacked("L"));
+    bytes32 private constant SH_UPPERCASE_LETTER = keccak256(abi.encodePacked("Lu"));
+    bytes32 private constant SH_LOWERCASE_LETTER = keccak256(abi.encodePacked("Ll"));
+    bytes32 private constant SH_TITLECASE_LETTER = keccak256(abi.encodePacked("Lt"));
+    bytes32 private constant SH_MODIFIER_LETTER = keccak256(abi.encodePacked("Lm"));
+    bytes32 private constant SH_OTHER_LETTER = keccak256(abi.encodePacked("Lo"));
+    bytes32 private constant MARK = keccak256(abi.encodePacked("Mark"));
+    bytes32 private constant NONSPACING_MARK = keccak256(abi.encodePacked("Nonspacing_Mark"));
+    bytes32 private constant SPACING_MARK = keccak256(abi.encodePacked("Spacing_Mark"));
+    bytes32 private constant ENCLOSING_MARK = keccak256(abi.encodePacked("Enclosing_Mark"));
+    bytes32 private constant SH_MARK = keccak256(abi.encodePacked("M"));
+    bytes32 private constant SH_NONSPACING_MARK = keccak256(abi.encodePacked("Mn"));
+    bytes32 private constant SH_SPACING_MARK = keccak256(abi.encodePacked("Mc"));
+    bytes32 private constant SH_ENCLOSING_MARK = keccak256(abi.encodePacked("Me"));
+    bytes32 private constant NUMBER = keccak256(abi.encodePacked("Number"));
+    bytes32 private constant DECIMAL_NUMBER = keccak256(abi.encodePacked("Decimal_Number"));
+    bytes32 private constant LETTER_NUMBER = keccak256(abi.encodePacked("Letter_Number"));
+    bytes32 private constant OTHER_NUMBER = keccak256(abi.encodePacked("Other_Number"));
+    bytes32 private constant SH_NUMBER = keccak256(abi.encodePacked("N"));
+    bytes32 private constant SH_DECIMAL_NUMBER = keccak256(abi.encodePacked("Nd"));
+    bytes32 private constant SH_LETTER_NUMBER = keccak256(abi.encodePacked("Nl"));
+    bytes32 private constant SH_OTHER_NUMBER = keccak256(abi.encodePacked("No"));
+    bytes32 private constant PUNCTUATION = keccak256(abi.encodePacked("Punctuation"));
+    bytes32 private constant CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Connector_Punctuation"));
+    bytes32 private constant DASH_PUNCTUATION = keccak256(abi.encodePacked("Dash_Punctuation"));
+    bytes32 private constant OPEN_PUNCTUATION = keccak256(abi.encodePacked("Open_Punctuation"));
+    bytes32 private constant CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Close_Punctuation"));
+    bytes32 private constant INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Initial_Punctuation"));
+    bytes32 private constant FINAL_PUNCTUATION = keccak256(abi.encodePacked("Final_Punctuation"));
+    bytes32 private constant OTHER_PUNCTUATION = keccak256(abi.encodePacked("Other_Punctuation"));
+    bytes32 private constant SH_PUNCTUATION = keccak256(abi.encodePacked("P"));
+    bytes32 private constant SH_CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Pc"));
+    bytes32 private constant SH_DASH_PUNCTUATION = keccak256(abi.encodePacked("Pd"));
+    bytes32 private constant SH_OPEN_PUNCTUATION = keccak256(abi.encodePacked("Ps"));
+    bytes32 private constant SH_CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Pe"));
+    bytes32 private constant SH_INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Pi"));
+    bytes32 private constant SH_FINAL_PUNCTUATION = keccak256(abi.encodePacked("Pf"));
+    bytes32 private constant SH_OTHER_PUNCTUATION = keccak256(abi.encodePacked("Po"));
+    bytes32 private constant SYMBOL = keccak256(abi.encodePacked("Symbol"));
+    bytes32 private constant MATH_SYMBOL = keccak256(abi.encodePacked("Math_Symbol"));
+    bytes32 private constant CURRENCY_SYMBOL = keccak256(abi.encodePacked("Currency_Symbol"));
+    bytes32 private constant MODIFIER_SYMBOL = keccak256(abi.encodePacked("Modifier_Symbol"));
+    bytes32 private constant OTHER_SYMBOL = keccak256(abi.encodePacked("Other_Symbol"));
+    bytes32 private constant SH_SYMBOL = keccak256(abi.encodePacked("S"));
+    bytes32 private constant SH_MATH_SYMBOL = keccak256(abi.encodePacked("Sm"));
+    bytes32 private constant SH_CURRENCY_SYMBOL = keccak256(abi.encodePacked("Sc"));
+    bytes32 private constant SH_MODIFIER_SYMBOL = keccak256(abi.encodePacked("Sk"));
+    bytes32 private constant SH_OTHER_SYMBOL = keccak256(abi.encodePacked("So"));
+    bytes32 private constant SEPARATOR = keccak256(abi.encodePacked("Separator"));
+    bytes32 private constant SPACE_SEPARATOR = keccak256(abi.encodePacked("Space_Separator"));
+    bytes32 private constant LINE_SEPARATOR = keccak256(abi.encodePacked("Line_Separator"));
+    bytes32 private constant PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Paragraph_Separator"));
+    bytes32 private constant SH_SEPARATOR = keccak256(abi.encodePacked("Z"));
+    bytes32 private constant SH_SPACE_SEPARATOR = keccak256(abi.encodePacked("Zs"));
+    bytes32 private constant SH_LINE_SEPARATOR = keccak256(abi.encodePacked("Zl"));
+    bytes32 private constant SH_PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Zp"));
+    bytes32 private constant OTHER = keccak256(abi.encodePacked("Other"));
+    bytes32 private constant CONTROL = keccak256(abi.encodePacked("Control"));
+    bytes32 private constant FORMAT = keccak256(abi.encodePacked("Format"));
+    bytes32 private constant SURROGATE = keccak256(abi.encodePacked("Surrogate"));
+    bytes32 private constant PRIVATE_USE = keccak256(abi.encodePacked("Private_Use"));
+    bytes32 private constant UNASSIGNED = keccak256(abi.encodePacked("Unassigned"));
+    bytes32 private constant SH_OTHER = keccak256(abi.encodePacked("C"));
+    bytes32 private constant SH_CONTROL = keccak256(abi.encodePacked("Cc"));
+    bytes32 private constant SH_FORMAT = keccak256(abi.encodePacked("Cf"));
+    bytes32 private constant SH_SURROGATE = keccak256(abi.encodePacked("Cs"));
+    bytes32 private constant SH_PRIVATE_USE = keccak256(abi.encodePacked("Co"));
+    bytes32 private constant SH_UNASSIGNED = keccak256(abi.encodePacked("Cn"));
+
+    // Script: 176
+    bytes32 private constant Adlam = keccak256(abi.encodePacked("Adlam"));
+    bytes32 private constant Caucasian_Albanian = keccak256(abi.encodePacked("Caucasian_Albanian"));
+    bytes32 private constant Ahom = keccak256(abi.encodePacked("Ahom"));
+    bytes32 private constant Arabic = keccak256(abi.encodePacked("Arabic"));
+    bytes32 private constant Imperial_Aramaic = keccak256(abi.encodePacked("Imperial_Aramaic"));
+    bytes32 private constant Armenian = keccak256(abi.encodePacked("Armenian"));
+    bytes32 private constant Avestan = keccak256(abi.encodePacked("Avestan"));
+    bytes32 private constant Balinese = keccak256(abi.encodePacked("Balinese"));
+    bytes32 private constant Bamum = keccak256(abi.encodePacked("Bamum"));
+    bytes32 private constant Bassa_Vah = keccak256(abi.encodePacked("Bassa_Vah"));
+    bytes32 private constant Batak = keccak256(abi.encodePacked("Batak"));
+    bytes32 private constant Bengali = keccak256(abi.encodePacked("Bengali"));
+    bytes32 private constant Beria_Erfe = keccak256(abi.encodePacked("Beria_Erfe"));
+    bytes32 private constant Bhaiksuki = keccak256(abi.encodePacked("Bhaiksuki"));
+    bytes32 private constant Bopomofo = keccak256(abi.encodePacked("Bopomofo"));
+    bytes32 private constant Brahmi = keccak256(abi.encodePacked("Brahmi"));
+    bytes32 private constant Braille = keccak256(abi.encodePacked("Braille"));
+    bytes32 private constant Buginese = keccak256(abi.encodePacked("Buginese"));
+    bytes32 private constant Buhid = keccak256(abi.encodePacked("Buhid"));
+    bytes32 private constant Chakma = keccak256(abi.encodePacked("Chakma"));
+    bytes32 private constant Canadian_Aboriginal = keccak256(abi.encodePacked("Canadian_Aboriginal"));
+    bytes32 private constant Carian = keccak256(abi.encodePacked("Carian"));
+    bytes32 private constant Cham = keccak256(abi.encodePacked("Cham"));
+    bytes32 private constant Cherokee = keccak256(abi.encodePacked("Cherokee"));
+    bytes32 private constant Chorasmian = keccak256(abi.encodePacked("Chorasmian"));
+    bytes32 private constant Coptic = keccak256(abi.encodePacked("Coptic"));
+    bytes32 private constant Cypro_Minoan = keccak256(abi.encodePacked("Cypro_Minoan"));
+    bytes32 private constant Cypriot = keccak256(abi.encodePacked("Cypriot"));
+    bytes32 private constant Cyrillic = keccak256(abi.encodePacked("Cyrillic"));
+    bytes32 private constant Devanagari = keccak256(abi.encodePacked("Devanagari"));
+    bytes32 private constant Dives_Akuru = keccak256(abi.encodePacked("Dives_Akuru"));
+    bytes32 private constant Dogra = keccak256(abi.encodePacked("Dogra"));
+    bytes32 private constant Deseret = keccak256(abi.encodePacked("Deseret"));
+    bytes32 private constant Duployan = keccak256(abi.encodePacked("Duployan"));
+    bytes32 private constant Egyptian_Hieroglyphs = keccak256(abi.encodePacked("Egyptian_Hieroglyphs"));
+    bytes32 private constant Elbasan = keccak256(abi.encodePacked("Elbasan"));
+    bytes32 private constant Elymaic = keccak256(abi.encodePacked("Elymaic"));
+    bytes32 private constant Ethiopic = keccak256(abi.encodePacked("Ethiopic"));
+    bytes32 private constant Garay = keccak256(abi.encodePacked("Garay"));
+    bytes32 private constant Georgian = keccak256(abi.encodePacked("Georgian"));
+    bytes32 private constant Glagolitic = keccak256(abi.encodePacked("Glagolitic"));
+    bytes32 private constant Gunjala_Gondi = keccak256(abi.encodePacked("Gunjala_Gondi"));
+    bytes32 private constant Masaram_Gondi = keccak256(abi.encodePacked("Masaram_Gondi"));
+    bytes32 private constant Gothic = keccak256(abi.encodePacked("Gothic"));
+    bytes32 private constant Grantha = keccak256(abi.encodePacked("Grantha"));
+    bytes32 private constant Greek = keccak256(abi.encodePacked("Greek"));
+    bytes32 private constant Gujarati = keccak256(abi.encodePacked("Gujarati"));
+    bytes32 private constant Gurung_Khema = keccak256(abi.encodePacked("Gurung_Khema"));
+    bytes32 private constant Gurmukhi = keccak256(abi.encodePacked("Gurmukhi"));
+    bytes32 private constant Hangul = keccak256(abi.encodePacked("Hangul"));
+    bytes32 private constant Han = keccak256(abi.encodePacked("Han"));
+    bytes32 private constant Hanunoo = keccak256(abi.encodePacked("Hanunoo"));
+    bytes32 private constant Hatran = keccak256(abi.encodePacked("Hatran"));
+    bytes32 private constant Hebrew = keccak256(abi.encodePacked("Hebrew"));
+    bytes32 private constant Hiragana = keccak256(abi.encodePacked("Hiragana"));
+    bytes32 private constant Anatolian_Hieroglyphs = keccak256(abi.encodePacked("Anatolian_Hieroglyphs"));
+    bytes32 private constant Pahawh_Hmong = keccak256(abi.encodePacked("Pahawh_Hmong"));
+    bytes32 private constant Nyiakeng_Puachue_Hmong = keccak256(abi.encodePacked("Nyiakeng_Puachue_Hmong"));
+    bytes32 private constant Katakana_Or_Hiragana = keccak256(abi.encodePacked("Katakana_Or_Hiragana"));
+    bytes32 private constant Old_Hungarian = keccak256(abi.encodePacked("Old_Hungarian"));
+    bytes32 private constant Old_Italic = keccak256(abi.encodePacked("Old_Italic"));
+    bytes32 private constant Javanese = keccak256(abi.encodePacked("Javanese"));
+    bytes32 private constant Kayah_Li = keccak256(abi.encodePacked("Kayah_Li"));
+    bytes32 private constant Katakana = keccak256(abi.encodePacked("Katakana"));
+    bytes32 private constant Kawi = keccak256(abi.encodePacked("Kawi"));
+    bytes32 private constant Kharoshthi = keccak256(abi.encodePacked("Kharoshthi"));
+    bytes32 private constant Khmer = keccak256(abi.encodePacked("Khmer"));
+    bytes32 private constant Khojki = keccak256(abi.encodePacked("Khojki"));
+    bytes32 private constant Khitan_Small_Script = keccak256(abi.encodePacked("Khitan_Small_Script"));
+    bytes32 private constant Kannada = keccak256(abi.encodePacked("Kannada"));
+    bytes32 private constant Kirat_Rai = keccak256(abi.encodePacked("Kirat_Rai"));
+    bytes32 private constant Kaithi = keccak256(abi.encodePacked("Kaithi"));
+    bytes32 private constant Tai_Tham = keccak256(abi.encodePacked("Tai_Tham"));
+    bytes32 private constant Lao = keccak256(abi.encodePacked("Lao"));
+    bytes32 private constant Latin = keccak256(abi.encodePacked("Latin"));
+    bytes32 private constant Lepcha = keccak256(abi.encodePacked("Lepcha"));
+    bytes32 private constant Limbu = keccak256(abi.encodePacked("Limbu"));
+    bytes32 private constant Linear_A = keccak256(abi.encodePacked("Linear_A"));
+    bytes32 private constant Linear_B = keccak256(abi.encodePacked("Linear_B"));
+    bytes32 private constant Lisu = keccak256(abi.encodePacked("Lisu"));
+    bytes32 private constant Lycian = keccak256(abi.encodePacked("Lycian"));
+    bytes32 private constant Lydian = keccak256(abi.encodePacked("Lydian"));
+    bytes32 private constant Mahajani = keccak256(abi.encodePacked("Mahajani"));
+    bytes32 private constant Makasar = keccak256(abi.encodePacked("Makasar"));
+    bytes32 private constant Mandaic = keccak256(abi.encodePacked("Mandaic"));
+    bytes32 private constant Manichaean = keccak256(abi.encodePacked("Manichaean"));
+    bytes32 private constant Marchen = keccak256(abi.encodePacked("Marchen"));
+    bytes32 private constant Medefaidrin = keccak256(abi.encodePacked("Medefaidrin"));
+    bytes32 private constant Mende_Kikakui = keccak256(abi.encodePacked("Mende_Kikakui"));
+    bytes32 private constant Meroitic_Cursive = keccak256(abi.encodePacked("Meroitic_Cursive"));
+    bytes32 private constant Meroitic_Hieroglyphs = keccak256(abi.encodePacked("Meroitic_Hieroglyphs"));
+    bytes32 private constant Malayalam = keccak256(abi.encodePacked("Malayalam"));
+    bytes32 private constant Modi = keccak256(abi.encodePacked("Modi"));
+    bytes32 private constant Mongolian = keccak256(abi.encodePacked("Mongolian"));
+    bytes32 private constant Mro = keccak256(abi.encodePacked("Mro"));
+    bytes32 private constant Meetei_Mayek = keccak256(abi.encodePacked("Meetei_Mayek"));
+    bytes32 private constant Multani = keccak256(abi.encodePacked("Multani"));
+    bytes32 private constant Myanmar = keccak256(abi.encodePacked("Myanmar"));
+    bytes32 private constant Nag_Mundari = keccak256(abi.encodePacked("Nag_Mundari"));
+    bytes32 private constant Nandinagari = keccak256(abi.encodePacked("Nandinagari"));
+    bytes32 private constant Old_North_Arabian = keccak256(abi.encodePacked("Old_North_Arabian"));
+    bytes32 private constant Nabataean = keccak256(abi.encodePacked("Nabataean"));
+    bytes32 private constant Newa = keccak256(abi.encodePacked("Newa"));
+    bytes32 private constant Nko = keccak256(abi.encodePacked("Nko"));
+    bytes32 private constant Nushu = keccak256(abi.encodePacked("Nushu"));
+    bytes32 private constant Ogham = keccak256(abi.encodePacked("Ogham"));
+    bytes32 private constant Ol_Chiki = keccak256(abi.encodePacked("Ol_Chiki"));
+    bytes32 private constant Ol_Onal = keccak256(abi.encodePacked("Ol_Onal"));
+    bytes32 private constant Old_Turkic = keccak256(abi.encodePacked("Old_Turkic"));
+    bytes32 private constant Oriya = keccak256(abi.encodePacked("Oriya"));
+    bytes32 private constant Osage = keccak256(abi.encodePacked("Osage"));
+    bytes32 private constant Osmanya = keccak256(abi.encodePacked("Osmanya"));
+    bytes32 private constant Old_Uyghur = keccak256(abi.encodePacked("Old_Uyghur"));
+    bytes32 private constant Palmyrene = keccak256(abi.encodePacked("Palmyrene"));
+    bytes32 private constant Pau_Cin_Hau = keccak256(abi.encodePacked("Pau_Cin_Hau"));
+    bytes32 private constant Old_Permic = keccak256(abi.encodePacked("Old_Permic"));
+    bytes32 private constant Phags_Pa = keccak256(abi.encodePacked("Phags_Pa"));
+    bytes32 private constant Inscriptional_Pahlavi = keccak256(abi.encodePacked("Inscriptional_Pahlavi"));
+    bytes32 private constant Psalter_Pahlavi = keccak256(abi.encodePacked("Psalter_Pahlavi"));
+    bytes32 private constant Phoenician = keccak256(abi.encodePacked("Phoenician"));
+    bytes32 private constant Miao = keccak256(abi.encodePacked("Miao"));
+    bytes32 private constant Inscriptional_Parthian = keccak256(abi.encodePacked("Inscriptional_Parthian"));
+    bytes32 private constant Rejang = keccak256(abi.encodePacked("Rejang"));
+    bytes32 private constant Hanifi_Rohingya = keccak256(abi.encodePacked("Hanifi_Rohingya"));
+    bytes32 private constant Runic = keccak256(abi.encodePacked("Runic"));
+    bytes32 private constant Samaritan = keccak256(abi.encodePacked("Samaritan"));
+    bytes32 private constant Old_South_Arabian = keccak256(abi.encodePacked("Old_South_Arabian"));
+    bytes32 private constant Saurashtra = keccak256(abi.encodePacked("Saurashtra"));
+    bytes32 private constant SignWriting = keccak256(abi.encodePacked("SignWriting"));
+    bytes32 private constant Shavian = keccak256(abi.encodePacked("Shavian"));
+    bytes32 private constant Sharada = keccak256(abi.encodePacked("Sharada"));
+    bytes32 private constant Siddham = keccak256(abi.encodePacked("Siddham"));
+    bytes32 private constant Sidetic = keccak256(abi.encodePacked("Sidetic"));
+    bytes32 private constant Khudawadi = keccak256(abi.encodePacked("Khudawadi"));
+    bytes32 private constant Sinhala = keccak256(abi.encodePacked("Sinhala"));
+    bytes32 private constant Sogdian = keccak256(abi.encodePacked("Sogdian"));
+    bytes32 private constant Old_Sogdian = keccak256(abi.encodePacked("Old_Sogdian"));
+    bytes32 private constant Sora_Sompeng = keccak256(abi.encodePacked("Sora_Sompeng"));
+    bytes32 private constant Soyombo = keccak256(abi.encodePacked("Soyombo"));
+    bytes32 private constant Sundanese = keccak256(abi.encodePacked("Sundanese"));
+    bytes32 private constant Sunuwar = keccak256(abi.encodePacked("Sunuwar"));
+    bytes32 private constant Syloti_Nagri = keccak256(abi.encodePacked("Syloti_Nagri"));
+    bytes32 private constant Syriac = keccak256(abi.encodePacked("Syriac"));
+    bytes32 private constant Tagbanwa = keccak256(abi.encodePacked("Tagbanwa"));
+    bytes32 private constant Takri = keccak256(abi.encodePacked("Takri"));
+    bytes32 private constant Tai_Le = keccak256(abi.encodePacked("Tai_Le"));
+    bytes32 private constant New_Tai_Lue = keccak256(abi.encodePacked("New_Tai_Lue"));
+    bytes32 private constant Tamil = keccak256(abi.encodePacked("Tamil"));
+    bytes32 private constant Tangut = keccak256(abi.encodePacked("Tangut"));
+    bytes32 private constant Tai_Viet = keccak256(abi.encodePacked("Tai_Viet"));
+    bytes32 private constant Tai_Yo = keccak256(abi.encodePacked("Tai_Yo"));
+    bytes32 private constant Telugu = keccak256(abi.encodePacked("Telugu"));
+    bytes32 private constant Tifinagh = keccak256(abi.encodePacked("Tifinagh"));
+    bytes32 private constant Tagalog = keccak256(abi.encodePacked("Tagalog"));
+    bytes32 private constant Thaana = keccak256(abi.encodePacked("Thaana"));
+    bytes32 private constant Thai = keccak256(abi.encodePacked("Thai"));
+    bytes32 private constant Tibetan = keccak256(abi.encodePacked("Tibetan"));
+    bytes32 private constant Tirhuta = keccak256(abi.encodePacked("Tirhuta"));
+    bytes32 private constant Tangsa = keccak256(abi.encodePacked("Tangsa"));
+    bytes32 private constant Todhri = keccak256(abi.encodePacked("Todhri"));
+    bytes32 private constant Tolong_Siki = keccak256(abi.encodePacked("Tolong_Siki"));
+    bytes32 private constant Toto = keccak256(abi.encodePacked("Toto"));
+    bytes32 private constant Tulu_Tigalari = keccak256(abi.encodePacked("Tulu_Tigalari"));
+    bytes32 private constant Ugaritic = keccak256(abi.encodePacked("Ugaritic"));
+    bytes32 private constant Vai = keccak256(abi.encodePacked("Vai"));
+    bytes32 private constant Vithkuqi = keccak256(abi.encodePacked("Vithkuqi"));
+    bytes32 private constant Warang_Citi = keccak256(abi.encodePacked("Warang_Citi"));
+    bytes32 private constant Wancho = keccak256(abi.encodePacked("Wancho"));
+    bytes32 private constant Old_Persian = keccak256(abi.encodePacked("Old_Persian"));
+    bytes32 private constant Cuneiform = keccak256(abi.encodePacked("Cuneiform"));
+    bytes32 private constant Yezidi = keccak256(abi.encodePacked("Yezidi"));
+    bytes32 private constant Yi = keccak256(abi.encodePacked("Yi"));
+    bytes32 private constant Zanabazar_Square = keccak256(abi.encodePacked("Zanabazar_Square"));
+    bytes32 private constant Inherited = keccak256(abi.encodePacked("Inherited"));
+    bytes32 private constant Common = keccak256(abi.encodePacked("Common"));
+    bytes32 private constant Unknown = keccak256(abi.encodePacked("Unknown"));
+
+    // Script-aliases: 175
+    bytes32 private constant Adlm = keccak256(abi.encodePacked("Adlm"));
+    bytes32 private constant Aghb = keccak256(abi.encodePacked("Aghb"));
+    bytes32 private constant Arab = keccak256(abi.encodePacked("Arab"));
+    bytes32 private constant Armi = keccak256(abi.encodePacked("Armi"));
+    bytes32 private constant Armn = keccak256(abi.encodePacked("Armn"));
+    bytes32 private constant Avst = keccak256(abi.encodePacked("Avst"));
+    bytes32 private constant Bali = keccak256(abi.encodePacked("Bali"));
+    bytes32 private constant Bamu = keccak256(abi.encodePacked("Bamu"));
+    bytes32 private constant Bass = keccak256(abi.encodePacked("Bass"));
+    bytes32 private constant Batk = keccak256(abi.encodePacked("Batk"));
+    bytes32 private constant Beng = keccak256(abi.encodePacked("Beng"));
+    bytes32 private constant Berf = keccak256(abi.encodePacked("Berf"));
+    bytes32 private constant Bhks = keccak256(abi.encodePacked("Bhks"));
+    bytes32 private constant Bopo = keccak256(abi.encodePacked("Bopo"));
+    bytes32 private constant Brah = keccak256(abi.encodePacked("Brah"));
+    bytes32 private constant Brai = keccak256(abi.encodePacked("Brai"));
+    bytes32 private constant Bugi = keccak256(abi.encodePacked("Bugi"));
+    bytes32 private constant Buhd = keccak256(abi.encodePacked("Buhd"));
+    bytes32 private constant Cakm = keccak256(abi.encodePacked("Cakm"));
+    bytes32 private constant Cans = keccak256(abi.encodePacked("Cans"));
+    bytes32 private constant Cari = keccak256(abi.encodePacked("Cari"));
+    bytes32 private constant Cher = keccak256(abi.encodePacked("Cher"));
+    bytes32 private constant Chrs = keccak256(abi.encodePacked("Chrs"));
+    bytes32 private constant Copt = keccak256(abi.encodePacked("Copt"));
+    bytes32 private constant Cpmn = keccak256(abi.encodePacked("Cpmn"));
+    bytes32 private constant Cprt = keccak256(abi.encodePacked("Cprt"));
+    bytes32 private constant Cyrl = keccak256(abi.encodePacked("Cyrl"));
+    bytes32 private constant Deva = keccak256(abi.encodePacked("Deva"));
+    bytes32 private constant Diak = keccak256(abi.encodePacked("Diak"));
+    bytes32 private constant Dogr = keccak256(abi.encodePacked("Dogr"));
+    bytes32 private constant Dsrt = keccak256(abi.encodePacked("Dsrt"));
+    bytes32 private constant Dupl = keccak256(abi.encodePacked("Dupl"));
+    bytes32 private constant Egyp = keccak256(abi.encodePacked("Egyp"));
+    bytes32 private constant Elba = keccak256(abi.encodePacked("Elba"));
+    bytes32 private constant Elym = keccak256(abi.encodePacked("Elym"));
+    bytes32 private constant Ethi = keccak256(abi.encodePacked("Ethi"));
+    bytes32 private constant Gara = keccak256(abi.encodePacked("Gara"));
+    bytes32 private constant Geor = keccak256(abi.encodePacked("Geor"));
+    bytes32 private constant Glag = keccak256(abi.encodePacked("Glag"));
+    bytes32 private constant Gong = keccak256(abi.encodePacked("Gong"));
+    bytes32 private constant Gonm = keccak256(abi.encodePacked("Gonm"));
+    bytes32 private constant Goth = keccak256(abi.encodePacked("Goth"));
+    bytes32 private constant Gran = keccak256(abi.encodePacked("Gran"));
+    bytes32 private constant Grek = keccak256(abi.encodePacked("Grek"));
+    bytes32 private constant Gujr = keccak256(abi.encodePacked("Gujr"));
+    bytes32 private constant Gukh = keccak256(abi.encodePacked("Gukh"));
+    bytes32 private constant Guru = keccak256(abi.encodePacked("Guru"));
+    bytes32 private constant Hang = keccak256(abi.encodePacked("Hang"));
+    bytes32 private constant Hani = keccak256(abi.encodePacked("Hani"));
+    bytes32 private constant Hano = keccak256(abi.encodePacked("Hano"));
+    bytes32 private constant Hatr = keccak256(abi.encodePacked("Hatr"));
+    bytes32 private constant Hebr = keccak256(abi.encodePacked("Hebr"));
+    bytes32 private constant Hira = keccak256(abi.encodePacked("Hira"));
+    bytes32 private constant Hluw = keccak256(abi.encodePacked("Hluw"));
+    bytes32 private constant Hmng = keccak256(abi.encodePacked("Hmng"));
+    bytes32 private constant Hmnp = keccak256(abi.encodePacked("Hmnp"));
+    bytes32 private constant Hrkt = keccak256(abi.encodePacked("Hrkt"));
+    bytes32 private constant Hung = keccak256(abi.encodePacked("Hung"));
+    bytes32 private constant Ital = keccak256(abi.encodePacked("Ital"));
+    bytes32 private constant Java = keccak256(abi.encodePacked("Java"));
+    bytes32 private constant Kali = keccak256(abi.encodePacked("Kali"));
+    bytes32 private constant Kana = keccak256(abi.encodePacked("Kana"));
+    bytes32 private constant Khar = keccak256(abi.encodePacked("Khar"));
+    bytes32 private constant Khmr = keccak256(abi.encodePacked("Khmr"));
+    bytes32 private constant Khoj = keccak256(abi.encodePacked("Khoj"));
+    bytes32 private constant Kits = keccak256(abi.encodePacked("Kits"));
+    bytes32 private constant Knda = keccak256(abi.encodePacked("Knda"));
+    bytes32 private constant Krai = keccak256(abi.encodePacked("Krai"));
+    bytes32 private constant Kthi = keccak256(abi.encodePacked("Kthi"));
+    bytes32 private constant Lana = keccak256(abi.encodePacked("Lana"));
+    bytes32 private constant Laoo = keccak256(abi.encodePacked("Laoo"));
+    bytes32 private constant Latn = keccak256(abi.encodePacked("Latn"));
+    bytes32 private constant Lepc = keccak256(abi.encodePacked("Lepc"));
+    bytes32 private constant Limb = keccak256(abi.encodePacked("Limb"));
+    bytes32 private constant Lina = keccak256(abi.encodePacked("Lina"));
+    bytes32 private constant Linb = keccak256(abi.encodePacked("Linb"));
+    bytes32 private constant Lyci = keccak256(abi.encodePacked("Lyci"));
+    bytes32 private constant Lydi = keccak256(abi.encodePacked("Lydi"));
+    bytes32 private constant Mahj = keccak256(abi.encodePacked("Mahj"));
+    bytes32 private constant Maka = keccak256(abi.encodePacked("Maka"));
+    bytes32 private constant Mand = keccak256(abi.encodePacked("Mand"));
+    bytes32 private constant Mansi = keccak256(abi.encodePacked("Mansi"));
+    bytes32 private constant Marc = keccak256(abi.encodePacked("Marc"));
+    bytes32 private constant Medf = keccak256(abi.encodePacked("Medf"));
+    bytes32 private constant Mend = keccak256(abi.encodePacked("Mend"));
+    bytes32 private constant Merc = keccak256(abi.encodePacked("Merc"));
+    bytes32 private constant Mero = keccak256(abi.encodePacked("Mero"));
+    bytes32 private constant Mlym = keccak256(abi.encodePacked("Mlym"));
+    bytes32 private constant Mong = keccak256(abi.encodePacked("Mong"));
+    bytes32 private constant Mroo = keccak256(abi.encodePacked("Mroo"));
+    bytes32 private constant Mtei = keccak256(abi.encodePacked("Mtei"));
+    bytes32 private constant Mult = keccak256(abi.encodePacked("Mult"));
+    bytes32 private constant Mymr = keccak256(abi.encodePacked("Mymr"));
+    bytes32 private constant Nagm = keccak256(abi.encodePacked("Nagm"));
+    bytes32 private constant Nand = keccak256(abi.encodePacked("Nand"));
+    bytes32 private constant Narb = keccak256(abi.encodePacked("Narb"));
+    bytes32 private constant Nbat = keccak256(abi.encodePacked("Nbat"));
+    bytes32 private constant Nkoo = keccak256(abi.encodePacked("Nkoo"));
+    bytes32 private constant Nshu = keccak256(abi.encodePacked("Nshu"));
+    bytes32 private constant Ogam = keccak256(abi.encodePacked("Ogam"));
+    bytes32 private constant Olck = keccak256(abi.encodePacked("Olck"));
+    bytes32 private constant Onao = keccak256(abi.encodePacked("Onao"));
+    bytes32 private constant Orkh = keccak256(abi.encodePacked("Orkh"));
+    bytes32 private constant Orya = keccak256(abi.encodePacked("Orya"));
+    bytes32 private constant Osge = keccak256(abi.encodePacked("Osge"));
+    bytes32 private constant Osma = keccak256(abi.encodePacked("Osma"));
+    bytes32 private constant Ougr = keccak256(abi.encodePacked("Ougr"));
+    bytes32 private constant Palm = keccak256(abi.encodePacked("Palm"));
+    bytes32 private constant Pauc = keccak256(abi.encodePacked("Pauc"));
+    bytes32 private constant Perm = keccak256(abi.encodePacked("Perm"));
+    bytes32 private constant Phag = keccak256(abi.encodePacked("Phag"));
+    bytes32 private constant Phli = keccak256(abi.encodePacked("Phli"));
+    bytes32 private constant Phlp = keccak256(abi.encodePacked("Phlp"));
+    bytes32 private constant Phnx = keccak256(abi.encodePacked("Phnx"));
+    bytes32 private constant Plrd = keccak256(abi.encodePacked("Plrd"));
+    bytes32 private constant Prti = keccak256(abi.encodePacked("Prti"));
+    bytes32 private constant Rjng = keccak256(abi.encodePacked("Rjng"));
+    bytes32 private constant Rohg = keccak256(abi.encodePacked("Rohg"));
+    bytes32 private constant Runr = keccak256(abi.encodePacked("Runr"));
+    bytes32 private constant Samr = keccak256(abi.encodePacked("Samr"));
+    bytes32 private constant Sarb = keccak256(abi.encodePacked("Sarb"));
+    bytes32 private constant Saur = keccak256(abi.encodePacked("Saur"));
+    bytes32 private constant Sgnw = keccak256(abi.encodePacked("Sgnw"));
+    bytes32 private constant Shaw = keccak256(abi.encodePacked("Shaw"));
+    bytes32 private constant Shrd = keccak256(abi.encodePacked("Shrd"));
+    bytes32 private constant Sidd = keccak256(abi.encodePacked("Sidd"));
+    bytes32 private constant Sidt = keccak256(abi.encodePacked("Sidt"));
+    bytes32 private constant Sind = keccak256(abi.encodePacked("Sind"));
+    bytes32 private constant Sinh = keccak256(abi.encodePacked("Sinh"));
+    bytes32 private constant Sogd = keccak256(abi.encodePacked("Sogd"));
+    bytes32 private constant Sogo = keccak256(abi.encodePacked("Sogo"));
+    bytes32 private constant Sora = keccak256(abi.encodePacked("Sora"));
+    bytes32 private constant Soyo = keccak256(abi.encodePacked("Soyo"));
+    bytes32 private constant Sund = keccak256(abi.encodePacked("Sund"));
+    bytes32 private constant Sunu = keccak256(abi.encodePacked("Sunu"));
+    bytes32 private constant Sylo = keccak256(abi.encodePacked("Sylo"));
+    bytes32 private constant Syrc = keccak256(abi.encodePacked("Syrc"));
+    bytes32 private constant Tagb = keccak256(abi.encodePacked("Tagb"));
+    bytes32 private constant Takr = keccak256(abi.encodePacked("Takr"));
+    bytes32 private constant Tale = keccak256(abi.encodePacked("Tale"));
+    bytes32 private constant Talu = keccak256(abi.encodePacked("Talu"));
+    bytes32 private constant Taml = keccak256(abi.encodePacked("Taml"));
+    bytes32 private constant Tang = keccak256(abi.encodePacked("Tang"));
+    bytes32 private constant Tavt = keccak256(abi.encodePacked("Tavt"));
+    bytes32 private constant Tayo = keccak256(abi.encodePacked("Tayo"));
+    bytes32 private constant Telu = keccak256(abi.encodePacked("Telu"));
+    bytes32 private constant Tfng = keccak256(abi.encodePacked("Tfng"));
+    bytes32 private constant Tglg = keccak256(abi.encodePacked("Tglg"));
+    bytes32 private constant Thaa = keccak256(abi.encodePacked("Thaa"));
+    bytes32 private constant Tibt = keccak256(abi.encodePacked("Tibt"));
+    bytes32 private constant Tirh = keccak256(abi.encodePacked("Tirh"));
+    bytes32 private constant Tnsa = keccak256(abi.encodePacked("Tnsa"));
+    bytes32 private constant Todr = keccak256(abi.encodePacked("Todr"));
+    bytes32 private constant Tols = keccak256(abi.encodePacked("Tols"));
+    bytes32 private constant Tutg = keccak256(abi.encodePacked("Tutg"));
+    bytes32 private constant Ugar = keccak256(abi.encodePacked("Ugar"));
+    bytes32 private constant Vaii = keccak256(abi.encodePacked("Vaii"));
+    bytes32 private constant Vith = keccak256(abi.encodePacked("Vith"));
+    bytes32 private constant Wara = keccak256(abi.encodePacked("Wara"));
+    bytes32 private constant Wcho = keccak256(abi.encodePacked("Wcho"));
+    bytes32 private constant Xpeo = keccak256(abi.encodePacked("Xpeo"));
+    bytes32 private constant Xsux = keccak256(abi.encodePacked("Xsux"));
+    bytes32 private constant Yezi = keccak256(abi.encodePacked("Yezi"));
+    bytes32 private constant Yiii = keccak256(abi.encodePacked("Yiii"));
+    bytes32 private constant Zanb = keccak256(abi.encodePacked("Zanb"));
+    bytes32 private constant Zinh = keccak256(abi.encodePacked("Zinh"));
+    bytes32 private constant Zyyy = keccak256(abi.encodePacked("Zyyy"));
+    bytes32 private constant Zzzz = keccak256(abi.encodePacked("Zzzz"));
 
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
@@ -3150,20 +3499,20 @@ library Stringray {
             bytes32 propertyKeyHash = keccak256(propertyKey);
             propertyValueHash = keccak256(trimString(propertyName, uint256(equalsToIndex) + 1, -1));
 
-            if (propertyKeyHash == keccak256(abi.encodePacked("General_Category")) || keccak256(abi.encodePacked("gc")))
-            {
+            if (
+                propertyKeyHash == keccak256(abi.encodePacked("General_Category"))
+                    || propertyKeyHash == keccak256(abi.encodePacked("gc"))
+            ) {
                 return isGeneralCategoryValue(propertyValueHash);
             }
 
-            if (propertyKeyHash == keccak256(abi.encodePacked("Script")) || keccak256(abi.encodePacked("sc"))) {
-                return isScriptValue(propertyValueHash);
-            }
-
             if (
-                propertyKeyHash == keccak256(abi.encodePacked("Script_Extensions"))
-                    || keccak256(abi.encodePacked("scx"))
+                propertyKeyHash == keccak256(abi.encodePacked("Script"))
+                    || propertyKeyHash == keccak256(abi.encodePacked("sc"))
+                    || propertyKeyHash == keccak256(abi.encodePacked("Script_Extensions"))
+                    || propertyKeyHash == keccak256(abi.encodePacked("scx"))
             ) {
-                return isScriptExtensionsValue(propertyValueHash);
+                return isScriptValue(propertyValueHash);
             }
         }
 
@@ -3184,7 +3533,7 @@ library Stringray {
         }
 
         if (!flag) {
-            flag = isPunctuation(propertyValueHash);
+            flag = isPropertyEscapePunctuation(propertyValueHash);
         }
 
         if (!flag) {
@@ -3202,8 +3551,13 @@ library Stringray {
         return flag;
     }
 
-    function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {}
-    function isScriptExtensionsValue(bytes32 propertyValueHash) private pure returns (bool) {}
+    function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {
+        // if (
+        //     propertyValueHash == ADLAM || propertyValueHash == CAUCASIAN_ALBANIAN || propertyValueHash == SH_ADLAM
+        //         || propertyValueHash == SH_ADLAM || propertyValueHash == SH_CAUCASIAN_ALBANIAN
+        // ) {}
+    }
+
     function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {}
 
     function isLetter(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3241,7 +3595,7 @@ library Stringray {
         }
     }
 
-    function isPunctuation(bytes32 propertyValueHash) private pure returns (bool) {
+    function isPropertyEscapePunctuation(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == PUNCTUATION || propertyValueHash == CONNECTOR_PUNCTUATION
                 || propertyValueHash == DASH_PUNCTUATION || propertyValueHash == OPEN_PUNCTUATION
