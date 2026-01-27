@@ -788,6 +788,119 @@ library Stringray {
     bytes32 private constant Zyyy = keccak256(abi.encodePacked("Zyyy"));
     bytes32 private constant Zzzz = keccak256(abi.encodePacked("Zzzz"));
 
+    // Binary: 59
+    bytes32 private constant Alphabetic = keccak256(abi.encodePacked("Alphabetic"));
+    bytes32 private constant Alpha = keccak256(abi.encodePacked(" Alpha"));
+    bytes32 private constant ASCII_Hex_Digit = keccak256(abi.encodePacked("ASCII_Hex_Digit"));
+    bytes32 private constant AHex = keccak256(abi.encodePacked(" AHex"));
+    bytes32 private constant Bidi_Control = keccak256(abi.encodePacked("Bidi_Control"));
+    bytes32 private constant Bidi_C = keccak256(abi.encodePacked(" Bidi_C"));
+    bytes32 private constant Case_Ignorable = keccak256(abi.encodePacked("Case_Ignorable"));
+    bytes32 private constant CI = keccak256(abi.encodePacked(" CI"));
+    bytes32 private constant Cased = keccak256(abi.encodePacked("Cased"));
+    bytes32 private constant Changes_When_Casefolded = keccak256(abi.encodePacked("Changes_When_Casefolded"));
+    bytes32 private constant CWCF = keccak256(abi.encodePacked(" CWCF"));
+    bytes32 private constant Changes_When_Casemapped = keccak256(abi.encodePacked("Changes_When_Casemapped"));
+    bytes32 private constant CWCM = keccak256(abi.encodePacked(" CWCM"));
+    bytes32 private constant Changes_When_Lowercased = keccak256(abi.encodePacked("Changes_When_Lowercased"));
+    bytes32 private constant CWL = keccak256(abi.encodePacked(" CWL"));
+    bytes32 private constant Changes_When_NFKC_Casefolded = keccak256(abi.encodePacked("Changes_When_NFKC_Casefolded"));
+    bytes32 private constant CWKCF = keccak256(abi.encodePacked(" CWKCF"));
+    bytes32 private constant Changes_When_Titlecased = keccak256(abi.encodePacked("Changes_When_Titlecased"));
+    bytes32 private constant CWT = keccak256(abi.encodePacked(" CWT"));
+    bytes32 private constant Changes_When_Uppercased = keccak256(abi.encodePacked("Changes_When_Uppercased"));
+    bytes32 private constant CWU = keccak256(abi.encodePacked(" CWU"));
+    bytes32 private constant Dash = keccak256(abi.encodePacked(" Dash"));
+    bytes32 private constant Default_Ignorable_Code_Point = keccak256(abi.encodePacked("Default_Ignorable_Code_Point"));
+    bytes32 private constant DI = keccak256(abi.encodePacked(" DI"));
+    bytes32 private constant Default_Ignorable = keccak256(abi.encodePacked(" Default_Ignorable"));
+    bytes32 private constant Deprecated = keccak256(abi.encodePacked("Deprecated"));
+    bytes32 private constant Dep = keccak256(abi.encodePacked(" Dep"));
+    bytes32 private constant Diacritic = keccak256(abi.encodePacked("Diacritic"));
+    bytes32 private constant Dia = keccak256(abi.encodePacked(" Dia"));
+    bytes32 private constant Emoji = keccak256(abi.encodePacked("Emoji"));
+    bytes32 private constant Emoji_Component = keccak256(abi.encodePacked(" Emoji_Component"));
+    bytes32 private constant Emoji_Modifier = keccak256(abi.encodePacked(" Emoji_Modifier"));
+    bytes32 private constant Emoji_Modifier_Base = keccak256(abi.encodePacked("Emoji_Modifier_Base"));
+    bytes32 private constant Emoji_Presentation = keccak256(abi.encodePacked(" Emoji_Presentation"));
+    bytes32 private constant Extended_Pictographic = keccak256(abi.encodePacked("Extended_Pictographic"));
+    bytes32 private constant ExtPict = keccak256(abi.encodePacked(" ExtPict"));
+    bytes32 private constant Extender = keccak256(abi.encodePacked("Extender"));
+    bytes32 private constant Ext = keccak256(abi.encodePacked(" Ext"));
+    bytes32 private constant Full_Composition_Exclusion = keccak256(abi.encodePacked("Full_Composition_Exclusion"));
+    bytes32 private constant Comp_Ex = keccak256(abi.encodePacked(" Comp_Ex"));
+    bytes32 private constant Grapheme_Base = keccak256(abi.encodePacked("Grapheme_Base"));
+    bytes32 private constant Gr_Base = keccak256(abi.encodePacked(" Gr_Base"));
+    bytes32 private constant Grapheme_Extend = keccak256(abi.encodePacked("Grapheme_Extend"));
+    bytes32 private constant Gr_Ext = keccak256(abi.encodePacked(" Gr_Ext"));
+    bytes32 private constant Grapheme_Link = keccak256(abi.encodePacked("Grapheme_Link"));
+    bytes32 private constant Gr_Link = keccak256(abi.encodePacked(" Gr_Link"));
+    bytes32 private constant Hex_Digit = keccak256(abi.encodePacked("Hex_Digit"));
+    bytes32 private constant Hex = keccak256(abi.encodePacked(" Hex"));
+    bytes32 private constant Hyphen = keccak256(abi.encodePacked("Hyphen"));
+    bytes32 private constant ID_Continue = keccak256(abi.encodePacked("ID_Continue"));
+    bytes32 private constant IDC = keccak256(abi.encodePacked(" IDC"));
+    bytes32 private constant ID_Start = keccak256(abi.encodePacked("ID_Start"));
+    bytes32 private constant IDS = keccak256(abi.encodePacked(" IDS"));
+    bytes32 private constant Ideographic = keccak256(abi.encodePacked("Ideographic"));
+    bytes32 private constant Ideo = keccak256(abi.encodePacked(" Ideo"));
+    bytes32 private constant IDS_Binary_Operator = keccak256(abi.encodePacked("IDS_Binary_Operator"));
+    bytes32 private constant IDS_BinOp = keccak256(abi.encodePacked(" IDS_BinOp"));
+    bytes32 private constant IDS_Trinary_Operator = keccak256(abi.encodePacked("IDS_Trinary_Operator"));
+    bytes32 private constant IDS_TrinOp = keccak256(abi.encodePacked(" IDS_TrinOp"));
+    bytes32 private constant Join_Control = keccak256(abi.encodePacked("Join_Control"));
+    bytes32 private constant Join_C = keccak256(abi.encodePacked(" Join_C"));
+    bytes32 private constant Logical_Order_Exception = keccak256(abi.encodePacked("Logical_Order_Exception"));
+    bytes32 private constant LOE = keccak256(abi.encodePacked(" LOE"));
+    bytes32 private constant Lowercase = keccak256(abi.encodePacked("Lowercase"));
+    bytes32 private constant Lower = keccak256(abi.encodePacked(" Lower"));
+    bytes32 private constant Math = keccak256(abi.encodePacked(" Math"));
+    bytes32 private constant Noncharacter_Code_Point = keccak256(abi.encodePacked("Noncharacter_Code_Point"));
+    bytes32 private constant NChar = keccak256(abi.encodePacked(" NChar"));
+    bytes32 private constant Other_Alphabetic = keccak256(abi.encodePacked("Other_Alphabetic"));
+    bytes32 private constant OAlpha = keccak256(abi.encodePacked(" OAlpha"));
+    bytes32 private constant Other_Default_Ignorable_Code_Point =
+        keccak256(abi.encodePacked("Other_Default_Ignorable_Code_Point"));
+    bytes32 private constant ODI = keccak256(abi.encodePacked(" ODI"));
+    bytes32 private constant Other_Grapheme_Extend = keccak256(abi.encodePacked("Other_Grapheme_Extend"));
+    bytes32 private constant OGr_Ext = keccak256(abi.encodePacked(" OGr_Ext"));
+    bytes32 private constant Other_ID_Continue = keccak256(abi.encodePacked("Other_ID_Continue"));
+    bytes32 private constant OIDC = keccak256(abi.encodePacked(" OIDC"));
+    bytes32 private constant Other_ID_Start = keccak256(abi.encodePacked("Other_ID_Start"));
+    bytes32 private constant OIDS = keccak256(abi.encodePacked(" OIDS"));
+    bytes32 private constant Other_Lowercase = keccak256(abi.encodePacked("Other_Lowercase"));
+    bytes32 private constant OLower = keccak256(abi.encodePacked(" OLower"));
+    bytes32 private constant Other_Math = keccak256(abi.encodePacked("Other_Math"));
+    bytes32 private constant OMath = keccak256(abi.encodePacked(" OMath"));
+    bytes32 private constant Other_Uppercase = keccak256(abi.encodePacked("Other_Uppercase"));
+    bytes32 private constant OUpper = keccak256(abi.encodePacked(" OUpper"));
+    bytes32 private constant Pattern_Syntax = keccak256(abi.encodePacked("Pattern_Syntax"));
+    bytes32 private constant Pat_Syn = keccak256(abi.encodePacked(" Pat_Syn"));
+    bytes32 private constant Pattern_White_Space = keccak256(abi.encodePacked("Pattern_White_Space"));
+    bytes32 private constant Pat_WS = keccak256(abi.encodePacked(" Pat_WS"));
+    bytes32 private constant Prepended_Concatenation_Mark = keccak256(abi.encodePacked("Prepended_Concatenation_Mark"));
+    bytes32 private constant PCM = keccak256(abi.encodePacked(" PCM"));
+    bytes32 private constant Quotation_Mark = keccak256(abi.encodePacked("Quotation_Mark"));
+    bytes32 private constant QMark = keccak256(abi.encodePacked(" QMark"));
+    bytes32 private constant Radical = keccak256(abi.encodePacked("Radical"));
+    bytes32 private constant Regional_Indicator = keccak256(abi.encodePacked("Regional_Indicator"));
+    bytes32 private constant RI = keccak256(abi.encodePacked(" RI"));
+    bytes32 private constant Sentence_Terminal = keccak256(abi.encodePacked("Sentence_Terminal"));
+    bytes32 private constant STerm = keccak256(abi.encodePacked(" STerm"));
+    bytes32 private constant Soft_Dotted = keccak256(abi.encodePacked("Soft_Dotted"));
+    bytes32 private constant SD = keccak256(abi.encodePacked(" SD"));
+    bytes32 private constant Terminal_Punctuation = keccak256(abi.encodePacked("Terminal_Punctuation"));
+    bytes32 private constant Term = keccak256(abi.encodePacked(" Term"));
+    bytes32 private constant Unified_Ideograph = keccak256(abi.encodePacked("Unified_Ideograph"));
+    bytes32 private constant UIdeo = keccak256(abi.encodePacked(" UIdeo"));
+    bytes32 private constant Uppercase = keccak256(abi.encodePacked("Uppercase"));
+    bytes32 private constant Upper = keccak256(abi.encodePacked(" Upper"));
+    bytes32 private constant Variation_Selector = keccak256(abi.encodePacked("Variation_Selector"));
+    bytes32 private constant VS = keccak256(abi.encodePacked(" VS"));
+    bytes32 private constant White_Space = keccak256(abi.encodePacked("White_Space"));
+    bytes32 private constant WS = keccak256(abi.encodePacked(" WS"));
+    bytes32 private constant space = keccak256(abi.encodePacked(" space"));
+
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
@@ -3675,9 +3788,70 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
-    function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {}
+    function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {
+        // @Note: 👇
+        // Excluded: ALL Unicode binary properties (including obscure, deprecated, informational, layout, normalization, bidi, etc.)
+        // are ~75–85. However,
+        // Included: Only Binary properties that are commonly exposed and meaningful for regex matching
+        // (mainly from PropList.txt, DerivedCoreProperties.txt, and EmojiData.txt) ~59-61
+        if (
+            propertyValueHash == Alphabetic || propertyValueHash == Alpha || propertyValueHash == ASCII_Hex_Digit
+                || propertyValueHash == AHex || propertyValueHash == Bidi_Control || propertyValueHash == Bidi_C
+                || propertyValueHash == Case_Ignorable || propertyValueHash == CI || propertyValueHash == Cased
+                || propertyValueHash == Changes_When_Casefolded || propertyValueHash == CWCF
+                || propertyValueHash == Changes_When_Casemapped || propertyValueHash == CWCM
+                || propertyValueHash == Changes_When_Lowercased || propertyValueHash == CWL
+                || propertyValueHash == Changes_When_NFKC_Casefolded || propertyValueHash == CWKCF
+                || propertyValueHash == Changes_When_Titlecased || propertyValueHash == CWT
+                || propertyValueHash == Changes_When_Uppercased || propertyValueHash == CWU || propertyValueHash == Dash
+                || propertyValueHash == Default_Ignorable_Code_Point || propertyValueHash == DI
+                || propertyValueHash == Default_Ignorable || propertyValueHash == Deprecated || propertyValueHash == Dep
+                || propertyValueHash == Diacritic || propertyValueHash == Dia || propertyValueHash == Emoji
+                || propertyValueHash == Emoji_Component || propertyValueHash == Emoji_Modifier
+                || propertyValueHash == Emoji_Modifier_Base || propertyValueHash == Emoji_Presentation
+                || propertyValueHash == Extended_Pictographic || propertyValueHash == ExtPict
+                || propertyValueHash == Extender || propertyValueHash == Ext
+                || propertyValueHash == Full_Composition_Exclusion || propertyValueHash == Comp_Ex
+                || propertyValueHash == Grapheme_Base || propertyValueHash == Gr_Base
+                || propertyValueHash == Grapheme_Extend || propertyValueHash == Gr_Ext
+                || propertyValueHash == Grapheme_Link || propertyValueHash == Gr_Link || propertyValueHash == Hex_Digit
+                || propertyValueHash == Hex || propertyValueHash == Hyphen || propertyValueHash == ID_Continue
+                || propertyValueHash == IDC || propertyValueHash == ID_Start || propertyValueHash == IDS
+                || propertyValueHash == Ideographic || propertyValueHash == Ideo
+                || propertyValueHash == IDS_Binary_Operator || propertyValueHash == IDS_BinOp
+                || propertyValueHash == IDS_Trinary_Operator || propertyValueHash == IDS_TrinOp
+                || propertyValueHash == Join_Control || propertyValueHash == Join_C
+                || propertyValueHash == Logical_Order_Exception || propertyValueHash == LOE
+                || propertyValueHash == Lowercase || propertyValueHash == Lower || propertyValueHash == Math
+                || propertyValueHash == Noncharacter_Code_Point || propertyValueHash == NChar
+                || propertyValueHash == Other_Alphabetic || propertyValueHash == OAlpha
+                || propertyValueHash == Other_Default_Ignorable_Code_Point || propertyValueHash == ODI
+                || propertyValueHash == Other_Grapheme_Extend || propertyValueHash == OGr_Ext
+                || propertyValueHash == Other_ID_Continue || propertyValueHash == OIDC
+                || propertyValueHash == Other_ID_Start || propertyValueHash == OIDS
+                || propertyValueHash == Other_Lowercase || propertyValueHash == OLower
+                || propertyValueHash == Other_Math || propertyValueHash == OMath || propertyValueHash == Other_Uppercase
+                || propertyValueHash == OUpper || propertyValueHash == Pattern_Syntax || propertyValueHash == Pat_Syn
+                || propertyValueHash == Pattern_White_Space || propertyValueHash == Pat_WS
+                || propertyValueHash == Prepended_Concatenation_Mark || propertyValueHash == PCM
+                || propertyValueHash == Quotation_Mark || propertyValueHash == QMark || propertyValueHash == Radical
+                || propertyValueHash == Regional_Indicator || propertyValueHash == RI
+                || propertyValueHash == Sentence_Terminal || propertyValueHash == STerm
+                || propertyValueHash == Soft_Dotted || propertyValueHash == SD
+                || propertyValueHash == Terminal_Punctuation || propertyValueHash == Term
+                || propertyValueHash == Unified_Ideograph || propertyValueHash == UIdeo
+                || propertyValueHash == Uppercase || propertyValueHash == Upper
+                || propertyValueHash == Variation_Selector || propertyValueHash == VS
+                || propertyValueHash == White_Space || propertyValueHash == WS || propertyValueHash == space
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 
     function isLetter(bytes32 propertyValueHash) private pure returns (bool) {
         if (
@@ -3690,6 +3864,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isMark(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3701,6 +3876,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isNumber(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3712,6 +3888,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isPropertyEscapePunctuation(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3727,6 +3904,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isSymbol(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3739,6 +3917,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isSeparator(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3750,6 +3929,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function isOther(bytes32 propertyValueHash) private pure returns (bool) {
@@ -3762,6 +3942,7 @@ library Stringray {
         ) {
             return true;
         }
+        return false;
     }
 
     function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {
