@@ -3198,6 +3198,8 @@ library Stringray {
         if (!flag) {
             flag = isOther(propertyValueHash);
         }
+
+        return flag;
     }
 
     function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {}
