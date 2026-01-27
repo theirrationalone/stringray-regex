@@ -363,6 +363,82 @@ library Stringray {
     bytes32 private constant N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM = "{N,}?_LAZY_QUANTIFIER_ATOM";
     bytes32 private constant N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM = "{N,M}?_LAZY_QUANTIFIER_ATOM";
 
+    // PROPERTY ESCAPE NAMES...
+    bytes32 LETTER = keccak256(abi.encodePacked("Letter"));
+    bytes32 UPPERCASE_LETTER = keccak256(abi.encodePacked("Uppercase_Letter"));
+    bytes32 LOWERCASE_LETTER = keccak256(abi.encodePacked("Lowercase_Letter"));
+    bytes32 TITLECASE_LETTER = keccak256(abi.encodePacked("Titlecase_Letter"));
+    bytes32 MODIFIER_LETTER = keccak256(abi.encodePacked("Modifier_Letter"));
+    bytes32 OTHER_LETTER = keccak256(abi.encodePacked("Other_Letter"));
+    bytes32 SH_LETTER = keccak256(abi.encodePacked("L"));
+    bytes32 SH_UPPERCASE_LETTER = keccak256(abi.encodePacked("Lu"));
+    bytes32 SH_LOWERCASE_LETTER = keccak256(abi.encodePacked("Ll"));
+    bytes32 SH_TITLECASE_LETTER = keccak256(abi.encodePacked("Lt"));
+    bytes32 SH_MODIFIER_LETTER = keccak256(abi.encodePacked("Lm"));
+    bytes32 SH_OTHER_LETTER = keccak256(abi.encodePacked("Lo"));
+    bytes32 MARK = keccak256(abi.encodePacked("Mark"));
+    bytes32 NONSPACING_MARK = keccak256(abi.encodePacked("Nonspacing_Mark"));
+    bytes32 SPACING_MARK = keccak256(abi.encodePacked("Spacing_Mark"));
+    bytes32 ENCLOSING_MARK = keccak256(abi.encodePacked("Enclosing_Mark"));
+    bytes32 SH_MARK = keccak256(abi.encodePacked("M"));
+    bytes32 SH_NONSPACING_MARK = keccak256(abi.encodePacked("Mn"));
+    bytes32 SH_SPACING_MARK = keccak256(abi.encodePacked("Mc"));
+    bytes32 SH_ENCLOSING_MARK = keccak256(abi.encodePacked("Me"));
+    bytes32 NUMBER = keccak256(abi.encodePacked("Number"));
+    bytes32 DECIMAL_NUMBER = keccak256(abi.encodePacked("Decimal_Number"));
+    bytes32 LETTER_NUMBER = keccak256(abi.encodePacked("Letter_Number"));
+    bytes32 OTHER_NUMBER = keccak256(abi.encodePacked("Other_Number"));
+    bytes32 SH_NUMBER = keccak256(abi.encodePacked("N"));
+    bytes32 SH_DECIMAL_NUMBER = keccak256(abi.encodePacked("Nd"));
+    bytes32 SH_LETTER_NUMBER = keccak256(abi.encodePacked("Nl"));
+    bytes32 SH_OTHER_NUMBER = keccak256(abi.encodePacked("No"));
+    bytes32 PUNCTUATION = keccak256(abi.encodePacked("Punctuation"));
+    bytes32 CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Connector_Punctuation"));
+    bytes32 DASH_PUNCTUATION = keccak256(abi.encodePacked("Dash_Punctuation"));
+    bytes32 OPEN_PUNCTUATION = keccak256(abi.encodePacked("Open_Punctuation"));
+    bytes32 CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Close_Punctuation"));
+    bytes32 INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Initial_Punctuation"));
+    bytes32 FINAL_PUNCTUATION = keccak256(abi.encodePacked("Final_Punctuation"));
+    bytes32 OTHER_PUNCTUATION = keccak256(abi.encodePacked("Other_Punctuation"));
+    bytes32 SH_PUNCTUATION = keccak256(abi.encodePacked("P"));
+    bytes32 SH_CONNECTOR_PUNCTUATION = keccak256(abi.encodePacked("Pc"));
+    bytes32 SH_DASH_PUNCTUATION = keccak256(abi.encodePacked("Pd"));
+    bytes32 SH_OPEN_PUNCTUATION = keccak256(abi.encodePacked("Ps"));
+    bytes32 SH_CLOSE_PUNCTUATION = keccak256(abi.encodePacked("Pe"));
+    bytes32 SH_INITIAL_PUNCTUATION = keccak256(abi.encodePacked("Pi"));
+    bytes32 SH_FINAL_PUNCTUATION = keccak256(abi.encodePacked("Pf"));
+    bytes32 SH_OTHER_PUNCTUATION = keccak256(abi.encodePacked("Po"));
+    bytes32 SYMBOL = keccak256(abi.encodePacked("Symbol"));
+    bytes32 MATH_SYMBOL = keccak256(abi.encodePacked("Math_Symbol"));
+    bytes32 CURRENCY_SYMBOL = keccak256(abi.encodePacked("Currency_Symbol"));
+    bytes32 MODIFIER_SYMBOL = keccak256(abi.encodePacked("Modifier_Symbol"));
+    bytes32 OTHER_SYMBOL = keccak256(abi.encodePacked("Other_Symbol"));
+    bytes32 SH_SYMBOL = keccak256(abi.encodePacked("S"));
+    bytes32 SH_MATH_SYMBOL = keccak256(abi.encodePacked("Sm"));
+    bytes32 SH_CURRENCY_SYMBOL = keccak256(abi.encodePacked("Sc"));
+    bytes32 SH_MODIFIER_SYMBOL = keccak256(abi.encodePacked("Sk"));
+    bytes32 SH_OTHER_SYMBOL = keccak256(abi.encodePacked("So"));
+    bytes32 SEPARATOR = keccak256(abi.encodePacked("Separator"));
+    bytes32 SPACE_SEPARATOR = keccak256(abi.encodePacked("Space_Separator"));
+    bytes32 LINE_SEPARATOR = keccak256(abi.encodePacked("Line_Separator"));
+    bytes32 PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Paragraph_Separator"));
+    bytes32 SH_SEPARATOR = keccak256(abi.encodePacked("Z"));
+    bytes32 SH_SPACE_SEPARATOR = keccak256(abi.encodePacked("Zs"));
+    bytes32 SH_LINE_SEPARATOR = keccak256(abi.encodePacked("Zl"));
+    bytes32 SH_PARAGRAPH_SEPARATOR = keccak256(abi.encodePacked("Zp"));
+    bytes32 OTHER = keccak256(abi.encodePacked("Other"));
+    bytes32 CONTROL = keccak256(abi.encodePacked("Control"));
+    bytes32 FORMAT = keccak256(abi.encodePacked("Format"));
+    bytes32 SURROGATE = keccak256(abi.encodePacked("Surrogate"));
+    bytes32 PRIVATE_USE = keccak256(abi.encodePacked("Private_Use"));
+    bytes32 UNASSIGNED = keccak256(abi.encodePacked("Unassigned"));
+    bytes32 SH_OTHER = keccak256(abi.encodePacked("C"));
+    bytes32 SH_CONTROL = keccak256(abi.encodePacked("Cc"));
+    bytes32 SH_FORMAT = keccak256(abi.encodePacked("Cf"));
+    bytes32 SH_SURROGATE = keccak256(abi.encodePacked("Cs"));
+    bytes32 SH_PRIVATE_USE = keccak256(abi.encodePacked("Co"));
+    bytes32 SH_UNASSIGNED = keccak256(abi.encodePacked("Cn"));
+
     function regex(string memory _proposedString, string memory _pattern) internal pure {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
@@ -3096,11 +3172,122 @@ library Stringray {
         return isBinaryValue(propertyValueHash);
     }
 
-    function isGeneralCategoryValue(bytes32 propertyValueHash) private pure returns (bool) {}
+    function isGeneralCategoryValue(bytes32 propertyValueHash) private pure returns (bool) {
+        bool flag = isLetter(propertyValueHash);
+
+        if (!flag) {
+            flag = isMark(propertyValueHash);
+        }
+
+        if (!flag) {
+            flag = isNumber(propertyValueHash);
+        }
+
+        if (!flag) {
+            flag = isPunctuation(propertyValueHash);
+        }
+
+        if (!flag) {
+            flag = isSymbol(propertyValueHash);
+        }
+
+        if (!flag) {
+            flag = isSeparator(propertyValueHash);
+        }
+
+        if (!flag) {
+            flag = isOther(propertyValueHash);
+        }
+    }
 
     function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {}
     function isScriptExtensionsValue(bytes32 propertyValueHash) private pure returns (bool) {}
     function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {}
+
+    function isLetter(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == LETTER || propertyValueHash == UPPERCASE_LETTER
+                || propertyValueHash == LOWERCASE_LETTER || propertyValueHash == TITLECASE_LETTER
+                || propertyValueHash == MODIFIER_LETTER || propertyValueHash == OTHER_LETTER
+                || propertyValueHash == SH_LETTER || propertyValueHash == SH_UPPERCASE_LETTER
+                || propertyValueHash == SH_LOWERCASE_LETTER || propertyValueHash == SH_TITLECASE_LETTER
+                || propertyValueHash == SH_MODIFIER_LETTER || propertyValueHash == SH_OTHER_LETTER
+        ) {
+            return true;
+        }
+    }
+
+    function isMark(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == MARK || propertyValueHash == NONSPACING_MARK || propertyValueHash == SPACING_MARK
+                || propertyValueHash == ENCLOSING_MARK || propertyValueHash == SH_MARK
+                || propertyValueHash == SH_NONSPACING_MARK || propertyValueHash == SH_SPACING_MARK
+                || propertyValueHash == SH_ENCLOSING_MARK
+        ) {
+            return true;
+        }
+    }
+
+    function isNumber(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == NUMBER || propertyValueHash == DECIMAL_NUMBER || propertyValueHash == LETTER_NUMBER
+                || propertyValueHash == OTHER_NUMBER || propertyValueHash == SH_NUMBER
+                || propertyValueHash == SH_DECIMAL_NUMBER || propertyValueHash == SH_LETTER_NUMBER
+                || propertyValueHash == SH_OTHER_NUMBER
+        ) {
+            return true;
+        }
+    }
+
+    function isPunctuation(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == PUNCTUATION || propertyValueHash == CONNECTOR_PUNCTUATION
+                || propertyValueHash == DASH_PUNCTUATION || propertyValueHash == OPEN_PUNCTUATION
+                || propertyValueHash == CLOSE_PUNCTUATION || propertyValueHash == INITIAL_PUNCTUATION
+                || propertyValueHash == FINAL_PUNCTUATION || propertyValueHash == OTHER_PUNCTUATION
+                || propertyValueHash == SH_PUNCTUATION || propertyValueHash == SH_CONNECTOR_PUNCTUATION
+                || propertyValueHash == SH_DASH_PUNCTUATION || propertyValueHash == SH_OPEN_PUNCTUATION
+                || propertyValueHash == SH_CLOSE_PUNCTUATION || propertyValueHash == SH_INITIAL_PUNCTUATION
+                || propertyValueHash == SH_FINAL_PUNCTUATION || propertyValueHash == SH_OTHER_PUNCTUATION
+        ) {
+            return true;
+        }
+    }
+
+    function isSymbol(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == SYMBOL || propertyValueHash == MATH_SYMBOL || propertyValueHash == CURRENCY_SYMBOL
+                || propertyValueHash == MODIFIER_SYMBOL || propertyValueHash == OTHER_SYMBOL
+                || propertyValueHash == SH_SYMBOL || propertyValueHash == SH_MATH_SYMBOL
+                || propertyValueHash == SH_CURRENCY_SYMBOL || propertyValueHash == SH_MODIFIER_SYMBOL
+                || propertyValueHash == SH_OTHER_SYMBOL
+        ) {
+            return true;
+        }
+    }
+
+    function isSeparator(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == SEPARATOR || propertyValueHash == SPACE_SEPARATOR
+                || propertyValueHash == LINE_SEPARATOR || propertyValueHash == PARAGRAPH_SEPARATOR
+                || propertyValueHash == SH_SEPARATOR || propertyValueHash == SH_SPACE_SEPARATOR
+                || propertyValueHash == SH_LINE_SEPARATOR || propertyValueHash == SH_PARAGRAPH_SEPARATOR
+        ) {
+            return true;
+        }
+    }
+
+    function isOther(bytes32 propertyValueHash) private pure returns (bool) {
+        if (
+            propertyValueHash == OTHER || propertyValueHash == CONTROL || propertyValueHash == FORMAT
+                || propertyValueHash == SURROGATE || propertyValueHash == PRIVATE_USE || propertyValueHash == UNASSIGNED
+                || propertyValueHash == SH_OTHER || propertyValueHash == SH_CONTROL || propertyValueHash == SH_FORMAT
+                || propertyValueHash == SH_SURROGATE || propertyValueHash == SH_PRIVATE_USE
+                || propertyValueHash == SH_UNASSIGNED
+        ) {
+            return true;
+        }
+    }
 
     function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {
         if (uint8(_pattern[_indexToStartFrom]) == LESS_THAN_SIGN) {
