@@ -700,6 +700,7 @@ library Stringray {
     bytes32 private constant Mahj = keccak256(abi.encodePacked("Mahj"));
     bytes32 private constant Maka = keccak256(abi.encodePacked("Maka"));
     bytes32 private constant Mand = keccak256(abi.encodePacked("Mand"));
+    // @typo-fix: sc ; Mani                             ; Manichaean
     bytes32 private constant Mansi = keccak256(abi.encodePacked("Mansi"));
     bytes32 private constant Marc = keccak256(abi.encodePacked("Marc"));
     bytes32 private constant Medf = keccak256(abi.encodePacked("Medf"));
