@@ -326,6 +326,7 @@ library Stringray {
     bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
+    bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
     bytes32 private constant WORD_BOUNDARY = "WORD_BOUNDARY";
     bytes32 private constant CONTROL_PREFIX = "CONTROL_PREFIX";
     bytes32 private constant DIGIT = "DIGIT";
@@ -1342,6 +1343,90 @@ library Stringray {
         }
 
         return (false, INVALID_ATOM, 0);
+    }
+
+    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, bytes, uint256) {
+        bool flag;
+        uint256 lastMatchedParticleIndex;
+
+        if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
+            string memory errorMsg =
+                string(abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unmatched ')'"));
+            revert(errorMsg);
+        }
+
+        if (_currentParticleIndex == _pattern.length - 1 && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
+        {
+            if (
+                (_pattern.length > 1 && uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH)
+                    || (_pattern.length > 2
+                        && (uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH
+                            || uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH))
+            ) {
+                string memory errorMsg = string(
+                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group")
+                );
+                revert(errorMsg);
+            }
+        }
+
+        if (
+            (_currentParticleIndex == 0 && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
+                || ((_currentParticleIndex > 0
+                        && _currentParticleIndex < _pattern.length - 1
+                        && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
+                    && (uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH
+                        || (_currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH)))
+        ) {
+            (flag, lastMatchedParticleIndex) = validateGroup(_pattern, _currentParticleIndex + 1);
+        }
+
+        if (flag) {
+            return (true, GROUP_ATOM, lastMatchedParticleIndex);
+        }
+        return (false, INVALID_ATOM, 0);
+    }
+
+    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
+            return (true, _currentParticleIndex);
+        }
+
+        if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
+            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
+                if (
+                    (uint8(_pattern[_currentParticleIndex + 1]) != COLON
+                            && uint8(_pattern[_currentParticleIndex + 1]) != ASSIGNMENT_SIGN
+                            && uint8(_pattern[_currentParticleIndex + 1]) != EXCLAMATION_MARK
+                            && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
+                        || uint8(_pattern[_currentParticleIndex + 1]) == LESS_THAN_SIGN
+                ) {}
+            }
+        }
+
+        uint256 numOpenParanthesis = 1;
+        uint256 numCloseParanthesis;
+
+        for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
+            if (uint8(_pattern[i]) == OPEN_PARANTHESIS) {
+                numOpenParanthesis++;
+            }
+
+            if (uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                numCloseParanthesis++;
+            }
+
+            if (
+                numOpenParanthesis == numCloseParanthesis && uint8(_pattern[i]) == CLOSE_PARANTHESIS
+                    && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+            ) {
+                return (true, i);
+            }
+        }
+
+        string memory errorMsg =
+            string(abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group"));
+        revert(errorMsg);
     }
 
     function printAtomType(bytes32 atomType) private pure {
