@@ -1345,7 +1345,11 @@ library Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
-    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, bytes, uint256) {
+    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, bytes32, uint256)
+    {
         bool flag;
         uint256 lastMatchedParticleIndex;
 
