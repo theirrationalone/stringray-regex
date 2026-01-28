@@ -317,7 +317,7 @@ newString = "acdcabccdcab";
 // console.log(/[\p{}]/u.exec(newString)); // does not throw error, reads as literals instead
 console.log("string: ", newString);
 console.log(/(())/.exec(newString)); // does not throw error, reads as literals instead
-console.log(/(?<!)/.exec(newString)); // does not throw error, reads as literals instead
+console.log(/(?<)/.exec(newString)); // does not throw error, reads as literals instead
 
 
 

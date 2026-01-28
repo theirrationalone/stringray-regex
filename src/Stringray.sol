@@ -1392,34 +1392,28 @@ library Stringray {
             return (true, _currentParticleIndex);
         }
 
-        if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
-            if (_currentParticleIndex + 1 <= _pattern.length - 1) {
-                if (
-                    (uint8(_pattern[_currentParticleIndex + 1]) != COLON
-                            && uint8(_pattern[_currentParticleIndex + 1]) != ASSIGNMENT_SIGN
-                            && uint8(_pattern[_currentParticleIndex + 1]) != EXCLAMATION_MARK
-                            && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
-                        || uint8(_pattern[_currentParticleIndex + 1]) == LESS_THAN_SIGN
-                ) {}
-            }
-        }
+        validateGroupBody(_pattern, _currentParticleIndex);
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
 
         for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
-            if (uint8(_pattern[i]) == OPEN_PARANTHESIS) {
+            if (
+                uint8(_pattern[i]) == OPEN_PARANTHESIS
+                    && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
+            ) {
                 numOpenParanthesis++;
-            }
-
-            if (uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
-                numCloseParanthesis++;
+                validateGroupBody(_pattern, i + 1);
             }
 
             if (
-                numOpenParanthesis == numCloseParanthesis && uint8(_pattern[i]) == CLOSE_PARANTHESIS
-                    && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+                uint8(_pattern[i]) == CLOSE_PARANTHESIS
+                    && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
             ) {
+                numCloseParanthesis++;
+            }
+
+            if (numOpenParanthesis == numCloseParanthesis) {
                 return (true, i);
             }
         }
@@ -1427,6 +1421,76 @@ library Stringray {
         string memory errorMsg =
             string(abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group"));
         revert(errorMsg);
+    }
+
+    function validateGroupBody(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool) {
+        if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
+            if (
+                !(_currentParticleIndex + 1 <= _pattern.length - 1)
+                    || (uint8(_pattern[_currentParticleIndex + 1]) != COLON
+                        && uint8(_pattern[_currentParticleIndex + 1]) != ASSIGNMENT_SIGN
+                        && uint8(_pattern[_currentParticleIndex + 1]) != EXCLAMATION_MARK
+                        && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
+            ) {
+                string memory errorMsg = string(
+                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid group")
+                );
+                revert(errorMsg);
+            }
+
+            if (uint8(_pattern[_currentParticleIndex + 1]) == LESS_THAN_SIGN) {
+                if (
+                    !(_currentParticleIndex + 2 <= _pattern.length - 1)
+                        || uint8(_pattern[_currentParticleIndex + 2]) == GREATER_THAN_SIGN
+                        || (uint8(_pattern[_currentParticleIndex + 2]) != ASSIGNMENT_SIGN
+                            && uint8(_pattern[_currentParticleIndex + 2]) != EXCLAMATION_MARK
+                            && uint8(_pattern[_currentParticleIndex + 2]) != uint8(abi.encodePacked("_")[0])
+                            && uint8(_pattern[_currentParticleIndex + 2]) != uint8(abi.encodePacked("$")[0])
+                            && !isSmallAlphabet(_pattern[_currentParticleIndex + 2])
+                            && !isBigAlphabet(_pattern[_currentParticleIndex + 2]))
+                ) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid capture group name"
+                        )
+                    );
+                    revert(errorMsg);
+                }
+
+                if (
+                    uint8(_pattern[_currentParticleIndex + 2]) == uint8(abi.encodePacked("_")[0])
+                        || uint8(_pattern[_currentParticleIndex + 2]) == uint8(abi.encodePacked("$")[0])
+                        || isSmallAlphabet(_pattern[_currentParticleIndex + 2])
+                        || isBigAlphabet(_pattern[_currentParticleIndex + 2])
+                ) {
+                    for (uint256 i = _currentParticleIndex + 3; i <= _pattern.length - 1; i++) {
+                        if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
+                            break;
+                        }
+
+                        if (
+                            (!isSmallAlphabet(_pattern[i])
+                                    && !isBigAlphabet(_pattern[i])
+                                    && !(uint8(_pattern[i]) == uint8(abi.encodePacked("_")[0]))
+                                    && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0]))
+                                    && !isDigit(_pattern[i], false))
+                                || (i == _pattern.length - 1 && uint8(_pattern[i]) != GREATER_THAN_SIGN)
+                        ) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: ",
+                                    _pattern,
+                                    ": Invalid capture group name"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     function printAtomType(bytes32 atomType) private pure {
