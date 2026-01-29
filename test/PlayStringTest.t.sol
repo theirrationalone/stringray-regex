@@ -1215,7 +1215,75 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassDetectionCase17() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z0-9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase18() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z-9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase19() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z9-0]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase20() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z-0-9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase21() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[a-z-9-0]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase22() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[-a-z-0-9-]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase23() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[-a-z-9-0-]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase24() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[--9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase25() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[9--]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase26() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[--[9]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassDetectionCase27() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/[[--9]/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
+        console2.log("ascii of [ is: ", uint8(abi.encodePacked("[")[0]));
+        console2.log("ascii of - is: ", uint8(abi.encodePacked("-")[0]));
         // string memory expStr = "\u0031";
         // string memory expStr = "\u2764";
         // string memory expStr = "\u1F680000";

@@ -312,13 +312,17 @@ console.log("string: ", newString);
 // console.log(/[™-₢]/.exec(newString)); // throws error
 // console.log(/[₢-™]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[ह-₢]/.exec(newString)); // does not throw error, reads as literals instead
-newString = "acdcabccdcalb\n";
+newString = "A[-]";
 // console.log("string: ", newString);
 // console.log(/[\p{}]/u.exec(newString)); // does not throw error, reads as literals instead
 console.log("string: ", newString);
 // console.log(/(())/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/(?<)/.exec(newString)); // does not throw error, reads as literals instead
-console.log(/\n$/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/a|^bc/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[a-z-9]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[a-z-9]]/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/[[--9]/.exec(newString)); // does not throw error, reads as literals instead
+console.log(/[--[9]/.exec(newString)); // does not throw error, reads as literals instead
 
 
 
