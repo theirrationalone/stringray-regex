@@ -1287,6 +1287,66 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupCase2() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase3() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase4() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/a(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase5() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase6() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/a\\(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase7() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/ca(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase8() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/ca\\(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase9() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/ca\\\\(/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase10() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase11() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc)/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         console2.log("ascii of [ is: ", uint8(abi.encodePacked("[")[0]));
         console2.log("ascii of - is: ", uint8(abi.encodePacked("-")[0]));

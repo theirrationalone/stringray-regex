@@ -1386,6 +1386,7 @@ library Stringray {
                     || (_pattern.length > 2
                         && (uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH
                             || uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH))
+                    || (uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS && _pattern.length == 1)
             ) {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group")
@@ -1395,7 +1396,9 @@ library Stringray {
         }
 
         if (
-            (_currentParticleIndex == 0 && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
+            (_currentParticleIndex == 0
+                    && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS
+                    && _pattern.length > 1)
                 || ((_currentParticleIndex > 0
                         && _currentParticleIndex < _pattern.length - 1
                         && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
