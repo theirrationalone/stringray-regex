@@ -978,6 +978,10 @@ library Stringray {
             (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx);
         }
 
+        if (!flag) {
+            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx);
+        }
+
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);

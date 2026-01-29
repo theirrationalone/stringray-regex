@@ -1281,6 +1281,12 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/()/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         console2.log("ascii of [ is: ", uint8(abi.encodePacked("[")[0]));
         console2.log("ascii of - is: ", uint8(abi.encodePacked("-")[0]));
