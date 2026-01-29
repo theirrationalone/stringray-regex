@@ -327,6 +327,8 @@ library Stringray {
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
     bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
+    bytes32 private constant DOLLAR_ANCHOR = "DOLLAR_ANCHOR";
+    bytes32 private constant CARET_ANCHOR = "CARET_ANCHOR";
     bytes32 private constant WORD_BOUNDARY = "WORD_BOUNDARY";
     bytes32 private constant CONTROL_PREFIX = "CONTROL_PREFIX";
     bytes32 private constant DIGIT = "DIGIT";
@@ -1495,6 +1497,30 @@ library Stringray {
         }
 
         return true;
+    }
+
+    function isDollarOrCaertAnchor(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, bytes32, uint256)
+    {
+        if (
+            (_currentParticleIndex == 0)
+                || (_currentParticleIndex > 0 && uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH)
+                || (_currentParticleIndex > 1
+                    && (uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH
+                        || uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH))
+        ) {
+            if (uint8(_pattern[_currentParticleIndex]) == DOLLAR_SIGN) {
+                return (true, DOLLAR_ANCHOR, _currentParticleIndex);
+            }
+
+            if (uint8(_pattern[_currentParticleIndex]) == CARET_SIGN) {
+                return (true, CARET_ANCHOR, _currentParticleIndex);
+            }
+        }
+
+        return (false, INVALID_ATOM, 0);
     }
 
     function printAtomType(bytes32 atomType) private pure {
