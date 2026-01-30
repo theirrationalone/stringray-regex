@@ -1431,6 +1431,7 @@ library Stringray {
     {
         // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
         // @status: not fixed, needs a better validation implementation
+        // @status: Fixed ✅, this is the fix status in response of above status, meaning current acklgd bug has been fixed now
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
             return (true, _currentParticleIndex, _currentParticleIndex);
         }
@@ -1457,6 +1458,20 @@ library Stringray {
             }
 
             if (numOpenParanthesis == numCloseParanthesis) {
+                if (stripFromIndex == _currentParticleIndex + 3) {
+                    if (i + 1 < _pattern.length) {
+                        (bool isQuantifier,,) = isGreedyQuantifierAtom(_pattern, i + 1, GROUP_ATOM);
+                        if (isQuantifier) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid quantifier"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
+                    }
+                }
+
                 return (true, stripFromIndex, i);
             }
         }
@@ -1511,6 +1526,9 @@ library Stringray {
                         || isSmallAlphabet(_pattern[_currentParticleIndex + 2])
                         || isBigAlphabet(_pattern[_currentParticleIndex + 2])
                 ) {
+                    // @info: Still not accurate, according to js or ecmascript, chars lies ID_Start, and ID_Continue
+                    // also the valid ones.
+                    // @status: not implemented
                     for (uint256 i = _currentParticleIndex + 3; i <= _pattern.length - 1; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             stripFrom = i + 1;

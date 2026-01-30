@@ -312,7 +312,7 @@ console.log("string: ", newString);
 // console.log(/[™-₢]/.exec(newString)); // throws error
 // console.log(/[₢-™]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[ह-₢]/.exec(newString)); // does not throw error, reads as literals instead
-newString = "ab";
+newString = "abab";
 // console.log("string: ", newString);
 // console.log(/[\p{}]/u.exec(newString)); // does not throw error, reads as literals instead
 console.log("string: ", newString);
@@ -323,8 +323,28 @@ console.log("string: ", newString);
 // console.log(/[a-z-9]]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[[--9]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[--[9]/.exec(newString)); // does not throw error, reads as literals instead
-console.log(/([a-z]|[0-9])/.exec(newString)); // does not throw error, reads as literals instead
-
+// console.log(/([a-z]|[0-9])/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/(?<anyName>\w)/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/(?<_anyName>\w)/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/(?<$anyName>\w)/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/(?<$anyName>\w)/.exec(newString)); // does not throw error, reads as literals instead
+// console.log(/(?<any$Name>\w)/.test("a"));
+// console.log(/(?<anyName$>\w)/.test("a"));
+// console.log(/(?<πanyName>\w)/.test("a"));
+// console.log(/(?<anyπNameπ>\w)/.test("a"));
+// console.log(/(?<变量anyπNameπ>\w)/.test("a"));
+// console.log(/(?<变量any变量πNameπ变量>\w)/.test("a"));
+// console.log(/(?<𝒜𝒷𝒸变量any变量πNameπ变量>\w)/.test("a"));
+// console.log(/(?<·any$Name>\w)/.test("a"));
+// console.log(/(?<any·Name>\w)/.test("a"));
+// console.log(/(?<anyName>+\w)/.test("a"));
+// console.log(/(?!+\w)/.test("a"));
+// console.log(/(?=a)+/.test("aaaa"));
+// console.log(/(?!a)*/.test("aaaa"));
+// console.log(/(?<=a)/.test("aaaa"));
+// console.log(/(?<=a)+/.test("aaaa"));
+console.log(/(?<=a){2,1}/.test("aaaa"));
+// console.log(/(?<anil>\w)/.test("aaaa"));
 
 
 // Steps to install nodejs in WSL Ubuntu

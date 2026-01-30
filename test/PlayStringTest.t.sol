@@ -1383,6 +1383,60 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupCase18() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab)+/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase19() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab)*/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase20() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab)?/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase21() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab){1,}/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase22() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab){1,1}/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase23() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab){1,3}/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase24() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab){3,1}/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase25() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(ab(?<=ab)+)+/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase26() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(ab(?=ab)+)+/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         console2.log("ascii of [ is: ", uint8(abi.encodePacked("[")[0]));
         console2.log("ascii of - is: ", uint8(abi.encodePacked("-")[0]));
