@@ -1415,6 +1415,8 @@ library Stringray {
     }
 
     function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
+        // @status: not fixed, needs a better validation implementation
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
             return (true, _currentParticleIndex);
         }
