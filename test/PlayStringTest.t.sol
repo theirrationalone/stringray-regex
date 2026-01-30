@@ -1359,6 +1359,30 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupCase14() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc+)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase15() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc++)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase16() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc*?)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupCase17() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc*??)/";
+        target.regex(pattern);
+    }
+
     function testExperiment() public pure {
         console2.log("ascii of [ is: ", uint8(abi.encodePacked("[")[0]));
         console2.log("ascii of - is: ", uint8(abi.encodePacked("-")[0]));
