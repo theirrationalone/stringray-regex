@@ -1405,7 +1405,17 @@ library Stringray {
                     && (uint8(_pattern[_currentParticleIndex - 1]) != BACK_SLASH
                         || (_currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH)))
         ) {
-            (flag, lastMatchedParticleIndex) = validateGroup(_pattern, _currentParticleIndex + 1);
+            uint256 stripFromIndex;
+            (flag, stripFromIndex, lastMatchedParticleIndex) = validateGroup(_pattern, _currentParticleIndex + 1);
+            if (lastMatchedParticleIndex > stripFromIndex) {
+                bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
+                console2.log(
+                    "----------------------------------------sub pattern fission----------------------------------------"
+                );
+                console2.log("sub pattern string: ", string(subPattern));
+                nuclearFission(subPattern);
+                console2.log("----------------------------------------END----------------------------------------");
+            }
         }
 
         if (flag) {
@@ -1414,14 +1424,18 @@ library Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
-    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256, uint256)
+    {
         // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
         // @status: not fixed, needs a better validation implementation
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
-            return (true, _currentParticleIndex);
+            return (true, _currentParticleIndex, _currentParticleIndex);
         }
 
-        validateGroupBody(_pattern, _currentParticleIndex);
+        (, uint256 stripFromIndex) = validateGroupBody(_pattern, _currentParticleIndex);
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
@@ -1443,7 +1457,7 @@ library Stringray {
             }
 
             if (numOpenParanthesis == numCloseParanthesis) {
-                return (true, i);
+                return (true, stripFromIndex, i);
             }
         }
 
@@ -1452,7 +1466,12 @@ library Stringray {
         revert(errorMsg);
     }
 
-    function validateGroupBody(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool) {
+    function validateGroupBody(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 stripFrom = _currentParticleIndex;
         if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
             if (
                 !(_currentParticleIndex + 1 <= _pattern.length - 1)
@@ -1494,6 +1513,7 @@ library Stringray {
                 ) {
                     for (uint256 i = _currentParticleIndex + 3; i <= _pattern.length - 1; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
+                            stripFrom = i + 1;
                             break;
                         }
 
@@ -1515,11 +1535,15 @@ library Stringray {
                             revert(errorMsg);
                         }
                     }
+                } else {
+                    stripFrom = _currentParticleIndex + 3;
                 }
+            } else {
+                stripFrom = _currentParticleIndex + 2;
             }
         }
 
-        return true;
+        return (true, stripFrom);
     }
 
     function isDollarOrCaertAnchor(bytes memory _pattern, uint256 _currentParticleIndex)
