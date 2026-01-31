@@ -1914,17 +1914,34 @@ library Stringray {
         }
     }
 
+    function isPropertyWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        bool flag;
+        uint256 lastIndex;
+
+        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, false);
+
+        if (!flag) {
+            (flag, lastIndex) = propertyExcWhiteSpace(_pattern, _currentParticleIndex);
+        }
+
+        return (flag, lastIndex);
+    }
+
     function isWhitespace(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
         private
         pure
         returns (bool, uint256)
     {
-        bool flag
+        bool flag;
         uint256 lastIndex;
         (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, _negation);
 
         if (!flag) {
-            (flag, lastIndex) = legacyWhitespace(_pattern, _currentParticleIndex, _negation);
+            (flag, lastIndex) = legacyWhiteSpace(_pattern, _currentParticleIndex, _negation);
         }
 
         return (flag, lastIndex);
