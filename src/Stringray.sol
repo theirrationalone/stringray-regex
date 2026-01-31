@@ -1919,6 +1919,36 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
+        bool flag
+        uint256 lastIndex;
+        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, _negation);
+
+        if (!flag) {
+            (flag, lastIndex) = legacyWhitespace(_pattern, _currentParticleIndex, _negation);
+        }
+
+        return (flag, lastIndex);
+    }
+
+    function propertyExcWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        if (
+            _pattern[_currentParticleIndex] == 0xc2
+                && (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x85)
+        ) {
+            return (true, _currentParticleIndex + 1);
+        }
+        return (false, 0);
+    }
+
+    function commonWhiteSpaces(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
+        private
+        pure
+        returns (bool, uint256)
+    {
         // @info: this function is still inaccurate
         // @TODO: implement some logic to interpolate whitespace hex strings to identify them
         // @status: just explored and got the idea, now about to begin the implementation...🚀
@@ -1953,7 +1983,39 @@ library Stringray {
             if (_targetChar == 0xe2) {
                 if (
                     _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x80
-                        && (_pattern[_currentParticleIndex + 2] == 0xa8 || _pattern[_currentParticleIndex + 2] == 0xa9)
+                        && (_pattern[_currentParticleIndex + 2] == 0xa8
+                            || _pattern[_currentParticleIndex + 2] == 0xa9
+                            || _pattern[_currentParticleIndex + 2] == 0xaf
+                            || (_pattern[_currentParticleIndex + 2] >= 0x80
+                                && _pattern[_currentParticleIndex + 2] <= 0x8a))
+                ) {
+                    flag = true;
+                    lastIndex = _currentParticleIndex + 2;
+                }
+
+                if (
+                    _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x81
+                        && (_pattern[_currentParticleIndex + 2] == 0x9f)
+                ) {
+                    flag = true;
+                    lastIndex = _currentParticleIndex + 2;
+                }
+            }
+
+            if (_targetChar == 0xe1) {
+                if (
+                    _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x9a
+                        && (_pattern[_currentParticleIndex + 2] == 0x80)
+                ) {
+                    flag = true;
+                    lastIndex = _currentParticleIndex + 2;
+                }
+            }
+
+            if (_targetChar == 0xe3) {
+                if (
+                    _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x80
+                        && (_pattern[_currentParticleIndex + 2] == 0x80)
                 ) {
                     flag = true;
                     lastIndex = _currentParticleIndex + 2;
@@ -1962,13 +2024,42 @@ library Stringray {
         }
 
         if (_negation && !flag) {
-            return (true, lastIndex);
+            return (true, _currentParticleIndex);
         }
 
         if (!_negation && flag) {
             return (true, lastIndex);
         }
 
+        return (false, 0);
+    }
+
+    function legacyWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @info: legacy unicode code point for backward compatibility
+        bool flag;
+        uint256 lastIndex;
+
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (
+                _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xbb
+                    && (_pattern[_currentParticleIndex + 2] == 0xbf)
+            ) {
+                flag = true;
+                lastIndex = _currentParticleIndex + 2;
+            }
+        }
+
+        if (_negation && !flag) {
+            return (true, _currentParticleIndex);
+        }
+
+        if (!_negation && flag) {
+            return (true, lastIndex);
+        }
         return (false, 0);
     }
 

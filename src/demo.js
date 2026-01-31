@@ -312,10 +312,10 @@ console.log("string: ", newString);
 // console.log(/[™-₢]/.exec(newString)); // throws error
 // console.log(/[₢-™]/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/[ह-₢]/.exec(newString)); // does not throw error, reads as literals instead
-newString = "abab";
+// newString = "abab";
 // console.log("string: ", newString);
 // console.log(/[\p{}]/u.exec(newString)); // does not throw error, reads as literals instead
-console.log("string: ", newString);
+// console.log("string: ", newString);
 // console.log(/(())/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/(?<)/.exec(newString)); // does not throw error, reads as literals instead
 // console.log(/a|^bc/.exec(newString)); // does not throw error, reads as literals instead
@@ -343,8 +343,60 @@ console.log("string: ", newString);
 // console.log(/(?!a)*/.test("aaaa"));
 // console.log(/(?<=a)/.test("aaaa"));
 // console.log(/(?<=a)+/.test("aaaa"));
-console.log(/(?<=a){2,1}/.test("aaaa"));
+// console.log(/(?<=a){2,1}/.test("aaaa"));
 // console.log(/(?<anil>\w)/.test("aaaa"));
+// newString = "anil\uFEFF";
+// console.log("string: ", newString);
+// console.log("0008: ", /\s/.test("anil\u0008")); // false
+// console.log("0009: ", /\s/.test("anil\u0009")); // true
+// console.log("000A: ", /\s/.test("anil\u000A")); // true
+// console.log("000B: ", /\s/.test("anil\u000B")); // true
+// console.log("000C: ", /\s/.test("anil\u000C")); // true
+// console.log("000D: ", /\s/.test("anil\u000D")); // true
+// console.log("000E: ", /\s/.test("anil\u000E")); // false
+// console.log("001F: ", /\s/.test("anil\u001F")); // false
+// console.log("0020: ", /\s/.test("anil\u0020")); // true
+// console.log("0021: ", /\s/.test("anil\u0021")); // false
+// console.log("0084: ", /\s/.test("anil\u0084")); // false
+// console.log("0085: ", /\s/.test("anil\u0085")); // false
+// console.log("0086: ", /\s/.test("anil\u0086")); // false
+// console.log("009F: ", /\s/.test("anil\u009F")); // false
+// console.log("00A0: ", /\s/.test("anil\u00A0")); // true
+// console.log("00A1: ", /\s/.test("anil\u00A1")); // false
+// console.log("167F: ", /\s/.test("anil\u167F")); // false
+// console.log("1680: ", /\s/.test("anil\u1680")); // true
+// console.log("1681: ", /\s/.test("anil\u1681")); // false
+// console.log("1FFF: ", /\s/.test("anil\u1FFF")); // false
+// console.log("2000: ", /\s/.test("anil\u2000")); // true
+// console.log("2001: ", /\s/.test("anil\u2001")); // true
+// console.log("2002: ", /\s/.test("anil\u2002")); // true
+// console.log("2003: ", /\s/.test("anil\u2003")); // true
+// console.log("2004: ", /\s/.test("anil\u2004")); // true
+// console.log("2005: ", /\s/.test("anil\u2005")); // true
+// console.log("2006: ", /\s/.test("anil\u2006")); // true
+// console.log("2007: ", /\s/.test("anil\u2007")); // true
+// console.log("2008: ", /\s/.test("anil\u2008")); // true
+// console.log("2009: ", /\s/.test("anil\u2009")); // true
+// console.log("200A: ", /\s/.test("anil\u200A")); // true
+// console.log("200B: ", /\s/.test("anil\u200B")); // false
+// console.log("2027: ", /\s/.test("anil\u2027")); // false
+// console.log("2028: ", /\s/.test("anil\u2028")); // true
+// console.log("2029: ", /\s/.test("anil\u2029")); // true
+// console.log("202A: ", /\s/.test("anil\u202A")); // false
+// console.log("202F: ", /\s/.test("anil\u202F")); // true
+// console.log("2030: ", /\s/.test("anil\u2030")); // false
+// console.log("205E: ", /\s/.test("anil\u205E")); // false
+// console.log("205F: ", /\s/.test("anil\u205F")); // true
+// console.log("2FFF: ", /\s/.test("anil\u2FFF")); // false
+// console.log("3000: ", /\s/.test("anil\u3000")); // true
+// console.log("3001: ", /\s/.test("anil\u3001")); // false
+console.log("\\s FEFF: ", /\s/.test("anil\uFEFF")); // true
+console.log("\\s 2060: ", /\s/.test("anil\u2060")); // true
+console.log("\\s 0085: ", /\s/.test("anil\u0085")); // false
+console.log("white_Space property: 0085: ", /\p{White_Space}/u.test("anil\u0085")); // true
+console.log("white_Space property: FEFF: ", /\p{White_Space}/u.test("anil\uFEFF")); // true
+
+
 
 
 // Steps to install nodejs in WSL Ubuntu

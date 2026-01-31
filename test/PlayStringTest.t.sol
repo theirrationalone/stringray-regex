@@ -1513,6 +1513,50 @@ contract PlayStringTest is Test {
         console2.logBytes(abi.encodePacked(paragraphSeparator));
         console2.log("length: ", abi.encodePacked(paragraphSeparator).length);
         console2.log("-------------------");
+        console2.log("---------OGHAM Space Mark----------");
+        string memory oghamSpaceMark = unicode"\u1680";
+        console2.log("oghamSpaceMark: ", oghamSpaceMark);
+        console2.logBytes(abi.encodePacked(oghamSpaceMark));
+        console2.log("length: ", abi.encodePacked(oghamSpaceMark).length);
+        console2.log("-------------------");
+        console2.log("---------Narrow No-Break Space----------");
+        string memory narrowNoBreakSpace = unicode"\u202F";
+        console2.log("narrowNoBreakSpace: ", narrowNoBreakSpace);
+        console2.logBytes(abi.encodePacked(narrowNoBreakSpace));
+        console2.log("length: ", abi.encodePacked(narrowNoBreakSpace).length);
+        console2.log("-------------------");
+        console2.log("---------Medium Mathematical Space----------");
+        string memory mmSpace = unicode"\u205F";
+        console2.log("mmSpace: ", mmSpace);
+        console2.logBytes(abi.encodePacked(mmSpace));
+        console2.log("length: ", abi.encodePacked(mmSpace).length);
+        console2.log("-------------------");
+        console2.log("---------Ideographic Space----------");
+        string memory ideographicSpace = unicode"\u3000";
+        console2.log("ideographicSpace: ", ideographicSpace);
+        console2.logBytes(abi.encodePacked(ideographicSpace));
+        console2.log("length: ", abi.encodePacked(ideographicSpace).length);
+        console2.log("-------------------");
+        console2.log("---------EN Quad..Hair Space----------");
+        string memory enQuadHairSpace = unicode"\u2000";
+        console2.log("enQuadHairSpace: ", enQuadHairSpace);
+        console2.logBytes(abi.encodePacked(enQuadHairSpace));
+        console2.log("length: ", abi.encodePacked(enQuadHairSpace).length);
+        string memory enQuadHairSpaceA = unicode"\u200A";
+        console2.log("enQuadHairSpaceA: ", enQuadHairSpaceA);
+        console2.logBytes(abi.encodePacked(enQuadHairSpaceA));
+        console2.log("length: ", abi.encodePacked(enQuadHairSpaceA).length);
+        console2.log("-------------------");
+        console2.log("---------Zero width no-break space----------");
+        string memory nextLine = unicode"\u0085";
+        console2.log("nextLine: ", nextLine);
+        console2.logBytes(abi.encodePacked(nextLine));
+        console2.log("-------------------");
+        console2.log("---------Zero width no-break space----------");
+        string memory zeroWidthNoBreakSpace = unicode"\uFEFF";
+        console2.log("zeroWidthNoBreakSpace: ", zeroWidthNoBreakSpace);
+        console2.logBytes(abi.encodePacked(zeroWidthNoBreakSpace));
+        console2.log("-------------------");
         console2.log("---------byte order mark----------");
         // string memory byteOrderMark = unicode"\u00F7";
         string memory byteOrderMark = unicode"\ufeff";
@@ -1590,6 +1634,10 @@ contract PlayStringTest is Test {
         console2.logBytes(someHex);
         uint256 dec = Stringray.hexToDec(someHex);
         console2.log("decimal: ", dec);
+
+        if (0x88 >= 0x80 && 0x88 <= 0x8a) {
+            console2.log("yes logical operators work with bytes1 type");
+        }
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
