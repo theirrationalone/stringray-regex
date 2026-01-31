@@ -1914,6 +1914,48 @@ library Stringray {
         }
     }
 
+    function isPropertyBidiControl(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        bool flag;
+        uint256 lastIndex;
+
+        if (_pattern[_currentParticleIndex] == 0xd8) {
+            if (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x9c) {
+                return (true, _currentParticleIndex + 1);
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x8e || _pattern[_currentParticleIndex + 2] == 0x8f
+                                || (_pattern[_currentParticleIndex + 2] >= 0xaa
+                                    && _pattern[_currentParticleIndex + 2] <= 0xae)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x81) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xa6 && _pattern[_currentParticleIndex + 2] <= 0xa9)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
     function isPropertyWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure

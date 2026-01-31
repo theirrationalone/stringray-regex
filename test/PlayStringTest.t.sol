@@ -1640,6 +1640,32 @@ contract PlayStringTest is Test {
         }
     }
 
+    function testPropertyExperiment() public pure {
+        console2.log("--------------------hex-conversion-verification--------------------");
+        string memory bidiCtrl1 = unicode"\u061C";
+        string memory bidiCtrl2 = unicode"\u200E";
+        string memory bidiCtrl3 = unicode"\u200F";
+        string memory bidiCtrl4 = unicode"\u202A";
+        string memory bidiCtrl5 = unicode"\u202E";
+        string memory bidiCtrl6 = unicode"\u2066";
+        string memory bidiCtrl7 = unicode"\u2069";
+        console2.log("0x061C: ", bidiCtrl1);
+        console2.logBytes(abi.encodePacked(bidiCtrl1));
+        console2.log("0x200E: ", bidiCtrl2);
+        console2.logBytes(abi.encodePacked(bidiCtrl2));
+        console2.log("0x200F: ", bidiCtrl3);
+        console2.logBytes(abi.encodePacked(bidiCtrl3));
+        console2.log("0x202A: ", bidiCtrl4);
+        console2.logBytes(abi.encodePacked(bidiCtrl4));
+        console2.log("0x202E: ", bidiCtrl5);
+        console2.logBytes(abi.encodePacked(bidiCtrl5));
+        console2.log("0x2066: ", bidiCtrl6);
+        console2.logBytes(abi.encodePacked(bidiCtrl6));
+        console2.log("0x2069: ", bidiCtrl7);
+        console2.logBytes(abi.encodePacked(bidiCtrl7));
+        console2.log("----------------------------------------");
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();
