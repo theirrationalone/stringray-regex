@@ -1663,6 +1663,9 @@ contract PlayStringTest is Test {
         console2.logBytes(abi.encodePacked(bidiCtrl6));
         console2.log("0x2069: ", bidiCtrl7);
         console2.logBytes(abi.encodePacked(bidiCtrl7));
+        string memory joinControl = unicode"\u200C";
+        console2.log("200C: ", joinControl);
+        console2.logBytes(abi.encodePacked(joinControl));
         console2.log("----------------------------------------");
     }
 
