@@ -1915,17 +1915,193 @@ library Stringray {
     }
 
     function isPropertyDash(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        // 0x 2d
         if (_pattern[_currentParticleIndex] == 0x2d) {
             return (true, _currentParticleIndex);
         }
 
+        // 0x d6 8a
+        // 0x d6 be
+        if (_pattern[_currentParticleIndex] == 0xd6) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x8a || _pattern[_currentParticleIndex + 1] == 0xbe) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0x e1 90 80
+        // 0x e1 a0 86
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x90) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x80) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x86) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x e2 80 90
+        // 0x e2 80 95
+        // 0x e2 81 93
+        // 0x e2 81 bb
+        // 0x e2 82 8b
+        // 0x e2 88 92
+        // 0x e2 b8 97
+        // 0x e2 b8 9a
+        // 0x e2 b8 ba
+        // 0x e2 b8 bb
+        // 0x e2 b9 80
+        // 0x e2 b9 9d
         if (_pattern[_currentParticleIndex] == 0xe2) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0x80) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
-                        if (_pattern[_currentParticleIndex + 2] == 0x8c || _pattern[_currentParticleIndex + 2] == 0x8d)
+                        if (_pattern[_currentParticleIndex + 2] >= 0x90 && _pattern[_currentParticleIndex + 2] <= 0x95)
                         {
                             return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x81) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x93 || _pattern[_currentParticleIndex + 1] == 0xbb)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x82) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8b) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x88) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x92) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb8) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x97 || _pattern[_currentParticleIndex + 2] == 0x9a
+                                || _pattern[_currentParticleIndex + 2] == 0xba
+                                || _pattern[_currentParticleIndex + 2] == 0xbb
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x80 || _pattern[_currentParticleIndex + 2] == 0x9d)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x e3 80 9c
+        // 0x e3 80 b0
+        // 0x e3 82 a0
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9c || _pattern[_currentParticleIndex + 2] == 0xb0)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x82) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa0) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x ef b8 b1
+        // 0x ef b8 b2
+        // 0x ef b9 98
+        // 0x ef b9 a3
+        // 0x ef bc 8d
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xb8) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb1 || _pattern[_currentParticleIndex + 2] == 0xb2)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x98 || _pattern[_currentParticleIndex + 2] == 0xa3)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8d) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x f0 90 b5 ae
+        // 0x f0 90 ba ad
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x90) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb5) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0xae) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        if (_pattern[_currentParticleIndex + 2] == 0xba) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0xad) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
                         }
                     }
                 }

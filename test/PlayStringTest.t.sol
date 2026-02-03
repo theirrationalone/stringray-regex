@@ -1741,12 +1741,14 @@ contract PlayStringTest is Test {
         string memory dash25 = unicode"\uFF0D";
         console2.log("FF0D: ", dash25);
         console2.logBytes(abi.encodePacked(dash25));
-        string memory dash26 = unicode"\u10D6E";
+        string memory dash26 = string(abi.encodePacked(bytes4(0xF090B5AE)));
+        console2.log("10D6E literal: ", unicode"𐵮");
         console2.log("10D6E: ", dash26);
         console2.logBytes(abi.encodePacked(dash26));
         string memory dash27 = unicode"𐺭";
         console2.log("10EAD: ", dash27);
         console2.logBytes(abi.encodePacked(dash27));
+        console2.log(string(abi.encodePacked(dash27)));
         console2.log("----------------------------------------");
     }
 
