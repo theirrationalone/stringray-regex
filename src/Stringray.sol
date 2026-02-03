@@ -1914,6 +1914,17 @@ library Stringray {
         }
     }
 
+    function isPropertyHyphen(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // 0x 2d
+        if (_pattern[_currentParticleIndex] == 0x2d) {
+            return (true, _currentParticleIndex);
+        }
+    }
+
     function isPropertyDash(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // 0x 2d
         if (_pattern[_currentParticleIndex] == 0x2d) {
