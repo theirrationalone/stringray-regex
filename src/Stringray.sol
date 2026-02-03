@@ -1952,8 +1952,7 @@ library Stringray {
             }
         }
 
-        // 0x e2 80 90
-        // 0x e2 80 95
+        // 0x e2 80 90 ... 95
         // 0x e2 81 93
         // 0x e2 81 bb
         // 0x e2 82 8b
@@ -2116,6 +2115,8 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
+        // 0x e2 80 8c
+        // 0x e2 80 8d
         if (_pattern[_currentParticleIndex] == 0xe2) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0x80) {
@@ -2137,12 +2138,17 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
+        // 0x d8 9c
         if (_pattern[_currentParticleIndex] == 0xd8) {
             if (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x9c) {
                 return (true, _currentParticleIndex + 1);
             }
         }
 
+        // 0x e2 80 8e
+        // 0x e2 80 8f
+        // 0x e2 80 aa ... ae
+        // 0x e2 81 a6 ... a9
         if (_pattern[_currentParticleIndex] == 0xe2) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0x80) {
