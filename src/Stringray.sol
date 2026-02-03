@@ -1914,6 +1914,27 @@ library Stringray {
         }
     }
 
+    function isPropertyDash(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+        if (_pattern[_currentParticleIndex] == 0x2d) {
+            return (true, _currentParticleIndex);
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8c || _pattern[_currentParticleIndex + 2] == 0x8d)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
+    }
+
     function isPropertyJoinControl(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
