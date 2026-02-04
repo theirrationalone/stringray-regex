@@ -1749,6 +1749,34 @@ contract PlayStringTest is Test {
         console2.log("10EAD: ", dash27);
         console2.logBytes(abi.encodePacked(dash27));
         console2.log(string(abi.encodePacked(dash27)));
+        console2.log("-----------hyphen-----------");
+        string memory hyphen = unicode"\u00AD";
+        console2.log("00AD: ", hyphen);
+        console2.logBytes(abi.encodePacked(hyphen));
+        string memory hyphen2 = unicode"\u058A";
+        console2.log("058A: ", hyphen2);
+        console2.logBytes(abi.encodePacked(hyphen2));
+        string memory hyphen3 = unicode"\u1806";
+        console2.log("1806: ", hyphen3);
+        console2.logBytes(abi.encodePacked(hyphen3));
+        string memory hyphen4 = unicode"\u2010";
+        console2.log("2010: ", hyphen4);
+        console2.logBytes(abi.encodePacked(hyphen4));
+        string memory hyphen5 = unicode"\u2E17";
+        console2.log("2E17: ", hyphen5);
+        console2.logBytes(abi.encodePacked(hyphen5));
+        string memory hyphen6 = unicode"\u30FB";
+        console2.log("30FB: ", hyphen6);
+        console2.logBytes(abi.encodePacked(hyphen6));
+        string memory hyphen7 = unicode"\uFE63";
+        console2.log("FE63: ", hyphen7);
+        console2.logBytes(abi.encodePacked(hyphen7));
+        string memory hyphen8 = unicode"\uFF0D";
+        console2.log("FF0D: ", hyphen8);
+        console2.logBytes(abi.encodePacked(hyphen8));
+        string memory hyphen9 = unicode"\uFF65";
+        console2.log("FF65: ", hyphen9);
+        console2.logBytes(abi.encodePacked(hyphen9));
         console2.log("----------------------------------------");
     }
 

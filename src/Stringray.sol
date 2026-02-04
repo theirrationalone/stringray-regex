@@ -1923,6 +1923,103 @@ library Stringray {
         if (_pattern[_currentParticleIndex] == 0x2d) {
             return (true, _currentParticleIndex);
         }
+
+        // 0x c2 ad
+        if (_pattern[_currentParticleIndex] == 0xc2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xad) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0x d6 8a
+        if (_pattern[_currentParticleIndex] == 0xd6) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x8a) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0x e1 a0 86
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x86) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x e2 80 90
+        // 0x e2 b8 97
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x90) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb8) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x97) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x e3 83 bb
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x83) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xbb) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x ef b9 a3
+        // 0x ef bc 8d
+        // 0x ef bd a5
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa3) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8d) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa5) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     function isPropertyDash(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
