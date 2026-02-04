@@ -1749,7 +1749,9 @@ contract PlayStringTest is Test {
         console2.log("10EAD: ", dash27);
         console2.logBytes(abi.encodePacked(dash27));
         console2.log(string(abi.encodePacked(dash27)));
-        console2.log("-----------hyphen-----------");
+        console2.log(
+            "----------------------------------------------------hyphen----------------------------------------------------"
+        );
         string memory hyphen = unicode"\u00AD";
         console2.log("00AD: ", hyphen);
         console2.logBytes(abi.encodePacked(hyphen));
@@ -1777,6 +1779,12 @@ contract PlayStringTest is Test {
         string memory hyphen9 = unicode"\uFF65";
         console2.log("FF65: ", hyphen9);
         console2.logBytes(abi.encodePacked(hyphen9));
+        console2.log(
+            "----------------------------------------------------Quotation_Mark----------------------------------------------------"
+        );
+        string memory quotationMark = unicode"\u0022";
+        console2.log("0022: ", quotationMark);
+        console2.logBytes(abi.encodePacked(quotationMark));
         console2.log("----------------------------------------");
     }
 

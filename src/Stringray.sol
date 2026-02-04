@@ -1914,6 +1914,17 @@ library Stringray {
         }
     }
 
+    function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // 0x 22
+        if (_pattern[_currentParticleIndex] == 0x22) {
+            return (true, _currentParticleIndex);
+        }
+    }
+
     function isPropertyHyphen(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
