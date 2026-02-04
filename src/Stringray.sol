@@ -1923,6 +1923,126 @@ library Stringray {
         if (_pattern[_currentParticleIndex] == 0x22) {
             return (true, _currentParticleIndex);
         }
+
+        // 0x 27
+        if (_pattern[_currentParticleIndex] == 0x27) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x c2 ab
+        // 0x c2 bb
+        if (_pattern[_currentParticleIndex] == 0xc2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xab) {
+                    return (true, _currentParticleIndex + 1);
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbb) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0x e2 80 98
+        // 0x e2 80 99
+        // 0x e2 80 9a
+        // 0x e2 80 9b
+        // 0x e2 80 9c
+        // 0x e2 80 9d
+        // 0x e2 80 9e
+        // 0x e2 80 9f
+        // 0x e2 80 b9
+        // 0x e2 80 ba
+        // 0x e2 b9 82
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x98 && _pattern[_currentParticleIndex + 2] <= 0x9f)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+
+                        if (_pattern[_currentParticleIndex + 2] == 0xb9 || _pattern[_currentParticleIndex + 2] == 0xba)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x82) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x e3 80 8c
+        // 0x e3 80 8d
+        // 0x e3 80 8e
+        // 0x e3 80 8f
+        // 0x e3 80 9d
+        // 0x e3 80 9e
+        // 0x e3 80 9f
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x8c && _pattern[_currentParticleIndex + 2] <= 0x8f)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+
+                        if (_pattern[_currentParticleIndex + 2] >= 0x9d && _pattern[_currentParticleIndex + 2] <= 0x9f)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 0x ef b9 81
+        // 0x ef b9 82
+        // 0x ef b9 83
+        // 0x ef b9 84
+        // 0x ef bc 82
+        // 0x ef bc 87
+        // 0x ef bd a2
+        // 0x ef bd a3
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x81 && _pattern[_currentParticleIndex + 2] <= 0x84)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x82 || _pattern[_currentParticleIndex + 2] == 0x87)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa2 || _pattern[_currentParticleIndex + 2] == 0xa3)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     function isPropertyHyphen(bytes memory _pattern, uint256 _currentParticleIndex)
