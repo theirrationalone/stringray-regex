@@ -2603,6 +2603,37 @@ library Stringray {
         return (false, 0);
     }
 
+    function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure reutrns (bytes memory) {
+        // _unicodeHex: "\u{XXXXXX}"
+        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex);
+
+        if (!flag) {
+            string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _pattern));
+            revert(errorMsg);
+        }
+
+        bytes memory binary;
+        for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
+            bytes memory bin = hexToBinaryWithoutPadding(_unicodeHex[i]);
+            binary = abi.encodePacked(bin, binary);
+        }
+
+        if (binary.length <= 8) {
+            return binToHex(binary);
+
+        } else if (binary.length <= 11) {
+            bytes memory lastByte = trimString(binary, binary.length - 6, -1);
+            lastByte = abi.encodePacked("10", lastByte);
+            bytes memory msbByte = trimString(binary, 0, int256(binary.length - 7));
+            msbByte = msbByte.length % 8 == ;
+            msbByte = abi.encodePacked("110", msbByte);
+        } else if (binary.length <= 16) {
+
+        } else if (binary.length <= 21) {
+
+        }
+    }
+
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) internal pure returns (bytes memory) {
         // @TODO: Implement utf8 hexadecimal to unicode hexadecimal conversion logic
         uint256 numBytes = _utf8Hex.length;
@@ -4879,6 +4910,25 @@ library Stringray {
     function hexToBinary(bytes1 _hex) private pure returns (bytes memory) {
         uint8 decimal = uint8(_hex);
         bytes memory binary = decimalToBinaryAscii(decimal);
+        return binary;
+    }
+
+    function hexToBinaryWithoutPadding(bytes1 _hex) private pure returns (bytes memory) {
+        uint8 decimal = uint8(_hex);
+        bytes memory binary = decimalToBinaryAsciiWithoutPadding(decimal);
+        return binary;
+    }
+
+    function decimalToBinaryAsciiWithoutPadding(uint8 decimal) private pure returns (bytes memory) {
+        console2.log("decccc: ", decimal);
+        bytes memory binary;
+        while (decimal != 0) {
+            binary = decimal % 2 == 0 ? abi.encodePacked("0", binary) : abi.encodePacked("1", binary);
+            decimal = decimal >> 1;
+        }
+
+        console2.logBytes(binary);
+        console2.log("---");
         return binary;
     }
 
