@@ -1878,12 +1878,713 @@ contract PlayStringTest is Test {
         string memory terminalPunctuation = unicode"\u0021";
         console2.log("0021: ", terminalPunctuation);
         console2.logBytes(abi.encodePacked(terminalPunctuation));
-        string memory terminalPunctuation2 = unicode"\u002c";
-        console2.log("002c: ", terminalPunctuation2);
+        string memory terminalPunctuation2 = unicode"\u002C";
+        console2.log("002C: ", terminalPunctuation2);
         console2.logBytes(abi.encodePacked(terminalPunctuation2));
-        string memory terminalPunctuation3 = unicode"\u002e";
-        console2.log("002e: ", terminalPunctuation3);
+        string memory terminalPunctuation3 = unicode"\u002E";
+        console2.log("002E: ", terminalPunctuation3);
         console2.logBytes(abi.encodePacked(terminalPunctuation3));
+        // loop 1: start
+        string memory terminalPunctuation4 = unicode"\u003A";
+        console2.log("003A: ", terminalPunctuation4);
+        console2.logBytes(abi.encodePacked(terminalPunctuation4));
+        // loop 1: end
+        string memory terminalPunctuation5 = unicode"\u003B";
+        console2.log("003B: ", terminalPunctuation5);
+        console2.logBytes(abi.encodePacked(terminalPunctuation5));
+        string memory terminalPunctuation6 = unicode"\u003F";
+        console2.log("003F: ", terminalPunctuation6);
+        console2.logBytes(abi.encodePacked(terminalPunctuation6));
+        string memory terminalPunctuation7 = unicode"\u0037E";
+        console2.log("0037E: ", terminalPunctuation7);
+        console2.logBytes(abi.encodePacked(terminalPunctuation7));
+        string memory terminalPunctuation8 = unicode"\u0387";
+        console2.log("0387: ", terminalPunctuation8);
+        console2.logBytes(abi.encodePacked(terminalPunctuation8));
+        string memory terminalPunctuation9 = unicode"\u0589";
+        console2.log("0589: ", terminalPunctuation9);
+        console2.logBytes(abi.encodePacked(terminalPunctuation9));
+        string memory terminalPunctuation10 = unicode"\u05C3";
+        console2.log("05C3: ", terminalPunctuation10);
+        console2.logBytes(abi.encodePacked(terminalPunctuation10));
+        string memory terminalPunctuation11 = unicode"\u060C";
+        console2.log("060C: ", terminalPunctuation11);
+        console2.logBytes(abi.encodePacked(terminalPunctuation11));
+        string memory terminalPunctuation12 = unicode"\u061B";
+        console2.log("061B: ", terminalPunctuation12);
+        console2.logBytes(abi.encodePacked(terminalPunctuation12));
+        // loop 2: start
+        string memory terminalPunctuation13 = unicode"\u061D";
+        console2.log("061D: ", terminalPunctuation13);
+        console2.logBytes(abi.encodePacked(terminalPunctuation13));
+        // loop 2: end
+        string memory terminalPunctuation14 = unicode"\u061F";
+        console2.log("061F: ", terminalPunctuation14);
+        console2.logBytes(abi.encodePacked(terminalPunctuation14));
+        string memory terminalPunctuation15 = unicode"\u06D4";
+        console2.log("06D4: ", terminalPunctuation15);
+        console2.logBytes(abi.encodePacked(terminalPunctuation15));
+        // loop 3: start
+        string memory terminalPunctuation16 = unicode"\u0700";
+        console2.log("0700: ", terminalPunctuation16);
+        console2.logBytes(abi.encodePacked(terminalPunctuation16));
+        // loop 3: end
+        string memory terminalPunctuation17 = unicode"\u070A";
+        console2.log("070A: ", terminalPunctuation17);
+        console2.logBytes(abi.encodePacked(terminalPunctuation17));
+        string memory terminalPunctuation18 = unicode"\u070C";
+        console2.log("070C: ", terminalPunctuation18);
+        console2.logBytes(abi.encodePacked(terminalPunctuation18));
+        // loop 4: start
+        string memory terminalPunctuation19 = unicode"\u07F8";
+        console2.log("07F8: ", terminalPunctuation19);
+        console2.logBytes(abi.encodePacked(terminalPunctuation19));
+        // loop 4: end
+        string memory terminalPunctuation20 = unicode"\u07F9";
+        console2.log("07F9: ", terminalPunctuation20);
+        console2.logBytes(abi.encodePacked(terminalPunctuation20));
+        // loop 5: start
+        string memory terminalPunctuation21 = unicode"\u0830";
+        console2.log("0830: ", terminalPunctuation21);
+        console2.logBytes(abi.encodePacked(terminalPunctuation21));
+        // loop 5: end
+        string memory terminalPunctuation22 = unicode"\u0835";
+        console2.log("0835: ", terminalPunctuation22);
+        console2.logBytes(abi.encodePacked(terminalPunctuation22));
+        // loop 6: start
+        string memory terminalPunctuation23 = unicode"\u0837";
+        console2.log("0837: ", terminalPunctuation23);
+        console2.logBytes(abi.encodePacked(terminalPunctuation23));
+        // loop 6: end
+        string memory terminalPunctuation24 = unicode"\u083E";
+        console2.log("083E: ", terminalPunctuation24);
+        console2.logBytes(abi.encodePacked(terminalPunctuation24));
+        // loop 7: start
+        string memory terminalPunctuation25 = unicode"\u0964";
+        console2.log("0964: ", terminalPunctuation25);
+        console2.logBytes(abi.encodePacked(terminalPunctuation25));
+        // loop 7: end
+        string memory terminalPunctuation26 = unicode"\u0965";
+        console2.log("0965: ", terminalPunctuation26);
+        console2.logBytes(abi.encodePacked(terminalPunctuation26));
+        // loop 8: start
+        string memory terminalPunctuation27 = unicode"\u0E5A";
+        console2.log("0E5A: ", terminalPunctuation27);
+        console2.logBytes(abi.encodePacked(terminalPunctuation27));
+        // loop 8: end
+        string memory terminalPunctuation28 = unicode"\u0E5B";
+        console2.log("0E5B: ", terminalPunctuation28);
+        console2.logBytes(abi.encodePacked(terminalPunctuation28));
+        string memory terminalPunctuation29 = unicode"\u0F08";
+        console2.log("0F08: ", terminalPunctuation29);
+        console2.logBytes(abi.encodePacked(terminalPunctuation29));
+        // loop 9: start
+        string memory terminalPunctuation30 = unicode"\u0F0D";
+        console2.log("0F0D: ", terminalPunctuation30);
+        console2.logBytes(abi.encodePacked(terminalPunctuation30));
+        // loop 9: end
+        string memory terminalPunctuation31 = unicode"\u0F12";
+        console2.log("0F12: ", terminalPunctuation31);
+        console2.logBytes(abi.encodePacked(terminalPunctuation31));
+        // loop 10: start
+        string memory terminalPunctuation32 = unicode"\u104A";
+        console2.log("104A: ", terminalPunctuation32);
+        console2.logBytes(abi.encodePacked(terminalPunctuation32));
+        // loop 10: end
+        string memory terminalPunctuation33 = unicode"\u104B";
+        console2.log("104B: ", terminalPunctuation33);
+        console2.logBytes(abi.encodePacked(terminalPunctuation33));
+        // loop 11: start
+        string memory terminalPunctuation34 = unicode"\u1361";
+        console2.log("1361: ", terminalPunctuation34);
+        console2.logBytes(abi.encodePacked(terminalPunctuation34));
+        // loop 11: end
+        string memory terminalPunctuation35 = unicode"\u1368";
+        console2.log("1368: ", terminalPunctuation35);
+        console2.logBytes(abi.encodePacked(terminalPunctuation35));
+        string memory terminalPunctuation36 = unicode"\u166E";
+        console2.log("166E: ", terminalPunctuation36);
+        console2.logBytes(abi.encodePacked(terminalPunctuation36));
+        // loop 12: start
+        string memory terminalPunctuation37 = unicode"\u16EB";
+        console2.log("16EB: ", terminalPunctuation37);
+        console2.logBytes(abi.encodePacked(terminalPunctuation37));
+        // loop 12: end
+        string memory terminalPunctuation38 = unicode"\u16ED";
+        console2.log("16ED: ", terminalPunctuation38);
+        console2.logBytes(abi.encodePacked(terminalPunctuation38));
+        // loop 13: start
+        string memory terminalPunctuation39 = unicode"\u1735";
+        console2.log("1735: ", terminalPunctuation39);
+        console2.logBytes(abi.encodePacked(terminalPunctuation39));
+        // loop 13: end
+        string memory terminalPunctuation40 = unicode"\u1736";
+        console2.log("1736: ", terminalPunctuation40);
+        console2.logBytes(abi.encodePacked(terminalPunctuation40));
+        // loop 14: start
+        string memory terminalPunctuation41 = unicode"\u17D4";
+        console2.log("17D4: ", terminalPunctuation41);
+        console2.logBytes(abi.encodePacked(terminalPunctuation41));
+        // loop 14: end
+        string memory terminalPunctuation42 = unicode"\u17D6";
+        console2.log("17D6: ", terminalPunctuation42);
+        console2.logBytes(abi.encodePacked(terminalPunctuation42));
+        // loop 15: start
+        string memory terminalPunctuation43 = unicode"\u1802";
+        console2.log("1802: ", terminalPunctuation43);
+        console2.logBytes(abi.encodePacked(terminalPunctuation43));
+        // loop 15: end
+        string memory terminalPunctuation44 = unicode"\u1805";
+        console2.log("1805: ", terminalPunctuation44);
+        console2.logBytes(abi.encodePacked(terminalPunctuation44));
+        // loop 16: start
+        string memory terminalPunctuation45 = unicode"\u1808";
+        console2.log("1808: ", terminalPunctuation45);
+        console2.logBytes(abi.encodePacked(terminalPunctuation45));
+        // loop 16: end
+        string memory terminalPunctuation46 = unicode"\u1809";
+        console2.log("1809: ", terminalPunctuation46);
+        console2.logBytes(abi.encodePacked(terminalPunctuation46));
+        // loop 17: start
+        string memory terminalPunctuation47 = unicode"\u1944";
+        console2.log("1944: ", terminalPunctuation47);
+        console2.logBytes(abi.encodePacked(terminalPunctuation47));
+        // loop 17: end
+        string memory terminalPunctuation48 = unicode"\u1945";
+        console2.log("1945: ", terminalPunctuation48);
+        console2.logBytes(abi.encodePacked(terminalPunctuation48));
+        // loop 18: start
+        string memory terminalPunctuation49 = unicode"\u1AA8";
+        console2.log("1AA8: ", terminalPunctuation49);
+        console2.logBytes(abi.encodePacked(terminalPunctuation49));
+        // loop 18: end
+        string memory terminalPunctuation450 = unicode"\u1AAB";
+        console2.log("1AAB: ", terminalPunctuation450);
+        console2.logBytes(abi.encodePacked(terminalPunctuation450));
+        // loop 19: start
+        string memory terminalPunctuation51 = unicode"\u1B4E";
+        console2.log("1B4E: ", terminalPunctuation51);
+        console2.logBytes(abi.encodePacked(terminalPunctuation51));
+        // loop 19: end
+        string memory terminalPunctuation52 = unicode"\u1B4F";
+        console2.log("1B4F: ", terminalPunctuation52);
+        console2.logBytes(abi.encodePacked(terminalPunctuation52));
+        // loop 20: start
+        string memory terminalPunctuation53 = unicode"\u1B5A";
+        console2.log("1B5A: ", terminalPunctuation53);
+        console2.logBytes(abi.encodePacked(terminalPunctuation53));
+        // loop 20: end
+        string memory terminalPunctuation54 = unicode"\u1B5B";
+        console2.log("1B5B: ", terminalPunctuation54);
+        console2.logBytes(abi.encodePacked(terminalPunctuation54));
+        // loop 21: start
+        string memory terminalPunctuation55 = unicode"\u1B5D";
+        console2.log("1B5D: ", terminalPunctuation55);
+        console2.logBytes(abi.encodePacked(terminalPunctuation55));
+        // loop 21: end
+        string memory terminalPunctuation56 = unicode"\u1B5F";
+        console2.log("1B5F: ", terminalPunctuation56);
+        console2.logBytes(abi.encodePacked(terminalPunctuation56));
+        // loop 22: start
+        string memory terminalPunctuation57 = unicode"\u1B7D";
+        console2.log("1B7D: ", terminalPunctuation57);
+        console2.logBytes(abi.encodePacked(terminalPunctuation57));
+        // loop 22: end
+        string memory terminalPunctuation58 = unicode"\u1B7F";
+        console2.log("1B7F: ", terminalPunctuation58);
+        console2.logBytes(abi.encodePacked(terminalPunctuation58));
+        // loop 23: start
+        string memory terminalPunctuation59 = unicode"\u1C3B";
+        console2.log("1C3B: ", terminalPunctuation59);
+        console2.logBytes(abi.encodePacked(terminalPunctuation59));
+        // loop 24: end
+        string memory terminalPunctuation60 = unicode"\u1C3F";
+        console2.log("1C3F: ", terminalPunctuation60);
+        console2.logBytes(abi.encodePacked(terminalPunctuation60));
+        // loop 25: start
+        string memory terminalPunctuation61 = unicode"\u1C7E";
+        console2.log("1C7E: ", terminalPunctuation61);
+        console2.logBytes(abi.encodePacked(terminalPunctuation61));
+        // loop 25: end
+        string memory terminalPunctuation62 = unicode"\u1C7F";
+        console2.log("1C7F: ", terminalPunctuation62);
+        console2.logBytes(abi.encodePacked(terminalPunctuation62));
+        // loop 26: start
+        string memory terminalPunctuation63 = unicode"\u203C";
+        console2.log("203C: ", terminalPunctuation63);
+        console2.logBytes(abi.encodePacked(terminalPunctuation63));
+        // loop 26: end
+        string memory terminalPunctuation64 = unicode"\u203D";
+        console2.log("203D: ", terminalPunctuation64);
+        console2.logBytes(abi.encodePacked(terminalPunctuation64));
+        // loop 27: start
+        string memory terminalPunctuation65 = unicode"\u2047";
+        console2.log("2047: ", terminalPunctuation65);
+        console2.logBytes(abi.encodePacked(terminalPunctuation65));
+        // loop 27: end
+        string memory terminalPunctuation66 = unicode"\u2049";
+        console2.log("2049: ", terminalPunctuation66);
+        console2.logBytes(abi.encodePacked(terminalPunctuation66));
+        // loop 28: start
+        string memory terminalPunctuation67 = unicode"\u2CF9";
+        console2.log("2CF9: ", terminalPunctuation67);
+        console2.logBytes(abi.encodePacked(terminalPunctuation67));
+        // loop 29: end
+        string memory terminalPunctuation68 = unicode"\u2CFB";
+        console2.log("2CFB: ", terminalPunctuation68);
+        console2.logBytes(abi.encodePacked(terminalPunctuation68));
+        string memory terminalPunctuation69 = unicode"\u2E2E";
+        console2.log("2E2E: ", terminalPunctuation69);
+        console2.logBytes(abi.encodePacked(terminalPunctuation69));
+        string memory terminalPunctuation70 = unicode"\u2E3C";
+        console2.log("2E3C: ", terminalPunctuation70);
+        console2.logBytes(abi.encodePacked(terminalPunctuation70));
+        string memory terminalPunctuation71 = unicode"\u2E41";
+        console2.log("2E41: ", terminalPunctuation71);
+        console2.logBytes(abi.encodePacked(terminalPunctuation71));
+        string memory terminalPunctuation72 = unicode"\u2E4C";
+        console2.log("2E4C: ", terminalPunctuation72);
+        console2.logBytes(abi.encodePacked(terminalPunctuation72));
+        // loop 30: start
+        string memory terminalPunctuation73 = unicode"\u2E4E";
+        console2.log("2E4E: ", terminalPunctuation73);
+        console2.logBytes(abi.encodePacked(terminalPunctuation73));
+        // loop 30: end
+        string memory terminalPunctuation74 = unicode"\u2E4F";
+        console2.log("2E4F: ", terminalPunctuation74);
+        console2.logBytes(abi.encodePacked(terminalPunctuation74));
+        // loop 31: start
+        string memory terminalPunctuation75 = unicode"\u2E53";
+        console2.log("2E53: ", terminalPunctuation75);
+        console2.logBytes(abi.encodePacked(terminalPunctuation75));
+        // loop 31: end
+        string memory terminalPunctuation76 = unicode"\u2E54";
+        console2.log("2E54: ", terminalPunctuation76);
+        console2.logBytes(abi.encodePacked(terminalPunctuation76));
+        // loop 32: start
+        string memory terminalPunctuation77 = unicode"\u3001";
+        console2.log("3001: ", terminalPunctuation77);
+        console2.logBytes(abi.encodePacked(terminalPunctuation77));
+        // loop 32: end
+        string memory terminalPunctuation78 = unicode"\u3002";
+        console2.log("3002: ", terminalPunctuation78);
+        console2.logBytes(abi.encodePacked(terminalPunctuation78));
+        // loop 33: start
+        string memory terminalPunctuation79 = unicode"\uA4FE";
+        console2.log("A4FE: ", terminalPunctuation79);
+        console2.logBytes(abi.encodePacked(terminalPunctuation79));
+        // loop 33: end
+        string memory terminalPunctuation80 = unicode"\uA4FF";
+        console2.log("A4FF: ", terminalPunctuation80);
+        console2.logBytes(abi.encodePacked(terminalPunctuation80));
+        // loop 34: start
+        string memory terminalPunctuation81 = unicode"\uA60D";
+        console2.log("A60D: ", terminalPunctuation81);
+        console2.logBytes(abi.encodePacked(terminalPunctuation81));
+        // loop 34: end
+        string memory terminalPunctuation82 = unicode"\uA60F";
+        console2.log("A60F: ", terminalPunctuation82);
+        console2.logBytes(abi.encodePacked(terminalPunctuation82));
+        // loop 35: start
+        string memory terminalPunctuation83 = unicode"\uA6F3";
+        console2.log("A6F3: ", terminalPunctuation83);
+        console2.logBytes(abi.encodePacked(terminalPunctuation83));
+        // loop 35: end
+        string memory terminalPunctuation84 = unicode"\uA6F7";
+        console2.log("A6F7: ", terminalPunctuation84);
+        console2.logBytes(abi.encodePacked(terminalPunctuation84));
+        // loop 36: start
+        string memory terminalPunctuation85 = unicode"\uA876";
+        console2.log("A876: ", terminalPunctuation85);
+        console2.logBytes(abi.encodePacked(terminalPunctuation85));
+        // loop 36: end
+        string memory terminalPunctuation86 = unicode"\uA877";
+        console2.log("A877: ", terminalPunctuation86);
+        console2.logBytes(abi.encodePacked(terminalPunctuation86));
+        // loop 37: start
+        string memory terminalPunctuation87 = unicode"\uA8CE";
+        console2.log("A8CE: ", terminalPunctuation87);
+        console2.logBytes(abi.encodePacked(terminalPunctuation87));
+        // loop 37: end
+        string memory terminalPunctuation88 = unicode"\uA8CF";
+        console2.log("A8CF: ", terminalPunctuation88);
+        console2.logBytes(abi.encodePacked(terminalPunctuation88));
+        string memory terminalPunctuation89 = unicode"\uA92F";
+        console2.log("A92F: ", terminalPunctuation89);
+        console2.logBytes(abi.encodePacked(terminalPunctuation89));
+        // loop 38: start
+        string memory terminalPunctuation90 = unicode"\uA9C7";
+        console2.log("A9C7: ", terminalPunctuation90);
+        console2.logBytes(abi.encodePacked(terminalPunctuation90));
+        // loop 38: end
+        string memory terminalPunctuation91 = unicode"\uA9C9";
+        console2.log("A9C9: ", terminalPunctuation91);
+        console2.logBytes(abi.encodePacked(terminalPunctuation91));
+        // loop 39: start
+        string memory terminalPunctuation92 = unicode"\uAA5D";
+        console2.log("AA5D: ", terminalPunctuation92);
+        console2.logBytes(abi.encodePacked(terminalPunctuation92));
+        // loop 39: end
+        string memory terminalPunctuation93 = unicode"\uAA5F";
+        console2.log("AA5F: ", terminalPunctuation93);
+        console2.logBytes(abi.encodePacked(terminalPunctuation93));
+        string memory terminalPunctuation94 = unicode"\uAADF";
+        console2.log("AADF: ", terminalPunctuation94);
+        console2.logBytes(abi.encodePacked(terminalPunctuation94));
+        // loop 40: start
+        string memory terminalPunctuation95 = unicode"\uAAF0";
+        console2.log("AAF0: ", terminalPunctuation95);
+        console2.logBytes(abi.encodePacked(terminalPunctuation95));
+        // loop 40: end
+        string memory terminalPunctuation96 = unicode"\uAAF1";
+        console2.log("AAF1: ", terminalPunctuation96);
+        console2.logBytes(abi.encodePacked(terminalPunctuation96));
+        string memory terminalPunctuation97 = unicode"\uABEB";
+        console2.log("ABEB: ", terminalPunctuation97);
+        console2.logBytes(abi.encodePacked(terminalPunctuation97));
+        string memory terminalPunctuation98 = unicode"\uFE12";
+        console2.log("FE12: ", terminalPunctuation98);
+        console2.logBytes(abi.encodePacked(terminalPunctuation98));
+        // loop 41: start
+        string memory terminalPunctuation99 = unicode"\uFE15";
+        console2.log("FE15: ", terminalPunctuation99);
+        console2.logBytes(abi.encodePacked(terminalPunctuation99));
+        // loop 41: end
+        string memory terminalPunctuation100 = unicode"\uFE16";
+        console2.log("FE16: ", terminalPunctuation100);
+        console2.logBytes(abi.encodePacked(terminalPunctuation100));
+        // loop 42: start
+        string memory terminalPunctuation101 = unicode"\uFE50";
+        console2.log("FE50: ", terminalPunctuation101);
+        console2.logBytes(abi.encodePacked(terminalPunctuation101));
+        // loop 42: end
+        string memory terminalPunctuation102 = unicode"\uFE52";
+        console2.log("FE52: ", terminalPunctuation102);
+        console2.logBytes(abi.encodePacked(terminalPunctuation102));
+        // loop 43: start
+        string memory terminalPunctuation103 = unicode"\uFE54";
+        console2.log("FE54: ", terminalPunctuation103);
+        console2.logBytes(abi.encodePacked(terminalPunctuation103));
+        // loop 43: end
+        string memory terminalPunctuation104 = unicode"\uFE57";
+        console2.log("FE57: ", terminalPunctuation104);
+        console2.logBytes(abi.encodePacked(terminalPunctuation104));
+        string memory terminalPunctuation105 = unicode"\uFF01";
+        console2.log("FF01: ", terminalPunctuation105);
+        console2.logBytes(abi.encodePacked(terminalPunctuation105));
+        string memory terminalPunctuation106 = unicode"\uFF0C";
+        console2.log("FF0C: ", terminalPunctuation106);
+        console2.logBytes(abi.encodePacked(terminalPunctuation106));
+        string memory terminalPunctuation107 = unicode"\uFF0E";
+        console2.log("FF0E: ", terminalPunctuation107);
+        console2.logBytes(abi.encodePacked(terminalPunctuation107));
+        // loop 44: start
+        string memory terminalPunctuation108 = unicode"\uFF1A";
+        console2.log("FF1A: ", terminalPunctuation108);
+        console2.logBytes(abi.encodePacked(terminalPunctuation108));
+        // loop 45: end
+        string memory terminalPunctuation109 = unicode"\uFF1B";
+        console2.log("FF1B: ", terminalPunctuation109);
+        console2.logBytes(abi.encodePacked(terminalPunctuation109));
+        string memory terminalPunctuation110 = unicode"\uFF1F";
+        console2.log("FF1F: ", terminalPunctuation110);
+        console2.logBytes(abi.encodePacked(terminalPunctuation110));
+        string memory terminalPunctuation111 = unicode"\uFF61";
+        console2.log("FF61: ", terminalPunctuation111);
+        console2.logBytes(abi.encodePacked(terminalPunctuation111));
+        string memory terminalPunctuation112 = unicode"\uFF64";
+        console2.log("FF64: ", terminalPunctuation112);
+        console2.logBytes(abi.encodePacked(terminalPunctuation112));
+        string memory terminalPunctuation113 = unicode"\u01039F";
+        console2.log("01039F: ", terminalPunctuation113);
+        console2.logBytes(abi.encodePacked(terminalPunctuation113));
+        string memory terminalPunctuation114 = unicode"\u0103D0";
+        console2.log("0103D0: ", terminalPunctuation114);
+        console2.logBytes(abi.encodePacked(terminalPunctuation114));
+        string memory terminalPunctuation115 = unicode"\u010857";
+        console2.log("010857: ", terminalPunctuation115);
+        console2.logBytes(abi.encodePacked(terminalPunctuation115));
+        string memory terminalPunctuation116 = unicode"\u01091F";
+        console2.log("01091F: ", terminalPunctuation116);
+        console2.logBytes(abi.encodePacked(terminalPunctuation116));
+        // loop 46: start
+        string memory terminalPunctuation117 = unicode"\u010A56";
+        console2.log("010A56: ", terminalPunctuation117);
+        console2.logBytes(abi.encodePacked(terminalPunctuation117));
+        // loop 46: end
+        string memory terminalPunctuation118 = unicode"\u010A57";
+        console2.log("010A57: ", terminalPunctuation118);
+        console2.logBytes(abi.encodePacked(terminalPunctuation118));
+        // loop 47: start
+        string memory terminalPunctuation119 = unicode"\u010AF0";
+        console2.log("010AF0: ", terminalPunctuation119);
+        console2.logBytes(abi.encodePacked(terminalPunctuation119));
+        // loop 47: end
+        string memory terminalPunctuation120 = unicode"\u010AF5";
+        console2.log("010AF5: ", terminalPunctuation120);
+        console2.logBytes(abi.encodePacked(terminalPunctuation120));
+        // loop 48: start
+        string memory terminalPunctuation121 = unicode"\u010B3A";
+        console2.log("010B3A: ", terminalPunctuation121);
+        console2.logBytes(abi.encodePacked(terminalPunctuation121));
+        // loop 48: end
+        string memory terminalPunctuation122 = unicode"\u010B3F";
+        console2.log("010B3F: ", terminalPunctuation122);
+        console2.logBytes(abi.encodePacked(terminalPunctuation122));
+        // loop 49: start
+        string memory terminalPunctuation123 = unicode"\u010B99";
+        console2.log("010B99: ", terminalPunctuation123);
+        console2.logBytes(abi.encodePacked(terminalPunctuation123));
+        // loop 49: end
+        string memory terminalPunctuation124 = unicode"\u010B9C";
+        console2.log("010B9C: ", terminalPunctuation124);
+        console2.logBytes(abi.encodePacked(terminalPunctuation124));
+        // loop 50: start
+        string memory terminalPunctuation125 = unicode"\u010F55";
+        console2.log("010F55: ", terminalPunctuation125);
+        console2.logBytes(abi.encodePacked(terminalPunctuation125));
+        // loop 50: end
+        string memory terminalPunctuation126 = unicode"\u010F59";
+        console2.log("010F59: ", terminalPunctuation126);
+        console2.logBytes(abi.encodePacked(terminalPunctuation126));
+        // loop 51: start
+        string memory terminalPunctuation127 = unicode"\u010F86";
+        console2.log("010F86: ", terminalPunctuation127);
+        console2.logBytes(abi.encodePacked(terminalPunctuation127));
+        // loop 51: end
+        string memory terminalPunctuation128 = unicode"\u010F89";
+        console2.log("010F89: ", terminalPunctuation128);
+        console2.logBytes(abi.encodePacked(terminalPunctuation128));
+        // loop 52: start
+        string memory terminalPunctuation129 = unicode"\u011047";
+        console2.log("011047: ", terminalPunctuation129);
+        console2.logBytes(abi.encodePacked(terminalPunctuation129));
+        // loop 53: end
+        string memory terminalPunctuation130 = unicode"\u01104D";
+        console2.log("01104D: ", terminalPunctuation130);
+        console2.logBytes(abi.encodePacked(terminalPunctuation130));
+        // loop 54: start
+        string memory terminalPunctuation131 = unicode"\u0110BE";
+        console2.log("0110BE: ", terminalPunctuation131);
+        console2.logBytes(abi.encodePacked(terminalPunctuation131));
+        // loop 54: end
+        string memory terminalPunctuation132 = unicode"\u0110C1";
+        console2.log("0110C1: ", terminalPunctuation132);
+        console2.logBytes(abi.encodePacked(terminalPunctuation132));
+        // loop 55: start
+        string memory terminalPunctuation133 = unicode"\u011141";
+        console2.log("011141: ", terminalPunctuation133);
+        console2.logBytes(abi.encodePacked(terminalPunctuation133));
+        // loop 56: end
+        string memory terminalPunctuation134 = unicode"\u011143";
+        console2.log("011143: ", terminalPunctuation134);
+        console2.logBytes(abi.encodePacked(terminalPunctuation134));
+        // loop 57: start
+        string memory terminalPunctuation135 = unicode"\u0111C5";
+        console2.log("0111C5: ", terminalPunctuation135);
+        console2.logBytes(abi.encodePacked(terminalPunctuation135));
+        // loop 57: end
+        string memory terminalPunctuation136 = unicode"\u0111C6";
+        console2.log("0111C6: ", terminalPunctuation136);
+        console2.logBytes(abi.encodePacked(terminalPunctuation136));
+        // loop 58: start
+        string memory terminalPunctuation137 = unicode"\u0111DE";
+        console2.log("0111DE: ", terminalPunctuation137);
+        console2.logBytes(abi.encodePacked(terminalPunctuation137));
+        // loop 58: end
+        string memory terminalPunctuation138 = unicode"\u0111DF";
+        console2.log("0111DF: ", terminalPunctuation138);
+        console2.logBytes(abi.encodePacked(terminalPunctuation138));
+        // loop 59: start
+        string memory terminalPunctuation139 = unicode"\u011238";
+        console2.log("011238: ", terminalPunctuation139);
+        console2.logBytes(abi.encodePacked(terminalPunctuation139));
+        // loop 59: end
+        string memory terminalPunctuation140 = unicode"\u01123C";
+        console2.log("01123C: ", terminalPunctuation140);
+        console2.logBytes(abi.encodePacked(terminalPunctuation140));
+        string memory terminalPunctuation141 = unicode"\u0112A9";
+        console2.log("0112A9: ", terminalPunctuation141);
+        console2.logBytes(abi.encodePacked(terminalPunctuation141));
+        // loop 60: start
+        string memory terminalPunctuation142 = unicode"\u0113D4";
+        console2.log("0113D4: ", terminalPunctuation142);
+        console2.logBytes(abi.encodePacked(terminalPunctuation142));
+        // loop 61: end
+        string memory terminalPunctuation143 = unicode"\u0113D5";
+        console2.log("0113D5: ", terminalPunctuation143);
+        console2.logBytes(abi.encodePacked(terminalPunctuation143));
+        // loop 62: start
+        string memory terminalPunctuation144 = unicode"\u01144B";
+        console2.log("01144B: ", terminalPunctuation144);
+        console2.logBytes(abi.encodePacked(terminalPunctuation144));
+        // loop 62: end
+        string memory terminalPunctuation145 = unicode"\u01144D";
+        console2.log("01144D: ", terminalPunctuation145);
+        console2.logBytes(abi.encodePacked(terminalPunctuation145));
+        // loop 63: start
+        string memory terminalPunctuation146 = unicode"\u01145A";
+        console2.log("01145A: ", terminalPunctuation146);
+        console2.logBytes(abi.encodePacked(terminalPunctuation146));
+        // loop 63: end
+        string memory terminalPunctuation147 = unicode"\u01145B";
+        console2.log("01145B: ", terminalPunctuation147);
+        console2.logBytes(abi.encodePacked(terminalPunctuation147));
+        // loop 64: start
+        string memory terminalPunctuation148 = unicode"\u0115C2";
+        console2.log("0115C2: ", terminalPunctuation148);
+        console2.logBytes(abi.encodePacked(terminalPunctuation148));
+        // loop 64: end
+        string memory terminalPunctuation149 = unicode"\u0115C5";
+        console2.log("0115C5: ", terminalPunctuation149);
+        console2.logBytes(abi.encodePacked(terminalPunctuation149));
+        // loop 65: start
+        string memory terminalPunctuation150 = unicode"\u0115C9";
+        console2.log("0115C9: ", terminalPunctuation150);
+        console2.logBytes(abi.encodePacked(terminalPunctuation150));
+        // loop 66: end
+        string memory terminalPunctuation151 = unicode"\u0115D7";
+        console2.log("0115D7: ", terminalPunctuation151);
+        console2.logBytes(abi.encodePacked(terminalPunctuation151));
+        // loop 67: start
+        string memory terminalPunctuation152 = unicode"\u011641";
+        console2.log("011641: ", terminalPunctuation152);
+        console2.logBytes(abi.encodePacked(terminalPunctuation152));
+        // loop 67: end
+        string memory terminalPunctuation153 = unicode"\u011642";
+        console2.log("011642: ", terminalPunctuation153);
+        console2.logBytes(abi.encodePacked(terminalPunctuation153));
+        // loop 68: start
+        string memory terminalPunctuation154 = unicode"\u01173C";
+        console2.log("01173C: ", terminalPunctuation154);
+        console2.logBytes(abi.encodePacked(terminalPunctuation154));
+        // loop 68: end
+        string memory terminalPunctuation155 = unicode"\u01173E";
+        console2.log("01173E: ", terminalPunctuation155);
+        console2.logBytes(abi.encodePacked(terminalPunctuation155));
+        string memory terminalPunctuation156 = unicode"\u011946";
+        console2.log("011946: ", terminalPunctuation156);
+        console2.logBytes(abi.encodePacked(terminalPunctuation156));
+        // loop 69: start
+        string memory terminalPunctuation157 = unicode"\u011A42";
+        console2.log("011A42: ", terminalPunctuation157);
+        console2.logBytes(abi.encodePacked(terminalPunctuation157));
+        // loop 69: end
+        string memory terminalPunctuation158 = unicode"\u011A43";
+        console2.log("011A43: ", terminalPunctuation158);
+        console2.logBytes(abi.encodePacked(terminalPunctuation158));
+        // loop 70: start
+        string memory terminalPunctuation159 = unicode"\u011A9B";
+        console2.log("011A9B: ", terminalPunctuation159);
+        console2.logBytes(abi.encodePacked(terminalPunctuation159));
+        // loop 70: end
+        string memory terminalPunctuation160 = unicode"\u011A9C";
+        console2.log("011A9C: ", terminalPunctuation160);
+        console2.logBytes(abi.encodePacked(terminalPunctuation160));
+        // loop 71: start
+        string memory terminalPunctuation161 = unicode"\u011AA1";
+        console2.log("011AA1: ", terminalPunctuation161);
+        console2.logBytes(abi.encodePacked(terminalPunctuation161));
+        // loop 71: end
+        string memory terminalPunctuation162 = unicode"\u011AA2";
+        console2.log("011AA2: ", terminalPunctuation162);
+        console2.logBytes(abi.encodePacked(terminalPunctuation162));
+        // loop 72: start
+        string memory terminalPunctuation163 = unicode"\u011C41";
+        console2.log("011C41: ", terminalPunctuation163);
+        console2.logBytes(abi.encodePacked(terminalPunctuation163));
+        // loop 72: end
+        string memory terminalPunctuation164 = unicode"\u011C43";
+        console2.log("011C43: ", terminalPunctuation164);
+        console2.logBytes(abi.encodePacked(terminalPunctuation164));
+        string memory terminalPunctuation165 = unicode"\u011C71";
+        console2.log("011C71: ", terminalPunctuation165);
+        console2.logBytes(abi.encodePacked(terminalPunctuation165));
+        // loop 73: start
+        string memory terminalPunctuation166 = unicode"\u011EF7";
+        console2.log("011EF7: ", terminalPunctuation166);
+        console2.logBytes(abi.encodePacked(terminalPunctuation166));
+        // loop 73: end
+        string memory terminalPunctuation167 = unicode"\u011EF8";
+        console2.log("011EF8: ", terminalPunctuation167);
+        console2.logBytes(abi.encodePacked(terminalPunctuation167));
+        // loop 74: start
+        string memory terminalPunctuation168 = unicode"\u011F43";
+        console2.log("011F43: ", terminalPunctuation168);
+        console2.logBytes(abi.encodePacked(terminalPunctuation168));
+        // loop 74: end
+        string memory terminalPunctuation169 = unicode"\u011F44";
+        console2.log("011F44: ", terminalPunctuation169);
+        console2.logBytes(abi.encodePacked(terminalPunctuation169));
+        // loop 75: start
+        string memory terminalPunctuation170 = unicode"\u012470";
+        console2.log("012470: ", terminalPunctuation170);
+        console2.logBytes(abi.encodePacked(terminalPunctuation170));
+        // loop 75: end
+        string memory terminalPunctuation171 = unicode"\u012474";
+        console2.log("012474: ", terminalPunctuation171);
+        console2.logBytes(abi.encodePacked(terminalPunctuation171));
+        // loop 76: start
+        string memory terminalPunctuation172 = unicode"\u016A6E";
+        console2.log("016A6E: ", terminalPunctuation172);
+        console2.logBytes(abi.encodePacked(terminalPunctuation172));
+        // loop 76: end
+        string memory terminalPunctuation173 = unicode"\u016A6F";
+        console2.log("016A6F: ", terminalPunctuation173);
+        console2.logBytes(abi.encodePacked(terminalPunctuation173));
+        string memory terminalPunctuation174 = unicode"\u016AF5";
+        console2.log("016AF5: ", terminalPunctuation174);
+        console2.logBytes(abi.encodePacked(terminalPunctuation174));
+        // loop 77: start
+        string memory terminalPunctuation175 = unicode"\u016B37";
+        console2.log("016B37: ", terminalPunctuation175);
+        console2.logBytes(abi.encodePacked(terminalPunctuation175));
+        // loop 77: end
+        string memory terminalPunctuation176 = unicode"\u016B39";
+        console2.log("016B39: ", terminalPunctuation176);
+        console2.logBytes(abi.encodePacked(terminalPunctuation176));
+        string memory terminalPunctuation177 = unicode"\u016B44";
+        console2.log("016B44: ", terminalPunctuation177);
+        console2.logBytes(abi.encodePacked(terminalPunctuation177));
+        // loop 78: start
+        string memory terminalPunctuation178 = unicode"\u016D6E";
+        console2.log("016D6E: ", terminalPunctuation178);
+        console2.logBytes(abi.encodePacked(terminalPunctuation178));
+        // loop 78: end
+        string memory terminalPunctuation179 = unicode"\u016D6F";
+        console2.log("016D6F: ", terminalPunctuation179);
+        console2.logBytes(abi.encodePacked(terminalPunctuation179));
+        // loop 79: start
+        string memory terminalPunctuation180 = unicode"\u016E97";
+        console2.log("016E97: ", terminalPunctuation180);
+        console2.logBytes(abi.encodePacked(terminalPunctuation180));
+        // loop 79: end
+        string memory terminalPunctuation181 = unicode"\u016E98";
+        console2.log("016E98: ", terminalPunctuation181);
+        console2.logBytes(abi.encodePacked(terminalPunctuation181));
+        string memory terminalPunctuation182 = unicode"\u01BC9F";
+        console2.log("01BC9F: ", terminalPunctuation182);
+        console2.logBytes(abi.encodePacked(terminalPunctuation182));
+        // loop 80: start
+        string memory terminalPunctuation183 = unicode"\u01DA87";
+        console2.log("01DA87: ", terminalPunctuation183);
+        console2.logBytes(abi.encodePacked(terminalPunctuation183));
+        // loop 80: end
+        string memory terminalPunctuation184 = unicode"\u01DA8A";
+        console2.log("01DA8A: ", terminalPunctuation184);
+        console2.logBytes(abi.encodePacked(terminalPunctuation184));
+        string memory terminalPunctuation185 = unicode"\u2024";
+        console2.log("2024: ", terminalPunctuation185);
+        console2.logBytes(abi.encodePacked(terminalPunctuation185));
+        string memory terminalPunctuation186 = unicode"\u0111CD";
+        console2.log("0111CD: ", terminalPunctuation186);
+        console2.logBytes(abi.encodePacked(terminalPunctuation186));
+        string memory terminalPunctuation187 = unicode"\u011944";
+        console2.log("011944: ", terminalPunctuation187);
+        console2.logBytes(abi.encodePacked(terminalPunctuation187));
+        string memory terminalPunctuation188 = unicode"\u085E";
+        console2.log("085E: ", terminalPunctuation188);
+        console2.logBytes(abi.encodePacked(terminalPunctuation188));
         console2.log("----------------------------------------");
     }
 
