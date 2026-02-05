@@ -2585,6 +2585,13 @@ contract PlayStringTest is Test {
         string memory terminalPunctuation188 = unicode"\u085E";
         console2.log("085E: ", terminalPunctuation188);
         console2.logBytes(abi.encodePacked(terminalPunctuation188));
+
+        // 0001 0001 1001 0100 0100
+        string memory unicodeCodepoint = "\\u{11944}";
+        // string memory unicodeCodepoint = "\\u{20AC}";
+        bytes memory utf8Hex = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unicodeCodepoint));
+        console2.log("utf8Hex: ", string(utf8Hex));
+        console2.logBytes(utf8Hex);
         console2.log("----------------------------------------");
     }
 

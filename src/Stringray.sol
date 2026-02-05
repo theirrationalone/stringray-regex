@@ -2603,35 +2603,100 @@ library Stringray {
         return (false, 0);
     }
 
-    function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure reutrns (bytes memory) {
+    function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
         // _unicodeHex: "\u{XXXXXX}"
-        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex);
+        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, 0);
 
-        if (!flag) {
-            string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _pattern));
+        if (!isValid) {
+            string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _unicodeHex));
             revert(errorMsg);
         }
 
+        console2.log("unicode: ", string(_unicodeHex));
+        console2.logBytes(_unicodeHex);
+        console2.log("---");
+
         bytes memory binary;
         for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
-            bytes memory bin = hexToBinaryWithoutPadding(_unicodeHex[i]);
-            binary = abi.encodePacked(bin, binary);
+            bytes memory bin = interpolatedHexToBinaryWithoutPadding(_unicodeHex[i]);
+            console2.log("bin: ");
+            console2.logBytes(bin);
+            binary = abi.encodePacked(binary, bin);
         }
 
-        if (binary.length <= 8) {
-            return binToHex(binary);
+        console2.log("binary hex: ");
+        console2.logBytes(binary);
+        console2.log("binary: ", string(binary));
+        console2.log("------------------");
 
+        if (binary.length <= 7) {
+            return binToHex(binary);
         } else if (binary.length <= 11) {
             bytes memory lastByte = trimString(binary, binary.length - 6, -1);
             lastByte = abi.encodePacked("10", lastByte);
             bytes memory msbByte = trimString(binary, 0, int256(binary.length - 7));
-            msbByte = msbByte.length % 8 == ;
-            msbByte = abi.encodePacked("110", msbByte);
+            msbByte = msbByte.length % 5 == 4
+                ? abi.encodePacked("1100", msbByte)
+                : msbByte.length % 5 == 3
+                    ? abi.encodePacked("11000", msbByte)
+                    : msbByte.length % 5 == 2
+                        ? abi.encodePacked("110000")
+                        : msbByte.length % 5 == 1
+                            ? abi.encodePacked("1100000", msbByte)
+                            : abi.encodePacked("110", msbByte);
+
+            bytes memory utf8HexBytes = abi.encodePacked(msbByte, lastByte);
+            console2.log("utf8HexBytes: ");
+            console2.logBytes(utf8HexBytes);
+            return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 16) {
-
+            console2.log("yes in 16");
+            bytes memory lastByte = trimString(binary, binary.length - 6, -1);
+            lastByte = abi.encodePacked("10", lastByte);
+            console2.log("lastByte: ", string(lastByte));
+            bytes memory secondLastByte = trimString(binary, binary.length - 12, int256(binary.length - 7));
+            secondLastByte = abi.encodePacked("10", secondLastByte);
+            console2.log("secondLastByte: ", string(secondLastByte));
+            bytes memory msbByte = trimString(binary, 0, int256(binary.length - 13));
+            msbByte = msbByte.length % 4 == 3
+                ? abi.encodePacked("11100", msbByte)
+                : msbByte.length % 4 == 2
+                    ? abi.encodePacked("111000", msbByte)
+                    : msbByte.length % 4 == 1 ? abi.encodePacked("1110000") : abi.encodePacked("1110", msbByte);
+            console2.log("msbByte: ", string(msbByte));
+            bytes memory utf8HexBytes = abi.encodePacked(msbByte, secondLastByte, lastByte);
+            console2.log("utf8HexBytes: ");
+            console2.logBytes(utf8HexBytes);
+            return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 21) {
+            console2.log("yes in 21");
+            bytes memory lastByte = trimString(binary, binary.length - 6, -1);
+            lastByte = abi.encodePacked("10", lastByte);
+            bytes memory secondLastByte = trimString(binary, binary.length - 12, int256(binary.length - 7));
+            secondLastByte = abi.encodePacked("10", secondLastByte);
+            bytes memory thirdLastByte = trimString(binary, binary.length - 18, int256(binary.length - 13));
+            thirdLastByte = abi.encodePacked("10", thirdLastByte);
+            bytes memory msbByte = trimString(binary, 0, int256(binary.length - 19));
+            msbByte = msbByte.length % 3 == 2
+                ? abi.encodePacked("111100", msbByte)
+                : msbByte.length % 3 == 1 ? abi.encodePacked("1111000", msbByte) : abi.encodePacked("11110", msbByte);
 
+            bytes memory utf8HexBytes = abi.encodePacked(msbByte, thirdLastByte, secondLastByte, lastByte);
+            console2.log("utf8HexBytes: ");
+            console2.logBytes(utf8HexBytes);
+            return binaryToUtf8Hex(utf8HexBytes);
         }
+    }
+
+    function binaryToUtf8Hex(bytes memory binary) private pure returns (bytes memory) {
+        bytes memory utf8Hex;
+
+        for (uint256 i = 0; i < binary.length; i += 8) {
+            bytes memory binChunk = trimString(binary, i, int256(i + 7));
+            utf8Hex = abi.encodePacked(utf8Hex, binToHex(binChunk));
+        }
+
+        return utf8Hex;
     }
 
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) internal pure returns (bytes memory) {
@@ -4913,19 +4978,26 @@ library Stringray {
         return binary;
     }
 
-    function hexToBinaryWithoutPadding(bytes1 _hex) private pure returns (bytes memory) {
-        uint8 decimal = uint8(_hex);
-        bytes memory binary = decimalToBinaryAsciiWithoutPadding(decimal);
+    function interpolatedHexToBinaryWithoutPadding(bytes1 _hex) private pure returns (bytes memory) {
+        uint8 decimal = uint8(asciiToDigit(uint8(_hex)));
+        bytes memory binary = decimalToBinaryAscii4BitPadding(decimal);
         return binary;
     }
 
-    function decimalToBinaryAsciiWithoutPadding(uint8 decimal) private pure returns (bytes memory) {
+    function decimalToBinaryAscii4BitPadding(uint8 decimal) private pure returns (bytes memory) {
         console2.log("decccc: ", decimal);
         bytes memory binary;
+        if (decimal == 0) {
+            binary = abi.encodePacked("0");
+        }
+
         while (decimal != 0) {
             binary = decimal % 2 == 0 ? abi.encodePacked("0", binary) : abi.encodePacked("1", binary);
             decimal = decimal >> 1;
         }
+
+        uint256 bl = binary.length;
+        binary = abi.encodePacked(bl % 4 == 1 ? "000" : bl % 4 == 2 ? "00" : bl % 4 == 3 ? "0" : "", binary);
 
         console2.logBytes(binary);
         console2.log("---");
@@ -4987,6 +5059,24 @@ library Stringray {
         }
         if (_asciiCode == uint8(abi.encodePacked("9")[0])) {
             return 9;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("A")[0]) || _asciiCode == uint8(abi.encodePacked("a")[0])) {
+            return 10;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("B")[0]) || _asciiCode == uint8(abi.encodePacked("b")[0])) {
+            return 11;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("C")[0]) || _asciiCode == uint8(abi.encodePacked("c")[0])) {
+            return 12;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("D")[0]) || _asciiCode == uint8(abi.encodePacked("d")[0])) {
+            return 13;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("E")[0]) || _asciiCode == uint8(abi.encodePacked("e")[0])) {
+            return 14;
+        }
+        if (_asciiCode == uint8(abi.encodePacked("F")[0]) || _asciiCode == uint8(abi.encodePacked("f")[0])) {
+            return 15;
         }
         return type(uint256).max;
     }
