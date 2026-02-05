@@ -1914,6 +1914,27 @@ library Stringray {
         }
     }
 
+    function isPropertyTerminalPunctuation(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // 0x 21
+        if (_pattern[_currentParticleIndex] == 0x21) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x 2c
+        if (_pattern[_currentParticleIndex] == 0x2c) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x 2e
+        if (_pattern[_currentParticleIndex] == 0x2e) {
+            return (true, _currentParticleIndex);
+        }
+    }
+
     function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure

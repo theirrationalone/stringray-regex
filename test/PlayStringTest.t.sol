@@ -1872,6 +1872,18 @@ contract PlayStringTest is Test {
         string memory quotationMark30 = unicode"\uFF63";
         console2.log("FF63: ", quotationMark30);
         console2.logBytes(abi.encodePacked(quotationMark30));
+        console2.log(
+            "----------------------------------------------------Terminal_Punctuation----------------------------------------------------"
+        );
+        string memory terminalPunctuation = unicode"\u0021";
+        console2.log("0021: ", terminalPunctuation);
+        console2.logBytes(abi.encodePacked(terminalPunctuation));
+        string memory terminalPunctuation2 = unicode"\u002c";
+        console2.log("002c: ", terminalPunctuation2);
+        console2.logBytes(abi.encodePacked(terminalPunctuation2));
+        string memory terminalPunctuation3 = unicode"\u002e";
+        console2.log("002e: ", terminalPunctuation3);
+        console2.logBytes(abi.encodePacked(terminalPunctuation3));
         console2.log("----------------------------------------");
     }
 
