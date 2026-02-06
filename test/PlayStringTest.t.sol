@@ -1632,7 +1632,7 @@ contract PlayStringTest is Test {
         console2.log(string(abi.encodePacked("111", temp)));
         bytes memory someHex = abi.encodePacked(hex"010EAD");
         console2.logBytes(someHex);
-        uint256 dec = Stringray.hexToDec(someHex);
+        uint256 dec = Stringray.hexToDec(someHex, 8, false);
         console2.log("decimal: ", dec);
 
         if (0x88 >= 0x80 && 0x88 <= 0x8a) {
@@ -2586,12 +2586,19 @@ contract PlayStringTest is Test {
         console2.log("085E: ", terminalPunctuation188);
         console2.logBytes(abi.encodePacked(terminalPunctuation188));
 
-        // 0001 0001 1001 0100 0100
-        string memory unicodeCodepoint = "\\u{11944}";
+        console2.log("------------unicodeHexToUtf8Hex------------");
         // string memory unicodeCodepoint = "\\u{20AC}";
+        string memory unicodeCodepoint = "\\u{010EAD}";
         bytes memory utf8Hex = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unicodeCodepoint));
         console2.log("utf8Hex: ", string(utf8Hex));
         console2.logBytes(utf8Hex);
+        console2.log("-----------------------");
+        console2.log("------------hexToDec------------");
+        bytes memory someHex = abi.encodePacked(hex"010EAD");
+        console2.logBytes(someHex);
+        uint256 dec = Stringray.hexToDec(someHex, 8, false);
+        console2.log("decimal: ", dec);
+        console2.log("-----------------------");
         console2.log("----------------------------------------");
     }
 

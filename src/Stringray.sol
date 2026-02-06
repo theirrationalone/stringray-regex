@@ -1291,7 +1291,7 @@ library Stringray {
                         if (flag) {
                             bytes memory unicodeHex =
                                 utf8HexToUnicodeHex(trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex)));
-                            leftAtomDecimal = hexToDec(unicodeHex);
+                            leftAtomDecimal = hexToDec(unicodeHex, 8, false);
                         } else {
                             leftAtomDecimal = uint8(_pattern[i - 1]);
                         }
@@ -1315,7 +1315,7 @@ library Stringray {
                         if (flag) {
                             bytes memory unicodeHex =
                                 utf8HexToUnicodeHex(trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex)));
-                            rightAtomDecimal = hexToDec(unicodeHex);
+                            rightAtomDecimal = hexToDec(unicodeHex, 8, false);
                         } else {
                             rightAtomDecimal = uint8(_pattern[i + 1]);
                         }
@@ -2618,10 +2618,19 @@ library Stringray {
 
         bytes memory binary;
         for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
-            bytes memory bin = interpolatedHexToBinaryWithoutPadding(_unicodeHex[i]);
+            bytes memory bin = hexToBinary(_unicodeHex[i], 4, true);
             console2.log("bin: ");
             console2.logBytes(bin);
             binary = abi.encodePacked(binary, bin);
+        }
+
+        uint256 i;
+        while (true) {
+            if (binary[i] == 0x30) {
+                binary = trimString(binary, i + 1, -1);
+            } else {
+                break;
+            }
         }
 
         console2.log("binary hex: ");
@@ -2640,7 +2649,7 @@ library Stringray {
                 : msbByte.length % 5 == 3
                     ? abi.encodePacked("11000", msbByte)
                     : msbByte.length % 5 == 2
-                        ? abi.encodePacked("110000")
+                        ? abi.encodePacked("110000", msbByte)
                         : msbByte.length % 5 == 1
                             ? abi.encodePacked("1100000", msbByte)
                             : abi.encodePacked("110", msbByte);
@@ -2651,6 +2660,9 @@ library Stringray {
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 16) {
             console2.log("yes in 16");
+            if (binary.length < 13) {
+                binary = abi.encodePacked("0", binary);
+            }
             bytes memory lastByte = trimString(binary, binary.length - 6, -1);
             lastByte = abi.encodePacked("10", lastByte);
             console2.log("lastByte: ", string(lastByte));
@@ -2670,6 +2682,11 @@ library Stringray {
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 21) {
             console2.log("yes in 21");
+            if (binary.length == 17) {
+                binary = abi.encodePacked("00", binary);
+            } else if (binary.length == 18) {
+                binary = abi.encodePacked("0", binary);
+            }
             bytes memory lastByte = trimString(binary, binary.length - 6, -1);
             lastByte = abi.encodePacked("10", lastByte);
             bytes memory secondLastByte = trimString(binary, binary.length - 12, int256(binary.length - 7));
@@ -4507,7 +4524,7 @@ library Stringray {
                         && isHexadecimal(uint8(_pattern[_indexToStartFrom + 8]))
                 ) {
                     bytes memory hexString = trimString(_pattern, _indexToStartFrom + 3, int256(_indexToStartFrom + 8));
-                    uint256 decValue = hexToDec(hexString);
+                    uint256 decValue = hexToDec(hexString, 4, true);
                     console2.log("decimal of hexString: ", string(hexString), " is: ", decValue);
 
                     if (decValue <= 1114111) {
@@ -4946,12 +4963,12 @@ library Stringray {
         return (false, 0);
     }
 
-    function hexToDec(bytes memory _hexString) internal pure returns (uint256) {
+    function hexToDec(bytes memory _hexString, uint8 numBits, bool isInterpolated) internal pure returns (uint256) {
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
 
         for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
-            bytes memory binary = hexToBinary(_hexString[hi]);
+            bytes memory binary = hexToBinary(_hexString[hi], numBits, isInterpolated);
             hexFullBinary = abi.encodePacked(binary, hexFullBinary);
             if (hi == 0) break;
         }
@@ -4972,22 +4989,26 @@ library Stringray {
         return decimal;
     }
 
-    function hexToBinary(bytes1 _hex) private pure returns (bytes memory) {
-        uint8 decimal = uint8(_hex);
-        bytes memory binary = decimalToBinaryAscii(decimal);
+    function hexToBinary(bytes1 _hex, uint8 numBits, bool isInterpolated) private pure returns (bytes memory) {
+        uint8 decimal;
+        if (isInterpolated) {
+            decimal = uint8(asciiToDigit(uint8(_hex)));
+        } else {
+            decimal = uint8(_hex);
+        }
+
+        bytes memory binary = decimalToBinaryAscii(decimal, numBits, isInterpolated);
         return binary;
     }
 
-    function interpolatedHexToBinaryWithoutPadding(bytes1 _hex) private pure returns (bytes memory) {
-        uint8 decimal = uint8(asciiToDigit(uint8(_hex)));
-        bytes memory binary = decimalToBinaryAscii4BitPadding(decimal);
-        return binary;
-    }
-
-    function decimalToBinaryAscii4BitPadding(uint8 decimal) private pure returns (bytes memory) {
+    function decimalToBinaryAscii(uint8 decimal, uint8 numBits, bool isInterpolated)
+        private
+        pure
+        returns (bytes memory)
+    {
         console2.log("decccc: ", decimal);
         bytes memory binary;
-        if (decimal == 0) {
+        if (decimal == 0 && isInterpolated) {
             binary = abi.encodePacked("0");
         }
 
@@ -4997,32 +5018,23 @@ library Stringray {
         }
 
         uint256 bl = binary.length;
-        binary = abi.encodePacked(bl % 4 == 1 ? "000" : bl % 4 == 2 ? "00" : bl % 4 == 3 ? "0" : "", binary);
 
-        console2.logBytes(binary);
-        console2.log("---");
-        return binary;
-    }
-
-    function decimalToBinaryAscii(uint8 decimal) private pure returns (bytes memory) {
-        console2.log("decccc: ", decimal);
-        bytes memory binary;
-        while (decimal != 0) {
-            binary = decimal % 2 == 0 ? abi.encodePacked("0", binary) : abi.encodePacked("1", binary);
-            decimal = decimal >> 1;
+        if (numBits == 8) {
+            binary = abi.encodePacked(
+                bl % 8 == 1
+                    ? "0000000"
+                    : bl % 8 == 2
+                        ? "000000"
+                        : bl % 8 == 3
+                            ? "00000"
+                            : bl % 8 == 4 ? "0000" : bl % 8 == 5 ? "000" : bl % 8 == 6 ? "00" : bl % 8 == 7 ? "0" : "",
+                binary
+            );
+        } else if (numBits == 4) {
+            binary = abi.encodePacked(
+                bl % numBits == 1 ? "000" : bl % numBits == 2 ? "00" : bl % numBits == 3 ? "0" : "", binary
+            );
         }
-
-        uint256 bl = binary.length;
-        binary = abi.encodePacked(
-            bl % 8 == 1
-                ? "0000000"
-                : bl % 8 == 2
-                    ? "000000"
-                    : bl % 8 == 3
-                        ? "00000"
-                        : bl % 8 == 4 ? "0000" : bl % 8 == 5 ? "000" : bl % 8 == 6 ? "00" : bl % 8 == 7 ? "0" : "",
-            binary
-        );
 
         console2.logBytes(binary);
         console2.log("---");
