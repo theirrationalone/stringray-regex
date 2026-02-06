@@ -1933,6 +1933,30 @@ library Stringray {
         if (_pattern[_currentParticleIndex] == 0x2e) {
             return (true, _currentParticleIndex);
         }
+
+        // 0x 3a
+        if (_pattern[_currentParticleIndex] == 0x3a) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x 3b
+        if (_pattern[_currentParticleIndex] == 0x3b) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x 3f
+        if (_pattern[_currentParticleIndex] == 0x3f) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 0x cd be
+        if (_pattern[_currentParticleIndex] == 0xcd) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xbe) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
     }
 
     function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
