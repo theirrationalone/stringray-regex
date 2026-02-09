@@ -1949,7 +1949,7 @@ library Stringray {
             return (true, _currentParticleIndex);
         }
 
-        // 0x cd be
+        // 037E: 0x cd be
         if (_pattern[_currentParticleIndex] == 0xcd) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0xbe) {
@@ -1957,6 +1957,358 @@ library Stringray {
                 }
             }
         }
+
+        // 0387: 0x ce 87
+        if (_pattern[_currentParticleIndex] == 0xce) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x87) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0589: 0x d6 89
+        if (_pattern[_currentParticleIndex] == 0xd6) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x89) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 05C3: 0x d7 83
+        if (_pattern[_currentParticleIndex] == 0xd7) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x83) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 060C: 0x d8 8c
+        // 061B: 0x d8 9b
+        // 061D: 0x d8 9d ... 061F: 0x d8 9f
+        if (_pattern[_currentParticleIndex] == 0xd8) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (
+                    _pattern[_currentParticleIndex + 1] == 0x8c || _pattern[_currentParticleIndex + 1] == 0x9b
+                        || (_pattern[_currentParticleIndex + 1] >= 0x9d && _pattern[_currentParticleIndex + 1] <= 0x9f)
+                ) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 06D4: 0x db 94
+        if (_pattern[_currentParticleIndex] == 0xdb) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x94) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0700: 0x dc 80
+        // 070A: 0x dc 8a
+        // 070C: 0x dc 8c
+        if (_pattern[_currentParticleIndex] == 0xdc) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (
+                    (_pattern[_currentParticleIndex + 1] >= 0x80 && _pattern[_currentParticleIndex + 1] <= 0x8a)
+                        || _pattern[_currentParticleIndex + 1] >= 0x8c
+                ) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 07F8: 0x df b8
+        // 07F9: 0x df b9
+        if (_pattern[_currentParticleIndex] == 0xdf) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] >= 0xb8 || _pattern[_currentParticleIndex + 1] >= 0xb9) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 0830: 0x e0 a0 b0 ... 0835: 0x e0 a0 b5
+        // 0837: 0x e0 a0 b7 ... 083E: 0x e0 a0 be
+        // 085E: 0x e0 a1 9e
+        // 0964: 0x e0 a5 a4 ... 0965: 0x e0 a5 a5
+        // 0E5A: 0x e0 b9 9a ... 0E5B: 0x e0 b9 9b
+        // 0F08: 0x e0 bc 88
+        // 0F0D: 0x e0 bc 8d ... 0F12: 0x e0 bc 92
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            (_pattern[_currentParticleIndex + 2] >= 0xb0 && _pattern[_currentParticleIndex + 2] <= 0xb5)
+                                || (_pattern[_currentParticleIndex + 2] >= 0xb7
+                                    && _pattern[_currentParticleIndex + 2] <= 0xbe)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xa1) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9e) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xa5) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa4 || _pattern[_currentParticleIndex + 2] == 0xa5)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9a || _pattern[_currentParticleIndex + 2] == 0x9b)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x88) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x8d && _pattern[_currentParticleIndex + 2] <= 0x92)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 104A: 0x e1 81 8a ... 104B: 0x e1 81 8b
+        // 1361: 0x e1 8d a1 ... 1368: 0x e1 8d a8
+        // 166E: 0x e1 99 ae
+        // 16EB: 0x e1 9b ab ... 16ED: 0x e1 9b ad
+        // 1735: 0x e1 9c b5 ... 1736: 0x e1 9c b6
+        // 17D4: 0x e1 9f 94 ... 17D6: 0x e1 9f 96
+        // 17DA: 0x e1 9f 9a
+        // 1802: 0x e1 a0 82 ... 1805: 0x e1 a0 85
+        // 1808: 0x e1 a0 88 ... 1809: 0x e1 a0 89
+        // 1944: 0x e1 a5 84 ... 1945: 0x e1 a5 85
+        // 1AA8: 0x e1 aa a8 ... 1AAB: 0x e1 aa ab
+        // 1B4E: 0x e1 ad 8e
+        // 1B4F: 0x e1 ad 8f
+        // 1B5A: 0x e1 ad 9a
+        // 1B5B: 0x e1 ad 9b
+        // 1B5D: 0x e1 ad 9d
+        // 1B5F: 0x e1 ad 9f
+        // 1B7D: 0x e1 ad bd
+        // 1B7F: 0x e1 ad bf
+        // 1C3B: 0x e1 b0 bb
+        // 1C3F: 0x e1 b0 bf
+        // 1C7E: 0x e1 b1 be
+        // 1C7F: 0x e1 b1 bf
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            (_pattern[_currentParticleIndex + 2] >= 0xb0 && _pattern[_currentParticleIndex + 2] <= 0xb5)
+                                || (_pattern[_currentParticleIndex + 2] >= 0xb7
+                                    && _pattern[_currentParticleIndex + 2] <= 0xbe)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xa1) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9e) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xa5) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa4 || _pattern[_currentParticleIndex + 2] == 0xa5)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9a || _pattern[_currentParticleIndex + 2] == 0x9b)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x88) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x8d && _pattern[_currentParticleIndex + 2] <= 0x92)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 2024: 0x e2 80 a4
+        // 203C: 0x e2 80 bc
+        // 203D: 0x e2 80 bd
+        // 2047: 0x e2 81 87
+        // 2049: 0x e2 81 89
+        // 2CF9: 0x e2 b3 b9
+        // 2CFB: 0x e2 b3 bb
+        // 2E2E: 0x e2 b8 ae
+        // 2E3C: 0x e2 b8 bc
+        // 2E41: 0x e2 b9 81
+        // 2E4C: 0x e2 b9 8c
+        // 2E4E: 0x e2 b9 8e
+        // 2E4F: 0x e2 b9 8f
+        // 2E53: 0x e2 b9 93
+        // 2E54: 0x e2 b9 94
+
+        // 3001: 0x e3 80 81
+        // 3002: 0x e3 80 82
+
+        // A4FE: 0x ea 93 be
+        // A4FF: 0x ea 93 bf
+        // A60D: 0x ea 98 8d
+        // A60F: 0x ea 98 8f
+        // A6F3: 0x ea 9b b3
+        // A6F7: 0x ea 9b b7
+        // A876: 0x ea a1 b6
+        // A877: 0x ea a1 b7
+        // A8CE: 0x ea a3 8e
+        // A8CF: 0x ea a3 8f
+        // A92F: 0x ea a4 af
+        // A9C7: 0x ea a7 87
+        // A9C9: 0x ea a7 89
+        // AA5D: 0x ea a9 9d
+        // AA5F: 0x ea a9 9f
+        // AADF: 0x ea ab 9f
+        // AAF0: 0x ea ab b0
+        // AAF1: 0x ea ab b1
+        // ABEB: 0x ea af ab
+
+        // FE12: 0x ef b8 92
+        // FE15: 0x ef b8 95
+        // FE16: 0x ef b8 96
+        // FE50: 0x ef b9 90
+        // FE52: 0x ef b9 92
+        // FE54: 0x ef b9 94
+        // FE57: 0x ef b9 97
+        // FF01: 0x ef bc 81
+        // FF0C: 0x ef bc 8c
+        // FF0E: 0x ef bc 8e
+        // FF1A: 0x ef bc 9a
+        // FF1B: 0x ef bc 9b
+        // FF1F: 0x ef bc 9f
+        // FF61: 0x ef bd a1
+        // FF64: 0x ef bd a4
+
+        // 1039F: 0x f0 90 8e 9f
+        // 103D0: 0x f0 90 8f 90
+        // 10857: 0x f0 90 a1 97
+        // 1091F: 0x f0 90 a4 9f
+        // 10A56: 0x f0 90 a9 96
+        // 10A57: 0x f0 90 a9 97
+        // 10AF0: 0x f0 90 ab b0
+        // 10AF5: 0x f0 90 ab b5
+        // 10B3A: 0x f0 90 ac ba
+        // 10B3F: 0x f0 90 ac bf
+        // 10B99: 0x f0 90 ae 99
+        // 10B9C: 0x f0 90 ae 9c
+        // 10F55: 0x f0 90 bd 95
+        // 10F59: 0x f0 90 bd 99
+        // 10F86: 0x f0 90 be 86
+        // 10F89: 0x f0 90 be 89
+        // 11047: 0x f0 91 81 87
+        // 1104D: 0x f0 91 81 8d
+        // 110BE: 0x f0 91 82 be
+        // 110C1: 0x f0 91 83 81
+        // 11141: 0x f0 91 85 81
+        // 11143: 0x f0 91 85 83
+        // 111C5: 0x f0 91 87 85
+        // 111C6: 0x f0 91 87 86
+        // 111DE: 0x f0 91 87 9e
+        // 111DF: 0x f0 91 87 9f
+        // 11238: 0x f0 91 88 b8
+        // 1123C: 0x f0 91 88 bc
+        // 112A9: 0x f0 91 8a a9
+        // 113D4: 0x f0 91 8f 94
+        // 113D5: 0x f0 91 8f 95
+        // 1144B: 0x f0 91 91 8b
+        // 1144D: 0x f0 91 91 8d
+        // 1145A: 0x f0 91 91 9a
+        // 1145B: 0x f0 91 91 9b
+        // 115C2: 0x f0 91 97 82
+        // 115C5: 0x f0 91 97 85
+        // 115C9: 0x f0 91 97 89
+        // 115D7: 0x f0 91 97 97
+        // 11641: 0x f0 91 99 81
+        // 11642: 0x f0 91 99 82
+        // 1173C: 0x f0 91 9c bc
+        // 1173E: 0x f0 91 9c be
+        // 11946: 0x f0 91 a5 86
+        // 11A42: 0x f0 91 a9 82
+        // 11A43: 0x f0 91 a9 83
+        // 11A9B: 0x f0 91 aa 9b
+        // 11A9C: 0x f0 91 aa 9c
+        // 11AA1: 0x f0 91 aa a1
+        // 11AA2: 0x f0 91 aa a2
+        // 11C41: 0x f0 91 b1 81
+        // 11C43: 0x f0 91 b1 83
+        // 11C71: 0x f0 91 b1 b1
+        // 11EF7: 0x f0 91 bb b7
+        // 11EF8: 0x f0 91 bb b8
+        // 11F43: 0x f0 91 bd 83
+        // 11F44: 0x f0 91 bd 84
+        // 12470: 0x f0 92 91 b0
+        // 12474: 0x f0 92 91 b4
+        // 16A6E: 0x f0 96 a9 ae
+        // 16A6F: 0x f0 96 a9 af
+        // 16AF5: 0x f0 96 ab b5
+        // 16B37: 0x f0 96 ac b7
+        // 16B39: 0x f0 96 ac b9
+        // 16B44: 0x f0 96 ad 84
+        // 16D6E: 0x f0 96 b5 ae
+        // 16D6F: 0x f0 96 b5 af
+        // 16E97: 0x f0 96 ba 97
+        // 16E98: 0x f0 96 ba 98
+        // 1BC9F: 0x f0 9b b2 9f
+        // 1DA87: 0x f0 9d aa 87
+        // 1DA8A: 0x f0 9d aa 8a
+        // 111CD: 0x f0 91 87 8d
+        // 11944: 0x f0 91 a5 84
     }
 
     function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2636,15 +2988,9 @@ library Stringray {
             revert(errorMsg);
         }
 
-        console2.log("unicode: ", string(_unicodeHex));
-        console2.logBytes(_unicodeHex);
-        console2.log("---");
-
         bytes memory binary;
         for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
             bytes memory bin = hexToBinary(_unicodeHex[i], 4, true);
-            console2.log("bin: ");
-            console2.logBytes(bin);
             binary = abi.encodePacked(binary, bin);
         }
 
@@ -2656,11 +3002,6 @@ library Stringray {
                 break;
             }
         }
-
-        console2.log("binary hex: ");
-        console2.logBytes(binary);
-        console2.log("binary: ", string(binary));
-        console2.log("------------------");
 
         if (binary.length <= 7) {
             return binToHex(binary);
@@ -2679,33 +3020,24 @@ library Stringray {
                             : abi.encodePacked("110", msbByte);
 
             bytes memory utf8HexBytes = abi.encodePacked(msbByte, lastByte);
-            console2.log("utf8HexBytes: ");
-            console2.logBytes(utf8HexBytes);
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 16) {
-            console2.log("yes in 16");
             if (binary.length < 13) {
                 binary = abi.encodePacked("0", binary);
             }
             bytes memory lastByte = trimString(binary, binary.length - 6, -1);
             lastByte = abi.encodePacked("10", lastByte);
-            console2.log("lastByte: ", string(lastByte));
             bytes memory secondLastByte = trimString(binary, binary.length - 12, int256(binary.length - 7));
             secondLastByte = abi.encodePacked("10", secondLastByte);
-            console2.log("secondLastByte: ", string(secondLastByte));
             bytes memory msbByte = trimString(binary, 0, int256(binary.length - 13));
             msbByte = msbByte.length % 4 == 3
                 ? abi.encodePacked("11100", msbByte)
                 : msbByte.length % 4 == 2
                     ? abi.encodePacked("111000", msbByte)
                     : msbByte.length % 4 == 1 ? abi.encodePacked("1110000") : abi.encodePacked("1110", msbByte);
-            console2.log("msbByte: ", string(msbByte));
             bytes memory utf8HexBytes = abi.encodePacked(msbByte, secondLastByte, lastByte);
-            console2.log("utf8HexBytes: ");
-            console2.logBytes(utf8HexBytes);
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 21) {
-            console2.log("yes in 21");
             if (binary.length == 17) {
                 binary = abi.encodePacked("00", binary);
             } else if (binary.length == 18) {
@@ -2723,8 +3055,6 @@ library Stringray {
                 : msbByte.length % 3 == 1 ? abi.encodePacked("1111000", msbByte) : abi.encodePacked("11110", msbByte);
 
             bytes memory utf8HexBytes = abi.encodePacked(msbByte, thirdLastByte, secondLastByte, lastByte);
-            console2.log("utf8HexBytes: ");
-            console2.logBytes(utf8HexBytes);
             return binaryToUtf8Hex(utf8HexBytes);
         }
     }
@@ -4549,7 +4879,6 @@ library Stringray {
                 ) {
                     bytes memory hexString = trimString(_pattern, _indexToStartFrom + 3, int256(_indexToStartFrom + 8));
                     uint256 decValue = hexToDec(hexString, 4, true);
-                    console2.log("decimal of hexString: ", string(hexString), " is: ", decValue);
 
                     if (decValue <= 1114111) {
                         return (true, _indexToStartFrom + 9);
@@ -5030,7 +5359,6 @@ library Stringray {
         pure
         returns (bytes memory)
     {
-        console2.log("decccc: ", decimal);
         bytes memory binary;
         if (decimal == 0 && isInterpolated) {
             binary = abi.encodePacked("0");
@@ -5060,8 +5388,6 @@ library Stringray {
             );
         }
 
-        console2.logBytes(binary);
-        console2.log("---");
         return binary;
     }
 
@@ -5149,12 +5475,12 @@ library Stringray {
             return false;
         }
 
-        console2.log("---In findPatternStringInRangeBounds---");
-        console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
-        console2.log("targetChar ascii code: ", uint8(_targetChar));
-        console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
-        console2.log("upperBoundUnicode: ", upperBoundUnicode);
-        console2.log("---");
+        // console2.log("---In findPatternStringInRangeBounds---");
+        // console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
+        // console2.log("targetChar ascii code: ", uint8(_targetChar));
+        // console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
+        // console2.log("upperBoundUnicode: ", upperBoundUnicode);
+        // console2.log("---");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;
