@@ -2494,39 +2494,6 @@ library Stringray {
         // 10B99: 0x f0 90 ae 99 ... 10B9C: 0x f0 90 ae 9c
         // 10F55: 0x f0 90 bd 95 ... 10F59: 0x f0 90 bd 99
         // 10F86: 0x f0 90 be 86 ... 10F89: 0x f0 90 be 89
-        // 11047: 0x f0 91 81 87 ... 1104D: 0x f0 91 81 8d
-        // 110BE: 0x f0 91 82 be ... 110C1: 0x f0 91 83 81 (0x f0 91 82 be, 0x f0 91 82 bf, 0x f0 91 83 80, 0x f0 91 83 81)
-        // 11141: 0x f0 91 85 81 ... 11143: 0x f0 91 85 83
-        // 111C5: 0x f0 91 87 85 ... 111C6: 0x f0 91 87 86
-        // 111CD: 0x f0 91 87 8d
-        // 111DE: 0x f0 91 87 9e ... 111DF: 0x f0 91 87 9f
-        // 11238: 0x f0 91 88 b8 ... 1123C: 0x f0 91 88 bc
-        // 112A9: 0x f0 91 8a a9
-        // 113D4: 0x f0 91 8f 94 ... 113D5: 0x f0 91 8f 95
-        // 1144B: 0x f0 91 91 8b ... 1144D: 0x f0 91 91 8d
-        // 1145A: 0x f0 91 91 9a ... 1145B: 0x f0 91 91 9b
-        // 115C2: 0x f0 91 97 82 ... 115C5: 0x f0 91 97 85
-        // 115C9: 0x f0 91 97 89 ... 115D7: 0x f0 91 97 97
-        // 11641: 0x f0 91 99 81 ... 11642: 0x f0 91 99 82
-        // 1173C: 0x f0 91 9c bc ... 1173E: 0x f0 91 9c be
-        // 11944: 0x f0 91 a5 84
-        // 11946: 0x f0 91 a5 86
-        // 11A42: 0x f0 91 a9 82 ... 11A43: 0x f0 91 a9 83
-        // 11A9B: 0x f0 91 aa 9b ... 11A9C: 0x f0 91 aa 9c
-        // 11AA1: 0x f0 91 aa a1 ... 11AA2: 0x f0 91 aa a2
-        // 11C41: 0x f0 91 b1 81 ... 11C43: 0x f0 91 b1 83
-        // 11C71: 0x f0 91 b1 b1
-        // 11EF7: 0x f0 91 bb b7 ... 11EF8: 0x f0 91 bb b8
-        // 11F43: 0x f0 91 bd 83 ... 11F44: 0x f0 91 bd 84
-        // 12470: 0x f0 92 91 b0 ... 12474: 0x f0 92 91 b4
-        // 16A6E: 0x f0 96 a9 ae ... 16A6F: 0x f0 96 a9 af
-        // 16AF5: 0x f0 96 ab b5
-        // 16B37: 0x f0 96 ac b7 ... 16B39: 0x f0 96 ac b9
-        // 16B44: 0x f0 96 ad 84
-        // 16D6E: 0x f0 96 b5 ae ... 16D6F: 0x f0 96 b5 af
-        // 16E97: 0x f0 96 ba 97 ... 16E98: 0x f0 96 ba 98
-        // 1BC9F: 0x f0 9b b2 9f
-        // 1DA87: 0x f0 9d aa 87 ... 1DA8A: 0x f0 9d aa 8a
         if (_pattern[_currentParticleIndex] == 0xf0) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0x90) {
@@ -2630,6 +2597,30 @@ library Stringray {
                     }
                 }
 
+                // 11047: 0x f0 91 81 87 ... 1104D: 0x f0 91 81 8d
+                // 110BE: 0x f0 91 82 be ... 110C1: 0x f0 91 83 81 (0x f0 91 82 be, 0x f0 91 82 bf, 0x f0 91 83 80, 0x f0 91 83 81)
+                // 11141: 0x f0 91 85 81 ... 11143: 0x f0 91 85 83
+                // 111C5: 0x f0 91 87 85 ... 111C6: 0x f0 91 87 86
+                // 111CD: 0x f0 91 87 8d
+                // 111DE: 0x f0 91 87 9e ... 111DF: 0x f0 91 87 9f
+                // 11238: 0x f0 91 88 b8 ... 1123C: 0x f0 91 88 bc
+                // 112A9: 0x f0 91 8a a9
+                // 113D4: 0x f0 91 8f 94 ... 113D5: 0x f0 91 8f 95
+                // 1144B: 0x f0 91 91 8b ... 1144D: 0x f0 91 91 8d
+                // 1145A: 0x f0 91 91 9a ... 1145B: 0x f0 91 91 9b
+                // 115C2: 0x f0 91 97 82 ... 115C5: 0x f0 91 97 85
+                // 115C9: 0x f0 91 97 89 ... 115D7: 0x f0 91 97 97
+                // 11641: 0x f0 91 99 81 ... 11642: 0x f0 91 99 82
+                // 1173C: 0x f0 91 9c bc ... 1173E: 0x f0 91 9c be
+                // 11944: 0x f0 91 a5 84
+                // 11946: 0x f0 91 a5 86
+                // 11A42: 0x f0 91 a9 82 ... 11A43: 0x f0 91 a9 83
+                // 11A9B: 0x f0 91 aa 9b ... 11A9C: 0x f0 91 aa 9c
+                // 11AA1: 0x f0 91 aa a1 ... 11AA2: 0x f0 91 aa a2
+                // 11C41: 0x f0 91 b1 81 ... 11C43: 0x f0 91 b1 83
+                // 11C71: 0x f0 91 b1 b1
+                // 11EF7: 0x f0 91 bb b7 ... 11EF8: 0x f0 91 bb b8
+                // 11F43: 0x f0 91 bd 83 ... 11F44: 0x f0 91 bd 84
                 if (_pattern[_currentParticleIndex + 1] == 0x91) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
                         if (_pattern[_currentParticleIndex + 2] == 0x81) {
@@ -2850,6 +2841,7 @@ library Stringray {
                     }
                 }
 
+                // 12470: 0x f0 92 91 b0 ... 12474: 0x f0 92 91 b4
                 if (_pattern[_currentParticleIndex + 1] == 0x92) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
                         if (_pattern[_currentParticleIndex + 2] == 0x91) {
@@ -2865,6 +2857,12 @@ library Stringray {
                     }
                 }
 
+                // 16A6E: 0x f0 96 a9 ae ... 16A6F: 0x f0 96 a9 af
+                // 16AF5: 0x f0 96 ab b5
+                // 16B37: 0x f0 96 ac b7 ... 16B39: 0x f0 96 ac b9
+                // 16B44: 0x f0 96 ad 84
+                // 16D6E: 0x f0 96 b5 ae ... 16D6F: 0x f0 96 b5 af
+                // 16E97: 0x f0 96 ba 97 ... 16E98: 0x f0 96 ba 98
                 if (_pattern[_currentParticleIndex + 1] == 0x96) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
                         if (_pattern[_currentParticleIndex + 2] == 0xa9) {
@@ -2929,6 +2927,7 @@ library Stringray {
                     }
                 }
 
+                // 1BC9F: 0x f0 9b b2 9f
                 if (_pattern[_currentParticleIndex + 1] == 0x9b) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
                         if (_pattern[_currentParticleIndex + 2] == 0xb2) {
@@ -2941,6 +2940,7 @@ library Stringray {
                     }
                 }
 
+                // 1DA87: 0x f0 9d aa 87 ... 1DA8A: 0x f0 9d aa 8a
                 if (_pattern[_currentParticleIndex + 1] == 0x9d) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
                         if (_pattern[_currentParticleIndex + 2] == 0xaa) {
