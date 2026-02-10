@@ -2830,6 +2830,1313 @@ contract PlayStringTest is Test {
         console2.log("----------------------------------------");
     }
 
+    function testRegexPropertyOtherMath() public pure {
+        string memory otherMath = "\\u{005e}";
+        bytes memory utf8OtherMath = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath));
+        console2.log("005e: ", string(utf8OtherMath));
+        console2.logBytes(utf8OtherMath);
+
+        string memory otherMath2 = "\\u{03d0}";
+        bytes memory utf8OtherMath2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath2));
+        console2.log("03d0: ", string(utf8OtherMath2));
+        console2.logBytes(utf8OtherMath2);
+
+        string memory otherMath3 = "\\u{03d2}";
+        bytes memory utf8OtherMath3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath3));
+        console2.log("03d2: ", string(utf8OtherMath3));
+        console2.logBytes(utf8OtherMath3);
+
+        string memory otherMath4 = "\\u{03d5}";
+        bytes memory utf8OtherMath4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath4));
+        console2.log("03d5: ", string(utf8OtherMath4));
+        console2.logBytes(utf8OtherMath4);
+
+        string memory otherMath5 = "\\u{03F0}";
+        bytes memory utf8OtherMath5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath5));
+        console2.log("03F0: ", string(utf8OtherMath5));
+        console2.logBytes(utf8OtherMath5);
+
+        string memory otherMath6 = "\\u{03F1}";
+        bytes memory utf8OtherMath6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath6));
+        console2.log("03F1: ", string(utf8OtherMath6));
+        console2.logBytes(utf8OtherMath6);
+
+        string memory otherMath7 = "\\u{03F4}";
+        bytes memory utf8OtherMath7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath7));
+        console2.log("03F4: ", string(utf8OtherMath7));
+        console2.logBytes(utf8OtherMath7);
+
+        string memory otherMath7a = "\\u{03F5}";
+        bytes memory utf8OtherMath7a = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath7a));
+        console2.log("03F5: ", string(utf8OtherMath7a));
+        console2.logBytes(utf8OtherMath7a);
+
+        string memory otherMath7b = "\\u{2016}";
+        bytes memory utf8OtherMath7b = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath7b));
+        console2.log("2016: ", string(utf8OtherMath7b));
+        console2.logBytes(utf8OtherMath7b);
+
+        string memory otherMath8 = "\\u{2032}";
+        bytes memory utf8OtherMath8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath8));
+        console2.log("2032: ", string(utf8OtherMath8));
+        console2.logBytes(utf8OtherMath8);
+
+        string memory otherMath9 = "\\u{2034}";
+        bytes memory utf8OtherMath9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath9));
+        console2.log("2034: ", string(utf8OtherMath9));
+        console2.logBytes(utf8OtherMath9);
+
+        string memory otherMath10 = "\\u{2040}";
+        bytes memory utf8OtherMath10 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath10));
+        console2.log("2040: ", string(utf8OtherMath10));
+        console2.logBytes(utf8OtherMath10);
+
+        string memory otherMath11 = "\\u{2061}";
+        bytes memory utf8OtherMath11 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath11));
+        console2.log("2061: ", string(utf8OtherMath11));
+        console2.logBytes(utf8OtherMath11);
+
+        string memory otherMath12 = "\\u{2064}";
+        bytes memory utf8OtherMath12 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath12));
+        console2.log("2064: ", string(utf8OtherMath12));
+        console2.logBytes(utf8OtherMath12);
+
+        string memory otherMath13 = "\\u{207d}";
+        bytes memory utf8OtherMath13 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath13));
+        console2.log("207d: ", string(utf8OtherMath13));
+        console2.logBytes(utf8OtherMath13);
+
+        string memory otherMath14 = "\\u{207e}";
+        bytes memory utf8OtherMath14 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath14));
+        console2.log("207e: ", string(utf8OtherMath14));
+        console2.logBytes(utf8OtherMath14);
+
+        string memory otherMath14a = "\\u{208d}";
+        bytes memory utf8OtherMath14a = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath14a));
+        console2.log("208d: ", string(utf8OtherMath14a));
+        console2.logBytes(utf8OtherMath14a);
+
+        string memory otherMath15 = "\\u{208e}";
+        bytes memory utf8OtherMath15 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath15));
+        console2.log("208e: ", string(utf8OtherMath15));
+        console2.logBytes(utf8OtherMath15);
+
+        string memory otherMath16 = "\\u{20d0}";
+        bytes memory utf8OtherMath16 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath16));
+        console2.log("20d0: ", string(utf8OtherMath16));
+        console2.logBytes(utf8OtherMath16);
+
+        string memory otherMath17 = "\\u{20dc}";
+        bytes memory utf8OtherMath17 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath17));
+        console2.log("20dc: ", string(utf8OtherMath17));
+        console2.logBytes(utf8OtherMath17);
+
+        string memory otherMath18 = "\\u{20e1}";
+        bytes memory utf8OtherMath18 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath18));
+        console2.log("20e1: ", string(utf8OtherMath18));
+        console2.logBytes(utf8OtherMath18);
+
+        string memory otherMath19 = "\\u{20e5}";
+        bytes memory utf8OtherMath19 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath19));
+        console2.log("20e5: ", string(utf8OtherMath19));
+        console2.logBytes(utf8OtherMath19);
+
+        string memory otherMath20 = "\\u{20e6}";
+        bytes memory utf8OtherMath20 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath20));
+        console2.log("20e6: ", string(utf8OtherMath20));
+        console2.logBytes(utf8OtherMath20);
+
+        string memory otherMath21 = "\\u{20eb}";
+        bytes memory utf8OtherMath21 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath21));
+        console2.log("20eb: ", string(utf8OtherMath21));
+        console2.logBytes(utf8OtherMath21);
+
+        string memory otherMath22 = "\\u{20ef}";
+        bytes memory utf8OtherMath22 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath22));
+        console2.log("20ef: ", string(utf8OtherMath22));
+        console2.logBytes(utf8OtherMath22);
+
+        string memory otherMath23 = "\\u{2102}";
+        bytes memory utf8OtherMath23 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath23));
+        console2.log("2102: ", string(utf8OtherMath23));
+        console2.logBytes(utf8OtherMath23);
+
+        string memory otherMath24 = "\\u{2107}";
+        bytes memory utf8OtherMath24 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath24));
+        console2.log("2107: ", string(utf8OtherMath24));
+        console2.logBytes(utf8OtherMath24);
+
+        string memory otherMath25 = "\\u{210a}";
+        bytes memory utf8OtherMath25 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath25));
+        console2.log("210a: ", string(utf8OtherMath25));
+        console2.logBytes(utf8OtherMath25);
+
+        string memory otherMath26 = "\\u{2113}";
+        bytes memory utf8OtherMath26 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath26));
+        console2.log("2113: ", string(utf8OtherMath26));
+        console2.logBytes(utf8OtherMath26);
+
+        string memory otherMath27 = "\\u{2115}";
+        bytes memory utf8OtherMath27 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath27));
+        console2.log("2115: ", string(utf8OtherMath27));
+        console2.logBytes(utf8OtherMath27);
+
+        string memory otherMath28 = "\\u{2119}";
+        bytes memory utf8OtherMath28 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath28));
+        console2.log("2119: ", string(utf8OtherMath28));
+        console2.logBytes(utf8OtherMath28);
+
+        string memory otherMath29 = "\\u{211D}";
+        bytes memory utf8OtherMath29 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath29));
+        console2.log("211D: ", string(utf8OtherMath29));
+        console2.logBytes(utf8OtherMath29);
+
+        string memory otherMath30 = "\\u{2124}";
+        bytes memory utf8OtherMath30 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath30));
+        console2.log("2124: ", string(utf8OtherMath30));
+        console2.logBytes(utf8OtherMath30);
+
+        string memory otherMath31 = "\\u{2128}";
+        bytes memory utf8OtherMath31 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath31));
+        console2.log("2128: ", string(utf8OtherMath31));
+        console2.logBytes(utf8OtherMath31);
+
+        string memory otherMath32 = "\\u{2129}";
+        bytes memory utf8OtherMath32 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath32));
+        console2.log("2129: ", string(utf8OtherMath32));
+        console2.logBytes(utf8OtherMath32);
+
+        string memory otherMath33 = "\\u{212C}";
+        bytes memory utf8OtherMath33 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath33));
+        console2.log("212C: ", string(utf8OtherMath33));
+        console2.logBytes(utf8OtherMath33);
+
+        string memory otherMath34 = "\\u{212D}";
+        bytes memory utf8OtherMath34 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath34));
+        console2.log("212D: ", string(utf8OtherMath34));
+        console2.logBytes(utf8OtherMath34);
+
+        string memory otherMath35 = "\\u{212F}";
+        bytes memory utf8OtherMath35 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath35));
+        console2.log("212F: ", string(utf8OtherMath35));
+        console2.logBytes(utf8OtherMath35);
+
+        string memory otherMath36 = "\\u{2131}";
+        bytes memory utf8OtherMath36 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath36));
+        console2.log("2131: ", string(utf8OtherMath36));
+        console2.logBytes(utf8OtherMath36);
+
+        string memory otherMath37 = "\\u{2133}";
+        bytes memory utf8OtherMath37 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath37));
+        console2.log("2133: ", string(utf8OtherMath37));
+        console2.logBytes(utf8OtherMath37);
+
+        string memory otherMath38 = "\\u{2134}";
+        bytes memory utf8OtherMath38 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath38));
+        console2.log("2134: ", string(utf8OtherMath38));
+        console2.logBytes(utf8OtherMath38);
+
+        string memory otherMath39 = "\\u{2135}";
+        bytes memory utf8OtherMath39 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath39));
+        console2.log("2135: ", string(utf8OtherMath39));
+        console2.logBytes(utf8OtherMath39);
+
+        string memory otherMath40 = "\\u{2138}";
+        bytes memory utf8OtherMath40 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath40));
+        console2.log("2138: ", string(utf8OtherMath40));
+        console2.logBytes(utf8OtherMath40);
+
+        string memory otherMath41 = "\\u{213C}";
+        bytes memory utf8OtherMath41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath41));
+        console2.log("213C: ", string(utf8OtherMath41));
+        console2.logBytes(utf8OtherMath41);
+
+        string memory otherMath42 = "\\u{213F}";
+        bytes memory utf8OtherMath42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath42));
+        console2.log("213F: ", string(utf8OtherMath42));
+        console2.logBytes(utf8OtherMath42);
+
+        string memory otherMath43 = "\\u{2145}";
+        bytes memory utf8OtherMath43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath43));
+        console2.log("2145: ", string(utf8OtherMath43));
+        console2.logBytes(utf8OtherMath43);
+
+        string memory otherMath44 = "\\u{2149}";
+        bytes memory utf8OtherMath44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath44));
+        console2.log("2149: ", string(utf8OtherMath44));
+        console2.logBytes(utf8OtherMath44);
+
+        string memory otherMath45 = "\\u{2195}";
+        bytes memory utf8OtherMath45 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath45));
+        console2.log("2195: ", string(utf8OtherMath45));
+        console2.logBytes(utf8OtherMath45);
+
+        string memory otherMath46 = "\\u{2199}";
+        bytes memory utf8OtherMath46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath46));
+        console2.log("2199: ", string(utf8OtherMath46));
+        console2.logBytes(utf8OtherMath46);
+
+        string memory otherMath47 = "\\u{219C}";
+        bytes memory utf8OtherMath47 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath47));
+        console2.log("219C: ", string(utf8OtherMath47));
+        console2.logBytes(utf8OtherMath47);
+
+        string memory otherMath48 = "\\u{219F}";
+        bytes memory utf8OtherMath48 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath48));
+        console2.log("219F: ", string(utf8OtherMath48));
+        console2.logBytes(utf8OtherMath48);
+
+        string memory otherMath49 = "\\u{21A1}";
+        bytes memory utf8OtherMath49 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath49));
+        console2.log("21A1: ", string(utf8OtherMath49));
+        console2.logBytes(utf8OtherMath49);
+
+        string memory otherMath50 = "\\u{21A2}";
+        bytes memory utf8OtherMath50 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath50));
+        console2.log("21A2: ", string(utf8OtherMath50));
+        console2.logBytes(utf8OtherMath50);
+
+        string memory otherMath51 = "\\u{21A4}";
+        bytes memory utf8OtherMath51 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath51));
+        console2.log("21A4: ", string(utf8OtherMath51));
+        console2.logBytes(utf8OtherMath51);
+
+        string memory otherMath52 = "\\u{21A5}";
+        bytes memory utf8OtherMath52 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath52));
+        console2.log("21A5: ", string(utf8OtherMath52));
+        console2.logBytes(utf8OtherMath52);
+
+        string memory otherMath53 = "\\u{21A7}";
+        bytes memory utf8OtherMath53 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath53));
+        console2.log("21A7: ", string(utf8OtherMath53));
+        console2.logBytes(utf8OtherMath53);
+
+        string memory otherMath54 = "\\u{21A9}";
+        bytes memory utf8OtherMath54 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath54));
+        console2.log("21A9: ", string(utf8OtherMath54));
+        console2.logBytes(utf8OtherMath54);
+
+        string memory otherMath55 = "\\u{21AD}";
+        bytes memory utf8OtherMath55 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath55));
+        console2.log("21AD: ", string(utf8OtherMath55));
+        console2.logBytes(utf8OtherMath55);
+
+        string memory otherMath56 = "\\u{21B0}";
+        bytes memory utf8OtherMath56 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath56));
+        console2.log("21B0: ", string(utf8OtherMath56));
+        console2.logBytes(utf8OtherMath56);
+
+        string memory otherMath57 = "\\u{21B1}";
+        bytes memory utf8OtherMath57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath57));
+        console2.log("21B1: ", string(utf8OtherMath57));
+        console2.logBytes(utf8OtherMath57);
+
+        string memory otherMath58 = "\\u{21B6}";
+        bytes memory utf8OtherMath58 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath58));
+        console2.log("21B6: ", string(utf8OtherMath58));
+        console2.logBytes(utf8OtherMath58);
+
+        string memory otherMath59 = "\\u{21B7}";
+        bytes memory utf8OtherMath59 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath59));
+        console2.log("21B7: ", string(utf8OtherMath59));
+        console2.logBytes(utf8OtherMath59);
+
+        string memory otherMath60 = "\\u{21BC}";
+        bytes memory utf8OtherMath60 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath60));
+        console2.log("21BC: ", string(utf8OtherMath60));
+        console2.logBytes(utf8OtherMath60);
+
+        string memory otherMath61 = "\\u{21CD}";
+        bytes memory utf8OtherMath61 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath61));
+        console2.log("21CD: ", string(utf8OtherMath61));
+        console2.logBytes(utf8OtherMath61);
+
+        string memory otherMath62 = "\\u{21D0}";
+        bytes memory utf8OtherMath62 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath62));
+        console2.log("21D0: ", string(utf8OtherMath62));
+        console2.logBytes(utf8OtherMath62);
+
+        string memory otherMath63 = "\\u{21D1}";
+        bytes memory utf8OtherMath63 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath63));
+        console2.log("21D1: ", string(utf8OtherMath63));
+        console2.logBytes(utf8OtherMath63);
+
+        string memory otherMath64 = "\\u{21D3}";
+        bytes memory utf8OtherMath64 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath64));
+        console2.log("21D3: ", string(utf8OtherMath64));
+        console2.logBytes(utf8OtherMath64);
+
+        string memory otherMath65 = "\\u{21D5}";
+        bytes memory utf8OtherMath65 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath65));
+        console2.log("21D5: ", string(utf8OtherMath65));
+        console2.logBytes(utf8OtherMath65);
+
+        string memory otherMath66 = "\\u{21DB}";
+        bytes memory utf8OtherMath66 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath66));
+        console2.log("21DB: ", string(utf8OtherMath66));
+        console2.logBytes(utf8OtherMath66);
+
+        string memory otherMath67 = "\\u{21DD}";
+        bytes memory utf8OtherMath67 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath67));
+        console2.log("21DD: ", string(utf8OtherMath67));
+        console2.logBytes(utf8OtherMath67);
+
+        string memory otherMath68 = "\\u{21E4}";
+        bytes memory utf8OtherMath68 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath68));
+        console2.log("21E4: ", string(utf8OtherMath68));
+        console2.logBytes(utf8OtherMath68);
+
+        string memory otherMath69 = "\\u{21E5}";
+        bytes memory utf8OtherMath69 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath69));
+        console2.log("21E5: ", string(utf8OtherMath69));
+        console2.logBytes(utf8OtherMath69);
+
+        string memory otherMath70 = "\\u{2308}";
+        bytes memory utf8OtherMath70 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath70));
+        console2.log("2308: ", string(utf8OtherMath70));
+        console2.logBytes(utf8OtherMath70);
+
+        string memory otherMath71 = "\\u{2309}";
+        bytes memory utf8OtherMath71 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath71));
+        console2.log("2309: ", string(utf8OtherMath71));
+        console2.logBytes(utf8OtherMath71);
+
+        string memory otherMath72 = "\\u{230A}";
+        bytes memory utf8OtherMath72 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath72));
+        console2.log("230A: ", string(utf8OtherMath72));
+        console2.logBytes(utf8OtherMath72);
+
+        string memory otherMath73 = "\\u{230B}";
+        bytes memory utf8OtherMath73 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath73));
+        console2.log("230B: ", string(utf8OtherMath73));
+        console2.logBytes(utf8OtherMath73);
+
+        string memory otherMath74 = "\\u{23B4}";
+        bytes memory utf8OtherMath74 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath74));
+        console2.log("23B4: ", string(utf8OtherMath74));
+        console2.logBytes(utf8OtherMath74);
+
+        string memory otherMath75 = "\\u{23B5}";
+        bytes memory utf8OtherMath75 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath74));
+        console2.log("23B5: ", string(utf8OtherMath75));
+        console2.logBytes(utf8OtherMath75);
+
+        string memory otherMath76 = "\\u{23B5}";
+        bytes memory utf8OtherMath76 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath76));
+        console2.log("23B5: ", string(utf8OtherMath76));
+        console2.logBytes(utf8OtherMath76);
+
+        string memory otherMath77 = "\\u{23B7}";
+        bytes memory utf8OtherMath77 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath77));
+        console2.log("23B7: ", string(utf8OtherMath77));
+        console2.logBytes(utf8OtherMath77);
+
+        string memory otherMath77a = "\\u{23B7}";
+        bytes memory utf8OtherMath77a = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath77a));
+        console2.log("23B7: ", string(utf8OtherMath77a));
+        console2.logBytes(utf8OtherMath77a);
+
+        string memory otherMath78 = "\\u{23D0}";
+        bytes memory utf8OtherMath78 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath78));
+        console2.log("23D0: ", string(utf8OtherMath78));
+        console2.logBytes(utf8OtherMath78);
+
+        string memory otherMath79 = "\\u{23E2}";
+        bytes memory utf8OtherMath79 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath79));
+        console2.log("23E2: ", string(utf8OtherMath79));
+        console2.logBytes(utf8OtherMath79);
+
+        string memory otherMath80 = "\\u{25A0}";
+        bytes memory utf8OtherMath80 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath80));
+        console2.log("25A0: ", string(utf8OtherMath80));
+        console2.logBytes(utf8OtherMath80);
+
+        string memory otherMath81 = "\\u{25A1}";
+        bytes memory utf8OtherMath81 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath81));
+        console2.log("25A1: ", string(utf8OtherMath81));
+        console2.logBytes(utf8OtherMath81);
+
+        string memory otherMath82 = "\\u{25AE}";
+        bytes memory utf8OtherMath82 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath82));
+        console2.log("25AE: ", string(utf8OtherMath82));
+        console2.logBytes(utf8OtherMath82);
+
+        string memory otherMath83 = "\\u{25B6}";
+        bytes memory utf8OtherMath83 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath83));
+        console2.log("25B6: ", string(utf8OtherMath83));
+        console2.logBytes(utf8OtherMath83);
+
+        string memory otherMath84 = "\\u{25BC}";
+        bytes memory utf8OtherMath84 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath84));
+        console2.log("25BC: ", string(utf8OtherMath84));
+        console2.logBytes(utf8OtherMath84);
+
+        string memory otherMath85 = "\\u{25C0}";
+        bytes memory utf8OtherMath85 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath85));
+        console2.log("25C0: ", string(utf8OtherMath85));
+        console2.logBytes(utf8OtherMath85);
+
+        string memory otherMath86 = "\\u{25C6}";
+        bytes memory utf8OtherMath86 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath86));
+        console2.log("25C6: ", string(utf8OtherMath86));
+        console2.logBytes(utf8OtherMath86);
+
+        string memory otherMath87 = "\\u{25C7}";
+        bytes memory utf8OtherMath87 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath87));
+        console2.log("25C7: ", string(utf8OtherMath87));
+        console2.logBytes(utf8OtherMath87);
+
+        string memory otherMath88 = "\\u{25CA}";
+        bytes memory utf8OtherMath88 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath88));
+        console2.log("25CA: ", string(utf8OtherMath88));
+        console2.logBytes(utf8OtherMath88);
+
+        string memory otherMath89 = "\\u{25CB}";
+        bytes memory utf8OtherMath89 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath89));
+        console2.log("25CB: ", string(utf8OtherMath89));
+        console2.logBytes(utf8OtherMath89);
+
+        string memory otherMath90 = "\\u{25CF}";
+        bytes memory utf8OtherMath90 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath90));
+        console2.log("25CF: ", string(utf8OtherMath90));
+        console2.logBytes(utf8OtherMath90);
+
+        string memory otherMath91 = "\\u{25D3}";
+        bytes memory utf8OtherMath91 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath91));
+        console2.log("25D3: ", string(utf8OtherMath91));
+        console2.logBytes(utf8OtherMath91);
+
+        string memory otherMath92 = "\\u{25E2}";
+        bytes memory utf8OtherMath92 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath92));
+        console2.log("25E2: ", string(utf8OtherMath92));
+        console2.logBytes(utf8OtherMath92);
+
+        string memory otherMath93 = "\\u{25E4}";
+        bytes memory utf8OtherMath93 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath93));
+        console2.log("25E4: ", string(utf8OtherMath93));
+        console2.logBytes(utf8OtherMath93);
+
+        string memory otherMath94 = "\\u{25E7}";
+        bytes memory utf8OtherMath94 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath94));
+        console2.log("25E7: ", string(utf8OtherMath94));
+        console2.logBytes(utf8OtherMath94);
+
+        string memory otherMath95 = "\\u{25EC}";
+        bytes memory utf8OtherMath95 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath95));
+        console2.log("25EC: ", string(utf8OtherMath95));
+        console2.logBytes(utf8OtherMath95);
+
+        string memory otherMath96 = "\\u{2605}";
+        bytes memory utf8OtherMath96 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath96));
+        console2.log("2605: ", string(utf8OtherMath96));
+        console2.logBytes(utf8OtherMath96);
+
+        string memory otherMath97 = "\\u{2606}";
+        bytes memory utf8OtherMath97 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath97));
+        console2.log("2606: ", string(utf8OtherMath97));
+        console2.logBytes(utf8OtherMath97);
+
+        string memory otherMath98 = "\\u{2640}";
+        bytes memory utf8OtherMath98 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath98));
+        console2.log("2640: ", string(utf8OtherMath98));
+        console2.logBytes(utf8OtherMath98);
+
+        string memory otherMath99 = "\\u{2642}";
+        bytes memory utf8OtherMath99 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath99));
+        console2.log("2642: ", string(utf8OtherMath99));
+        console2.logBytes(utf8OtherMath99);
+
+        string memory otherMath99a = "\\u{2660}";
+        bytes memory utf8OtherMath99a = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath99a));
+        console2.log("2660: ", string(utf8OtherMath99a));
+        console2.logBytes(utf8OtherMath99a);
+
+        string memory otherMath100 = "\\u{2663}";
+        bytes memory utf8OtherMath100 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath100));
+        console2.log("2663: ", string(utf8OtherMath100));
+        console2.logBytes(utf8OtherMath100);
+
+        string memory otherMath101 = "\\u{266D}";
+        bytes memory utf8OtherMath101 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath101));
+        console2.log("266D: ", string(utf8OtherMath101));
+        console2.logBytes(utf8OtherMath101);
+
+        string memory otherMath102 = "\\u{266E}";
+        bytes memory utf8OtherMath102 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath102));
+        console2.log("266E: ", string(utf8OtherMath102));
+        console2.logBytes(utf8OtherMath102);
+
+        string memory otherMath103 = "\\u{27C5}";
+        bytes memory utf8OtherMath103 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath103));
+        console2.log("27C5: ", string(utf8OtherMath103));
+        console2.logBytes(utf8OtherMath103);
+
+        string memory otherMath104 = "\\u{27C6}";
+        bytes memory utf8OtherMath104 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath104));
+        console2.log("27C6: ", string(utf8OtherMath104));
+        console2.logBytes(utf8OtherMath104);
+
+        string memory otherMath105 = "\\u{27E6}";
+        bytes memory utf8OtherMath105 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath105));
+        console2.log("27E6: ", string(utf8OtherMath105));
+        console2.logBytes(utf8OtherMath105);
+
+        string memory otherMath106 = "\\u{27E7}";
+        bytes memory utf8OtherMath106 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath106));
+        console2.log("27E7: ", string(utf8OtherMath106));
+        console2.logBytes(utf8OtherMath106);
+
+        string memory otherMath107 = "\\u{27E8}";
+        bytes memory utf8OtherMath107 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath107));
+        console2.log("27E8: ", string(utf8OtherMath107));
+        console2.logBytes(utf8OtherMath107);
+
+        string memory otherMath108 = "\\u{27E9}";
+        bytes memory utf8OtherMath108 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath108));
+        console2.log("27E9: ", string(utf8OtherMath108));
+        console2.logBytes(utf8OtherMath108);
+
+        string memory otherMath109 = "\\u{27EA}";
+        bytes memory utf8OtherMath109 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath109));
+        console2.log("27EA: ", string(utf8OtherMath109));
+        console2.logBytes(utf8OtherMath109);
+
+        string memory otherMath110 = "\\u{27EB}";
+        bytes memory utf8OtherMath110 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath110));
+        console2.log("27EB: ", string(utf8OtherMath110));
+        console2.logBytes(utf8OtherMath110);
+
+        string memory otherMath111 = "\\u{27EC}";
+        bytes memory utf8OtherMath111 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath111));
+        console2.log("27EC: ", string(utf8OtherMath111));
+        console2.logBytes(utf8OtherMath111);
+
+        string memory otherMath112 = "\\u{27ED}";
+        bytes memory utf8OtherMath112 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath112));
+        console2.log("27ED: ", string(utf8OtherMath112));
+        console2.logBytes(utf8OtherMath112);
+
+        string memory otherMath113 = "\\u{27EE}";
+        bytes memory utf8OtherMath113 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath113));
+        console2.log("27EE: ", string(utf8OtherMath113));
+        console2.logBytes(utf8OtherMath113);
+
+        string memory otherMath114 = "\\u{27EF}";
+        bytes memory utf8OtherMath114 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath114));
+        console2.log("27EF: ", string(utf8OtherMath114));
+        console2.logBytes(utf8OtherMath114);
+
+        string memory otherMath115 = "\\u{2983}";
+        bytes memory utf8OtherMath115 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath115));
+        console2.log("2983: ", string(utf8OtherMath115));
+        console2.logBytes(utf8OtherMath115);
+
+        string memory otherMath116 = "\\u{2984}";
+        bytes memory utf8OtherMath116 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath116));
+        console2.log("2984: ", string(utf8OtherMath116));
+        console2.logBytes(utf8OtherMath116);
+
+        string memory otherMath117 = "\\u{2985}";
+        bytes memory utf8OtherMath117 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath117));
+        console2.log("2985: ", string(utf8OtherMath117));
+        console2.logBytes(utf8OtherMath117);
+
+        string memory otherMath118 = "\\u{2986}";
+        bytes memory utf8OtherMath118 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath118));
+        console2.log("2986: ", string(utf8OtherMath118));
+        console2.logBytes(utf8OtherMath118);
+
+        string memory otherMath119 = "\\u{2987}";
+        bytes memory utf8OtherMath119 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath119));
+        console2.log("2987: ", string(utf8OtherMath119));
+        console2.logBytes(utf8OtherMath119);
+
+        string memory otherMath120 = "\\u{2988}";
+        bytes memory utf8OtherMath120 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath120));
+        console2.log("2988: ", string(utf8OtherMath120));
+        console2.logBytes(utf8OtherMath120);
+
+        string memory otherMath121 = "\\u{2989}";
+        bytes memory utf8OtherMath121 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath121));
+        console2.log("2989: ", string(utf8OtherMath121));
+        console2.logBytes(utf8OtherMath121);
+
+        string memory otherMath122 = "\\u{298A}";
+        bytes memory utf8OtherMath122 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath122));
+        console2.log("298A: ", string(utf8OtherMath122));
+        console2.logBytes(utf8OtherMath122);
+
+        string memory otherMath123 = "\\u{298B}";
+        bytes memory utf8OtherMath123 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath123));
+        console2.log("298B: ", string(utf8OtherMath123));
+        console2.logBytes(utf8OtherMath123);
+
+        string memory otherMath124 = "\\u{298C}";
+        bytes memory utf8OtherMath124 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath124));
+        console2.log("298C: ", string(utf8OtherMath124));
+        console2.logBytes(utf8OtherMath124);
+
+        string memory otherMath125 = "\\u{298D}";
+        bytes memory utf8OtherMath125 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath125));
+        console2.log("298D: ", string(utf8OtherMath125));
+        console2.logBytes(utf8OtherMath125);
+
+        string memory otherMath126 = "\\u{298E}";
+        bytes memory utf8OtherMath126 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath126));
+        console2.log("298E: ", string(utf8OtherMath126));
+        console2.logBytes(utf8OtherMath126);
+
+        string memory otherMath127 = "\\u{298F}";
+        bytes memory utf8OtherMath127 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath127));
+        console2.log("298F: ", string(utf8OtherMath127));
+        console2.logBytes(utf8OtherMath127);
+
+        string memory otherMath128 = "\\u{2990}";
+        bytes memory utf8OtherMath128 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath128));
+        console2.log("2990: ", string(utf8OtherMath128));
+        console2.logBytes(utf8OtherMath128);
+
+        string memory otherMath129 = "\\u{2991}";
+        bytes memory utf8OtherMath129 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath129));
+        console2.log("2991: ", string(utf8OtherMath129));
+        console2.logBytes(utf8OtherMath129);
+
+        string memory otherMath130 = "\\u{2992}";
+        bytes memory utf8OtherMath130 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath130));
+        console2.log("2992: ", string(utf8OtherMath130));
+        console2.logBytes(utf8OtherMath130);
+
+        string memory otherMath131 = "\\u{2993}";
+        bytes memory utf8OtherMath131 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath131));
+        console2.log("2993: ", string(utf8OtherMath131));
+        console2.logBytes(utf8OtherMath131);
+
+        string memory otherMath132 = "\\u{2994}";
+        bytes memory utf8OtherMath132 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath132));
+        console2.log("2994: ", string(utf8OtherMath132));
+        console2.logBytes(utf8OtherMath132);
+
+        string memory otherMath133 = "\\u{2995}";
+        bytes memory utf8OtherMath133 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath133));
+        console2.log("2995: ", string(utf8OtherMath133));
+        console2.logBytes(utf8OtherMath133);
+
+        string memory otherMath134 = "\\u{2996}";
+        bytes memory utf8OtherMath134 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath134));
+        console2.log("2996: ", string(utf8OtherMath134));
+        console2.logBytes(utf8OtherMath134);
+
+        string memory otherMath135 = "\\u{2997}";
+        bytes memory utf8OtherMath135 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath135));
+        console2.log("2997: ", string(utf8OtherMath135));
+        console2.logBytes(utf8OtherMath135);
+
+        string memory otherMath136 = "\\u{2998}";
+        bytes memory utf8OtherMath136 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath136));
+        console2.log("2998: ", string(utf8OtherMath136));
+        console2.logBytes(utf8OtherMath136);
+
+        string memory otherMath137 = "\\u{29D8}";
+        bytes memory utf8OtherMath137 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath137));
+        console2.log("29D8: ", string(utf8OtherMath137));
+        console2.logBytes(utf8OtherMath137);
+
+        string memory otherMath138 = "\\u{29D9}";
+        bytes memory utf8OtherMath138 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath138));
+        console2.log("29D9: ", string(utf8OtherMath138));
+        console2.logBytes(utf8OtherMath138);
+
+        string memory otherMath139 = "\\u{29DA}";
+        bytes memory utf8OtherMath139 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath139));
+        console2.log("29DA: ", string(utf8OtherMath139));
+        console2.logBytes(utf8OtherMath139);
+
+        string memory otherMath140 = "\\u{29DB}";
+        bytes memory utf8OtherMath140 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath140));
+        console2.log("29DB: ", string(utf8OtherMath140));
+        console2.logBytes(utf8OtherMath140);
+
+        string memory otherMath141 = "\\u{29FC}";
+        bytes memory utf8OtherMath141 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath141));
+        console2.log("29FC: ", string(utf8OtherMath141));
+        console2.logBytes(utf8OtherMath141);
+
+        string memory otherMath142 = "\\u{29FD}";
+        bytes memory utf8OtherMath142 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath142));
+        console2.log("29FD: ", string(utf8OtherMath142));
+        console2.logBytes(utf8OtherMath142);
+
+        string memory otherMath143 = "\\u{FE61}";
+        bytes memory utf8OtherMath143 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath143));
+        console2.log("FE61: ", string(utf8OtherMath143));
+        console2.logBytes(utf8OtherMath143);
+
+        string memory otherMath144 = "\\u{FE63}";
+        bytes memory utf8OtherMath144 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath144));
+        console2.log("FE63: ", string(utf8OtherMath144));
+        console2.logBytes(utf8OtherMath144);
+
+        string memory otherMath145 = "\\u{FE68}";
+        bytes memory utf8OtherMath145 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath145));
+        console2.log("FE68: ", string(utf8OtherMath145));
+        console2.logBytes(utf8OtherMath145);
+
+        string memory otherMath146 = "\\u{FF3C}";
+        bytes memory utf8OtherMath146 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath146));
+        console2.log("FF3C: ", string(utf8OtherMath146));
+        console2.logBytes(utf8OtherMath146);
+
+        string memory otherMath147 = "\\u{FF3E}";
+        bytes memory utf8OtherMath147 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath147));
+        console2.log("FF3E: ", string(utf8OtherMath147));
+        console2.logBytes(utf8OtherMath147);
+
+        string memory otherMath148 = "\\u{1D400}";
+        bytes memory utf8OtherMath148 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath148));
+        console2.log("1D400: ", string(utf8OtherMath148));
+        console2.logBytes(utf8OtherMath148);
+
+        string memory otherMath149 = "\\u{1D454}";
+        bytes memory utf8OtherMath149 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath149));
+        console2.log("1D454: ", string(utf8OtherMath149));
+        console2.logBytes(utf8OtherMath149);
+
+        string memory otherMath150 = "\\u{1D456}";
+        bytes memory utf8OtherMath150 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath150));
+        console2.log("1D456: ", string(utf8OtherMath150));
+        console2.logBytes(utf8OtherMath150);
+
+        string memory otherMath151 = "\\u{1D49C}";
+        bytes memory utf8OtherMath151 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath151));
+        console2.log("1D49C: ", string(utf8OtherMath151));
+        console2.logBytes(utf8OtherMath151);
+
+        string memory otherMath152 = "\\u{1D49E}";
+        bytes memory utf8OtherMath152 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath152));
+        console2.log("1D49E: ", string(utf8OtherMath152));
+        console2.logBytes(utf8OtherMath152);
+
+        string memory otherMath153 = "\\u{1D49F}";
+        bytes memory utf8OtherMath153 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath153));
+        console2.log("1D49F: ", string(utf8OtherMath153));
+        console2.logBytes(utf8OtherMath153);
+
+        string memory otherMath154 = "\\u{1D4A2}";
+        bytes memory utf8OtherMath154 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath154));
+        console2.log("1D4A2: ", string(utf8OtherMath154));
+        console2.logBytes(utf8OtherMath154);
+
+        string memory otherMath155 = "\\u{1D4A5}";
+        bytes memory utf8OtherMath155 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath155));
+        console2.log("1D4A5: ", string(utf8OtherMath155));
+        console2.logBytes(utf8OtherMath155);
+
+        string memory otherMath156 = "\\u{1D4A6}";
+        bytes memory utf8OtherMath156 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath156));
+        console2.log("1D4A6: ", string(utf8OtherMath156));
+        console2.logBytes(utf8OtherMath156);
+
+        string memory otherMath157 = "\\u{1D4A9}";
+        bytes memory utf8OtherMath157 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath157));
+        console2.log("1D4A9: ", string(utf8OtherMath157));
+        console2.logBytes(utf8OtherMath157);
+
+        string memory otherMath158 = "\\u{1D4AC}";
+        bytes memory utf8OtherMath158 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath158));
+        console2.log("1D4AC: ", string(utf8OtherMath158));
+        console2.logBytes(utf8OtherMath158);
+
+        string memory otherMath159 = "\\u{1D4AE}";
+        bytes memory utf8OtherMath159 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath159));
+        console2.log("1D4AE: ", string(utf8OtherMath159));
+        console2.logBytes(utf8OtherMath159);
+
+        string memory otherMath160 = "\\u{1D4B9}";
+        bytes memory utf8OtherMath160 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath160));
+        console2.log("1D4B9: ", string(utf8OtherMath160));
+        console2.logBytes(utf8OtherMath160);
+
+        string memory otherMath161 = "\\u{1D4BB}";
+        bytes memory utf8OtherMath161 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath161));
+        console2.log("1D4BB: ", string(utf8OtherMath161));
+        console2.logBytes(utf8OtherMath161);
+
+        string memory otherMath162 = "\\u{1D4BD}";
+        bytes memory utf8OtherMath162 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath162));
+        console2.log("1D4BD: ", string(utf8OtherMath162));
+        console2.logBytes(utf8OtherMath162);
+
+        string memory otherMath163 = "\\u{1D4C3}";
+        bytes memory utf8OtherMath163 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath163));
+        console2.log("1D4C3: ", string(utf8OtherMath163));
+        console2.logBytes(utf8OtherMath163);
+
+        string memory otherMath164 = "\\u{1D4C5}";
+        bytes memory utf8OtherMath164 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath164));
+        console2.log("1D4C5: ", string(utf8OtherMath164));
+        console2.logBytes(utf8OtherMath164);
+
+        string memory otherMath165 = "\\u{1D505}";
+        bytes memory utf8OtherMath165 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath165));
+        console2.log("1D505: ", string(utf8OtherMath165));
+        console2.logBytes(utf8OtherMath165);
+
+        string memory otherMath166 = "\\u{1D507}";
+        bytes memory utf8OtherMath166 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath166));
+        console2.log("1D507: ", string(utf8OtherMath166));
+        console2.logBytes(utf8OtherMath166);
+
+        string memory otherMath167 = "\\u{1D50A}";
+        bytes memory utf8OtherMath167 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath167));
+        console2.log("1D50A: ", string(utf8OtherMath167));
+        console2.logBytes(utf8OtherMath167);
+
+        string memory otherMath168 = "\\u{1D50D}";
+        bytes memory utf8OtherMath168 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath168));
+        console2.log("1D50D: ", string(utf8OtherMath168));
+        console2.logBytes(utf8OtherMath168);
+
+        string memory otherMath169 = "\\u{1D514}";
+        bytes memory utf8OtherMath169 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath169));
+        console2.log("1D514: ", string(utf8OtherMath169));
+        console2.logBytes(utf8OtherMath169);
+
+        string memory otherMath170 = "\\u{1D516}";
+        bytes memory utf8OtherMath170 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath170));
+        console2.log("1D516: ", string(utf8OtherMath170));
+        console2.logBytes(utf8OtherMath170);
+
+        string memory otherMath171 = "\\u{1D51C}";
+        bytes memory utf8OtherMath171 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath171));
+        console2.log("1D51C: ", string(utf8OtherMath171));
+        console2.logBytes(utf8OtherMath171);
+
+        string memory otherMath172 = "\\u{1D51E}";
+        bytes memory utf8OtherMath172 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath172));
+        console2.log("1D51E: ", string(utf8OtherMath172));
+        console2.logBytes(utf8OtherMath172);
+
+        string memory otherMath173 = "\\u{1D539}";
+        bytes memory utf8OtherMath173 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath173));
+        console2.log("1D539: ", string(utf8OtherMath173));
+        console2.logBytes(utf8OtherMath173);
+
+        string memory otherMath174 = "\\u{1D53B}";
+        bytes memory utf8OtherMath174 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath174));
+        console2.log("1D53B: ", string(utf8OtherMath174));
+        console2.logBytes(utf8OtherMath174);
+
+        string memory otherMath175 = "\\u{1D53E}";
+        bytes memory utf8OtherMath175 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath175));
+        console2.log("1D53E: ", string(utf8OtherMath175));
+        console2.logBytes(utf8OtherMath175);
+
+        string memory otherMath176 = "\\u{1D540}";
+        bytes memory utf8OtherMath176 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath176));
+        console2.log("1D540: ", string(utf8OtherMath176));
+        console2.logBytes(utf8OtherMath176);
+
+        string memory otherMath177 = "\\u{1D544}";
+        bytes memory utf8OtherMath177 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath177));
+        console2.log("1D544: ", string(utf8OtherMath177));
+        console2.logBytes(utf8OtherMath177);
+
+        string memory otherMath178 = "\\u{1D546}";
+        bytes memory utf8OtherMath178 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath178));
+        console2.log("1D546: ", string(utf8OtherMath178));
+        console2.logBytes(utf8OtherMath178);
+
+        string memory otherMath179 = "\\u{1D54A}";
+        bytes memory utf8OtherMath179 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath179));
+        console2.log("1D54A: ", string(utf8OtherMath179));
+        console2.logBytes(utf8OtherMath179);
+
+        string memory otherMath180 = "\\u{1D550}";
+        bytes memory utf8OtherMath180 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath180));
+        console2.log("1D550: ", string(utf8OtherMath180));
+        console2.logBytes(utf8OtherMath180);
+
+        string memory otherMath181 = "\\u{1D552}";
+        bytes memory utf8OtherMath181 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath181));
+        console2.log("1D552: ", string(utf8OtherMath181));
+        console2.logBytes(utf8OtherMath181);
+
+        string memory otherMath182 = "\\u{1D6A5}";
+        bytes memory utf8OtherMath182 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath182));
+        console2.log("1D6A5: ", string(utf8OtherMath182));
+        console2.logBytes(utf8OtherMath182);
+
+        string memory otherMath183 = "\\u{1D6A8}";
+        bytes memory utf8OtherMath183 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath183));
+        console2.log("1D6A8: ", string(utf8OtherMath183));
+        console2.logBytes(utf8OtherMath183);
+
+        string memory otherMath184 = "\\u{1D6C0}";
+        bytes memory utf8OtherMath184 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath184));
+        console2.log("1D6C0: ", string(utf8OtherMath184));
+        console2.logBytes(utf8OtherMath184);
+
+        string memory otherMath185 = "\\u{1D6C2}";
+        bytes memory utf8OtherMath185 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath185));
+        console2.log("1D6C2: ", string(utf8OtherMath185));
+        console2.logBytes(utf8OtherMath185);
+
+        string memory otherMath186 = "\\u{1D6DA}";
+        bytes memory utf8OtherMath186 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath186));
+        console2.log("1D6DA: ", string(utf8OtherMath186));
+        console2.logBytes(utf8OtherMath186);
+
+        string memory otherMath187 = "\\u{1D6DC}";
+        bytes memory utf8OtherMath187 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath187));
+        console2.log("1D6DC: ", string(utf8OtherMath187));
+        console2.logBytes(utf8OtherMath187);
+
+        string memory otherMath188 = "\\u{1D6FA}";
+        bytes memory utf8OtherMath188 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath188));
+        console2.log("1D6FA: ", string(utf8OtherMath188));
+        console2.logBytes(utf8OtherMath188);
+
+        string memory otherMath189 = "\\u{1D6FC}";
+        bytes memory utf8OtherMath189 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath189));
+        console2.log("1D6FC: ", string(utf8OtherMath189));
+        console2.logBytes(utf8OtherMath189);
+
+        string memory otherMath190 = "\\u{1D714}";
+        bytes memory utf8OtherMath190 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath190));
+        console2.log("1D714: ", string(utf8OtherMath190));
+        console2.logBytes(utf8OtherMath190);
+
+        string memory otherMath191 = "\\u{1D716}";
+        bytes memory utf8OtherMath191 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath191));
+        console2.log("1D716: ", string(utf8OtherMath191));
+        console2.logBytes(utf8OtherMath191);
+
+        string memory otherMath192 = "\\u{1D734}";
+        bytes memory utf8OtherMath192 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath192));
+        console2.log("1D734: ", string(utf8OtherMath192));
+        console2.logBytes(utf8OtherMath192);
+
+        string memory otherMath193 = "\\u{1D736}";
+        bytes memory utf8OtherMath193 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath193));
+        console2.log("1D736: ", string(utf8OtherMath193));
+        console2.logBytes(utf8OtherMath193);
+
+        string memory otherMath194 = "\\u{1D74E}";
+        bytes memory utf8OtherMath194 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath194));
+        console2.log("1D74E: ", string(utf8OtherMath194));
+        console2.logBytes(utf8OtherMath194);
+
+        string memory otherMath195 = "\\u{1D750}";
+        bytes memory utf8OtherMath195 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath195));
+        console2.log("1D750: ", string(utf8OtherMath195));
+        console2.logBytes(utf8OtherMath195);
+
+        string memory otherMath196 = "\\u{1D76E}";
+        bytes memory utf8OtherMath196 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath196));
+        console2.log("1D76E: ", string(utf8OtherMath196));
+        console2.logBytes(utf8OtherMath196);
+
+        string memory otherMath197 = "\\u{1D770}";
+        bytes memory utf8OtherMath197 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath197));
+        console2.log("1D770: ", string(utf8OtherMath197));
+        console2.logBytes(utf8OtherMath197);
+
+        string memory otherMath198 = "\\u{1D788}";
+        bytes memory utf8OtherMath198 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath198));
+        console2.log("1D788: ", string(utf8OtherMath198));
+        console2.logBytes(utf8OtherMath198);
+
+        string memory otherMath199 = "\\u{1D78A}";
+        bytes memory utf8OtherMath199 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath199));
+        console2.log("1D78A: ", string(utf8OtherMath199));
+        console2.logBytes(utf8OtherMath199);
+
+        string memory otherMath200 = "\\u{1D7A8}";
+        bytes memory utf8OtherMath200 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath200));
+        console2.log("1D7A8: ", string(utf8OtherMath200));
+        console2.logBytes(utf8OtherMath200);
+
+        string memory otherMath201 = "\\u{1D7AA}";
+        bytes memory utf8OtherMath201 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath201));
+        console2.log("1D7AA: ", string(utf8OtherMath201));
+        console2.logBytes(utf8OtherMath201);
+
+        string memory otherMath202 = "\\u{1D7C2}";
+        bytes memory utf8OtherMath202 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath202));
+        console2.log("1D7C2: ", string(utf8OtherMath202));
+        console2.logBytes(utf8OtherMath202);
+
+        string memory otherMath203 = "\\u{1D7C4}";
+        bytes memory utf8OtherMath203 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath203));
+        console2.log("1D7C4: ", string(utf8OtherMath203));
+        console2.logBytes(utf8OtherMath203);
+
+        string memory otherMath204 = "\\u{1D7CB}";
+        bytes memory utf8OtherMath204 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath204));
+        console2.log("1D7CB: ", string(utf8OtherMath204));
+        console2.logBytes(utf8OtherMath204);
+
+        string memory otherMath205 = "\\u{1D7CE}";
+        bytes memory utf8OtherMath205 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath205));
+        console2.log("1D7CE: ", string(utf8OtherMath205));
+        console2.logBytes(utf8OtherMath205);
+
+        string memory otherMath206 = "\\u{1D7FF}";
+        bytes memory utf8OtherMath206 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath206));
+        console2.log("1D7FF: ", string(utf8OtherMath206));
+        console2.logBytes(utf8OtherMath206);
+
+        string memory otherMath207 = "\\u{1EE00}";
+        bytes memory utf8OtherMath207 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath207));
+        console2.log("1EE00: ", string(utf8OtherMath207));
+        console2.logBytes(utf8OtherMath207);
+
+        string memory otherMath208 = "\\u{1EE03}";
+        bytes memory utf8OtherMath208 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath208));
+        console2.log("1EE03: ", string(utf8OtherMath208));
+        console2.logBytes(utf8OtherMath208);
+
+        string memory otherMath209 = "\\u{1EE05}";
+        bytes memory utf8OtherMath209 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath209));
+        console2.log("1EE05: ", string(utf8OtherMath209));
+        console2.logBytes(utf8OtherMath209);
+
+        string memory otherMath210 = "\\u{1EE1F}";
+        bytes memory utf8OtherMath210 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath210));
+        console2.log("1EE1F: ", string(utf8OtherMath210));
+        console2.logBytes(utf8OtherMath210);
+
+        string memory otherMath211 = "\\u{1EE21}";
+        bytes memory utf8OtherMath211 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath211));
+        console2.log("1EE21: ", string(utf8OtherMath211));
+        console2.logBytes(utf8OtherMath211);
+
+        string memory otherMath212 = "\\u{1EE22}";
+        bytes memory utf8OtherMath212 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath212));
+        console2.log("1EE22: ", string(utf8OtherMath212));
+        console2.logBytes(utf8OtherMath212);
+
+        string memory otherMath213 = "\\u{1EE24}";
+        bytes memory utf8OtherMath213 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath213));
+        console2.log("1EE24: ", string(utf8OtherMath213));
+        console2.logBytes(utf8OtherMath213);
+
+        string memory otherMath214 = "\\u{1EE27}";
+        bytes memory utf8OtherMath214 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath214));
+        console2.log("1EE27: ", string(utf8OtherMath214));
+        console2.logBytes(utf8OtherMath214);
+
+        string memory otherMath215 = "\\u{1EE29}";
+        bytes memory utf8OtherMath215 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath215));
+        console2.log("1EE29: ", string(utf8OtherMath215));
+        console2.logBytes(utf8OtherMath215);
+
+        string memory otherMath216 = "\\u{1EE32}";
+        bytes memory utf8OtherMath216 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath216));
+        console2.log("1EE32: ", string(utf8OtherMath216));
+        console2.logBytes(utf8OtherMath216);
+
+        string memory otherMath217 = "\\u{1EE34}";
+        bytes memory utf8OtherMath217 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath217));
+        console2.log("1EE34: ", string(utf8OtherMath217));
+        console2.logBytes(utf8OtherMath217);
+
+        string memory otherMath218 = "\\u{1EE37}";
+        bytes memory utf8OtherMath218 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath218));
+        console2.log("1EE37: ", string(utf8OtherMath218));
+        console2.logBytes(utf8OtherMath218);
+
+        string memory otherMath219 = "\\u{1EE39}";
+        bytes memory utf8OtherMath219 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath219));
+        console2.log("1EE39: ", string(utf8OtherMath219));
+        console2.logBytes(utf8OtherMath219);
+
+        string memory otherMath220 = "\\u{1EE3B}";
+        bytes memory utf8OtherMath220 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath220));
+        console2.log("1EE3B: ", string(utf8OtherMath220));
+        console2.logBytes(utf8OtherMath220);
+
+        string memory otherMath221 = "\\u{1EE42}";
+        bytes memory utf8OtherMath221 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath221));
+        console2.log("1EE42: ", string(utf8OtherMath221));
+        console2.logBytes(utf8OtherMath221);
+
+        string memory otherMath222 = "\\u{1EE47}";
+        bytes memory utf8OtherMath222 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath222));
+        console2.log("1EE47: ", string(utf8OtherMath222));
+        console2.logBytes(utf8OtherMath222);
+
+        string memory otherMath223 = "\\u{1EE49}";
+        bytes memory utf8OtherMath223 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath223));
+        console2.log("1EE49: ", string(utf8OtherMath223));
+        console2.logBytes(utf8OtherMath223);
+
+        string memory otherMath224 = "\\u{1EE4B}";
+        bytes memory utf8OtherMath224 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath224));
+        console2.log("1EE4B: ", string(utf8OtherMath224));
+        console2.logBytes(utf8OtherMath224);
+
+        string memory otherMath225 = "\\u{1EE4D}";
+        bytes memory utf8OtherMath225 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath225));
+        console2.log("1EE4D: ", string(utf8OtherMath225));
+        console2.logBytes(utf8OtherMath225);
+
+        string memory otherMath226 = "\\u{1EE4F}";
+        bytes memory utf8OtherMath226 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath226));
+        console2.log("1EE4F: ", string(utf8OtherMath226));
+        console2.logBytes(utf8OtherMath226);
+
+        string memory otherMath227 = "\\u{1EE51}";
+        bytes memory utf8OtherMath227 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath227));
+        console2.log("1EE51: ", string(utf8OtherMath227));
+        console2.logBytes(utf8OtherMath227);
+
+        string memory otherMath228 = "\\u{1EE52}";
+        bytes memory utf8OtherMath228 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath228));
+        console2.log("1EE52: ", string(utf8OtherMath228));
+        console2.logBytes(utf8OtherMath228);
+
+        string memory otherMath229 = "\\u{1EE54}";
+        bytes memory utf8OtherMath229 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath229));
+        console2.log("1EE54: ", string(utf8OtherMath229));
+        console2.logBytes(utf8OtherMath229);
+
+        string memory otherMath230 = "\\u{1EE57}";
+        bytes memory utf8OtherMath230 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath230));
+        console2.log("1EE57: ", string(utf8OtherMath230));
+        console2.logBytes(utf8OtherMath230);
+
+        string memory otherMath231 = "\\u{1EE59}";
+        bytes memory utf8OtherMath231 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath231));
+        console2.log("1EE59: ", string(utf8OtherMath231));
+        console2.logBytes(utf8OtherMath231);
+
+        string memory otherMath232 = "\\u{1EE5B}";
+        bytes memory utf8OtherMath232 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath232));
+        console2.log("1EE5B: ", string(utf8OtherMath232));
+        console2.logBytes(utf8OtherMath232);
+
+        string memory otherMath233 = "\\u{1EE5D}";
+        bytes memory utf8OtherMath233 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath233));
+        console2.log("1EE5D: ", string(utf8OtherMath233));
+        console2.logBytes(utf8OtherMath233);
+
+        string memory otherMath234 = "\\u{1EE5F}";
+        bytes memory utf8OtherMath234 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath234));
+        console2.log("1EE5F: ", string(utf8OtherMath234));
+        console2.logBytes(utf8OtherMath234);
+
+        string memory otherMath235 = "\\u{1EE61}";
+        bytes memory utf8OtherMath235 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath235));
+        console2.log("1EE61: ", string(utf8OtherMath235));
+        console2.logBytes(utf8OtherMath235);
+
+        string memory otherMath236 = "\\u{1EE62}";
+        bytes memory utf8OtherMath236 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath236));
+        console2.log("1EE62: ", string(utf8OtherMath236));
+        console2.logBytes(utf8OtherMath236);
+
+        string memory otherMath237 = "\\u{1EE64}";
+        bytes memory utf8OtherMath237 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath237));
+        console2.log("1EE64: ", string(utf8OtherMath237));
+        console2.logBytes(utf8OtherMath237);
+
+        string memory otherMath238 = "\\u{1EE67}";
+        bytes memory utf8OtherMath238 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath238));
+        console2.log("1EE67: ", string(utf8OtherMath238));
+        console2.logBytes(utf8OtherMath238);
+
+        string memory otherMath239 = "\\u{1EE6A}";
+        bytes memory utf8OtherMath239 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath239));
+        console2.log("1EE6A: ", string(utf8OtherMath239));
+        console2.logBytes(utf8OtherMath239);
+
+        string memory otherMath240 = "\\u{1EE6C}";
+        bytes memory utf8OtherMath240 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath240));
+        console2.log("1EE6C: ", string(utf8OtherMath240));
+        console2.logBytes(utf8OtherMath240);
+
+        string memory otherMath241 = "\\u{1EE72}";
+        bytes memory utf8OtherMath241 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath241));
+        console2.log("1EE72: ", string(utf8OtherMath241));
+        console2.logBytes(utf8OtherMath241);
+
+        string memory otherMath242 = "\\u{1EE74}";
+        bytes memory utf8OtherMath242 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath242));
+        console2.log("1EE74: ", string(utf8OtherMath242));
+        console2.logBytes(utf8OtherMath242);
+
+        string memory otherMath243 = "\\u{1EE77}";
+        bytes memory utf8OtherMath243 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath243));
+        console2.log("1EE77: ", string(utf8OtherMath243));
+        console2.logBytes(utf8OtherMath243);
+
+        string memory otherMath244 = "\\u{1EE79}";
+        bytes memory utf8OtherMath244 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath244));
+        console2.log("1EE79: ", string(utf8OtherMath244));
+        console2.logBytes(utf8OtherMath244);
+
+        string memory otherMath245 = "\\u{1EE7C}";
+        bytes memory utf8OtherMath245 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath245));
+        console2.log("1EE7C: ", string(utf8OtherMath245));
+        console2.logBytes(utf8OtherMath245);
+
+        string memory otherMath246 = "\\u{1EE7E}";
+        bytes memory utf8OtherMath246 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath246));
+        console2.log("1EE7E: ", string(utf8OtherMath246));
+        console2.logBytes(utf8OtherMath246);
+
+        string memory otherMath247 = "\\u{1EE80}";
+        bytes memory utf8OtherMath247 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath247));
+        console2.log("1EE80: ", string(utf8OtherMath247));
+        console2.logBytes(utf8OtherMath247);
+
+        string memory otherMath248 = "\\u{1EE89}";
+        bytes memory utf8OtherMath248 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath248));
+        console2.log("1EE89: ", string(utf8OtherMath248));
+        console2.logBytes(utf8OtherMath248);
+
+        string memory otherMath249 = "\\u{1EE8B}";
+        bytes memory utf8OtherMath249 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath249));
+        console2.log("1EE8B: ", string(utf8OtherMath249));
+        console2.logBytes(utf8OtherMath249);
+
+        string memory otherMath250 = "\\u{1EE9B}";
+        bytes memory utf8OtherMath250 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath250));
+        console2.log("1EE9B: ", string(utf8OtherMath250));
+        console2.logBytes(utf8OtherMath250);
+
+        string memory otherMath251 = "\\u{1EEA1}";
+        bytes memory utf8OtherMath251 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath251));
+        console2.log("1EEA1: ", string(utf8OtherMath251));
+        console2.logBytes(utf8OtherMath251);
+
+        string memory otherMath252 = "\\u{1EEA3}";
+        bytes memory utf8OtherMath252 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath252));
+        console2.log("1EEA3: ", string(utf8OtherMath252));
+        console2.logBytes(utf8OtherMath252);
+
+        string memory otherMath253 = "\\u{1EEA5}";
+        bytes memory utf8OtherMath253 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath253));
+        console2.log("1EEA5: ", string(utf8OtherMath253));
+        console2.logBytes(utf8OtherMath253);
+
+        string memory otherMath254 = "\\u{1EEA9}";
+        bytes memory utf8OtherMath254 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath254));
+        console2.log("1EEA9: ", string(utf8OtherMath254));
+        console2.logBytes(utf8OtherMath254);
+
+        string memory otherMath255 = "\\u{1EEAB}";
+        bytes memory utf8OtherMath255 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath255));
+        console2.log("1EEAB: ", string(utf8OtherMath255));
+        console2.logBytes(utf8OtherMath255);
+
+        string memory otherMath256 = "\\u{1EEBB}";
+        bytes memory utf8OtherMath256 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath256));
+        console2.log("1EEBB: ", string(utf8OtherMath256));
+        console2.logBytes(utf8OtherMath256);
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

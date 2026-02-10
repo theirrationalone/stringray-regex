@@ -1914,6 +1914,196 @@ library Stringray {
         }
     }
 
+    function isPropertyOtherMath(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // 5e: 0x 50
+        if (_pattern[_currentParticleIndex] == 0x5e) {
+            return (true, _currentParticleIndex);
+        }
+
+        // 005e: 0x5e
+        // 03d0: 0xcf90 ... 03d2: 0xcf92
+        // 03d5: 0xcf95
+        // 03F0: 0xcfb0 ... 03F1: 0xcfb1
+        // 03F4: 0xcfb4 ... 03F5: 0xcfb5
+        // 2016: 0xe28096
+        // 2032: 0xe280b2 ... 2034: 0xe280b4
+        // 2040: 0xe28180
+        // 2061: 0xe281a1 ... 2064: 0xe281a4
+        // 207d: 0xe281bd
+        // 207e: 0xe281be
+        // 208d: 0xe2828d
+        // 208e: 0xe2828e
+        // 20d0: 0xe28390 ... 20dc: 0xe2839c
+        // 20e1: 0xe283a1
+        // 20e5: 0xe283a5 ... 20e6: 0xe283a6
+        // 20eb: 0xe283ab ... 20ef: 0xe283af
+        // 2102: 0xe28482
+        // 2107: 0xe28487
+        // 210a: 0xe2848a ... 2113: 0xe28493
+        // 2115: 0xe28495
+        // 2119: 0xe28499 ... 211D: 0xe2849d
+        // 2124: 0xe284a4
+        // 2128: 0xe284a8
+        // 2129: 0xe284a9
+        // 212C: 0xe284ac ... 212D: 0xe284ad
+        // 212F: 0xe284af ... 2131: 0xe284b1
+        // 2133: 0xe284b3 ... 2134: 0xe284b4
+        // 2135: 0xe284b5 ... 2138: 0xe284b8
+        // 213C: 0xe284bc ... 213F: 0xe284bf
+        // 2145: 0xe28585 ... 2149: 0xe28589
+        // 2195: 0xe28695 ... 2199: 0xe28699
+        // 219C: 0xe2869c ... 219F: 0xe2869f
+        // 21A1: 0xe286a1 ... 21A2: 0xe286a2
+        // 21A4: 0xe286a4 ... 21A5: 0xe286a5
+        // 21A7: 0xe286a7
+        // 21A9: 0xe286a9 ... 21AD: 0xe286ad
+        // 21B0: 0xe286b0 ... 21B1: 0xe286b1
+        // 21B6: 0xe286b6 ... 21B7: 0xe286b7
+        // 21BC: 0xe286bc ... 21CD: 0xe2878d
+        // 21D0: 0xe28790 ... 21D1: 0xe28791
+        // 21D3: 0xe28793
+        // 21D5: 0xe28795 ... 21DB: 0xe2879b
+        // 21DD: 0xe2879d
+        // 21E4: 0xe287a4 ... 21E5: 0xe287a5
+        // 2308: 0xe28c88
+        // 2309: 0xe28c89
+        // 230A: 0xe28c8a
+        // 230B: 0xe28c8b
+        // 23B4: 0xe28eb4 ... 23B5: 0xe28eb4
+        // 23B7: 0xe28eb7
+        // 23D0: 0xe28f90
+        // 23E2: 0xe28fa2
+        // 25A0: 0xe296a0 ... 25A1: 0xe296a1
+        // 25AE: 0xe296ae ... 25B6: 0xe296b6
+        // 25BC: 0xe296bc ... 25C0: 0xe29780
+        // 25C6: 0xe29786 ... 25C7: 0xe29787
+        // 25CA: 0xe2978a ... 25CB: 0xe2978b
+        // 25CF: 0xe2978f ... 25D3: 0xe29793
+        // 25E2: 0xe297a2
+        // 25E4: 0xe297a4
+        // 25E7: 0xe297a7 ... 25EC: 0xe297ac
+        // 2605: 0xe29885 ... 2606: 0xe29886
+        // 2640: 0xe29980
+        // 2642: 0xe29982
+        // 2660: 0xe299a0 ... 2663: 0xe299a3
+        // 266D: 0xe299ad ... 266E: 0xe299ae
+        // 27C5: 0xe29f85
+        // 27C6: 0xe29f86
+        // 27E6: 0xe29fa6
+        // 27E7: 0xe29fa7
+        // 27E8: 0xe29fa8
+        // 27E9: 0xe29fa9
+        // 27EA: 0xe29faa
+        // 27EB: 0xe29fab
+        // 27EC: 0xe29fac
+        // 27ED: 0xe29fad
+        // 27EE: 0xe29fae
+        // 27EF: 0xe29faf
+        // 2983: 0xe2a683
+        // 2984: 0xe2a684
+        // 2985: 0xe2a685
+        // 2986: 0xe2a686
+        // 2987: 0xe2a687
+        // 2988: 0xe2a688
+        // 2989: 0xe2a689
+        // 298A: 0xe2a68a
+        // 298B: 0xe2a68b
+        // 298C: 0xe2a68c
+        // 298D: 0xe2a68d
+        // 298E: 0xe2a68e
+        // 298F: 0xe2a68f
+        // 2990: 0xe2a690
+        // 2991: 0xe2a691
+        // 2992: 0xe2a692
+        // 2993: 0xe2a693
+        // 2994: 0xe2a694
+        // 2995: 0xe2a695
+        // 2996: 0xe2a696
+        // 2997: 0xe2a697
+        // 2998: 0xe2a698
+        // 29D8: 0xe2a798
+        // 29D9: 0xe2a799
+        // 29DA: 0xe2a79a
+        // 29DB: 0xe2a79b
+        // 29FC: 0xe2a7bc
+        // 29FD: 0xe2a7bd
+        // FE61: 0xefb9a1
+        // FE63: 0xefb9a3
+        // FE68: 0xefb9a8
+        // FF3C: 0xefbcbc
+        // FF3E: 0xefbcbe
+        // 1D400: 0xf09d9080 ... 1D454: 0xf09d9194
+        // 1D456: 0xf09d9196 ... 1D49C: 0xf09d929c
+        // 1D49E: 0xf09d929e ... 1D49F: 0xf09d929f
+        // 1D4A2: 0xf09d92a2
+        // 1D4A5: 0xf09d92a5 ... 1D4A6: 0xf09d92a6
+        // 1D4A9: 0xf09d92a9 ... 1D4AC: 0xf09d92ac
+        // 1D4AE: 0xf09d92ae ... 1D4B9: 0xf09d92b9
+        // 1D4BB: 0xf09d92bb
+        // 1D4BD: 0xf09d92bd ... 1D4C3: 0xf09d9383
+        // 1D4C5: 0xf09d9385 ... 1D505: 0xf09d9485
+        // 1D507: 0xf09d9487 ... 1D50A: 0xf09d948a
+        // 1D50D: 0xf09d948d ... 1D514: 0xf09d9494
+        // 1D516: 0xf09d9496 ... 1D51C: 0xf09d949c
+        // 1D51E: 0xf09d949e ... 1D539: 0xf09d94b9
+        // 1D53B: 0xf09d94bb ... 1D53E: 0xf09d94be
+        // 1D540: 0xf09d9580 ... 1D544: 0xf09d9584
+        // 1D546: 0xf09d9586
+        // 1D54A: 0xf09d958a ... 1D550: 0xf09d9590
+        // 1D552: 0xf09d9592 ... 1D6A5: 0xf09d9aa5
+        // 1D6A8: 0xf09d9aa8 ... 1D6C0: 0xf09d9b80
+        // 1D6C2: 0xf09d9b82 ... 1D6DA: 0xf09d9b9a
+        // 1D6DC: 0xf09d9b9c ... 1D6FA: 0xf09d9bba
+        // 1D6FC: 0xf09d9bbc ... 1D714: 0xf09d9c94
+        // 1D716: 0xf09d9c96 ... 1D734: 0xf09d9cb4
+        // 1D736: 0xf09d9cb6 ... 1D74E: 0xf09d9d8e
+        // 1D750: 0xf09d9d90 ... 1D76E: 0xf09d9dae
+        // 1D770: 0xf09d9db0 ... 1D788: 0xf09d9e88
+        // 1D78A: 0xf09d9e8a ... 1D7A8: 0xf09d9ea8
+        // 1D7AA: 0xf09d9eaa ... 1D7C2: 0xf09d9f82
+        // 1D7C4: 0xf09d9f84 ... 1D7CB: 0xf09d9f8b
+        // 1D7CE: 0xf09d9f8e ... 1D7FF: 0xf09d9fbf
+        // 1EE00: 0xf09eb880 ... 1EE03: 0xf09eb883
+        // 1EE05: 0xf09eb885 ... 1EE1F: 0xf09eb89f
+        // 1EE21: 0xf09eb8a1 ... 1EE22: 0xf09eb8a2
+        // 1EE24: 0xf09eb8a4
+        // 1EE27: 0xf09eb8a7
+        // 1EE29: 0xf09eb8a9 ... 1EE32: 0xf09eb8b2
+        // 1EE34: 0xf09eb8b4 ... 1EE37: 0xf09eb8b7
+        // 1EE39: 0xf09eb8b9
+        // 1EE3B: 0xf09eb8bb
+        // 1EE42: 0xf09eb982
+        // 1EE47: 0xf09eb987
+        // 1EE49: 0xf09eb989
+        // 1EE4B: 0xf09eb98b
+        // 1EE4D: 0xf09eb98d ... 1EE4F: 0xf09eb98f
+        // 1EE51: 0xf09eb991 ... 1EE52: 0xf09eb992
+        // 1EE54: 0xf09eb994
+        // 1EE57: 0xf09eb997
+        // 1EE59: 0xf09eb999
+        // 1EE5B: 0xf09eb99b
+        // 1EE5D: 0xf09eb99d
+        // 1EE5F: 0xf09eb99f
+        // 1EE61: 0xf09eb9a1 ... 1EE62: 0xf09eb9a2
+        // 1EE64: 0xf09eb9a4
+        // 1EE67: 0xf09eb9a7 ... 1EE6A: 0xf09eb9aa
+        // 1EE6C: 0xf09eb9ac ... 1EE72: 0xf09eb9b2
+        // 1EE74: 0xf09eb9b4 ... 1EE77: 0xf09eb9b7
+        // 1EE79: 0xf09eb9b9 ... 1EE7C: 0xf09eb9bc
+        // 1EE7E: 0xf09eb9be
+        // 1EE80: 0xf09eba80 ... 1EE89: 0xf09eba89
+        // 1EE8B: 0xf09eba8b ... 1EE9B: 0xf09eba9b
+        // 1EEA1: 0xf09ebaa1 ... 1EEA3: 0xf09ebaa3
+        // 1EEA5: 0xf09ebaa5 ... 1EEA9: 0xf09ebaa9
+        // 1EEAB: 0xf09ebaab ... 1EEBB: 0xf09ebabb
+
+        return (false, 0);
+    }
+
     function isPropertyTerminalPunctuation(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -2957,6 +3147,8 @@ library Stringray {
                 }
             }
         }
+
+        return (false, 0);
     }
 
     function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
