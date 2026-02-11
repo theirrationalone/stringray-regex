@@ -3217,7 +3217,7 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8OtherMath74);
 
         string memory otherMath75 = "\\u{23B5}";
-        bytes memory utf8OtherMath75 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath74));
+        bytes memory utf8OtherMath75 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherMath75));
         console2.log("23B5: ", string(utf8OtherMath75));
         console2.logBytes(utf8OtherMath75);
 
