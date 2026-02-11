@@ -1914,6 +1914,12 @@ library Stringray {
         }
     }
 
+    function isPropertyOtherAlphabetic(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {}
+
     function isPropertyOtherMath(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
