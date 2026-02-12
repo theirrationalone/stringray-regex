@@ -984,7 +984,7 @@ Logs:
   112E8:  𑋨
   0xf0918ba8
 
-[PASS] testRegexPropertyOtherAlphabetic2() (gas: 41419840)
+[PASS] testRegexPropertyOtherAlphabetic2() (gas: 41429863)
 Logs:
   11300:  𑌀
   0xf0918c80
@@ -994,10 +994,10 @@ Logs:
   0xf0918c82
   11303:  𑌃
   0xf0918c83
-  1130E:  𑌎
-  0xf0918c8e
-  1130F:  𑌏
-  0xf0918c8f
+  1133E:  𑌾
+  0xf0918cbe
+  1133F:  𑌿
+  0xf0918cbf
   11340:  𑍀
   0xf0918d80
   11341:  𑍁
@@ -1413,6 +1413,6 @@ Logs:
   1F189:  🆉
   0xf09f8689
 
-Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 653.22ms (1.01s CPU time)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 572.64ms (895.50ms CPU time)
 
-Ran 1 test suite in 661.20ms (653.22ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+Ran 1 test suite in 580.78ms (572.64ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

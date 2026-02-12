@@ -6619,14 +6619,14 @@ contract PlayStringTest is Test {
         console2.log("11303: ", string(utf8OtherAlphabetic494));
         console2.logBytes(utf8OtherAlphabetic494);
 
-        string memory otherAlphabetic495 = "\\u{1130E}";
+        string memory otherAlphabetic495 = "\\u{1133E}";
         bytes memory utf8OtherAlphabetic495 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherAlphabetic495));
-        console2.log("1130E: ", string(utf8OtherAlphabetic495));
+        console2.log("1133E: ", string(utf8OtherAlphabetic495));
         console2.logBytes(utf8OtherAlphabetic495);
 
-        string memory otherAlphabetic496 = "\\u{1130F}";
+        string memory otherAlphabetic496 = "\\u{1133F}";
         bytes memory utf8OtherAlphabetic496 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherAlphabetic496));
-        console2.log("1130F: ", string(utf8OtherAlphabetic496));
+        console2.log("1133F: ", string(utf8OtherAlphabetic496));
         console2.logBytes(utf8OtherAlphabetic496);
 
         string memory otherAlphabetic497 = "\\u{11340}";
