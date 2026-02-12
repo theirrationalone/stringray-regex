@@ -1918,7 +1918,9 @@ library Stringray {
         private
         pure
         returns (bool, uint256)
-    {}
+    {
+        // let's do it...
+    }
 
     function isPropertyOtherMath(bytes memory _pattern, uint256 _currentParticleIndex)
         private
@@ -4467,7 +4469,6 @@ library Stringray {
                         : msbByte.length % 5 == 1
                             ? abi.encodePacked("1100000", msbByte)
                             : abi.encodePacked("110", msbByte);
-
             bytes memory utf8HexBytes = abi.encodePacked(msbByte, lastByte);
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 16) {
@@ -4483,7 +4484,7 @@ library Stringray {
                 ? abi.encodePacked("11100", msbByte)
                 : msbByte.length % 4 == 2
                     ? abi.encodePacked("111000", msbByte)
-                    : msbByte.length % 4 == 1 ? abi.encodePacked("1110000") : abi.encodePacked("1110", msbByte);
+                    : msbByte.length % 4 == 1 ? abi.encodePacked("1110000", msbByte) : abi.encodePacked("1110", msbByte);
             bytes memory utf8HexBytes = abi.encodePacked(msbByte, secondLastByte, lastByte);
             return binaryToUtf8Hex(utf8HexBytes);
         } else if (binary.length <= 21) {
