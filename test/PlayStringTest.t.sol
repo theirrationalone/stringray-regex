@@ -7665,6 +7665,2269 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8OtherAlphabetic700);
     }
 
+    function testRegexPropertyDiacritic() public pure {
+        string memory diacritic005E = "\\u{005E}";
+        bytes memory utf8Diacritic005E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic005E));
+        console2.log("005E: ", string(utf8Diacritic005E));
+        console2.logBytes(utf8Diacritic005E);
+
+        string memory diacritic0060 = "\\u{0060}";
+        bytes memory utf8Diacritic0060 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0060));
+        console2.log("0060: ", string(utf8Diacritic0060));
+        console2.logBytes(utf8Diacritic0060);
+
+        string memory diacritic00A8 = "\\u{00A8}";
+        bytes memory utf8Diacritic00A8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic00A8));
+        console2.log("00A8: ", string(utf8Diacritic00A8));
+        console2.logBytes(utf8Diacritic00A8);
+
+        string memory diacritic00AF = "\\u{00AF}";
+        bytes memory utf8Diacritic00AF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic00AF));
+        console2.log("00AF: ", string(utf8Diacritic00AF));
+        console2.logBytes(utf8Diacritic00AF);
+
+        string memory diacritic00B4 = "\\u{00B4}";
+        bytes memory utf8Diacritic00B4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic00B4));
+        console2.log("00B4: ", string(utf8Diacritic00B4));
+        console2.logBytes(utf8Diacritic00B4);
+
+        string memory diacritic00B7 = "\\u{00B7}";
+        bytes memory utf8Diacritic00B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic00B7));
+        console2.log("00B7: ", string(utf8Diacritic00B7));
+        console2.logBytes(utf8Diacritic00B7);
+
+        string memory diacritic00B8 = "\\u{00B8}";
+        bytes memory utf8Diacritic00B8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic00B8));
+        console2.log("00B8: ", string(utf8Diacritic00B8));
+        console2.logBytes(utf8Diacritic00B8);
+
+        string memory diacritic02B0 = "\\u{02B0}";
+        bytes memory utf8Diacritic02B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02B0));
+        console2.log("02B0: ", string(utf8Diacritic02B0));
+        console2.logBytes(utf8Diacritic02B0);
+
+        console2.log("..");
+
+        string memory diacritic02C1 = "\\u{02C1}";
+        bytes memory utf8Diacritic02C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02C1));
+        console2.log("02C1: ", string(utf8Diacritic02C1));
+        console2.logBytes(utf8Diacritic02C1);
+
+        string memory diacritic02C2 = "\\u{02C2}";
+        bytes memory utf8Diacritic02C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02C2));
+        console2.log("02C2: ", string(utf8Diacritic02C2));
+        console2.logBytes(utf8Diacritic02C2);
+
+        console2.log("..");
+
+        string memory diacritic02C5 = "\\u{02C5}";
+        bytes memory utf8Diacritic02C5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02C5));
+        console2.log("02C5: ", string(utf8Diacritic02C5));
+        console2.logBytes(utf8Diacritic02C5);
+
+        string memory diacritic02C6 = "\\u{02C6}";
+        bytes memory utf8Diacritic02C6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02C6));
+        console2.log("02C6: ", string(utf8Diacritic02C6));
+        console2.logBytes(utf8Diacritic02C6);
+
+        console2.log("..");
+
+        string memory diacritic02D1 = "\\u{02D1}";
+        bytes memory utf8Diacritic02D1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02D1));
+        console2.log("02D1: ", string(utf8Diacritic02D1));
+        console2.logBytes(utf8Diacritic02D1);
+
+        string memory diacritic02D2 = "\\u{02D2}";
+        bytes memory utf8Diacritic02D2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02D2));
+        console2.log("02D2: ", string(utf8Diacritic02D2));
+        console2.logBytes(utf8Diacritic02D2);
+
+        console2.log("..");
+
+        string memory diacritic02DF = "\\u{02DF}";
+        bytes memory utf8Diacritic02DF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02DF));
+        console2.log("02DF: ", string(utf8Diacritic02DF));
+        console2.logBytes(utf8Diacritic02DF);
+
+        string memory diacritic02E0 = "\\u{02E0}";
+        bytes memory utf8Diacritic02E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02E0));
+        console2.log("02E0: ", string(utf8Diacritic02E0));
+        console2.logBytes(utf8Diacritic02E0);
+
+        console2.log("..");
+
+        string memory diacritic02E4 = "\\u{02E4}";
+        bytes memory utf8Diacritic02E4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02E4));
+        console2.log("02E4: ", string(utf8Diacritic02E4));
+        console2.logBytes(utf8Diacritic02E4);
+
+        string memory diacritic02E5 = "\\u{02E5}";
+        bytes memory utf8Diacritic02E5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02E5));
+        console2.log("02E5: ", string(utf8Diacritic02E5));
+        console2.logBytes(utf8Diacritic02E5);
+
+        console2.log("..");
+
+        string memory diacritic02EB = "\\u{02EB}";
+        bytes memory utf8Diacritic02EB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02EB));
+        console2.log("02EB: ", string(utf8Diacritic02EB));
+        console2.logBytes(utf8Diacritic02EB);
+
+        string memory diacritic02EC = "\\u{02EC}";
+        bytes memory utf8Diacritic02EC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02EC));
+        console2.log("02EC: ", string(utf8Diacritic02EC));
+        console2.logBytes(utf8Diacritic02EC);
+
+        string memory diacritic02ED = "\\u{02ED}";
+        bytes memory utf8Diacritic02ED = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02ED));
+        console2.log("02ED: ", string(utf8Diacritic02ED));
+        console2.logBytes(utf8Diacritic02ED);
+
+        string memory diacritic02EE = "\\u{02EE}";
+        bytes memory utf8Diacritic02EE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02EE));
+        console2.log("02EE: ", string(utf8Diacritic02EE));
+        console2.logBytes(utf8Diacritic02EE);
+
+        string memory diacritic02EF = "\\u{02EF}";
+        bytes memory utf8Diacritic02EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02EF));
+        console2.log("02EF: ", string(utf8Diacritic02EF));
+        console2.logBytes(utf8Diacritic02EF);
+
+        console2.log("..");
+
+        string memory diacritic02FF = "\\u{02FF}";
+        bytes memory utf8Diacritic02FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic02FF));
+        console2.log("02FF: ", string(utf8Diacritic02FF));
+        console2.logBytes(utf8Diacritic02FF);
+
+        string memory diacritic0300 = "\\u{0300}";
+        bytes memory utf8Diacritic0300 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0300));
+        console2.log("0300: ", string(utf8Diacritic0300));
+        console2.logBytes(utf8Diacritic0300);
+
+        console2.log("..");
+
+        string memory diacritic034E = "\\u{034E}";
+        bytes memory utf8Diacritic034E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic034E));
+        console2.log("034E: ", string(utf8Diacritic034E));
+        console2.logBytes(utf8Diacritic034E);
+
+        string memory diacritic0350 = "\\u{0350}";
+        bytes memory utf8Diacritic0350 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0350));
+        console2.log("0350: ", string(utf8Diacritic0350));
+        console2.logBytes(utf8Diacritic0350);
+
+        console2.log("..");
+
+        string memory diacritic0357 = "\\u{0357}";
+        bytes memory utf8Diacritic0357 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0357));
+        console2.log("0357: ", string(utf8Diacritic0357));
+        console2.logBytes(utf8Diacritic0357);
+
+        string memory diacritic035D = "\\u{035D}";
+        bytes memory utf8Diacritic035D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic035D));
+        console2.log("035D: ", string(utf8Diacritic035D));
+        console2.logBytes(utf8Diacritic035D);
+
+        console2.log("..");
+
+        string memory diacritic0362 = "\\u{0362}";
+        bytes memory utf8Diacritic0362 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0362));
+        console2.log("0362: ", string(utf8Diacritic0362));
+        console2.logBytes(utf8Diacritic0362);
+
+        string memory diacritic0374 = "\\u{0374}";
+        bytes memory utf8Diacritic0374 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0374));
+        console2.log("0374: ", string(utf8Diacritic0374));
+        console2.logBytes(utf8Diacritic0374);
+
+        string memory diacritic0375 = "\\u{0375}";
+        bytes memory utf8Diacritic0375 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0375));
+        console2.log("0375: ", string(utf8Diacritic0375));
+        console2.logBytes(utf8Diacritic0375);
+
+        string memory diacritic037A = "\\u{037A}";
+        bytes memory utf8Diacritic037A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic037A));
+        console2.log("037A: ", string(utf8Diacritic037A));
+        console2.logBytes(utf8Diacritic037A);
+
+        string memory diacritic0384 = "\\u{0384}";
+        bytes memory utf8Diacritic0384 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0384));
+        console2.log("0384: ", string(utf8Diacritic0384));
+        console2.logBytes(utf8Diacritic0384);
+
+        console2.log("..");
+
+        string memory diacritic0385 = "\\u{0385}";
+        bytes memory utf8Diacritic0385 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0385));
+        console2.log("0385: ", string(utf8Diacritic0385));
+        console2.logBytes(utf8Diacritic0385);
+
+        string memory diacritic0483 = "\\u{0483}";
+        bytes memory utf8Diacritic0483 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0483));
+        console2.log("0483: ", string(utf8Diacritic0483));
+        console2.logBytes(utf8Diacritic0483);
+
+        console2.log("..");
+
+        string memory diacritic0487 = "\\u{0487}";
+        bytes memory utf8Diacritic0487 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0487));
+        console2.log("0487: ", string(utf8Diacritic0487));
+        console2.logBytes(utf8Diacritic0487);
+
+        string memory diacritic0559 = "\\u{0559}";
+        bytes memory utf8Diacritic0559 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0559));
+        console2.log("0559: ", string(utf8Diacritic0559));
+        console2.logBytes(utf8Diacritic0559);
+
+        string memory diacritic0591 = "\\u{0591}";
+        bytes memory utf8Diacritic0591 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0591));
+        console2.log("0591: ", string(utf8Diacritic0591));
+        console2.logBytes(utf8Diacritic0591);
+
+        console2.log("..");
+
+        string memory diacritic05BD = "\\u{05BD}";
+        bytes memory utf8Diacritic05BD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05BD));
+        console2.log("05BD: ", string(utf8Diacritic05BD));
+        console2.logBytes(utf8Diacritic05BD);
+
+        string memory diacritic05BF = "\\u{05BF}";
+        bytes memory utf8Diacritic05BF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05BF));
+        console2.log("05BF: ", string(utf8Diacritic05BF));
+        console2.logBytes(utf8Diacritic05BF);
+
+        string memory diacritic05C1 = "\\u{05C1}";
+        bytes memory utf8Diacritic05C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05C1));
+        console2.log("05C1: ", string(utf8Diacritic05C1));
+        console2.logBytes(utf8Diacritic05C1);
+
+        console2.log("..");
+
+        string memory diacritic05C2 = "\\u{05C2}";
+        bytes memory utf8Diacritic05C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05C2));
+        console2.log("05C2: ", string(utf8Diacritic05C2));
+        console2.logBytes(utf8Diacritic05C2);
+
+        string memory diacritic05C4 = "\\u{05C4}";
+        bytes memory utf8Diacritic05C4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05C4));
+        console2.log("05C4: ", string(utf8Diacritic05C4));
+        console2.logBytes(utf8Diacritic05C4);
+
+        console2.log("..");
+
+        string memory diacritic05C5 = "\\u{05C5}";
+        bytes memory utf8Diacritic05C5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05C5));
+        console2.log("05C5: ", string(utf8Diacritic05C5));
+        console2.logBytes(utf8Diacritic05C5);
+
+        string memory diacritic05C7 = "\\u{05C7}";
+        bytes memory utf8Diacritic05C7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic05C7));
+        console2.log("05C7: ", string(utf8Diacritic05C7));
+        console2.logBytes(utf8Diacritic05C7);
+
+        string memory diacritic064B = "\\u{064B}";
+        bytes memory utf8Diacritic064B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic064B));
+        console2.log("064B: ", string(utf8Diacritic064B));
+        console2.logBytes(utf8Diacritic064B);
+
+        console2.log("..");
+
+        string memory diacritic0652 = "\\u{0652}";
+        bytes memory utf8Diacritic0652 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0652));
+        console2.log("0652: ", string(utf8Diacritic0652));
+        console2.logBytes(utf8Diacritic0652);
+
+        string memory diacritic0657 = "\\u{0657}";
+        bytes memory utf8Diacritic0657 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0657));
+        console2.log("0657: ", string(utf8Diacritic0657));
+        console2.logBytes(utf8Diacritic0657);
+
+        console2.log("..");
+
+        string memory diacritic0658 = "\\u{0658}";
+        bytes memory utf8Diacritic0658 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0658));
+        console2.log("0658: ", string(utf8Diacritic0658));
+        console2.logBytes(utf8Diacritic0658);
+
+        string memory diacritic06DF = "\\u{06DF}";
+        bytes memory utf8Diacritic06DF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06DF));
+        console2.log("06DF: ", string(utf8Diacritic06DF));
+        console2.logBytes(utf8Diacritic06DF);
+
+        console2.log("..");
+
+        string memory diacritic06E0 = "\\u{06E0}";
+        bytes memory utf8Diacritic06E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06E0));
+        console2.log("06E0: ", string(utf8Diacritic06E0));
+        console2.logBytes(utf8Diacritic06E0);
+
+        string memory diacritic06E5 = "\\u{06E5}";
+        bytes memory utf8Diacritic06E5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06E5));
+        console2.log("06E5: ", string(utf8Diacritic06E5));
+        console2.logBytes(utf8Diacritic06E5);
+
+        console2.log("..");
+
+        string memory diacritic06E6 = "\\u{06E6}";
+        bytes memory utf8Diacritic06E6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06E6));
+        console2.log("06E6: ", string(utf8Diacritic06E6));
+        console2.logBytes(utf8Diacritic06E6);
+
+        string memory diacritic06EA = "\\u{06EA}";
+        bytes memory utf8Diacritic06EA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06EA));
+        console2.log("06EA: ", string(utf8Diacritic06EA));
+        console2.logBytes(utf8Diacritic06EA);
+
+        console2.log("..");
+
+        string memory diacritic06EC = "\\u{06EC}";
+        bytes memory utf8Diacritic06EC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic06EC));
+        console2.log("06EC: ", string(utf8Diacritic06EC));
+        console2.logBytes(utf8Diacritic06EC);
+
+        string memory diacritic0730 = "\\u{0730}";
+        bytes memory utf8Diacritic0730 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0730));
+        console2.log("0730: ", string(utf8Diacritic0730));
+        console2.logBytes(utf8Diacritic0730);
+
+        console2.log("..");
+
+        string memory diacritic074A = "\\u{074A}";
+        bytes memory utf8Diacritic074A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic074A));
+        console2.log("074A: ", string(utf8Diacritic074A));
+        console2.logBytes(utf8Diacritic074A);
+
+        string memory diacritic07A6 = "\\u{07A6}";
+        bytes memory utf8Diacritic07A6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07A6));
+        console2.log("07A6: ", string(utf8Diacritic07A6));
+        console2.logBytes(utf8Diacritic07A6);
+
+        console2.log("..");
+
+        string memory diacritic07B0 = "\\u{07B0}";
+        bytes memory utf8Diacritic07B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07B0));
+        console2.log("07B0: ", string(utf8Diacritic07B0));
+        console2.logBytes(utf8Diacritic07B0);
+
+        string memory diacritic07EB = "\\u{07EB}";
+        bytes memory utf8Diacritic07EB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07EB));
+        console2.log("07EB: ", string(utf8Diacritic07EB));
+        console2.logBytes(utf8Diacritic07EB);
+
+        console2.log("..");
+
+        string memory diacritic07F3 = "\\u{07F3}";
+        bytes memory utf8Diacritic07F3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07F3));
+        console2.log("07F3: ", string(utf8Diacritic07F3));
+        console2.logBytes(utf8Diacritic07F3);
+
+        string memory diacritic07F4 = "\\u{07F4}";
+        bytes memory utf8Diacritic07F4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07F4));
+        console2.log("07F4: ", string(utf8Diacritic07F4));
+        console2.logBytes(utf8Diacritic07F4);
+
+        console2.log("..");
+
+        string memory diacritic07F5 = "\\u{07F5}";
+        bytes memory utf8Diacritic07F5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic07F5));
+        console2.log("07F5: ", string(utf8Diacritic07F5));
+        console2.logBytes(utf8Diacritic07F5);
+
+        string memory diacritic0818 = "\\u{0818}";
+        bytes memory utf8Diacritic0818 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0818));
+        console2.log("0818: ", string(utf8Diacritic0818));
+        console2.logBytes(utf8Diacritic0818);
+
+        console2.log("..");
+
+        string memory diacritic0819 = "\\u{0819}";
+        bytes memory utf8Diacritic0819 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0819));
+        console2.log("0819: ", string(utf8Diacritic0819));
+        console2.logBytes(utf8Diacritic0819);
+
+        string memory diacritic0898 = "\\u{0898}";
+        bytes memory utf8Diacritic0898 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0898));
+        console2.log("0898: ", string(utf8Diacritic0898));
+        console2.logBytes(utf8Diacritic0898);
+
+        console2.log("..");
+
+        string memory diacritic089F = "\\u{089F}";
+        bytes memory utf8Diacritic089F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic089F));
+        console2.log("089F: ", string(utf8Diacritic089F));
+        console2.logBytes(utf8Diacritic089F);
+
+        string memory diacritic08C9 = "\\u{08C9}";
+        bytes memory utf8Diacritic08C9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic08C9));
+        console2.log("08C9: ", string(utf8Diacritic08C9));
+        console2.logBytes(utf8Diacritic08C9);
+
+        string memory diacritic08CA = "\\u{08CA}";
+        bytes memory utf8Diacritic08CA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic08CA));
+        console2.log("08CA: ", string(utf8Diacritic08CA));
+        console2.logBytes(utf8Diacritic08CA);
+
+        console2.log("..");
+
+        string memory diacritic08D2 = "\\u{08D2}";
+        bytes memory utf8Diacritic08D2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic08D2));
+        console2.log("08D2: ", string(utf8Diacritic08D2));
+        console2.logBytes(utf8Diacritic08D2);
+
+        string memory diacritic08E3 = "\\u{08E3}";
+        bytes memory utf8Diacritic08E3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic08E3));
+        console2.log("08E3: ", string(utf8Diacritic08E3));
+        console2.logBytes(utf8Diacritic08E3);
+
+        console2.log("..");
+
+        string memory diacritic08FE = "\\u{08FE}";
+        bytes memory utf8Diacritic08FE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic08FE));
+        console2.log("08FE: ", string(utf8Diacritic08FE));
+        console2.logBytes(utf8Diacritic08FE);
+
+        string memory diacritic093C = "\\u{093C}";
+        bytes memory utf8Diacritic093C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic093C));
+        console2.log("093C: ", string(utf8Diacritic093C));
+        console2.logBytes(utf8Diacritic093C);
+
+        string memory diacritic094D = "\\u{094D}";
+        bytes memory utf8Diacritic094D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic094D));
+        console2.log("094D: ", string(utf8Diacritic094D));
+        console2.logBytes(utf8Diacritic094D);
+
+        string memory diacritic0951 = "\\u{0951}";
+        bytes memory utf8Diacritic0951 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0951));
+        console2.log("0951: ", string(utf8Diacritic0951));
+        console2.logBytes(utf8Diacritic0951);
+
+        console2.log("..");
+
+        string memory diacritic0954 = "\\u{0954}";
+        bytes memory utf8Diacritic0954 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0954));
+        console2.log("0954: ", string(utf8Diacritic0954));
+        console2.logBytes(utf8Diacritic0954);
+
+        string memory diacritic0971 = "\\u{0971}";
+        bytes memory utf8Diacritic0971 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0971));
+        console2.log("0971: ", string(utf8Diacritic0971));
+        console2.logBytes(utf8Diacritic0971);
+
+        string memory diacritic09BC = "\\u{09BC}";
+        bytes memory utf8Diacritic09BC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic09BC));
+        console2.log("09BC: ", string(utf8Diacritic09BC));
+        console2.logBytes(utf8Diacritic09BC);
+
+        string memory diacritic09CD = "\\u{09CD}";
+        bytes memory utf8Diacritic09CD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic09CD));
+        console2.log("09CD: ", string(utf8Diacritic09CD));
+        console2.logBytes(utf8Diacritic09CD);
+
+        string memory diacritic0A3C = "\\u{0A3C}";
+        bytes memory utf8Diacritic0A3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0A3C));
+        console2.log("0A3C: ", string(utf8Diacritic0A3C));
+        console2.logBytes(utf8Diacritic0A3C);
+
+        string memory diacritic0A4D = "\\u{0A4D}";
+        bytes memory utf8Diacritic0A4D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0A4D));
+        console2.log("0A4D: ", string(utf8Diacritic0A4D));
+        console2.logBytes(utf8Diacritic0A4D);
+
+        string memory diacritic0ABC = "\\u{0ABC}";
+        bytes memory utf8Diacritic0ABC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0ABC));
+        console2.log("0ABC: ", string(utf8Diacritic0ABC));
+        console2.logBytes(utf8Diacritic0ABC);
+
+        string memory diacritic0ACD = "\\u{0ACD}";
+        bytes memory utf8Diacritic0ACD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0ACD));
+        console2.log("0ACD: ", string(utf8Diacritic0ACD));
+        console2.logBytes(utf8Diacritic0ACD);
+
+        string memory diacritic0AFD = "\\u{0AFD}";
+        bytes memory utf8Diacritic0AFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0AFD));
+        console2.log("0AFD: ", string(utf8Diacritic0AFD));
+        console2.logBytes(utf8Diacritic0AFD);
+
+        console2.log("..");
+
+        string memory diacritic0AFF = "\\u{0AFF}";
+        bytes memory utf8Diacritic0AFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0AFF));
+        console2.log("0AFF: ", string(utf8Diacritic0AFF));
+        console2.logBytes(utf8Diacritic0AFF);
+
+        string memory diacritic0B3C = "\\u{0B3C}";
+        bytes memory utf8Diacritic0B3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0B3C));
+        console2.log("0B3C: ", string(utf8Diacritic0B3C));
+        console2.logBytes(utf8Diacritic0B3C);
+
+        string memory diacritic0B4D = "\\u{0B4D}";
+        bytes memory utf8Diacritic0B4D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0B4D));
+        console2.log("0B4D: ", string(utf8Diacritic0B4D));
+        console2.logBytes(utf8Diacritic0B4D);
+
+        string memory diacritic0B55 = "\\u{0B55}";
+        bytes memory utf8Diacritic0B55 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0B55));
+        console2.log("0B55: ", string(utf8Diacritic0B55));
+        console2.logBytes(utf8Diacritic0B55);
+
+        string memory diacritic0BCD = "\\u{0BCD}";
+        bytes memory utf8Diacritic0BCD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0BCD));
+        console2.log("0BCD: ", string(utf8Diacritic0BCD));
+        console2.logBytes(utf8Diacritic0BCD);
+
+        string memory diacritic0C3C = "\\u{0C3C}";
+        bytes memory utf8Diacritic0C3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0C3C));
+        console2.log("0C3C: ", string(utf8Diacritic0C3C));
+        console2.logBytes(utf8Diacritic0C3C);
+
+        string memory diacritic0C4D = "\\u{0C4D}";
+        bytes memory utf8Diacritic0C4D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0C4D));
+        console2.log("0C4D: ", string(utf8Diacritic0C4D));
+        console2.logBytes(utf8Diacritic0C4D);
+
+        string memory diacritic0CBC = "\\u{0CBC}";
+        bytes memory utf8Diacritic0CBC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0CBC));
+        console2.log("0CBC: ", string(utf8Diacritic0CBC));
+        console2.logBytes(utf8Diacritic0CBC);
+
+        string memory diacritic0CCD = "\\u{0CCD}";
+        bytes memory utf8Diacritic0CCD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0CCD));
+        console2.log("0CCD: ", string(utf8Diacritic0CCD));
+        console2.logBytes(utf8Diacritic0CCD);
+
+        string memory diacritic0D3B = "\\u{0D3B}";
+        bytes memory utf8Diacritic0D3B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0D3B));
+        console2.log("0D3B: ", string(utf8Diacritic0D3B));
+        console2.logBytes(utf8Diacritic0D3B);
+
+        console2.log("..");
+
+        string memory diacritic0D3C = "\\u{0D3C}";
+        bytes memory utf8Diacritic0D3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0D3C));
+        console2.log("0D3C: ", string(utf8Diacritic0D3C));
+        console2.logBytes(utf8Diacritic0D3C);
+
+        string memory diacritic0D4D = "\\u{0D4D}";
+        bytes memory utf8Diacritic0D4D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0D4D));
+        console2.log("0D4D: ", string(utf8Diacritic0D4D));
+        console2.logBytes(utf8Diacritic0D4D);
+
+        string memory diacritic0DCA = "\\u{0DCA}";
+        bytes memory utf8Diacritic0DCA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0DCA));
+        console2.log("0DCA: ", string(utf8Diacritic0DCA));
+        console2.logBytes(utf8Diacritic0DCA);
+
+        string memory diacritic0E3A = "\\u{0E3A}";
+        bytes memory utf8Diacritic0E3A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0E3A));
+        console2.log("0E3A: ", string(utf8Diacritic0E3A));
+        console2.logBytes(utf8Diacritic0E3A);
+
+        string memory diacritic0E47 = "\\u{0E47}";
+        bytes memory utf8Diacritic0E47 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0E47));
+        console2.log("0E47: ", string(utf8Diacritic0E47));
+        console2.logBytes(utf8Diacritic0E47);
+
+        console2.log("..");
+
+        string memory diacritic0E4C = "\\u{0E4C}";
+        bytes memory utf8Diacritic0E4C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0E4C));
+        console2.log("0E4C: ", string(utf8Diacritic0E4C));
+        console2.logBytes(utf8Diacritic0E4C);
+
+        string memory diacritic0E4E = "\\u{0E4E}";
+        bytes memory utf8Diacritic0E4E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0E4E));
+        console2.log("0E4E: ", string(utf8Diacritic0E4E));
+        console2.logBytes(utf8Diacritic0E4E);
+
+        string memory diacritic0EBA = "\\u{0EBA}";
+        bytes memory utf8Diacritic0EBA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0EBA));
+        console2.log("0EBA: ", string(utf8Diacritic0EBA));
+        console2.logBytes(utf8Diacritic0EBA);
+
+        string memory diacritic0EC8 = "\\u{0EC8}";
+        bytes memory utf8Diacritic0EC8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0EC8));
+        console2.log("0EC8: ", string(utf8Diacritic0EC8));
+        console2.logBytes(utf8Diacritic0EC8);
+
+        console2.log("..");
+
+        string memory diacritic0ECC = "\\u{0ECC}";
+        bytes memory utf8Diacritic0ECC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0ECC));
+        console2.log("0ECC: ", string(utf8Diacritic0ECC));
+        console2.logBytes(utf8Diacritic0ECC);
+
+        string memory diacritic0F18 = "\\u{0F18}";
+        bytes memory utf8Diacritic0F18 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F18));
+        console2.log("0F18: ", string(utf8Diacritic0F18));
+        console2.logBytes(utf8Diacritic0F18);
+
+        console2.log("..");
+
+        string memory diacritic0F19 = "\\u{0F19}";
+        bytes memory utf8Diacritic0F19 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F19));
+        console2.log("0F19: ", string(utf8Diacritic0F19));
+        console2.logBytes(utf8Diacritic0F19);
+
+        string memory diacritic0F35 = "\\u{0F35}";
+        bytes memory utf8Diacritic0F35 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F35));
+        console2.log("0F35: ", string(utf8Diacritic0F35));
+        console2.logBytes(utf8Diacritic0F35);
+
+        string memory diacritic0F37 = "\\u{0F37}";
+        bytes memory utf8Diacritic0F37 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F37));
+        console2.log("0F37: ", string(utf8Diacritic0F37));
+        console2.logBytes(utf8Diacritic0F37);
+
+        string memory diacritic0F39 = "\\u{0F39}";
+        bytes memory utf8Diacritic0F39 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F39));
+        console2.log("0F39: ", string(utf8Diacritic0F39));
+        console2.logBytes(utf8Diacritic0F39);
+
+        string memory diacritic0F3E = "\\u{0F3E}";
+        bytes memory utf8Diacritic0F3E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F3E));
+        console2.log("0F3E: ", string(utf8Diacritic0F3E));
+        console2.logBytes(utf8Diacritic0F3E);
+
+        console2.log("..");
+
+        string memory diacritic0F3F = "\\u{0F3F}";
+        bytes memory utf8Diacritic0F3F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F3F));
+        console2.log("0F3F: ", string(utf8Diacritic0F3F));
+        console2.logBytes(utf8Diacritic0F3F);
+
+        string memory diacritic0F82 = "\\u{0F82}";
+        bytes memory utf8Diacritic0F82 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F82));
+        console2.log("0F82: ", string(utf8Diacritic0F82));
+        console2.logBytes(utf8Diacritic0F82);
+
+        console2.log("..");
+
+        string memory diacritic0F84 = "\\u{0F84}";
+        bytes memory utf8Diacritic0F84 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F84));
+        console2.log("0F84: ", string(utf8Diacritic0F84));
+        console2.logBytes(utf8Diacritic0F84);
+
+        string memory diacritic0F86 = "\\u{0F86}";
+        bytes memory utf8Diacritic0F86 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F86));
+        console2.log("0F86: ", string(utf8Diacritic0F86));
+        console2.logBytes(utf8Diacritic0F86);
+
+        console2.log("..");
+
+        string memory diacritic0F87 = "\\u{0F87}";
+        bytes memory utf8Diacritic0F87 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0F87));
+        console2.log("0F87: ", string(utf8Diacritic0F87));
+        console2.logBytes(utf8Diacritic0F87);
+
+        string memory diacritic0FC6 = "\\u{0FC6}";
+        bytes memory utf8Diacritic0FC6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic0FC6));
+        console2.log("0FC6: ", string(utf8Diacritic0FC6));
+        console2.logBytes(utf8Diacritic0FC6);
+
+        string memory diacritic1037 = "\\u{1037}";
+        bytes memory utf8Diacritic1037 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1037));
+        console2.log("1037: ", string(utf8Diacritic1037));
+        console2.logBytes(utf8Diacritic1037);
+
+        string memory diacritic1039 = "\\u{1039}";
+        bytes memory utf8Diacritic1039 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1039));
+        console2.log("1039: ", string(utf8Diacritic1039));
+        console2.logBytes(utf8Diacritic1039);
+
+        console2.log("..");
+
+        string memory diacritic103A = "\\u{103A}";
+        bytes memory utf8Diacritic103A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic103A));
+        console2.log("103A: ", string(utf8Diacritic103A));
+        console2.logBytes(utf8Diacritic103A);
+
+        string memory diacritic1063 = "\\u{1063}";
+        bytes memory utf8Diacritic1063 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1063));
+        console2.log("1063: ", string(utf8Diacritic1063));
+        console2.logBytes(utf8Diacritic1063);
+
+        console2.log("..");
+
+        string memory diacritic1064 = "\\u{1064}";
+        bytes memory utf8Diacritic1064 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1064));
+        console2.log("1064: ", string(utf8Diacritic1064));
+        console2.logBytes(utf8Diacritic1064);
+
+        string memory diacritic1069 = "\\u{1069}";
+        bytes memory utf8Diacritic1069 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1069));
+        console2.log("1069: ", string(utf8Diacritic1069));
+        console2.logBytes(utf8Diacritic1069);
+
+        console2.log("..");
+
+        string memory diacritic106D = "\\u{106D}";
+        bytes memory utf8Diacritic106D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic106D));
+        console2.log("106D: ", string(utf8Diacritic106D));
+        console2.logBytes(utf8Diacritic106D);
+
+        string memory diacritic1087 = "\\u{1087}";
+        bytes memory utf8Diacritic1087 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1087));
+        console2.log("1087: ", string(utf8Diacritic1087));
+        console2.logBytes(utf8Diacritic1087);
+
+        console2.log("..");
+
+        string memory diacritic108C = "\\u{108C}";
+        bytes memory utf8Diacritic108C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic108C));
+        console2.log("108C: ", string(utf8Diacritic108C));
+        console2.logBytes(utf8Diacritic108C);
+
+        string memory diacritic108D = "\\u{108D}";
+        bytes memory utf8Diacritic108D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic108D));
+        console2.log("108D: ", string(utf8Diacritic108D));
+        console2.logBytes(utf8Diacritic108D);
+
+        string memory diacritic108F = "\\u{108F}";
+        bytes memory utf8Diacritic108F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic108F));
+        console2.log("108F: ", string(utf8Diacritic108F));
+        console2.logBytes(utf8Diacritic108F);
+
+        string memory diacritic109A = "\\u{109A}";
+        bytes memory utf8Diacritic109A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic109A));
+        console2.log("109A: ", string(utf8Diacritic109A));
+        console2.logBytes(utf8Diacritic109A);
+
+        console2.log("..");
+
+        string memory diacritic109B = "\\u{109B}";
+        bytes memory utf8Diacritic109B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic109B));
+        console2.log("109B: ", string(utf8Diacritic109B));
+        console2.logBytes(utf8Diacritic109B);
+
+        string memory diacritic135D = "\\u{135D}";
+        bytes memory utf8Diacritic135D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic135D));
+        console2.log("135D: ", string(utf8Diacritic135D));
+        console2.logBytes(utf8Diacritic135D);
+
+        console2.log("..");
+
+        string memory diacritic135F = "\\u{135F}";
+        bytes memory utf8Diacritic135F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic135F));
+        console2.log("135F: ", string(utf8Diacritic135F));
+        console2.logBytes(utf8Diacritic135F);
+
+        string memory diacritic1714 = "\\u{1714}";
+        bytes memory utf8Diacritic1714 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1714));
+        console2.log("1714: ", string(utf8Diacritic1714));
+        console2.logBytes(utf8Diacritic1714);
+
+        string memory diacritic1715 = "\\u{1715}";
+        bytes memory utf8Diacritic1715 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1715));
+        console2.log("1715: ", string(utf8Diacritic1715));
+        console2.logBytes(utf8Diacritic1715);
+
+        string memory diacritic1734 = "\\u{1734}";
+        bytes memory utf8Diacritic1734 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1734));
+        console2.log("1734: ", string(utf8Diacritic1734));
+        console2.logBytes(utf8Diacritic1734);
+
+        string memory diacritic17C9 = "\\u{17C9}";
+        bytes memory utf8Diacritic17C9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic17C9));
+        console2.log("17C9: ", string(utf8Diacritic17C9));
+        console2.logBytes(utf8Diacritic17C9);
+
+        console2.log("..");
+
+        string memory diacritic17D3 = "\\u{17D3}";
+        bytes memory utf8Diacritic17D3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic17D3));
+        console2.log("17D3: ", string(utf8Diacritic17D3));
+        console2.logBytes(utf8Diacritic17D3);
+
+        string memory diacritic17DD = "\\u{17DD}";
+        bytes memory utf8Diacritic17DD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic17DD));
+        console2.log("17DD: ", string(utf8Diacritic17DD));
+        console2.logBytes(utf8Diacritic17DD);
+
+        string memory diacritic1939 = "\\u{1939}";
+        bytes memory utf8Diacritic1939 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1939));
+        console2.log("1939: ", string(utf8Diacritic1939));
+        console2.logBytes(utf8Diacritic1939);
+
+        console2.log("..");
+
+        string memory diacritic193B = "\\u{193B}";
+        bytes memory utf8Diacritic193B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic193B));
+        console2.log("193B: ", string(utf8Diacritic193B));
+        console2.logBytes(utf8Diacritic193B);
+
+        string memory diacritic1A60 = "\\u{1A60}";
+        bytes memory utf8Diacritic1A60 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1A60));
+        console2.log("1A60: ", string(utf8Diacritic1A60));
+        console2.logBytes(utf8Diacritic1A60);
+
+        string memory diacritic1A75 = "\\u{1A75}";
+        bytes memory utf8Diacritic1A75 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1A75));
+        console2.log("1A75: ", string(utf8Diacritic1A75));
+        console2.logBytes(utf8Diacritic1A75);
+
+        console2.log("..");
+
+        string memory diacritic1A7C = "\\u{1A7C}";
+        bytes memory utf8Diacritic1A7C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1A7C));
+        console2.log("1A7C: ", string(utf8Diacritic1A7C));
+        console2.logBytes(utf8Diacritic1A7C);
+
+        string memory diacritic1A7F = "\\u{1A7F}";
+        bytes memory utf8Diacritic1A7F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1A7F));
+        console2.log("1A7F: ", string(utf8Diacritic1A7F));
+        console2.logBytes(utf8Diacritic1A7F);
+
+        string memory diacritic1AB0 = "\\u{1AB0}";
+        bytes memory utf8Diacritic1AB0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AB0));
+        console2.log("1AB0: ", string(utf8Diacritic1AB0));
+        console2.logBytes(utf8Diacritic1AB0);
+
+        console2.log("..");
+
+        string memory diacritic1ABD = "\\u{1ABD}";
+        bytes memory utf8Diacritic1ABD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1ABD));
+        console2.log("1ABD: ", string(utf8Diacritic1ABD));
+        console2.logBytes(utf8Diacritic1ABD);
+
+        string memory diacritic1ABE = "\\u{1ABE}";
+        bytes memory utf8Diacritic1ABE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1ABE));
+        console2.log("1ABE: ", string(utf8Diacritic1ABE));
+        console2.logBytes(utf8Diacritic1ABE);
+
+        string memory diacritic1AC1 = "\\u{1AC1}";
+        bytes memory utf8Diacritic1AC1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AC1));
+        console2.log("1AC1: ", string(utf8Diacritic1AC1));
+        console2.logBytes(utf8Diacritic1AC1);
+
+        console2.log("..");
+
+        string memory diacritic1ACB = "\\u{1ACB}";
+        bytes memory utf8Diacritic1ACB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1ACB));
+        console2.log("1ACB: ", string(utf8Diacritic1ACB));
+        console2.logBytes(utf8Diacritic1ACB);
+
+        string memory diacritic1ACF = "\\u{1ACF}";
+        bytes memory utf8Diacritic1ACF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1ACF));
+        console2.log("1ACF: ", string(utf8Diacritic1ACF));
+        console2.logBytes(utf8Diacritic1ACF);
+
+        console2.log("..");
+
+        string memory diacritic1ADD = "\\u{1ADD}";
+        bytes memory utf8Diacritic1ADD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1ADD));
+        console2.log("1ADD: ", string(utf8Diacritic1ADD));
+        console2.logBytes(utf8Diacritic1ADD);
+
+        string memory diacritic1AE0 = "\\u{1AE0}";
+        bytes memory utf8Diacritic1AE0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AE0));
+        console2.log("1AE0: ", string(utf8Diacritic1AE0));
+        console2.logBytes(utf8Diacritic1AE0);
+
+        console2.log("..");
+
+        string memory diacritic1AEB = "\\u{1AEB}";
+        bytes memory utf8Diacritic1AEB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AEB));
+        console2.log("1AEB: ", string(utf8Diacritic1AEB));
+        console2.logBytes(utf8Diacritic1AEB);
+
+        string memory diacritic1B34 = "\\u{1B34}";
+        bytes memory utf8Diacritic1B34 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1B34));
+        console2.log("1B34: ", string(utf8Diacritic1B34));
+        console2.logBytes(utf8Diacritic1B34);
+
+        string memory diacritic1B44 = "\\u{1B44}";
+        bytes memory utf8Diacritic1B44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1B44));
+        console2.log("1B44: ", string(utf8Diacritic1B44));
+        console2.logBytes(utf8Diacritic1B44);
+
+        string memory diacritic1B6B = "\\u{1B6B}";
+        bytes memory utf8Diacritic1B6B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1B6B));
+        console2.log("1B6B: ", string(utf8Diacritic1B6B));
+        console2.logBytes(utf8Diacritic1B6B);
+
+        console2.log("..");
+
+        string memory diacritic1B73 = "\\u{1B73}";
+        bytes memory utf8Diacritic1B73 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1B73));
+        console2.log("1B73: ", string(utf8Diacritic1B73));
+        console2.logBytes(utf8Diacritic1B73);
+
+        string memory diacritic1BAA = "\\u{1BAA}";
+        bytes memory utf8Diacritic1BAA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1BAA));
+        console2.log("1BAA: ", string(utf8Diacritic1BAA));
+        console2.logBytes(utf8Diacritic1BAA);
+
+        string memory diacritic1BAB = "\\u{1BAB}";
+        bytes memory utf8Diacritic1BAB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1BAB));
+        console2.log("1BAB: ", string(utf8Diacritic1BAB));
+        console2.logBytes(utf8Diacritic1BAB);
+
+        string memory diacritic1BE6 = "\\u{1BE6}";
+        bytes memory utf8Diacritic1BE6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1BE6));
+        console2.log("1BE6: ", string(utf8Diacritic1BE6));
+        console2.logBytes(utf8Diacritic1BE6);
+
+        string memory diacritic1BF2 = "\\u{1BF2}";
+        bytes memory utf8Diacritic1BF2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1BF2));
+        console2.log("1BF2: ", string(utf8Diacritic1BF2));
+        console2.logBytes(utf8Diacritic1BF2);
+
+        console2.log("..");
+
+        string memory diacritic1BF3 = "\\u{1BF3}";
+        bytes memory utf8Diacritic1BF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1BF3));
+        console2.log("1BF3: ", string(utf8Diacritic1BF3));
+        console2.logBytes(utf8Diacritic1BF3);
+
+        string memory diacritic1C36 = "\\u{1C36}";
+        bytes memory utf8Diacritic1C36 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1C36));
+        console2.log("1C36: ", string(utf8Diacritic1C36));
+        console2.logBytes(utf8Diacritic1C36);
+
+        console2.log("..");
+
+        string memory diacritic1C37 = "\\u{1C37}";
+        bytes memory utf8Diacritic1C37 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1C37));
+        console2.log("1C37: ", string(utf8Diacritic1C37));
+        console2.logBytes(utf8Diacritic1C37);
+
+        string memory diacritic1C78 = "\\u{1C78}";
+        bytes memory utf8Diacritic1C78 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1C78));
+        console2.log("1C78: ", string(utf8Diacritic1C78));
+        console2.logBytes(utf8Diacritic1C78);
+
+        console2.log("..");
+
+        string memory diacritic1C7D = "\\u{1C7D}";
+        bytes memory utf8Diacritic1C7D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1C7D));
+        console2.log("1C7D: ", string(utf8Diacritic1C7D));
+        console2.logBytes(utf8Diacritic1C7D);
+
+        string memory diacritic1CD0 = "\\u{1CD0}";
+        bytes memory utf8Diacritic1CD0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CD0));
+        console2.log("1CD0: ", string(utf8Diacritic1CD0));
+        console2.logBytes(utf8Diacritic1CD0);
+
+        console2.log("..");
+
+        string memory diacritic1CD2 = "\\u{1CD2}";
+        bytes memory utf8Diacritic1CD2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CD2));
+        console2.log("1CD2: ", string(utf8Diacritic1CD2));
+        console2.logBytes(utf8Diacritic1CD2);
+
+        string memory diacritic1CD3 = "\\u{1CD3}";
+        bytes memory utf8Diacritic1CD3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CD3));
+        console2.log("1CD3: ", string(utf8Diacritic1CD3));
+        console2.logBytes(utf8Diacritic1CD3);
+
+        string memory diacritic1CD4 = "\\u{1CD4}";
+        bytes memory utf8Diacritic1CD4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CD4));
+        console2.log("1CD4: ", string(utf8Diacritic1CD4));
+        console2.logBytes(utf8Diacritic1CD4);
+
+        console2.log("..");
+
+        string memory diacritic1CE0 = "\\u{1CE0}";
+        bytes memory utf8Diacritic1CE0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CE0));
+        console2.log("1CE0: ", string(utf8Diacritic1CE0));
+        console2.logBytes(utf8Diacritic1CE0);
+
+        string memory diacritic1CE1 = "\\u{1CE1}";
+        bytes memory utf8Diacritic1CE1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CE1));
+        console2.log("1CE1: ", string(utf8Diacritic1CE1));
+        console2.logBytes(utf8Diacritic1CE1);
+
+        string memory diacritic1CE2 = "\\u{1CE2}";
+        bytes memory utf8Diacritic1CE2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CE2));
+        console2.log("1CE2: ", string(utf8Diacritic1CE2));
+        console2.logBytes(utf8Diacritic1CE2);
+
+        console2.log("..");
+
+        string memory diacritic1CE8 = "\\u{1CE8}";
+        bytes memory utf8Diacritic1CE8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CE8));
+        console2.log("1CE8: ", string(utf8Diacritic1CE8));
+        console2.logBytes(utf8Diacritic1CE8);
+
+        string memory diacritic1CED = "\\u{1CED}";
+        bytes memory utf8Diacritic1CED = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CED));
+        console2.log("1CED: ", string(utf8Diacritic1CED));
+        console2.logBytes(utf8Diacritic1CED);
+
+        string memory diacritic1CF4 = "\\u{1CF4}";
+        bytes memory utf8Diacritic1CF4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF4));
+        console2.log("1CF4: ", string(utf8Diacritic1CF4));
+        console2.logBytes(utf8Diacritic1CF4);
+
+        string memory diacritic1CF7 = "\\u{1CF7}";
+        bytes memory utf8Diacritic1CF7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF7));
+        console2.log("1CF7: ", string(utf8Diacritic1CF7));
+        console2.logBytes(utf8Diacritic1CF7);
+
+        string memory diacritic1CF8 = "\\u{1CF8}";
+        bytes memory utf8Diacritic1CF8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF8));
+        console2.log("1CF8: ", string(utf8Diacritic1CF8));
+        console2.logBytes(utf8Diacritic1CF8);
+
+        console2.log("..");
+
+        string memory diacritic1CF9 = "\\u{1CF9}";
+        bytes memory utf8Diacritic1CF9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF9));
+        console2.log("1CF9: ", string(utf8Diacritic1CF9));
+        console2.logBytes(utf8Diacritic1CF9);
+
+        string memory diacritic1D2C = "\\u{1D2C}";
+        bytes memory utf8Diacritic1D2C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D2C));
+        console2.log("1D2C: ", string(utf8Diacritic1D2C));
+        console2.logBytes(utf8Diacritic1D2C);
+
+        console2.log("..");
+
+        string memory diacritic1D6A = "\\u{1D6A}";
+        bytes memory utf8Diacritic1D6A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D6A));
+        console2.log("1D6A: ", string(utf8Diacritic1D6A));
+        console2.logBytes(utf8Diacritic1D6A);
+
+        string memory diacritic1D9B = "\\u{1D9B}";
+        bytes memory utf8Diacritic1D9B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D9B));
+        console2.log("1D9B: ", string(utf8Diacritic1D9B));
+        console2.logBytes(utf8Diacritic1D9B);
+
+        console2.log("..");
+
+        string memory diacritic1DBE = "\\u{1DBE}";
+        bytes memory utf8Diacritic1DBE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1DBE));
+        console2.log("1DBE: ", string(utf8Diacritic1DBE));
+        console2.logBytes(utf8Diacritic1DBE);
+
+        string memory diacritic1DC4 = "\\u{1DC4}";
+        bytes memory utf8Diacritic1DC4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1DC4));
+        console2.log("1DC4: ", string(utf8Diacritic1DC4));
+        console2.logBytes(utf8Diacritic1DC4);
+
+        console2.log("..");
+
+        string memory diacritic1DCF = "\\u{1DCF}";
+        bytes memory utf8Diacritic1DCF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1DCF));
+        console2.log("1DCF: ", string(utf8Diacritic1DCF));
+        console2.logBytes(utf8Diacritic1DCF);
+
+        string memory diacritic1DF5 = "\\u{1DF5}";
+        bytes memory utf8Diacritic1DF5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1DF5));
+        console2.log("1DF5: ", string(utf8Diacritic1DF5));
+        console2.logBytes(utf8Diacritic1DF5);
+
+        console2.log("..");
+
+        string memory diacritic1DFF = "\\u{1DFF}";
+        bytes memory utf8Diacritic1DFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1DFF));
+        console2.log("1DFF: ", string(utf8Diacritic1DFF));
+        console2.logBytes(utf8Diacritic1DFF);
+
+        string memory diacritic1FBD = "\\u{1FBD}";
+        bytes memory utf8Diacritic1FBD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FBD));
+        console2.log("1FBD: ", string(utf8Diacritic1FBD));
+        console2.logBytes(utf8Diacritic1FBD);
+
+        string memory diacritic1FBF = "\\u{1FBF}";
+        bytes memory utf8Diacritic1FBF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FBF));
+        console2.log("1FBF: ", string(utf8Diacritic1FBF));
+        console2.logBytes(utf8Diacritic1FBF);
+
+        console2.log("..");
+
+        string memory diacritic1FC1 = "\\u{1FC1}";
+        bytes memory utf8Diacritic1FC1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FC1));
+        console2.log("1FC1: ", string(utf8Diacritic1FC1));
+        console2.logBytes(utf8Diacritic1FC1);
+
+        string memory diacritic1FCD = "\\u{1FCD}";
+        bytes memory utf8Diacritic1FCD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FCD));
+        console2.log("1FCD: ", string(utf8Diacritic1FCD));
+        console2.logBytes(utf8Diacritic1FCD);
+
+        console2.log("..");
+
+        string memory diacritic1FCF = "\\u{1FCF}";
+        bytes memory utf8Diacritic1FCF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FCF));
+        console2.log("1FCF: ", string(utf8Diacritic1FCF));
+        console2.logBytes(utf8Diacritic1FCF);
+
+        string memory diacritic1FDD = "\\u{1FDD}";
+        bytes memory utf8Diacritic1FDD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FDD));
+        console2.log("1FDD: ", string(utf8Diacritic1FDD));
+        console2.logBytes(utf8Diacritic1FDD);
+
+        console2.log("..");
+
+        string memory diacritic1FDF = "\\u{1FDF}";
+        bytes memory utf8Diacritic1FDF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FDF));
+        console2.log("1FDF: ", string(utf8Diacritic1FDF));
+        console2.logBytes(utf8Diacritic1FDF);
+
+        string memory diacritic1FED = "\\u{1FED}";
+        bytes memory utf8Diacritic1FED = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FED));
+        console2.log("1FED: ", string(utf8Diacritic1FED));
+        console2.logBytes(utf8Diacritic1FED);
+
+        console2.log("..");
+
+        string memory diacritic1FEF = "\\u{1FEF}";
+        bytes memory utf8Diacritic1FEF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FEF));
+        console2.log("1FEF: ", string(utf8Diacritic1FEF));
+        console2.logBytes(utf8Diacritic1FEF);
+
+        string memory diacritic1FFD = "\\u{1FFD}";
+        bytes memory utf8Diacritic1FFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FFD));
+        console2.log("1FFD: ", string(utf8Diacritic1FFD));
+        console2.logBytes(utf8Diacritic1FFD);
+
+        console2.log("..");
+
+        string memory diacritic1FFE = "\\u{1FFE}";
+        bytes memory utf8Diacritic1FFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1FFE));
+        console2.log("1FFE: ", string(utf8Diacritic1FFE));
+        console2.logBytes(utf8Diacritic1FFE);
+
+        string memory diacritic2CEF = "\\u{2CEF}";
+        bytes memory utf8Diacritic2CEF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic2CEF));
+        console2.log("2CEF: ", string(utf8Diacritic2CEF));
+        console2.logBytes(utf8Diacritic2CEF);
+
+        console2.log("..");
+
+        string memory diacritic2CF1 = "\\u{2CF1}";
+        bytes memory utf8Diacritic2CF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic2CF1));
+        console2.log("2CF1: ", string(utf8Diacritic2CF1));
+        console2.logBytes(utf8Diacritic2CF1);
+
+        string memory diacritic2E2F = "\\u{2E2F}";
+        bytes memory utf8Diacritic2E2F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic2E2F));
+        console2.log("2E2F: ", string(utf8Diacritic2E2F));
+        console2.logBytes(utf8Diacritic2E2F);
+
+        string memory diacritic302A = "\\u{302A}";
+        bytes memory utf8Diacritic302A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic302A));
+        console2.log("302A: ", string(utf8Diacritic302A));
+        console2.logBytes(utf8Diacritic302A);
+
+        console2.log("..");
+
+        string memory diacritic302D = "\\u{302D}";
+        bytes memory utf8Diacritic302D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic302D));
+        console2.log("302D: ", string(utf8Diacritic302D));
+        console2.logBytes(utf8Diacritic302D);
+
+        string memory diacritic302E = "\\u{302E}";
+        bytes memory utf8Diacritic302E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic302E));
+        console2.log("302E: ", string(utf8Diacritic302E));
+        console2.logBytes(utf8Diacritic302E);
+
+        console2.log("..");
+
+        string memory diacritic302F = "\\u{302F}";
+        bytes memory utf8Diacritic302F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic302F));
+        console2.log("302F: ", string(utf8Diacritic302F));
+        console2.logBytes(utf8Diacritic302F);
+
+        string memory diacritic3099 = "\\u{3099}";
+        bytes memory utf8Diacritic3099 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic3099));
+        console2.log("3099: ", string(utf8Diacritic3099));
+        console2.logBytes(utf8Diacritic3099);
+
+        console2.log("..");
+
+        string memory diacritic309A = "\\u{309A}";
+        bytes memory utf8Diacritic309A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic309A));
+        console2.log("309A: ", string(utf8Diacritic309A));
+        console2.logBytes(utf8Diacritic309A);
+
+        string memory diacritic309B = "\\u{309B}";
+        bytes memory utf8Diacritic309B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic309B));
+        console2.log("309B: ", string(utf8Diacritic309B));
+        console2.logBytes(utf8Diacritic309B);
+
+        console2.log("..");
+
+        string memory diacritic309C = "\\u{309C}";
+        bytes memory utf8Diacritic309C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic309C));
+        console2.log("309C: ", string(utf8Diacritic309C));
+        console2.logBytes(utf8Diacritic309C);
+
+        string memory diacritic30FC = "\\u{30FC}";
+        bytes memory utf8Diacritic30FC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic30FC));
+        console2.log("30FC: ", string(utf8Diacritic30FC));
+        console2.logBytes(utf8Diacritic30FC);
+
+        string memory diacriticA66F = "\\u{A66F}";
+        bytes memory utf8DiacriticA66F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA66F));
+        console2.log("A66F: ", string(utf8DiacriticA66F));
+        console2.logBytes(utf8DiacriticA66F);
+
+        string memory diacriticA67C = "\\u{A67C}";
+        bytes memory utf8DiacriticA67C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA67C));
+        console2.log("A67C: ", string(utf8DiacriticA67C));
+        console2.logBytes(utf8DiacriticA67C);
+
+        console2.log("..");
+
+        string memory diacriticA67D = "\\u{A67D}";
+        bytes memory utf8DiacriticA67D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA67D));
+        console2.log("A67D: ", string(utf8DiacriticA67D));
+        console2.logBytes(utf8DiacriticA67D);
+
+        string memory diacriticA67F = "\\u{A67F}";
+        bytes memory utf8DiacriticA67F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA67F));
+        console2.log("A67F: ", string(utf8DiacriticA67F));
+        console2.logBytes(utf8DiacriticA67F);
+
+        string memory diacriticA69C = "\\u{A69C}";
+        bytes memory utf8DiacriticA69C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA69C));
+        console2.log("A69C: ", string(utf8DiacriticA69C));
+        console2.logBytes(utf8DiacriticA69C);
+
+        console2.log("..");
+
+        string memory diacriticA69D = "\\u{A69D}";
+        bytes memory utf8DiacriticA69D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA69D));
+        console2.log("A69D: ", string(utf8DiacriticA69D));
+        console2.logBytes(utf8DiacriticA69D);
+
+        string memory diacriticA6F0 = "\\u{A6F0}";
+        bytes memory utf8DiacriticA6F0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA6F0));
+        console2.log("A6F0: ", string(utf8DiacriticA6F0));
+        console2.logBytes(utf8DiacriticA6F0);
+
+        console2.log("..");
+
+        string memory diacriticA6F1 = "\\u{A6F1}";
+        bytes memory utf8DiacriticA6F1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA6F1));
+        console2.log("A6F1: ", string(utf8DiacriticA6F1));
+        console2.logBytes(utf8DiacriticA6F1);
+
+        string memory diacriticA700 = "\\u{A700}";
+        bytes memory utf8DiacriticA700 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA700));
+        console2.log("A700: ", string(utf8DiacriticA700));
+        console2.logBytes(utf8DiacriticA700);
+
+        console2.log("..");
+
+        string memory diacriticA716 = "\\u{A716}";
+        bytes memory utf8DiacriticA716 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA716));
+        console2.log("A716: ", string(utf8DiacriticA716));
+        console2.logBytes(utf8DiacriticA716);
+
+        string memory diacriticA717 = "\\u{A717}";
+        bytes memory utf8DiacriticA717 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA717));
+        console2.log("A717: ", string(utf8DiacriticA717));
+        console2.logBytes(utf8DiacriticA717);
+
+        console2.log("..");
+
+        string memory diacriticA71F = "\\u{A71F}";
+        bytes memory utf8DiacriticA71F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA71F));
+        console2.log("A71F: ", string(utf8DiacriticA71F));
+        console2.logBytes(utf8DiacriticA71F);
+
+        string memory diacriticA720 = "\\u{A720}";
+        bytes memory utf8DiacriticA720 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA720));
+        console2.log("A720: ", string(utf8DiacriticA720));
+        console2.logBytes(utf8DiacriticA720);
+
+        console2.log("..");
+
+        string memory diacriticA721 = "\\u{A721}";
+        bytes memory utf8DiacriticA721 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA721));
+        console2.log("A721: ", string(utf8DiacriticA721));
+        console2.logBytes(utf8DiacriticA721);
+
+        string memory diacriticA788 = "\\u{A788}";
+        bytes memory utf8DiacriticA788 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA788));
+        console2.log("A788: ", string(utf8DiacriticA788));
+        console2.logBytes(utf8DiacriticA788);
+
+        string memory diacriticA789 = "\\u{A789}";
+        bytes memory utf8DiacriticA789 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA789));
+        console2.log("A789: ", string(utf8DiacriticA789));
+        console2.logBytes(utf8DiacriticA789);
+
+        console2.log("..");
+
+        string memory diacriticA78A = "\\u{A78A}";
+        bytes memory utf8DiacriticA78A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA78A));
+        console2.log("A78A: ", string(utf8DiacriticA78A));
+        console2.logBytes(utf8DiacriticA78A);
+
+        string memory diacriticA7F1 = "\\u{A7F1}";
+        bytes memory utf8DiacriticA7F1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA7F1));
+        console2.log("A7F1: ", string(utf8DiacriticA7F1));
+        console2.logBytes(utf8DiacriticA7F1);
+
+        string memory diacriticA7F8 = "\\u{A7F8}";
+        bytes memory utf8DiacriticA7F8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA7F8));
+        console2.log("A7F8: ", string(utf8DiacriticA7F8));
+        console2.logBytes(utf8DiacriticA7F8);
+
+        console2.log("..");
+
+        string memory diacriticA7F9 = "\\u{A7F9}";
+        bytes memory utf8DiacriticA7F9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA7F9));
+        console2.log("A7F9: ", string(utf8DiacriticA7F9));
+        console2.logBytes(utf8DiacriticA7F9);
+
+        string memory diacriticA806 = "\\u{A806}";
+        bytes memory utf8DiacriticA806 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA806));
+        console2.log("A806: ", string(utf8DiacriticA806));
+        console2.logBytes(utf8DiacriticA806);
+
+        string memory diacriticA82C = "\\u{A82C}";
+        bytes memory utf8DiacriticA82C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA82C));
+        console2.log("A82C: ", string(utf8DiacriticA82C));
+        console2.logBytes(utf8DiacriticA82C);
+
+        string memory diacriticA8C4 = "\\u{A8C4}";
+        bytes memory utf8DiacriticA8C4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA8C4));
+        console2.log("A8C4: ", string(utf8DiacriticA8C4));
+        console2.logBytes(utf8DiacriticA8C4);
+
+        string memory diacriticA8E0 = "\\u{A8E0}";
+        bytes memory utf8DiacriticA8E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA8E0));
+        console2.log("A8E0: ", string(utf8DiacriticA8E0));
+        console2.logBytes(utf8DiacriticA8E0);
+
+        console2.log("..");
+
+        string memory diacriticA8F1 = "\\u{A8F1}";
+        bytes memory utf8DiacriticA8F1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA8F1));
+        console2.log("A8F1: ", string(utf8DiacriticA8F1));
+        console2.logBytes(utf8DiacriticA8F1);
+
+        string memory diacriticA92B = "\\u{A92B}";
+        bytes memory utf8DiacriticA92B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA92B));
+        console2.log("A92B: ", string(utf8DiacriticA92B));
+        console2.logBytes(utf8DiacriticA92B);
+
+        console2.log("..");
+
+        string memory diacriticA92D = "\\u{A92D}";
+        bytes memory utf8DiacriticA92D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA92D));
+        console2.log("A92D: ", string(utf8DiacriticA92D));
+        console2.logBytes(utf8DiacriticA92D);
+
+        string memory diacriticA92E = "\\u{A92E}";
+        bytes memory utf8DiacriticA92E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA92E));
+        console2.log("A92E: ", string(utf8DiacriticA92E));
+        console2.logBytes(utf8DiacriticA92E);
+
+        string memory diacriticA953 = "\\u{A953}";
+        bytes memory utf8DiacriticA953 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA953));
+        console2.log("A953: ", string(utf8DiacriticA953));
+        console2.logBytes(utf8DiacriticA953);
+
+        string memory diacriticA9B3 = "\\u{A9B3}";
+        bytes memory utf8DiacriticA9B3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA9B3));
+        console2.log("A9B3: ", string(utf8DiacriticA9B3));
+        console2.logBytes(utf8DiacriticA9B3);
+
+        string memory diacriticA9C0 = "\\u{A9C0}";
+        bytes memory utf8DiacriticA9C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA9C0));
+        console2.log("A9C0: ", string(utf8DiacriticA9C0));
+        console2.logBytes(utf8DiacriticA9C0);
+
+        string memory diacriticA9E5 = "\\u{A9E5}";
+        bytes memory utf8DiacriticA9E5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticA9E5));
+        console2.log("A9E5: ", string(utf8DiacriticA9E5));
+        console2.logBytes(utf8DiacriticA9E5);
+
+        string memory diacriticAA7B = "\\u{AA7B}";
+        bytes memory utf8DiacriticAA7B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAA7B));
+        console2.log("AA7B: ", string(utf8DiacriticAA7B));
+        console2.logBytes(utf8DiacriticAA7B);
+
+        string memory diacriticAA7C = "\\u{AA7C}";
+        bytes memory utf8DiacriticAA7C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAA7C));
+        console2.log("AA7C: ", string(utf8DiacriticAA7C));
+        console2.logBytes(utf8DiacriticAA7C);
+
+        string memory diacriticAA7D = "\\u{AA7D}";
+        bytes memory utf8DiacriticAA7D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAA7D));
+        console2.log("AA7D: ", string(utf8DiacriticAA7D));
+        console2.logBytes(utf8DiacriticAA7D);
+
+        string memory diacriticAABF = "\\u{AABF}";
+        bytes memory utf8DiacriticAABF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAABF));
+        console2.log("AABF: ", string(utf8DiacriticAABF));
+        console2.logBytes(utf8DiacriticAABF);
+
+        string memory diacriticAAC0 = "\\u{AAC0}";
+        bytes memory utf8DiacriticAAC0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAAC0));
+        console2.log("AAC0: ", string(utf8DiacriticAAC0));
+        console2.logBytes(utf8DiacriticAAC0);
+
+        string memory diacriticAAC1 = "\\u{AAC1}";
+        bytes memory utf8DiacriticAAC1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAAC1));
+        console2.log("AAC1: ", string(utf8DiacriticAAC1));
+        console2.logBytes(utf8DiacriticAAC1);
+
+        string memory diacriticAAC2 = "\\u{AAC2}";
+        bytes memory utf8DiacriticAAC2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAAC2));
+        console2.log("AAC2: ", string(utf8DiacriticAAC2));
+        console2.logBytes(utf8DiacriticAAC2);
+
+        string memory diacriticAAF6 = "\\u{AAF6}";
+        bytes memory utf8DiacriticAAF6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAAF6));
+        console2.log("AAF6: ", string(utf8DiacriticAAF6));
+        console2.logBytes(utf8DiacriticAAF6);
+
+        string memory diacriticAB5B = "\\u{AB5B}";
+        bytes memory utf8DiacriticAB5B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB5B));
+        console2.log("AB5B: ", string(utf8DiacriticAB5B));
+        console2.logBytes(utf8DiacriticAB5B);
+
+        string memory diacriticAB5C = "\\u{AB5C}";
+        bytes memory utf8DiacriticAB5C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB5C));
+        console2.log("AB5C: ", string(utf8DiacriticAB5C));
+        console2.logBytes(utf8DiacriticAB5C);
+
+        console2.log("..");
+
+        string memory diacriticAB5F = "\\u{AB5F}";
+        bytes memory utf8DiacriticAB5F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB5F));
+        console2.log("AB5F: ", string(utf8DiacriticAB5F));
+        console2.logBytes(utf8DiacriticAB5F);
+
+        string memory diacriticAB69 = "\\u{AB69}";
+        bytes memory utf8DiacriticAB69 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB69));
+        console2.log("AB69: ", string(utf8DiacriticAB69));
+        console2.logBytes(utf8DiacriticAB69);
+
+        string memory diacriticAB6A = "\\u{AB6A}";
+        bytes memory utf8DiacriticAB6A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB6A));
+        console2.log("AB6A: ", string(utf8DiacriticAB6A));
+        console2.logBytes(utf8DiacriticAB6A);
+
+        console2.log("..");
+
+        string memory diacriticAB6B = "\\u{AB6B}";
+        bytes memory utf8DiacriticAB6B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticAB6B));
+        console2.log("AB6B: ", string(utf8DiacriticAB6B));
+        console2.logBytes(utf8DiacriticAB6B);
+
+        string memory diacriticABEC = "\\u{ABEC}";
+        bytes memory utf8DiacriticABEC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticABEC));
+        console2.log("ABEC: ", string(utf8DiacriticABEC));
+        console2.logBytes(utf8DiacriticABEC);
+
+        string memory diacriticABED = "\\u{ABED}";
+        bytes memory utf8DiacriticABED = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticABED));
+        console2.log("ABED: ", string(utf8DiacriticABED));
+        console2.logBytes(utf8DiacriticABED);
+
+        string memory diacriticFB1E = "\\u{FB1E}";
+        bytes memory utf8DiacriticFB1E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFB1E));
+        console2.log("FB1E: ", string(utf8DiacriticFB1E));
+        console2.logBytes(utf8DiacriticFB1E);
+
+        string memory diacriticFE20 = "\\u{FE20}";
+        bytes memory utf8DiacriticFE20 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFE20));
+        console2.log("FE20: ", string(utf8DiacriticFE20));
+        console2.logBytes(utf8DiacriticFE20);
+
+        console2.log("..");
+
+        string memory diacriticFE2F = "\\u{FE2F}";
+        bytes memory utf8DiacriticFE2F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFE2F));
+        console2.log("FE2F: ", string(utf8DiacriticFE2F));
+        console2.logBytes(utf8DiacriticFE2F);
+
+        string memory diacriticFF3E = "\\u{FF3E}";
+        bytes memory utf8DiacriticFF3E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFF3E));
+        console2.log("FF3E: ", string(utf8DiacriticFF3E));
+        console2.logBytes(utf8DiacriticFF3E);
+
+        string memory diacriticFF40 = "\\u{FF40}";
+        bytes memory utf8DiacriticFF40 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFF40));
+        console2.log("FF40: ", string(utf8DiacriticFF40));
+        console2.logBytes(utf8DiacriticFF40);
+
+        string memory diacriticFF70 = "\\u{FF70}";
+        bytes memory utf8DiacriticFF70 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFF70));
+        console2.log("FF70: ", string(utf8DiacriticFF70));
+        console2.logBytes(utf8DiacriticFF70);
+
+        string memory diacriticFF9E = "\\u{FF9E}";
+        bytes memory utf8DiacriticFF9E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFF9E));
+        console2.log("FF9E: ", string(utf8DiacriticFF9E));
+        console2.logBytes(utf8DiacriticFF9E);
+
+        console2.log("..");
+
+        string memory diacriticFF9F = "\\u{FF9F}";
+        bytes memory utf8DiacriticFF9F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFF9F));
+        console2.log("FF9F: ", string(utf8DiacriticFF9F));
+        console2.logBytes(utf8DiacriticFF9F);
+
+        string memory diacriticFFE3 = "\\u{FFE3}";
+        bytes memory utf8DiacriticFFE3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacriticFFE3));
+        console2.log("FFE3: ", string(utf8DiacriticFFE3));
+        console2.logBytes(utf8DiacriticFFE3);
+
+        string memory diacritic102E0 = "\\u{102E0}";
+        bytes memory utf8Diacritic102E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic102E0));
+        console2.log("102E0: ", string(utf8Diacritic102E0));
+        console2.logBytes(utf8Diacritic102E0);
+
+        string memory diacritic10780 = "\\u{10780}";
+        bytes memory utf8Diacritic10780 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10780));
+        console2.log("10780: ", string(utf8Diacritic10780));
+        console2.logBytes(utf8Diacritic10780);
+
+        console2.log("..");
+
+        string memory diacritic10785 = "\\u{10785}";
+        bytes memory utf8Diacritic10785 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10785));
+        console2.log("10785: ", string(utf8Diacritic10785));
+        console2.logBytes(utf8Diacritic10785);
+
+        string memory diacritic10787 = "\\u{10787}";
+        bytes memory utf8Diacritic10787 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10787));
+        console2.log("10787: ", string(utf8Diacritic10787));
+        console2.logBytes(utf8Diacritic10787);
+
+        console2.log("..");
+
+        string memory diacritic107B0 = "\\u{107B0}";
+        bytes memory utf8Diacritic107B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic107B0));
+        console2.log("107B0: ", string(utf8Diacritic107B0));
+        console2.logBytes(utf8Diacritic107B0);
+
+        string memory diacritic107B2 = "\\u{107B2}";
+        bytes memory utf8Diacritic107B2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic107B2));
+        console2.log("107B2: ", string(utf8Diacritic107B2));
+        console2.logBytes(utf8Diacritic107B2);
+
+        console2.log("..");
+
+        string memory diacritic107BA = "\\u{107BA}";
+        bytes memory utf8Diacritic107BA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic107BA));
+        console2.log("107BA: ", string(utf8Diacritic107BA));
+        console2.logBytes(utf8Diacritic107BA);
+
+        string memory diacritic10A38 = "\\u{10A38}";
+        bytes memory utf8Diacritic10A38 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10A38));
+        console2.log("10A38: ", string(utf8Diacritic10A38));
+        console2.logBytes(utf8Diacritic10A38);
+
+        console2.log("..");
+
+        string memory diacritic10A3A = "\\u{10A3A}";
+        bytes memory utf8Diacritic10A3A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10A3A));
+        console2.log("10A3A: ", string(utf8Diacritic10A3A));
+        console2.logBytes(utf8Diacritic10A3A);
+
+        string memory diacritic10A3F = "\\u{10A3F}";
+        bytes memory utf8Diacritic10A3F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10A3F));
+        console2.log("10A3F: ", string(utf8Diacritic10A3F));
+        console2.logBytes(utf8Diacritic10A3F);
+
+        string memory diacritic10AE5 = "\\u{10AE5}";
+        bytes memory utf8Diacritic10AE5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10AE5));
+        console2.log("10AE5: ", string(utf8Diacritic10AE5));
+        console2.logBytes(utf8Diacritic10AE5);
+
+        console2.log("..");
+
+        string memory diacritic10AE6 = "\\u{10AE6}";
+        bytes memory utf8Diacritic10AE6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10AE6));
+        console2.log("10AE6: ", string(utf8Diacritic10AE6));
+        console2.logBytes(utf8Diacritic10AE6);
+
+        string memory diacritic10D22 = "\\u{10D22}";
+        bytes memory utf8Diacritic10D22 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D22));
+        console2.log("10D22: ", string(utf8Diacritic10D22));
+        console2.logBytes(utf8Diacritic10D22);
+
+        console2.log("..");
+
+        string memory diacritic10D23 = "\\u{10D23}";
+        bytes memory utf8Diacritic10D23 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D23));
+        console2.log("10D23: ", string(utf8Diacritic10D23));
+        console2.logBytes(utf8Diacritic10D23);
+
+        string memory diacritic10D24 = "\\u{10D24}";
+        bytes memory utf8Diacritic10D24 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D24));
+        console2.log("10D24: ", string(utf8Diacritic10D24));
+        console2.logBytes(utf8Diacritic10D24);
+
+        console2.log("..");
+
+        string memory diacritic10D27 = "\\u{10D27}";
+        bytes memory utf8Diacritic10D27 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D27));
+        console2.log("10D27: ", string(utf8Diacritic10D27));
+        console2.logBytes(utf8Diacritic10D27);
+
+        string memory diacritic10D4E = "\\u{10D4E}";
+        bytes memory utf8Diacritic10D4E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D4E));
+        console2.log("10D4E: ", string(utf8Diacritic10D4E));
+        console2.logBytes(utf8Diacritic10D4E);
+
+        string memory diacritic10D69 = "\\u{10D69}";
+        bytes memory utf8Diacritic10D69 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D69));
+        console2.log("10D69: ", string(utf8Diacritic10D69));
+        console2.logBytes(utf8Diacritic10D69);
+
+        console2.log("..");
+
+        string memory diacritic10D6D = "\\u{10D6D}";
+        bytes memory utf8Diacritic10D6D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10D6D));
+        console2.log("10D6D: ", string(utf8Diacritic10D6D));
+        console2.logBytes(utf8Diacritic10D6D);
+
+        string memory diacritic10EFA = "\\u{10EFA}";
+        bytes memory utf8Diacritic10EFA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10EFA));
+        console2.log("10EFA: ", string(utf8Diacritic10EFA));
+        console2.logBytes(utf8Diacritic10EFA);
+
+        string memory diacritic10EFD = "\\u{10EFD}";
+        bytes memory utf8Diacritic10EFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10EFD));
+        console2.log("10EFD: ", string(utf8Diacritic10EFD));
+        console2.logBytes(utf8Diacritic10EFD);
+
+        console2.log("..");
+
+        string memory diacritic10EFF = "\\u{10EFF}";
+        bytes memory utf8Diacritic10EFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10EFF));
+        console2.log("10EFF: ", string(utf8Diacritic10EFF));
+        console2.logBytes(utf8Diacritic10EFF);
+
+        string memory diacritic10F46 = "\\u{10F46}";
+        bytes memory utf8Diacritic10F46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10F46));
+        console2.log("10F46: ", string(utf8Diacritic10F46));
+        console2.logBytes(utf8Diacritic10F46);
+
+        console2.log("..");
+
+        string memory diacritic10F50 = "\\u{10F50}";
+        bytes memory utf8Diacritic10F50 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10F50));
+        console2.log("10F50: ", string(utf8Diacritic10F50));
+        console2.logBytes(utf8Diacritic10F50);
+
+        string memory diacritic10F82 = "\\u{10F82}";
+        bytes memory utf8Diacritic10F82 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10F82));
+        console2.log("10F82: ", string(utf8Diacritic10F82));
+        console2.logBytes(utf8Diacritic10F82);
+
+        console2.log("..");
+
+        string memory diacritic10F85 = "\\u{10F85}";
+        bytes memory utf8Diacritic10F85 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic10F85));
+        console2.log("10F85: ", string(utf8Diacritic10F85));
+        console2.logBytes(utf8Diacritic10F85);
+
+        string memory diacritic11046 = "\\u{11046}";
+        bytes memory utf8Diacritic11046 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11046));
+        console2.log("11046: ", string(utf8Diacritic11046));
+        console2.logBytes(utf8Diacritic11046);
+
+        string memory diacritic11070 = "\\u{11070}";
+        bytes memory utf8Diacritic11070 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11070));
+        console2.log("11070: ", string(utf8Diacritic11070));
+        console2.logBytes(utf8Diacritic11070);
+
+        string memory diacritic110B9 = "\\u{110B9}";
+        bytes memory utf8Diacritic110B9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic110B9));
+        console2.log("110B9: ", string(utf8Diacritic110B9));
+        console2.logBytes(utf8Diacritic110B9);
+
+        console2.log("..");
+
+        string memory diacritic110BA = "\\u{110BA}";
+        bytes memory utf8Diacritic110BA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic110BA));
+        console2.log("110BA: ", string(utf8Diacritic110BA));
+        console2.logBytes(utf8Diacritic110BA);
+
+        string memory diacritic11133 = "\\u{11133}";
+        bytes memory utf8Diacritic11133 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11133));
+        console2.log("11133: ", string(utf8Diacritic11133));
+        console2.logBytes(utf8Diacritic11133);
+
+        console2.log("..");
+
+        string memory diacritic11134 = "\\u{11134}";
+        bytes memory utf8Diacritic11134 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11134));
+        console2.log("11134: ", string(utf8Diacritic11134));
+        console2.logBytes(utf8Diacritic11134);
+
+        string memory diacritic11173 = "\\u{11173}";
+        bytes memory utf8Diacritic11173 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11173));
+        console2.log("11173: ", string(utf8Diacritic11173));
+        console2.logBytes(utf8Diacritic11173);
+
+        string memory diacritic111C0 = "\\u{111C0}";
+        bytes memory utf8Diacritic111C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic111C0));
+        console2.log("111C0: ", string(utf8Diacritic111C0));
+        console2.logBytes(utf8Diacritic111C0);
+
+        string memory diacritic111CA = "\\u{111CA}";
+        bytes memory utf8Diacritic111CA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic111CA));
+        console2.log("111CA: ", string(utf8Diacritic111CA));
+        console2.logBytes(utf8Diacritic111CA);
+
+        console2.log("..");
+
+        string memory diacritic111CC = "\\u{111CC}";
+        bytes memory utf8Diacritic111CC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic111CC));
+        console2.log("111CC: ", string(utf8Diacritic111CC));
+        console2.logBytes(utf8Diacritic111CC);
+
+        string memory diacritic11235 = "\\u{11235}";
+        bytes memory utf8Diacritic11235 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11235));
+        console2.log("11235: ", string(utf8Diacritic11235));
+        console2.logBytes(utf8Diacritic11235);
+
+        string memory diacritic11236 = "\\u{11236}";
+        bytes memory utf8Diacritic11236 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11236));
+        console2.log("11236: ", string(utf8Diacritic11236));
+        console2.logBytes(utf8Diacritic11236);
+
+        string memory diacritic112E9 = "\\u{112E9}";
+        bytes memory utf8Diacritic112E9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic112E9));
+        console2.log("112E9: ", string(utf8Diacritic112E9));
+        console2.logBytes(utf8Diacritic112E9);
+
+        console2.log("..");
+
+        string memory diacritic112EA = "\\u{112EA}";
+        bytes memory utf8Diacritic112EA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic112EA));
+        console2.log("112EA: ", string(utf8Diacritic112EA));
+        console2.logBytes(utf8Diacritic112EA);
+
+        string memory diacritic1133B = "\\u{1133B}";
+        bytes memory utf8Diacritic1133B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1133B));
+        console2.log("1133B: ", string(utf8Diacritic1133B));
+        console2.logBytes(utf8Diacritic1133B);
+
+        console2.log("..");
+
+        string memory diacritic1133C = "\\u{1133C}";
+        bytes memory utf8Diacritic1133C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1133C));
+        console2.log("1133C: ", string(utf8Diacritic1133C));
+        console2.logBytes(utf8Diacritic1133C);
+
+        string memory diacritic1134D = "\\u{1134D}";
+        bytes memory utf8Diacritic1134D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1134D));
+        console2.log("1134D: ", string(utf8Diacritic1134D));
+        console2.logBytes(utf8Diacritic1134D);
+
+        string memory diacritic11366 = "\\u{11366}";
+        bytes memory utf8Diacritic11366 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11366));
+        console2.log("11366: ", string(utf8Diacritic11366));
+        console2.logBytes(utf8Diacritic11366);
+
+        console2.log("..");
+
+        string memory diacritic1136C = "\\u{1136C}";
+        bytes memory utf8Diacritic1136C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1136C));
+        console2.log("1136C: ", string(utf8Diacritic1136C));
+        console2.logBytes(utf8Diacritic1136C);
+
+        string memory diacritic11370 = "\\u{11370}";
+        bytes memory utf8Diacritic11370 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11370));
+        console2.log("11370: ", string(utf8Diacritic11370));
+        console2.logBytes(utf8Diacritic11370);
+
+        console2.log("..");
+
+        string memory diacritic11374 = "\\u{11374}";
+        bytes memory utf8Diacritic11374 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11374));
+        console2.log("11374: ", string(utf8Diacritic11374));
+        console2.logBytes(utf8Diacritic11374);
+
+        string memory diacritic113CE = "\\u{113CE}";
+        bytes memory utf8Diacritic113CE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113CE));
+        console2.log("113CE: ", string(utf8Diacritic113CE));
+        console2.logBytes(utf8Diacritic113CE);
+
+        string memory diacritic113CF = "\\u{113CF}";
+        bytes memory utf8Diacritic113CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113CF));
+        console2.log("113CF: ", string(utf8Diacritic113CF));
+        console2.logBytes(utf8Diacritic113CF);
+
+        string memory diacritic113D0 = "\\u{113D0}";
+        bytes memory utf8Diacritic113D0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113D0));
+        console2.log("113D0: ", string(utf8Diacritic113D0));
+        console2.logBytes(utf8Diacritic113D0);
+
+        string memory diacritic113D2 = "\\u{113D2}";
+        bytes memory utf8Diacritic113D2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113D2));
+        console2.log("113D2: ", string(utf8Diacritic113D2));
+        console2.logBytes(utf8Diacritic113D2);
+
+        string memory diacritic113D3 = "\\u{113D3}";
+        bytes memory utf8Diacritic113D3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113D3));
+        console2.log("113D3: ", string(utf8Diacritic113D3));
+        console2.logBytes(utf8Diacritic113D3);
+
+        string memory diacritic113E1 = "\\u{113E1}";
+        bytes memory utf8Diacritic113E1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113E1));
+        console2.log("113E1: ", string(utf8Diacritic113E1));
+        console2.logBytes(utf8Diacritic113E1);
+
+        console2.log("..");
+
+        string memory diacritic113E2 = "\\u{113E2}";
+        bytes memory utf8Diacritic113E2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic113E2));
+        console2.log("113E2: ", string(utf8Diacritic113E2));
+        console2.logBytes(utf8Diacritic113E2);
+
+        string memory diacritic11442 = "\\u{11442}";
+        bytes memory utf8Diacritic11442 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11442));
+        console2.log("11442: ", string(utf8Diacritic11442));
+        console2.logBytes(utf8Diacritic11442);
+
+        string memory diacritic11446 = "\\u{11446}";
+        bytes memory utf8Diacritic11446 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11446));
+        console2.log("11446: ", string(utf8Diacritic11446));
+        console2.logBytes(utf8Diacritic11446);
+
+        string memory diacritic114C2 = "\\u{114C2}";
+        bytes memory utf8Diacritic114C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic114C2));
+        console2.log("114C2: ", string(utf8Diacritic114C2));
+        console2.logBytes(utf8Diacritic114C2);
+
+        console2.log("..");
+
+        string memory diacritic114C3 = "\\u{114C3}";
+        bytes memory utf8Diacritic114C3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic114C3));
+        console2.log("114C3: ", string(utf8Diacritic114C3));
+        console2.logBytes(utf8Diacritic114C3);
+
+        string memory diacritic115BF = "\\u{115BF}";
+        bytes memory utf8Diacritic115BF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic115BF));
+        console2.log("115BF: ", string(utf8Diacritic115BF));
+        console2.logBytes(utf8Diacritic115BF);
+
+        console2.log("..");
+
+        string memory diacritic115C0 = "\\u{115C0}";
+        bytes memory utf8Diacritic115C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic115C0));
+        console2.log("115C0: ", string(utf8Diacritic115C0));
+        console2.logBytes(utf8Diacritic115C0);
+
+        string memory diacritic1163F = "\\u{1163F}";
+        bytes memory utf8Diacritic1163F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1163F));
+        console2.log("1163F: ", string(utf8Diacritic1163F));
+        console2.logBytes(utf8Diacritic1163F);
+
+        string memory diacritic116B6 = "\\u{116B6}";
+        bytes memory utf8Diacritic116B6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic116B6));
+        console2.log("116B6: ", string(utf8Diacritic116B6));
+        console2.logBytes(utf8Diacritic116B6);
+
+        string memory diacritic116B7 = "\\u{116B7}";
+        bytes memory utf8Diacritic116B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic116B7));
+        console2.log("116B7: ", string(utf8Diacritic116B7));
+        console2.logBytes(utf8Diacritic116B7);
+
+        string memory diacritic1172B = "\\u{1172B}";
+        bytes memory utf8Diacritic1172B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1172B));
+        console2.log("1172B: ", string(utf8Diacritic1172B));
+        console2.logBytes(utf8Diacritic1172B);
+
+        string memory diacritic11839 = "\\u{11839}";
+        bytes memory utf8Diacritic11839 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11839));
+        console2.log("11839: ", string(utf8Diacritic11839));
+        console2.logBytes(utf8Diacritic11839);
+
+        console2.log("..");
+
+        string memory diacritic1183A = "\\u{1183A}";
+        bytes memory utf8Diacritic1183A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1183A));
+        console2.log("1183A: ", string(utf8Diacritic1183A));
+        console2.logBytes(utf8Diacritic1183A);
+
+        string memory diacritic1193D = "\\u{1193D}";
+        bytes memory utf8Diacritic1193D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1193D));
+        console2.log("1193D: ", string(utf8Diacritic1193D));
+        console2.logBytes(utf8Diacritic1193D);
+
+        string memory diacritic1193E = "\\u{1193E}";
+        bytes memory utf8Diacritic1193E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1193E));
+        console2.log("1193E: ", string(utf8Diacritic1193E));
+        console2.logBytes(utf8Diacritic1193E);
+
+        string memory diacritic11943 = "\\u{11943}";
+        bytes memory utf8Diacritic11943 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11943));
+        console2.log("11943: ", string(utf8Diacritic11943));
+        console2.logBytes(utf8Diacritic11943);
+
+        string memory diacritic119E0 = "\\u{119E0}";
+        bytes memory utf8Diacritic119E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic119E0));
+        console2.log("119E0: ", string(utf8Diacritic119E0));
+        console2.logBytes(utf8Diacritic119E0);
+
+        string memory diacritic11A34 = "\\u{11A34}";
+        bytes memory utf8Diacritic11A34 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11A34));
+        console2.log("11A34: ", string(utf8Diacritic11A34));
+        console2.logBytes(utf8Diacritic11A34);
+
+        string memory diacritic11A47 = "\\u{11A47}";
+        bytes memory utf8Diacritic11A47 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11A47));
+        console2.log("11A47: ", string(utf8Diacritic11A47));
+        console2.logBytes(utf8Diacritic11A47);
+
+        string memory diacritic11A99 = "\\u{11A99}";
+        bytes memory utf8Diacritic11A99 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11A99));
+        console2.log("11A99: ", string(utf8Diacritic11A99));
+        console2.logBytes(utf8Diacritic11A99);
+
+        string memory diacritic11C3F = "\\u{11C3F}";
+        bytes memory utf8Diacritic11C3F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11C3F));
+        console2.log("11C3F: ", string(utf8Diacritic11C3F));
+        console2.logBytes(utf8Diacritic11C3F);
+
+        string memory diacritic11D42 = "\\u{11D42}";
+        bytes memory utf8Diacritic11D42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11D42));
+        console2.log("11D42: ", string(utf8Diacritic11D42));
+        console2.logBytes(utf8Diacritic11D42);
+
+        string memory diacritic11D44 = "\\u{11D44}";
+        bytes memory utf8Diacritic11D44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11D44));
+        console2.log("11D44: ", string(utf8Diacritic11D44));
+        console2.logBytes(utf8Diacritic11D44);
+
+        console2.log("..");
+
+        string memory diacritic11D45 = "\\u{11D45}";
+        bytes memory utf8Diacritic11D45 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11D45));
+        console2.log("11D45: ", string(utf8Diacritic11D45));
+        console2.logBytes(utf8Diacritic11D45);
+
+        string memory diacritic11D97 = "\\u{11D97}";
+        bytes memory utf8Diacritic11D97 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11D97));
+        console2.log("11D97: ", string(utf8Diacritic11D97));
+        console2.logBytes(utf8Diacritic11D97);
+
+        string memory diacritic11DD9 = "\\u{11DD9}";
+        bytes memory utf8Diacritic11DD9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11DD9));
+        console2.log("11DD9: ", string(utf8Diacritic11DD9));
+        console2.logBytes(utf8Diacritic11DD9);
+
+        string memory diacritic11F41 = "\\u{11F41}";
+        bytes memory utf8Diacritic11F41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11F41));
+        console2.log("11F41: ", string(utf8Diacritic11F41));
+        console2.logBytes(utf8Diacritic11F41);
+
+        string memory diacritic11F42 = "\\u{11F42}";
+        bytes memory utf8Diacritic11F42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11F42));
+        console2.log("11F42: ", string(utf8Diacritic11F42));
+        console2.logBytes(utf8Diacritic11F42);
+
+        string memory diacritic11F5A = "\\u{11F5A}";
+        bytes memory utf8Diacritic11F5A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic11F5A));
+        console2.log("11F5A: ", string(utf8Diacritic11F5A));
+        console2.logBytes(utf8Diacritic11F5A);
+
+        string memory diacritic13447 = "\\u{13447}";
+        bytes memory utf8Diacritic13447 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic13447));
+        console2.log("13447: ", string(utf8Diacritic13447));
+        console2.logBytes(utf8Diacritic13447);
+
+        console2.log("..");
+
+        string memory diacritic13455 = "\\u{13455}";
+        bytes memory utf8Diacritic13455 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic13455));
+        console2.log("13455: ", string(utf8Diacritic13455));
+        console2.logBytes(utf8Diacritic13455);
+
+        string memory diacritic1612F = "\\u{1612F}";
+        bytes memory utf8Diacritic1612F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1612F));
+        console2.log("1612F: ", string(utf8Diacritic1612F));
+        console2.logBytes(utf8Diacritic1612F);
+
+        string memory diacritic16AF0 = "\\u{16AF0}";
+        bytes memory utf8Diacritic16AF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16AF0));
+        console2.log("16AF0: ", string(utf8Diacritic16AF0));
+        console2.logBytes(utf8Diacritic16AF0);
+
+        console2.log("..");
+
+        string memory diacritic16AF4 = "\\u{16AF4}";
+        bytes memory utf8Diacritic16AF4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16AF4));
+        console2.log("16AF4: ", string(utf8Diacritic16AF4));
+        console2.logBytes(utf8Diacritic16AF4);
+
+        string memory diacritic16B30 = "\\u{16B30}";
+        bytes memory utf8Diacritic16B30 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16B30));
+        console2.log("16B30: ", string(utf8Diacritic16B30));
+        console2.logBytes(utf8Diacritic16B30);
+
+        console2.log("..");
+
+        string memory diacritic16B36 = "\\u{16B36}";
+        bytes memory utf8Diacritic16B36 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16B36));
+        console2.log("16B36: ", string(utf8Diacritic16B36));
+        console2.logBytes(utf8Diacritic16B36);
+
+        string memory diacritic16D6B = "\\u{16D6B}";
+        bytes memory utf8Diacritic16D6B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16D6B));
+        console2.log("16D6B: ", string(utf8Diacritic16D6B));
+        console2.logBytes(utf8Diacritic16D6B);
+
+        console2.log("..");
+
+        string memory diacritic16D6C = "\\u{16D6C}";
+        bytes memory utf8Diacritic16D6C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16D6C));
+        console2.log("16D6C: ", string(utf8Diacritic16D6C));
+        console2.logBytes(utf8Diacritic16D6C);
+
+        string memory diacritic16F8F = "\\u{16F8F}";
+        bytes memory utf8Diacritic16F8F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16F8F));
+        console2.log("16F8F: ", string(utf8Diacritic16F8F));
+        console2.logBytes(utf8Diacritic16F8F);
+
+        console2.log("..");
+
+        string memory diacritic16F92 = "\\u{16F92}";
+        bytes memory utf8Diacritic16F92 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16F92));
+        console2.log("16F92: ", string(utf8Diacritic16F92));
+        console2.logBytes(utf8Diacritic16F92);
+
+        string memory diacritic16F93 = "\\u{16F93}";
+        bytes memory utf8Diacritic16F93 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16F93));
+        console2.log("16F93: ", string(utf8Diacritic16F93));
+        console2.logBytes(utf8Diacritic16F93);
+
+        console2.log("..");
+
+        string memory diacritic16F9F = "\\u{16F9F}";
+        bytes memory utf8Diacritic16F9F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16F9F));
+        console2.log("16F9F: ", string(utf8Diacritic16F9F));
+        console2.logBytes(utf8Diacritic16F9F);
+
+        string memory diacritic16FF0 = "\\u{16FF0}";
+        bytes memory utf8Diacritic16FF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16FF0));
+        console2.log("16FF0: ", string(utf8Diacritic16FF0));
+        console2.logBytes(utf8Diacritic16FF0);
+
+        console2.log("..");
+
+        string memory diacritic16FF1 = "\\u{16FF1}";
+        bytes memory utf8Diacritic16FF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic16FF1));
+        console2.log("16FF1: ", string(utf8Diacritic16FF1));
+        console2.logBytes(utf8Diacritic16FF1);
+
+        string memory diacritic1AFF0 = "\\u{1AFF0}";
+        bytes memory utf8Diacritic1AFF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFF0));
+        console2.log("1AFF0: ", string(utf8Diacritic1AFF0));
+        console2.logBytes(utf8Diacritic1AFF0);
+
+        console2.log("..");
+
+        string memory diacritic1AFF3 = "\\u{1AFF3}";
+        bytes memory utf8Diacritic1AFF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFF3));
+        console2.log("1AFF3: ", string(utf8Diacritic1AFF3));
+        console2.logBytes(utf8Diacritic1AFF3);
+
+        string memory diacritic1AFF5 = "\\u{1AFF5}";
+        bytes memory utf8Diacritic1AFF5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFF5));
+        console2.log("1AFF5: ", string(utf8Diacritic1AFF5));
+        console2.logBytes(utf8Diacritic1AFF5);
+
+        console2.log("..");
+
+        string memory diacritic1AFFB = "\\u{1AFFB}";
+        bytes memory utf8Diacritic1AFFB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFFB));
+        console2.log("1AFFB: ", string(utf8Diacritic1AFFB));
+        console2.logBytes(utf8Diacritic1AFFB);
+
+        string memory diacritic1AFFD = "\\u{1AFFD}";
+        bytes memory utf8Diacritic1AFFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFFD));
+        console2.log("1AFFD: ", string(utf8Diacritic1AFFD));
+        console2.logBytes(utf8Diacritic1AFFD);
+
+        console2.log("..");
+
+        string memory diacritic1AFFE = "\\u{1AFFE}";
+        bytes memory utf8Diacritic1AFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1AFFE));
+        console2.log("1AFFE: ", string(utf8Diacritic1AFFE));
+        console2.logBytes(utf8Diacritic1AFFE);
+
+        string memory diacritic1CF00 = "\\u{1CF00}";
+        bytes memory utf8Diacritic1CF00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF00));
+        console2.log("1CF00: ", string(utf8Diacritic1CF00));
+        console2.logBytes(utf8Diacritic1CF00);
+
+        console2.log("..");
+
+        string memory diacritic1CF2D = "\\u{1CF2D}";
+        bytes memory utf8Diacritic1CF2D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF2D));
+        console2.log("1CF2D: ", string(utf8Diacritic1CF2D));
+        console2.logBytes(utf8Diacritic1CF2D);
+
+        string memory diacritic1CF30 = "\\u{1CF30}";
+        bytes memory utf8Diacritic1CF30 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF30));
+        console2.log("1CF30: ", string(utf8Diacritic1CF30));
+        console2.logBytes(utf8Diacritic1CF30);
+
+        console2.log("..");
+
+        string memory diacritic1CF46 = "\\u{1CF46}";
+        bytes memory utf8Diacritic1CF46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1CF46));
+        console2.log("1CF46: ", string(utf8Diacritic1CF46));
+        console2.logBytes(utf8Diacritic1CF46);
+
+        string memory diacritic1D167 = "\\u{1D167}";
+        bytes memory utf8Diacritic1D167 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D167));
+        console2.log("1D167: ", string(utf8Diacritic1D167));
+        console2.logBytes(utf8Diacritic1D167);
+
+        console2.log("..");
+
+        string memory diacritic1D169 = "\\u{1D169}";
+        bytes memory utf8Diacritic1D169 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D169));
+        console2.log("1D169: ", string(utf8Diacritic1D169));
+        console2.logBytes(utf8Diacritic1D169);
+
+        string memory diacritic1D16D = "\\u{1D16D}";
+        bytes memory utf8Diacritic1D16D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D16D));
+        console2.log("1D16D: ", string(utf8Diacritic1D16D));
+        console2.logBytes(utf8Diacritic1D16D);
+
+        console2.log("..");
+
+        string memory diacritic1D172 = "\\u{1D172}";
+        bytes memory utf8Diacritic1D172 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D172));
+        console2.log("1D172: ", string(utf8Diacritic1D172));
+        console2.logBytes(utf8Diacritic1D172);
+
+        string memory diacritic1D17B = "\\u{1D17B}";
+        bytes memory utf8Diacritic1D17B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D17B));
+        console2.log("1D17B: ", string(utf8Diacritic1D17B));
+        console2.logBytes(utf8Diacritic1D17B);
+
+        console2.log("..");
+
+        string memory diacritic1D182 = "\\u{1D182}";
+        bytes memory utf8Diacritic1D182 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D182));
+        console2.log("1D182: ", string(utf8Diacritic1D182));
+        console2.logBytes(utf8Diacritic1D182);
+
+        string memory diacritic1D185 = "\\u{1D185}";
+        bytes memory utf8Diacritic1D185 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D185));
+        console2.log("1D185: ", string(utf8Diacritic1D185));
+        console2.logBytes(utf8Diacritic1D185);
+
+        console2.log("..");
+
+        string memory diacritic1D18B = "\\u{1D18B}";
+        bytes memory utf8Diacritic1D18B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D18B));
+        console2.log("1D18B: ", string(utf8Diacritic1D18B));
+        console2.logBytes(utf8Diacritic1D18B);
+
+        string memory diacritic1D1AA = "\\u{1D1AA}";
+        bytes memory utf8Diacritic1D1AA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D1AA));
+        console2.log("1D1AA: ", string(utf8Diacritic1D1AA));
+        console2.logBytes(utf8Diacritic1D1AA);
+
+        console2.log("..");
+
+        string memory diacritic1D1AD = "\\u{1D1AD}";
+        bytes memory utf8Diacritic1D1AD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1D1AD));
+        console2.log("1D1AD: ", string(utf8Diacritic1D1AD));
+        console2.logBytes(utf8Diacritic1D1AD);
+
+        string memory diacritic1E030 = "\\u{1E030}";
+        bytes memory utf8Diacritic1E030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E030));
+        console2.log("1E030: ", string(utf8Diacritic1E030));
+        console2.logBytes(utf8Diacritic1E030);
+
+        console2.log("..");
+
+        string memory diacritic1E06D = "\\u{1E06D}";
+        bytes memory utf8Diacritic1E06D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E06D));
+        console2.log("1E06D: ", string(utf8Diacritic1E06D));
+        console2.logBytes(utf8Diacritic1E06D);
+
+        string memory diacritic1E130 = "\\u{1E130}";
+        bytes memory utf8Diacritic1E130 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E130));
+        console2.log("1E130: ", string(utf8Diacritic1E130));
+        console2.logBytes(utf8Diacritic1E130);
+
+        console2.log("..");
+
+        string memory diacritic1E136 = "\\u{1E136}";
+        bytes memory utf8Diacritic1E136 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E136));
+        console2.log("1E136: ", string(utf8Diacritic1E136));
+        console2.logBytes(utf8Diacritic1E136);
+
+        string memory diacritic1E2AE = "\\u{1E2AE}";
+        bytes memory utf8Diacritic1E2AE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E2AE));
+        console2.log("1E2AE: ", string(utf8Diacritic1E2AE));
+        console2.logBytes(utf8Diacritic1E2AE);
+
+        string memory diacritic1E2EC = "\\u{1E2EC}";
+        bytes memory utf8Diacritic1E2EC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E2EC));
+        console2.log("1E2EC: ", string(utf8Diacritic1E2EC));
+        console2.logBytes(utf8Diacritic1E2EC);
+
+        console2.log("..");
+
+        string memory diacritic1E2EF = "\\u{1E2EF}";
+        bytes memory utf8Diacritic1E2EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E2EF));
+        console2.log("1E2EF: ", string(utf8Diacritic1E2EF));
+        console2.logBytes(utf8Diacritic1E2EF);
+
+        string memory diacritic1E5EE = "\\u{1E5EE}";
+        bytes memory utf8Diacritic1E5EE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E5EE));
+        console2.log("1E5EE: ", string(utf8Diacritic1E5EE));
+        console2.logBytes(utf8Diacritic1E5EE);
+
+        console2.log("..");
+
+        string memory diacritic1E5EF = "\\u{1E5EF}";
+        bytes memory utf8Diacritic1E5EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E5EF));
+        console2.log("1E5EF: ", string(utf8Diacritic1E5EF));
+        console2.logBytes(utf8Diacritic1E5EF);
+
+        string memory diacritic1E8D0 = "\\u{1E8D0}";
+        bytes memory utf8Diacritic1E8D0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E8D0));
+        console2.log("1E8D0: ", string(utf8Diacritic1E8D0));
+        console2.logBytes(utf8Diacritic1E8D0);
+
+        console2.log("..");
+
+        string memory diacritic1E8D6 = "\\u{1E8D6}";
+        bytes memory utf8Diacritic1E8D6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E8D6));
+        console2.log("1E8D6: ", string(utf8Diacritic1E8D6));
+        console2.logBytes(utf8Diacritic1E8D6);
+
+        string memory diacritic1E944 = "\\u{1E944}";
+        bytes memory utf8Diacritic1E944 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E944));
+        console2.log("1E944: ", string(utf8Diacritic1E944));
+        console2.logBytes(utf8Diacritic1E944);
+
+        console2.log("..");
+
+        string memory diacritic1E946 = "\\u{1E946}";
+        bytes memory utf8Diacritic1E946 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E946));
+        console2.log("1E946: ", string(utf8Diacritic1E946));
+        console2.logBytes(utf8Diacritic1E946);
+
+        string memory diacritic1E948 = "\\u{1E948}";
+        bytes memory utf8Diacritic1E948 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E948));
+        console2.log("1E948: ", string(utf8Diacritic1E948));
+        console2.logBytes(utf8Diacritic1E948);
+
+        console2.log("..");
+
+        string memory diacritic1E94A = "\\u{1E94A}";
+        bytes memory utf8Diacritic1E94A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(diacritic1E94A));
+        console2.log("1E94A: ", string(utf8Diacritic1E94A));
+        console2.logBytes(utf8Diacritic1E94A);
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();
