@@ -9928,6 +9928,10 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8Diacritic1E94A);
     }
 
+    function testRegexPropertyPatternSyntax() public pure {
+        // @TODO: calculate each pattern syntax unicode codepoints utf8 hex equivalent...
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

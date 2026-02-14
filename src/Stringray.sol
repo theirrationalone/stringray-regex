@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyPatternSyntax(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the impl...
+    }
+
     function isPropertyDiacritic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
