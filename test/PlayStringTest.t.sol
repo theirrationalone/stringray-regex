@@ -9929,7 +9929,1840 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyPatternSyntax() public pure {
-        // @TODO: calculate each pattern syntax unicode codepoints utf8 hex equivalent...
+        string memory patternSyntax0021 = "\\u{0021}";
+        bytes memory utf8PatternSyntax0021 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0021));
+        console2.log("0021: ", string(utf8PatternSyntax0021));
+        console2.logBytes(utf8PatternSyntax0021);
+
+        console2.log("..");
+
+        string memory patternSyntax0023 = "\\u{0023}";
+        bytes memory utf8PatternSyntax0023 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0023));
+        console2.log("0023: ", string(utf8PatternSyntax0023));
+        console2.logBytes(utf8PatternSyntax0023);
+
+        string memory patternSyntax0024 = "\\u{0024}";
+        bytes memory utf8PatternSyntax0024 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0024));
+        console2.log("0024: ", string(utf8PatternSyntax0024));
+        console2.logBytes(utf8PatternSyntax0024);
+
+        string memory patternSyntax0025 = "\\u{0025}";
+        bytes memory utf8PatternSyntax0025 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0025));
+        console2.log("0025: ", string(utf8PatternSyntax0025));
+        console2.logBytes(utf8PatternSyntax0025);
+
+        console2.log("..");
+
+        string memory patternSyntax0027 = "\\u{0027}";
+        bytes memory utf8PatternSyntax0027 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0027));
+        console2.log("0027: ", string(utf8PatternSyntax0027));
+        console2.logBytes(utf8PatternSyntax0027);
+
+        string memory patternSyntax0028 = "\\u{0028}";
+        bytes memory utf8PatternSyntax0028 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0028));
+        console2.log("0028: ", string(utf8PatternSyntax0028));
+        console2.logBytes(utf8PatternSyntax0028);
+
+        string memory patternSyntax0029 = "\\u{0029}";
+        bytes memory utf8PatternSyntax0029 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0029));
+        console2.log("0029: ", string(utf8PatternSyntax0029));
+        console2.logBytes(utf8PatternSyntax0029);
+
+        string memory patternSyntax002A = "\\u{002A}";
+        bytes memory utf8PatternSyntax002A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002A));
+        console2.log("002A: ", string(utf8PatternSyntax002A));
+        console2.logBytes(utf8PatternSyntax002A);
+
+        string memory patternSyntax002B = "\\u{002B}";
+        bytes memory utf8PatternSyntax002B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002B));
+        console2.log("002B: ", string(utf8PatternSyntax002B));
+        console2.logBytes(utf8PatternSyntax002B);
+
+        string memory patternSyntax002C = "\\u{002C}";
+        bytes memory utf8PatternSyntax002C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002C));
+        console2.log("002C: ", string(utf8PatternSyntax002C));
+        console2.logBytes(utf8PatternSyntax002C);
+
+        string memory patternSyntax002D = "\\u{002D}";
+        bytes memory utf8PatternSyntax002D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002D));
+        console2.log("002D: ", string(utf8PatternSyntax002D));
+        console2.logBytes(utf8PatternSyntax002D);
+
+        string memory patternSyntax002E = "\\u{002E}";
+        bytes memory utf8PatternSyntax002E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002E));
+        console2.log("002E: ", string(utf8PatternSyntax002E));
+        console2.logBytes(utf8PatternSyntax002E);
+
+        console2.log("..");
+
+        string memory patternSyntax002F = "\\u{002F}";
+        bytes memory utf8PatternSyntax002F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax002F));
+        console2.log("002F: ", string(utf8PatternSyntax002F));
+        console2.logBytes(utf8PatternSyntax002F);
+
+        string memory patternSyntax003A = "\\u{003A}";
+        bytes memory utf8PatternSyntax003A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax003A));
+        console2.log("003A: ", string(utf8PatternSyntax003A));
+        console2.logBytes(utf8PatternSyntax003A);
+
+        console2.log("..");
+
+        string memory patternSyntax003B = "\\u{003B}";
+        bytes memory utf8PatternSyntax003B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax003B));
+        console2.log("003B: ", string(utf8PatternSyntax003B));
+        console2.logBytes(utf8PatternSyntax003B);
+
+        string memory patternSyntax003C = "\\u{003C}";
+        bytes memory utf8PatternSyntax003C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax003C));
+        console2.log("003C: ", string(utf8PatternSyntax003C));
+        console2.logBytes(utf8PatternSyntax003C);
+
+        console2.log("..");
+
+        string memory patternSyntax003E = "\\u{003E}";
+        bytes memory utf8PatternSyntax003E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax003E));
+        console2.log("003E: ", string(utf8PatternSyntax003E));
+        console2.logBytes(utf8PatternSyntax003E);
+
+        string memory patternSyntax003F = "\\u{003F}";
+        bytes memory utf8PatternSyntax003F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax003F));
+        console2.log("003F: ", string(utf8PatternSyntax003F));
+        console2.logBytes(utf8PatternSyntax003F);
+
+        console2.log("..");
+
+        string memory patternSyntax0040 = "\\u{0040}";
+        bytes memory utf8PatternSyntax0040 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0040));
+        console2.log("0040: ", string(utf8PatternSyntax0040));
+        console2.logBytes(utf8PatternSyntax0040);
+
+        string memory patternSyntax005B = "\\u{005B}";
+        bytes memory utf8PatternSyntax005B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax005B));
+        console2.log("005B: ", string(utf8PatternSyntax005B));
+        console2.logBytes(utf8PatternSyntax005B);
+
+        string memory patternSyntax005C = "\\u{005C}";
+        bytes memory utf8PatternSyntax005C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax005C));
+        console2.log("005C: ", string(utf8PatternSyntax005C));
+        console2.logBytes(utf8PatternSyntax005C);
+
+        string memory patternSyntax005D = "\\u{005D}";
+        bytes memory utf8PatternSyntax005D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax005D));
+        console2.log("005D: ", string(utf8PatternSyntax005D));
+        console2.logBytes(utf8PatternSyntax005D);
+
+        string memory patternSyntax005E = "\\u{005E}";
+        bytes memory utf8PatternSyntax005E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax005E));
+        console2.log("005E: ", string(utf8PatternSyntax005E));
+        console2.logBytes(utf8PatternSyntax005E);
+
+        string memory patternSyntax0060 = "\\u{0060}";
+        bytes memory utf8PatternSyntax0060 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax0060));
+        console2.log("0060: ", string(utf8PatternSyntax0060));
+        console2.logBytes(utf8PatternSyntax0060);
+
+        string memory patternSyntax007B = "\\u{007B}";
+        bytes memory utf8PatternSyntax007B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax007B));
+        console2.log("007B: ", string(utf8PatternSyntax007B));
+        console2.logBytes(utf8PatternSyntax007B);
+
+        string memory patternSyntax007C = "\\u{007C}";
+        bytes memory utf8PatternSyntax007C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax007C));
+        console2.log("007C: ", string(utf8PatternSyntax007C));
+        console2.logBytes(utf8PatternSyntax007C);
+
+        string memory patternSyntax007D = "\\u{007D}";
+        bytes memory utf8PatternSyntax007D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax007D));
+        console2.log("007D: ", string(utf8PatternSyntax007D));
+        console2.logBytes(utf8PatternSyntax007D);
+
+        string memory patternSyntax007E = "\\u{007E}";
+        bytes memory utf8PatternSyntax007E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax007E));
+        console2.log("007E: ", string(utf8PatternSyntax007E));
+        console2.logBytes(utf8PatternSyntax007E);
+
+        string memory patternSyntax00A1 = "\\u{00A1}";
+        bytes memory utf8PatternSyntax00A1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A1));
+        console2.log("00A1: ", string(utf8PatternSyntax00A1));
+        console2.logBytes(utf8PatternSyntax00A1);
+
+        string memory patternSyntax00A2 = "\\u{00A2}";
+        bytes memory utf8PatternSyntax00A2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A2));
+        console2.log("00A2: ", string(utf8PatternSyntax00A2));
+        console2.logBytes(utf8PatternSyntax00A2);
+
+        console2.log("..");
+
+        string memory patternSyntax00A5 = "\\u{00A5}";
+        bytes memory utf8PatternSyntax00A5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A5));
+        console2.log("00A5: ", string(utf8PatternSyntax00A5));
+        console2.logBytes(utf8PatternSyntax00A5);
+
+        string memory patternSyntax00A6 = "\\u{00A6}";
+        bytes memory utf8PatternSyntax00A6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A6));
+        console2.log("00A6: ", string(utf8PatternSyntax00A6));
+        console2.logBytes(utf8PatternSyntax00A6);
+
+        string memory patternSyntax00A7 = "\\u{00A7}";
+        bytes memory utf8PatternSyntax00A7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A7));
+        console2.log("00A7: ", string(utf8PatternSyntax00A7));
+        console2.logBytes(utf8PatternSyntax00A7);
+
+        string memory patternSyntax00A9 = "\\u{00A9}";
+        bytes memory utf8PatternSyntax00A9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00A9));
+        console2.log("00A9: ", string(utf8PatternSyntax00A9));
+        console2.logBytes(utf8PatternSyntax00A9);
+
+        string memory patternSyntax00AB = "\\u{00AB}";
+        bytes memory utf8PatternSyntax00AB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00AB));
+        console2.log("00AB: ", string(utf8PatternSyntax00AB));
+        console2.logBytes(utf8PatternSyntax00AB);
+
+        string memory patternSyntax00AC = "\\u{00AC}";
+        bytes memory utf8PatternSyntax00AC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00AC));
+        console2.log("00AC: ", string(utf8PatternSyntax00AC));
+        console2.logBytes(utf8PatternSyntax00AC);
+
+        string memory patternSyntax00AE = "\\u{00AE}";
+        bytes memory utf8PatternSyntax00AE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00AE));
+        console2.log("00AE: ", string(utf8PatternSyntax00AE));
+        console2.logBytes(utf8PatternSyntax00AE);
+
+        string memory patternSyntax00B0 = "\\u{00B0}";
+        bytes memory utf8PatternSyntax00B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00B0));
+        console2.log("00B0: ", string(utf8PatternSyntax00B0));
+        console2.logBytes(utf8PatternSyntax00B0);
+
+        string memory patternSyntax00B1 = "\\u{00B1}";
+        bytes memory utf8PatternSyntax00B1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00B1));
+        console2.log("00B1: ", string(utf8PatternSyntax00B1));
+        console2.logBytes(utf8PatternSyntax00B1);
+
+        string memory patternSyntax00B6 = "\\u{00B6}";
+        bytes memory utf8PatternSyntax00B6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00B6));
+        console2.log("00B6: ", string(utf8PatternSyntax00B6));
+        console2.logBytes(utf8PatternSyntax00B6);
+
+        string memory patternSyntax00BB = "\\u{00BB}";
+        bytes memory utf8PatternSyntax00BB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00BB));
+        console2.log("00BB: ", string(utf8PatternSyntax00BB));
+        console2.logBytes(utf8PatternSyntax00BB);
+
+        string memory patternSyntax00BF = "\\u{00BF}";
+        bytes memory utf8PatternSyntax00BF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00BF));
+        console2.log("00BF: ", string(utf8PatternSyntax00BF));
+        console2.logBytes(utf8PatternSyntax00BF);
+
+        string memory patternSyntax00D7 = "\\u{00D7}";
+        bytes memory utf8PatternSyntax00D7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00D7));
+        console2.log("00D7: ", string(utf8PatternSyntax00D7));
+        console2.logBytes(utf8PatternSyntax00D7);
+
+        string memory patternSyntax00F7 = "\\u{00F7}";
+        bytes memory utf8PatternSyntax00F7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax00F7));
+        console2.log("00F7: ", string(utf8PatternSyntax00F7));
+        console2.logBytes(utf8PatternSyntax00F7);
+
+        string memory patternSyntax2010 = "\\u{2010}";
+        bytes memory utf8PatternSyntax2010 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2010));
+        console2.log("2010: ", string(utf8PatternSyntax2010));
+        console2.logBytes(utf8PatternSyntax2010);
+
+        console2.log("..");
+
+        string memory patternSyntax2015 = "\\u{2015}";
+        bytes memory utf8PatternSyntax2015 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2015));
+        console2.log("2015: ", string(utf8PatternSyntax2015));
+        console2.logBytes(utf8PatternSyntax2015);
+
+        string memory patternSyntax2016 = "\\u{2016}";
+        bytes memory utf8PatternSyntax2016 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2016));
+        console2.log("2016: ", string(utf8PatternSyntax2016));
+        console2.logBytes(utf8PatternSyntax2016);
+
+        console2.log("..");
+
+        string memory patternSyntax2017 = "\\u{2017}";
+        bytes memory utf8PatternSyntax2017 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2017));
+        console2.log("2017: ", string(utf8PatternSyntax2017));
+        console2.logBytes(utf8PatternSyntax2017);
+
+        string memory patternSyntax2018 = "\\u{2018}";
+        bytes memory utf8PatternSyntax2018 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2018));
+        console2.log("2018: ", string(utf8PatternSyntax2018));
+        console2.logBytes(utf8PatternSyntax2018);
+
+        string memory patternSyntax2019 = "\\u{2019}";
+        bytes memory utf8PatternSyntax2019 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2019));
+        console2.log("2019: ", string(utf8PatternSyntax2019));
+        console2.logBytes(utf8PatternSyntax2019);
+
+        string memory patternSyntax201A = "\\u{201A}";
+        bytes memory utf8PatternSyntax201A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201A));
+        console2.log("201A: ", string(utf8PatternSyntax201A));
+        console2.logBytes(utf8PatternSyntax201A);
+
+        string memory patternSyntax201B = "\\u{201B}";
+        bytes memory utf8PatternSyntax201B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201B));
+        console2.log("201B: ", string(utf8PatternSyntax201B));
+        console2.logBytes(utf8PatternSyntax201B);
+
+        console2.log("..");
+
+        string memory patternSyntax201C = "\\u{201C}";
+        bytes memory utf8PatternSyntax201C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201C));
+        console2.log("201C: ", string(utf8PatternSyntax201C));
+        console2.logBytes(utf8PatternSyntax201C);
+
+        string memory patternSyntax201D = "\\u{201D}";
+        bytes memory utf8PatternSyntax201D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201D));
+        console2.log("201D: ", string(utf8PatternSyntax201D));
+        console2.logBytes(utf8PatternSyntax201D);
+
+        string memory patternSyntax201E = "\\u{201E}";
+        bytes memory utf8PatternSyntax201E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201E));
+        console2.log("201E: ", string(utf8PatternSyntax201E));
+        console2.logBytes(utf8PatternSyntax201E);
+
+        string memory patternSyntax201F = "\\u{201F}";
+        bytes memory utf8PatternSyntax201F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax201F));
+        console2.log("201F: ", string(utf8PatternSyntax201F));
+        console2.logBytes(utf8PatternSyntax201F);
+
+        string memory patternSyntax2020 = "\\u{2020}";
+        bytes memory utf8PatternSyntax2020 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2020));
+        console2.log("2020: ", string(utf8PatternSyntax2020));
+        console2.logBytes(utf8PatternSyntax2020);
+
+        console2.log("..");
+
+        string memory patternSyntax2027 = "\\u{2027}";
+        bytes memory utf8PatternSyntax2027 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2027));
+        console2.log("2027: ", string(utf8PatternSyntax2027));
+        console2.logBytes(utf8PatternSyntax2027);
+
+        string memory patternSyntax2030 = "\\u{2030}";
+        bytes memory utf8PatternSyntax2030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2030));
+        console2.log("2030: ", string(utf8PatternSyntax2030));
+        console2.logBytes(utf8PatternSyntax2030);
+
+        console2.log("..");
+
+        string memory patternSyntax2038 = "\\u{2038}";
+        bytes memory utf8PatternSyntax2038 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2038));
+        console2.log("2038: ", string(utf8PatternSyntax2038));
+        console2.logBytes(utf8PatternSyntax2038);
+
+        string memory patternSyntax2039 = "\\u{2039}";
+        bytes memory utf8PatternSyntax2039 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2039));
+        console2.log("2039: ", string(utf8PatternSyntax2039));
+        console2.logBytes(utf8PatternSyntax2039);
+
+        string memory patternSyntax203A = "\\u{203A}";
+        bytes memory utf8PatternSyntax203A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax203A));
+        console2.log("203A: ", string(utf8PatternSyntax203A));
+        console2.logBytes(utf8PatternSyntax203A);
+
+        string memory patternSyntax203B = "\\u{203B}";
+        bytes memory utf8PatternSyntax203B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax203B));
+        console2.log("203B: ", string(utf8PatternSyntax203B));
+        console2.logBytes(utf8PatternSyntax203B);
+
+        console2.log("..");
+
+        string memory patternSyntax203E = "\\u{203E}";
+        bytes memory utf8PatternSyntax203E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax203E));
+        console2.log("203E: ", string(utf8PatternSyntax203E));
+        console2.logBytes(utf8PatternSyntax203E);
+
+        string memory patternSyntax2041 = "\\u{2041}";
+        bytes memory utf8PatternSyntax2041 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2041));
+        console2.log("2041: ", string(utf8PatternSyntax2041));
+        console2.logBytes(utf8PatternSyntax2041);
+
+        console2.log("..");
+
+        string memory patternSyntax2043 = "\\u{2043}";
+        bytes memory utf8PatternSyntax2043 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2043));
+        console2.log("2043: ", string(utf8PatternSyntax2043));
+        console2.logBytes(utf8PatternSyntax2043);
+
+        string memory patternSyntax2044 = "\\u{2044}";
+        bytes memory utf8PatternSyntax2044 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2044));
+        console2.log("2044: ", string(utf8PatternSyntax2044));
+        console2.logBytes(utf8PatternSyntax2044);
+
+        string memory patternSyntax2045 = "\\u{2045}";
+        bytes memory utf8PatternSyntax2045 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2045));
+        console2.log("2045: ", string(utf8PatternSyntax2045));
+        console2.logBytes(utf8PatternSyntax2045);
+
+        string memory patternSyntax2046 = "\\u{2046}";
+        bytes memory utf8PatternSyntax2046 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2046));
+        console2.log("2046: ", string(utf8PatternSyntax2046));
+        console2.logBytes(utf8PatternSyntax2046);
+
+        string memory patternSyntax2047 = "\\u{2047}";
+        bytes memory utf8PatternSyntax2047 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2047));
+        console2.log("2047: ", string(utf8PatternSyntax2047));
+        console2.logBytes(utf8PatternSyntax2047);
+
+        console2.log("..");
+
+        string memory patternSyntax2051 = "\\u{2051}";
+        bytes memory utf8PatternSyntax2051 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2051));
+        console2.log("2051: ", string(utf8PatternSyntax2051));
+        console2.logBytes(utf8PatternSyntax2051);
+
+        string memory patternSyntax2052 = "\\u{2052}";
+        bytes memory utf8PatternSyntax2052 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2052));
+        console2.log("2052: ", string(utf8PatternSyntax2052));
+        console2.logBytes(utf8PatternSyntax2052);
+
+        string memory patternSyntax2053 = "\\u{2053}";
+        bytes memory utf8PatternSyntax2053 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2053));
+        console2.log("2053: ", string(utf8PatternSyntax2053));
+        console2.logBytes(utf8PatternSyntax2053);
+
+        string memory patternSyntax2055 = "\\u{2055}";
+        bytes memory utf8PatternSyntax2055 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2055));
+        console2.log("2055: ", string(utf8PatternSyntax2055));
+        console2.logBytes(utf8PatternSyntax2055);
+
+        console2.log("..");
+
+        string memory patternSyntax205E = "\\u{205E}";
+        bytes memory utf8PatternSyntax205E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax205E));
+        console2.log("205E: ", string(utf8PatternSyntax205E));
+        console2.logBytes(utf8PatternSyntax205E);
+
+        string memory patternSyntax2190 = "\\u{2190}";
+        bytes memory utf8PatternSyntax2190 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2190));
+        console2.log("2190: ", string(utf8PatternSyntax2190));
+        console2.logBytes(utf8PatternSyntax2190);
+
+        console2.log("..");
+
+        string memory patternSyntax2194 = "\\u{2194}";
+        bytes memory utf8PatternSyntax2194 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2194));
+        console2.log("2194: ", string(utf8PatternSyntax2194));
+        console2.logBytes(utf8PatternSyntax2194);
+
+        string memory patternSyntax2195 = "\\u{2195}";
+        bytes memory utf8PatternSyntax2195 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2195));
+        console2.log("2195: ", string(utf8PatternSyntax2195));
+        console2.logBytes(utf8PatternSyntax2195);
+
+        console2.log("..");
+
+        string memory patternSyntax2199 = "\\u{2199}";
+        bytes memory utf8PatternSyntax2199 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2199));
+        console2.log("2199: ", string(utf8PatternSyntax2199));
+        console2.logBytes(utf8PatternSyntax2199);
+
+        string memory patternSyntax219A = "\\u{219A}";
+        bytes memory utf8PatternSyntax219A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax219A));
+        console2.log("219A: ", string(utf8PatternSyntax219A));
+        console2.logBytes(utf8PatternSyntax219A);
+
+        console2.log("..");
+
+        string memory patternSyntax219B = "\\u{219B}";
+        bytes memory utf8PatternSyntax219B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax219B));
+        console2.log("219B: ", string(utf8PatternSyntax219B));
+        console2.logBytes(utf8PatternSyntax219B);
+
+        string memory patternSyntax219C = "\\u{219C}";
+        bytes memory utf8PatternSyntax219C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax219C));
+        console2.log("219C: ", string(utf8PatternSyntax219C));
+        console2.logBytes(utf8PatternSyntax219C);
+
+        console2.log("..");
+
+        string memory patternSyntax219F = "\\u{219F}";
+        bytes memory utf8PatternSyntax219F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax219F));
+        console2.log("219F: ", string(utf8PatternSyntax219F));
+        console2.logBytes(utf8PatternSyntax219F);
+
+        string memory patternSyntax21A0 = "\\u{21A0}";
+        bytes memory utf8PatternSyntax21A0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A0));
+        console2.log("21A0: ", string(utf8PatternSyntax21A0));
+        console2.logBytes(utf8PatternSyntax21A0);
+
+        string memory patternSyntax21A1 = "\\u{21A1}";
+        bytes memory utf8PatternSyntax21A1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A1));
+        console2.log("21A1: ", string(utf8PatternSyntax21A1));
+        console2.logBytes(utf8PatternSyntax21A1);
+
+        console2.log("..");
+
+        string memory patternSyntax21A2 = "\\u{21A2}";
+        bytes memory utf8PatternSyntax21A2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A2));
+        console2.log("21A2: ", string(utf8PatternSyntax21A2));
+        console2.logBytes(utf8PatternSyntax21A2);
+
+        string memory patternSyntax21A3 = "\\u{21A3}";
+        bytes memory utf8PatternSyntax21A3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A3));
+        console2.log("21A3: ", string(utf8PatternSyntax21A3));
+        console2.logBytes(utf8PatternSyntax21A3);
+
+        string memory patternSyntax21A4 = "\\u{21A4}";
+        bytes memory utf8PatternSyntax21A4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A4));
+        console2.log("21A4: ", string(utf8PatternSyntax21A4));
+        console2.logBytes(utf8PatternSyntax21A4);
+
+        console2.log("..");
+
+        string memory patternSyntax21A5 = "\\u{21A5}";
+        bytes memory utf8PatternSyntax21A5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A5));
+        console2.log("21A5: ", string(utf8PatternSyntax21A5));
+        console2.logBytes(utf8PatternSyntax21A5);
+
+        string memory patternSyntax21A6 = "\\u{21A6}";
+        bytes memory utf8PatternSyntax21A6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A6));
+        console2.log("21A6: ", string(utf8PatternSyntax21A6));
+        console2.logBytes(utf8PatternSyntax21A6);
+
+        string memory patternSyntax21A7 = "\\u{21A7}";
+        bytes memory utf8PatternSyntax21A7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21A7));
+        console2.log("21A7: ", string(utf8PatternSyntax21A7));
+        console2.logBytes(utf8PatternSyntax21A7);
+
+        console2.log("..");
+
+        string memory patternSyntax21AD = "\\u{21AD}";
+        bytes memory utf8PatternSyntax21AD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21AD));
+        console2.log("21AD: ", string(utf8PatternSyntax21AD));
+        console2.logBytes(utf8PatternSyntax21AD);
+
+        string memory patternSyntax21AE = "\\u{21AE}";
+        bytes memory utf8PatternSyntax21AE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21AE));
+        console2.log("21AE: ", string(utf8PatternSyntax21AE));
+        console2.logBytes(utf8PatternSyntax21AE);
+
+        string memory patternSyntax21AF = "\\u{21AF}";
+        bytes memory utf8PatternSyntax21AF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21AF));
+        console2.log("21AF: ", string(utf8PatternSyntax21AF));
+        console2.logBytes(utf8PatternSyntax21AF);
+
+        console2.log("..");
+
+        string memory patternSyntax21CD = "\\u{21CD}";
+        bytes memory utf8PatternSyntax21CD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21CD));
+        console2.log("21CD: ", string(utf8PatternSyntax21CD));
+        console2.logBytes(utf8PatternSyntax21CD);
+
+        string memory patternSyntax21CE = "\\u{21CE}";
+        bytes memory utf8PatternSyntax21CE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21CE));
+        console2.log("21CE: ", string(utf8PatternSyntax21CE));
+        console2.logBytes(utf8PatternSyntax21CE);
+
+        console2.log("..");
+
+        string memory patternSyntax21CF = "\\u{21CF}";
+        bytes memory utf8PatternSyntax21CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21CF));
+        console2.log("21CF: ", string(utf8PatternSyntax21CF));
+        console2.logBytes(utf8PatternSyntax21CF);
+
+        string memory patternSyntax21D0 = "\\u{21D0}";
+        bytes memory utf8PatternSyntax21D0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D0));
+        console2.log("21D0: ", string(utf8PatternSyntax21D0));
+        console2.logBytes(utf8PatternSyntax21D0);
+
+        console2.log("..");
+
+        string memory patternSyntax21D1 = "\\u{21D1}";
+        bytes memory utf8PatternSyntax21D1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D1));
+        console2.log("21D1: ", string(utf8PatternSyntax21D1));
+        console2.logBytes(utf8PatternSyntax21D1);
+
+        string memory patternSyntax21D2 = "\\u{21D2}";
+        bytes memory utf8PatternSyntax21D2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D2));
+        console2.log("21D2: ", string(utf8PatternSyntax21D2));
+        console2.logBytes(utf8PatternSyntax21D2);
+
+        string memory patternSyntax21D3 = "\\u{21D3}";
+        bytes memory utf8PatternSyntax21D3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D3));
+        console2.log("21D3: ", string(utf8PatternSyntax21D3));
+        console2.logBytes(utf8PatternSyntax21D3);
+
+        string memory patternSyntax21D4 = "\\u{21D4}";
+        bytes memory utf8PatternSyntax21D4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D4));
+        console2.log("21D4: ", string(utf8PatternSyntax21D4));
+        console2.logBytes(utf8PatternSyntax21D4);
+
+        string memory patternSyntax21D5 = "\\u{21D5}";
+        bytes memory utf8PatternSyntax21D5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21D5));
+        console2.log("21D5: ", string(utf8PatternSyntax21D5));
+        console2.logBytes(utf8PatternSyntax21D5);
+
+        console2.log("..");
+
+        string memory patternSyntax21F3 = "\\u{21F3}";
+        bytes memory utf8PatternSyntax21F3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21F3));
+        console2.log("21F3: ", string(utf8PatternSyntax21F3));
+        console2.logBytes(utf8PatternSyntax21F3);
+
+        string memory patternSyntax21F4 = "\\u{21F4}";
+        bytes memory utf8PatternSyntax21F4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax21F4));
+        console2.log("21F4: ", string(utf8PatternSyntax21F4));
+        console2.logBytes(utf8PatternSyntax21F4);
+
+        console2.log("..");
+
+        string memory patternSyntax22FF = "\\u{22FF}";
+        bytes memory utf8PatternSyntax22FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax22FF));
+        console2.log("22FF: ", string(utf8PatternSyntax22FF));
+        console2.logBytes(utf8PatternSyntax22FF);
+
+        string memory patternSyntax2300 = "\\u{2300}";
+        bytes memory utf8PatternSyntax2300 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2300));
+        console2.log("2300: ", string(utf8PatternSyntax2300));
+        console2.logBytes(utf8PatternSyntax2300);
+
+        console2.log("..");
+
+        string memory patternSyntax2307 = "\\u{2307}";
+        bytes memory utf8PatternSyntax2307 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2307));
+        console2.log("2307: ", string(utf8PatternSyntax2307));
+        console2.logBytes(utf8PatternSyntax2307);
+
+        string memory patternSyntax2308 = "\\u{2308}";
+        bytes memory utf8PatternSyntax2308 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2308));
+        console2.log("2308: ", string(utf8PatternSyntax2308));
+        console2.logBytes(utf8PatternSyntax2308);
+
+        string memory patternSyntax2309 = "\\u{2309}";
+        bytes memory utf8PatternSyntax2309 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2309));
+        console2.log("2309: ", string(utf8PatternSyntax2309));
+        console2.logBytes(utf8PatternSyntax2309);
+
+        string memory patternSyntax230A = "\\u{230A}";
+        bytes memory utf8PatternSyntax230A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax230A));
+        console2.log("230A: ", string(utf8PatternSyntax230A));
+        console2.logBytes(utf8PatternSyntax230A);
+
+        string memory patternSyntax230B = "\\u{230B}";
+        bytes memory utf8PatternSyntax230B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax230B));
+        console2.log("230B: ", string(utf8PatternSyntax230B));
+        console2.logBytes(utf8PatternSyntax230B);
+
+        string memory patternSyntax230C = "\\u{230C}";
+        bytes memory utf8PatternSyntax230C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax230C));
+        console2.log("230C: ", string(utf8PatternSyntax230C));
+        console2.logBytes(utf8PatternSyntax230C);
+
+        console2.log("..");
+
+        string memory patternSyntax231F = "\\u{231F}";
+        bytes memory utf8PatternSyntax231F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax231F));
+        console2.log("231F: ", string(utf8PatternSyntax231F));
+        console2.logBytes(utf8PatternSyntax231F);
+
+        string memory patternSyntax2320 = "\\u{2320}";
+        bytes memory utf8PatternSyntax2320 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2320));
+        console2.log("2320: ", string(utf8PatternSyntax2320));
+        console2.logBytes(utf8PatternSyntax2320);
+
+        console2.log("..");
+
+        string memory patternSyntax2321 = "\\u{2321}";
+        bytes memory utf8PatternSyntax2321 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2321));
+        console2.log("2321: ", string(utf8PatternSyntax2321));
+        console2.logBytes(utf8PatternSyntax2321);
+
+        string memory patternSyntax2322 = "\\u{2322}";
+        bytes memory utf8PatternSyntax2322 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2322));
+        console2.log("2322: ", string(utf8PatternSyntax2322));
+        console2.logBytes(utf8PatternSyntax2322);
+
+        console2.log("..");
+
+        string memory patternSyntax2328 = "\\u{2328}";
+        bytes memory utf8PatternSyntax2328 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2328));
+        console2.log("2328: ", string(utf8PatternSyntax2328));
+        console2.logBytes(utf8PatternSyntax2328);
+
+        string memory patternSyntax2329 = "\\u{2329}";
+        bytes memory utf8PatternSyntax2329 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2329));
+        console2.log("2329: ", string(utf8PatternSyntax2329));
+        console2.logBytes(utf8PatternSyntax2329);
+
+        string memory patternSyntax232A = "\\u{232A}";
+        bytes memory utf8PatternSyntax232A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax232A));
+        console2.log("232A: ", string(utf8PatternSyntax232A));
+        console2.logBytes(utf8PatternSyntax232A);
+
+        string memory patternSyntax232B = "\\u{232B}";
+        bytes memory utf8PatternSyntax232B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax232B));
+        console2.log("232B: ", string(utf8PatternSyntax232B));
+        console2.logBytes(utf8PatternSyntax232B);
+
+        console2.log("..");
+
+        string memory patternSyntax237B = "\\u{237B}";
+        bytes memory utf8PatternSyntax237B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax237B));
+        console2.log("237B: ", string(utf8PatternSyntax237B));
+        console2.logBytes(utf8PatternSyntax237B);
+
+        string memory patternSyntax237C = "\\u{237C}";
+        bytes memory utf8PatternSyntax237C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax237C));
+        console2.log("237C: ", string(utf8PatternSyntax237C));
+        console2.logBytes(utf8PatternSyntax237C);
+
+        string memory patternSyntax237D = "\\u{237D}";
+        bytes memory utf8PatternSyntax237D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax237D));
+        console2.log("237D: ", string(utf8PatternSyntax237D));
+        console2.logBytes(utf8PatternSyntax237D);
+
+        console2.log("..");
+
+        string memory patternSyntax239A = "\\u{239A}";
+        bytes memory utf8PatternSyntax239A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax239A));
+        console2.log("239A: ", string(utf8PatternSyntax239A));
+        console2.logBytes(utf8PatternSyntax239A);
+
+        string memory patternSyntax239B = "\\u{239B}";
+        bytes memory utf8PatternSyntax239B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax239B));
+        console2.log("239B: ", string(utf8PatternSyntax239B));
+        console2.logBytes(utf8PatternSyntax239B);
+
+        console2.log("..");
+
+        string memory patternSyntax23B3 = "\\u{23B3}";
+        bytes memory utf8PatternSyntax23B3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23B3));
+        console2.log("23B3: ", string(utf8PatternSyntax23B3));
+        console2.logBytes(utf8PatternSyntax23B3);
+
+        string memory patternSyntax23B4 = "\\u{23B4}";
+        bytes memory utf8PatternSyntax23B4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23B4));
+        console2.log("23B4: ", string(utf8PatternSyntax23B4));
+        console2.logBytes(utf8PatternSyntax23B4);
+
+        console2.log("..");
+
+        string memory patternSyntax23DB = "\\u{23DB}";
+        bytes memory utf8PatternSyntax23DB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23DB));
+        console2.log("23DB: ", string(utf8PatternSyntax23DB));
+        console2.logBytes(utf8PatternSyntax23DB);
+
+        string memory patternSyntax23DC = "\\u{23DC}";
+        bytes memory utf8PatternSyntax23DC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23DC));
+        console2.log("23DC: ", string(utf8PatternSyntax23DC));
+        console2.logBytes(utf8PatternSyntax23DC);
+
+        console2.log("..");
+
+        string memory patternSyntax23E1 = "\\u{23E1}";
+        bytes memory utf8PatternSyntax23E1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23E1));
+        console2.log("23E1: ", string(utf8PatternSyntax23E1));
+        console2.logBytes(utf8PatternSyntax23E1);
+
+        string memory patternSyntax23E2 = "\\u{23E2}";
+        bytes memory utf8PatternSyntax23E2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax23E2));
+        console2.log("23E2: ", string(utf8PatternSyntax23E2));
+        console2.logBytes(utf8PatternSyntax23E2);
+
+        console2.log("..");
+
+        string memory patternSyntax2429 = "\\u{2429}";
+        bytes memory utf8PatternSyntax2429 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2429));
+        console2.log("2429: ", string(utf8PatternSyntax2429));
+        console2.logBytes(utf8PatternSyntax2429);
+
+        string memory patternSyntax242A = "\\u{242A}";
+        bytes memory utf8PatternSyntax242A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax242A));
+        console2.log("242A: ", string(utf8PatternSyntax242A));
+        console2.logBytes(utf8PatternSyntax242A);
+
+        console2.log("..");
+
+        string memory patternSyntax243F = "\\u{243F}";
+        bytes memory utf8PatternSyntax243F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax243F));
+        console2.log("243F: ", string(utf8PatternSyntax243F));
+        console2.logBytes(utf8PatternSyntax243F);
+
+        string memory patternSyntax2440 = "\\u{2440}";
+        bytes memory utf8PatternSyntax2440 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2440));
+        console2.log("2440: ", string(utf8PatternSyntax2440));
+        console2.logBytes(utf8PatternSyntax2440);
+
+        console2.log("..");
+
+        string memory patternSyntax244A = "\\u{244A}";
+        bytes memory utf8PatternSyntax244A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax244A));
+        console2.log("244A: ", string(utf8PatternSyntax244A));
+        console2.logBytes(utf8PatternSyntax244A);
+
+        string memory patternSyntax244B = "\\u{244B}";
+        bytes memory utf8PatternSyntax244B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax244B));
+        console2.log("244B: ", string(utf8PatternSyntax244B));
+        console2.logBytes(utf8PatternSyntax244B);
+
+        console2.log("..");
+
+        string memory patternSyntax245F = "\\u{245F}";
+        bytes memory utf8PatternSyntax245F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax245F));
+        console2.log("245F: ", string(utf8PatternSyntax245F));
+        console2.logBytes(utf8PatternSyntax245F);
+
+        string memory patternSyntax2500 = "\\u{2500}";
+        bytes memory utf8PatternSyntax2500 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2500));
+        console2.log("2500: ", string(utf8PatternSyntax2500));
+        console2.logBytes(utf8PatternSyntax2500);
+
+        console2.log("..");
+
+        string memory patternSyntax25B6 = "\\u{25B6}";
+        bytes memory utf8PatternSyntax25B6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25B6));
+        console2.log("25B6: ", string(utf8PatternSyntax25B6));
+        console2.logBytes(utf8PatternSyntax25B6);
+
+        string memory patternSyntax25B7 = "\\u{25B7}";
+        bytes memory utf8PatternSyntax25B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25B7));
+        console2.log("25B7: ", string(utf8PatternSyntax25B7));
+        console2.logBytes(utf8PatternSyntax25B7);
+
+        string memory patternSyntax25B8 = "\\u{25B8}";
+        bytes memory utf8PatternSyntax25B8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25B8));
+        console2.log("25B8: ", string(utf8PatternSyntax25B8));
+        console2.logBytes(utf8PatternSyntax25B8);
+
+        console2.log("..");
+
+        string memory patternSyntax25C0 = "\\u{25C0}";
+        bytes memory utf8PatternSyntax25C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25C0));
+        console2.log("25C0: ", string(utf8PatternSyntax25C0));
+        console2.logBytes(utf8PatternSyntax25C0);
+
+        string memory patternSyntax25C1 = "\\u{25C1}";
+        bytes memory utf8PatternSyntax25C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25C1));
+        console2.log("25C1: ", string(utf8PatternSyntax25C1));
+        console2.logBytes(utf8PatternSyntax25C1);
+
+        string memory patternSyntax25C2 = "\\u{25C2}";
+        bytes memory utf8PatternSyntax25C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25C2));
+        console2.log("25C2: ", string(utf8PatternSyntax25C2));
+        console2.logBytes(utf8PatternSyntax25C2);
+
+        console2.log("..");
+
+        string memory patternSyntax25F7 = "\\u{25F7}";
+        bytes memory utf8PatternSyntax25F7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25F7));
+        console2.log("25F7: ", string(utf8PatternSyntax25F7));
+        console2.logBytes(utf8PatternSyntax25F7);
+
+        string memory patternSyntax25F8 = "\\u{25F8}";
+        bytes memory utf8PatternSyntax25F8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25F8));
+        console2.log("25F8: ", string(utf8PatternSyntax25F8));
+        console2.logBytes(utf8PatternSyntax25F8);
+
+        console2.log("..");
+
+        string memory patternSyntax25FF = "\\u{25FF}";
+        bytes memory utf8PatternSyntax25FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax25FF));
+        console2.log("25FF: ", string(utf8PatternSyntax25FF));
+        console2.logBytes(utf8PatternSyntax25FF);
+
+        string memory patternSyntax2600 = "\\u{2600}";
+        bytes memory utf8PatternSyntax2600 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2600));
+        console2.log("2600: ", string(utf8PatternSyntax2600));
+        console2.logBytes(utf8PatternSyntax2600);
+
+        console2.log("..");
+
+        string memory patternSyntax266E = "\\u{266E}";
+        bytes memory utf8PatternSyntax266E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax266E));
+        console2.log("266E: ", string(utf8PatternSyntax266E));
+        console2.logBytes(utf8PatternSyntax266E);
+
+        string memory patternSyntax266F = "\\u{266F}";
+        bytes memory utf8PatternSyntax266F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax266F));
+        console2.log("266F: ", string(utf8PatternSyntax266F));
+        console2.logBytes(utf8PatternSyntax266F);
+
+        string memory patternSyntax2670 = "\\u{2670}";
+        bytes memory utf8PatternSyntax2670 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2670));
+        console2.log("2670: ", string(utf8PatternSyntax2670));
+        console2.logBytes(utf8PatternSyntax2670);
+
+        console2.log("..");
+
+        string memory patternSyntax2767 = "\\u{2767}";
+        bytes memory utf8PatternSyntax2767 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2767));
+        console2.log("2767: ", string(utf8PatternSyntax2767));
+        console2.logBytes(utf8PatternSyntax2767);
+
+        string memory patternSyntax2768 = "\\u{2768}";
+        bytes memory utf8PatternSyntax2768 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2768));
+        console2.log("2768: ", string(utf8PatternSyntax2768));
+        console2.logBytes(utf8PatternSyntax2768);
+
+        string memory patternSyntax2769 = "\\u{2769}";
+        bytes memory utf8PatternSyntax2769 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2769));
+        console2.log("2769: ", string(utf8PatternSyntax2769));
+        console2.logBytes(utf8PatternSyntax2769);
+
+        string memory patternSyntax276A = "\\u{276A}";
+        bytes memory utf8PatternSyntax276A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276A));
+        console2.log("276A: ", string(utf8PatternSyntax276A));
+        console2.logBytes(utf8PatternSyntax276A);
+
+        string memory patternSyntax276B = "\\u{276B}";
+        bytes memory utf8PatternSyntax276B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276B));
+        console2.log("276B: ", string(utf8PatternSyntax276B));
+        console2.logBytes(utf8PatternSyntax276B);
+
+        string memory patternSyntax276C = "\\u{276C}";
+        bytes memory utf8PatternSyntax276C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276C));
+        console2.log("276C: ", string(utf8PatternSyntax276C));
+        console2.logBytes(utf8PatternSyntax276C);
+
+        string memory patternSyntax276D = "\\u{276D}";
+        bytes memory utf8PatternSyntax276D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276D));
+        console2.log("276D: ", string(utf8PatternSyntax276D));
+        console2.logBytes(utf8PatternSyntax276D);
+
+        string memory patternSyntax276E = "\\u{276E}";
+        bytes memory utf8PatternSyntax276E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276E));
+        console2.log("276E: ", string(utf8PatternSyntax276E));
+        console2.logBytes(utf8PatternSyntax276E);
+
+        string memory patternSyntax276F = "\\u{276F}";
+        bytes memory utf8PatternSyntax276F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax276F));
+        console2.log("276F: ", string(utf8PatternSyntax276F));
+        console2.logBytes(utf8PatternSyntax276F);
+
+        string memory patternSyntax2770 = "\\u{2770}";
+        bytes memory utf8PatternSyntax2770 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2770));
+        console2.log("2770: ", string(utf8PatternSyntax2770));
+        console2.logBytes(utf8PatternSyntax2770);
+
+        string memory patternSyntax2771 = "\\u{2771}";
+        bytes memory utf8PatternSyntax2771 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2771));
+        console2.log("2771: ", string(utf8PatternSyntax2771));
+        console2.logBytes(utf8PatternSyntax2771);
+
+        string memory patternSyntax2772 = "\\u{2772}";
+        bytes memory utf8PatternSyntax2772 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2772));
+        console2.log("2772: ", string(utf8PatternSyntax2772));
+        console2.logBytes(utf8PatternSyntax2772);
+
+        string memory patternSyntax2773 = "\\u{2773}";
+        bytes memory utf8PatternSyntax2773 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2773));
+        console2.log("2773: ", string(utf8PatternSyntax2773));
+        console2.logBytes(utf8PatternSyntax2773);
+
+        string memory patternSyntax2774 = "\\u{2774}";
+        bytes memory utf8PatternSyntax2774 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2774));
+        console2.log("2774: ", string(utf8PatternSyntax2774));
+        console2.logBytes(utf8PatternSyntax2774);
+
+        string memory patternSyntax2775 = "\\u{2775}";
+        bytes memory utf8PatternSyntax2775 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2775));
+        console2.log("2775: ", string(utf8PatternSyntax2775));
+        console2.logBytes(utf8PatternSyntax2775);
+
+        string memory patternSyntax2794 = "\\u{2794}";
+        bytes memory utf8PatternSyntax2794 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2794));
+        console2.log("2794: ", string(utf8PatternSyntax2794));
+        console2.logBytes(utf8PatternSyntax2794);
+
+        console2.log("..");
+
+        string memory patternSyntax27BF = "\\u{27BF}";
+        bytes memory utf8PatternSyntax27BF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27BF));
+        console2.log("27BF: ", string(utf8PatternSyntax27BF));
+        console2.logBytes(utf8PatternSyntax27BF);
+
+        string memory patternSyntax27C0 = "\\u{27C0}";
+        bytes memory utf8PatternSyntax27C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27C0));
+        console2.log("27C0: ", string(utf8PatternSyntax27C0));
+        console2.logBytes(utf8PatternSyntax27C0);
+
+        console2.log("..");
+
+        string memory patternSyntax27C4 = "\\u{27C4}";
+        bytes memory utf8PatternSyntax27C4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27C4));
+        console2.log("27C4: ", string(utf8PatternSyntax27C4));
+        console2.logBytes(utf8PatternSyntax27C4);
+
+        string memory patternSyntax27C5 = "\\u{27C5}";
+        bytes memory utf8PatternSyntax27C5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27C5));
+        console2.log("27C5: ", string(utf8PatternSyntax27C5));
+        console2.logBytes(utf8PatternSyntax27C5);
+
+        string memory patternSyntax27C6 = "\\u{27C6}";
+        bytes memory utf8PatternSyntax27C6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27C6));
+        console2.log("27C6: ", string(utf8PatternSyntax27C6));
+        console2.logBytes(utf8PatternSyntax27C6);
+
+        string memory patternSyntax27C7 = "\\u{27C7}";
+        bytes memory utf8PatternSyntax27C7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27C7));
+        console2.log("27C7: ", string(utf8PatternSyntax27C7));
+        console2.logBytes(utf8PatternSyntax27C7);
+
+        console2.log("..");
+
+        string memory patternSyntax27E5 = "\\u{27E5}";
+        bytes memory utf8PatternSyntax27E5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27E5));
+        console2.log("27E5: ", string(utf8PatternSyntax27E5));
+        console2.logBytes(utf8PatternSyntax27E5);
+
+        string memory patternSyntax27E6 = "\\u{27E6}";
+        bytes memory utf8PatternSyntax27E6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27E6));
+        console2.log("27E6: ", string(utf8PatternSyntax27E6));
+        console2.logBytes(utf8PatternSyntax27E6);
+
+        string memory patternSyntax27E7 = "\\u{27E7}";
+        bytes memory utf8PatternSyntax27E7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27E7));
+        console2.log("27E7: ", string(utf8PatternSyntax27E7));
+        console2.logBytes(utf8PatternSyntax27E7);
+
+        string memory patternSyntax27E8 = "\\u{27E8}";
+        bytes memory utf8PatternSyntax27E8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27E8));
+        console2.log("27E8: ", string(utf8PatternSyntax27E8));
+        console2.logBytes(utf8PatternSyntax27E8);
+
+        string memory patternSyntax27E9 = "\\u{27E9}";
+        bytes memory utf8PatternSyntax27E9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27E9));
+        console2.log("27E9: ", string(utf8PatternSyntax27E9));
+        console2.logBytes(utf8PatternSyntax27E9);
+
+        string memory patternSyntax27EA = "\\u{27EA}";
+        bytes memory utf8PatternSyntax27EA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27EA));
+        console2.log("27EA: ", string(utf8PatternSyntax27EA));
+        console2.logBytes(utf8PatternSyntax27EA);
+
+        string memory patternSyntax27EB = "\\u{27EB}";
+        bytes memory utf8PatternSyntax27EB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27EB));
+        console2.log("27EB: ", string(utf8PatternSyntax27EB));
+        console2.logBytes(utf8PatternSyntax27EB);
+
+        string memory patternSyntax27EC = "\\u{27EC}";
+        bytes memory utf8PatternSyntax27EC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27EC));
+        console2.log("27EC: ", string(utf8PatternSyntax27EC));
+        console2.logBytes(utf8PatternSyntax27EC);
+
+        string memory patternSyntax27ED = "\\u{27ED}";
+        bytes memory utf8PatternSyntax27ED = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27ED));
+        console2.log("27ED: ", string(utf8PatternSyntax27ED));
+        console2.logBytes(utf8PatternSyntax27ED);
+
+        string memory patternSyntax27EE = "\\u{27EE}";
+        bytes memory utf8PatternSyntax27EE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27EE));
+        console2.log("27EE: ", string(utf8PatternSyntax27EE));
+        console2.logBytes(utf8PatternSyntax27EE);
+
+        string memory patternSyntax27EF = "\\u{27EF}";
+        bytes memory utf8PatternSyntax27EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27EF));
+        console2.log("27EF: ", string(utf8PatternSyntax27EF));
+        console2.logBytes(utf8PatternSyntax27EF);
+
+        string memory patternSyntax27F0 = "\\u{27F0}";
+        bytes memory utf8PatternSyntax27F0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27F0));
+        console2.log("27F0: ", string(utf8PatternSyntax27F0));
+        console2.logBytes(utf8PatternSyntax27F0);
+
+        console2.log("..");
+
+        string memory patternSyntax27FF = "\\u{27FF}";
+        bytes memory utf8PatternSyntax27FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax27FF));
+        console2.log("27FF: ", string(utf8PatternSyntax27FF));
+        console2.logBytes(utf8PatternSyntax27FF);
+
+        string memory patternSyntax2800 = "\\u{2800}";
+        bytes memory utf8PatternSyntax2800 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2800));
+        console2.log("2800: ", string(utf8PatternSyntax2800));
+        console2.logBytes(utf8PatternSyntax2800);
+
+        console2.log("..");
+
+        string memory patternSyntax28FF = "\\u{28FF}";
+        bytes memory utf8PatternSyntax28FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax28FF));
+        console2.log("28FF: ", string(utf8PatternSyntax28FF));
+        console2.logBytes(utf8PatternSyntax28FF);
+
+        string memory patternSyntax2900 = "\\u{2900}";
+        bytes memory utf8PatternSyntax2900 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2900));
+        console2.log("2900: ", string(utf8PatternSyntax2900));
+        console2.logBytes(utf8PatternSyntax2900);
+
+        console2.log("..");
+
+        string memory patternSyntax2982 = "\\u{2982}";
+        bytes memory utf8PatternSyntax2982 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2982));
+        console2.log("2982: ", string(utf8PatternSyntax2982));
+        console2.logBytes(utf8PatternSyntax2982);
+
+        string memory patternSyntax2983 = "\\u{2983}";
+        bytes memory utf8PatternSyntax2983 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2983));
+        console2.log("2983: ", string(utf8PatternSyntax2983));
+        console2.logBytes(utf8PatternSyntax2983);
+
+        string memory patternSyntax2984 = "\\u{2984}";
+        bytes memory utf8PatternSyntax2984 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2984));
+        console2.log("2984: ", string(utf8PatternSyntax2984));
+        console2.logBytes(utf8PatternSyntax2984);
+
+        string memory patternSyntax2985 = "\\u{2985}";
+        bytes memory utf8PatternSyntax2985 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2985));
+        console2.log("2985: ", string(utf8PatternSyntax2985));
+        console2.logBytes(utf8PatternSyntax2985);
+
+        string memory patternSyntax2986 = "\\u{2986}";
+        bytes memory utf8PatternSyntax2986 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2986));
+        console2.log("2986: ", string(utf8PatternSyntax2986));
+        console2.logBytes(utf8PatternSyntax2986);
+
+        string memory patternSyntax2987 = "\\u{2987}";
+        bytes memory utf8PatternSyntax2987 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2987));
+        console2.log("2987: ", string(utf8PatternSyntax2987));
+        console2.logBytes(utf8PatternSyntax2987);
+
+        string memory patternSyntax2988 = "\\u{2988}";
+        bytes memory utf8PatternSyntax2988 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2988));
+        console2.log("2988: ", string(utf8PatternSyntax2988));
+        console2.logBytes(utf8PatternSyntax2988);
+
+        string memory patternSyntax2989 = "\\u{2989}";
+        bytes memory utf8PatternSyntax2989 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2989));
+        console2.log("2989: ", string(utf8PatternSyntax2989));
+        console2.logBytes(utf8PatternSyntax2989);
+
+        string memory patternSyntax298A = "\\u{298A}";
+        bytes memory utf8PatternSyntax298A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298A));
+        console2.log("298A: ", string(utf8PatternSyntax298A));
+        console2.logBytes(utf8PatternSyntax298A);
+
+        string memory patternSyntax298B = "\\u{298B}";
+        bytes memory utf8PatternSyntax298B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298B));
+        console2.log("298B: ", string(utf8PatternSyntax298B));
+        console2.logBytes(utf8PatternSyntax298B);
+
+        string memory patternSyntax298C = "\\u{298C}";
+        bytes memory utf8PatternSyntax298C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298C));
+        console2.log("298C: ", string(utf8PatternSyntax298C));
+        console2.logBytes(utf8PatternSyntax298C);
+
+        string memory patternSyntax298D = "\\u{298D}";
+        bytes memory utf8PatternSyntax298D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298D));
+        console2.log("298D: ", string(utf8PatternSyntax298D));
+        console2.logBytes(utf8PatternSyntax298D);
+
+        string memory patternSyntax298E = "\\u{298E}";
+        bytes memory utf8PatternSyntax298E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298E));
+        console2.log("298E: ", string(utf8PatternSyntax298E));
+        console2.logBytes(utf8PatternSyntax298E);
+
+        string memory patternSyntax298F = "\\u{298F}";
+        bytes memory utf8PatternSyntax298F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax298F));
+        console2.log("298F: ", string(utf8PatternSyntax298F));
+        console2.logBytes(utf8PatternSyntax298F);
+
+        string memory patternSyntax2990 = "\\u{2990}";
+        bytes memory utf8PatternSyntax2990 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2990));
+        console2.log("2990: ", string(utf8PatternSyntax2990));
+        console2.logBytes(utf8PatternSyntax2990);
+
+        string memory patternSyntax2991 = "\\u{2991}";
+        bytes memory utf8PatternSyntax2991 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2991));
+        console2.log("2991: ", string(utf8PatternSyntax2991));
+        console2.logBytes(utf8PatternSyntax2991);
+
+        string memory patternSyntax2992 = "\\u{2992}";
+        bytes memory utf8PatternSyntax2992 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2992));
+        console2.log("2992: ", string(utf8PatternSyntax2992));
+        console2.logBytes(utf8PatternSyntax2992);
+
+        string memory patternSyntax2993 = "\\u{2993}";
+        bytes memory utf8PatternSyntax2993 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2993));
+        console2.log("2993: ", string(utf8PatternSyntax2993));
+        console2.logBytes(utf8PatternSyntax2993);
+
+        string memory patternSyntax2994 = "\\u{2994}";
+        bytes memory utf8PatternSyntax2994 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2994));
+        console2.log("2994: ", string(utf8PatternSyntax2994));
+        console2.logBytes(utf8PatternSyntax2994);
+
+        string memory patternSyntax2995 = "\\u{2995}";
+        bytes memory utf8PatternSyntax2995 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2995));
+        console2.log("2995: ", string(utf8PatternSyntax2995));
+        console2.logBytes(utf8PatternSyntax2995);
+
+        string memory patternSyntax2996 = "\\u{2996}";
+        bytes memory utf8PatternSyntax2996 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2996));
+        console2.log("2996: ", string(utf8PatternSyntax2996));
+        console2.logBytes(utf8PatternSyntax2996);
+
+        string memory patternSyntax2997 = "\\u{2997}";
+        bytes memory utf8PatternSyntax2997 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2997));
+        console2.log("2997: ", string(utf8PatternSyntax2997));
+        console2.logBytes(utf8PatternSyntax2997);
+
+        string memory patternSyntax2998 = "\\u{2998}";
+        bytes memory utf8PatternSyntax2998 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2998));
+        console2.log("2998: ", string(utf8PatternSyntax2998));
+        console2.logBytes(utf8PatternSyntax2998);
+
+        string memory patternSyntax2999 = "\\u{2999}";
+        bytes memory utf8PatternSyntax2999 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2999));
+        console2.log("2999: ", string(utf8PatternSyntax2999));
+        console2.logBytes(utf8PatternSyntax2999);
+
+        console2.log("..");
+
+        string memory patternSyntax29D7 = "\\u{29D7}";
+        bytes memory utf8PatternSyntax29D7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29D7));
+        console2.log("29D7: ", string(utf8PatternSyntax29D7));
+        console2.logBytes(utf8PatternSyntax29D7);
+
+        string memory patternSyntax29D8 = "\\u{29D8}";
+        bytes memory utf8PatternSyntax29D8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29D8));
+        console2.log("29D8: ", string(utf8PatternSyntax29D8));
+        console2.logBytes(utf8PatternSyntax29D8);
+
+        string memory patternSyntax29D9 = "\\u{29D9}";
+        bytes memory utf8PatternSyntax29D9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29D9));
+        console2.log("29D9: ", string(utf8PatternSyntax29D9));
+        console2.logBytes(utf8PatternSyntax29D9);
+
+        string memory patternSyntax29DA = "\\u{29DA}";
+        bytes memory utf8PatternSyntax29DA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29DA));
+        console2.log("29DA: ", string(utf8PatternSyntax29DA));
+        console2.logBytes(utf8PatternSyntax29DA);
+
+        string memory patternSyntax29DB = "\\u{29DB}";
+        bytes memory utf8PatternSyntax29DB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29DB));
+        console2.log("29DB: ", string(utf8PatternSyntax29DB));
+        console2.logBytes(utf8PatternSyntax29DB);
+
+        string memory patternSyntax29DC = "\\u{29DC}";
+        bytes memory utf8PatternSyntax29DC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29DC));
+        console2.log("29DC: ", string(utf8PatternSyntax29DC));
+        console2.logBytes(utf8PatternSyntax29DC);
+
+        console2.log("..");
+
+        string memory patternSyntax29FB = "\\u{29FB}";
+        bytes memory utf8PatternSyntax29FB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29FB));
+        console2.log("29FB: ", string(utf8PatternSyntax29FB));
+        console2.logBytes(utf8PatternSyntax29FB);
+
+        string memory patternSyntax29FC = "\\u{29FC}";
+        bytes memory utf8PatternSyntax29FC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29FC));
+        console2.log("29FC: ", string(utf8PatternSyntax29FC));
+        console2.logBytes(utf8PatternSyntax29FC);
+
+        string memory patternSyntax29FD = "\\u{29FD}";
+        bytes memory utf8PatternSyntax29FD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29FD));
+        console2.log("29FD: ", string(utf8PatternSyntax29FD));
+        console2.logBytes(utf8PatternSyntax29FD);
+
+        string memory patternSyntax29FE = "\\u{29FE}";
+        bytes memory utf8PatternSyntax29FE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax29FE));
+        console2.log("29FE: ", string(utf8PatternSyntax29FE));
+        console2.logBytes(utf8PatternSyntax29FE);
+
+        console2.log("..");
+
+        string memory patternSyntax2AFF = "\\u{2AFF}";
+        bytes memory utf8PatternSyntax2AFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2AFF));
+        console2.log("2AFF: ", string(utf8PatternSyntax2AFF));
+        console2.logBytes(utf8PatternSyntax2AFF);
+
+        string memory patternSyntax2B00 = "\\u{2B00}";
+        bytes memory utf8PatternSyntax2B00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B00));
+        console2.log("2B00: ", string(utf8PatternSyntax2B00));
+        console2.logBytes(utf8PatternSyntax2B00);
+
+        console2.log("..");
+
+        string memory patternSyntax2B2F = "\\u{2B2F}";
+        bytes memory utf8PatternSyntax2B2F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B2F));
+        console2.log("2B2F: ", string(utf8PatternSyntax2B2F));
+        console2.logBytes(utf8PatternSyntax2B2F);
+
+        string memory patternSyntax2B30 = "\\u{2B30}";
+        bytes memory utf8PatternSyntax2B30 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B30));
+        console2.log("2B30: ", string(utf8PatternSyntax2B30));
+        console2.logBytes(utf8PatternSyntax2B30);
+
+        console2.log("..");
+
+        string memory patternSyntax2B44 = "\\u{2B44}";
+        bytes memory utf8PatternSyntax2B44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B44));
+        console2.log("2B44: ", string(utf8PatternSyntax2B44));
+        console2.logBytes(utf8PatternSyntax2B44);
+
+        string memory patternSyntax2B45 = "\\u{2B45}";
+        bytes memory utf8PatternSyntax2B45 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B45));
+        console2.log("2B45: ", string(utf8PatternSyntax2B45));
+        console2.logBytes(utf8PatternSyntax2B45);
+
+        console2.log("..");
+
+        string memory patternSyntax2B46 = "\\u{2B46}";
+        bytes memory utf8PatternSyntax2B46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B46));
+        console2.log("2B46: ", string(utf8PatternSyntax2B46));
+        console2.logBytes(utf8PatternSyntax2B46);
+
+        string memory patternSyntax2B47 = "\\u{2B47}";
+        bytes memory utf8PatternSyntax2B47 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B47));
+        console2.log("2B47: ", string(utf8PatternSyntax2B47));
+        console2.logBytes(utf8PatternSyntax2B47);
+
+        console2.log("..");
+
+        string memory patternSyntax2B4C = "\\u{2B4C}";
+        bytes memory utf8PatternSyntax2B4C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B4C));
+        console2.log("2B4C: ", string(utf8PatternSyntax2B4C));
+        console2.logBytes(utf8PatternSyntax2B4C);
+
+        string memory patternSyntax2B4D = "\\u{2B4D}";
+        bytes memory utf8PatternSyntax2B4D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B4D));
+        console2.log("2B4D: ", string(utf8PatternSyntax2B4D));
+        console2.logBytes(utf8PatternSyntax2B4D);
+
+        console2.log("..");
+
+        string memory patternSyntax2B73 = "\\u{2B73}";
+        bytes memory utf8PatternSyntax2B73 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B73));
+        console2.log("2B73: ", string(utf8PatternSyntax2B73));
+        console2.logBytes(utf8PatternSyntax2B73);
+
+        string memory patternSyntax2B74 = "\\u{2B74}";
+        bytes memory utf8PatternSyntax2B74 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B74));
+        console2.log("2B74: ", string(utf8PatternSyntax2B74));
+        console2.logBytes(utf8PatternSyntax2B74);
+
+        console2.log("..");
+
+        string memory patternSyntax2B75 = "\\u{2B75}";
+        bytes memory utf8PatternSyntax2B75 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B75));
+        console2.log("2B75: ", string(utf8PatternSyntax2B75));
+        console2.logBytes(utf8PatternSyntax2B75);
+
+        string memory patternSyntax2B76 = "\\u{2B76}";
+        bytes memory utf8PatternSyntax2B76 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2B76));
+        console2.log("2B76: ", string(utf8PatternSyntax2B76));
+        console2.logBytes(utf8PatternSyntax2B76);
+
+        console2.log("..");
+
+        string memory patternSyntax2BFF = "\\u{2BFF}";
+        bytes memory utf8PatternSyntax2BFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2BFF));
+        console2.log("2BFF: ", string(utf8PatternSyntax2BFF));
+        console2.logBytes(utf8PatternSyntax2BFF);
+
+        string memory patternSyntax2E00 = "\\u{2E00}";
+        bytes memory utf8PatternSyntax2E00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E00));
+        console2.log("2E00: ", string(utf8PatternSyntax2E00));
+        console2.logBytes(utf8PatternSyntax2E00);
+
+        console2.log("..");
+
+        string memory patternSyntax2E01 = "\\u{2E01}";
+        bytes memory utf8PatternSyntax2E01 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E01));
+        console2.log("2E01: ", string(utf8PatternSyntax2E01));
+        console2.logBytes(utf8PatternSyntax2E01);
+
+        string memory patternSyntax2E02 = "\\u{2E02}";
+        bytes memory utf8PatternSyntax2E02 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E02));
+        console2.log("2E02: ", string(utf8PatternSyntax2E02));
+        console2.logBytes(utf8PatternSyntax2E02);
+
+        string memory patternSyntax2E03 = "\\u{2E03}";
+        bytes memory utf8PatternSyntax2E03 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E03));
+        console2.log("2E03: ", string(utf8PatternSyntax2E03));
+        console2.logBytes(utf8PatternSyntax2E03);
+
+        string memory patternSyntax2E04 = "\\u{2E04}";
+        bytes memory utf8PatternSyntax2E04 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E04));
+        console2.log("2E04: ", string(utf8PatternSyntax2E04));
+        console2.logBytes(utf8PatternSyntax2E04);
+
+        string memory patternSyntax2E05 = "\\u{2E05}";
+        bytes memory utf8PatternSyntax2E05 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E05));
+        console2.log("2E05: ", string(utf8PatternSyntax2E05));
+        console2.logBytes(utf8PatternSyntax2E05);
+
+        string memory patternSyntax2E06 = "\\u{2E06}";
+        bytes memory utf8PatternSyntax2E06 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E06));
+        console2.log("2E06: ", string(utf8PatternSyntax2E06));
+        console2.logBytes(utf8PatternSyntax2E06);
+
+        console2.log("..");
+
+        string memory patternSyntax2E08 = "\\u{2E08}";
+        bytes memory utf8PatternSyntax2E08 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E08));
+        console2.log("2E08: ", string(utf8PatternSyntax2E08));
+        console2.logBytes(utf8PatternSyntax2E08);
+
+        string memory patternSyntax2E09 = "\\u{2E09}";
+        bytes memory utf8PatternSyntax2E09 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E09));
+        console2.log("2E09: ", string(utf8PatternSyntax2E09));
+        console2.logBytes(utf8PatternSyntax2E09);
+
+        string memory patternSyntax2E0A = "\\u{2E0A}";
+        bytes memory utf8PatternSyntax2E0A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E0A));
+        console2.log("2E0A: ", string(utf8PatternSyntax2E0A));
+        console2.logBytes(utf8PatternSyntax2E0A);
+
+        string memory patternSyntax2E0B = "\\u{2E0B}";
+        bytes memory utf8PatternSyntax2E0B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E0B));
+        console2.log("2E0B: ", string(utf8PatternSyntax2E0B));
+        console2.logBytes(utf8PatternSyntax2E0B);
+
+        string memory patternSyntax2E0C = "\\u{2E0C}";
+        bytes memory utf8PatternSyntax2E0C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E0C));
+        console2.log("2E0C: ", string(utf8PatternSyntax2E0C));
+        console2.logBytes(utf8PatternSyntax2E0C);
+
+        string memory patternSyntax2E0D = "\\u{2E0D}";
+        bytes memory utf8PatternSyntax2E0D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E0D));
+        console2.log("2E0D: ", string(utf8PatternSyntax2E0D));
+        console2.logBytes(utf8PatternSyntax2E0D);
+
+        string memory patternSyntax2E0E = "\\u{2E0E}";
+        bytes memory utf8PatternSyntax2E0E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E0E));
+        console2.log("2E0E: ", string(utf8PatternSyntax2E0E));
+        console2.logBytes(utf8PatternSyntax2E0E);
+
+        console2.log("..");
+
+        string memory patternSyntax2E16 = "\\u{2E16}";
+        bytes memory utf8PatternSyntax2E16 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E16));
+        console2.log("2E16: ", string(utf8PatternSyntax2E16));
+        console2.logBytes(utf8PatternSyntax2E16);
+
+        string memory patternSyntax2E17 = "\\u{2E17}";
+        bytes memory utf8PatternSyntax2E17 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E17));
+        console2.log("2E17: ", string(utf8PatternSyntax2E17));
+        console2.logBytes(utf8PatternSyntax2E17);
+
+        string memory patternSyntax2E18 = "\\u{2E18}";
+        bytes memory utf8PatternSyntax2E18 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E18));
+        console2.log("2E18: ", string(utf8PatternSyntax2E18));
+        console2.logBytes(utf8PatternSyntax2E18);
+
+        console2.log("..");
+
+        string memory patternSyntax2E19 = "\\u{2E19}";
+        bytes memory utf8PatternSyntax2E19 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E19));
+        console2.log("2E19: ", string(utf8PatternSyntax2E19));
+        console2.logBytes(utf8PatternSyntax2E19);
+
+        string memory patternSyntax2E1A = "\\u{2E1A}";
+        bytes memory utf8PatternSyntax2E1A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1A));
+        console2.log("2E1A: ", string(utf8PatternSyntax2E1A));
+        console2.logBytes(utf8PatternSyntax2E1A);
+
+        string memory patternSyntax2E1B = "\\u{2E1B}";
+        bytes memory utf8PatternSyntax2E1B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1B));
+        console2.log("2E1B: ", string(utf8PatternSyntax2E1B));
+        console2.logBytes(utf8PatternSyntax2E1B);
+
+        string memory patternSyntax2E1C = "\\u{2E1C}";
+        bytes memory utf8PatternSyntax2E1C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1C));
+        console2.log("2E1C: ", string(utf8PatternSyntax2E1C));
+        console2.logBytes(utf8PatternSyntax2E1C);
+
+        string memory patternSyntax2E1D = "\\u{2E1D}";
+        bytes memory utf8PatternSyntax2E1D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1D));
+        console2.log("2E1D: ", string(utf8PatternSyntax2E1D));
+        console2.logBytes(utf8PatternSyntax2E1D);
+
+        string memory patternSyntax2E1E = "\\u{2E1E}";
+        bytes memory utf8PatternSyntax2E1E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1E));
+        console2.log("2E1E: ", string(utf8PatternSyntax2E1E));
+        console2.logBytes(utf8PatternSyntax2E1E);
+
+        console2.log("..");
+
+        string memory patternSyntax2E1F = "\\u{2E1F}";
+        bytes memory utf8PatternSyntax2E1F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E1F));
+        console2.log("2E1F: ", string(utf8PatternSyntax2E1F));
+        console2.logBytes(utf8PatternSyntax2E1F);
+
+        string memory patternSyntax2E20 = "\\u{2E20}";
+        bytes memory utf8PatternSyntax2E20 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E20));
+        console2.log("2E20: ", string(utf8PatternSyntax2E20));
+        console2.logBytes(utf8PatternSyntax2E20);
+
+        string memory patternSyntax2E21 = "\\u{2E21}";
+        bytes memory utf8PatternSyntax2E21 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E21));
+        console2.log("2E21: ", string(utf8PatternSyntax2E21));
+        console2.logBytes(utf8PatternSyntax2E21);
+
+        string memory patternSyntax2E22 = "\\u{2E22}";
+        bytes memory utf8PatternSyntax2E22 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E22));
+        console2.log("2E22: ", string(utf8PatternSyntax2E22));
+        console2.logBytes(utf8PatternSyntax2E22);
+
+        string memory patternSyntax2E23 = "\\u{2E23}";
+        bytes memory utf8PatternSyntax2E23 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E23));
+        console2.log("2E23: ", string(utf8PatternSyntax2E23));
+        console2.logBytes(utf8PatternSyntax2E23);
+
+        string memory patternSyntax2E24 = "\\u{2E24}";
+        bytes memory utf8PatternSyntax2E24 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E24));
+        console2.log("2E24: ", string(utf8PatternSyntax2E24));
+        console2.logBytes(utf8PatternSyntax2E24);
+
+        string memory patternSyntax2E25 = "\\u{2E25}";
+        bytes memory utf8PatternSyntax2E25 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E25));
+        console2.log("2E25: ", string(utf8PatternSyntax2E25));
+        console2.logBytes(utf8PatternSyntax2E25);
+
+        string memory patternSyntax2E26 = "\\u{2E26}";
+        bytes memory utf8PatternSyntax2E26 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E26));
+        console2.log("2E26: ", string(utf8PatternSyntax2E26));
+        console2.logBytes(utf8PatternSyntax2E26);
+
+        string memory patternSyntax2E27 = "\\u{2E27}";
+        bytes memory utf8PatternSyntax2E27 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E27));
+        console2.log("2E27: ", string(utf8PatternSyntax2E27));
+        console2.logBytes(utf8PatternSyntax2E27);
+
+        string memory patternSyntax2E28 = "\\u{2E28}";
+        bytes memory utf8PatternSyntax2E28 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E28));
+        console2.log("2E28: ", string(utf8PatternSyntax2E28));
+        console2.logBytes(utf8PatternSyntax2E28);
+
+        string memory patternSyntax2E29 = "\\u{2E29}";
+        bytes memory utf8PatternSyntax2E29 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E29));
+        console2.log("2E29: ", string(utf8PatternSyntax2E29));
+        console2.logBytes(utf8PatternSyntax2E29);
+
+        string memory patternSyntax2E2A = "\\u{2E2A}";
+        bytes memory utf8PatternSyntax2E2A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E2A));
+        console2.log("2E2A: ", string(utf8PatternSyntax2E2A));
+        console2.logBytes(utf8PatternSyntax2E2A);
+
+        console2.log("..");
+
+        string memory patternSyntax2E2E = "\\u{2E2E}";
+        bytes memory utf8PatternSyntax2E2E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E2E));
+        console2.log("2E2E: ", string(utf8PatternSyntax2E2E));
+        console2.logBytes(utf8PatternSyntax2E2E);
+
+        string memory patternSyntax2E2F = "\\u{2E2F}";
+        bytes memory utf8PatternSyntax2E2F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E2F));
+        console2.log("2E2F: ", string(utf8PatternSyntax2E2F));
+        console2.logBytes(utf8PatternSyntax2E2F);
+
+        string memory patternSyntax2E30 = "\\u{2E30}";
+        bytes memory utf8PatternSyntax2E30 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E30));
+        console2.log("2E30: ", string(utf8PatternSyntax2E30));
+        console2.logBytes(utf8PatternSyntax2E30);
+
+        console2.log("..");
+
+        string memory patternSyntax2E39 = "\\u{2E39}";
+        bytes memory utf8PatternSyntax2E39 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E39));
+        console2.log("2E39: ", string(utf8PatternSyntax2E39));
+        console2.logBytes(utf8PatternSyntax2E39);
+
+        string memory patternSyntax2E3A = "\\u{2E3A}";
+        bytes memory utf8PatternSyntax2E3A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E3A));
+        console2.log("2E3A: ", string(utf8PatternSyntax2E3A));
+        console2.logBytes(utf8PatternSyntax2E3A);
+
+        console2.log("..");
+
+        string memory patternSyntax2E3B = "\\u{2E3B}";
+        bytes memory utf8PatternSyntax2E3B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E3B));
+        console2.log("2E3B: ", string(utf8PatternSyntax2E3B));
+        console2.logBytes(utf8PatternSyntax2E3B);
+
+        string memory patternSyntax2E3C = "\\u{2E3C}";
+        bytes memory utf8PatternSyntax2E3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E3C));
+        console2.log("2E3C: ", string(utf8PatternSyntax2E3C));
+        console2.logBytes(utf8PatternSyntax2E3C);
+
+        console2.log("..");
+
+        string memory patternSyntax2E3F = "\\u{2E3F}";
+        bytes memory utf8PatternSyntax2E3F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E3F));
+        console2.log("2E3F: ", string(utf8PatternSyntax2E3F));
+        console2.logBytes(utf8PatternSyntax2E3F);
+
+        string memory patternSyntax2E40 = "\\u{2E40}";
+        bytes memory utf8PatternSyntax2E40 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E40));
+        console2.log("2E40: ", string(utf8PatternSyntax2E40));
+        console2.logBytes(utf8PatternSyntax2E40);
+
+        string memory patternSyntax2E41 = "\\u{2E41}";
+        bytes memory utf8PatternSyntax2E41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E41));
+        console2.log("2E41: ", string(utf8PatternSyntax2E41));
+        console2.logBytes(utf8PatternSyntax2E41);
+
+        string memory patternSyntax2E42 = "\\u{2E42}";
+        bytes memory utf8PatternSyntax2E42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E42));
+        console2.log("2E42: ", string(utf8PatternSyntax2E42));
+        console2.logBytes(utf8PatternSyntax2E42);
+
+        string memory patternSyntax2E43 = "\\u{2E43}";
+        bytes memory utf8PatternSyntax2E43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E43));
+        console2.log("2E43: ", string(utf8PatternSyntax2E43));
+        console2.logBytes(utf8PatternSyntax2E43);
+
+        console2.log("..");
+
+        string memory patternSyntax2E4F = "\\u{2E4F}";
+        bytes memory utf8PatternSyntax2E4F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E4F));
+        console2.log("2E4F: ", string(utf8PatternSyntax2E4F));
+        console2.logBytes(utf8PatternSyntax2E4F);
+
+        string memory patternSyntax2E50 = "\\u{2E50}";
+        bytes memory utf8PatternSyntax2E50 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E50));
+        console2.log("2E50: ", string(utf8PatternSyntax2E50));
+        console2.logBytes(utf8PatternSyntax2E50);
+
+        console2.log("..");
+
+        string memory patternSyntax2E51 = "\\u{2E51}";
+        bytes memory utf8PatternSyntax2E51 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E51));
+        console2.log("2E51: ", string(utf8PatternSyntax2E51));
+        console2.logBytes(utf8PatternSyntax2E51);
+
+        string memory patternSyntax2E52 = "\\u{2E52}";
+        bytes memory utf8PatternSyntax2E52 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E52));
+        console2.log("2E52: ", string(utf8PatternSyntax2E52));
+        console2.logBytes(utf8PatternSyntax2E52);
+
+        console2.log("..");
+
+        string memory patternSyntax2E54 = "\\u{2E54}";
+        bytes memory utf8PatternSyntax2E54 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E54));
+        console2.log("2E54: ", string(utf8PatternSyntax2E54));
+        console2.logBytes(utf8PatternSyntax2E54);
+
+        string memory patternSyntax2E55 = "\\u{2E55}";
+        bytes memory utf8PatternSyntax2E55 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E55));
+        console2.log("2E55: ", string(utf8PatternSyntax2E55));
+        console2.logBytes(utf8PatternSyntax2E55);
+
+        string memory patternSyntax2E56 = "\\u{2E56}";
+        bytes memory utf8PatternSyntax2E56 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E56));
+        console2.log("2E56: ", string(utf8PatternSyntax2E56));
+        console2.logBytes(utf8PatternSyntax2E56);
+
+        string memory patternSyntax2E57 = "\\u{2E57}";
+        bytes memory utf8PatternSyntax2E57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E57));
+        console2.log("2E57: ", string(utf8PatternSyntax2E57));
+        console2.logBytes(utf8PatternSyntax2E57);
+
+        string memory patternSyntax2E58 = "\\u{2E58}";
+        bytes memory utf8PatternSyntax2E58 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E58));
+        console2.log("2E58: ", string(utf8PatternSyntax2E58));
+        console2.logBytes(utf8PatternSyntax2E58);
+
+        string memory patternSyntax2E59 = "\\u{2E59}";
+        bytes memory utf8PatternSyntax2E59 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E59));
+        console2.log("2E59: ", string(utf8PatternSyntax2E59));
+        console2.logBytes(utf8PatternSyntax2E59);
+
+        string memory patternSyntax2E5A = "\\u{2E5A}";
+        bytes memory utf8PatternSyntax2E5A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E5A));
+        console2.log("2E5A: ", string(utf8PatternSyntax2E5A));
+        console2.logBytes(utf8PatternSyntax2E5A);
+
+        string memory patternSyntax2E5B = "\\u{2E5B}";
+        bytes memory utf8PatternSyntax2E5B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E5B));
+        console2.log("2E5B: ", string(utf8PatternSyntax2E5B));
+        console2.logBytes(utf8PatternSyntax2E5B);
+
+        string memory patternSyntax2E5C = "\\u{2E5C}";
+        bytes memory utf8PatternSyntax2E5C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E5C));
+        console2.log("2E5C: ", string(utf8PatternSyntax2E5C));
+        console2.logBytes(utf8PatternSyntax2E5C);
+
+        string memory patternSyntax2E5D = "\\u{2E5D}";
+        bytes memory utf8PatternSyntax2E5D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E5D));
+        console2.log("2E5D: ", string(utf8PatternSyntax2E5D));
+        console2.logBytes(utf8PatternSyntax2E5D);
+
+        string memory patternSyntax2E5E = "\\u{2E5E}";
+        bytes memory utf8PatternSyntax2E5E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E5E));
+        console2.log("2E5E: ", string(utf8PatternSyntax2E5E));
+        console2.logBytes(utf8PatternSyntax2E5E);
+
+        console2.log("..");
+
+        string memory patternSyntax2E7F = "\\u{2E7F}";
+        bytes memory utf8PatternSyntax2E7F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax2E7F));
+        console2.log("2E7F: ", string(utf8PatternSyntax2E7F));
+        console2.logBytes(utf8PatternSyntax2E7F);
+
+        string memory patternSyntax3001 = "\\u{3001}";
+        bytes memory utf8PatternSyntax3001 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3001));
+        console2.log("3001: ", string(utf8PatternSyntax3001));
+        console2.logBytes(utf8PatternSyntax3001);
+
+        console2.log("..");
+
+        string memory patternSyntax3003 = "\\u{3003}";
+        bytes memory utf8PatternSyntax3003 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3003));
+        console2.log("3003: ", string(utf8PatternSyntax3003));
+        console2.logBytes(utf8PatternSyntax3003);
+
+        string memory patternSyntax3008 = "\\u{3008}";
+        bytes memory utf8PatternSyntax3008 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3008));
+        console2.log("3008: ", string(utf8PatternSyntax3008));
+        console2.logBytes(utf8PatternSyntax3008);
+
+        string memory patternSyntax3009 = "\\u{3009}";
+        bytes memory utf8PatternSyntax3009 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3009));
+        console2.log("3009: ", string(utf8PatternSyntax3009));
+        console2.logBytes(utf8PatternSyntax3009);
+
+        string memory patternSyntax300A = "\\u{300A}";
+        bytes memory utf8PatternSyntax300A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300A));
+        console2.log("300A: ", string(utf8PatternSyntax300A));
+        console2.logBytes(utf8PatternSyntax300A);
+
+        string memory patternSyntax300B = "\\u{300B}";
+        bytes memory utf8PatternSyntax300B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300B));
+        console2.log("300B: ", string(utf8PatternSyntax300B));
+        console2.logBytes(utf8PatternSyntax300B);
+
+        string memory patternSyntax300C = "\\u{300C}";
+        bytes memory utf8PatternSyntax300C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300C));
+        console2.log("300C: ", string(utf8PatternSyntax300C));
+        console2.logBytes(utf8PatternSyntax300C);
+
+        string memory patternSyntax300D = "\\u{300D}";
+        bytes memory utf8PatternSyntax300D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300D));
+        console2.log("300D: ", string(utf8PatternSyntax300D));
+        console2.logBytes(utf8PatternSyntax300D);
+
+        string memory patternSyntax300E = "\\u{300E}";
+        bytes memory utf8PatternSyntax300E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300E));
+        console2.log("300E: ", string(utf8PatternSyntax300E));
+        console2.logBytes(utf8PatternSyntax300E);
+
+        string memory patternSyntax300F = "\\u{300F}";
+        bytes memory utf8PatternSyntax300F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax300F));
+        console2.log("300F: ", string(utf8PatternSyntax300F));
+        console2.logBytes(utf8PatternSyntax300F);
+
+        string memory patternSyntax3010 = "\\u{3010}";
+        bytes memory utf8PatternSyntax3010 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3010));
+        console2.log("3010: ", string(utf8PatternSyntax3010));
+        console2.logBytes(utf8PatternSyntax3010);
+
+        string memory patternSyntax3011 = "\\u{3011}";
+        bytes memory utf8PatternSyntax3011 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3011));
+        console2.log("3011: ", string(utf8PatternSyntax3011));
+        console2.logBytes(utf8PatternSyntax3011);
+
+        string memory patternSyntax3012 = "\\u{3012}";
+        bytes memory utf8PatternSyntax3012 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3012));
+        console2.log("3012: ", string(utf8PatternSyntax3012));
+        console2.logBytes(utf8PatternSyntax3012);
+
+        console2.log("..");
+
+        string memory patternSyntax3013 = "\\u{3013}";
+        bytes memory utf8PatternSyntax3013 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3013));
+        console2.log("3013: ", string(utf8PatternSyntax3013));
+        console2.logBytes(utf8PatternSyntax3013);
+
+        string memory patternSyntax3014 = "\\u{3014}";
+        bytes memory utf8PatternSyntax3014 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3014));
+        console2.log("3014: ", string(utf8PatternSyntax3014));
+        console2.logBytes(utf8PatternSyntax3014);
+
+        string memory patternSyntax3015 = "\\u{3015}";
+        bytes memory utf8PatternSyntax3015 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3015));
+        console2.log("3015: ", string(utf8PatternSyntax3015));
+        console2.logBytes(utf8PatternSyntax3015);
+
+        string memory patternSyntax3016 = "\\u{3016}";
+        bytes memory utf8PatternSyntax3016 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3016));
+        console2.log("3016: ", string(utf8PatternSyntax3016));
+        console2.logBytes(utf8PatternSyntax3016);
+
+        string memory patternSyntax3017 = "\\u{3017}";
+        bytes memory utf8PatternSyntax3017 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3017));
+        console2.log("3017: ", string(utf8PatternSyntax3017));
+        console2.logBytes(utf8PatternSyntax3017);
+
+        string memory patternSyntax3018 = "\\u{3018}";
+        bytes memory utf8PatternSyntax3018 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3018));
+        console2.log("3018: ", string(utf8PatternSyntax3018));
+        console2.logBytes(utf8PatternSyntax3018);
+
+        string memory patternSyntax3019 = "\\u{3019}";
+        bytes memory utf8PatternSyntax3019 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3019));
+        console2.log("3019: ", string(utf8PatternSyntax3019));
+        console2.logBytes(utf8PatternSyntax3019);
+
+        string memory patternSyntax301A = "\\u{301A}";
+        bytes memory utf8PatternSyntax301A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301A));
+        console2.log("301A: ", string(utf8PatternSyntax301A));
+        console2.logBytes(utf8PatternSyntax301A);
+
+        string memory patternSyntax301B = "\\u{301B}";
+        bytes memory utf8PatternSyntax301B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301B));
+        console2.log("301B: ", string(utf8PatternSyntax301B));
+        console2.logBytes(utf8PatternSyntax301B);
+
+        string memory patternSyntax301C = "\\u{301C}";
+        bytes memory utf8PatternSyntax301C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301C));
+        console2.log("301C: ", string(utf8PatternSyntax301C));
+        console2.logBytes(utf8PatternSyntax301C);
+
+        string memory patternSyntax301D = "\\u{301D}";
+        bytes memory utf8PatternSyntax301D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301D));
+        console2.log("301D: ", string(utf8PatternSyntax301D));
+        console2.logBytes(utf8PatternSyntax301D);
+
+        string memory patternSyntax301E = "\\u{301E}";
+        bytes memory utf8PatternSyntax301E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301E));
+        console2.log("301E: ", string(utf8PatternSyntax301E));
+        console2.logBytes(utf8PatternSyntax301E);
+
+        console2.log("..");
+
+        string memory patternSyntax301F = "\\u{301F}";
+        bytes memory utf8PatternSyntax301F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax301F));
+        console2.log("301F: ", string(utf8PatternSyntax301F));
+        console2.logBytes(utf8PatternSyntax301F);
+
+        string memory patternSyntax3020 = "\\u{3020}";
+        bytes memory utf8PatternSyntax3020 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3020));
+        console2.log("3020: ", string(utf8PatternSyntax3020));
+        console2.logBytes(utf8PatternSyntax3020);
+
+        string memory patternSyntax3030 = "\\u{3030}";
+        bytes memory utf8PatternSyntax3030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntax3030));
+        console2.log("3030: ", string(utf8PatternSyntax3030));
+        console2.logBytes(utf8PatternSyntax3030);
+
+        string memory patternSyntaxFD3E = "\\u{FD3E}";
+        bytes memory utf8PatternSyntaxFD3E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntaxFD3E));
+        console2.log("FD3E: ", string(utf8PatternSyntaxFD3E));
+        console2.logBytes(utf8PatternSyntaxFD3E);
+
+        string memory patternSyntaxFD3F = "\\u{FD3F}";
+        bytes memory utf8PatternSyntaxFD3F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntaxFD3F));
+        console2.log("FD3F: ", string(utf8PatternSyntaxFD3F));
+        console2.logBytes(utf8PatternSyntaxFD3F);
+
+        string memory patternSyntaxFE45 = "\\u{FE45}";
+        bytes memory utf8PatternSyntaxFE45 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntaxFE45));
+        console2.log("FE45: ", string(utf8PatternSyntaxFE45));
+        console2.logBytes(utf8PatternSyntaxFE45);
+
+        console2.log("..");
+
+        string memory patternSyntaxFE46 = "\\u{FE46}";
+        bytes memory utf8PatternSyntaxFE46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternSyntaxFE46));
+        console2.log("FE46: ", string(utf8PatternSyntaxFE46));
+        console2.logBytes(utf8PatternSyntaxFE46);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
