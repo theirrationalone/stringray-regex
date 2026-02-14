@@ -11765,6 +11765,10 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8PatternSyntaxFE46);
     }
 
+    function testRegexPropertyHexDigit() public pure {
+        // @TODO: map all hex_digit property unicode codepoints hexes to utf8 hexes...
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

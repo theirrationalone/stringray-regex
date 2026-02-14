@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: Complete the function implementation...
+    }
+
     function isPropertyPatternSyntax(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
