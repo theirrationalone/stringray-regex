@@ -1919,7 +1919,29 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: Complete the Ideographic property impl⏱️
+        // 3006: 0xe38086
+        // 3007: 0xe38087
+        // 3021: 0xe380a1 ... 3029: 0xe380a9
+        // 3038: 0xe380b8 ... 303A: 0xe380ba
+        // 3400: 0xe39080 ... 4DBF: 0xe4b6bf
+        // 4E00: 0xe4b880 ... 9FFF: 0xe9bfbf
+        // F900: 0xefa480 ... FA6D: 0xefa9ad
+        // FA70: 0xefa9b0 ... FAD9: 0xefab99
+        // 16FE4: 0xf096bfa4
+        // 16FF2: 0xf096bfb2 ... 16FF3: 0xf096bfb3
+        // 16FF4: 0xf096bfb4 ... 16FF6: 0xf096bfb6
+        // 17000: 0xf0978080 ... 18CD5: 0xf098b395
+        // 18CFF: 0xf098b3bf ... 18D1E: 0xf098b49e
+        // 18D80: 0xf098b680 ... 18DF2: 0xf098b7b2
+        // 1B170: 0xf09b85b0 ... 1B2FB: 0xf09b8bbb
+        // 20000: 0xf0a08080 ... 2A6DF: 0xf0aa9b9f
+        // 2A700: 0xf0aa9c80 ... 2B81D: 0xf0aba09d
+        // 2B820: 0xf0aba0a0 ... 2CEAD: 0xf0acbaad
+        // 2CEB0: 0xf0acbab0 ... 2EBE0: 0xf0aeafa0
+        // 2EBF0: 0xf0aeafb0 ... 2EE5D: 0xf0aeb99d
+        // 2F800: 0xf0afa080 ... 2FA1D: 0xf0afa89d
+        // 30000: 0xf0b08080 ... 3134A: 0xf0b18d8a
+        // 31350: 0xf0b18d90 ... 33479: 0xf0b391b9
     }
 
     function isPropertyAsciiHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)

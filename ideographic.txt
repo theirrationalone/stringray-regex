@@ -1,23 +1,115 @@
-3006          ; Ideographic # Lo       IDEOGRAPHIC CLOSING MARK
-3007          ; Ideographic # Nl       IDEOGRAPHIC NUMBER ZERO
-3021..3029    ; Ideographic # Nl   [9] HANGZHOU NUMERAL ONE..HANGZHOU NUMERAL NINE
-3038..303A    ; Ideographic # Nl   [3] HANGZHOU NUMERAL TEN..HANGZHOU NUMERAL THIRTY
-3400..4DBF    ; Ideographic # Lo [6592] CJK UNIFIED IDEOGRAPH-3400..CJK UNIFIED IDEOGRAPH-4DBF
-4E00..9FFF    ; Ideographic # Lo [20992] CJK UNIFIED IDEOGRAPH-4E00..CJK UNIFIED IDEOGRAPH-9FFF
-F900..FA6D    ; Ideographic # Lo [366] CJK COMPATIBILITY IDEOGRAPH-F900..CJK COMPATIBILITY IDEOGRAPH-FA6D
-FA70..FAD9    ; Ideographic # Lo [106] CJK COMPATIBILITY IDEOGRAPH-FA70..CJK COMPATIBILITY IDEOGRAPH-FAD9
-16FE4         ; Ideographic # Mn       KHITAN SMALL SCRIPT FILLER
-16FF2..16FF3  ; Ideographic # Lm   [2] CHINESE SMALL SIMPLIFIED ER..CHINESE SMALL TRADITIONAL ER
-16FF4..16FF6  ; Ideographic # Nl   [3] YANGQIN SIGN SLOW ONE BEAT..YANGQIN SIGN SLOW TWO BEATS
-17000..18CD5  ; Ideographic # Lo [7382] TANGUT IDEOGRAPH-17000..KHITAN SMALL SCRIPT CHARACTER-18CD5
-18CFF..18D1E  ; Ideographic # Lo  [32] KHITAN SMALL SCRIPT CHARACTER-18CFF..TANGUT IDEOGRAPH-18D1E
-18D80..18DF2  ; Ideographic # Lo [115] TANGUT COMPONENT-769..TANGUT COMPONENT-883
-1B170..1B2FB  ; Ideographic # Lo [396] NUSHU CHARACTER-1B170..NUSHU CHARACTER-1B2FB
-20000..2A6DF  ; Ideographic # Lo [42720] CJK UNIFIED IDEOGRAPH-20000..CJK UNIFIED IDEOGRAPH-2A6DF
-2A700..2B81D  ; Ideographic # Lo [4382] CJK UNIFIED IDEOGRAPH-2A700..CJK UNIFIED IDEOGRAPH-2B81D
-2B820..2CEAD  ; Ideographic # Lo [5774] CJK UNIFIED IDEOGRAPH-2B820..CJK UNIFIED IDEOGRAPH-2CEAD
-2CEB0..2EBE0  ; Ideographic # Lo [7473] CJK UNIFIED IDEOGRAPH-2CEB0..CJK UNIFIED IDEOGRAPH-2EBE0
-2EBF0..2EE5D  ; Ideographic # Lo [622] CJK UNIFIED IDEOGRAPH-2EBF0..CJK UNIFIED IDEOGRAPH-2EE5D
-2F800..2FA1D  ; Ideographic # Lo [542] CJK COMPATIBILITY IDEOGRAPH-2F800..CJK COMPATIBILITY IDEOGRAPH-2FA1D
-30000..3134A  ; Ideographic # Lo [4939] CJK UNIFIED IDEOGRAPH-30000..CJK UNIFIED IDEOGRAPH-3134A
-31350..33479  ; Ideographic # Lo [8490] CJK UNIFIED IDEOGRAPH-31350..CJK UNIFIED IDEOGRAPH-33479
+No files changed, compilation skipped
+
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyIdeographic() (gas: 6647014)
+Logs:
+  3006:  〆
+  0xe38086
+  3007:  〇
+  0xe38087
+  3021:  〡
+  0xe380a1
+  ..
+  3029:  〩
+  0xe380a9
+  3038:  〸
+  0xe380b8
+  ..
+  303A:  〺
+  0xe380ba
+  3400:  㐀
+  0xe39080
+  ..
+  4DBF:  䶿
+  0xe4b6bf
+  4E00:  一
+  0xe4b880
+  ..
+  9FFF:  鿿
+  0xe9bfbf
+  F900:  豈
+  0xefa480
+  ..
+  FA6D:  舘
+  0xefa9ad
+  FA70:  並
+  0xefa9b0
+  ..
+  FAD9:  龎
+  0xefab99
+  16FE4:  𖿤
+  0xf096bfa4
+  16FF2:  𖿲
+  0xf096bfb2
+  ..
+  16FF3:  𖿳
+  0xf096bfb3
+  16FF4:  𖿴
+  0xf096bfb4
+  ..
+  16FF6:  𖿶
+  0xf096bfb6
+  17000:  𗀀
+  0xf0978080
+  ..
+  18CD5:  𘳕
+  0xf098b395
+  18CFF:  𘳿
+  0xf098b3bf
+  ..
+  18D1E:  𘴞
+  0xf098b49e
+  18D80:  𘶀
+  0xf098b680
+  ..
+  18DF2:  𘷲
+  0xf098b7b2
+  1B170:  𛅰
+  0xf09b85b0
+  ..
+  1B2FB:  𛋻
+  0xf09b8bbb
+  20000:  𠀀
+  0xf0a08080
+  ..
+  2A6DF:  𪛟
+  0xf0aa9b9f
+  2A700:  𪜀
+  0xf0aa9c80
+  ..
+  2B81D:  𫠝
+  0xf0aba09d
+  2B820:  𫠠
+  0xf0aba0a0
+  ..
+  2CEAD:  𬺭
+  0xf0acbaad
+  2CEB0:  𬺰
+  0xf0acbab0
+  ..
+  2EBE0:  𮯠
+  0xf0aeafa0
+  2EBF0:  𮯰
+  0xf0aeafb0
+  ..
+  2EE5D:  𮹝
+  0xf0aeb99d
+  2F800:  丽
+  0xf0afa080
+  ..
+  2FA1D:  𪘀
+  0xf0afa89d
+  30000:  𰀀
+  0xf0b08080
+  ..
+  3134A:  𱍊
+  0xf0b18d8a
+  31350:  𱍐
+  0xf0b18d90
+  ..
+  33479:  𳑹
+  0xf0b391b9
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 59.80ms (47.06ms CPU time)
+
+Ran 1 test suite in 62.51ms (59.80ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
