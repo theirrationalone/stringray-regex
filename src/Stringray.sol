@@ -1919,7 +1919,9 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the ascii hex digit imple⏱️
+        // 0030: 0x30 ... 0039: 0x39
+        // 0041: 0x41 ... 0046: 0x46
+        // 0061: 0x61 ... 0066: 0x66
     }
 
     function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)

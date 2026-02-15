@@ -11840,7 +11840,41 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyAsciiHexDigit() public pure {
-        // @TODO: complete the ascii hex digit testing🧪...
+        string memory asciiHexDigit0030 = "\\u{0030}";
+        bytes memory utf8AsciiHexDigit0030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0030));
+        console2.log("0030: ", string(utf8AsciiHexDigit0030));
+        console2.logBytes(utf8AsciiHexDigit0030);
+
+        console2.log("..");
+
+        string memory asciiHexDigit0039 = "\\u{0039}";
+        bytes memory utf8AsciiHexDigit0039 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0039));
+        console2.log("0039: ", string(utf8AsciiHexDigit0039));
+        console2.logBytes(utf8AsciiHexDigit0039);
+
+        string memory asciiHexDigit0041 = "\\u{0041}";
+        bytes memory utf8AsciiHexDigit0041 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0041));
+        console2.log("0041: ", string(utf8AsciiHexDigit0041));
+        console2.logBytes(utf8AsciiHexDigit0041);
+
+        console2.log("..");
+
+        string memory asciiHexDigit0046 = "\\u{0046}";
+        bytes memory utf8AsciiHexDigit0046 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0046));
+        console2.log("0046: ", string(utf8AsciiHexDigit0046));
+        console2.logBytes(utf8AsciiHexDigit0046);
+
+        string memory asciiHexDigit0061 = "\\u{0061}";
+        bytes memory utf8AsciiHexDigit0061 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0061));
+        console2.log("0061: ", string(utf8AsciiHexDigit0061));
+        console2.logBytes(utf8AsciiHexDigit0061);
+
+        console2.log("..");
+
+        string memory asciiHexDigit0066 = "\\u{0066}";
+        bytes memory utf8AsciiHexDigit0066 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(asciiHexDigit0066));
+        console2.log("0066: ", string(utf8AsciiHexDigit0066));
+        console2.logBytes(utf8AsciiHexDigit0066);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
