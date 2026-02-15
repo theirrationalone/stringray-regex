@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyIdeography(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: Complete the Ideographic property impl⏱️
+    }
+
     function isPropertyAsciiHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure

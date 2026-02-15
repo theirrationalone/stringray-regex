@@ -11877,6 +11877,10 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8AsciiHexDigit0066);
     }
 
+    function testRegexPropertyIdeographic() public pure {
+        // @TODO: Complete the ideographic property testing🧪
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();
