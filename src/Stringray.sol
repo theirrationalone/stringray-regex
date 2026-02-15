@@ -1920,8 +1920,19 @@ library Stringray {
         returns (bool, uint256)
     {
         // 0030: 0x30 ... 0039: 0x39
+        if (_pattern[_currentParticleIndex] >= 0x30 && _pattern[_currentParticleIndex] <= 0x39) {
+            return (true, _currentParticleIndex);
+        }
+
         // 0041: 0x41 ... 0046: 0x46
+        if (_pattern[_currentParticleIndex] >= 0x41 && _pattern[_currentParticleIndex] <= 0x46) {
+            return (true, _currentParticleIndex);
+        }
+
         // 0061: 0x61 ... 0066: 0x66
+        if (_pattern[_currentParticleIndex] >= 0x61 && _pattern[_currentParticleIndex] <= 0x66) {
+            return (true, _currentParticleIndex);
+        }
     }
 
     function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
