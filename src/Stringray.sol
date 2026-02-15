@@ -1920,11 +1920,49 @@ library Stringray {
         returns (bool, uint256)
     {
         // 0030: 0x30 ... 0039: 0x39 [10]
+        if (_pattern[_currentParticleIndex] >= 0x30 && _pattern[_currentParticleIndex] <= 0x39) {
+            return (true, _currentParticleIndex);
+        }
+
         // 0041: 0x41 ... 0046: 0x46 [6]
+        if (_pattern[_currentParticleIndex] >= 0x41 && _pattern[_currentParticleIndex] <= 0x46) {
+            return (true, _currentParticleIndex);
+        }
+
         // 0061: 0x61 ... 0066: 0x66 [6]
-        // FF10: 0xefbc90 ... FF19: 0xefbc99 [10]
-        // FF21: 0xefbca1 ... FF26: 0xefbca6 [6]
-        // FF41: 0xefbd81 ... FF46: 0xefbd86 [6]
+        if (_pattern[_currentParticleIndex] >= 0x61 && _pattern[_currentParticleIndex] <= 0x66) {
+            return (true, _currentParticleIndex);
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // FF10: 0xefbc90 ... FF19: 0xefbc99 [10]
+                // FF21: 0xefbca1 ... FF26: 0xefbca6 [6]
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            (_pattern[_currentParticleIndex + 2] >= 0x90 && _pattern[_currentParticleIndex + 2] <= 0x99)
+                                || (_pattern[_currentParticleIndex + 2] >= 0xa1
+                                    && _pattern[_currentParticleIndex + 2] <= 0xa6)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // FF41: 0xefbd81 ... FF46: 0xefbd86 [6]
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x81 && _pattern[_currentParticleIndex + 2] <= 0x86)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyPatternSyntax(bytes memory _pattern, uint256 _currentParticleIndex)
