@@ -11766,7 +11766,77 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyHexDigit() public pure {
-        // @TODO: map all hex_digit property unicode codepoints hexes to utf8 hexes...
+        string memory hexDigit0030 = "\\u{0030}";
+        bytes memory utf8HexDigit0030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0030));
+        console2.log("0030: ", string(utf8HexDigit0030));
+        console2.logBytes(utf8HexDigit0030);
+
+        console2.log("..");
+
+        string memory hexDigit0039 = "\\u{0039}";
+        bytes memory utf8HexDigit0039 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0039));
+        console2.log("0039: ", string(utf8HexDigit0039));
+        console2.logBytes(utf8HexDigit0039);
+
+        string memory hexDigit0041 = "\\u{0041}";
+        bytes memory utf8HexDigit0041 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0041));
+        console2.log("0041: ", string(utf8HexDigit0041));
+        console2.logBytes(utf8HexDigit0041);
+
+        console2.log("..");
+
+        string memory hexDigit0046 = "\\u{0046}";
+        bytes memory utf8HexDigit0046 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0046));
+        console2.log("0046: ", string(utf8HexDigit0046));
+        console2.logBytes(utf8HexDigit0046);
+
+        string memory hexDigit0061 = "\\u{0061}";
+        bytes memory utf8HexDigit0061 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0061));
+        console2.log("0061: ", string(utf8HexDigit0061));
+        console2.logBytes(utf8HexDigit0061);
+
+        console2.log("..");
+
+        string memory hexDigit0066 = "\\u{0066}";
+        bytes memory utf8HexDigit0066 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigit0066));
+        console2.log("0066: ", string(utf8HexDigit0066));
+        console2.logBytes(utf8HexDigit0066);
+
+        string memory hexDigitFF10 = "\\u{FF10}";
+        bytes memory utf8HexDigitFF10 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF10));
+        console2.log("FF10: ", string(utf8HexDigitFF10));
+        console2.logBytes(utf8HexDigitFF10);
+
+        console2.log("..");
+
+        string memory hexDigitFF19 = "\\u{FF19}";
+        bytes memory utf8HexDigitFF19 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF19));
+        console2.log("FF19: ", string(utf8HexDigitFF19));
+        console2.logBytes(utf8HexDigitFF19);
+
+        string memory hexDigitFF21 = "\\u{FF21}";
+        bytes memory utf8HexDigitFF21 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF21));
+        console2.log("FF21: ", string(utf8HexDigitFF21));
+        console2.logBytes(utf8HexDigitFF21);
+
+        console2.log("..");
+
+        string memory hexDigitFF26 = "\\u{FF26}";
+        bytes memory utf8HexDigitFF26 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF26));
+        console2.log("FF26: ", string(utf8HexDigitFF26));
+        console2.logBytes(utf8HexDigitFF26);
+
+        string memory hexDigitFF41 = "\\u{FF41}";
+        bytes memory utf8HexDigitFF41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF41));
+        console2.log("FF41: ", string(utf8HexDigitFF41));
+        console2.logBytes(utf8HexDigitFF41);
+
+        console2.log("..");
+
+        string memory hexDigitFF46 = "\\u{FF46}";
+        bytes memory utf8HexDigitFF46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(hexDigitFF46));
+        console2.log("FF46: ", string(utf8HexDigitFF46));
+        console2.logBytes(utf8HexDigitFF46);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {

@@ -1919,7 +1919,12 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: Complete the function implementation...
+        // 0030: 0x30 ... 0039: 0x39 [10]
+        // 0041: 0x41 ... 0046: 0x46 [6]
+        // 0061: 0x61 ... 0066: 0x66 [6]
+        // FF10: 0xefbc90 ... FF19: 0xefbc99 [10]
+        // FF21: 0xefbca1 ... FF26: 0xefbca6 [6]
+        // FF41: 0xefbd81 ... FF46: 0xefbd86 [6]
     }
 
     function isPropertyPatternSyntax(bytes memory _pattern, uint256 _currentParticleIndex)
