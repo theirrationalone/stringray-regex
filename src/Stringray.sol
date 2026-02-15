@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyAsciiHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the ascii hex digit imple⏱️
+    }
+
     function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
