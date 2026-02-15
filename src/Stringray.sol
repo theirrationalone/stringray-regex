@@ -3454,307 +3454,465 @@ library Stringray {
                                 }
                             }
                         }
+
+                        // 2A700: 0xf0aa9c80 ... 2B81D: 0xf0aba09d [4382]
+                        // - 0xf0aa9c80 ... 0xf0aa9cbf [64]
+                        // - 0xf0aa9d80 ... 0xf0aa9dbf [64]
+                        // - 0xf0aa9e80 ... 0xf0aa9ebf [64]
+                        // - 0xf0aa9f80 ... 0xf0aa9fbf [64]
+                        // - 0xf0aaa080 ... 0xf0aaa0bf [64]
+                        // - 0xf0aaa180 ... 0xf0aaa1bf [64]
+                        // - 0xf0aaa280 ... 0xf0aaa2bf [64]
+                        // - 0xf0aaa380 ... 0xf0aaa3bf [64]
+                        // - 0xf0aaa480 ... 0xf0aaa4bf [64]
+                        // - 0xf0aaa580 ... 0xf0aaa5bf [64]
+                        // - 0xf0aaa680 ... 0xf0aaa6bf [64]
+                        // - 0xf0aaa780 ... 0xf0aaa7bf [64]
+                        // - 0xf0aaa880 ... 0xf0aaa8bf [64]
+                        // - 0xf0aaa980 ... 0xf0aaa9bf [64]
+                        // - 0xf0aaaa80 ... 0xf0aaaabf [64]
+                        // - 0xf0aaab80 ... 0xf0aaabbf [64]
+                        // - 0xf0aaac80 ... 0xf0aaacbf [64]
+                        // - 0xf0aaad80 ... 0xf0aaadbf [64]
+                        // - 0xf0aaae80 ... 0xf0aaaebf [64]
+                        // - 0xf0aaaf80 ... 0xf0aaafbf [64]
+                        // - 0xf0aab080 ... 0xf0aab0bf [64]
+                        // - 0xf0aab180 ... 0xf0aab1bf [64]
+                        // - 0xf0aab280 ... 0xf0aab2bf [64]
+                        // - 0xf0aab380 ... 0xf0aab3bf [64]
+                        // - 0xf0aab480 ... 0xf0aab4bf [64]
+                        // - 0xf0aab580 ... 0xf0aab5bf [64]
+                        // - 0xf0aab680 ... 0xf0aab6bf [64]
+                        // - 0xf0aab780 ... 0xf0aab7bf [64]
+                        // - 0xf0aab880 ... 0xf0aab8bf [64]
+                        // - 0xf0aab980 ... 0xf0aab9bf [64]
+                        // - 0xf0aaba80 ... 0xf0aababf [64]
+                        // - 0xf0aabb80 ... 0xf0aabbbf [64]
+                        // - 0xf0aabc80 ... 0xf0aabcbf [64]
+                        // - 0xf0aabd80 ... 0xf0aabdbf [64]
+                        // - 0xf0aabe80 ... 0xf0aabebf [64]
+                        // - 0xf0aabf80 ... 0xf0aabfbf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x9c && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0x9f
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xab) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // - 0xf0ab8080 ... 0xf0ab80bf [64]
+                        // - 0xf0ab8180 ... 0xf0ab81bf [64]
+                        // - 0xf0ab8280 ... 0xf0ab82bf [64]
+                        // - 0xf0ab8380 ... 0xf0ab83bf [64]
+                        // - 0xf0ab8480 ... 0xf0ab84bf [64]
+                        // - 0xf0ab8580 ... 0xf0ab85bf [64]
+                        // - 0xf0ab8680 ... 0xf0ab86bf [64]
+                        // - 0xf0ab8780 ... 0xf0ab87bf [64]
+                        // - 0xf0ab8880 ... 0xf0ab88bf [64]
+                        // - 0xf0ab8980 ... 0xf0ab89bf [64]
+                        // - 0xf0ab8a80 ... 0xf0ab8abf [64]
+                        // - 0xf0ab8b80 ... 0xf0ab8bbf [64]
+                        // - 0xf0ab8c80 ... 0xf0ab8cbf [64]
+                        // - 0xf0ab8d80 ... 0xf0ab8dbf [64]
+                        // - 0xf0ab8e80 ... 0xf0ab8ebf [64]
+                        // - 0xf0ab8f80 ... 0xf0ab8fbf [64]
+                        // - 0xf0ab9080 ... 0xf0ab90bf [64]
+                        // - 0xf0ab9180 ... 0xf0ab91bf [64]
+                        // - 0xf0ab9280 ... 0xf0ab92bf [64]
+                        // - 0xf0ab9380 ... 0xf0ab93bf [64]
+                        // - 0xf0ab9480 ... 0xf0ab94bf [64]
+                        // - 0xf0ab9580 ... 0xf0ab95bf [64]
+                        // - 0xf0ab9680 ... 0xf0ab96bf [64]
+                        // - 0xf0ab9780 ... 0xf0ab97bf [64]
+                        // - 0xf0ab9880 ... 0xf0ab98bf [64]
+                        // - 0xf0ab9980 ... 0xf0ab99bf [64]
+                        // - 0xf0ab9a80 ... 0xf0ab9abf [64]
+                        // - 0xf0ab9b80 ... 0xf0ab9bbf [64]
+                        // - 0xf0ab9c80 ... 0xf0ab9cbf [64]
+                        // - 0xf0ab9d80 ... 0xf0ab9dbf [64]
+                        // - 0xf0ab9e80 ... 0xf0ab9ebf [64]
+                        // - 0xf0ab9f80 ... 0xf0ab9fbf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x9f)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0aba080 ... 0xf0aba09d [30]
+                        // 2B820: 0xf0aba0a0 ... 2CEAD: 0xf0acbaad [5774]
+                        // - 0xf0aba0a0 ... 0xf0aba0bf [32]
+                        if (_pattern[_currentParticleIndex + 2] == 0xa0) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    (_pattern[_currentParticleIndex + 3] >= 0x80
+                                            && _pattern[_currentParticleIndex + 3] <= 0x9d)
+                                        || (_pattern[_currentParticleIndex + 3] >= 0xa0
+                                            && _pattern[_currentParticleIndex + 3] <= 0xbf)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0aba180 ... 0xf0aba1bf [64]
+                        // - 0xf0aba280 ... 0xf0aba2bf [64]
+                        // - 0xf0aba380 ... 0xf0aba3bf [64]
+                        // - 0xf0aba480 ... 0xf0aba4bf [64]
+                        // - 0xf0aba580 ... 0xf0aba5bf [64]
+                        // - 0xf0aba680 ... 0xf0aba6bf [64]
+                        // - 0xf0aba780 ... 0xf0aba7bf [64]
+                        // - 0xf0aba880 ... 0xf0aba8bf [64]
+                        // - 0xf0aba980 ... 0xf0aba9bf [64]
+                        // - 0xf0abaa80 ... 0xf0abaabf [64]
+                        // - 0xf0abab80 ... 0xf0ababbf [64]
+                        // - 0xf0abac80 ... 0xf0abacbf [64]
+                        // - 0xf0abad80 ... 0xf0abadbf [64]
+                        // - 0xf0abae80 ... 0xf0abaebf [64]
+                        // - 0xf0abaf80 ... 0xf0abafbf [64]
+                        // - 0xf0abb080 ... 0xf0abb0bf [64]
+                        // - 0xf0abb180 ... 0xf0abb1bf [64]
+                        // - 0xf0abb280 ... 0xf0abb2bf [64]
+                        // - 0xf0abb380 ... 0xf0abb3bf [64]
+                        // - 0xf0abb480 ... 0xf0abb4bf [64]
+                        // - 0xf0abb580 ... 0xf0abb5bf [64]
+                        // - 0xf0abb680 ... 0xf0abb6bf [64]
+                        // - 0xf0abb780 ... 0xf0abb7bf [64]
+                        // - 0xf0abb880 ... 0xf0abb8bf [64]
+                        // - 0xf0abb980 ... 0xf0abb9bf [64]
+                        // - 0xf0abba80 ... 0xf0abbabf [64]
+                        // - 0xf0abbb80 ... 0xf0abbbbf [64]
+                        // - 0xf0abbc80 ... 0xf0abbcbf [64]
+                        // - 0xf0abbd80 ... 0xf0abbdbf [64]
+                        // - 0xf0abbe80 ... 0xf0abbebf [64]
+                        // - 0xf0abbf80 ... 0xf0abbfbf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0xa1 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xac) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // - 0xf0ac8080 ... 0xf0ac80bf [64]
+                        // - 0xf0ac8180 ... 0xf0ac81bf [64]
+                        // - 0xf0ac8280 ... 0xf0ac82bf [64]
+                        // - 0xf0ac8380 ... 0xf0ac83bf [64]
+                        // - 0xf0ac8480 ... 0xf0ac84bf [64]
+                        // - 0xf0ac8580 ... 0xf0ac85bf [64]
+                        // - 0xf0ac8680 ... 0xf0ac86bf [64]
+                        // - 0xf0ac8780 ... 0xf0ac87bf [64]
+                        // - 0xf0ac8880 ... 0xf0ac88bf [64]
+                        // - 0xf0ac8980 ... 0xf0ac89bf [64]
+                        // - 0xf0ac8a80 ... 0xf0ac8abf [64]
+                        // - 0xf0ac8b80 ... 0xf0ac8bbf [64]
+                        // - 0xf0ac8c80 ... 0xf0ac8cbf [64]
+                        // - 0xf0ac8d80 ... 0xf0ac8dbf [64]
+                        // - 0xf0ac8e80 ... 0xf0ac8ebf [64]
+                        // - 0xf0ac8f80 ... 0xf0ac8fbf [64]
+                        // - 0xf0ac9080 ... 0xf0ac90bf [64]
+                        // - 0xf0ac9180 ... 0xf0ac91bf [64]
+                        // - 0xf0ac9280 ... 0xf0ac92bf [64]
+                        // - 0xf0ac9380 ... 0xf0ac93bf [64]
+                        // - 0xf0ac9480 ... 0xf0ac94bf [64]
+                        // - 0xf0ac9580 ... 0xf0ac95bf [64]
+                        // - 0xf0ac9680 ... 0xf0ac96bf [64]
+                        // - 0xf0ac9780 ... 0xf0ac97bf [64]
+                        // - 0xf0ac9880 ... 0xf0ac98bf [64]
+                        // - 0xf0ac9980 ... 0xf0ac99bf [64]
+                        // - 0xf0ac9a80 ... 0xf0ac9abf [64]
+                        // - 0xf0ac9b80 ... 0xf0ac9bbf [64]
+                        // - 0xf0ac9c80 ... 0xf0ac9cbf [64]
+                        // - 0xf0ac9d80 ... 0xf0ac9dbf [64]
+                        // - 0xf0ac9e80 ... 0xf0ac9ebf [64]
+                        // - 0xf0ac9f80 ... 0xf0ac9fbf [64]
+                        // - 0xf0aca080 ... 0xf0aca0bf [64]
+                        // - 0xf0aca180 ... 0xf0aca1bf [64]
+                        // - 0xf0aca280 ... 0xf0aca2bf [64]
+                        // - 0xf0aca380 ... 0xf0aca3bf [64]
+                        // - 0xf0aca480 ... 0xf0aca4bf [64]
+                        // - 0xf0aca580 ... 0xf0aca5bf [64]
+                        // - 0xf0aca680 ... 0xf0aca6bf [64]
+                        // - 0xf0aca780 ... 0xf0aca7bf [64]
+                        // - 0xf0aca880 ... 0xf0aca8bf [64]
+                        // - 0xf0aca980 ... 0xf0aca9bf [64]
+                        // - 0xf0acaa80 ... 0xf0acaabf [64]
+                        // - 0xf0acab80 ... 0xf0acabbf [64]
+                        // - 0xf0acac80 ... 0xf0acacbf [64]
+                        // - 0xf0acad80 ... 0xf0acadbf [64]
+                        // - 0xf0acae80 ... 0xf0acaebf [64]
+                        // - 0xf0acaf80 ... 0xf0acafbf [64]
+                        // - 0xf0acb080 ... 0xf0acb0bf [64]
+                        // - 0xf0acb180 ... 0xf0acb1bf [64]
+                        // - 0xf0acb280 ... 0xf0acb2bf [64]
+                        // - 0xf0acb380 ... 0xf0acb3bf [64]
+                        // - 0xf0acb480 ... 0xf0acb4bf [64]
+                        // - 0xf0acb580 ... 0xf0acb5bf [64]
+                        // - 0xf0acb680 ... 0xf0acb6bf [64]
+                        // - 0xf0acb780 ... 0xf0acb7bf [64]
+                        // - 0xf0acb880 ... 0xf0acb8bf [64]
+                        // - 0xf0acb980 ... 0xf0acb9bf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xb9)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0acba80 ... 0xf0acbaad [46]
+                        // 2CEB0: 0xf0acbab0 ... 2EBE0: 0xf0aeafa0 [7473]
+                        // - 0xf0acbab0 ... 0xf0acbabf [16]
+                        if (_pattern[_currentParticleIndex + 2] == 0xba) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    (_pattern[_currentParticleIndex + 3] >= 0x80
+                                            && _pattern[_currentParticleIndex + 3] <= 0xad)
+                                        || (_pattern[_currentParticleIndex + 3] >= 0xb0
+                                            && _pattern[_currentParticleIndex + 3] <= 0xbf)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0acbb80 ... 0xf0acbbbf [64]
+                        // - 0xf0acbc80 ... 0xf0acbcbf [64]
+                        // - 0xf0acbd80 ... 0xf0acbdbf [64]
+                        // - 0xf0acbe80 ... 0xf0acbebf [64]
+                        // - 0xf0acbf80 ... 0xf0acbfbf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0xbb && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xad) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // - 0xf0ad8080 ... 0xf0ad80bf [64]
+                        // - 0xf0ad8180 ... 0xf0ad81bf [64]
+                        // - 0xf0ad8280 ... 0xf0ad82bf [64]
+                        // - 0xf0ad8380 ... 0xf0ad83bf [64]
+                        // - 0xf0ad8480 ... 0xf0ad84bf [64]
+                        // - 0xf0ad8580 ... 0xf0ad85bf [64]
+                        // - 0xf0ad8680 ... 0xf0ad86bf [64]
+                        // - 0xf0ad8780 ... 0xf0ad87bf [64]
+                        // - 0xf0ad8880 ... 0xf0ad88bf [64]
+                        // - 0xf0ad8980 ... 0xf0ad89bf [64]
+                        // - 0xf0ad8a80 ... 0xf0ad8abf [64]
+                        // - 0xf0ad8b80 ... 0xf0ad8bbf [64]
+                        // - 0xf0ad8c80 ... 0xf0ad8cbf [64]
+                        // - 0xf0ad8d80 ... 0xf0ad8dbf [64]
+                        // - 0xf0ad8e80 ... 0xf0ad8ebf [64]
+                        // - 0xf0ad8f80 ... 0xf0ad8fbf [64]
+                        // - 0xf0ad9080 ... 0xf0ad90bf [64]
+                        // - 0xf0ad9180 ... 0xf0ad91bf [64]
+                        // - 0xf0ad9280 ... 0xf0ad92bf [64]
+                        // - 0xf0ad9380 ... 0xf0ad93bf [64]
+                        // - 0xf0ad9480 ... 0xf0ad94bf [64]
+                        // - 0xf0ad9580 ... 0xf0ad95bf [64]
+                        // - 0xf0ad9680 ... 0xf0ad96bf [64]
+                        // - 0xf0ad9780 ... 0xf0ad97bf [64]
+                        // - 0xf0ad9880 ... 0xf0ad98bf [64]
+                        // - 0xf0ad9980 ... 0xf0ad99bf [64]
+                        // - 0xf0ad9a80 ... 0xf0ad9abf [64]
+                        // - 0xf0ad9b80 ... 0xf0ad9bbf [64]
+                        // - 0xf0ad9c80 ... 0xf0ad9cbf [64]
+                        // - 0xf0ad9d80 ... 0xf0ad9dbf [64]
+                        // - 0xf0ad9e80 ... 0xf0ad9ebf [64]
+                        // - 0xf0ad9f80 ... 0xf0ad9fbf [64]
+                        // - 0xf0ada080 ... 0xf0ada0bf [64]
+                        // - 0xf0ada180 ... 0xf0ada1bf [64]
+                        // - 0xf0ada280 ... 0xf0ada2bf [64]
+                        // - 0xf0ada380 ... 0xf0ada3bf [64]
+                        // - 0xf0ada480 ... 0xf0ada4bf [64]
+                        // - 0xf0ada580 ... 0xf0ada5bf [64]
+                        // - 0xf0ada680 ... 0xf0ada6bf [64]
+                        // - 0xf0ada780 ... 0xf0ada7bf [64]
+                        // - 0xf0ada880 ... 0xf0ada8bf [64]
+                        // - 0xf0ada980 ... 0xf0ada9bf [64]
+                        // - 0xf0adaa80 ... 0xf0adaabf [64]
+                        // - 0xf0adab80 ... 0xf0adabbf [64]
+                        // - 0xf0adac80 ... 0xf0adacbf [64]
+                        // - 0xf0adad80 ... 0xf0adadbf [64]
+                        // - 0xf0adae80 ... 0xf0adaebf [64]
+                        // - 0xf0adaf80 ... 0xf0adafbf [64]
+                        // - 0xf0adb080 ... 0xf0adb0bf [64]
+                        // - 0xf0adb180 ... 0xf0adb1bf [64]
+                        // - 0xf0adb280 ... 0xf0adb2bf [64]
+                        // - 0xf0adb380 ... 0xf0adb3bf [64]
+                        // - 0xf0adb480 ... 0xf0adb4bf [64]
+                        // - 0xf0adb580 ... 0xf0adb5bf [64]
+                        // - 0xf0adb680 ... 0xf0adb6bf [64]
+                        // - 0xf0adb780 ... 0xf0adb7bf [64]
+                        // - 0xf0adb880 ... 0xf0adb8bf [64]
+                        // - 0xf0adb980 ... 0xf0adb9bf [64]
+                        // - 0xf0adba80 ... 0xf0adbabf [64]
+                        // - 0xf0adbb80 ... 0xf0adbbbf [64]
+                        // - 0xf0adbc80 ... 0xf0adbcbf [64]
+                        // - 0xf0adbd80 ... 0xf0adbdbf [64]
+                        // - 0xf0adbe80 ... 0xf0adbebf [64]
+                        // - 0xf0adbf80 ... 0xf0adbfbf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0xae) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // - 0xf0ae8080 ... 0xf0ae80bf [64]
+                        // - 0xf0ae8180 ... 0xf0ae81bf [64]
+                        // - 0xf0ae8280 ... 0xf0ae82bf [64]
+                        // - 0xf0ae8380 ... 0xf0ae83bf [64]
+                        // - 0xf0ae8480 ... 0xf0ae84bf [64]
+                        // - 0xf0ae8580 ... 0xf0ae85bf [64]
+                        // - 0xf0ae8680 ... 0xf0ae86bf [64]
+                        // - 0xf0ae8780 ... 0xf0ae87bf [64]
+                        // - 0xf0ae8880 ... 0xf0ae88bf [64]
+                        // - 0xf0ae8980 ... 0xf0ae89bf [64]
+                        // - 0xf0ae8a80 ... 0xf0ae8abf [64]
+                        // - 0xf0ae8b80 ... 0xf0ae8bbf [64]
+                        // - 0xf0ae8c80 ... 0xf0ae8cbf [64]
+                        // - 0xf0ae8d80 ... 0xf0ae8dbf [64]
+                        // - 0xf0ae8e80 ... 0xf0ae8ebf [64]
+                        // - 0xf0ae8f80 ... 0xf0ae8fbf [64]
+                        // - 0xf0ae9080 ... 0xf0ae90bf [64]
+                        // - 0xf0ae9180 ... 0xf0ae91bf [64]
+                        // - 0xf0ae9280 ... 0xf0ae92bf [64]
+                        // - 0xf0ae9380 ... 0xf0ae93bf [64]
+                        // - 0xf0ae9480 ... 0xf0ae94bf [64]
+                        // - 0xf0ae9580 ... 0xf0ae95bf [64]
+                        // - 0xf0ae9680 ... 0xf0ae96bf [64]
+                        // - 0xf0ae9780 ... 0xf0ae97bf [64]
+                        // - 0xf0ae9880 ... 0xf0ae98bf [64]
+                        // - 0xf0ae9980 ... 0xf0ae99bf [64]
+                        // - 0xf0ae9a80 ... 0xf0ae9abf [64]
+                        // - 0xf0ae9b80 ... 0xf0ae9bbf [64]
+                        // - 0xf0ae9c80 ... 0xf0ae9cbf [64]
+                        // - 0xf0ae9d80 ... 0xf0ae9dbf [64]
+                        // - 0xf0ae9e80 ... 0xf0ae9ebf [64]
+                        // - 0xf0ae9f80 ... 0xf0ae9fbf [64]
+                        // - 0xf0aea080 ... 0xf0aea0bf [64]
+                        // - 0xf0aea180 ... 0xf0aea1bf [64]
+                        // - 0xf0aea280 ... 0xf0aea2bf [64]
+                        // - 0xf0aea380 ... 0xf0aea3bf [64]
+                        // - 0xf0aea480 ... 0xf0aea4bf [64]
+                        // - 0xf0aea580 ... 0xf0aea5bf [64]
+                        // - 0xf0aea680 ... 0xf0aea6bf [64]
+                        // - 0xf0aea780 ... 0xf0aea7bf [64]
+                        // - 0xf0aea880 ... 0xf0aea8bf [64]
+                        // - 0xf0aea980 ... 0xf0aea9bf [64]
+                        // - 0xf0aeaa80 ... 0xf0aeaabf [64]
+                        // - 0xf0aeab80 ... 0xf0aeabbf [64]
+                        // - 0xf0aeac80 ... 0xf0aeacbf [64]
+                        // - 0xf0aead80 ... 0xf0aeadbf [64]
+                        // - 0xf0aeae80 ... 0xf0aeaebf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xae)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0aeaf80 ... 0xf0aeafa0 [33]
+                        // 2EBF0: 0xf0aeafb0 ... 2EE5D: 0xf0aeb99d [622]
+                        // - 0xf0aeafb0 ... 0xf0aeafbf [16]
+                        if (_pattern[_currentParticleIndex + 2] == 0xaf) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    (_pattern[_currentParticleIndex + 3] >= 0x80
+                                            && _pattern[_currentParticleIndex + 3] <= 0xa0)
+                                        || (_pattern[_currentParticleIndex + 3] >= 0xb0
+                                            && _pattern[_currentParticleIndex + 3] <= 0xbf)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0aeb080 ... 0xf0aeb0bf [64]
+                        // - 0xf0aeb180 ... 0xf0aeb1bf [64]
+                        // - 0xf0aeb280 ... 0xf0aeb2bf [64]
+                        // - 0xf0aeb380 ... 0xf0aeb3bf [64]
+                        // - 0xf0aeb480 ... 0xf0aeb4bf [64]
+                        // - 0xf0aeb580 ... 0xf0aeb5bf [64]
+                        // - 0xf0aeb680 ... 0xf0aeb6bf [64]
+                        // - 0xf0aeb780 ... 0xf0aeb7bf [64]
+                        // - 0xf0aeb880 ... 0xf0aeb8bf [64]
+                        if (_pattern[_currentParticleIndex + 2] >= 0xb0 && _pattern[_currentParticleIndex + 2] <= 0xb8)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf0aeb980 ... 0xf0aeb99d [30]
+                        if (_pattern[_currentParticleIndex + 2] == 0xb9) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0x9d
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-
-        // 2A700: 0xf0aa9c80 ... 2B81D: 0xf0aba09d [4382]
-        // - 0xf0aa9c80 ... 0xf0aa9cbf [64]
-        // - 0xf0aa9d80 ... 0xf0aa9dbf [64]
-        // - 0xf0aa9e80 ... 0xf0aa9ebf [64]
-        // - 0xf0aa9f80 ... 0xf0aa9fbf [64]
-        // - 0xf0aaa080 ... 0xf0aaa0bf [64]
-        // - 0xf0aaa180 ... 0xf0aaa1bf [64]
-        // - 0xf0aaa280 ... 0xf0aaa2bf [64]
-        // - 0xf0aaa380 ... 0xf0aaa3bf [64]
-        // - 0xf0aaa480 ... 0xf0aaa4bf [64]
-        // - 0xf0aaa580 ... 0xf0aaa5bf [64]
-        // - 0xf0aaa680 ... 0xf0aaa6bf [64]
-        // - 0xf0aaa780 ... 0xf0aaa7bf [64]
-        // - 0xf0aaa880 ... 0xf0aaa8bf [64]
-        // - 0xf0aaa980 ... 0xf0aaa9bf [64]
-        // - 0xf0aaaa80 ... 0xf0aaaabf [64]
-        // - 0xf0aaab80 ... 0xf0aaabbf [64]
-        // - 0xf0aaac80 ... 0xf0aaacbf [64]
-        // - 0xf0aaad80 ... 0xf0aaadbf [64]
-        // - 0xf0aaae80 ... 0xf0aaaebf [64]
-        // - 0xf0aaaf80 ... 0xf0aaafbf [64]
-        // - 0xf0aab080 ... 0xf0aab0bf [64]
-        // - 0xf0aab180 ... 0xf0aab1bf [64]
-        // - 0xf0aab280 ... 0xf0aab2bf [64]
-        // - 0xf0aab380 ... 0xf0aab3bf [64]
-        // - 0xf0aab480 ... 0xf0aab4bf [64]
-        // - 0xf0aab580 ... 0xf0aab5bf [64]
-        // - 0xf0aab680 ... 0xf0aab6bf [64]
-        // - 0xf0aab780 ... 0xf0aab7bf [64]
-        // - 0xf0aab880 ... 0xf0aab8bf [64]
-        // - 0xf0aab980 ... 0xf0aab9bf [64]
-        // - 0xf0aaba80 ... 0xf0aababf [64]
-        // - 0xf0aabb80 ... 0xf0aabbbf [64]
-        // - 0xf0aabc80 ... 0xf0aabcbf [64]
-        // - 0xf0aabd80 ... 0xf0aabdbf [64]
-        // - 0xf0aabe80 ... 0xf0aabebf [64]
-        // - 0xf0aabf80 ... 0xf0aabfbf [64]
-        // - 0xf0ab8080 ... 0xf0ab80bf [64]
-        // - 0xf0ab8180 ... 0xf0ab81bf [64]
-        // - 0xf0ab8280 ... 0xf0ab82bf [64]
-        // - 0xf0ab8380 ... 0xf0ab83bf [64]
-        // - 0xf0ab8480 ... 0xf0ab84bf [64]
-        // - 0xf0ab8580 ... 0xf0ab85bf [64]
-        // - 0xf0ab8680 ... 0xf0ab86bf [64]
-        // - 0xf0ab8780 ... 0xf0ab87bf [64]
-        // - 0xf0ab8880 ... 0xf0ab88bf [64]
-        // - 0xf0ab8980 ... 0xf0ab89bf [64]
-        // - 0xf0ab8a80 ... 0xf0ab8abf [64]
-        // - 0xf0ab8b80 ... 0xf0ab8bbf [64]
-        // - 0xf0ab8c80 ... 0xf0ab8cbf [64]
-        // - 0xf0ab8d80 ... 0xf0ab8dbf [64]
-        // - 0xf0ab8e80 ... 0xf0ab8ebf [64]
-        // - 0xf0ab8f80 ... 0xf0ab8fbf [64]
-        // - 0xf0ab9080 ... 0xf0ab90bf [64]
-        // - 0xf0ab9180 ... 0xf0ab91bf [64]
-        // - 0xf0ab9280 ... 0xf0ab92bf [64]
-        // - 0xf0ab9380 ... 0xf0ab93bf [64]
-        // - 0xf0ab9480 ... 0xf0ab94bf [64]
-        // - 0xf0ab9580 ... 0xf0ab95bf [64]
-        // - 0xf0ab9680 ... 0xf0ab96bf [64]
-        // - 0xf0ab9780 ... 0xf0ab97bf [64]
-        // - 0xf0ab9880 ... 0xf0ab98bf [64]
-        // - 0xf0ab9980 ... 0xf0ab99bf [64]
-        // - 0xf0ab9a80 ... 0xf0ab9abf [64]
-        // - 0xf0ab9b80 ... 0xf0ab9bbf [64]
-        // - 0xf0ab9c80 ... 0xf0ab9cbf [64]
-        // - 0xf0ab9d80 ... 0xf0ab9dbf [64]
-        // - 0xf0ab9e80 ... 0xf0ab9ebf [64]
-        // - 0xf0ab9f80 ... 0xf0ab9fbf [64]
-        // - 0xf0aba080 ... 0xf0aba09d [30]
-
-        // 2B820: 0xf0aba0a0 ... 2CEAD: 0xf0acbaad [5774]
-        // - 0xf0aba0a0 ... 0xf0aba0bf [32]
-        // - 0xf0aba180 ... 0xf0aba1bf [64]
-        // - 0xf0aba280 ... 0xf0aba2bf [64]
-        // - 0xf0aba380 ... 0xf0aba3bf [64]
-        // - 0xf0aba480 ... 0xf0aba4bf [64]
-        // - 0xf0aba580 ... 0xf0aba5bf [64]
-        // - 0xf0aba680 ... 0xf0aba6bf [64]
-        // - 0xf0aba780 ... 0xf0aba7bf [64]
-        // - 0xf0aba880 ... 0xf0aba8bf [64]
-        // - 0xf0aba980 ... 0xf0aba9bf [64]
-        // - 0xf0abaa80 ... 0xf0abaabf [64]
-        // - 0xf0abab80 ... 0xf0ababbf [64]
-        // - 0xf0abac80 ... 0xf0abacbf [64]
-        // - 0xf0abad80 ... 0xf0abadbf [64]
-        // - 0xf0abae80 ... 0xf0abaebf [64]
-        // - 0xf0abaf80 ... 0xf0abafbf [64]
-        // - 0xf0abb080 ... 0xf0abb0bf [64]
-        // - 0xf0abb180 ... 0xf0abb1bf [64]
-        // - 0xf0abb280 ... 0xf0abb2bf [64]
-        // - 0xf0abb380 ... 0xf0abb3bf [64]
-        // - 0xf0abb480 ... 0xf0abb4bf [64]
-        // - 0xf0abb580 ... 0xf0abb5bf [64]
-        // - 0xf0abb680 ... 0xf0abb6bf [64]
-        // - 0xf0abb780 ... 0xf0abb7bf [64]
-        // - 0xf0abb880 ... 0xf0abb8bf [64]
-        // - 0xf0abb980 ... 0xf0abb9bf [64]
-        // - 0xf0abba80 ... 0xf0abbabf [64]
-        // - 0xf0abbb80 ... 0xf0abbbbf [64]
-        // - 0xf0abbc80 ... 0xf0abbcbf [64]
-        // - 0xf0abbd80 ... 0xf0abbdbf [64]
-        // - 0xf0abbe80 ... 0xf0abbebf [64]
-        // - 0xf0abbf80 ... 0xf0abbfbf [64]
-        // - 0xf0ac8080 ... 0xf0ac80bf [64]
-        // - 0xf0ac8180 ... 0xf0ac81bf [64]
-        // - 0xf0ac8280 ... 0xf0ac82bf [64]
-        // - 0xf0ac8380 ... 0xf0ac83bf [64]
-        // - 0xf0ac8480 ... 0xf0ac84bf [64]
-        // - 0xf0ac8580 ... 0xf0ac85bf [64]
-        // - 0xf0ac8680 ... 0xf0ac86bf [64]
-        // - 0xf0ac8780 ... 0xf0ac87bf [64]
-        // - 0xf0ac8880 ... 0xf0ac88bf [64]
-        // - 0xf0ac8980 ... 0xf0ac89bf [64]
-        // - 0xf0ac8a80 ... 0xf0ac8abf [64]
-        // - 0xf0ac8b80 ... 0xf0ac8bbf [64]
-        // - 0xf0ac8c80 ... 0xf0ac8cbf [64]
-        // - 0xf0ac8d80 ... 0xf0ac8dbf [64]
-        // - 0xf0ac8e80 ... 0xf0ac8ebf [64]
-        // - 0xf0ac8f80 ... 0xf0ac8fbf [64]
-        // - 0xf0ac9080 ... 0xf0ac90bf [64]
-        // - 0xf0ac9180 ... 0xf0ac91bf [64]
-        // - 0xf0ac9280 ... 0xf0ac92bf [64]
-        // - 0xf0ac9380 ... 0xf0ac93bf [64]
-        // - 0xf0ac9480 ... 0xf0ac94bf [64]
-        // - 0xf0ac9580 ... 0xf0ac95bf [64]
-        // - 0xf0ac9680 ... 0xf0ac96bf [64]
-        // - 0xf0ac9780 ... 0xf0ac97bf [64]
-        // - 0xf0ac9880 ... 0xf0ac98bf [64]
-        // - 0xf0ac9980 ... 0xf0ac99bf [64]
-        // - 0xf0ac9a80 ... 0xf0ac9abf [64]
-        // - 0xf0ac9b80 ... 0xf0ac9bbf [64]
-        // - 0xf0ac9c80 ... 0xf0ac9cbf [64]
-        // - 0xf0ac9d80 ... 0xf0ac9dbf [64]
-        // - 0xf0ac9e80 ... 0xf0ac9ebf [64]
-        // - 0xf0ac9f80 ... 0xf0ac9fbf [64]
-        // - 0xf0aca080 ... 0xf0aca0bf [64]
-        // - 0xf0aca180 ... 0xf0aca1bf [64]
-        // - 0xf0aca280 ... 0xf0aca2bf [64]
-        // - 0xf0aca380 ... 0xf0aca3bf [64]
-        // - 0xf0aca480 ... 0xf0aca4bf [64]
-        // - 0xf0aca580 ... 0xf0aca5bf [64]
-        // - 0xf0aca680 ... 0xf0aca6bf [64]
-        // - 0xf0aca780 ... 0xf0aca7bf [64]
-        // - 0xf0aca880 ... 0xf0aca8bf [64]
-        // - 0xf0aca980 ... 0xf0aca9bf [64]
-        // - 0xf0acaa80 ... 0xf0acaabf [64]
-        // - 0xf0acab80 ... 0xf0acabbf [64]
-        // - 0xf0acac80 ... 0xf0acacbf [64]
-        // - 0xf0acad80 ... 0xf0acadbf [64]
-        // - 0xf0acae80 ... 0xf0acaebf [64]
-        // - 0xf0acaf80 ... 0xf0acafbf [64]
-        // - 0xf0acb080 ... 0xf0acb0bf [64]
-        // - 0xf0acb180 ... 0xf0acb1bf [64]
-        // - 0xf0acb280 ... 0xf0acb2bf [64]
-        // - 0xf0acb380 ... 0xf0acb3bf [64]
-        // - 0xf0acb480 ... 0xf0acb4bf [64]
-        // - 0xf0acb580 ... 0xf0acb5bf [64]
-        // - 0xf0acb680 ... 0xf0acb6bf [64]
-        // - 0xf0acb780 ... 0xf0acb7bf [64]
-        // - 0xf0acb880 ... 0xf0acb8bf [64]
-        // - 0xf0acb980 ... 0xf0acb9bf [64]
-        // - 0xf0acba80 ... 0xf0acbaad [46]
-
-        // 2CEB0: 0xf0acbab0 ... 2EBE0: 0xf0aeafa0 [7473]
-        // - 0xf0acbab0 ... 0xf0acbabf [16]
-        // - 0xf0acbb80 ... 0xf0acbbbf [64]
-        // - 0xf0acbc80 ... 0xf0acbcbf [64]
-        // - 0xf0acbd80 ... 0xf0acbdbf [64]
-        // - 0xf0acbe80 ... 0xf0acbebf [64]
-        // - 0xf0acbf80 ... 0xf0acbfbf [64]
-        // - 0xf0ad8080 ... 0xf0ad80bf [64]
-        // - 0xf0ad8180 ... 0xf0ad81bf [64]
-        // - 0xf0ad8280 ... 0xf0ad82bf [64]
-        // - 0xf0ad8380 ... 0xf0ad83bf [64]
-        // - 0xf0ad8480 ... 0xf0ad84bf [64]
-        // - 0xf0ad8580 ... 0xf0ad85bf [64]
-        // - 0xf0ad8680 ... 0xf0ad86bf [64]
-        // - 0xf0ad8780 ... 0xf0ad87bf [64]
-        // - 0xf0ad8880 ... 0xf0ad88bf [64]
-        // - 0xf0ad8980 ... 0xf0ad89bf [64]
-        // - 0xf0ad8a80 ... 0xf0ad8abf [64]
-        // - 0xf0ad8b80 ... 0xf0ad8bbf [64]
-        // - 0xf0ad8c80 ... 0xf0ad8cbf [64]
-        // - 0xf0ad8d80 ... 0xf0ad8dbf [64]
-        // - 0xf0ad8e80 ... 0xf0ad8ebf [64]
-        // - 0xf0ad8f80 ... 0xf0ad8fbf [64]
-        // - 0xf0ad9080 ... 0xf0ad90bf [64]
-        // - 0xf0ad9180 ... 0xf0ad91bf [64]
-        // - 0xf0ad9280 ... 0xf0ad92bf [64]
-        // - 0xf0ad9380 ... 0xf0ad93bf [64]
-        // - 0xf0ad9480 ... 0xf0ad94bf [64]
-        // - 0xf0ad9580 ... 0xf0ad95bf [64]
-        // - 0xf0ad9680 ... 0xf0ad96bf [64]
-        // - 0xf0ad9780 ... 0xf0ad97bf [64]
-        // - 0xf0ad9880 ... 0xf0ad98bf [64]
-        // - 0xf0ad9980 ... 0xf0ad99bf [64]
-        // - 0xf0ad9a80 ... 0xf0ad9abf [64]
-        // - 0xf0ad9b80 ... 0xf0ad9bbf [64]
-        // - 0xf0ad9c80 ... 0xf0ad9cbf [64]
-        // - 0xf0ad9d80 ... 0xf0ad9dbf [64]
-        // - 0xf0ad9e80 ... 0xf0ad9ebf [64]
-        // - 0xf0ad9f80 ... 0xf0ad9fbf [64]
-        // - 0xf0ada080 ... 0xf0ada0bf [64]
-        // - 0xf0ada180 ... 0xf0ada1bf [64]
-        // - 0xf0ada280 ... 0xf0ada2bf [64]
-        // - 0xf0ada380 ... 0xf0ada3bf [64]
-        // - 0xf0ada480 ... 0xf0ada4bf [64]
-        // - 0xf0ada580 ... 0xf0ada5bf [64]
-        // - 0xf0ada680 ... 0xf0ada6bf [64]
-        // - 0xf0ada780 ... 0xf0ada7bf [64]
-        // - 0xf0ada880 ... 0xf0ada8bf [64]
-        // - 0xf0ada980 ... 0xf0ada9bf [64]
-        // - 0xf0adaa80 ... 0xf0adaabf [64]
-        // - 0xf0adab80 ... 0xf0adabbf [64]
-        // - 0xf0adac80 ... 0xf0adacbf [64]
-        // - 0xf0adad80 ... 0xf0adadbf [64]
-        // - 0xf0adae80 ... 0xf0adaebf [64]
-        // - 0xf0adaf80 ... 0xf0adafbf [64]
-        // - 0xf0adb080 ... 0xf0adb0bf [64]
-        // - 0xf0adb180 ... 0xf0adb1bf [64]
-        // - 0xf0adb280 ... 0xf0adb2bf [64]
-        // - 0xf0adb380 ... 0xf0adb3bf [64]
-        // - 0xf0adb480 ... 0xf0adb4bf [64]
-        // - 0xf0adb580 ... 0xf0adb5bf [64]
-        // - 0xf0adb680 ... 0xf0adb6bf [64]
-        // - 0xf0adb780 ... 0xf0adb7bf [64]
-        // - 0xf0adb880 ... 0xf0adb8bf [64]
-        // - 0xf0adb980 ... 0xf0adb9bf [64]
-        // - 0xf0adba80 ... 0xf0adbabf [64]
-        // - 0xf0adbb80 ... 0xf0adbbbf [64]
-        // - 0xf0adbc80 ... 0xf0adbcbf [64]
-        // - 0xf0adbd80 ... 0xf0adbdbf [64]
-        // - 0xf0adbe80 ... 0xf0adbebf [64]
-        // - 0xf0adbf80 ... 0xf0adbfbf [64]
-        // - 0xf0ae8080 ... 0xf0ae80bf [64]
-        // - 0xf0ae8180 ... 0xf0ae81bf [64]
-        // - 0xf0ae8280 ... 0xf0ae82bf [64]
-        // - 0xf0ae8380 ... 0xf0ae83bf [64]
-        // - 0xf0ae8480 ... 0xf0ae84bf [64]
-        // - 0xf0ae8580 ... 0xf0ae85bf [64]
-        // - 0xf0ae8680 ... 0xf0ae86bf [64]
-        // - 0xf0ae8780 ... 0xf0ae87bf [64]
-        // - 0xf0ae8880 ... 0xf0ae88bf [64]
-        // - 0xf0ae8980 ... 0xf0ae89bf [64]
-        // - 0xf0ae8a80 ... 0xf0ae8abf [64]
-        // - 0xf0ae8b80 ... 0xf0ae8bbf [64]
-        // - 0xf0ae8c80 ... 0xf0ae8cbf [64]
-        // - 0xf0ae8d80 ... 0xf0ae8dbf [64]
-        // - 0xf0ae8e80 ... 0xf0ae8ebf [64]
-        // - 0xf0ae8f80 ... 0xf0ae8fbf [64]
-        // - 0xf0ae9080 ... 0xf0ae90bf [64]
-        // - 0xf0ae9180 ... 0xf0ae91bf [64]
-        // - 0xf0ae9280 ... 0xf0ae92bf [64]
-        // - 0xf0ae9380 ... 0xf0ae93bf [64]
-        // - 0xf0ae9480 ... 0xf0ae94bf [64]
-        // - 0xf0ae9580 ... 0xf0ae95bf [64]
-        // - 0xf0ae9680 ... 0xf0ae96bf [64]
-        // - 0xf0ae9780 ... 0xf0ae97bf [64]
-        // - 0xf0ae9880 ... 0xf0ae98bf [64]
-        // - 0xf0ae9980 ... 0xf0ae99bf [64]
-        // - 0xf0ae9a80 ... 0xf0ae9abf [64]
-        // - 0xf0ae9b80 ... 0xf0ae9bbf [64]
-        // - 0xf0ae9c80 ... 0xf0ae9cbf [64]
-        // - 0xf0ae9d80 ... 0xf0ae9dbf [64]
-        // - 0xf0ae9e80 ... 0xf0ae9ebf [64]
-        // - 0xf0ae9f80 ... 0xf0ae9fbf [64]
-        // - 0xf0aea080 ... 0xf0aea0bf [64]
-        // - 0xf0aea180 ... 0xf0aea1bf [64]
-        // - 0xf0aea280 ... 0xf0aea2bf [64]
-        // - 0xf0aea380 ... 0xf0aea3bf [64]
-        // - 0xf0aea480 ... 0xf0aea4bf [64]
-        // - 0xf0aea580 ... 0xf0aea5bf [64]
-        // - 0xf0aea680 ... 0xf0aea6bf [64]
-        // - 0xf0aea780 ... 0xf0aea7bf [64]
-        // - 0xf0aea880 ... 0xf0aea8bf [64]
-        // - 0xf0aea980 ... 0xf0aea9bf [64]
-        // - 0xf0aeaa80 ... 0xf0aeaabf [64]
-        // - 0xf0aeab80 ... 0xf0aeabbf [64]
-        // - 0xf0aeac80 ... 0xf0aeacbf [64]
-        // - 0xf0aead80 ... 0xf0aeadbf [64]
-        // - 0xf0aeae80 ... 0xf0aeaebf [64]
-        // - 0xf0aeaf80 ... 0xf0aeafa0 [33]
-
-        // 2EBF0: 0xf0aeafb0 ... 2EE5D: 0xf0aeb99d [622]
-        // - 0xf0aeafb0 ... 0xf0aeafbf [16]
-        // - 0xf0aeb080 ... 0xf0aeb0bf [64]
-        // - 0xf0aeb180 ... 0xf0aeb1bf [64]
-        // - 0xf0aeb280 ... 0xf0aeb2bf [64]
-        // - 0xf0aeb380 ... 0xf0aeb3bf [64]
-        // - 0xf0aeb480 ... 0xf0aeb4bf [64]
-        // - 0xf0aeb580 ... 0xf0aeb5bf [64]
-        // - 0xf0aeb680 ... 0xf0aeb6bf [64]
-        // - 0xf0aeb780 ... 0xf0aeb7bf [64]
-        // - 0xf0aeb880 ... 0xf0aeb8bf [64]
-        // - 0xf0aeb980 ... 0xf0aeb99d [30]
 
         // 2F800: 0xf0afa080 ... 2FA1D: 0xf0afa89d [542]
         // - 0xf0afa080 ... 0xf0afa0bf [64]
