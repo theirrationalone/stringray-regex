@@ -1,4 +1,40 @@
-180B..180D    ; Variation_Selector # Mn   [3] MONGOLIAN FREE VARIATION SELECTOR ONE..MONGOLIAN FREE VARIATION SELECTOR THREE
-180F          ; Variation_Selector # Mn       MONGOLIAN FREE VARIATION SELECTOR FOUR
-FE00..FE0F    ; Variation_Selector # Mn  [16] VARIATION SELECTOR-1..VARIATION SELECTOR-16
-E0100..E01EF  ; Variation_Selector # Mn [240] VARIATION SELECTOR-17..VARIATION SELECTOR-256
+string memory variationSelector180B = "\\u{180B}";
+bytes memory utf8VariationSelector180B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180B));
+console2.log("180B: ", string(utf8VariationSelector180B));
+console2.logBytes(utf8VariationSelector180B);
+
+console2.log("..");
+
+string memory variationSelector180D = "\\u{180D}";
+bytes memory utf8VariationSelector180D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180D));
+console2.log("180D: ", string(utf8VariationSelector180D));
+console2.logBytes(utf8VariationSelector180D);
+
+string memory variationSelector180F = "\\u{180F}";
+bytes memory utf8VariationSelector180F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180F));
+console2.log("180F: ", string(utf8VariationSelector180F));
+console2.logBytes(utf8VariationSelector180F);
+
+string memory variationSelectorFE00 = "\\u{FE00}";
+bytes memory utf8VariationSelectorFE00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorFE00));
+console2.log("FE00: ", string(utf8VariationSelectorFE00));
+console2.logBytes(utf8VariationSelectorFE00);
+
+console2.log("..");
+
+string memory variationSelectorFE0F = "\\u{FE0F}";
+bytes memory utf8VariationSelectorFE0F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorFE0F));
+console2.log("FE0F: ", string(utf8VariationSelectorFE0F));
+console2.logBytes(utf8VariationSelectorFE0F);
+
+string memory variationSelectorE0100 = "\\u{E0100}";
+bytes memory utf8VariationSelectorE0100 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorE0100));
+console2.log("E0100: ", string(utf8VariationSelectorE0100));
+console2.logBytes(utf8VariationSelectorE0100);
+
+console2.log("..");
+
+string memory variationSelectorE01EF = "\\u{E01EF}";
+bytes memory utf8VariationSelectorE01EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorE01EF));
+console2.log("E01EF: ", string(utf8VariationSelectorE01EF));
+console2.logBytes(utf8VariationSelectorE01EF);

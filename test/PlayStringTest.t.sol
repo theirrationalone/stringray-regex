@@ -14577,813 +14577,854 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertySentenceTerminal() public pure {
-        string memory sentenceTerminal0021 = "\\u{sentenceTerminal0021}";
+        string memory sentenceTerminal0021 = "\\u{0021}";
         bytes memory utf8SentenceTerminal0021 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0021));
         console2.log("0021: ", string(utf8SentenceTerminal0021));
         console2.logBytes(utf8SentenceTerminal0021);
 
-        string memory sentenceTerminal002E = "\\u{sentenceTerminal002E}";
+        string memory sentenceTerminal002E = "\\u{002E}";
         bytes memory utf8SentenceTerminal002E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal002E));
         console2.log("002E: ", string(utf8SentenceTerminal002E));
         console2.logBytes(utf8SentenceTerminal002E);
 
-        string memory sentenceTerminal003F = "\\u{sentenceTerminal003F}";
+        string memory sentenceTerminal003F = "\\u{003F}";
         bytes memory utf8SentenceTerminal003F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal003F));
         console2.log("003F: ", string(utf8SentenceTerminal003F));
         console2.logBytes(utf8SentenceTerminal003F);
 
-        string memory sentenceTerminal0589 = "\\u{sentenceTerminal0589}";
+        string memory sentenceTerminal0589 = "\\u{0589}";
         bytes memory utf8SentenceTerminal0589 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0589));
         console2.log("0589: ", string(utf8SentenceTerminal0589));
         console2.logBytes(utf8SentenceTerminal0589);
 
-        string memory sentenceTerminal061D = "\\u{sentenceTerminal061D}";
+        string memory sentenceTerminal061D = "\\u{061D}";
         bytes memory utf8SentenceTerminal061D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal061D));
         console2.log("061D: ", string(utf8SentenceTerminal061D));
         console2.logBytes(utf8SentenceTerminal061D);
 
         console2.log("..");
 
-        string memory sentenceTerminal061F = "\\u{sentenceTerminal061F}";
+        string memory sentenceTerminal061F = "\\u{061F}";
         bytes memory utf8SentenceTerminal061F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal061F));
         console2.log("061F: ", string(utf8SentenceTerminal061F));
         console2.logBytes(utf8SentenceTerminal061F);
 
-        string memory sentenceTerminal06D4 = "\\u{sentenceTerminal06D4}";
+        string memory sentenceTerminal06D4 = "\\u{06D4}";
         bytes memory utf8SentenceTerminal06D4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal06D4));
         console2.log("06D4: ", string(utf8SentenceTerminal06D4));
         console2.logBytes(utf8SentenceTerminal06D4);
 
-        string memory sentenceTerminal0700 = "\\u{sentenceTerminal0700}";
+        string memory sentenceTerminal0700 = "\\u{0700}";
         bytes memory utf8SentenceTerminal0700 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0700));
         console2.log("0700: ", string(utf8SentenceTerminal0700));
         console2.logBytes(utf8SentenceTerminal0700);
 
         console2.log("..");
 
-        string memory sentenceTerminal0702 = "\\u{sentenceTerminal0702}";
+        string memory sentenceTerminal0702 = "\\u{0702}";
         bytes memory utf8SentenceTerminal0702 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0702));
         console2.log("0702: ", string(utf8SentenceTerminal0702));
         console2.logBytes(utf8SentenceTerminal0702);
 
-        string memory sentenceTerminal07F9 = "\\u{sentenceTerminal07F9}";
+        string memory sentenceTerminal07F9 = "\\u{07F9}";
         bytes memory utf8SentenceTerminal07F9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal07F9));
         console2.log("07F9: ", string(utf8SentenceTerminal07F9));
         console2.logBytes(utf8SentenceTerminal07F9);
 
-        string memory sentenceTerminal0837 = "\\u{sentenceTerminal0837}";
+        string memory sentenceTerminal0837 = "\\u{0837}";
         bytes memory utf8SentenceTerminal0837 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0837));
         console2.log("0837: ", string(utf8SentenceTerminal0837));
         console2.logBytes(utf8SentenceTerminal0837);
 
-        string memory sentenceTerminal0839 = "\\u{sentenceTerminal0839}";
+        string memory sentenceTerminal0839 = "\\u{0839}";
         bytes memory utf8SentenceTerminal0839 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0839));
         console2.log("0839: ", string(utf8SentenceTerminal0839));
         console2.logBytes(utf8SentenceTerminal0839);
 
-        string memory sentenceTerminal083D = "\\u{sentenceTerminal083D}";
+        string memory sentenceTerminal083D = "\\u{083D}";
         bytes memory utf8SentenceTerminal083D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal083D));
         console2.log("083D: ", string(utf8SentenceTerminal083D));
         console2.logBytes(utf8SentenceTerminal083D);
 
         console2.log("..");
 
-        string memory sentenceTerminal083E = "\\u{sentenceTerminal083E}";
+        string memory sentenceTerminal083E = "\\u{083E}";
         bytes memory utf8SentenceTerminal083E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal083E));
         console2.log("083E: ", string(utf8SentenceTerminal083E));
         console2.logBytes(utf8SentenceTerminal083E);
 
-        string memory sentenceTerminal0964 = "\\u{sentenceTerminal0964}";
+        string memory sentenceTerminal0964 = "\\u{0964}";
         bytes memory utf8SentenceTerminal0964 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0964));
         console2.log("0964: ", string(utf8SentenceTerminal0964));
         console2.logBytes(utf8SentenceTerminal0964);
 
         console2.log("..");
 
-        string memory sentenceTerminal0965 = "\\u{sentenceTerminal0965}";
+        string memory sentenceTerminal0965 = "\\u{0965}";
         bytes memory utf8SentenceTerminal0965 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal0965));
         console2.log("0965: ", string(utf8SentenceTerminal0965));
         console2.logBytes(utf8SentenceTerminal0965);
 
-        string memory sentenceTerminal104A = "\\u{sentenceTerminal104A}";
+        string memory sentenceTerminal104A = "\\u{104A}";
         bytes memory utf8SentenceTerminal104A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal104A));
         console2.log("104A: ", string(utf8SentenceTerminal104A));
         console2.logBytes(utf8SentenceTerminal104A);
 
         console2.log("..");
 
-        string memory sentenceTerminal104B = "\\u{sentenceTerminal104B}";
+        string memory sentenceTerminal104B = "\\u{104B}";
         bytes memory utf8SentenceTerminal104B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal104B));
         console2.log("104B: ", string(utf8SentenceTerminal104B));
         console2.logBytes(utf8SentenceTerminal104B);
 
-        string memory sentenceTerminal1362 = "\\u{sentenceTerminal1362}";
+        string memory sentenceTerminal1362 = "\\u{1362}";
         bytes memory utf8SentenceTerminal1362 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1362));
         console2.log("1362: ", string(utf8SentenceTerminal1362));
         console2.logBytes(utf8SentenceTerminal1362);
 
-        string memory sentenceTerminal1367 = "\\u{sentenceTerminal1367}";
+        string memory sentenceTerminal1367 = "\\u{1367}";
         bytes memory utf8SentenceTerminal1367 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1367));
         console2.log("1367: ", string(utf8SentenceTerminal1367));
         console2.logBytes(utf8SentenceTerminal1367);
 
         console2.log("..");
 
-        string memory sentenceTerminal1368 = "\\u{sentenceTerminal1368}";
+        string memory sentenceTerminal1368 = "\\u{1368}";
         bytes memory utf8SentenceTerminal1368 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1368));
         console2.log("1368: ", string(utf8SentenceTerminal1368));
         console2.logBytes(utf8SentenceTerminal1368);
 
-        string memory sentenceTerminal166E = "\\u{sentenceTerminal166E}";
+        string memory sentenceTerminal166E = "\\u{166E}";
         bytes memory utf8SentenceTerminal166E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal166E));
         console2.log("166E: ", string(utf8SentenceTerminal166E));
         console2.logBytes(utf8SentenceTerminal166E);
 
-        string memory sentenceTerminal1735 = "\\u{sentenceTerminal1735}";
+        string memory sentenceTerminal1735 = "\\u{1735}";
         bytes memory utf8SentenceTerminal1735 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1735));
         console2.log("1735: ", string(utf8SentenceTerminal1735));
         console2.logBytes(utf8SentenceTerminal1735);
 
         console2.log("..");
 
-        string memory sentenceTerminal1736 = "\\u{sentenceTerminal1736}";
+        string memory sentenceTerminal1736 = "\\u{1736}";
         bytes memory utf8SentenceTerminal1736 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1736));
         console2.log("1736: ", string(utf8SentenceTerminal1736));
         console2.logBytes(utf8SentenceTerminal1736);
 
-        string memory sentenceTerminal17D4 = "\\u{sentenceTerminal17D4}";
+        string memory sentenceTerminal17D4 = "\\u{17D4}";
         bytes memory utf8SentenceTerminal17D4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal17D4));
         console2.log("17D4: ", string(utf8SentenceTerminal17D4));
         console2.logBytes(utf8SentenceTerminal17D4);
 
         console2.log("..");
 
-        string memory sentenceTerminal17D5 = "\\u{sentenceTerminal17D5}";
+        string memory sentenceTerminal17D5 = "\\u{17D5}";
         bytes memory utf8SentenceTerminal17D5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal17D5));
         console2.log("17D5: ", string(utf8SentenceTerminal17D5));
         console2.logBytes(utf8SentenceTerminal17D5);
 
-        string memory sentenceTerminal1803 = "\\u{sentenceTerminal1803}";
+        string memory sentenceTerminal1803 = "\\u{1803}";
         bytes memory utf8SentenceTerminal1803 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1803));
         console2.log("1803: ", string(utf8SentenceTerminal1803));
         console2.logBytes(utf8SentenceTerminal1803);
 
-        string memory sentenceTerminal1809 = "\\u{sentenceTerminal1809}";
+        string memory sentenceTerminal1809 = "\\u{1809}";
         bytes memory utf8SentenceTerminal1809 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1809));
         console2.log("1809: ", string(utf8SentenceTerminal1809));
         console2.logBytes(utf8SentenceTerminal1809);
 
-        string memory sentenceTerminal1944 = "\\u{sentenceTerminal1944}";
+        string memory sentenceTerminal1944 = "\\u{1944}";
         bytes memory utf8SentenceTerminal1944 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1944));
         console2.log("1944: ", string(utf8SentenceTerminal1944));
         console2.logBytes(utf8SentenceTerminal1944);
 
         console2.log("..");
 
-        string memory sentenceTerminal1945 = "\\u{sentenceTerminal1945}";
+        string memory sentenceTerminal1945 = "\\u{1945}";
         bytes memory utf8SentenceTerminal1945 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1945));
         console2.log("1945: ", string(utf8SentenceTerminal1945));
         console2.logBytes(utf8SentenceTerminal1945);
 
-        string memory sentenceTerminal1AA8 = "\\u{sentenceTerminal1AA8}";
+        string memory sentenceTerminal1AA8 = "\\u{1AA8}";
         bytes memory utf8SentenceTerminal1AA8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1AA8));
         console2.log("1AA8: ", string(utf8SentenceTerminal1AA8));
         console2.logBytes(utf8SentenceTerminal1AA8);
 
         console2.log("..");
 
-        string memory sentenceTerminal1AAB = "\\u{sentenceTerminal1AAB}";
+        string memory sentenceTerminal1AAB = "\\u{1AAB}";
         bytes memory utf8SentenceTerminal1AAB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1AAB));
         console2.log("1AAB: ", string(utf8SentenceTerminal1AAB));
         console2.logBytes(utf8SentenceTerminal1AAB);
 
-        string memory sentenceTerminal1B4E = "\\u{sentenceTerminal1B4E}";
+        string memory sentenceTerminal1B4E = "\\u{1B4E}";
         bytes memory utf8SentenceTerminal1B4E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B4E));
         console2.log("1B4E: ", string(utf8SentenceTerminal1B4E));
         console2.logBytes(utf8SentenceTerminal1B4E);
 
         console2.log("..");
 
-        string memory sentenceTerminal1B4F = "\\u{sentenceTerminal1B4F}";
+        string memory sentenceTerminal1B4F = "\\u{1B4F}";
         bytes memory utf8SentenceTerminal1B4F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B4F));
         console2.log("1B4F: ", string(utf8SentenceTerminal1B4F));
         console2.logBytes(utf8SentenceTerminal1B4F);
 
-        string memory sentenceTerminal1B5A = "\\u{sentenceTerminal1B5A}";
+        string memory sentenceTerminal1B5A = "\\u{1B5A}";
         bytes memory utf8SentenceTerminal1B5A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B5A));
         console2.log("1B5A: ", string(utf8SentenceTerminal1B5A));
         console2.logBytes(utf8SentenceTerminal1B5A);
 
         console2.log("..");
 
-        string memory sentenceTerminal1B5B = "\\u{sentenceTerminal1B5B}";
+        string memory sentenceTerminal1B5B = "\\u{1B5B}";
         bytes memory utf8SentenceTerminal1B5B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B5B));
         console2.log("1B5B: ", string(utf8SentenceTerminal1B5B));
         console2.logBytes(utf8SentenceTerminal1B5B);
 
-        string memory sentenceTerminal1B5E = "\\u{sentenceTerminal1B5E}";
+        string memory sentenceTerminal1B5E = "\\u{1B5E}";
         bytes memory utf8SentenceTerminal1B5E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B5E));
         console2.log("1B5E: ", string(utf8SentenceTerminal1B5E));
         console2.logBytes(utf8SentenceTerminal1B5E);
 
         console2.log("..");
 
-        string memory sentenceTerminal1B5F = "\\u{sentenceTerminal1B5F}";
+        string memory sentenceTerminal1B5F = "\\u{1B5F}";
         bytes memory utf8SentenceTerminal1B5F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B5F));
         console2.log("1B5F: ", string(utf8SentenceTerminal1B5F));
         console2.logBytes(utf8SentenceTerminal1B5F);
 
-        string memory sentenceTerminal1B7D = "\\u{sentenceTerminal1B7D}";
+        string memory sentenceTerminal1B7D = "\\u{1B7D}";
         bytes memory utf8SentenceTerminal1B7D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B7D));
         console2.log("1B7D: ", string(utf8SentenceTerminal1B7D));
         console2.logBytes(utf8SentenceTerminal1B7D);
 
         console2.log("..");
 
-        string memory sentenceTerminal1B7F = "\\u{sentenceTerminal1B7F}";
+        string memory sentenceTerminal1B7F = "\\u{1B7F}";
         bytes memory utf8SentenceTerminal1B7F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1B7F));
         console2.log("1B7F: ", string(utf8SentenceTerminal1B7F));
         console2.logBytes(utf8SentenceTerminal1B7F);
 
-        string memory sentenceTerminal1C3B = "\\u{sentenceTerminal1C3B}";
+        string memory sentenceTerminal1C3B = "\\u{1C3B}";
         bytes memory utf8SentenceTerminal1C3B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1C3B));
         console2.log("1C3B: ", string(utf8SentenceTerminal1C3B));
         console2.logBytes(utf8SentenceTerminal1C3B);
 
         console2.log("..");
 
-        string memory sentenceTerminal1C3C = "\\u{sentenceTerminal1C3C}";
+        string memory sentenceTerminal1C3C = "\\u{1C3C}";
         bytes memory utf8SentenceTerminal1C3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1C3C));
         console2.log("1C3C: ", string(utf8SentenceTerminal1C3C));
         console2.logBytes(utf8SentenceTerminal1C3C);
 
-        string memory sentenceTerminal1C7E = "\\u{sentenceTerminal1C7E}";
+        string memory sentenceTerminal1C7E = "\\u{1C7E}";
         bytes memory utf8SentenceTerminal1C7E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1C7E));
         console2.log("1C7E: ", string(utf8SentenceTerminal1C7E));
         console2.logBytes(utf8SentenceTerminal1C7E);
 
         console2.log("..");
 
-        string memory sentenceTerminal1C7F = "\\u{sentenceTerminal1C7F}";
+        string memory sentenceTerminal1C7F = "\\u{1C7F}";
         bytes memory utf8SentenceTerminal1C7F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1C7F));
         console2.log("1C7F: ", string(utf8SentenceTerminal1C7F));
         console2.logBytes(utf8SentenceTerminal1C7F);
 
-        string memory sentenceTerminal2024 = "\\u{sentenceTerminal2024}";
+        string memory sentenceTerminal2024 = "\\u{2024}";
         bytes memory utf8SentenceTerminal2024 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2024));
         console2.log("2024: ", string(utf8SentenceTerminal2024));
         console2.logBytes(utf8SentenceTerminal2024);
 
-        string memory sentenceTerminal203C = "\\u{sentenceTerminal203C}";
+        string memory sentenceTerminal203C = "\\u{203C}";
         bytes memory utf8SentenceTerminal203C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal203C));
         console2.log("203C: ", string(utf8SentenceTerminal203C));
         console2.logBytes(utf8SentenceTerminal203C);
 
         console2.log("..");
 
-        string memory sentenceTerminal203D = "\\u{sentenceTerminal203D}";
+        string memory sentenceTerminal203D = "\\u{203D}";
         bytes memory utf8SentenceTerminal203D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal203D));
         console2.log("203D: ", string(utf8SentenceTerminal203D));
         console2.logBytes(utf8SentenceTerminal203D);
 
-        string memory sentenceTerminal2047 = "\\u{sentenceTerminal2047}";
+        string memory sentenceTerminal2047 = "\\u{2047}";
         bytes memory utf8SentenceTerminal2047 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2047));
         console2.log("2047: ", string(utf8SentenceTerminal2047));
         console2.logBytes(utf8SentenceTerminal2047);
 
         console2.log("..");
 
-        string memory sentenceTerminal2049 = "\\u{sentenceTerminal2049}";
+        string memory sentenceTerminal2049 = "\\u{2049}";
         bytes memory utf8SentenceTerminal2049 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2049));
         console2.log("2049: ", string(utf8SentenceTerminal2049));
         console2.logBytes(utf8SentenceTerminal2049);
 
-        string memory sentenceTerminal2CF9 = "\\u{sentenceTerminal2CF9}";
+        string memory sentenceTerminal2CF9 = "\\u{2CF9}";
         bytes memory utf8SentenceTerminal2CF9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2CF9));
         console2.log("2CF9: ", string(utf8SentenceTerminal2CF9));
         console2.logBytes(utf8SentenceTerminal2CF9);
 
         console2.log("..");
 
-        string memory sentenceTerminal2CFB = "\\u{sentenceTerminal2CFB}";
+        string memory sentenceTerminal2CFB = "\\u{2CFB}";
         bytes memory utf8SentenceTerminal2CFB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2CFB));
         console2.log("2CFB: ", string(utf8SentenceTerminal2CFB));
         console2.logBytes(utf8SentenceTerminal2CFB);
 
-        string memory sentenceTerminal2E2E = "\\u{sentenceTerminal2E2E}";
+        string memory sentenceTerminal2E2E = "\\u{2E2E}";
         bytes memory utf8SentenceTerminal2E2E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2E2E));
         console2.log("2E2E: ", string(utf8SentenceTerminal2E2E));
         console2.logBytes(utf8SentenceTerminal2E2E);
 
-        string memory sentenceTerminal2E3C = "\\u{sentenceTerminal2E3C}";
+        string memory sentenceTerminal2E3C = "\\u{2E3C}";
         bytes memory utf8SentenceTerminal2E3C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2E3C));
         console2.log("2E3C: ", string(utf8SentenceTerminal2E3C));
         console2.logBytes(utf8SentenceTerminal2E3C);
 
-        string memory sentenceTerminal2E53 = "\\u{sentenceTerminal2E53}";
+        string memory sentenceTerminal2E53 = "\\u{2E53}";
         bytes memory utf8SentenceTerminal2E53 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2E53));
         console2.log("2E53: ", string(utf8SentenceTerminal2E53));
         console2.logBytes(utf8SentenceTerminal2E53);
 
         console2.log("..");
 
-        string memory sentenceTerminal2E54 = "\\u{sentenceTerminal2E54}";
+        string memory sentenceTerminal2E54 = "\\u{2E54}";
         bytes memory utf8SentenceTerminal2E54 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal2E54));
         console2.log("2E54: ", string(utf8SentenceTerminal2E54));
         console2.logBytes(utf8SentenceTerminal2E54);
 
-        string memory sentenceTerminal3002 = "\\u{sentenceTerminal3002}";
+        string memory sentenceTerminal3002 = "\\u{3002}";
         bytes memory utf8SentenceTerminal3002 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal3002));
         console2.log("3002: ", string(utf8SentenceTerminal3002));
         console2.logBytes(utf8SentenceTerminal3002);
 
-        string memory sentenceTerminalA4FF = "\\u{sentenceTerminalA4FF}";
+        string memory sentenceTerminalA4FF = "\\u{A4FF}";
         bytes memory utf8SentenceTerminalA4FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA4FF));
         console2.log("A4FF: ", string(utf8SentenceTerminalA4FF));
         console2.logBytes(utf8SentenceTerminalA4FF);
 
-        string memory sentenceTerminalA60E = "\\u{sentenceTerminalA60E}";
+        string memory sentenceTerminalA60E = "\\u{A60E}";
         bytes memory utf8SentenceTerminalA60E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA60E));
         console2.log("A60E: ", string(utf8SentenceTerminalA60E));
         console2.logBytes(utf8SentenceTerminalA60E);
 
         console2.log("..");
 
-        string memory sentenceTerminalA60F = "\\u{sentenceTerminalA60F}";
+        string memory sentenceTerminalA60F = "\\u{A60F}";
         bytes memory utf8SentenceTerminalA60F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA60F));
         console2.log("A60F: ", string(utf8SentenceTerminalA60F));
         console2.logBytes(utf8SentenceTerminalA60F);
 
-        string memory sentenceTerminalA6F3 = "\\u{sentenceTerminalA6F3}";
+        string memory sentenceTerminalA6F3 = "\\u{A6F3}";
         bytes memory utf8SentenceTerminalA6F3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA6F3));
         console2.log("A6F3: ", string(utf8SentenceTerminalA6F3));
         console2.logBytes(utf8SentenceTerminalA6F3);
 
-        string memory sentenceTerminalA6F7 = "\\u{sentenceTerminalA6F7}";
+        string memory sentenceTerminalA6F7 = "\\u{A6F7}";
         bytes memory utf8SentenceTerminalA6F7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA6F7));
         console2.log("A6F7: ", string(utf8SentenceTerminalA6F7));
         console2.logBytes(utf8SentenceTerminalA6F7);
 
-        string memory sentenceTerminalA876 = "\\u{sentenceTerminalA876}";
+        string memory sentenceTerminalA876 = "\\u{A876}";
         bytes memory utf8SentenceTerminalA876 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA876));
         console2.log("A876: ", string(utf8SentenceTerminalA876));
         console2.logBytes(utf8SentenceTerminalA876);
 
         console2.log("..");
 
-        string memory sentenceTerminalA877 = "\\u{sentenceTerminalA877}";
+        string memory sentenceTerminalA877 = "\\u{A877}";
         bytes memory utf8SentenceTerminalA877 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA877));
         console2.log("A877: ", string(utf8SentenceTerminalA877));
         console2.logBytes(utf8SentenceTerminalA877);
 
-        string memory sentenceTerminalA8CE = "\\u{sentenceTerminalA8CE}";
+        string memory sentenceTerminalA8CE = "\\u{A8CE}";
         bytes memory utf8SentenceTerminalA8CE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA8CE));
         console2.log("A8CE: ", string(utf8SentenceTerminalA8CE));
         console2.logBytes(utf8SentenceTerminalA8CE);
 
         console2.log("..");
 
-        string memory sentenceTerminalA8CF = "\\u{sentenceTerminalA8CF}";
+        string memory sentenceTerminalA8CF = "\\u{A8CF}";
         bytes memory utf8SentenceTerminalA8CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA8CF));
         console2.log("A8CF: ", string(utf8SentenceTerminalA8CF));
         console2.logBytes(utf8SentenceTerminalA8CF);
 
-        string memory sentenceTerminalA92F = "\\u{sentenceTerminalA92F}";
+        string memory sentenceTerminalA92F = "\\u{A92F}";
         bytes memory utf8SentenceTerminalA92F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA92F));
         console2.log("A92F: ", string(utf8SentenceTerminalA92F));
         console2.logBytes(utf8SentenceTerminalA92F);
 
-        string memory sentenceTerminalA9C8 = "\\u{sentenceTerminalA9C8}";
+        string memory sentenceTerminalA9C8 = "\\u{A9C8}";
         bytes memory utf8SentenceTerminalA9C8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA9C8));
         console2.log("A9C8: ", string(utf8SentenceTerminalA9C8));
         console2.logBytes(utf8SentenceTerminalA9C8);
 
         console2.log("..");
 
-        string memory sentenceTerminalA9C9 = "\\u{sentenceTerminalA9C9}";
+        string memory sentenceTerminalA9C9 = "\\u{A9C9}";
         bytes memory utf8SentenceTerminalA9C9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalA9C9));
         console2.log("A9C9: ", string(utf8SentenceTerminalA9C9));
         console2.logBytes(utf8SentenceTerminalA9C9);
 
-        string memory sentenceTerminalAA5D = "\\u{sentenceTerminalAA5D}";
+        string memory sentenceTerminalAA5D = "\\u{AA5D}";
         bytes memory utf8SentenceTerminalAA5D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalAA5D));
         console2.log("AA5D: ", string(utf8SentenceTerminalAA5D));
         console2.logBytes(utf8SentenceTerminalAA5D);
 
         console2.log("..");
 
-        string memory sentenceTerminalAA5F = "\\u{sentenceTerminalAA5F}";
+        string memory sentenceTerminalAA5F = "\\u{AA5F}";
         bytes memory utf8SentenceTerminalAA5F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalAA5F));
         console2.log("AA5F: ", string(utf8SentenceTerminalAA5F));
         console2.logBytes(utf8SentenceTerminalAA5F);
 
-        string memory sentenceTerminalAAF0 = "\\u{sentenceTerminalAAF0}";
+        string memory sentenceTerminalAAF0 = "\\u{AAF0}";
         bytes memory utf8SentenceTerminalAAF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalAAF0));
         console2.log("AAF0: ", string(utf8SentenceTerminalAAF0));
         console2.logBytes(utf8SentenceTerminalAAF0);
 
         console2.log("..");
 
-        string memory sentenceTerminalAAF1 = "\\u{sentenceTerminalAAF1}";
+        string memory sentenceTerminalAAF1 = "\\u{AAF1}";
         bytes memory utf8SentenceTerminalAAF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalAAF1));
         console2.log("AAF1: ", string(utf8SentenceTerminalAAF1));
         console2.logBytes(utf8SentenceTerminalAAF1);
 
-        string memory sentenceTerminalABEB = "\\u{sentenceTerminalABEB}";
+        string memory sentenceTerminalABEB = "\\u{ABEB}";
         bytes memory utf8SentenceTerminalABEB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalABEB));
         console2.log("ABEB: ", string(utf8SentenceTerminalABEB));
         console2.logBytes(utf8SentenceTerminalABEB);
 
-        string memory sentenceTerminalFE12 = "\\u{sentenceTerminalFE12}";
+        string memory sentenceTerminalFE12 = "\\u{FE12}";
         bytes memory utf8SentenceTerminalFE12 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE12));
         console2.log("FE12: ", string(utf8SentenceTerminalFE12));
         console2.logBytes(utf8SentenceTerminalFE12);
 
-        string memory sentenceTerminalFE15 = "\\u{sentenceTerminalFE15}";
+        string memory sentenceTerminalFE15 = "\\u{FE15}";
         bytes memory utf8SentenceTerminalFE15 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE15));
         console2.log("FE15: ", string(utf8SentenceTerminalFE15));
         console2.logBytes(utf8SentenceTerminalFE15);
 
         console2.log("..");
 
-        string memory sentenceTerminalFE16 = "\\u{sentenceTerminalFE16}";
+        string memory sentenceTerminalFE16 = "\\u{FE16}";
         bytes memory utf8SentenceTerminalFE16 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE16));
         console2.log("FE16: ", string(utf8SentenceTerminalFE16));
         console2.logBytes(utf8SentenceTerminalFE16);
 
-        string memory sentenceTerminalFE52 = "\\u{sentenceTerminalFE52}";
+        string memory sentenceTerminalFE52 = "\\u{FE52}";
         bytes memory utf8SentenceTerminalFE52 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE52));
         console2.log("FE52: ", string(utf8SentenceTerminalFE52));
         console2.logBytes(utf8SentenceTerminalFE52);
 
-        string memory sentenceTerminalFE56 = "\\u{sentenceTerminalFE56}";
+        string memory sentenceTerminalFE56 = "\\u{FE56}";
         bytes memory utf8SentenceTerminalFE56 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE56));
         console2.log("FE56: ", string(utf8SentenceTerminalFE56));
         console2.logBytes(utf8SentenceTerminalFE56);
 
         console2.log("..");
 
-        string memory sentenceTerminalFE57 = "\\u{sentenceTerminalFE57}";
+        string memory sentenceTerminalFE57 = "\\u{FE57}";
         bytes memory utf8SentenceTerminalFE57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFE57));
         console2.log("FE57: ", string(utf8SentenceTerminalFE57));
         console2.logBytes(utf8SentenceTerminalFE57);
 
-        string memory sentenceTerminalFF01 = "\\u{sentenceTerminalFF01}";
+        string memory sentenceTerminalFF01 = "\\u{FF01}";
         bytes memory utf8SentenceTerminalFF01 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFF01));
         console2.log("FF01: ", string(utf8SentenceTerminalFF01));
         console2.logBytes(utf8SentenceTerminalFF01);
 
-        string memory sentenceTerminalFF0E = "\\u{sentenceTerminalFF0E}";
+        string memory sentenceTerminalFF0E = "\\u{FF0E}";
         bytes memory utf8SentenceTerminalFF0E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFF0E));
         console2.log("FF0E: ", string(utf8SentenceTerminalFF0E));
         console2.logBytes(utf8SentenceTerminalFF0E);
 
-        string memory sentenceTerminalFF1F = "\\u{sentenceTerminalFF1F}";
+        string memory sentenceTerminalFF1F = "\\u{FF1F}";
         bytes memory utf8SentenceTerminalFF1F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFF1F));
         console2.log("FF1F: ", string(utf8SentenceTerminalFF1F));
         console2.logBytes(utf8SentenceTerminalFF1F);
 
-        string memory sentenceTerminalFF61 = "\\u{sentenceTerminalFF61}";
+        string memory sentenceTerminalFF61 = "\\u{FF61}";
         bytes memory utf8SentenceTerminalFF61 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminalFF61));
         console2.log("FF61: ", string(utf8SentenceTerminalFF61));
         console2.logBytes(utf8SentenceTerminalFF61);
 
-        string memory sentenceTerminal10A56 = "\\u{sentenceTerminal10A56}";
+        string memory sentenceTerminal10A56 = "\\u{10A56}";
         bytes memory utf8SentenceTerminal10A56 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10A56));
         console2.log("10A56: ", string(utf8SentenceTerminal10A56));
         console2.logBytes(utf8SentenceTerminal10A56);
 
         console2.log("..");
 
-        string memory sentenceTerminal10A57 = "\\u{sentenceTerminal10A57}";
+        string memory sentenceTerminal10A57 = "\\u{10A57}";
         bytes memory utf8SentenceTerminal10A57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10A57));
         console2.log("10A57: ", string(utf8SentenceTerminal10A57));
         console2.logBytes(utf8SentenceTerminal10A57);
 
-        string memory sentenceTerminal10F55 = "\\u{sentenceTerminal10F55}";
+        string memory sentenceTerminal10F55 = "\\u{10F55}";
         bytes memory utf8SentenceTerminal10F55 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10F55));
         console2.log("10F55: ", string(utf8SentenceTerminal10F55));
         console2.logBytes(utf8SentenceTerminal10F55);
 
         console2.log("..");
 
-        string memory sentenceTerminal10F59 = "\\u{sentenceTerminal10F59}";
+        string memory sentenceTerminal10F59 = "\\u{10F59}";
         bytes memory utf8SentenceTerminal10F59 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10F59));
         console2.log("10F59: ", string(utf8SentenceTerminal10F59));
         console2.logBytes(utf8SentenceTerminal10F59);
 
-        string memory sentenceTerminal10F86 = "\\u{sentenceTerminal10F86}";
+        string memory sentenceTerminal10F86 = "\\u{10F86}";
         bytes memory utf8SentenceTerminal10F86 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10F86));
         console2.log("10F86: ", string(utf8SentenceTerminal10F86));
         console2.logBytes(utf8SentenceTerminal10F86);
 
         console2.log("..");
 
-        string memory sentenceTerminal10F89 = "\\u{sentenceTerminal10F89}";
+        string memory sentenceTerminal10F89 = "\\u{10F89}";
         bytes memory utf8SentenceTerminal10F89 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal10F89));
         console2.log("10F89: ", string(utf8SentenceTerminal10F89));
         console2.logBytes(utf8SentenceTerminal10F89);
 
-        string memory sentenceTerminal11047 = "\\u{sentenceTerminal11047}";
+        string memory sentenceTerminal11047 = "\\u{11047}";
         bytes memory utf8SentenceTerminal11047 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11047));
         console2.log("11047: ", string(utf8SentenceTerminal11047));
         console2.logBytes(utf8SentenceTerminal11047);
 
         console2.log("..");
 
-        string memory sentenceTerminal11048 = "\\u{sentenceTerminal11048}";
+        string memory sentenceTerminal11048 = "\\u{11048}";
         bytes memory utf8SentenceTerminal11048 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11048));
         console2.log("11048: ", string(utf8SentenceTerminal11048));
         console2.logBytes(utf8SentenceTerminal11048);
 
-        string memory sentenceTerminal110BE = "\\u{sentenceTerminal110BE}";
+        string memory sentenceTerminal110BE = "\\u{110BE}";
         bytes memory utf8SentenceTerminal110BE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal110BE));
         console2.log("110BE: ", string(utf8SentenceTerminal110BE));
         console2.logBytes(utf8SentenceTerminal110BE);
 
         console2.log("..");
 
-        string memory sentenceTerminal110C1 = "\\u{sentenceTerminal110C1}";
+        string memory sentenceTerminal110C1 = "\\u{110C1}";
         bytes memory utf8SentenceTerminal110C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal110C1));
         console2.log("110C1: ", string(utf8SentenceTerminal110C1));
         console2.logBytes(utf8SentenceTerminal110C1);
 
-        string memory sentenceTerminal11141 = "\\u{sentenceTerminal11141}";
+        string memory sentenceTerminal11141 = "\\u{11141}";
         bytes memory utf8SentenceTerminal11141 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11141));
         console2.log("11141: ", string(utf8SentenceTerminal11141));
         console2.logBytes(utf8SentenceTerminal11141);
 
         console2.log("..");
 
-        string memory sentenceTerminal11143 = "\\u{sentenceTerminal11143}";
+        string memory sentenceTerminal11143 = "\\u{11143}";
         bytes memory utf8SentenceTerminal11143 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11143));
         console2.log("11143: ", string(utf8SentenceTerminal11143));
         console2.logBytes(utf8SentenceTerminal11143);
 
-        string memory sentenceTerminal111C5 = "\\u{sentenceTerminal111C5}";
+        string memory sentenceTerminal111C5 = "\\u{111C5}";
         bytes memory utf8SentenceTerminal111C5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal111C5));
         console2.log("111C5: ", string(utf8SentenceTerminal111C5));
         console2.logBytes(utf8SentenceTerminal111C5);
 
         console2.log("..");
 
-        string memory sentenceTerminal111C6 = "\\u{sentenceTerminal111C6}";
+        string memory sentenceTerminal111C6 = "\\u{111C6}";
         bytes memory utf8SentenceTerminal111C6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal111C6));
         console2.log("111C6: ", string(utf8SentenceTerminal111C6));
         console2.logBytes(utf8SentenceTerminal111C6);
 
-        string memory sentenceTerminal111CD = "\\u{sentenceTerminal111CD}";
+        string memory sentenceTerminal111CD = "\\u{111CD}";
         bytes memory utf8SentenceTerminal111CD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal111CD));
         console2.log("111CD: ", string(utf8SentenceTerminal111CD));
         console2.logBytes(utf8SentenceTerminal111CD);
 
-        string memory sentenceTerminal111DE = "\\u{sentenceTerminal111DE}";
+        string memory sentenceTerminal111DE = "\\u{111DE}";
         bytes memory utf8SentenceTerminal111DE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal111DE));
         console2.log("111DE: ", string(utf8SentenceTerminal111DE));
         console2.logBytes(utf8SentenceTerminal111DE);
 
         console2.log("..");
 
-        string memory sentenceTerminal111DF = "\\u{sentenceTerminal111DF}";
+        string memory sentenceTerminal111DF = "\\u{111DF}";
         bytes memory utf8SentenceTerminal111DF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal111DF));
         console2.log("111DF: ", string(utf8SentenceTerminal111DF));
         console2.logBytes(utf8SentenceTerminal111DF);
 
-        string memory sentenceTerminal11238 = "\\u{sentenceTerminal11238}";
+        string memory sentenceTerminal11238 = "\\u{11238}";
         bytes memory utf8SentenceTerminal11238 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11238));
         console2.log("11238: ", string(utf8SentenceTerminal11238));
         console2.logBytes(utf8SentenceTerminal11238);
 
         console2.log("..");
 
-        string memory sentenceTerminal11239 = "\\u{sentenceTerminal11239}";
+        string memory sentenceTerminal11239 = "\\u{11239}";
         bytes memory utf8SentenceTerminal11239 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11239));
         console2.log("11239: ", string(utf8SentenceTerminal11239));
         console2.logBytes(utf8SentenceTerminal11239);
 
-        string memory sentenceTerminal1123B = "\\u{sentenceTerminal1123B}";
+        string memory sentenceTerminal1123B = "\\u{1123B}";
         bytes memory utf8SentenceTerminal1123B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1123B));
         console2.log("1123B: ", string(utf8SentenceTerminal1123B));
         console2.logBytes(utf8SentenceTerminal1123B);
 
         console2.log("..");
 
-        string memory sentenceTerminal1123C = "\\u{sentenceTerminal1123C}";
+        string memory sentenceTerminal1123C = "\\u{1123C}";
         bytes memory utf8SentenceTerminal1123C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1123C));
         console2.log("1123C: ", string(utf8SentenceTerminal1123C));
         console2.logBytes(utf8SentenceTerminal1123C);
 
-        string memory sentenceTerminal112A9 = "\\u{sentenceTerminal112A9}";
+        string memory sentenceTerminal112A9 = "\\u{112A9}";
         bytes memory utf8SentenceTerminal112A9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal112A9));
         console2.log("112A9: ", string(utf8SentenceTerminal112A9));
         console2.logBytes(utf8SentenceTerminal112A9);
 
-        string memory sentenceTerminal113D4 = "\\u{sentenceTerminal113D4}";
+        string memory sentenceTerminal113D4 = "\\u{113D4}";
         bytes memory utf8SentenceTerminal113D4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal113D4));
         console2.log("113D4: ", string(utf8SentenceTerminal113D4));
         console2.logBytes(utf8SentenceTerminal113D4);
 
         console2.log("..");
 
-        string memory sentenceTerminal113D5 = "\\u{sentenceTerminal113D5}";
+        string memory sentenceTerminal113D5 = "\\u{113D5}";
         bytes memory utf8SentenceTerminal113D5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal113D5));
         console2.log("113D5: ", string(utf8SentenceTerminal113D5));
         console2.logBytes(utf8SentenceTerminal113D5);
 
-        string memory sentenceTerminal1144B = "\\u{sentenceTerminal1144B}";
+        string memory sentenceTerminal1144B = "\\u{1144B}";
         bytes memory utf8SentenceTerminal1144B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1144B));
         console2.log("1144B: ", string(utf8SentenceTerminal1144B));
         console2.logBytes(utf8SentenceTerminal1144B);
 
         console2.log("..");
 
-        string memory sentenceTerminal1144C = "\\u{sentenceTerminal1144C}";
+        string memory sentenceTerminal1144C = "\\u{1144C}";
         bytes memory utf8SentenceTerminal1144C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1144C));
         console2.log("1144C: ", string(utf8SentenceTerminal1144C));
         console2.logBytes(utf8SentenceTerminal1144C);
 
-        string memory sentenceTerminal115C2 = "\\u{sentenceTerminal115C2}";
+        string memory sentenceTerminal115C2 = "\\u{115C2}";
         bytes memory utf8SentenceTerminal115C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal115C2));
         console2.log("115C2: ", string(utf8SentenceTerminal115C2));
         console2.logBytes(utf8SentenceTerminal115C2);
 
         console2.log("..");
 
-        string memory sentenceTerminal115C3 = "\\u{sentenceTerminal115C3}";
+        string memory sentenceTerminal115C3 = "\\u{115C3}";
         bytes memory utf8SentenceTerminal115C3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal115C3));
         console2.log("115C3: ", string(utf8SentenceTerminal115C3));
         console2.logBytes(utf8SentenceTerminal115C3);
 
-        string memory sentenceTerminal115C9 = "\\u{sentenceTerminal115C9}";
+        string memory sentenceTerminal115C9 = "\\u{115C9}";
         bytes memory utf8SentenceTerminal115C9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal115C9));
         console2.log("115C9: ", string(utf8SentenceTerminal115C9));
         console2.logBytes(utf8SentenceTerminal115C9);
 
         console2.log("..");
 
-        string memory sentenceTerminal115D7 = "\\u{sentenceTerminal115D7}";
+        string memory sentenceTerminal115D7 = "\\u{115D7}";
         bytes memory utf8SentenceTerminal115D7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal115D7));
         console2.log("115D7: ", string(utf8SentenceTerminal115D7));
         console2.logBytes(utf8SentenceTerminal115D7);
 
-        string memory sentenceTerminal11641 = "\\u{sentenceTerminal11641}";
+        string memory sentenceTerminal11641 = "\\u{11641}";
         bytes memory utf8SentenceTerminal11641 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11641));
         console2.log("11641: ", string(utf8SentenceTerminal11641));
         console2.logBytes(utf8SentenceTerminal11641);
 
         console2.log("..");
 
-        string memory sentenceTerminal11642 = "\\u{sentenceTerminal11642}";
+        string memory sentenceTerminal11642 = "\\u{11642}";
         bytes memory utf8SentenceTerminal11642 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11642));
         console2.log("11642: ", string(utf8SentenceTerminal11642));
         console2.logBytes(utf8SentenceTerminal11642);
 
-        string memory sentenceTerminal1173C = "\\u{sentenceTerminal1173C}";
+        string memory sentenceTerminal1173C = "\\u{1173C}";
         bytes memory utf8SentenceTerminal1173C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1173C));
         console2.log("1173C: ", string(utf8SentenceTerminal1173C));
         console2.logBytes(utf8SentenceTerminal1173C);
 
         console2.log("..");
 
-        string memory sentenceTerminal1173E = "\\u{sentenceTerminal1173E}";
+        string memory sentenceTerminal1173E = "\\u{1173E}";
         bytes memory utf8SentenceTerminal1173E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1173E));
         console2.log("1173E: ", string(utf8SentenceTerminal1173E));
         console2.logBytes(utf8SentenceTerminal1173E);
 
-        string memory sentenceTerminal11944 = "\\u{sentenceTerminal11944}";
+        string memory sentenceTerminal11944 = "\\u{11944}";
         bytes memory utf8SentenceTerminal11944 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11944));
         console2.log("11944: ", string(utf8SentenceTerminal11944));
         console2.logBytes(utf8SentenceTerminal11944);
 
-        string memory sentenceTerminal11946 = "\\u{sentenceTerminal11946}";
+        string memory sentenceTerminal11946 = "\\u{11946}";
         bytes memory utf8SentenceTerminal11946 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11946));
         console2.log("11946: ", string(utf8SentenceTerminal11946));
         console2.logBytes(utf8SentenceTerminal11946);
 
-        string memory sentenceTerminal11A42 = "\\u{sentenceTerminal11A42}";
+        string memory sentenceTerminal11A42 = "\\u{11A42}";
         bytes memory utf8SentenceTerminal11A42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11A42));
         console2.log("11A42: ", string(utf8SentenceTerminal11A42));
         console2.logBytes(utf8SentenceTerminal11A42);
 
         console2.log("..");
 
-        string memory sentenceTerminal11A43 = "\\u{sentenceTerminal11A43}";
+        string memory sentenceTerminal11A43 = "\\u{11A43}";
         bytes memory utf8SentenceTerminal11A43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11A43));
         console2.log("11A43: ", string(utf8SentenceTerminal11A43));
         console2.logBytes(utf8SentenceTerminal11A43);
 
-        string memory sentenceTerminal11A9B = "\\u{sentenceTerminal11A9B}";
+        string memory sentenceTerminal11A9B = "\\u{11A9B}";
         bytes memory utf8SentenceTerminal11A9B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11A9B));
         console2.log("11A9B: ", string(utf8SentenceTerminal11A9B));
         console2.logBytes(utf8SentenceTerminal11A9B);
 
         console2.log("..");
 
-        string memory sentenceTerminal11A9C = "\\u{sentenceTerminal11A9C}";
+        string memory sentenceTerminal11A9C = "\\u{11A9C}";
         bytes memory utf8SentenceTerminal11A9C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11A9C));
         console2.log("11A9C: ", string(utf8SentenceTerminal11A9C));
         console2.logBytes(utf8SentenceTerminal11A9C);
 
-        string memory sentenceTerminal11C41 = "\\u{sentenceTerminal11C41}";
+        string memory sentenceTerminal11C41 = "\\u{11C41}";
         bytes memory utf8SentenceTerminal11C41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11C41));
         console2.log("11C41: ", string(utf8SentenceTerminal11C41));
         console2.logBytes(utf8SentenceTerminal11C41);
 
         console2.log("..");
 
-        string memory sentenceTerminal11C42 = "\\u{sentenceTerminal11C42}";
+        string memory sentenceTerminal11C42 = "\\u{11C42}";
         bytes memory utf8SentenceTerminal11C42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11C42));
         console2.log("11C42: ", string(utf8SentenceTerminal11C42));
         console2.logBytes(utf8SentenceTerminal11C42);
 
-        string memory sentenceTerminal11EF7 = "\\u{sentenceTerminal11EF7}";
+        string memory sentenceTerminal11EF7 = "\\u{11EF7}";
         bytes memory utf8SentenceTerminal11EF7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11EF7));
         console2.log("11EF7: ", string(utf8SentenceTerminal11EF7));
         console2.logBytes(utf8SentenceTerminal11EF7);
 
         console2.log("..");
 
-        string memory sentenceTerminal11EF8 = "\\u{sentenceTerminal11EF8}";
+        string memory sentenceTerminal11EF8 = "\\u{11EF8}";
         bytes memory utf8SentenceTerminal11EF8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11EF8));
         console2.log("11EF8: ", string(utf8SentenceTerminal11EF8));
         console2.logBytes(utf8SentenceTerminal11EF8);
 
-        string memory sentenceTerminal11F43 = "\\u{sentenceTerminal11F43}";
+        string memory sentenceTerminal11F43 = "\\u{11F43}";
         bytes memory utf8SentenceTerminal11F43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11F43));
         console2.log("11F43: ", string(utf8SentenceTerminal11F43));
         console2.logBytes(utf8SentenceTerminal11F43);
 
         console2.log("..");
 
-        string memory sentenceTerminal11F44 = "\\u{sentenceTerminal11F44}";
+        string memory sentenceTerminal11F44 = "\\u{11F44}";
         bytes memory utf8SentenceTerminal11F44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal11F44));
         console2.log("11F44: ", string(utf8SentenceTerminal11F44));
         console2.logBytes(utf8SentenceTerminal11F44);
 
-        string memory sentenceTerminal16A6E = "\\u{sentenceTerminal16A6E}";
+        string memory sentenceTerminal16A6E = "\\u{16A6E}";
         bytes memory utf8SentenceTerminal16A6E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16A6E));
         console2.log("16A6E: ", string(utf8SentenceTerminal16A6E));
         console2.logBytes(utf8SentenceTerminal16A6E);
 
         console2.log("..");
 
-        string memory sentenceTerminal16A6F = "\\u{sentenceTerminal16A6F}";
+        string memory sentenceTerminal16A6F = "\\u{16A6F}";
         bytes memory utf8SentenceTerminal16A6F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16A6F));
         console2.log("16A6F: ", string(utf8SentenceTerminal16A6F));
         console2.logBytes(utf8SentenceTerminal16A6F);
 
-        string memory sentenceTerminal16AF5 = "\\u{sentenceTerminal16AF5}";
+        string memory sentenceTerminal16AF5 = "\\u{16AF5}";
         bytes memory utf8SentenceTerminal16AF5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16AF5));
         console2.log("16AF5: ", string(utf8SentenceTerminal16AF5));
         console2.logBytes(utf8SentenceTerminal16AF5);
 
-        string memory sentenceTerminal16B37 = "\\u{sentenceTerminal16B37}";
+        string memory sentenceTerminal16B37 = "\\u{16B37}";
         bytes memory utf8SentenceTerminal16B37 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16B37));
         console2.log("16B37: ", string(utf8SentenceTerminal16B37));
         console2.logBytes(utf8SentenceTerminal16B37);
 
         console2.log("..");
 
-        string memory sentenceTerminal16B38 = "\\u{sentenceTerminal16B38}";
+        string memory sentenceTerminal16B38 = "\\u{16B38}";
         bytes memory utf8SentenceTerminal16B38 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16B38));
         console2.log("16B38: ", string(utf8SentenceTerminal16B38));
         console2.logBytes(utf8SentenceTerminal16B38);
 
-        string memory sentenceTerminal16B44 = "\\u{sentenceTerminal16B44}";
+        string memory sentenceTerminal16B44 = "\\u{16B44}";
         bytes memory utf8SentenceTerminal16B44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16B44));
         console2.log("16B44: ", string(utf8SentenceTerminal16B44));
         console2.logBytes(utf8SentenceTerminal16B44);
 
-        string memory sentenceTerminal16D6E = "\\u{sentenceTerminal16D6E}";
+        string memory sentenceTerminal16D6E = "\\u{16D6E}";
         bytes memory utf8SentenceTerminal16D6E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16D6E));
         console2.log("16D6E: ", string(utf8SentenceTerminal16D6E));
         console2.logBytes(utf8SentenceTerminal16D6E);
 
         console2.log("..");
 
-        string memory sentenceTerminal16D6F = "\\u{sentenceTerminal16D6F}";
+        string memory sentenceTerminal16D6F = "\\u{16D6F}";
         bytes memory utf8SentenceTerminal16D6F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16D6F));
         console2.log("16D6F: ", string(utf8SentenceTerminal16D6F));
         console2.logBytes(utf8SentenceTerminal16D6F);
 
-        string memory sentenceTerminal16E98 = "\\u{sentenceTerminal16E98}";
+        string memory sentenceTerminal16E98 = "\\u{16E98}";
         bytes memory utf8SentenceTerminal16E98 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal16E98));
         console2.log("16E98: ", string(utf8SentenceTerminal16E98));
         console2.logBytes(utf8SentenceTerminal16E98);
 
-        string memory sentenceTerminal1BC9F = "\\u{sentenceTerminal1BC9F}";
+        string memory sentenceTerminal1BC9F = "\\u{1BC9F}";
         bytes memory utf8SentenceTerminal1BC9F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1BC9F));
         console2.log("1BC9F: ", string(utf8SentenceTerminal1BC9F));
         console2.logBytes(utf8SentenceTerminal1BC9F);
 
-        string memory sentenceTerminal1DA88 = "\\u{sentenceTerminal1DA88}";
+        string memory sentenceTerminal1DA88 = "\\u{1DA88}";
         bytes memory utf8SentenceTerminal1DA88 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(sentenceTerminal1DA88));
         console2.log("1DA88: ", string(utf8SentenceTerminal1DA88));
         console2.logBytes(utf8SentenceTerminal1DA88);
     }
 
     function testRegexPropertyVariationSelector() public pure {
-        // @TODO: complete the property Variation_Selector testing🧪...🚀🚀
+        string memory variationSelector180B = "\\u{180B}";
+        bytes memory utf8VariationSelector180B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180B));
+        console2.log("180B: ", string(utf8VariationSelector180B));
+        console2.logBytes(utf8VariationSelector180B);
+
+        console2.log("..");
+
+        string memory variationSelector180D = "\\u{180D}";
+        bytes memory utf8VariationSelector180D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180D));
+        console2.log("180D: ", string(utf8VariationSelector180D));
+        console2.logBytes(utf8VariationSelector180D);
+
+        string memory variationSelector180F = "\\u{180F}";
+        bytes memory utf8VariationSelector180F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelector180F));
+        console2.log("180F: ", string(utf8VariationSelector180F));
+        console2.logBytes(utf8VariationSelector180F);
+
+        string memory variationSelectorFE00 = "\\u{FE00}";
+        bytes memory utf8VariationSelectorFE00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorFE00));
+        console2.log("FE00: ", string(utf8VariationSelectorFE00));
+        console2.logBytes(utf8VariationSelectorFE00);
+
+        console2.log("..");
+
+        string memory variationSelectorFE0F = "\\u{FE0F}";
+        bytes memory utf8VariationSelectorFE0F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorFE0F));
+        console2.log("FE0F: ", string(utf8VariationSelectorFE0F));
+        console2.logBytes(utf8VariationSelectorFE0F);
+
+        string memory variationSelectorE0100 = "\\u{E0100}";
+        bytes memory utf8VariationSelectorE0100 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorE0100));
+        console2.log("E0100: ", string(utf8VariationSelectorE0100));
+        console2.logBytes(utf8VariationSelectorE0100);
+
+        console2.log("..");
+
+        string memory variationSelectorE01EF = "\\u{E01EF}";
+        bytes memory utf8VariationSelectorE01EF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(variationSelectorE01EF));
+        console2.log("E01EF: ", string(utf8VariationSelectorE01EF));
+        console2.logBytes(utf8VariationSelectorE01EF);
     }
 
     function testRegexPropertyPatternWhiteSpace() public pure {
