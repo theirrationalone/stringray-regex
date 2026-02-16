@@ -14143,7 +14143,87 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyLogicalOrderException() public pure {
-        // @TODO: complete the property Logical_Order_Exception testing🧪...🚀🚀
+        string memory logicalOrderException0E40 = "\\u{0E40}";
+        bytes memory utf8LogicalOrderException0E40 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0E40));
+        console2.log("0E40: ", string(utf8LogicalOrderException0E40));
+        console2.logBytes(utf8LogicalOrderException0E40);
+
+        console2.log("..");
+
+        string memory logicalOrderException0E44 = "\\u{0E44}";
+        bytes memory utf8LogicalOrderException0E44 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0E44));
+        console2.log("0E44: ", string(utf8LogicalOrderException0E44));
+        console2.logBytes(utf8LogicalOrderException0E44);
+
+        string memory logicalOrderException0EC0 = "\\u{0EC0}";
+        bytes memory utf8LogicalOrderException0EC0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0EC0));
+        console2.log("0EC0: ", string(utf8LogicalOrderException0EC0));
+        console2.logBytes(utf8LogicalOrderException0EC0);
+
+        console2.log("..");
+
+        string memory logicalOrderException0EC4 = "\\u{0EC4}";
+        bytes memory utf8LogicalOrderException0EC4 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0EC4));
+        console2.log("0EC4: ", string(utf8LogicalOrderException0EC4));
+        console2.logBytes(utf8LogicalOrderException0EC4);
+
+        string memory logicalOrderException19B5 = "\\u{19B5}";
+        bytes memory utf8LogicalOrderException19B5 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19B5));
+        console2.log("19B5: ", string(utf8LogicalOrderException19B5));
+        console2.logBytes(utf8LogicalOrderException19B5);
+
+        console2.log("..");
+
+        string memory logicalOrderException19B7 = "\\u{19B7}";
+        bytes memory utf8LogicalOrderException19B7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19B7));
+        console2.log("19B7: ", string(utf8LogicalOrderException19B7));
+        console2.logBytes(utf8LogicalOrderException19B7);
+
+        string memory logicalOrderException19BA = "\\u{19BA}";
+        bytes memory utf8LogicalOrderException19BA =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19BA));
+        console2.log("19BA: ", string(utf8LogicalOrderException19BA));
+        console2.logBytes(utf8LogicalOrderException19BA);
+
+        string memory logicalOrderExceptionAAB5 = "\\u{AAB5}";
+        bytes memory utf8LogicalOrderExceptionAAB5 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB5));
+        console2.log("AAB5: ", string(utf8LogicalOrderExceptionAAB5));
+        console2.logBytes(utf8LogicalOrderExceptionAAB5);
+
+        console2.log("..");
+
+        string memory logicalOrderExceptionAAB6 = "\\u{AAB6}";
+        bytes memory utf8LogicalOrderExceptionAAB6 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB6));
+        console2.log("AAB6: ", string(utf8LogicalOrderExceptionAAB6));
+        console2.logBytes(utf8LogicalOrderExceptionAAB6);
+
+        string memory logicalOrderExceptionAAB9 = "\\u{AAB9}";
+        bytes memory utf8LogicalOrderExceptionAAB9 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB9));
+        console2.log("AAB9: ", string(utf8LogicalOrderExceptionAAB9));
+        console2.logBytes(utf8LogicalOrderExceptionAAB9);
+
+        string memory logicalOrderExceptionAABB = "\\u{AABB}";
+        bytes memory utf8LogicalOrderExceptionAABB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAABB));
+        console2.log("AABB: ", string(utf8LogicalOrderExceptionAABB));
+        console2.logBytes(utf8LogicalOrderExceptionAABB);
+
+        console2.log("..");
+
+        string memory logicalOrderExceptionAABC = "\\u{AABC}";
+        bytes memory utf8LogicalOrderExceptionAABC =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAABC));
+        console2.log("AABC: ", string(utf8LogicalOrderExceptionAABC));
+        console2.logBytes(utf8LogicalOrderExceptionAABC);
     }
 
     function testRegexPropertyOtherIDStart() public pure {
