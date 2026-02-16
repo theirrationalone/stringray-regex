@@ -1920,49 +1920,423 @@ library Stringray {
         returns (bool, uint256)
     {
         // 00B7: 0xc2b7
-        // 02D0: 0xcb90 ... 02D1: 0xcb91
+        if (_pattern[_currentParticleIndex] == 0xc2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xb7) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        // 02D0: 0xcb90 ... 02D1: 0xcb91 [2]
+        if (_pattern[_currentParticleIndex] == 0xcb) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x90 || _pattern[_currentParticleIndex + 1] == 0x91) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
         // 0640: 0xd980
+        if (_pattern[_currentParticleIndex] == 0xd9) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
         // 07FA: 0xdfba
-        // 0A71: 0xe0a9b1
-        // 0AFB: 0xe0abbb
-        // 0B55: 0xe0ad95
-        // 0E46: 0xe0b986
-        // 0EC6: 0xe0bb86
-        // 180A: 0xe1a08a
-        // 1843: 0xe1a183
-        // 1AA7: 0xe1aaa7
-        // 1C36: 0xe1b0b6
-        // 1C7B: 0xe1b1bb
-        // 3005: 0xe38085
-        // 3031: 0xe380b1 ... 3035: 0xe380b5
-        // 309D: 0xe3829d ... 309E: 0xe3829e
-        // 30FC: 0xe383bc ... 30FE: 0xe383be
-        // A015: 0xea8095
-        // A60C: 0xea988c
-        // A9CF: 0xeaa78f
-        // A9E6: 0xeaa7a6
-        // AA70: 0xeaa9b0
-        // AADD: 0xeaab9d
-        // AAF3: 0xeaabb3 ... AAF4: 0xeaabb4
-        // FF70: 0xefbdb0
-        // 10781: 0xf0909e81 ... 10782: 0xf0909e82
-        // 10D4E: 0xf090b58e
-        // 10D6A: 0xf090b5aa
-        // 10D6F: 0xf090b5af
-        // 11237: 0xf09188b7
-        // 1135D: 0xf0918d9d
-        // 113D2: 0xf0918f92
-        // 113D3: 0xf0918f93
-        // 115C6: 0xf0919786 ... 115C8: 0xf0919788
-        // 11A98: 0xf091aa98
-        // 11DD9: 0xf091b799
-        // 16B42: 0xf096ad82 ... 16B43: 0xf096ad83
-        // 16FE0: 0xf096bfa0 ... 16FE1: 0xf096bfa1
-        // 16FE3: 0xf096bfa3
-        // 16FF2: 0xf096bfb2 ... 16FF3: 0xf096bfb3
-        // 1E13C: 0xf09e84bc ... 1E13D: 0xf09e84bd
-        // 1E5EF: 0xf09e97af
-        // 1E944: 0xf09ea584 ... 1E946: 0xf09ea586
+        if (_pattern[_currentParticleIndex] == 0xdf) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xba) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 0A71: 0xe0a9b1
+                if (_pattern[_currentParticleIndex + 1] == 0xa9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb1) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 0AFB: 0xe0abbb
+                if (_pattern[_currentParticleIndex + 1] == 0xab) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xbb) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 0B55: 0xe0ad95
+                if (_pattern[_currentParticleIndex + 1] == 0xad) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x95) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 0E46: 0xe0b986
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x86) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 0EC6: 0xe0bb86
+                if (_pattern[_currentParticleIndex + 1] == 0xbb) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x86) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 180A: 0xe1a08a
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8a) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 1843: 0xe1a183
+                if (_pattern[_currentParticleIndex + 1] == 0xa1) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x83) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 1AA7: 0xe1aaa7
+                if (_pattern[_currentParticleIndex + 1] == 0xaa) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa7) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 1C36: 0xe1b0b6
+                if (_pattern[_currentParticleIndex + 1] == 0xb0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb6) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 1C7B: 0xe1b1bb
+                if (_pattern[_currentParticleIndex + 1] == 0xb1) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xbb) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 3005: 0xe38085
+                // 3031: 0xe380b1 ... 3035: 0xe380b5 [5]
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x85
+                                || (_pattern[_currentParticleIndex + 2] >= 0xb1
+                                    && _pattern[_currentParticleIndex + 2] <= 0xb5)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 309D: 0xe3829d ... 309E: 0xe3829e [2]
+                if (_pattern[_currentParticleIndex + 1] == 0x82) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9d || _pattern[_currentParticleIndex + 2] == 0x9e)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 30FC: 0xe383bc ... 30FE: 0xe383be [3]
+                if (_pattern[_currentParticleIndex + 1] == 0x83) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xbc && _pattern[_currentParticleIndex + 2] <= 0xbe)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xea) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // A015: 0xea8095
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x95) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // A60C: 0xea988c
+                if (_pattern[_currentParticleIndex + 1] == 0x98) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8c) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // A9CF: 0xeaa78f
+                // A9E6: 0xeaa7a6
+                if (_pattern[_currentParticleIndex + 1] == 0xa7) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x8f || _pattern[_currentParticleIndex + 2] == 0xa6)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // AA70: 0xeaa9b0
+                if (_pattern[_currentParticleIndex + 1] == 0xa9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb0) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // AADD: 0xeaab9d
+                if (_pattern[_currentParticleIndex + 1] == 0xab) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9d) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // AAF3: 0xeaabb3 ... AAF4: 0xeaabb4 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0xab) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb3 || _pattern[_currentParticleIndex + 2] == 0xb4)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // FF70: 0xefbdb0
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb0) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x90) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 10781: 0xf0909e81 ... 10782: 0xf0909e82
+                        if (_pattern[_currentParticleIndex + 2] == 0x9e) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x81
+                                        || _pattern[_currentParticleIndex + 3] == 0x82
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 10D4E: 0xf090b58e
+                        // 10D6A: 0xf090b5aa
+                        // 10D6F: 0xf090b5af
+                        if (_pattern[_currentParticleIndex + 2] == 0xb5) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x8e
+                                        || _pattern[_currentParticleIndex + 3] == 0xaa
+                                        || _pattern[_currentParticleIndex + 3] == 0xaf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x91) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 11237: 0xf09188b7
+                        if (_pattern[_currentParticleIndex + 2] == 0x88) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0xb7) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1135D: 0xf0918d9d
+                        if (_pattern[_currentParticleIndex + 2] == 0x8d) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0x9d) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 113D2: 0xf0918f92
+                        // 113D3: 0xf0918f93
+                        if (_pattern[_currentParticleIndex + 2] == 0x8f) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x92
+                                        || _pattern[_currentParticleIndex + 3] == 0x93
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 115C6: 0xf0919786 ... 115C8: 0xf0919788 [3]
+                        if (_pattern[_currentParticleIndex + 2] == 0x97) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x86
+                                        && _pattern[_currentParticleIndex + 3] <= 0x88
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 11A98: 0xf091aa98
+                        // 11DD9: 0xf091b799
+                        if (_pattern[_currentParticleIndex + 2] == 0xaa) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0x98) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        if (_pattern[_currentParticleIndex + 2] == 0xb7) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0x99) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x96) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 16B42: 0xf096ad82 ... 16B43: 0xf096ad83
+                        if (_pattern[_currentParticleIndex + 2] == 0xad) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0xa4
+                                        || (_pattern[_currentParticleIndex + 3] >= 0xb2
+                                            && _pattern[_currentParticleIndex + 3] <= 0xb6)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 16FE0: 0xf096bfa0 ... 16FE1: 0xf096bfa1 [2]
+                        // 16FE3: 0xf096bfa3
+                        // 16FF2: 0xf096bfb2 ... 16FF3: 0xf096bfb3 [2]
+                        if (_pattern[_currentParticleIndex + 2] == 0xbf) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0xa0
+                                        || _pattern[_currentParticleIndex + 3] == 0xa1
+                                        || _pattern[_currentParticleIndex + 3] == 0xa3
+                                        || _pattern[_currentParticleIndex + 3] == 0xb2
+                                        || _pattern[_currentParticleIndex + 3] == 0xb3
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (_pattern[_currentParticleIndex + 1] == 0x9e) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 1E13C: 0xf09e84bc ... 1E13D: 0xf09e84bd [2]
+                        if (_pattern[_currentParticleIndex + 2] == 0x84) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0xbc
+                                        || _pattern[_currentParticleIndex + 3] == 0xbd
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1E5EF: 0xf09e97af
+                        if (_pattern[_currentParticleIndex + 2] == 0x97) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0xaf) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1E944: 0xf09ea584 ... 1E946: 0xf09ea586 [3]
+                        if (_pattern[_currentParticleIndex + 2] == 0xa5) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x84
+                                        && _pattern[_currentParticleIndex + 3] <= 0x86
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyIdeographic(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -4337,6 +4711,8 @@ library Stringray {
         if (_pattern[_currentParticleIndex] >= 0x61 && _pattern[_currentParticleIndex] <= 0x66) {
             return (true, _currentParticleIndex);
         }
+
+        return (false, 0);
     }
 
     function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
