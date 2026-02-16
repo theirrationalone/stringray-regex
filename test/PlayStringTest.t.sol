@@ -12440,6 +12440,10 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8Extender1E946);
     }
 
+    function testRegexPropertyOtherLowercase() public pure {
+        // @TODO: complete the other_lowercase property testing🧪...🚀🚀
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

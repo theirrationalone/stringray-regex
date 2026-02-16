@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyOtherLowercase(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the other_lowercase property implementation⚗️...🚀🚀
+    }
+
     function isPropertyExtender(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -2169,7 +2177,7 @@ library Stringray {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (_pattern[_currentParticleIndex + 1] == 0x90) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
-                        // 10781: 0xf0909e81 ... 10782: 0xf0909e82
+                        // 10781: 0xf0909e81 ... 10782: 0xf0909e82 [2]
                         if (_pattern[_currentParticleIndex + 2] == 0x9e) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
@@ -2265,7 +2273,7 @@ library Stringray {
 
                 if (_pattern[_currentParticleIndex + 1] == 0x96) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
-                        // 16B42: 0xf096ad82 ... 16B43: 0xf096ad83
+                        // 16B42: 0xf096ad82 ... 16B43: 0xf096ad83 [2]
                         if (_pattern[_currentParticleIndex + 2] == 0xad) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
