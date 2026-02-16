@@ -13441,7 +13441,19 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyIDSTrinaryOperator() public pure {
-        // @TODO: complete the property IDS_Trinary_Operator testing🧪...🚀🚀
+        string memory idsTrinaryOperator2FF2 = "\\u{2FF2}";
+        bytes memory utf8IdsTrinaryOperator2FF2 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsTrinaryOperator2FF2));
+        console2.log("2FF2: ", string(utf8IdsTrinaryOperator2FF2));
+        console2.logBytes(utf8IdsTrinaryOperator2FF2);
+
+        console2.log("..");
+
+        string memory idsTrinaryOperator2FF3 = "\\u{2FF3}";
+        bytes memory utf8IdsTrinaryOperator2FF3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsTrinaryOperator2FF3));
+        console2.log("2FF3: ", string(utf8IdsTrinaryOperator2FF3));
+        console2.logBytes(utf8IdsTrinaryOperator2FF3);
     }
 
     function testRegexPropertyIDSUnaryOperator() public pure {
