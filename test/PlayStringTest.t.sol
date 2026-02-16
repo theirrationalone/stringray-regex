@@ -13471,7 +13471,41 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyRadical() public pure {
-        // @TODO: complete the property Radical testing🧪...🚀🚀
+        string memory radical2E80 = "\\u{2E80}";
+        bytes memory utf8Radical2E80 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E80));
+        console2.log("2E80: ", string(utf8Radical2E80));
+        console2.logBytes(utf8Radical2E80);
+
+        console2.log("..");
+
+        string memory radical2E99 = "\\u{2E99}";
+        bytes memory utf8Radical2E99 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E99));
+        console2.log("2E99: ", string(utf8Radical2E99));
+        console2.logBytes(utf8Radical2E99);
+
+        string memory radical2E9B = "\\u{2E9B}";
+        bytes memory utf8Radical2E9B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E9B));
+        console2.log("2E9B: ", string(utf8Radical2E9B));
+        console2.logBytes(utf8Radical2E9B);
+
+        console2.log("..");
+
+        string memory radical2EF3 = "\\u{2EF3}";
+        bytes memory utf8Radical2EF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2EF3));
+        console2.log("2EF3: ", string(utf8Radical2EF3));
+        console2.logBytes(utf8Radical2EF3);
+
+        string memory radical2F00 = "\\u{2F00}";
+        bytes memory utf8Radical2F00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2F00));
+        console2.log("2F00: ", string(utf8Radical2F00));
+        console2.logBytes(utf8Radical2F00);
+
+        console2.log("..");
+
+        string memory radical2FD5 = "\\u{2FD5}";
+        bytes memory utf8Radical2FD5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2FD5));
+        console2.log("2FD5: ", string(utf8Radical2FD5));
+        console2.logBytes(utf8Radical2FD5);
     }
 
     function testRegexPropertyUnifiedIdeograph() public pure {
