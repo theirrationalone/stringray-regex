@@ -12701,6 +12701,94 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8OtherLowercase1E06D);
     }
 
+    function testRegexPropertyOtherUppercase() public pure {
+        // @TODO: complete the property other_uppercase testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyNoncharacterCodePoint() public pure {
+        // @TODO: complete the property Noncharacter_code_point testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyOtherGraphemeExtend() public pure {
+        // @TODO: complete the property Other_Grapheme_Extend testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyIDSBinaryOperator() public pure {
+        // @TODO: complete the property IDS_Binary_Operator testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyIDSTrinaryOperator() public pure {
+        // @TODO: complete the property IDS_Trinary_Operator testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyIDSUnaryOperator() public pure {
+        // @TODO: complete the property IDS_Unary_Operator testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyRadical() public pure {
+        // @TODO: complete the property Radical testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyUnifiedIdeograph() public pure {
+        // @TODO: complete the property Unified_Ideograph testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyOtherDefaultIgnorableCodePoint() public pure {
+        // @TODO: complete the property Other_Default_Ignorable_Code_Point testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyDeprecated() public pure {
+        // @TODO: complete the property Deprecated testing🧪...🚀🚀
+    }
+
+    function testRegexPropertySoft_Dotted() public pure {
+        // @TODO: complete the property Soft_Dotted testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyLogicalOrderException() public pure {
+        // @TODO: complete the property Logical_Order_Exception testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyOtherIDStart() public pure {
+        // @TODO: complete the property Other_ID_Start testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyOtherIDContinue() public pure {
+        // @TODO: complete the property Other_ID_Continue testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyIDCompatMathContinue() public pure {
+        // @TODO: complete the property ID_Compat_Math_Continue testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyIDCompatMathStart() public pure {
+        // @TODO: complete the property ID_Compat_Math_Start testing🧪...🚀🚀
+    }
+
+    function testRegexPropertySentenceTerminal() public pure {
+        // @TODO: complete the property Sentence_Terminal testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyVariationSelector() public pure {
+        // @TODO: complete the property Variation_Selector testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyPatternWhiteSpace() public pure {
+        // @TODO: complete the property Pattern_White_Space testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyPrependedConcatenationMark() public pure {
+        // @TODO: complete the property Prepended_Concatenation_Mark testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyRegionalIndicator() public pure {
+        // @TODO: complete the property Regional_Indicator testing🧪...🚀🚀
+    }
+
+    function testRegexPropertyModifierCombiningMark() public pure {
+        // @TODO: complete the property Modifier_Combining_Mark testing🧪...🚀🚀
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

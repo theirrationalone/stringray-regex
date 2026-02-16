@@ -1914,6 +1914,182 @@ library Stringray {
         }
     }
 
+    function isPropertyModifierCombiningMark(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Modifier_Combining_Mark implementation⚗️...🚀🚀
+    }
+
+    function isPropertyRegionalIndicator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Regional_Indicator implementation⚗️...🚀🚀
+    }
+
+    function isPropertyPrependedConcatenationMark(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Prepended_Concatenation_Mark implementation⚗️...🚀🚀
+    }
+
+    function isPropertyPatternWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Pattern_White_Space implementation⚗️...🚀🚀
+    }
+
+    function isPropertyVariationSelector(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Variation_Selector implementation⚗️...🚀🚀
+    }
+
+    function isPropertySentenceTerminal(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Sentence_Terminal implementation⚗️...🚀🚀
+    }
+
+    function isPropertyIDCompatMathStart(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property ID_Compat_Math_Start implementation⚗️...🚀🚀
+    }
+
+    function isPropertyIDCompatMathContinue(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property ID_Compat_Math_Continue implementation⚗️...🚀🚀
+    }
+
+    function isPropertyOtherIDContinue(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Other_ID_Continue implementation⚗️...🚀🚀
+    }
+
+    function isPropertyOtherIDStart(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Other_ID_Start implementation⚗️...🚀🚀
+    }
+
+    function isPropertyLogicalOrderException(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Logical_Order_Exception implementation⚗️...🚀🚀
+    }
+
+    function isPropertySoft_Dotted(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Soft_Dotted implementation⚗️...🚀🚀
+    }
+
+    function isPropertyDeprecated(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Deprecated implementation⚗️...🚀🚀
+    }
+
+    function isPropertyOtherDefaultIgnorableCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Other_Default_Ignorable_Code_Point implementation⚗️...🚀🚀
+    }
+
+    function isPropertyUnifiedIdeograph(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Unified_Ideograph implementation⚗️...🚀🚀
+    }
+
+    function isPropertyRadical(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Radical implementation⚗️...🚀🚀
+    }
+
+    function isPropertyIDSUnaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property IDS_Unary_Operator implementation⚗️...🚀🚀
+    }
+
+    function isPropertyIDSTrinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property IDS_Trinary_Operator implementation⚗️...🚀🚀
+    }
+
+    function isPropertyIDSBinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property IDS_Binary_Operator implementation⚗️...🚀🚀
+    }
+
+    function isPropertyOtherGraphemeExtend(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Other_Grapheme_Extend implementation⚗️...🚀🚀
+    }
+
+    function isPropertyNoncharacterCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property Noncharacter_code_point implementation⚗️...🚀🚀
+    }
+
+    function isPropertyOtherUppercase(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the property other_uppercase implementation⚗️...🚀🚀
+    }
+
     function isPropertyOtherLowercase(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -2167,6 +2343,8 @@ library Stringray {
                 }
             }
         }
+
+        return (false, 0);
     }
 
     function isPropertyExtender(bytes memory _pattern, uint256 _currentParticleIndex)
