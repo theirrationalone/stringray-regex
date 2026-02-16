@@ -1919,7 +1919,50 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the extender property implementation...🚀🚀
+        // 00B7: 0xc2b7
+        // 02D0: 0xcb90 ... 02D1: 0xcb91
+        // 0640: 0xd980
+        // 07FA: 0xdfba
+        // 0A71: 0xe0a9b1
+        // 0AFB: 0xe0abbb
+        // 0B55: 0xe0ad95
+        // 0E46: 0xe0b986
+        // 0EC6: 0xe0bb86
+        // 180A: 0xe1a08a
+        // 1843: 0xe1a183
+        // 1AA7: 0xe1aaa7
+        // 1C36: 0xe1b0b6
+        // 1C7B: 0xe1b1bb
+        // 3005: 0xe38085
+        // 3031: 0xe380b1 ... 3035: 0xe380b5
+        // 309D: 0xe3829d ... 309E: 0xe3829e
+        // 30FC: 0xe383bc ... 30FE: 0xe383be
+        // A015: 0xea8095
+        // A60C: 0xea988c
+        // A9CF: 0xeaa78f
+        // A9E6: 0xeaa7a6
+        // AA70: 0xeaa9b0
+        // AADD: 0xeaab9d
+        // AAF3: 0xeaabb3 ... AAF4: 0xeaabb4
+        // FF70: 0xefbdb0
+        // 10781: 0xf0909e81 ... 10782: 0xf0909e82
+        // 10D4E: 0xf090b58e
+        // 10D6A: 0xf090b5aa
+        // 10D6F: 0xf090b5af
+        // 11237: 0xf09188b7
+        // 1135D: 0xf0918d9d
+        // 113D2: 0xf0918f92
+        // 113D3: 0xf0918f93
+        // 115C6: 0xf0919786 ... 115C8: 0xf0919788
+        // 11A98: 0xf091aa98
+        // 11DD9: 0xf091b799
+        // 16B42: 0xf096ad82 ... 16B43: 0xf096ad83
+        // 16FE0: 0xf096bfa0 ... 16FE1: 0xf096bfa1
+        // 16FE3: 0xf096bfa3
+        // 16FF2: 0xf096bfb2 ... 16FF3: 0xf096bfb3
+        // 1E13C: 0xf09e84bc ... 1E13D: 0xf09e84bd
+        // 1E5EF: 0xf09e97af
+        // 1E944: 0xf09ea584 ... 1E946: 0xf09ea586
     }
 
     function isPropertyIdeographic(bytes memory _pattern, uint256 _currentParticleIndex)
