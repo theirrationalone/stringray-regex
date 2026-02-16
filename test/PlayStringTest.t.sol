@@ -14227,7 +14227,39 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyOtherIDStart() public pure {
-        // @TODO: complete the property Other_ID_Start testing🧪...🚀🚀
+        string memory otherIdStart1885 = "\\u{1885}";
+        bytes memory utf8OtherIdStart1885 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart1885));
+        console2.log("1885: ", string(utf8OtherIdStart1885));
+        console2.logBytes(utf8OtherIdStart1885);
+
+        console2.log("..");
+
+        string memory otherIdStart1886 = "\\u{1886}";
+        bytes memory utf8OtherIdStart1886 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart1886));
+        console2.log("1886: ", string(utf8OtherIdStart1886));
+        console2.logBytes(utf8OtherIdStart1886);
+
+        string memory otherIdStart2118 = "\\u{2118}";
+        bytes memory utf8OtherIdStart2118 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart2118));
+        console2.log("2118: ", string(utf8OtherIdStart2118));
+        console2.logBytes(utf8OtherIdStart2118);
+
+        string memory otherIdStart212E = "\\u{212E}";
+        bytes memory utf8OtherIdStart212E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart212E));
+        console2.log("212E: ", string(utf8OtherIdStart212E));
+        console2.logBytes(utf8OtherIdStart212E);
+
+        string memory otherIdStart309B = "\\u{309B}";
+        bytes memory utf8OtherIdStart309B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart309B));
+        console2.log("309B: ", string(utf8OtherIdStart309B));
+        console2.logBytes(utf8OtherIdStart309B);
+
+        console2.log("..");
+
+        string memory otherIdStart309C = "\\u{309C}";
+        bytes memory utf8OtherIdStart309C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdStart309C));
+        console2.log("309C: ", string(utf8OtherIdStart309C));
+        console2.logBytes(utf8OtherIdStart309C);
     }
 
     function testRegexPropertyOtherIDContinue() public pure {
