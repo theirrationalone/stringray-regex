@@ -15457,7 +15457,19 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyRegionalIndicator() public pure {
-        // @TODO: complete the property Regional_Indicator testing🧪...🚀🚀
+        string memory regionalIndicator1F1E6 = "\\u{1F1E6}";
+        bytes memory utf8RegionalIndicator1F1E6 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(regionalIndicator1F1E6));
+        console2.log("1F1E6: ", string(utf8RegionalIndicator1F1E6));
+        console2.logBytes(utf8RegionalIndicator1F1E6);
+
+        console2.log("..");
+
+        string memory regionalIndicator1F1FF = "\\u{1F1FF}";
+        bytes memory utf8RegionalIndicator1F1FF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(regionalIndicator1F1FF));
+        console2.log("1F1FF: ", string(utf8RegionalIndicator1F1FF));
+        console2.logBytes(utf8RegionalIndicator1F1FF);
     }
 
     function testRegexPropertyModifierCombiningMark() public pure {
