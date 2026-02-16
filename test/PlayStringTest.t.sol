@@ -15352,47 +15352,47 @@ contract PlayStringTest is Test {
 
     function testRegexPropertyPatternWhiteSpace() public pure {
         string memory patternWhiteSpace0009 = "\\u{0009}";
-        bytes memory utf8PatternWhiteSpace0009 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0009);
-        console2.log("0009: ", utf8PatternWhiteSpace0009);
+        bytes memory utf8PatternWhiteSpace0009 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace0009));
+        console2.log("0009: ", string(utf8PatternWhiteSpace0009));
         console2.logBytes(utf8PatternWhiteSpace0009);
 
         console2.log("..");
 
         string memory patternWhiteSpace000D = "\\u{000D}";
-        bytes memory utf8PatternWhiteSpace000D = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace000D);
-        console2.log("000D: ", utf8PatternWhiteSpace000D);
+        bytes memory utf8PatternWhiteSpace000D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace000D));
+        console2.log("000D: ", string(utf8PatternWhiteSpace000D));
         console2.logBytes(utf8PatternWhiteSpace000D);
 
         string memory patternWhiteSpace0020 = "\\u{0020}";
-        bytes memory utf8PatternWhiteSpace0020 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0020);
-        console2.log("0020: ", utf8PatternWhiteSpace0020);
+        bytes memory utf8PatternWhiteSpace0020 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace0020));
+        console2.log("0020: ", string(utf8PatternWhiteSpace0020));
         console2.logBytes(utf8PatternWhiteSpace0020);
 
         string memory patternWhiteSpace0085 = "\\u{0085}";
-        bytes memory utf8PatternWhiteSpace0085 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0085);
-        console2.log("0085: ", utf8PatternWhiteSpace0085);
+        bytes memory utf8PatternWhiteSpace0085 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace0085));
+        console2.log("0085: ", string(utf8PatternWhiteSpace0085));
         console2.logBytes(utf8PatternWhiteSpace0085);
 
         string memory patternWhiteSpace200E = "\\u{200E}";
-        bytes memory utf8PatternWhiteSpace200E = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200E);
-        console2.log("200E: ", utf8PatternWhiteSpace200E);
+        bytes memory utf8PatternWhiteSpace200E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace200E));
+        console2.log("200E: ", string(utf8PatternWhiteSpace200E));
         console2.logBytes(utf8PatternWhiteSpace200E);
 
         console2.log("..");
 
         string memory patternWhiteSpace200F = "\\u{200F}";
-        bytes memory utf8PatternWhiteSpace200F = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200F);
-        console2.log("200F: ", utf8PatternWhiteSpace200F);
+        bytes memory utf8PatternWhiteSpace200F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace200F));
+        console2.log("200F: ", string(utf8PatternWhiteSpace200F));
         console2.logBytes(utf8PatternWhiteSpace200F);
 
         string memory patternWhiteSpace2028 = "\\u{2028}";
-        bytes memory utf8PatternWhiteSpace2028 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2028);
-        console2.log("2028: ", utf8PatternWhiteSpace2028);
+        bytes memory utf8PatternWhiteSpace2028 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace2028));
+        console2.log("2028: ", string(utf8PatternWhiteSpace2028));
         console2.logBytes(utf8PatternWhiteSpace2028);
 
         string memory patternWhiteSpace2029 = "\\u{2029}";
-        bytes memory utf8PatternWhiteSpace2029 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2029);
-        console2.log("2029: ", utf8PatternWhiteSpace2029);
+        bytes memory utf8PatternWhiteSpace2029 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(patternWhiteSpace2029));
+        console2.log("2029: ", string(utf8PatternWhiteSpace2029));
         console2.logBytes(utf8PatternWhiteSpace2029);
     }
 
@@ -15400,7 +15400,7 @@ contract PlayStringTest is Test {
         string memory prependedConcatenationMark0600 = "\\u{0600}";
         bytes memory utf8PrependedConcatenationMark0600 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0600));
-        console2.log("0600: ", utf8PrependedConcatenationMark0600);
+        console2.log("0600: ", string(utf8PrependedConcatenationMark0600));
         console2.logBytes(utf8PrependedConcatenationMark0600);
 
         console2.log("..");
@@ -15408,25 +15408,25 @@ contract PlayStringTest is Test {
         string memory prependedConcatenationMark0605 = "\\u{0605}";
         bytes memory utf8PrependedConcatenationMark0605 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0605));
-        console2.log("0605: ", utf8PrependedConcatenationMark0605);
+        console2.log("0605: ", string(utf8PrependedConcatenationMark0605));
         console2.logBytes(utf8PrependedConcatenationMark0605);
 
         string memory prependedConcatenationMark06DD = "\\u{06DD}";
         bytes memory utf8PrependedConcatenationMark06DD =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark06DD));
-        console2.log("06DD: ", utf8PrependedConcatenationMark06DD);
+        console2.log("06DD: ", string(utf8PrependedConcatenationMark06DD));
         console2.logBytes(utf8PrependedConcatenationMark06DD);
 
         string memory prependedConcatenationMark070F = "\\u{070F}";
         bytes memory utf8PrependedConcatenationMark070F =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark070F));
-        console2.log("070F: ", utf8PrependedConcatenationMark070F);
+        console2.log("070F: ", string(utf8PrependedConcatenationMark070F));
         console2.logBytes(utf8PrependedConcatenationMark070F);
 
         string memory prependedConcatenationMark0890 = "\\u{0890}";
         bytes memory utf8PrependedConcatenationMark0890 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0890));
-        console2.log("0890: ", utf8PrependedConcatenationMark0890);
+        console2.log("0890: ", string(utf8PrependedConcatenationMark0890));
         console2.logBytes(utf8PrependedConcatenationMark0890);
 
         console2.log("..");
@@ -15434,25 +15434,25 @@ contract PlayStringTest is Test {
         string memory prependedConcatenationMark0891 = "\\u{0891}";
         bytes memory utf8PrependedConcatenationMark0891 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0891));
-        console2.log("0891: ", utf8PrependedConcatenationMark0891);
+        console2.log("0891: ", string(utf8PrependedConcatenationMark0891));
         console2.logBytes(utf8PrependedConcatenationMark0891);
 
         string memory prependedConcatenationMark08E2 = "\\u{08E2}";
         bytes memory utf8PrependedConcatenationMark08E2 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark08E2));
-        console2.log("08E2: ", utf8PrependedConcatenationMark08E2);
+        console2.log("08E2: ", string(utf8PrependedConcatenationMark08E2));
         console2.logBytes(utf8PrependedConcatenationMark08E2);
 
         string memory prependedConcatenationMark110BD = "\\u{110BD}";
         bytes memory utf8PrependedConcatenationMark110BD =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark110BD));
-        console2.log("110BD: ", utf8PrependedConcatenationMark110BD);
+        console2.log("110BD: ", string(utf8PrependedConcatenationMark110BD));
         console2.logBytes(utf8PrependedConcatenationMark110BD);
 
         string memory prependedConcatenationMark110CD = "\\u{110CD}";
         bytes memory utf8PrependedConcatenationMark110CD =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark110CD));
-        console2.log("110CD: ", utf8PrependedConcatenationMark110CD);
+        console2.log("110CD: ", string(utf8PrependedConcatenationMark110CD));
         console2.logBytes(utf8PrependedConcatenationMark110CD);
     }
 
@@ -15475,7 +15475,7 @@ contract PlayStringTest is Test {
     function testRegexPropertyModifierCombiningMark() public pure {
         string memory modifierCombiningMark0654 = "\\u{0654}";
         bytes memory utf8ModifierCombiningMark0654 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0654));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark0654));
         console2.log("0654: ", string(utf8ModifierCombiningMark0654));
         console2.logBytes(utf8ModifierCombiningMark0654);
 
@@ -15483,31 +15483,31 @@ contract PlayStringTest is Test {
 
         string memory modifierCombiningMark0655 = "\\u{0655}";
         bytes memory utf8ModifierCombiningMark0655 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0655));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark0655));
         console2.log("0655: ", string(utf8ModifierCombiningMark0655));
         console2.logBytes(utf8ModifierCombiningMark0655);
 
         string memory modifierCombiningMark0658 = "\\u{0658}";
         bytes memory utf8ModifierCombiningMark0658 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0658));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark0658));
         console2.log("0658: ", string(utf8ModifierCombiningMark0658));
         console2.logBytes(utf8ModifierCombiningMark0658);
 
         string memory modifierCombiningMark06DC = "\\u{06DC}";
         bytes memory utf8ModifierCombiningMark06DC =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06DC));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark06DC));
         console2.log("06DC: ", string(utf8ModifierCombiningMark06DC));
         console2.logBytes(utf8ModifierCombiningMark06DC);
 
         string memory modifierCombiningMark06E3 = "\\u{06E3}";
         bytes memory utf8ModifierCombiningMark06E3 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E3));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark06E3));
         console2.log("06E3: ", string(utf8ModifierCombiningMark06E3));
         console2.logBytes(utf8ModifierCombiningMark06E3);
 
         string memory modifierCombiningMark06E7 = "\\u{06E7}";
         bytes memory utf8ModifierCombiningMark06E7 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E7));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark06E7));
         console2.log("06E7: ", string(utf8ModifierCombiningMark06E7));
         console2.logBytes(utf8ModifierCombiningMark06E7);
 
@@ -15515,13 +15515,13 @@ contract PlayStringTest is Test {
 
         string memory modifierCombiningMark06E8 = "\\u{06E8}";
         bytes memory utf8ModifierCombiningMark06E8 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E8));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark06E8));
         console2.log("06E8: ", string(utf8ModifierCombiningMark06E8));
         console2.logBytes(utf8ModifierCombiningMark06E8);
 
         string memory modifierCombiningMark08CA = "\\u{08CA}";
         bytes memory utf8ModifierCombiningMark08CA =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CA));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08CA));
         console2.log("08CA: ", string(utf8ModifierCombiningMark08CA));
         console2.logBytes(utf8ModifierCombiningMark08CA);
 
@@ -15529,13 +15529,13 @@ contract PlayStringTest is Test {
 
         string memory modifierCombiningMark08CB = "\\u{08CB}";
         bytes memory utf8ModifierCombiningMark08CB =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CB));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08CB));
         console2.log("08CB: ", string(utf8ModifierCombiningMark08CB));
         console2.logBytes(utf8ModifierCombiningMark08CB);
 
         string memory modifierCombiningMark08CD = "\\u{08CD}";
         bytes memory utf8ModifierCombiningMark08CD =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CD));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08CD));
         console2.log("08CD: ", string(utf8ModifierCombiningMark08CD));
         console2.logBytes(utf8ModifierCombiningMark08CD);
 
@@ -15543,19 +15543,19 @@ contract PlayStringTest is Test {
 
         string memory modifierCombiningMark08CF = "\\u{08CF}";
         bytes memory utf8ModifierCombiningMark08CF =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CF));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08CF));
         console2.log("08CF: ", string(utf8ModifierCombiningMark08CF));
         console2.logBytes(utf8ModifierCombiningMark08CF);
 
         string memory modifierCombiningMark08D3 = "\\u{08D3}";
         bytes memory utf8ModifierCombiningMark08D3 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08D3));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08D3));
         console2.log("08D3: ", string(utf8ModifierCombiningMark08D3));
         console2.logBytes(utf8ModifierCombiningMark08D3);
 
         string memory modifierCombiningMark08F3 = "\\u{08F3}";
         bytes memory utf8ModifierCombiningMark08F3 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08F3));
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifierCombiningMark08F3));
         console2.log("08F3: ", string(utf8ModifierCombiningMark08F3));
         console2.logBytes(utf8ModifierCombiningMark08F3);
     }
