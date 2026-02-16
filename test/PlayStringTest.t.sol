@@ -12702,7 +12702,65 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyOtherUppercase() public pure {
-        // @TODO: complete the property other_uppercase testing🧪...🚀🚀
+        string memory otherUppercase2160 = "\\u{2160}";
+        bytes memory utf8OtherUppercase2160 = Stringray.unicodeHexToutf8Hex(otherUppercase2160);
+        console2.log("2160: ", string(utf8OtherUppercase2160));
+        console2.logBytes(utf8OtherUppercase2160);
+
+        console2.log("..");
+
+        string memory otherUppercase216F = "\\u{216F}";
+        bytes memory utf8OtherUppercase216F = Stringray.unicodeHexToutf8Hex(otherUppercase216F);
+        console2.log("216F: ", string(utf8OtherUppercase216F));
+        console2.logBytes(utf8OtherUppercase216F);
+
+        string memory otherUppercase24B6 = "\\u{24B6}";
+        bytes memory utf8OtherUppercase24B6 = Stringray.unicodeHexToutf8Hex(otherUppercase24B6);
+        console2.log("24B6: ", string(utf8OtherUppercase24B6));
+        console2.logBytes(utf8OtherUppercase24B6);
+
+        console2.log("..");
+
+        string memory otherUppercase24CF = "\\u{24CF}";
+        bytes memory utf8OtherUppercase24CF = Stringray.unicodeHexToutf8Hex(otherUppercase24CF);
+        console2.log("24CF: ", string(utf8OtherUppercase24CF));
+        console2.logBytes(utf8OtherUppercase24CF);
+
+        string memory otherUppercase1F130 = "\\u{1F130}";
+        bytes memory utf8OtherUppercase1F130 = Stringray.unicodeHexToutf8Hex(otherUppercase1F130);
+        console2.log("1F130: ", string(utf8OtherUppercase1F130));
+        console2.logBytes(utf8OtherUppercase1F130);
+
+        console2.log("..");
+
+        string memory otherUppercase1F149 = "\\u{1F149}";
+        bytes memory utf8OtherUppercase1F149 = Stringray.unicodeHexToutf8Hex(otherUppercase1F149);
+        console2.log("1F149: ", string(utf8OtherUppercase1F149));
+        console2.logBytes(utf8OtherUppercase1F149);
+
+        string memory otherUppercase1F150 = "\\u{1F150}";
+        bytes memory utf8OtherUppercase1F150 = Stringray.unicodeHexToutf8Hex(otherUppercase1F150);
+        console2.log("1F150: ", string(utf8OtherUppercase1F150));
+        console2.logBytes(utf8OtherUppercase1F150);
+
+        console2.log("..");
+
+        string memory otherUppercase1F169 = "\\u{1F169}";
+        bytes memory utf8OtherUppercase1F169 = Stringray.unicodeHexToutf8Hex(otherUppercase1F169);
+        console2.log("1F169: ", string(utf8OtherUppercase1F169));
+        console2.logBytes(utf8OtherUppercase1F169);
+
+        string memory otherUppercase1F170 = "\\u{1F170}";
+        bytes memory utf8OtherUppercase1F170 = Stringray.unicodeHexToutf8Hex(otherUppercase1F170);
+        console2.log("1F170: ", string(utf8OtherUppercase1F170));
+        console2.logBytes(utf8OtherUppercase1F170);
+
+        console2.log("..");
+
+        string memory otherUppercase1F189 = "\\u{1F189}";
+        bytes memory utf8OtherUppercase1F189 = Stringray.unicodeHexToutf8Hex(otherUppercase1F189);
+        console2.log("1F189: ", string(utf8OtherUppercase1F189));
+        console2.logBytes(utf8OtherUppercase1F189);
     }
 
     function testRegexPropertyNoncharacterCodePoint() public pure {
