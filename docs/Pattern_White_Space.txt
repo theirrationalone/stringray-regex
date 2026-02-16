@@ -1,6 +1,43 @@
-0009..000D    ; Pattern_White_Space # Cc   [5] <control-0009>..<control-000D>
-0020          ; Pattern_White_Space # Zs       SPACE
-0085          ; Pattern_White_Space # Cc       <control-0085>
-200E..200F    ; Pattern_White_Space # Cf   [2] LEFT-TO-RIGHT MARK..RIGHT-TO-LEFT MARK
-2028          ; Pattern_White_Space # Zl       LINE SEPARATOR
-2029          ; Pattern_White_Space # Zp       PARAGRAPH SEPARATOR
+string memory patternWhiteSpace0009 = "\\u{0009}";
+bytes memory utf8PatternWhiteSpace0009 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0009);
+console2.log("0009: ", utf8PatternWhiteSpace0009);
+console2.logBytes(utf8PatternWhiteSpace0009);
+
+console2.log("..");
+
+string memory patternWhiteSpace000D = "\\u{000D}";
+bytes memory utf8PatternWhiteSpace000D = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace000D);
+console2.log("000D: ", utf8PatternWhiteSpace000D);
+console2.logBytes(utf8PatternWhiteSpace000D);
+
+string memory patternWhiteSpace0020 = "\\u{0020}";
+bytes memory utf8PatternWhiteSpace0020 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0020);
+console2.log("0020: ", utf8PatternWhiteSpace0020);
+console2.logBytes(utf8PatternWhiteSpace0020);
+
+string memory patternWhiteSpace0085 = "\\u{0085}";
+bytes memory utf8PatternWhiteSpace0085 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0085);
+console2.log("0085: ", utf8PatternWhiteSpace0085);
+console2.logBytes(utf8PatternWhiteSpace0085);
+
+string memory patternWhiteSpace200E = "\\u{200E}";
+bytes memory utf8PatternWhiteSpace200E = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200E);
+console2.log("200E: ", utf8PatternWhiteSpace200E);
+console2.logBytes(utf8PatternWhiteSpace200E);
+
+console2.log("..");
+
+string memory patternWhiteSpace200F = "\\u{200F}";
+bytes memory utf8PatternWhiteSpace200F = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200F);
+console2.log("200F: ", utf8PatternWhiteSpace200F);
+console2.logBytes(utf8PatternWhiteSpace200F);
+
+string memory patternWhiteSpace2028 = "\\u{2028}";
+bytes memory utf8PatternWhiteSpace2028 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2028);
+console2.log("2028: ", utf8PatternWhiteSpace2028);
+console2.logBytes(utf8PatternWhiteSpace2028);
+
+string memory patternWhiteSpace2029 = "\\u{2029}";
+bytes memory utf8PatternWhiteSpace2029 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2029);
+console2.log("2029: ", utf8PatternWhiteSpace2029);
+console2.logBytes(utf8PatternWhiteSpace2029);
