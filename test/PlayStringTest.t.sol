@@ -12703,68 +12703,282 @@ contract PlayStringTest is Test {
 
     function testRegexPropertyOtherUppercase() public pure {
         string memory otherUppercase2160 = "\\u{2160}";
-        bytes memory utf8OtherUppercase2160 = Stringray.unicodeHexToutf8Hex(otherUppercase2160);
+        bytes memory utf8OtherUppercase2160 = Stringray.unicodeHexToUtf8Hex(otherUppercase2160);
         console2.log("2160: ", string(utf8OtherUppercase2160));
         console2.logBytes(utf8OtherUppercase2160);
 
         console2.log("..");
 
         string memory otherUppercase216F = "\\u{216F}";
-        bytes memory utf8OtherUppercase216F = Stringray.unicodeHexToutf8Hex(otherUppercase216F);
+        bytes memory utf8OtherUppercase216F = Stringray.unicodeHexToUtf8Hex(otherUppercase216F);
         console2.log("216F: ", string(utf8OtherUppercase216F));
         console2.logBytes(utf8OtherUppercase216F);
 
         string memory otherUppercase24B6 = "\\u{24B6}";
-        bytes memory utf8OtherUppercase24B6 = Stringray.unicodeHexToutf8Hex(otherUppercase24B6);
+        bytes memory utf8OtherUppercase24B6 = Stringray.unicodeHexToUtf8Hex(otherUppercase24B6);
         console2.log("24B6: ", string(utf8OtherUppercase24B6));
         console2.logBytes(utf8OtherUppercase24B6);
 
         console2.log("..");
 
         string memory otherUppercase24CF = "\\u{24CF}";
-        bytes memory utf8OtherUppercase24CF = Stringray.unicodeHexToutf8Hex(otherUppercase24CF);
+        bytes memory utf8OtherUppercase24CF = Stringray.unicodeHexToUtf8Hex(otherUppercase24CF);
         console2.log("24CF: ", string(utf8OtherUppercase24CF));
         console2.logBytes(utf8OtherUppercase24CF);
 
         string memory otherUppercase1F130 = "\\u{1F130}";
-        bytes memory utf8OtherUppercase1F130 = Stringray.unicodeHexToutf8Hex(otherUppercase1F130);
+        bytes memory utf8OtherUppercase1F130 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F130);
         console2.log("1F130: ", string(utf8OtherUppercase1F130));
         console2.logBytes(utf8OtherUppercase1F130);
 
         console2.log("..");
 
         string memory otherUppercase1F149 = "\\u{1F149}";
-        bytes memory utf8OtherUppercase1F149 = Stringray.unicodeHexToutf8Hex(otherUppercase1F149);
+        bytes memory utf8OtherUppercase1F149 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F149);
         console2.log("1F149: ", string(utf8OtherUppercase1F149));
         console2.logBytes(utf8OtherUppercase1F149);
 
         string memory otherUppercase1F150 = "\\u{1F150}";
-        bytes memory utf8OtherUppercase1F150 = Stringray.unicodeHexToutf8Hex(otherUppercase1F150);
+        bytes memory utf8OtherUppercase1F150 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F150);
         console2.log("1F150: ", string(utf8OtherUppercase1F150));
         console2.logBytes(utf8OtherUppercase1F150);
 
         console2.log("..");
 
         string memory otherUppercase1F169 = "\\u{1F169}";
-        bytes memory utf8OtherUppercase1F169 = Stringray.unicodeHexToutf8Hex(otherUppercase1F169);
+        bytes memory utf8OtherUppercase1F169 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F169);
         console2.log("1F169: ", string(utf8OtherUppercase1F169));
         console2.logBytes(utf8OtherUppercase1F169);
 
         string memory otherUppercase1F170 = "\\u{1F170}";
-        bytes memory utf8OtherUppercase1F170 = Stringray.unicodeHexToutf8Hex(otherUppercase1F170);
+        bytes memory utf8OtherUppercase1F170 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F170);
         console2.log("1F170: ", string(utf8OtherUppercase1F170));
         console2.logBytes(utf8OtherUppercase1F170);
 
         console2.log("..");
 
         string memory otherUppercase1F189 = "\\u{1F189}";
-        bytes memory utf8OtherUppercase1F189 = Stringray.unicodeHexToutf8Hex(otherUppercase1F189);
+        bytes memory utf8OtherUppercase1F189 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F189);
         console2.log("1F189: ", string(utf8OtherUppercase1F189));
         console2.logBytes(utf8OtherUppercase1F189);
     }
 
     function testRegexPropertyNoncharacterCodePoint() public pure {
-        // @TODO: complete the property Noncharacter_code_point testing🧪...🚀🚀
+        string memory noncharacterCodePointFDD0 = "\\u{FDD0}";
+        bytes memory utf8NoncharacterCodePointFDD0 = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFDD0);
+        console2.log("FDD0: ", string(utf8NoncharacterCodePointFDD0));
+        console2.logBytes(utf8NoncharacterCodePointFDD0);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointFDEF = "\\u{FDEF}";
+        bytes memory utf8NoncharacterCodePointFDEF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFDEF);
+        console2.log("FDEF: ", string(utf8NoncharacterCodePointFDEF));
+        console2.logBytes(utf8NoncharacterCodePointFDEF);
+
+        string memory noncharacterCodePointFFFE = "\\u{FFFE}";
+        bytes memory utf8NoncharacterCodePointFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFE);
+        console2.log("FFFE: ", string(utf8NoncharacterCodePointFFFE));
+        console2.logBytes(utf8NoncharacterCodePointFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointFFFF = "\\u{FFFF}";
+        bytes memory utf8NoncharacterCodePointFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFF);
+        console2.log("FFFF: ", string(utf8NoncharacterCodePointFFFF));
+        console2.logBytes(utf8NoncharacterCodePointFFFF);
+
+        string memory noncharacterCodePoint1FFFE = "\\u{1FFFE}";
+        bytes memory utf8NoncharacterCodePoint1FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint1FFFE);
+        console2.log("1FFFE: ", string(utf8NoncharacterCodePoint1FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint1FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint1FFFF = "\\u{1FFFF}";
+        bytes memory utf8NoncharacterCodePoint1FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint1FFFF);
+        console2.log("1FFFF: ", string(utf8NoncharacterCodePoint1FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint1FFFF);
+
+        string memory noncharacterCodePoint2FFFE = "\\u{2FFFE}";
+        bytes memory utf8NoncharacterCodePoint2FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint2FFFE);
+        console2.log("2FFFE: ", string(utf8NoncharacterCodePoint2FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint2FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint2FFFF = "\\u{2FFFF}";
+        bytes memory utf8NoncharacterCodePoint2FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint2FFFF);
+        console2.log("2FFFF: ", string(utf8NoncharacterCodePoint2FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint2FFFF);
+
+        string memory noncharacterCodePoint3FFFE = "\\u{3FFFE}";
+        bytes memory utf8NoncharacterCodePoint3FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint3FFFE);
+        console2.log("3FFFE: ", string(utf8NoncharacterCodePoint3FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint3FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint3FFFF = "\\u{3FFFF}";
+        bytes memory utf8NoncharacterCodePoint3FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint3FFFF);
+        console2.log("3FFFF: ", string(utf8NoncharacterCodePoint3FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint3FFFF);
+
+        string memory noncharacterCodePoint4FFFE = "\\u{4FFFE}";
+        bytes memory utf8NoncharacterCodePoint4FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint4FFFE);
+        console2.log("4FFFE: ", string(utf8NoncharacterCodePoint4FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint4FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint4FFFF = "\\u{4FFFF}";
+        bytes memory utf8NoncharacterCodePoint4FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint4FFFF);
+        console2.log("4FFFF: ", string(utf8NoncharacterCodePoint4FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint4FFFF);
+
+        string memory noncharacterCodePoint5FFFE = "\\u{5FFFE}";
+        bytes memory utf8NoncharacterCodePoint5FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint5FFFE);
+        console2.log("5FFFE: ", string(utf8NoncharacterCodePoint5FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint5FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint5FFFF = "\\u{5FFFF}";
+        bytes memory utf8NoncharacterCodePoint5FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint5FFFF);
+        console2.log("5FFFF: ", string(utf8NoncharacterCodePoint5FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint5FFFF);
+
+        string memory noncharacterCodePoint6FFFE = "\\u{6FFFE}";
+        bytes memory utf8NoncharacterCodePoint6FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint6FFFE);
+        console2.log("6FFFE: ", string(utf8NoncharacterCodePoint6FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint6FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint6FFFF = "\\u{6FFFF}";
+        bytes memory utf8NoncharacterCodePoint6FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint6FFFF);
+        console2.log("6FFFF: ", string(utf8NoncharacterCodePoint6FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint6FFFF);
+
+        string memory noncharacterCodePoint7FFFE = "\\u{7FFFE}";
+        bytes memory utf8NoncharacterCodePoint7FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint7FFFE);
+        console2.log("7FFFE: ", string(utf8NoncharacterCodePoint7FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint7FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint7FFFF = "\\u{7FFFF}";
+        bytes memory utf8NoncharacterCodePoint7FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint7FFFF);
+        console2.log("7FFFF: ", string(utf8NoncharacterCodePoint7FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint7FFFF);
+
+        string memory noncharacterCodePoint8FFFE = "\\u{8FFFE}";
+        bytes memory utf8NoncharacterCodePoint8FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint8FFFE);
+        console2.log("8FFFE: ", string(utf8NoncharacterCodePoint8FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint8FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint8FFFF = "\\u{8FFFF}";
+        bytes memory utf8NoncharacterCodePoint8FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint8FFFF);
+        console2.log("8FFFF: ", string(utf8NoncharacterCodePoint8FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint8FFFF);
+
+        string memory noncharacterCodePoint9FFFE = "\\u{9FFFE}";
+        bytes memory utf8NoncharacterCodePoint9FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint9FFFE);
+        console2.log("9FFFE: ", string(utf8NoncharacterCodePoint9FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint9FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint9FFFF = "\\u{9FFFF}";
+        bytes memory utf8NoncharacterCodePoint9FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint9FFFF);
+        console2.log("9FFFF: ", string(utf8NoncharacterCodePoint9FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint9FFFF);
+
+        string memory noncharacterCodePointAFFFE = "\\u{AFFFE}";
+        bytes memory utf8NoncharacterCodePointAFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointAFFFE);
+        console2.log("AFFFE: ", string(utf8NoncharacterCodePointAFFFE));
+        console2.logBytes(utf8NoncharacterCodePointAFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointAFFFF = "\\u{AFFFF}";
+        bytes memory utf8NoncharacterCodePointAFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointAFFFF);
+        console2.log("AFFFF: ", string(utf8NoncharacterCodePointAFFFF));
+        console2.logBytes(utf8NoncharacterCodePointAFFFF);
+
+        string memory noncharacterCodePointBFFFE = "\\u{BFFFE}";
+        bytes memory utf8NoncharacterCodePointBFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointBFFFE);
+        console2.log("BFFFE: ", string(utf8NoncharacterCodePointBFFFE));
+        console2.logBytes(utf8NoncharacterCodePointBFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointBFFFF = "\\u{BFFFF}";
+        bytes memory utf8NoncharacterCodePointBFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointBFFFF);
+        console2.log("BFFFF: ", string(utf8NoncharacterCodePointBFFFF));
+        console2.logBytes(utf8NoncharacterCodePointBFFFF);
+
+        string memory noncharacterCodePointCFFFE = "\\u{CFFFE}";
+        bytes memory utf8NoncharacterCodePointCFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointCFFFE);
+        console2.log("CFFFE: ", string(utf8NoncharacterCodePointCFFFE));
+        console2.logBytes(utf8NoncharacterCodePointCFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointCFFFF = "\\u{CFFFF}";
+        bytes memory utf8NoncharacterCodePointCFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointCFFFF);
+        console2.log("CFFFF: ", string(utf8NoncharacterCodePointCFFFF));
+        console2.logBytes(utf8NoncharacterCodePointCFFFF);
+
+        string memory noncharacterCodePointDFFFE = "\\u{DFFFE}";
+        bytes memory utf8NoncharacterCodePointDFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointDFFFE);
+        console2.log("DFFFE: ", string(utf8NoncharacterCodePointDFFFE));
+        console2.logBytes(utf8NoncharacterCodePointDFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointDFFFF = "\\u{DFFFF}";
+        bytes memory utf8NoncharacterCodePointDFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointDFFFF);
+        console2.log("DFFFF: ", string(utf8NoncharacterCodePointDFFFF));
+        console2.logBytes(utf8NoncharacterCodePointDFFFF);
+
+        string memory noncharacterCodePointEFFFE = "\\u{EFFFE}";
+        bytes memory utf8NoncharacterCodePointEFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointEFFFE);
+        console2.log("EFFFE: ", string(utf8NoncharacterCodePointEFFFE));
+        console2.logBytes(utf8NoncharacterCodePointEFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointEFFFF = "\\u{EFFFF}";
+        bytes memory utf8NoncharacterCodePointEFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointEFFFF);
+        console2.log("EFFFF: ", string(utf8NoncharacterCodePointEFFFF));
+        console2.logBytes(utf8NoncharacterCodePointEFFFF);
+
+        string memory noncharacterCodePointFFFFE = "\\u{FFFFE}";
+        bytes memory utf8NoncharacterCodePointFFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFFE);
+        console2.log("FFFFE: ", string(utf8NoncharacterCodePointFFFFE));
+        console2.logBytes(utf8NoncharacterCodePointFFFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePointFFFFF = "\\u{FFFFF}";
+        bytes memory utf8NoncharacterCodePointFFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFFF);
+        console2.log("FFFFF: ", string(utf8NoncharacterCodePointFFFFF));
+        console2.logBytes(utf8NoncharacterCodePointFFFFF);
+
+        string memory noncharacterCodePoint10FFFE = "\\u{10FFFE}";
+        bytes memory utf8NoncharacterCodePoint10FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint10FFFE);
+        console2.log("10FFFE: ", string(utf8NoncharacterCodePoint10FFFE));
+        console2.logBytes(utf8NoncharacterCodePoint10FFFE);
+
+        console2.log("..");
+
+        string memory noncharacterCodePoint10FFFF = "\\u{10FFFF}";
+        bytes memory utf8NoncharacterCodePoint10FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint10FFFF);
+        console2.log("10FFFF: ", string(utf8NoncharacterCodePoint10FFFF));
+        console2.logBytes(utf8NoncharacterCodePoint10FFFF);
     }
 
     function testRegexPropertyOtherGraphemeExtend() public pure {
