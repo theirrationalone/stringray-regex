@@ -13457,7 +13457,17 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyIDSUnaryOperator() public pure {
-        // @TODO: complete the property IDS_Unary_Operator testing🧪...🚀🚀
+        string memory idsUnaryOperator2FFE = "\\u{2FFE}";
+        bytes memory utf8UnaryOperator2FFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFE));
+        console2.log("2FFE: ", string(utf8UnaryOperator2FFE));
+        console2.logBytes(utf8UnaryOperator2FFE);
+
+        console2.log("..");
+
+        string memory idsUnaryOperator2FFF = "\\u{2FFF}";
+        bytes memory utf8UnaryOperator2FFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFF));
+        console2.log("2FFF: ", string(utf8UnaryOperator2FFF));
+        console2.logBytes(utf8UnaryOperator2FFF);
     }
 
     function testRegexPropertyRadical() public pure {

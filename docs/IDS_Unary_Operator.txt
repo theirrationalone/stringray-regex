@@ -1,1 +1,11 @@
-2FFE..2FFF    ; IDS_Unary_Operator # So   [2] IDEOGRAPHIC DESCRIPTION CHARACTER HORIZONTAL REFLECTION..IDEOGRAPHIC DESCRIPTION CHARACTER ROTATION
+string memory idsUnaryOperator2FFE = "\\u{2FFE}";
+bytes memory utf8UnaryOperator2FFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFE));
+console2.log("2FFE: ", string(utf8UnaryOperator2FFE));
+console2.logBytes(utf8UnaryOperator2FFE);
+
+console2.log("..");
+
+string memory idsUnaryOperator2FFF = "\\u{2FFF}";
+bytes memory utf8UnaryOperator2FFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFF));
+console2.log("2FFF: ", string(utf8UnaryOperator2FFF));
+console2.logBytes(utf8UnaryOperator2FFF);
