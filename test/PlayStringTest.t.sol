@@ -14265,51 +14265,51 @@ contract PlayStringTest is Test {
     function testRegexPropertyOtherIDContinue() public pure {
         string memory otherIdContinue00B7 = "\\u{00B7}";
         bytes memory utf8OtherIdContinue00B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue00B7));
-        console2.log("00B7: ", string(utf8OtherIdContineu00B7));
+        console2.log("00B7: ", string(utf8OtherIdContinue00B7));
         console2.logBytes(utf8OtherIdContinue00B7);
 
         string memory otherIdContinue0387 = "\\u{0387}";
         bytes memory utf8OtherIdContinue0387 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue0387));
-        console2.log("0387: ", string(utf8OtherIdContineu0387));
+        console2.log("0387: ", string(utf8OtherIdContinue0387));
         console2.logBytes(utf8OtherIdContinue0387);
 
         string memory otherIdContinue1369 = "\\u{1369}";
         bytes memory utf8OtherIdContinue1369 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue1369));
-        console2.log("1369: ", string(utf8OtherIdContineu1369));
+        console2.log("1369: ", string(utf8OtherIdContinue1369));
         console2.logBytes(utf8OtherIdContinue1369);
 
         console2.log("..");
 
         string memory otherIdContinue1371 = "\\u{1371}";
         bytes memory utf8OtherIdContinue1371 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue1371));
-        console2.log("1371: ", string(utf8OtherIdContineu1371));
+        console2.log("1371: ", string(utf8OtherIdContinue1371));
         console2.logBytes(utf8OtherIdContinue1371);
 
         string memory otherIdContinue19DA = "\\u{19DA}";
         bytes memory utf8OtherIdContinue19DA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue19DA));
-        console2.log("19DA: ", string(utf8OtherIdContineu19DA));
+        console2.log("19DA: ", string(utf8OtherIdContinue19DA));
         console2.logBytes(utf8OtherIdContinue19DA);
 
         string memory otherIdContinue200C = "\\u{200C}";
         bytes memory utf8OtherIdContinue200C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue200C));
-        console2.log("200C: ", string(utf8OtherIdContineu200C));
+        console2.log("200C: ", string(utf8OtherIdContinue200C));
         console2.logBytes(utf8OtherIdContinue200C);
 
         console2.log("..");
 
         string memory otherIdContinue200D = "\\u{200D}";
         bytes memory utf8OtherIdContinue200D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue200D));
-        console2.log("200D: ", string(utf8OtherIdContineu200D));
+        console2.log("200D: ", string(utf8OtherIdContinue200D));
         console2.logBytes(utf8OtherIdContinue200D);
 
         string memory otherIdContinue30FB = "\\u{30FB}";
         bytes memory utf8OtherIdContinue30FB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue30FB));
-        console2.log("30FB: ", string(utf8OtherIdContineu30FB));
+        console2.log("30FB: ", string(utf8OtherIdContinue30FB));
         console2.logBytes(utf8OtherIdContinue30FB);
 
         string memory otherIdContinueFF65 = "\\u{FF65}";
         bytes memory utf8OtherIdContinueFF65 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinueFF65));
-        console2.log("FF65: ", string(utf8OtherIdContineuFF65));
+        console2.log("FF65: ", string(utf8OtherIdContinueFF65));
         console2.logBytes(utf8OtherIdContinueFF65);
     }
 
@@ -14317,263 +14317,186 @@ contract PlayStringTest is Test {
         string memory idCompatMathContinue00B2 = "\\u{00B2}";
         bytes memory utf8IdCompatMathContinue00B2 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue00B2));
-        console2.log("00B2: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("00B2: ", string(utf8IdCompatMathContinue00B2));
+        console2.logBytes(utf8IdCompatMathContinue00B2);
 
         console2.log("..");
 
         string memory idCompatMathContinue00B3 = "\\u{00B3}";
         bytes memory utf8IdCompatMathContinue00B3 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue00B3));
-        console2.log("00B3: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("00B3: ", string(utf8IdCompatMathContinue00B3));
+        console2.logBytes(utf8IdCompatMathContinue00B3);
 
         string memory idCompatMathContinue00B9 = "\\u{00B9}";
         bytes memory utf8IdCompatMathContinue00B9 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue00B9));
-        console2.log("00B9: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("00B9: ", string(utf8IdCompatMathContinue00B9));
+        console2.logBytes(utf8IdCompatMathContinue00B9);
 
         string memory idCompatMathContinue2070 = "\\u{2070}";
         bytes memory utf8IdCompatMathContinue2070 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2070));
-        console2.log("2070: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2070: ", string(utf8IdCompatMathContinue2070));
+        console2.logBytes(utf8IdCompatMathContinue2070);
 
         string memory idCompatMathContinue2074 = "\\u{2074}";
         bytes memory utf8IdCompatMathContinue2074 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2074));
-        console2.log("2074: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2074: ", string(utf8IdCompatMathContinue2074));
+        console2.logBytes(utf8IdCompatMathContinue2074);
 
         console2.log("..");
 
         string memory idCompatMathContinue2079 = "\\u{2079}";
         bytes memory utf8IdCompatMathContinue2079 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2079));
-        console2.log("2079: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2079: ", string(utf8IdCompatMathContinue2079));
+        console2.logBytes(utf8IdCompatMathContinue2079);
 
         string memory idCompatMathContinue207A = "\\u{207A}";
         bytes memory utf8IdCompatMathContinue207A =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue207A));
-        console2.log("207A: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("207A: ", string(utf8IdCompatMathContinue207A));
+        console2.logBytes(utf8IdCompatMathContinue207A);
 
         console2.log("..");
 
         string memory idCompatMathContinue207C = "\\u{207C}";
         bytes memory utf8IdCompatMathContinue207C =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue207C));
-        console2.log("207C: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("207C: ", string(utf8IdCompatMathContinue207C));
+        console2.logBytes(utf8IdCompatMathContinue207C);
 
         string memory idCompatMathContinue207D = "\\u{207D}";
         bytes memory utf8IdCompatMathContinue207D =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue207D));
-        console2.log("207D: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("207D: ", string(utf8IdCompatMathContinue207D));
+        console2.logBytes(utf8IdCompatMathContinue207D);
 
         string memory idCompatMathContinue207E = "\\u{207E}";
         bytes memory utf8IdCompatMathContinue207E =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue207E));
-        console2.log("207E: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("207E: ", string(utf8IdCompatMathContinue207E));
+        console2.logBytes(utf8IdCompatMathContinue207E);
 
         string memory idCompatMathContinue2080 = "\\u{2080}";
         bytes memory utf8IdCompatMathContinue2080 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2080));
-        console2.log("2080: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2080: ", string(utf8IdCompatMathContinue2080));
+        console2.logBytes(utf8IdCompatMathContinue2080);
 
         console2.log("..");
 
         string memory idCompatMathContinue2089 = "\\u{2089}";
         bytes memory utf8IdCompatMathContinue2089 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2089));
-        console2.log("2089: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2089: ", string(utf8IdCompatMathContinue2089));
+        console2.logBytes(utf8IdCompatMathContinue2089);
 
         string memory idCompatMathContinue208A = "\\u{208A}";
         bytes memory utf8IdCompatMathContinue208A =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue208A));
-        console2.log("208A: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("208A: ", string(utf8IdCompatMathContinue208A));
+        console2.logBytes(utf8IdCompatMathContinue208A);
 
         console2.log("..");
 
         string memory idCompatMathContinue208C = "\\u{208C}";
         bytes memory utf8IdCompatMathContinue208C =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue208C));
-        console2.log("208C: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("208C: ", string(utf8IdCompatMathContinue208C));
+        console2.logBytes(utf8IdCompatMathContinue208C);
 
         string memory idCompatMathContinue208D = "\\u{208D}";
         bytes memory utf8IdCompatMathContinue208D =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue208D));
-        console2.log("208D: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("208D: ", string(utf8IdCompatMathContinue208D));
+        console2.logBytes(utf8IdCompatMathContinue208D);
 
         string memory idCompatMathContinue208E = "\\u{208E}";
         bytes memory utf8IdCompatMathContinue208E =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue208E));
-        console2.log("208E: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("208E: ", string(utf8IdCompatMathContinue208E));
+        console2.logBytes(utf8IdCompatMathContinue208E);
 
         string memory idCompatMathContinue2202 = "\\u{2202}";
         bytes memory utf8IdCompatMathContinue2202 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2202));
-        console2.log("2202: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2202: ", string(utf8IdCompatMathContinue2202));
+        console2.logBytes(utf8IdCompatMathContinue2202);
 
         string memory idCompatMathContinue2207 = "\\u{2207}";
         bytes memory utf8IdCompatMathContinue2207 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue2207));
-        console2.log("2207: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("2207: ", string(utf8IdCompatMathContinue2207));
+        console2.logBytes(utf8IdCompatMathContinue2207);
 
         string memory idCompatMathContinue221E = "\\u{221E}";
         bytes memory utf8IdCompatMathContinue221E =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue221E));
-        console2.log("221E: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("221E: ", string(utf8IdCompatMathContinue221E));
+        console2.logBytes(utf8IdCompatMathContinue221E);
 
         string memory idCompatMathContinue1D6C1 = "\\u{1D6C1}";
         bytes memory utf8IdCompatMathContinue1D6C1 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D6C1));
-        console2.log("1D6C1: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D6C1: ", string(utf8IdCompatMathContinue1D6C1));
+        console2.logBytes(utf8IdCompatMathContinue1D6C1);
 
         string memory idCompatMathContinue1D6DB = "\\u{1D6DB}";
         bytes memory utf8IdCompatMathContinue1D6DB =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D6DB));
-        console2.log("1D6DB: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D6DB: ", string(utf8IdCompatMathContinue1D6DB));
+        console2.logBytes(utf8IdCompatMathContinue1D6DB);
 
         string memory idCompatMathContinue1D6FB = "\\u{1D6FB}";
         bytes memory utf8IdCompatMathContinue1D6FB =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D6FB));
-        console2.log("1D6FB: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D6FB: ", string(utf8IdCompatMathContinue1D6FB));
+        console2.logBytes(utf8IdCompatMathContinue1D6FB);
 
         string memory idCompatMathContinue1D715 = "\\u{1D715}";
         bytes memory utf8IdCompatMathContinue1D715 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D715));
-        console2.log("1D715: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D715: ", string(utf8IdCompatMathContinue1D715));
+        console2.logBytes(utf8IdCompatMathContinue1D715);
 
         string memory idCompatMathContinue1D735 = "\\u{1D735}";
         bytes memory utf8IdCompatMathContinue1D735 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D735));
-        console2.log("1D735: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D735: ", string(utf8IdCompatMathContinue1D735));
+        console2.logBytes(utf8IdCompatMathContinue1D735);
 
         string memory idCompatMathContinue1D74F = "\\u{1D74F}";
         bytes memory utf8IdCompatMathContinue1D74F =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D74F));
-        console2.log("1D74F: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D74F: ", string(utf8IdCompatMathContinue1D74F));
+        console2.logBytes(utf8IdCompatMathContinue1D74F);
 
         string memory idCompatMathContinue1D76F = "\\u{1D76F}";
         bytes memory utf8IdCompatMathContinue1D76F =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D76F));
-        console2.log("1D76F: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D76F: ", string(utf8IdCompatMathContinue1D76F));
+        console2.logBytes(utf8IdCompatMathContinue1D76F);
 
         string memory idCompatMathContinue1D789 = "\\u{1D789}";
         bytes memory utf8IdCompatMathContinue1D789 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D789));
-        console2.log("1D789: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D789: ", string(utf8IdCompatMathContinue1D789));
+        console2.logBytes(utf8IdCompatMathContinue1D789);
 
         string memory idCompatMathContinue1D7A9 = "\\u{1D7A9}";
         bytes memory utf8IdCompatMathContinue1D7A9 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D7A9));
-        console2.log("1D7A9: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
+        console2.log("1D7A9: ", string(utf8IdCompatMathContinue1D7A9));
+        console2.logBytes(utf8IdCompatMathContinue1D7A9);
 
         string memory idCompatMathContinue1D7C3 = "\\u{1D7C3}";
         bytes memory utf8IdCompatMathContinue1D7C3 =
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D7C3));
-        console2.log("1D7C3: ", string(utf8IdCompatMathContinue));
-        console2.logBytes(utf8IdCompatMathContinue);
-    }
-
-    function testRegexPropertyIDCompatMathStart() public pure {
-        string memory idCompatMathStart2202 = "\\u{2202}";
-        bytes memory utf8IdCompatMathStart2202 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2202));
-        console2.log("2202: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart2207 = "\\u{2207}";
-        bytes memory utf8IdCompatMathStart2207 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2207));
-        console2.log("2207: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart221E = "\\u{221E}";
-        bytes memory utf8IdCompatMathStart221E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart221E));
-        console2.log("221E: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D6C1 = "\\u{1D6C1}";
-        bytes memory utf8IdCompatMathStart1D6C1 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6C1));
-        console2.log("1D6C1: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D6DB = "\\u{1D6DB}";
-        bytes memory utf8IdCompatMathStart1D6DB =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6DB));
-        console2.log("1D6DB: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D6FB = "\\u{1D6FB}";
-        bytes memory utf8IdCompatMathStart1D6FB =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6FB));
-        console2.log("1D6FB: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D715 = "\\u{1D715}";
-        bytes memory utf8IdCompatMathStart1D715 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D715));
-        console2.log("1D715: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D735 = "\\u{1D735}";
-        bytes memory utf8IdCompatMathStart1D735 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D735));
-        console2.log("1D735: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D74F = "\\u{1D74F}";
-        bytes memory utf8IdCompatMathStart1D74F =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D74F));
-        console2.log("1D74F: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D76F = "\\u{1D76F}";
-        bytes memory utf8IdCompatMathStart1D76F =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D76F));
-        console2.log("1D76F: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D789 = "\\u{1D789}";
-        bytes memory utf8IdCompatMathStart1D789 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D789));
-        console2.log("1D789: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D7A9 = "\\u{1D7A9}";
-        bytes memory utf8IdCompatMathStart1D7A9 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7A9));
-        console2.log("1D7A9: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
-
-        string memory idCompatMathStart1D7C3 = "\\u{1D7C3}";
-        bytes memory utf8IdCompatMathStart1D7C3 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7C3));
-        console2.log("1D7C3: ", string(utf8IdCompatMathStart));
-        console2.logBytes(utf8IdCompatMathStart);
+        console2.log("1D7C3: ", string(utf8IdCompatMathContinue1D7C3));
+        console2.logBytes(utf8IdCompatMathContinue1D7C3);
     }
 
     function testRegexPropertySentenceTerminal() public pure {
