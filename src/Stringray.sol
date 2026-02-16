@@ -1919,7 +1919,34 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the other_lowercase property implementation⚗️...🚀🚀
+        // 00AA: 0xc2aa
+        // 00BA: 0xc2ba
+        // 02B0: 0xcab0 ... 02B8: 0xcab8 [9]
+        // 02C0: 0xcb80 ... 02C1: 0xcb81 [2]
+        // 02E0: 0xcba0 ... 02E4: 0xcba4 [5]
+        // 0345: 0xcd85
+        // 037A: 0xcdba
+        // 10FC: 0xe183bc
+        // 1D2C: 0xe1b4ac ... 1D6A: 0xe1b5aa [63]
+        // 1D78: 0xe1b5b8
+        // 1D9B: 0xe1b69b ... 1DBF: 0xe1b6bf [37]
+        // 2071: 0xe281b1
+        // 207F: 0xe281bf
+        // 2090: 0xe28290 ... 209C: 0xe2829c [13]
+        // 2170: 0xe285b0 ... 217F: 0xe285bf [16]
+        // 24D0: 0xe29390 ... 24E9: 0xe293a9 [26]
+        // 2C7C: 0xe2b1bc ... 2C7D: 0xe2b1bd [2]
+        // A69C: 0xea9a9c ... A69D: 0xea9a9d [2]
+        // A770: 0xea9db0
+        // A7F1: 0xea9fb1 ... A7F4: 0xea9fb4 [4]
+        // A7F8: 0xea9fb8 ... A7F9: 0xea9fb9 [2]
+        // AB5C: 0xeaad9c ... AB5F: 0xeaad9f [4]
+        // AB69: 0xeaada9
+        // 10780: 0xf0909e80
+        // 10783: 0xf0909e83 ... 10785: 0xf0909e85 [3]
+        // 10787: 0xf0909e87 ... 107B0: 0xf0909eb0 [42]
+        // 107B2: 0xf0909eb2 ... 107BA: 0xf0909eba [9]
+        // 1E030: 0xf09e80b0 ... 1E06D: 0xf09e81ad [62]
     }
 
     function isPropertyExtender(bytes memory _pattern, uint256 _currentParticleIndex)
