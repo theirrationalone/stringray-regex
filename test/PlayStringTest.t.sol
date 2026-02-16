@@ -14263,7 +14263,54 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyOtherIDContinue() public pure {
-        // @TODO: complete the property Other_ID_Continue testing🧪...🚀🚀
+        string memory otherIdContinue00B7 = "\\u{00B7}";
+        bytes memory utf8OtherIdContinue00B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue00B7));
+        console2.log("00B7: ", string(utf8OtherIdContineu00B7));
+        console2.logBytes(utf8OtherIdContinue00B7);
+
+        string memory otherIdContinue0387 = "\\u{0387}";
+        bytes memory utf8OtherIdContinue0387 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue0387));
+        console2.log("0387: ", string(utf8OtherIdContineu0387));
+        console2.logBytes(utf8OtherIdContinue0387);
+
+        string memory otherIdContinue1369 = "\\u{1369}";
+        bytes memory utf8OtherIdContinue1369 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue1369));
+        console2.log("1369: ", string(utf8OtherIdContineu1369));
+        console2.logBytes(utf8OtherIdContinue1369);
+
+        console2.log("..");
+
+        string memory otherIdContinue1371 = "\\u{1371}";
+        bytes memory utf8OtherIdContinue1371 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue1371));
+        console2.log("1371: ", string(utf8OtherIdContineu1371));
+        console2.logBytes(utf8OtherIdContinue1371);
+
+        string memory otherIdContinue19DA = "\\u{19DA}";
+        bytes memory utf8OtherIdContinue19DA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue19DA));
+        console2.log("19DA: ", string(utf8OtherIdContineu19DA));
+        console2.logBytes(utf8OtherIdContinue19DA);
+
+        string memory otherIdContinue200C = "\\u{200C}";
+        bytes memory utf8OtherIdContinue200C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue200C));
+        console2.log("200C: ", string(utf8OtherIdContineu200C));
+        console2.logBytes(utf8OtherIdContinue200C);
+
+        console2.log("..");
+
+        string memory otherIdContinue200D = "\\u{200D}";
+        bytes memory utf8OtherIdContinue200D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue200D));
+        console2.log("200D: ", string(utf8OtherIdContineu200D));
+        console2.logBytes(utf8OtherIdContinue200D);
+
+        string memory otherIdContinue30FB = "\\u{30FB}";
+        bytes memory utf8OtherIdContinue30FB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinue30FB));
+        console2.log("30FB: ", string(utf8OtherIdContineu30FB));
+        console2.logBytes(utf8OtherIdContinue30FB);
+
+        string memory otherIdContinueFF65 = "\\u{FF65}";
+        bytes memory utf8OtherIdContinueFF65 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherIdContinueFF65));
+        console2.log("FF65: ", string(utf8OtherIdContineuFF65));
+        console2.logBytes(utf8OtherIdContinueFF65);
     }
 
     function testRegexPropertyIDCompatMathContinue() public pure {
