@@ -12703,286 +12703,710 @@ contract PlayStringTest is Test {
 
     function testRegexPropertyOtherUppercase() public pure {
         string memory otherUppercase2160 = "\\u{2160}";
-        bytes memory utf8OtherUppercase2160 = Stringray.unicodeHexToUtf8Hex(otherUppercase2160);
+        bytes memory utf8OtherUppercase2160 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase2160));
         console2.log("2160: ", string(utf8OtherUppercase2160));
         console2.logBytes(utf8OtherUppercase2160);
 
         console2.log("..");
 
         string memory otherUppercase216F = "\\u{216F}";
-        bytes memory utf8OtherUppercase216F = Stringray.unicodeHexToUtf8Hex(otherUppercase216F);
+        bytes memory utf8OtherUppercase216F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase216F));
         console2.log("216F: ", string(utf8OtherUppercase216F));
         console2.logBytes(utf8OtherUppercase216F);
 
         string memory otherUppercase24B6 = "\\u{24B6}";
-        bytes memory utf8OtherUppercase24B6 = Stringray.unicodeHexToUtf8Hex(otherUppercase24B6);
+        bytes memory utf8OtherUppercase24B6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase24B6));
         console2.log("24B6: ", string(utf8OtherUppercase24B6));
         console2.logBytes(utf8OtherUppercase24B6);
 
         console2.log("..");
 
         string memory otherUppercase24CF = "\\u{24CF}";
-        bytes memory utf8OtherUppercase24CF = Stringray.unicodeHexToUtf8Hex(otherUppercase24CF);
+        bytes memory utf8OtherUppercase24CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase24CF));
         console2.log("24CF: ", string(utf8OtherUppercase24CF));
         console2.logBytes(utf8OtherUppercase24CF);
 
         string memory otherUppercase1F130 = "\\u{1F130}";
-        bytes memory utf8OtherUppercase1F130 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F130);
+        bytes memory utf8OtherUppercase1F130 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F130));
         console2.log("1F130: ", string(utf8OtherUppercase1F130));
         console2.logBytes(utf8OtherUppercase1F130);
 
         console2.log("..");
 
         string memory otherUppercase1F149 = "\\u{1F149}";
-        bytes memory utf8OtherUppercase1F149 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F149);
+        bytes memory utf8OtherUppercase1F149 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F149));
         console2.log("1F149: ", string(utf8OtherUppercase1F149));
         console2.logBytes(utf8OtherUppercase1F149);
 
         string memory otherUppercase1F150 = "\\u{1F150}";
-        bytes memory utf8OtherUppercase1F150 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F150);
+        bytes memory utf8OtherUppercase1F150 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F150));
         console2.log("1F150: ", string(utf8OtherUppercase1F150));
         console2.logBytes(utf8OtherUppercase1F150);
 
         console2.log("..");
 
         string memory otherUppercase1F169 = "\\u{1F169}";
-        bytes memory utf8OtherUppercase1F169 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F169);
+        bytes memory utf8OtherUppercase1F169 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F169));
         console2.log("1F169: ", string(utf8OtherUppercase1F169));
         console2.logBytes(utf8OtherUppercase1F169);
 
         string memory otherUppercase1F170 = "\\u{1F170}";
-        bytes memory utf8OtherUppercase1F170 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F170);
+        bytes memory utf8OtherUppercase1F170 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F170));
         console2.log("1F170: ", string(utf8OtherUppercase1F170));
         console2.logBytes(utf8OtherUppercase1F170);
 
         console2.log("..");
 
         string memory otherUppercase1F189 = "\\u{1F189}";
-        bytes memory utf8OtherUppercase1F189 = Stringray.unicodeHexToUtf8Hex(otherUppercase1F189);
+        bytes memory utf8OtherUppercase1F189 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherUppercase1F189));
         console2.log("1F189: ", string(utf8OtherUppercase1F189));
         console2.logBytes(utf8OtherUppercase1F189);
     }
 
     function testRegexPropertyNoncharacterCodePoint() public pure {
         string memory noncharacterCodePointFDD0 = "\\u{FDD0}";
-        bytes memory utf8NoncharacterCodePointFDD0 = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFDD0);
+        bytes memory utf8NoncharacterCodePointFDD0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFDD0));
         console2.log("FDD0: ", string(utf8NoncharacterCodePointFDD0));
         console2.logBytes(utf8NoncharacterCodePointFDD0);
 
         console2.log("..");
 
         string memory noncharacterCodePointFDEF = "\\u{FDEF}";
-        bytes memory utf8NoncharacterCodePointFDEF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFDEF);
+        bytes memory utf8NoncharacterCodePointFDEF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFDEF));
         console2.log("FDEF: ", string(utf8NoncharacterCodePointFDEF));
         console2.logBytes(utf8NoncharacterCodePointFDEF);
 
         string memory noncharacterCodePointFFFE = "\\u{FFFE}";
-        bytes memory utf8NoncharacterCodePointFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFE);
+        bytes memory utf8NoncharacterCodePointFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFE));
         console2.log("FFFE: ", string(utf8NoncharacterCodePointFFFE));
         console2.logBytes(utf8NoncharacterCodePointFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointFFFF = "\\u{FFFF}";
-        bytes memory utf8NoncharacterCodePointFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFF);
+        bytes memory utf8NoncharacterCodePointFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFF));
         console2.log("FFFF: ", string(utf8NoncharacterCodePointFFFF));
         console2.logBytes(utf8NoncharacterCodePointFFFF);
 
         string memory noncharacterCodePoint1FFFE = "\\u{1FFFE}";
-        bytes memory utf8NoncharacterCodePoint1FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint1FFFE);
+        bytes memory utf8NoncharacterCodePoint1FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint1FFFE));
         console2.log("1FFFE: ", string(utf8NoncharacterCodePoint1FFFE));
         console2.logBytes(utf8NoncharacterCodePoint1FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint1FFFF = "\\u{1FFFF}";
-        bytes memory utf8NoncharacterCodePoint1FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint1FFFF);
+        bytes memory utf8NoncharacterCodePoint1FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint1FFFF));
         console2.log("1FFFF: ", string(utf8NoncharacterCodePoint1FFFF));
         console2.logBytes(utf8NoncharacterCodePoint1FFFF);
 
         string memory noncharacterCodePoint2FFFE = "\\u{2FFFE}";
-        bytes memory utf8NoncharacterCodePoint2FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint2FFFE);
+        bytes memory utf8NoncharacterCodePoint2FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint2FFFE));
         console2.log("2FFFE: ", string(utf8NoncharacterCodePoint2FFFE));
         console2.logBytes(utf8NoncharacterCodePoint2FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint2FFFF = "\\u{2FFFF}";
-        bytes memory utf8NoncharacterCodePoint2FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint2FFFF);
+        bytes memory utf8NoncharacterCodePoint2FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint2FFFF));
         console2.log("2FFFF: ", string(utf8NoncharacterCodePoint2FFFF));
         console2.logBytes(utf8NoncharacterCodePoint2FFFF);
 
         string memory noncharacterCodePoint3FFFE = "\\u{3FFFE}";
-        bytes memory utf8NoncharacterCodePoint3FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint3FFFE);
+        bytes memory utf8NoncharacterCodePoint3FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint3FFFE));
         console2.log("3FFFE: ", string(utf8NoncharacterCodePoint3FFFE));
         console2.logBytes(utf8NoncharacterCodePoint3FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint3FFFF = "\\u{3FFFF}";
-        bytes memory utf8NoncharacterCodePoint3FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint3FFFF);
+        bytes memory utf8NoncharacterCodePoint3FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint3FFFF));
         console2.log("3FFFF: ", string(utf8NoncharacterCodePoint3FFFF));
         console2.logBytes(utf8NoncharacterCodePoint3FFFF);
 
         string memory noncharacterCodePoint4FFFE = "\\u{4FFFE}";
-        bytes memory utf8NoncharacterCodePoint4FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint4FFFE);
+        bytes memory utf8NoncharacterCodePoint4FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint4FFFE));
         console2.log("4FFFE: ", string(utf8NoncharacterCodePoint4FFFE));
         console2.logBytes(utf8NoncharacterCodePoint4FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint4FFFF = "\\u{4FFFF}";
-        bytes memory utf8NoncharacterCodePoint4FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint4FFFF);
+        bytes memory utf8NoncharacterCodePoint4FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint4FFFF));
         console2.log("4FFFF: ", string(utf8NoncharacterCodePoint4FFFF));
         console2.logBytes(utf8NoncharacterCodePoint4FFFF);
 
         string memory noncharacterCodePoint5FFFE = "\\u{5FFFE}";
-        bytes memory utf8NoncharacterCodePoint5FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint5FFFE);
+        bytes memory utf8NoncharacterCodePoint5FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint5FFFE));
         console2.log("5FFFE: ", string(utf8NoncharacterCodePoint5FFFE));
         console2.logBytes(utf8NoncharacterCodePoint5FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint5FFFF = "\\u{5FFFF}";
-        bytes memory utf8NoncharacterCodePoint5FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint5FFFF);
+        bytes memory utf8NoncharacterCodePoint5FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint5FFFF));
         console2.log("5FFFF: ", string(utf8NoncharacterCodePoint5FFFF));
         console2.logBytes(utf8NoncharacterCodePoint5FFFF);
 
         string memory noncharacterCodePoint6FFFE = "\\u{6FFFE}";
-        bytes memory utf8NoncharacterCodePoint6FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint6FFFE);
+        bytes memory utf8NoncharacterCodePoint6FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint6FFFE));
         console2.log("6FFFE: ", string(utf8NoncharacterCodePoint6FFFE));
         console2.logBytes(utf8NoncharacterCodePoint6FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint6FFFF = "\\u{6FFFF}";
-        bytes memory utf8NoncharacterCodePoint6FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint6FFFF);
+        bytes memory utf8NoncharacterCodePoint6FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint6FFFF));
         console2.log("6FFFF: ", string(utf8NoncharacterCodePoint6FFFF));
         console2.logBytes(utf8NoncharacterCodePoint6FFFF);
 
         string memory noncharacterCodePoint7FFFE = "\\u{7FFFE}";
-        bytes memory utf8NoncharacterCodePoint7FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint7FFFE);
+        bytes memory utf8NoncharacterCodePoint7FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint7FFFE));
         console2.log("7FFFE: ", string(utf8NoncharacterCodePoint7FFFE));
         console2.logBytes(utf8NoncharacterCodePoint7FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint7FFFF = "\\u{7FFFF}";
-        bytes memory utf8NoncharacterCodePoint7FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint7FFFF);
+        bytes memory utf8NoncharacterCodePoint7FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint7FFFF));
         console2.log("7FFFF: ", string(utf8NoncharacterCodePoint7FFFF));
         console2.logBytes(utf8NoncharacterCodePoint7FFFF);
 
         string memory noncharacterCodePoint8FFFE = "\\u{8FFFE}";
-        bytes memory utf8NoncharacterCodePoint8FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint8FFFE);
+        bytes memory utf8NoncharacterCodePoint8FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint8FFFE));
         console2.log("8FFFE: ", string(utf8NoncharacterCodePoint8FFFE));
         console2.logBytes(utf8NoncharacterCodePoint8FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint8FFFF = "\\u{8FFFF}";
-        bytes memory utf8NoncharacterCodePoint8FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint8FFFF);
+        bytes memory utf8NoncharacterCodePoint8FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint8FFFF));
         console2.log("8FFFF: ", string(utf8NoncharacterCodePoint8FFFF));
         console2.logBytes(utf8NoncharacterCodePoint8FFFF);
 
         string memory noncharacterCodePoint9FFFE = "\\u{9FFFE}";
-        bytes memory utf8NoncharacterCodePoint9FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint9FFFE);
+        bytes memory utf8NoncharacterCodePoint9FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint9FFFE));
         console2.log("9FFFE: ", string(utf8NoncharacterCodePoint9FFFE));
         console2.logBytes(utf8NoncharacterCodePoint9FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint9FFFF = "\\u{9FFFF}";
-        bytes memory utf8NoncharacterCodePoint9FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint9FFFF);
+        bytes memory utf8NoncharacterCodePoint9FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint9FFFF));
         console2.log("9FFFF: ", string(utf8NoncharacterCodePoint9FFFF));
         console2.logBytes(utf8NoncharacterCodePoint9FFFF);
 
         string memory noncharacterCodePointAFFFE = "\\u{AFFFE}";
-        bytes memory utf8NoncharacterCodePointAFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointAFFFE);
+        bytes memory utf8NoncharacterCodePointAFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointAFFFE));
         console2.log("AFFFE: ", string(utf8NoncharacterCodePointAFFFE));
         console2.logBytes(utf8NoncharacterCodePointAFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointAFFFF = "\\u{AFFFF}";
-        bytes memory utf8NoncharacterCodePointAFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointAFFFF);
+        bytes memory utf8NoncharacterCodePointAFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointAFFFF));
         console2.log("AFFFF: ", string(utf8NoncharacterCodePointAFFFF));
         console2.logBytes(utf8NoncharacterCodePointAFFFF);
 
         string memory noncharacterCodePointBFFFE = "\\u{BFFFE}";
-        bytes memory utf8NoncharacterCodePointBFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointBFFFE);
+        bytes memory utf8NoncharacterCodePointBFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointBFFFE));
         console2.log("BFFFE: ", string(utf8NoncharacterCodePointBFFFE));
         console2.logBytes(utf8NoncharacterCodePointBFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointBFFFF = "\\u{BFFFF}";
-        bytes memory utf8NoncharacterCodePointBFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointBFFFF);
+        bytes memory utf8NoncharacterCodePointBFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointBFFFF));
         console2.log("BFFFF: ", string(utf8NoncharacterCodePointBFFFF));
         console2.logBytes(utf8NoncharacterCodePointBFFFF);
 
         string memory noncharacterCodePointCFFFE = "\\u{CFFFE}";
-        bytes memory utf8NoncharacterCodePointCFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointCFFFE);
+        bytes memory utf8NoncharacterCodePointCFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointCFFFE));
         console2.log("CFFFE: ", string(utf8NoncharacterCodePointCFFFE));
         console2.logBytes(utf8NoncharacterCodePointCFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointCFFFF = "\\u{CFFFF}";
-        bytes memory utf8NoncharacterCodePointCFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointCFFFF);
+        bytes memory utf8NoncharacterCodePointCFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointCFFFF));
         console2.log("CFFFF: ", string(utf8NoncharacterCodePointCFFFF));
         console2.logBytes(utf8NoncharacterCodePointCFFFF);
 
         string memory noncharacterCodePointDFFFE = "\\u{DFFFE}";
-        bytes memory utf8NoncharacterCodePointDFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointDFFFE);
+        bytes memory utf8NoncharacterCodePointDFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointDFFFE));
         console2.log("DFFFE: ", string(utf8NoncharacterCodePointDFFFE));
         console2.logBytes(utf8NoncharacterCodePointDFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointDFFFF = "\\u{DFFFF}";
-        bytes memory utf8NoncharacterCodePointDFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointDFFFF);
+        bytes memory utf8NoncharacterCodePointDFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointDFFFF));
         console2.log("DFFFF: ", string(utf8NoncharacterCodePointDFFFF));
         console2.logBytes(utf8NoncharacterCodePointDFFFF);
 
         string memory noncharacterCodePointEFFFE = "\\u{EFFFE}";
-        bytes memory utf8NoncharacterCodePointEFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointEFFFE);
+        bytes memory utf8NoncharacterCodePointEFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointEFFFE));
         console2.log("EFFFE: ", string(utf8NoncharacterCodePointEFFFE));
         console2.logBytes(utf8NoncharacterCodePointEFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointEFFFF = "\\u{EFFFF}";
-        bytes memory utf8NoncharacterCodePointEFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointEFFFF);
+        bytes memory utf8NoncharacterCodePointEFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointEFFFF));
         console2.log("EFFFF: ", string(utf8NoncharacterCodePointEFFFF));
         console2.logBytes(utf8NoncharacterCodePointEFFFF);
 
         string memory noncharacterCodePointFFFFE = "\\u{FFFFE}";
-        bytes memory utf8NoncharacterCodePointFFFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFFE);
+        bytes memory utf8NoncharacterCodePointFFFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFFE));
         console2.log("FFFFE: ", string(utf8NoncharacterCodePointFFFFE));
         console2.logBytes(utf8NoncharacterCodePointFFFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePointFFFFF = "\\u{FFFFF}";
-        bytes memory utf8NoncharacterCodePointFFFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePointFFFFF);
+        bytes memory utf8NoncharacterCodePointFFFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFFF));
         console2.log("FFFFF: ", string(utf8NoncharacterCodePointFFFFF));
         console2.logBytes(utf8NoncharacterCodePointFFFFF);
 
         string memory noncharacterCodePoint10FFFE = "\\u{10FFFE}";
-        bytes memory utf8NoncharacterCodePoint10FFFE = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint10FFFE);
+        bytes memory utf8NoncharacterCodePoint10FFFE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint10FFFE));
         console2.log("10FFFE: ", string(utf8NoncharacterCodePoint10FFFE));
         console2.logBytes(utf8NoncharacterCodePoint10FFFE);
 
         console2.log("..");
 
         string memory noncharacterCodePoint10FFFF = "\\u{10FFFF}";
-        bytes memory utf8NoncharacterCodePoint10FFFF = Stringray.unicodeHexToUtf8Hex(noncharacterCodePoint10FFFF);
+        bytes memory utf8NoncharacterCodePoint10FFFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint10FFFF));
         console2.log("10FFFF: ", string(utf8NoncharacterCodePoint10FFFF));
         console2.logBytes(utf8NoncharacterCodePoint10FFFF);
     }
 
     function testRegexPropertyOtherGraphemeExtend() public pure {
-        // @TODO: complete the property Other_Grapheme_Extend testing🧪...🚀🚀
+        string memory otherGraphemeExtend09BE = "\\u{09BE}";
+        bytes memory utf8OtherGraphemeExtend09BE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend09BE));
+        console2.log("09BE: ", string(utf8OtherGraphemeExtend09BE));
+        console2.logBytes(utf8OtherGraphemeExtend09BE);
+
+        string memory otherGraphemeExtend09D7 = "\\u{09D7}";
+        bytes memory utf8OtherGraphemeExtend09D7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend09D7));
+        console2.log("09D7: ", string(utf8OtherGraphemeExtend09D7));
+        console2.logBytes(utf8OtherGraphemeExtend09D7);
+
+        string memory otherGraphemeExtend0B3E = "\\u{0B3E}";
+        bytes memory utf8OtherGraphemeExtend0B3E =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0B3E));
+        console2.log("0B3E: ", string(utf8OtherGraphemeExtend0B3E));
+        console2.logBytes(utf8OtherGraphemeExtend0B3E);
+
+        string memory otherGraphemeExtend0B57 = "\\u{0B57}";
+        bytes memory utf8OtherGraphemeExtend0B57 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0B57));
+        console2.log("0B57: ", string(utf8OtherGraphemeExtend0B57));
+        console2.logBytes(utf8OtherGraphemeExtend0B57);
+
+        string memory otherGraphemeExtend0BBE = "\\u{0BBE}";
+        bytes memory utf8OtherGraphemeExtend0BBE =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0BBE));
+        console2.log("0BBE: ", string(utf8OtherGraphemeExtend0BBE));
+        console2.logBytes(utf8OtherGraphemeExtend0BBE);
+
+        string memory otherGraphemeExtend0BD7 = "\\u{0BD7}";
+        bytes memory utf8OtherGraphemeExtend0BD7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0BD7));
+        console2.log("0BD7: ", string(utf8OtherGraphemeExtend0BD7));
+        console2.logBytes(utf8OtherGraphemeExtend0BD7);
+
+        string memory otherGraphemeExtend0CC0 = "\\u{0CC0}";
+        bytes memory utf8OtherGraphemeExtend0CC0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC0));
+        console2.log("0CC0: ", string(utf8OtherGraphemeExtend0CC0));
+        console2.logBytes(utf8OtherGraphemeExtend0CC0);
+
+        string memory otherGraphemeExtend0CC2 = "\\u{0CC2}";
+        bytes memory utf8OtherGraphemeExtend0CC2 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC2));
+        console2.log("0CC2: ", string(utf8OtherGraphemeExtend0CC2));
+        console2.logBytes(utf8OtherGraphemeExtend0CC2);
+
+        string memory otherGraphemeExtend0CC7 = "\\u{0CC7}";
+        bytes memory utf8OtherGraphemeExtend0CC7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC7));
+        console2.log("0CC7: ", string(utf8OtherGraphemeExtend0CC7));
+        console2.logBytes(utf8OtherGraphemeExtend0CC7);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend0CC8 = "\\u{0CC8}";
+        bytes memory utf8OtherGraphemeExtend0CC8 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC8));
+        console2.log("0CC8: ", string(utf8OtherGraphemeExtend0CC8));
+        console2.logBytes(utf8OtherGraphemeExtend0CC8);
+
+        string memory otherGraphemeExtend0CCA = "\\u{0CCA}";
+        bytes memory utf8OtherGraphemeExtend0CCA =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CCA));
+        console2.log("0CCA: ", string(utf8OtherGraphemeExtend0CCA));
+        console2.logBytes(utf8OtherGraphemeExtend0CCA);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend0CCB = "\\u{0CCB}";
+        bytes memory utf8OtherGraphemeExtend0CCB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CCB));
+        console2.log("0CCB: ", string(utf8OtherGraphemeExtend0CCB));
+        console2.logBytes(utf8OtherGraphemeExtend0CCB);
+
+        string memory otherGraphemeExtend0CD5 = "\\u{0CD5}";
+        bytes memory utf8OtherGraphemeExtend0CD5 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CD5));
+        console2.log("0CD5: ", string(utf8OtherGraphemeExtend0CD5));
+        console2.logBytes(utf8OtherGraphemeExtend0CD5);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend0CD6 = "\\u{0CD6}";
+        bytes memory utf8OtherGraphemeExtend0CD6 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CD6));
+        console2.log("0CD6: ", string(utf8OtherGraphemeExtend0CD6));
+        console2.logBytes(utf8OtherGraphemeExtend0CD6);
+
+        string memory otherGraphemeExtend0D3E = "\\u{0D3E}";
+        bytes memory utf8OtherGraphemeExtend0D3E =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0D3E));
+        console2.log("0D3E: ", string(utf8OtherGraphemeExtend0D3E));
+        console2.logBytes(utf8OtherGraphemeExtend0D3E);
+
+        string memory otherGraphemeExtend0D57 = "\\u{0D57}";
+        bytes memory utf8OtherGraphemeExtend0D57 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0D57));
+        console2.log("0D57: ", string(utf8OtherGraphemeExtend0D57));
+        console2.logBytes(utf8OtherGraphemeExtend0D57);
+
+        string memory otherGraphemeExtend0DCF = "\\u{0DCF}";
+        bytes memory utf8OtherGraphemeExtend0DCF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0DCF));
+        console2.log("0DCF: ", string(utf8OtherGraphemeExtend0DCF));
+        console2.logBytes(utf8OtherGraphemeExtend0DCF);
+
+        string memory otherGraphemeExtend0DDF = "\\u{0DDF}";
+        bytes memory utf8OtherGraphemeExtend0DDF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0DDF));
+        console2.log("0DDF: ", string(utf8OtherGraphemeExtend0DDF));
+        console2.logBytes(utf8OtherGraphemeExtend0DDF);
+
+        string memory otherGraphemeExtend1715 = "\\u{1715}";
+        bytes memory utf8OtherGraphemeExtend1715 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1715));
+        console2.log("1715: ", string(utf8OtherGraphemeExtend1715));
+        console2.logBytes(utf8OtherGraphemeExtend1715);
+
+        string memory otherGraphemeExtend1734 = "\\u{1734}";
+        bytes memory utf8OtherGraphemeExtend1734 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1734));
+        console2.log("1734: ", string(utf8OtherGraphemeExtend1734));
+        console2.logBytes(utf8OtherGraphemeExtend1734);
+
+        string memory otherGraphemeExtend1B35 = "\\u{1B35}";
+        bytes memory utf8OtherGraphemeExtend1B35 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B35));
+        console2.log("1B35: ", string(utf8OtherGraphemeExtend1B35));
+        console2.logBytes(utf8OtherGraphemeExtend1B35);
+
+        string memory otherGraphemeExtend1B3B = "\\u{1B3B}";
+        bytes memory utf8OtherGraphemeExtend1B3B =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B3B));
+        console2.log("1B3B: ", string(utf8OtherGraphemeExtend1B3B));
+        console2.logBytes(utf8OtherGraphemeExtend1B3B);
+
+        string memory otherGraphemeExtend1B3D = "\\u{1B3D}";
+        bytes memory utf8OtherGraphemeExtend1B3D =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B3D));
+        console2.log("1B3D: ", string(utf8OtherGraphemeExtend1B3D));
+        console2.logBytes(utf8OtherGraphemeExtend1B3D);
+
+        string memory otherGraphemeExtend1B43 = "\\u{1B43}";
+        bytes memory utf8OtherGraphemeExtend1B43 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B43));
+        console2.log("1B43: ", string(utf8OtherGraphemeExtend1B43));
+        console2.logBytes(utf8OtherGraphemeExtend1B43);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend1B44 = "\\u{1B44}";
+        bytes memory utf8OtherGraphemeExtend1B44 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B44));
+        console2.log("1B44: ", string(utf8OtherGraphemeExtend1B44));
+        console2.logBytes(utf8OtherGraphemeExtend1B44);
+
+        string memory otherGraphemeExtend1BAA = "\\u{1BAA}";
+        bytes memory utf8OtherGraphemeExtend1BAA =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BAA));
+        console2.log("1BAA: ", string(utf8OtherGraphemeExtend1BAA));
+        console2.logBytes(utf8OtherGraphemeExtend1BAA);
+
+        string memory otherGraphemeExtend1BF2 = "\\u{1BF2}";
+        bytes memory utf8OtherGraphemeExtend1BF2 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BF2));
+        console2.log("1BF2: ", string(utf8OtherGraphemeExtend1BF2));
+        console2.logBytes(utf8OtherGraphemeExtend1BF2);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend1BF3 = "\\u{1BF3}";
+        bytes memory utf8OtherGraphemeExtend1BF3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BF3));
+        console2.log("1BF3: ", string(utf8OtherGraphemeExtend1BF3));
+        console2.logBytes(utf8OtherGraphemeExtend1BF3);
+
+        string memory otherGraphemeExtend200C = "\\u{200C}";
+        bytes memory utf8OtherGraphemeExtend200C =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend200C));
+        console2.log("200C: ", string(utf8OtherGraphemeExtend200C));
+        console2.logBytes(utf8OtherGraphemeExtend200C);
+
+        string memory otherGraphemeExtend302E = "\\u{302E}";
+        bytes memory utf8OtherGraphemeExtend302E =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend302E));
+        console2.log("302E: ", string(utf8OtherGraphemeExtend302E));
+        console2.logBytes(utf8OtherGraphemeExtend302E);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend302F = "\\u{302F}";
+        bytes memory utf8OtherGraphemeExtend302F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend302F));
+        console2.log("302F: ", string(utf8OtherGraphemeExtend302F));
+        console2.logBytes(utf8OtherGraphemeExtend302F);
+
+        string memory otherGraphemeExtendA953 = "\\u{A953}";
+        bytes memory utf8OtherGraphemeExtendA953 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendA953));
+        console2.log("A953: ", string(utf8OtherGraphemeExtendA953));
+        console2.logBytes(utf8OtherGraphemeExtendA953);
+
+        string memory otherGraphemeExtendA9C0 = "\\u{A9C0}";
+        bytes memory utf8OtherGraphemeExtendA9C0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendA9C0));
+        console2.log("A9C0: ", string(utf8OtherGraphemeExtendA9C0));
+        console2.logBytes(utf8OtherGraphemeExtendA9C0);
+
+        string memory otherGraphemeExtendFF9E = "\\u{FF9E}";
+        bytes memory utf8OtherGraphemeExtendFF9E =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendFF9E));
+        console2.log("FF9E: ", string(utf8OtherGraphemeExtendFF9E));
+        console2.logBytes(utf8OtherGraphemeExtendFF9E);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtendFF9F = "\\u{FF9F}";
+        bytes memory utf8OtherGraphemeExtendFF9F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendFF9F));
+        console2.log("FF9F: ", string(utf8OtherGraphemeExtendFF9F));
+        console2.logBytes(utf8OtherGraphemeExtendFF9F);
+
+        string memory otherGraphemeExtend111C0 = "\\u{111C0}";
+        bytes memory utf8OtherGraphemeExtend111C0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend111C0));
+        console2.log("111C0: ", string(utf8OtherGraphemeExtend111C0));
+        console2.logBytes(utf8OtherGraphemeExtend111C0);
+
+        string memory otherGraphemeExtend11235 = "\\u{11235}";
+        bytes memory utf8OtherGraphemeExtend11235 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11235));
+        console2.log("11235: ", string(utf8OtherGraphemeExtend11235));
+        console2.logBytes(utf8OtherGraphemeExtend11235);
+
+        string memory otherGraphemeExtend1133E = "\\u{1133E}";
+        bytes memory utf8OtherGraphemeExtend1133E =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1133E));
+        console2.log("1133E: ", string(utf8OtherGraphemeExtend1133E));
+        console2.logBytes(utf8OtherGraphemeExtend1133E);
+
+        string memory otherGraphemeExtend1134D = "\\u{1134D}";
+        bytes memory utf8OtherGraphemeExtend1134D =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1134D));
+        console2.log("1134D: ", string(utf8OtherGraphemeExtend1134D));
+        console2.logBytes(utf8OtherGraphemeExtend1134D);
+
+        string memory otherGraphemeExtend11357 = "\\u{11357}";
+        bytes memory utf8OtherGraphemeExtend11357 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11357));
+        console2.log("11357: ", string(utf8OtherGraphemeExtend11357));
+        console2.logBytes(utf8OtherGraphemeExtend11357);
+
+        string memory otherGraphemeExtend113B8 = "\\u{113B8}";
+        bytes memory utf8OtherGraphemeExtend113B8 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113B8));
+        console2.log("113B8: ", string(utf8OtherGraphemeExtend113B8));
+        console2.logBytes(utf8OtherGraphemeExtend113B8);
+
+        string memory otherGraphemeExtend113C2 = "\\u{113C2}";
+        bytes memory utf8OtherGraphemeExtend113C2 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C2));
+        console2.log("113C2: ", string(utf8OtherGraphemeExtend113C2));
+        console2.logBytes(utf8OtherGraphemeExtend113C2);
+
+        string memory otherGraphemeExtend113C5 = "\\u{113C5}";
+        bytes memory utf8OtherGraphemeExtend113C5 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C5));
+        console2.log("113C5: ", string(utf8OtherGraphemeExtend113C5));
+        console2.logBytes(utf8OtherGraphemeExtend113C5);
+
+        string memory otherGraphemeExtend113C7 = "\\u{113C7}";
+        bytes memory utf8OtherGraphemeExtend113C7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C7));
+        console2.log("113C7: ", string(utf8OtherGraphemeExtend113C7));
+        console2.logBytes(utf8OtherGraphemeExtend113C7);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend113C9 = "\\u{113C9}";
+        bytes memory utf8OtherGraphemeExtend113C9 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C9));
+        console2.log("113C9: ", string(utf8OtherGraphemeExtend113C9));
+        console2.logBytes(utf8OtherGraphemeExtend113C9);
+
+        string memory otherGraphemeExtend113CF = "\\u{113CF}";
+        bytes memory utf8OtherGraphemeExtend113CF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113CF));
+        console2.log("113CF: ", string(utf8OtherGraphemeExtend113CF));
+        console2.logBytes(utf8OtherGraphemeExtend113CF);
+
+        string memory otherGraphemeExtend114B0 = "\\u{114B0}";
+        bytes memory utf8OtherGraphemeExtend114B0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend114B0));
+        console2.log("114B0: ", string(utf8OtherGraphemeExtend114B0));
+        console2.logBytes(utf8OtherGraphemeExtend114B0);
+
+        string memory otherGraphemeExtend114BD = "\\u{114BD}";
+        bytes memory utf8OtherGraphemeExtend114BD =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend114BD));
+        console2.log("114BD: ", string(utf8OtherGraphemeExtend114BD));
+        console2.logBytes(utf8OtherGraphemeExtend114BD);
+
+        string memory otherGraphemeExtend115AF = "\\u{115AF}";
+        bytes memory utf8OtherGraphemeExtend115AF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend115AF));
+        console2.log("115AF: ", string(utf8OtherGraphemeExtend115AF));
+        console2.logBytes(utf8OtherGraphemeExtend115AF);
+
+        string memory otherGraphemeExtend116B6 = "\\u{116B6}";
+        bytes memory utf8OtherGraphemeExtend116B6 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend116B6));
+        console2.log("116B6: ", string(utf8OtherGraphemeExtend116B6));
+        console2.logBytes(utf8OtherGraphemeExtend116B6);
+
+        string memory otherGraphemeExtend11930 = "\\u{11930}";
+        bytes memory utf8OtherGraphemeExtend11930 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11930));
+        console2.log("11930: ", string(utf8OtherGraphemeExtend11930));
+        console2.logBytes(utf8OtherGraphemeExtend11930);
+
+        string memory otherGraphemeExtend1193D = "\\u{1193D}";
+        bytes memory utf8OtherGraphemeExtend1193D =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1193D));
+        console2.log("1193D: ", string(utf8OtherGraphemeExtend1193D));
+        console2.logBytes(utf8OtherGraphemeExtend1193D);
+
+        string memory otherGraphemeExtend11F41 = "\\u{11F41}";
+        bytes memory utf8OtherGraphemeExtend11F41 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11F41));
+        console2.log("11F41: ", string(utf8OtherGraphemeExtend11F41));
+        console2.logBytes(utf8OtherGraphemeExtend11F41);
+
+        string memory otherGraphemeExtend16FF0 = "\\u{16FF0}";
+        bytes memory utf8OtherGraphemeExtend16FF0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend16FF0));
+        console2.log("16FF0: ", string(utf8OtherGraphemeExtend16FF0));
+        console2.logBytes(utf8OtherGraphemeExtend16FF0);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend16FF1 = "\\u{16FF1}";
+        bytes memory utf8OtherGraphemeExtend16FF1 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend16FF1));
+        console2.log("16FF1: ", string(utf8OtherGraphemeExtend16FF1));
+        console2.logBytes(utf8OtherGraphemeExtend16FF1);
+
+        string memory otherGraphemeExtend1D165 = "\\u{1D165}";
+        bytes memory utf8OtherGraphemeExtend1D165 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D165));
+        console2.log("1D165: ", string(utf8OtherGraphemeExtend1D165));
+        console2.logBytes(utf8OtherGraphemeExtend1D165);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend1D166 = "\\u{1D166}";
+        bytes memory utf8OtherGraphemeExtend1D166 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D166));
+        console2.log("1D166: ", string(utf8OtherGraphemeExtend1D166));
+        console2.logBytes(utf8OtherGraphemeExtend1D166);
+
+        string memory otherGraphemeExtend1D16D = "\\u{1D16D}";
+        bytes memory utf8OtherGraphemeExtend1D16D =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D16D));
+        console2.log("1D16D: ", string(utf8OtherGraphemeExtend1D16D));
+        console2.logBytes(utf8OtherGraphemeExtend1D16D);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtend1D172 = "\\u{1D172}";
+        bytes memory utf8OtherGraphemeExtend1D172 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D172));
+        console2.log("1D172: ", string(utf8OtherGraphemeExtend1D172));
+        console2.logBytes(utf8OtherGraphemeExtend1D172);
+
+        string memory otherGraphemeExtendE0020 = "\\u{E0020}";
+        bytes memory utf8OtherGraphemeExtendE0020 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendE0020));
+        console2.log("E0020: ", string(utf8OtherGraphemeExtendE0020));
+        console2.logBytes(utf8OtherGraphemeExtendE0020);
+
+        console2.log("..");
+
+        string memory otherGraphemeExtendE007F = "\\u{E007F}";
+        bytes memory utf8OtherGraphemeExtendE007F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendE007F));
+        console2.log("E007F: ", string(utf8OtherGraphemeExtendE007F));
+        console2.logBytes(utf8OtherGraphemeExtendE007F);
     }
 
     function testRegexPropertyIDSBinaryOperator() public pure {
