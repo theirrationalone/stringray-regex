@@ -13510,179 +13510,291 @@ contract PlayStringTest is Test {
 
     function testRegexPropertyUnifiedIdeograph() public pure {
         string memory unifiedIdeograph3400 = "\\u{3400}";
-        bytes memory utf8UnifiedIdeograph3400 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph3400);
+        bytes memory utf8UnifiedIdeograph3400 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph3400));
         console2.log("3400: ", string(utf8UnifiedIdeograph3400));
         console2.logBytes(utf8UnifiedIdeograph3400);
 
         console2.log("..");
 
         string memory unifiedIdeograph4DBF = "\\u{4DBF}";
-        bytes memory utf8UnifiedIdeograph4DBF = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph4DBF);
+        bytes memory utf8UnifiedIdeograph4DBF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph4DBF));
         console2.log("4DBF: ", string(utf8UnifiedIdeograph4DBF));
         console2.logBytes(utf8UnifiedIdeograph4DBF);
 
         string memory unifiedIdeograph4E00 = "\\u{4E00}";
-        bytes memory utf8UnifiedIdeograph4E00 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph4E00);
+        bytes memory utf8UnifiedIdeograph4E00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph4E00));
         console2.log("4E00: ", string(utf8UnifiedIdeograph4E00));
         console2.logBytes(utf8UnifiedIdeograph4E00);
 
         console2.log("..");
 
         string memory unifiedIdeograph9FFF = "\\u{9FFF}";
-        bytes memory utf8UnifiedIdeograph9FFF = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph9FFF);
+        bytes memory utf8UnifiedIdeograph9FFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph9FFF));
         console2.log("9FFF: ", string(utf8UnifiedIdeograph9FFF));
         console2.logBytes(utf8UnifiedIdeograph9FFF);
 
         string memory unifiedIdeographFA0E = "\\u{FA0E}";
-        bytes memory utf8UnifiedIdeographFA0E = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA0E);
+        bytes memory utf8UnifiedIdeographFA0E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA0E));
         console2.log("FA0E: ", string(utf8UnifiedIdeographFA0E));
         console2.logBytes(utf8UnifiedIdeographFA0E);
 
         console2.log("..");
 
         string memory unifiedIdeographFA0F = "\\u{FA0F}";
-        bytes memory utf8UnifiedIdeographFA0F = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA0F);
+        bytes memory utf8UnifiedIdeographFA0F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA0F));
         console2.log("FA0F: ", string(utf8UnifiedIdeographFA0F));
         console2.logBytes(utf8UnifiedIdeographFA0F);
 
         string memory unifiedIdeographFA11 = "\\u{FA11}";
-        bytes memory utf8UnifiedIdeographFA11 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA11);
+        bytes memory utf8UnifiedIdeographFA11 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA11));
         console2.log("FA11: ", string(utf8UnifiedIdeographFA11));
         console2.logBytes(utf8UnifiedIdeographFA11);
 
         string memory unifiedIdeographFA13 = "\\u{FA13}";
-        bytes memory utf8UnifiedIdeographFA13 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA13);
+        bytes memory utf8UnifiedIdeographFA13 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA13));
         console2.log("FA13: ", string(utf8UnifiedIdeographFA13));
         console2.logBytes(utf8UnifiedIdeographFA13);
 
         console2.log("..");
 
         string memory unifiedIdeographFA14 = "\\u{FA14}";
-        bytes memory utf8UnifiedIdeographFA14 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA14);
+        bytes memory utf8UnifiedIdeographFA14 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA14));
         console2.log("FA14: ", string(utf8UnifiedIdeographFA14));
         console2.logBytes(utf8UnifiedIdeographFA14);
 
         string memory unifiedIdeographFA1F = "\\u{FA1F}";
-        bytes memory utf8UnifiedIdeographFA1F = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA1F);
+        bytes memory utf8UnifiedIdeographFA1F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA1F));
         console2.log("FA1F: ", string(utf8UnifiedIdeographFA1F));
         console2.logBytes(utf8UnifiedIdeographFA1F);
 
         string memory unifiedIdeographFA21 = "\\u{FA21}";
-        bytes memory utf8UnifiedIdeographFA21 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA21);
+        bytes memory utf8UnifiedIdeographFA21 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA21));
         console2.log("FA21: ", string(utf8UnifiedIdeographFA21));
         console2.logBytes(utf8UnifiedIdeographFA21);
 
         string memory unifiedIdeographFA23 = "\\u{FA23}";
-        bytes memory utf8UnifiedIdeographFA23 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA23);
+        bytes memory utf8UnifiedIdeographFA23 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA23));
         console2.log("FA23: ", string(utf8UnifiedIdeographFA23));
         console2.logBytes(utf8UnifiedIdeographFA23);
 
         console2.log("..");
 
         string memory unifiedIdeographFA24 = "\\u{FA24}";
-        bytes memory utf8UnifiedIdeographFA24 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA24);
+        bytes memory utf8UnifiedIdeographFA24 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA24));
         console2.log("FA24: ", string(utf8UnifiedIdeographFA24));
         console2.logBytes(utf8UnifiedIdeographFA24);
 
         string memory unifiedIdeographFA27 = "\\u{FA27}";
-        bytes memory utf8UnifiedIdeographFA27 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA27);
+        bytes memory utf8UnifiedIdeographFA27 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA27));
         console2.log("FA27: ", string(utf8UnifiedIdeographFA27));
         console2.logBytes(utf8UnifiedIdeographFA27);
 
         console2.log("..");
 
         string memory unifiedIdeographFA29 = "\\u{FA29}";
-        bytes memory utf8UnifiedIdeographFA29 = Stringray.unicodeHexToUtf8Hex(unifiedIdeographFA29);
+        bytes memory utf8UnifiedIdeographFA29 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeographFA29));
         console2.log("FA29: ", string(utf8UnifiedIdeographFA29));
         console2.logBytes(utf8UnifiedIdeographFA29);
 
         string memory unifiedIdeograph20000 = "\\u{20000}";
-        bytes memory utf8UnifiedIdeograph20000 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph20000);
+        bytes memory utf8UnifiedIdeograph20000 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph20000));
         console2.log("20000: ", string(utf8UnifiedIdeograph20000));
         console2.logBytes(utf8UnifiedIdeograph20000);
 
         console2.log("..");
 
         string memory unifiedIdeograph2A6DF = "\\u{2A6DF}";
-        bytes memory utf8UnifiedIdeograph2A6DF = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2A6DF);
+        bytes memory utf8UnifiedIdeograph2A6DF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2A6DF));
         console2.log("2A6DF: ", string(utf8UnifiedIdeograph2A6DF));
         console2.logBytes(utf8UnifiedIdeograph2A6DF);
 
         string memory unifiedIdeograph2A700 = "\\u{2A700}";
-        bytes memory utf8UnifiedIdeograph2A700 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2A700);
+        bytes memory utf8UnifiedIdeograph2A700 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2A700));
         console2.log("2A700: ", string(utf8UnifiedIdeograph2A700));
         console2.logBytes(utf8UnifiedIdeograph2A700);
 
         console2.log("..");
 
         string memory unifiedIdeograph2B81D = "\\u{2B81D}";
-        bytes memory utf8UnifiedIdeograph2B81D = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2B81D);
+        bytes memory utf8UnifiedIdeograph2B81D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2B81D));
         console2.log("2B81D: ", string(utf8UnifiedIdeograph2B81D));
         console2.logBytes(utf8UnifiedIdeograph2B81D);
 
         string memory unifiedIdeograph2B820 = "\\u{2B820}";
-        bytes memory utf8UnifiedIdeograph2B820 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2B820);
+        bytes memory utf8UnifiedIdeograph2B820 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2B820));
         console2.log("2B820: ", string(utf8UnifiedIdeograph2B820));
         console2.logBytes(utf8UnifiedIdeograph2B820);
 
         console2.log("..");
 
         string memory unifiedIdeograph2CEAD = "\\u{2CEAD}";
-        bytes memory utf8UnifiedIdeograph2CEAD = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2CEAD);
+        bytes memory utf8UnifiedIdeograph2CEAD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2CEAD));
         console2.log("2CEAD: ", string(utf8UnifiedIdeograph2CEAD));
         console2.logBytes(utf8UnifiedIdeograph2CEAD);
 
         string memory unifiedIdeograph2CEB0 = "\\u{2CEB0}";
-        bytes memory utf8UnifiedIdeograph2CEB0 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2CEB0);
+        bytes memory utf8UnifiedIdeograph2CEB0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2CEB0));
         console2.log("2CEB0: ", string(utf8UnifiedIdeograph2CEB0));
         console2.logBytes(utf8UnifiedIdeograph2CEB0);
 
         console2.log("..");
 
         string memory unifiedIdeograph2EBE0 = "\\u{2EBE0}";
-        bytes memory utf8UnifiedIdeograph2EBE0 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2EBE0);
+        bytes memory utf8UnifiedIdeograph2EBE0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2EBE0));
         console2.log("2EBE0: ", string(utf8UnifiedIdeograph2EBE0));
         console2.logBytes(utf8UnifiedIdeograph2EBE0);
 
         string memory unifiedIdeograph2EBF0 = "\\u{2EBF0}";
-        bytes memory utf8UnifiedIdeograph2EBF0 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2EBF0);
+        bytes memory utf8UnifiedIdeograph2EBF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2EBF0));
         console2.log("2EBF0: ", string(utf8UnifiedIdeograph2EBF0));
         console2.logBytes(utf8UnifiedIdeograph2EBF0);
 
         console2.log("..");
 
         string memory unifiedIdeograph2EE5D = "\\u{2EE5D}";
-        bytes memory utf8UnifiedIdeograph2EE5D = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph2EE5D);
+        bytes memory utf8UnifiedIdeograph2EE5D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph2EE5D));
         console2.log("2EE5D: ", string(utf8UnifiedIdeograph2EE5D));
         console2.logBytes(utf8UnifiedIdeograph2EE5D);
 
         string memory unifiedIdeograph30000 = "\\u{30000}";
-        bytes memory utf8UnifiedIdeograph30000 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph30000);
+        bytes memory utf8UnifiedIdeograph30000 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph30000));
         console2.log("30000: ", string(utf8UnifiedIdeograph30000));
         console2.logBytes(utf8UnifiedIdeograph30000);
 
         console2.log("..");
 
         string memory unifiedIdeograph3134A = "\\u{3134A}";
-        bytes memory utf8UnifiedIdeograph3134A = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph3134A);
+        bytes memory utf8UnifiedIdeograph3134A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph3134A));
         console2.log("3134A: ", string(utf8UnifiedIdeograph3134A));
         console2.logBytes(utf8UnifiedIdeograph3134A);
 
         string memory unifiedIdeograph31350 = "\\u{31350}";
-        bytes memory utf8UnifiedIdeograph31350 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph31350);
+        bytes memory utf8UnifiedIdeograph31350 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph31350));
         console2.log("31350: ", string(utf8UnifiedIdeograph31350));
         console2.logBytes(utf8UnifiedIdeograph31350);
 
         console2.log("..");
 
         string memory unifiedIdeograph33479 = "\\u{33479}";
-        bytes memory utf8UnifiedIdeograph33479 = Stringray.unicodeHexToUtf8Hex(unifiedIdeograph33479);
+        bytes memory utf8UnifiedIdeograph33479 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(unifiedIdeograph33479));
         console2.log("33479: ", string(utf8UnifiedIdeograph33479));
         console2.logBytes(utf8UnifiedIdeograph33479);
     }
 
     function testRegexPropertyOtherDefaultIgnorableCodePoint() public pure {
-        // @TODO: complete the property Other_Default_Ignorable_Code_Point testing🧪...🚀🚀
+        string memory otherDefaultIgnorableCodePoint034F = "\\u{034F}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint034F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint034F));
+        console2.log("034F: ", string(utf8OtherDefaultIgnorableCodePoint034F));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint034F);
+
+        string memory otherDefaultIgnorableCodePoint115F = "\\u{115F}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint115F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint115F));
+        console2.log("115F: ", string(utf8OtherDefaultIgnorableCodePoint115F));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint115F);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePoint1160 = "\\u{1160}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint1160 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint1160));
+        console2.log("1160: ", string(utf8OtherDefaultIgnorableCodePoint1160));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint1160);
+
+        string memory otherDefaultIgnorableCodePoint17B4 = "\\u{17B4}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint17B4 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint17B4));
+        console2.log("17B4: ", string(utf8OtherDefaultIgnorableCodePoint17B4));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint17B4);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePoint17B5 = "\\u{17B5}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint17B5 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint17B5));
+        console2.log("17B5: ", string(utf8OtherDefaultIgnorableCodePoint17B5));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint17B5);
+
+        string memory otherDefaultIgnorableCodePoint2065 = "\\u{2065}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint2065 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint2065));
+        console2.log("2065: ", string(utf8OtherDefaultIgnorableCodePoint2065));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint2065);
+
+        string memory otherDefaultIgnorableCodePoint3164 = "\\u{3164}";
+        bytes memory utf8OtherDefaultIgnorableCodePoint3164 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint3164));
+        console2.log("3164: ", string(utf8OtherDefaultIgnorableCodePoint3164));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePoint3164);
+
+        string memory otherDefaultIgnorableCodePointFFA0 = "\\u{FFA0}";
+        bytes memory utf8OtherDefaultIgnorableCodePointFFA0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFA0));
+        console2.log("FFA0: ", string(utf8OtherDefaultIgnorableCodePointFFA0));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointFFA0);
+
+        string memory otherDefaultIgnorableCodePointFFF0 = "\\u{FFF0}";
+        bytes memory utf8OtherDefaultIgnorableCodePointFFF0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFF0));
+        console2.log("FFF0: ", string(utf8OtherDefaultIgnorableCodePointFFF0));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointFFF0);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePointFFF8 = "\\u{FFF8}";
+        bytes memory utf8OtherDefaultIgnorableCodePointFFF8 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFF8));
+        console2.log("FFF8: ", string(utf8OtherDefaultIgnorableCodePointFFF8));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointFFF8);
+
+        string memory otherDefaultIgnorableCodePointE0000 = "\\u{E0000}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE0000 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0000));
+        console2.log("E0000: ", string(utf8OtherDefaultIgnorableCodePointE0000));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE0000);
+
+        string memory otherDefaultIgnorableCodePointE0002 = "\\u{E0002}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE0002 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0002));
+        console2.log("E0002: ", string(utf8OtherDefaultIgnorableCodePointE0002));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE0002);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePointE001F = "\\u{E001F}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE001F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE001F));
+        console2.log("E001F: ", string(utf8OtherDefaultIgnorableCodePointE001F));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE001F);
+
+        string memory otherDefaultIgnorableCodePointE0080 = "\\u{E0080}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE0080 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0080));
+        console2.log("E0080: ", string(utf8OtherDefaultIgnorableCodePointE0080));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE0080);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePointE00FF = "\\u{E00FF}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE00FF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE00FF));
+        console2.log("E00FF: ", string(utf8OtherDefaultIgnorableCodePointE00FF));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE00FF);
+
+        string memory otherDefaultIgnorableCodePointE01F0 = "\\u{E01F0}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE01F0 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE01F0));
+        console2.log("E01F0: ", string(utf8OtherDefaultIgnorableCodePointE01F0));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE01F0);
+
+        console2.log("..");
+
+        string memory otherDefaultIgnorableCodePointE0FFF = "\\u{E0FFF}";
+        bytes memory utf8OtherDefaultIgnorableCodePointE0FFF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0FFF));
+        console2.log("E0FFF: ", string(utf8OtherDefaultIgnorableCodePointE0FFF));
+        console2.logBytes(utf8OtherDefaultIgnorableCodePointE0FFF);
     }
 
     function testRegexPropertyDeprecated() public pure {

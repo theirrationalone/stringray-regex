@@ -1,11 +1,97 @@
-034F          ; Other_Default_Ignorable_Code_Point # Mn       COMBINING GRAPHEME JOINER
-115F..1160    ; Other_Default_Ignorable_Code_Point # Lo   [2] HANGUL CHOSEONG FILLER..HANGUL JUNGSEONG FILLER
-17B4..17B5    ; Other_Default_Ignorable_Code_Point # Mn   [2] KHMER VOWEL INHERENT AQ..KHMER VOWEL INHERENT AA
-2065          ; Other_Default_Ignorable_Code_Point # Cn       <reserved-2065>
-3164          ; Other_Default_Ignorable_Code_Point # Lo       HANGUL FILLER
-FFA0          ; Other_Default_Ignorable_Code_Point # Lo       HALFWIDTH HANGUL FILLER
-FFF0..FFF8    ; Other_Default_Ignorable_Code_Point # Cn   [9] <reserved-FFF0>..<reserved-FFF8>
-E0000         ; Other_Default_Ignorable_Code_Point # Cn       <reserved-E0000>
-E0002..E001F  ; Other_Default_Ignorable_Code_Point # Cn  [30] <reserved-E0002>..<reserved-E001F>
-E0080..E00FF  ; Other_Default_Ignorable_Code_Point # Cn [128] <reserved-E0080>..<reserved-E00FF>
-E01F0..E0FFF  ; Other_Default_Ignorable_Code_Point # Cn [3600] <reserved-E01F0>..<reserved-E0FFF>
+string memory otherDefaultIgnorableCodePoint034F = "\\u{034F}";
+bytes memory utf8OtherDefaultIgnorableCodePoint034F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint034F));
+console2.log("034F: ", string(utf8OtherDefaultIgnorableCodePoint034F));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint034F);
+
+string memory otherDefaultIgnorableCodePoint115F = "\\u{115F}";
+bytes memory utf8OtherDefaultIgnorableCodePoint115F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint115F));
+console2.log("115F: ", string(utf8OtherDefaultIgnorableCodePoint115F));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint115F);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePoint1160 = "\\u{1160}";
+bytes memory utf8OtherDefaultIgnorableCodePoint1160 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint1160));
+console2.log("1160: ", string(utf8OtherDefaultIgnorableCodePoint1160));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint1160);
+
+string memory otherDefaultIgnorableCodePoint17B4 = "\\u{17B4}";
+bytes memory utf8OtherDefaultIgnorableCodePoint17B4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint17B4));
+console2.log("17B4: ", string(utf8OtherDefaultIgnorableCodePoint17B4));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint17B4);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePoint17B5 = "\\u{17B5}";
+bytes memory utf8OtherDefaultIgnorableCodePoint17B5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint17B5));
+console2.log("17B5: ", string(utf8OtherDefaultIgnorableCodePoint17B5));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint17B5);
+
+string memory otherDefaultIgnorableCodePoint2065 = "\\u{2065}";
+bytes memory utf8OtherDefaultIgnorableCodePoint2065 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint2065));
+console2.log("2065: ", string(utf8OtherDefaultIgnorableCodePoint2065));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint2065);
+
+string memory otherDefaultIgnorableCodePoint3164 = "\\u{3164}";
+bytes memory utf8OtherDefaultIgnorableCodePoint3164 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePoint3164));
+console2.log("3164: ", string(utf8OtherDefaultIgnorableCodePoint3164));
+console2.logBytes(utf8OtherDefaultIgnorableCodePoint3164);
+
+string memory otherDefaultIgnorableCodePointFFA0 = "\\u{FFA0}";
+bytes memory utf8OtherDefaultIgnorableCodePointFFA0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFA0));
+console2.log("FFA0: ", string(utf8OtherDefaultIgnorableCodePointFFA0));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointFFA0);
+
+string memory otherDefaultIgnorableCodePointFFF0 = "\\u{FFF0}";
+bytes memory utf8OtherDefaultIgnorableCodePointFFF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFF0));
+console2.log("FFF0: ", string(utf8OtherDefaultIgnorableCodePointFFF0));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointFFF0);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePointFFF8 = "\\u{FFF8}";
+bytes memory utf8OtherDefaultIgnorableCodePointFFF8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointFFF8));
+console2.log("FFF8: ", string(utf8OtherDefaultIgnorableCodePointFFF8));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointFFF8);
+
+string memory otherDefaultIgnorableCodePointE0000 = "\\u{E0000}";
+bytes memory utf8OtherDefaultIgnorableCodePointE0000 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0000));
+console2.log("E0000: ", string(utf8OtherDefaultIgnorableCodePointE0000));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE0000);
+
+string memory otherDefaultIgnorableCodePointE0002 = "\\u{E0002}";
+bytes memory utf8OtherDefaultIgnorableCodePointE0002 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0002));
+console2.log("E0002: ", string(utf8OtherDefaultIgnorableCodePointE0002));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE0002);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePointE001F = "\\u{E001F}";
+bytes memory utf8OtherDefaultIgnorableCodePointE001F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE001F));
+console2.log("E001F: ", string(utf8OtherDefaultIgnorableCodePointE001F));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE001F);
+
+string memory otherDefaultIgnorableCodePointE0080 = "\\u{E0080}";
+bytes memory utf8OtherDefaultIgnorableCodePointE0080 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0080));
+console2.log("E0080: ", string(utf8OtherDefaultIgnorableCodePointE0080));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE0080);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePointE00FF = "\\u{E00FF}";
+bytes memory utf8OtherDefaultIgnorableCodePointE00FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE00FF));
+console2.log("E00FF: ", string(utf8OtherDefaultIgnorableCodePointE00FF));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE00FF);
+
+string memory otherDefaultIgnorableCodePointE01F0 = "\\u{E01F0}";
+bytes memory utf8OtherDefaultIgnorableCodePointE01F0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE01F0));
+console2.log("E01F0: ", string(utf8OtherDefaultIgnorableCodePointE01F0));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE01F0);
+
+console2.log("..");
+
+string memory otherDefaultIgnorableCodePointE0FFF = "\\u{E0FFF}";
+bytes memory utf8OtherDefaultIgnorableCodePointE0FFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherDefaultIgnorableCodePointE0FFF));
+console2.log("E0FFF: ", string(utf8OtherDefaultIgnorableCodePointE0FFF));
+console2.logBytes(utf8OtherDefaultIgnorableCodePointE0FFF);
+
