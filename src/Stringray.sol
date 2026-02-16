@@ -1914,7 +1914,7 @@ library Stringray {
         }
     }
 
-    function isPropertyIdeography(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isPropertyIdeographic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
