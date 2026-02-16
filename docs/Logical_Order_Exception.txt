@@ -1,0 +1,7 @@
+0E40..0E44    ; Logical_Order_Exception # Lo   [5] THAI CHARACTER SARA E..THAI CHARACTER SARA AI MAIMALAI
+0EC0..0EC4    ; Logical_Order_Exception # Lo   [5] LAO VOWEL SIGN E..LAO VOWEL SIGN AI
+19B5..19B7    ; Logical_Order_Exception # Lo   [3] NEW TAI LUE VOWEL SIGN E..NEW TAI LUE VOWEL SIGN O
+19BA          ; Logical_Order_Exception # Lo       NEW TAI LUE VOWEL SIGN AY
+AAB5..AAB6    ; Logical_Order_Exception # Lo   [2] TAI VIET VOWEL E..TAI VIET VOWEL O
+AAB9          ; Logical_Order_Exception # Lo       TAI VIET VOWEL UEA
+AABB..AABC    ; Logical_Order_Exception # Lo   [2] TAI VIET VOWEL AUE..TAI VIET VOWEL AY

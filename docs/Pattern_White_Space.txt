@@ -1,0 +1,6 @@
+0009..000D    ; Pattern_White_Space # Cc   [5] <control-0009>..<control-000D>
+0020          ; Pattern_White_Space # Zs       SPACE
+0085          ; Pattern_White_Space # Cc       <control-0085>
+200E..200F    ; Pattern_White_Space # Cf   [2] LEFT-TO-RIGHT MARK..RIGHT-TO-LEFT MARK
+2028          ; Pattern_White_Space # Zl       LINE SEPARATOR
+2029          ; Pattern_White_Space # Zp       PARAGRAPH SEPARATOR

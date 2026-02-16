@@ -1,0 +1,116 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyOtherLowercase() (gas: 6226832)
+Logs:
+  00AA:  ª
+  0xc2aa
+  00BA:  º
+  0xc2ba
+  02B0:  ʰ
+  0xcab0
+  ..
+  02B8:  ʸ
+  0xcab8
+  02C0:  ˀ
+  0xcb80
+  ..
+  02C1:  ˁ
+  0xcb81
+  02E0:  ˠ
+  0xcba0
+  ..
+  02E4:  ˤ
+  0xcba4
+  0345:  ͅ
+  0xcd85
+  037A:  ͺ
+  0xcdba
+  10FC:  ჼ
+  0xe183bc
+  1D2C:  ᴬ
+  0xe1b4ac
+  ..
+  1D6A:  ᵪ
+  0xe1b5aa
+  1D78:  ᵸ
+  0xe1b5b8
+  1D9B:  ᶛ
+  0xe1b69b
+  ..
+  1DBF:  ᶿ
+  0xe1b6bf
+  2071:  ⁱ
+  0xe281b1
+  207F:  ⁿ
+  0xe281bf
+  2090:  ₐ
+  0xe28290
+  ..
+  209C:  ₜ
+  0xe2829c
+  2170:  ⅰ
+  0xe285b0
+  ..
+  217F:  ⅿ
+  0xe285bf
+  24D0:  ⓐ
+  0xe29390
+  ..
+  24E9:  ⓩ
+  0xe293a9
+  2C7C:  ⱼ
+  0xe2b1bc
+  ..
+  2C7D:  ⱽ
+  0xe2b1bd
+  A69C:  ꚜ
+  0xea9a9c
+  ..
+  A69D:  ꚝ
+  0xea9a9d
+  A770:  ꝰ
+  0xea9db0
+  A7F1:  ꟱
+  0xea9fb1
+  ..
+  A7F4:  ꟴ
+  0xea9fb4
+  A7F8:  ꟸ
+  0xea9fb8
+  ..
+  A7F9:  ꟹ
+  0xea9fb9
+  AB5C:  ꭜ
+  0xeaad9c
+  ..
+  AB5F:  ꭟ
+  0xeaad9f
+  AB69:  ꭩ
+  0xeaada9
+  10780:  𐞀
+  0xf0909e80
+  10783:  𐞃
+  0xf0909e83
+  ..
+  10785:  𐞅
+  0xf0909e85
+  10787:  𐞇
+  0xf0909e87
+  ..
+  107B0:  𐞰
+  0xf0909eb0
+  107B2:  𐞲
+  0xf0909eb2
+  ..
+  107BA:  𐞺
+  0xf0909eba
+  1E030:  𞀰
+  0xf09e80b0
+  ..
+  1E06D:  𞁭
+  0xf09e81ad
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 71.19ms (58.10ms CPU time)
+
+Ran 1 test suite in 74.08ms (71.19ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

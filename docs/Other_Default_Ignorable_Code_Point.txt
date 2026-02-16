@@ -1,0 +1,11 @@
+034F          ; Other_Default_Ignorable_Code_Point # Mn       COMBINING GRAPHEME JOINER
+115F..1160    ; Other_Default_Ignorable_Code_Point # Lo   [2] HANGUL CHOSEONG FILLER..HANGUL JUNGSEONG FILLER
+17B4..17B5    ; Other_Default_Ignorable_Code_Point # Mn   [2] KHMER VOWEL INHERENT AQ..KHMER VOWEL INHERENT AA
+2065          ; Other_Default_Ignorable_Code_Point # Cn       <reserved-2065>
+3164          ; Other_Default_Ignorable_Code_Point # Lo       HANGUL FILLER
+FFA0          ; Other_Default_Ignorable_Code_Point # Lo       HALFWIDTH HANGUL FILLER
+FFF0..FFF8    ; Other_Default_Ignorable_Code_Point # Cn   [9] <reserved-FFF0>..<reserved-FFF8>
+E0000         ; Other_Default_Ignorable_Code_Point # Cn       <reserved-E0000>
+E0002..E001F  ; Other_Default_Ignorable_Code_Point # Cn  [30] <reserved-E0002>..<reserved-E001F>
+E0080..E00FF  ; Other_Default_Ignorable_Code_Point # Cn [128] <reserved-E0080>..<reserved-E00FF>
+E01F0..E0FFF  ; Other_Default_Ignorable_Code_Point # Cn [3600] <reserved-E01F0>..<reserved-E0FFF>

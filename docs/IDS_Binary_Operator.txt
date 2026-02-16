@@ -1,0 +1,29 @@
+string memory idsBinaryOperator2FF0 = "\\u{2FF0}";
+bytes memory utf8IdsBinaryOperator2FF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF0));
+console2.log("2FF0: ", string(utf8IdsBinaryOperator2FF0));
+console2.logBytes(utf8IdsBinaryOperator2FF0);
+
+console2.log("..");
+
+string memory idsBinaryOperator2FF1 = "\\u{2FF1}";
+bytes memory utf8IdsBinaryOperator2FF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF1));
+console2.log("2FF1: ", string(utf8IdsBinaryOperator2FF1));
+console2.logBytes(utf8IdsBinaryOperator2FF1);
+
+string memory idsBinaryOperator2FF4 = "\\u{2FF4}";
+bytes memory utf8IdsBinaryOperator2FF4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF4));
+console2.log("2FF4: ", string(utf8IdsBinaryOperator2FF4));
+console2.logBytes(utf8IdsBinaryOperator2FF4);
+
+console2.log("..");
+
+string memory idsBinaryOperator2FFD = "\\u{2FFD}";
+bytes memory utf8IdsBinaryOperator2FFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FFD));
+console2.log("2FFD: ", string(utf8IdsBinaryOperator2FFD));
+console2.logBytes(utf8IdsBinaryOperator2FFD);
+
+string memory idsBinaryOperator31EF = "\\u{31EF}";
+bytes memory utf8IdsBinaryOperator31EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator31EF));
+console2.log("31EF: ", string(utf8IdsBinaryOperator31EF));
+console2.logBytes(utf8IdsBinaryOperator31EF);
+

@@ -1,0 +1,9 @@
+0149          ; Deprecated # L&       LATIN SMALL LETTER N PRECEDED BY APOSTROPHE
+0673          ; Deprecated # Lo       ARABIC LETTER ALEF WITH WAVY HAMZA BELOW
+0F77          ; Deprecated # Mn       TIBETAN VOWEL SIGN VOCALIC RR
+0F79          ; Deprecated # Mn       TIBETAN VOWEL SIGN VOCALIC LL
+17A3..17A4    ; Deprecated # Lo   [2] KHMER INDEPENDENT VOWEL QAQ..KHMER INDEPENDENT VOWEL QAA
+206A..206F    ; Deprecated # Cf   [6] INHIBIT SYMMETRIC SWAPPING..NOMINAL DIGIT SHAPES
+2329          ; Deprecated # Ps       LEFT-POINTING ANGLE BRACKET
+232A          ; Deprecated # Pe       RIGHT-POINTING ANGLE BRACKET
+E0001         ; Deprecated # Cf       LANGUAGE TAG

@@ -1,0 +1,9 @@
+0654..0655    ; Modifier_Combining_Mark # Mn   [2] ARABIC HAMZA ABOVE..ARABIC HAMZA BELOW
+0658          ; Modifier_Combining_Mark # Mn       ARABIC MARK NOON GHUNNA
+06DC          ; Modifier_Combining_Mark # Mn       ARABIC SMALL HIGH SEEN
+06E3          ; Modifier_Combining_Mark # Mn       ARABIC SMALL LOW SEEN
+06E7..06E8    ; Modifier_Combining_Mark # Mn   [2] ARABIC SMALL HIGH YEH..ARABIC SMALL HIGH NOON
+08CA..08CB    ; Modifier_Combining_Mark # Mn   [2] ARABIC SMALL HIGH FARSI YEH..ARABIC SMALL HIGH YEH BARREE WITH TWO DOTS BELOW
+08CD..08CF    ; Modifier_Combining_Mark # Mn   [3] ARABIC SMALL HIGH ZAH..ARABIC LARGE ROUND DOT BELOW
+08D3          ; Modifier_Combining_Mark # Mn       ARABIC SMALL LOW WAW
+08F3          ; Modifier_Combining_Mark # Mn       ARABIC SMALL HIGH WAW

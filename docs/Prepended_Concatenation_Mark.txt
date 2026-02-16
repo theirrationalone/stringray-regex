@@ -1,0 +1,7 @@
+0600..0605    ; Prepended_Concatenation_Mark # Cf   [6] ARABIC NUMBER SIGN..ARABIC NUMBER MARK ABOVE
+06DD          ; Prepended_Concatenation_Mark # Cf       ARABIC END OF AYAH
+070F          ; Prepended_Concatenation_Mark # Cf       SYRIAC ABBREVIATION MARK
+0890..0891    ; Prepended_Concatenation_Mark # Cf   [2] ARABIC POUND MARK ABOVE..ARABIC PIASTRE MARK ABOVE
+08E2          ; Prepended_Concatenation_Mark # Cf       ARABIC DISPUTED END OF AYAH
+110BD         ; Prepended_Concatenation_Mark # Cf       KAITHI NUMBER SIGN
+110CD         ; Prepended_Concatenation_Mark # Cf       KAITHI NUMBER SIGN ABOVE

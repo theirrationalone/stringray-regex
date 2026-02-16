@@ -1,0 +1,657 @@
+Compiling 3 files with Solc 0.8.33
+Solc 0.8.33 finished in 10.90s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/Stringray.sol:1465:29:
+     |
+1465 |                             string memory errorMsg = string(
+     |                             ^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> src/Stringray.sol:1479:9:
+     |
+1479 |         string memory errorMsg =
+     |         ^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> src/Stringray.sol:3989:14:
+     |
+3989 |         for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
+     |              ^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> src/Stringray.sol:3994:9:
+     |
+3994 |         uint256 i;
+     |         ^^^^^^^^^
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdStorage.sol:225:13:
+    |
+225 |             assembly {
+    |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdStorage.sol:288:9:
+    |
+288 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdStorage.sol:371:13:
+    |
+371 |             assembly {
+    |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdChains.sol:179:21:
+    |
+179 |                     assembly {
+    |                     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/console2.sol:28:9:
+   |
+28 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:493:9:
+    |
+493 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:503:9:
+    |
+503 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:514:9:
+    |
+514 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:524:9:
+    |
+524 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdUtils.sol:209:9:
+    |
+209 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/console.sol:11:9:
+   |
+11 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+    --> src/Stringray.sol:3314:18:
+     |
+3314 |         returns (bool, uint256)
+     |                  ^^^^
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+    --> src/Stringray.sol:3314:24:
+     |
+3314 |         returns (bool, uint256)
+     |                        ^^^^^^^
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+    --> src/Stringray.sol:3445:18:
+     |
+3445 |         returns (bool, uint256)
+     |                  ^^^^
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+    --> src/Stringray.sol:3445:24:
+     |
+3445 |         returns (bool, uint256)
+     |                        ^^^^^^^
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+    --> src/Stringray.sol:3979:83:
+     |
+3979 |     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
+     |                                                                                   ^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+    --> test/PlayStringTest.t.sol:3219:9:
+     |
+3219 |         string memory otherMath75 = "\\u{23B5}";
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyOtherMath() (gas: 44637728)
+Logs:
+  005e:  ^
+  0x5e
+  03d0:  ϐ
+  0xcf90
+  03d2:  ϒ
+  0xcf92
+  03d5:  ϕ
+  0xcf95
+  03F0:  ϰ
+  0xcfb0
+  03F1:  ϱ
+  0xcfb1
+  03F4:  ϴ
+  0xcfb4
+  03F5:  ϵ
+  0xcfb5
+  2016:  ‖
+  0xe28096
+  2032:  ′
+  0xe280b2
+  2034:  ‴
+  0xe280b4
+  2040:  ⁀
+  0xe28180
+  2061:  ⁡
+  0xe281a1
+  2064:  ⁤
+  0xe281a4
+  207d:  ⁽
+  0xe281bd
+  207e:  ⁾
+  0xe281be
+  208d:  ₍
+  0xe2828d
+  208e:  ₎
+  0xe2828e
+  20d0:  ⃐
+  0xe28390
+  20dc:  ⃜
+  0xe2839c
+  20e1:  ⃡
+  0xe283a1
+  20e5:  ⃥
+  0xe283a5
+  20e6:  ⃦
+  0xe283a6
+  20eb:  ⃫
+  0xe283ab
+  20ef:  ⃯
+  0xe283af
+  2102:  ℂ
+  0xe28482
+  2107:  ℇ
+  0xe28487
+  210a:  ℊ
+  0xe2848a
+  2113:  ℓ
+  0xe28493
+  2115:  ℕ
+  0xe28495
+  2119:  ℙ
+  0xe28499
+  211D:  ℝ
+  0xe2849d
+  2124:  ℤ
+  0xe284a4
+  2128:  ℨ
+  0xe284a8
+  2129:  ℩
+  0xe284a9
+  212C:  ℬ
+  0xe284ac
+  212D:  ℭ
+  0xe284ad
+  212F:  ℯ
+  0xe284af
+  2131:  ℱ
+  0xe284b1
+  2133:  ℳ
+  0xe284b3
+  2134:  ℴ
+  0xe284b4
+  2135:  ℵ
+  0xe284b5
+  2138:  ℸ
+  0xe284b8
+  213C:  ℼ
+  0xe284bc
+  213F:  ℿ
+  0xe284bf
+  2145:  ⅅ
+  0xe28585
+  2149:  ⅉ
+  0xe28589
+  2195:  ↕
+  0xe28695
+  2199:  ↙
+  0xe28699
+  219C:  ↜
+  0xe2869c
+  219F:  ↟
+  0xe2869f
+  21A1:  ↡
+  0xe286a1
+  21A2:  ↢
+  0xe286a2
+  21A4:  ↤
+  0xe286a4
+  21A5:  ↥
+  0xe286a5
+  21A7:  ↧
+  0xe286a7
+  21A9:  ↩
+  0xe286a9
+  21AD:  ↭
+  0xe286ad
+  21B0:  ↰
+  0xe286b0
+  21B1:  ↱
+  0xe286b1
+  21B6:  ↶
+  0xe286b6
+  21B7:  ↷
+  0xe286b7
+  21BC:  ↼
+  0xe286bc
+  21CD:  ⇍
+  0xe2878d
+  21D0:  ⇐
+  0xe28790
+  21D1:  ⇑
+  0xe28791
+  21D3:  ⇓
+  0xe28793
+  21D5:  ⇕
+  0xe28795
+  21DB:  ⇛
+  0xe2879b
+  21DD:  ⇝
+  0xe2879d
+  21E4:  ⇤
+  0xe287a4
+  21E5:  ⇥
+  0xe287a5
+  2308:  ⌈
+  0xe28c88
+  2309:  ⌉
+  0xe28c89
+  230A:  ⌊
+  0xe28c8a
+  230B:  ⌋
+  0xe28c8b
+  23B4:  ⎴
+  0xe28eb4
+  23B5:  ⎴
+  0xe28eb4
+  23B5:  ⎵
+  0xe28eb5
+  23B7:  ⎷
+  0xe28eb7
+  23B7:  ⎷
+  0xe28eb7
+  23D0:  ⏐
+  0xe28f90
+  23E2:  ⏢
+  0xe28fa2
+  25A0:  ■
+  0xe296a0
+  25A1:  □
+  0xe296a1
+  25AE:  ▮
+  0xe296ae
+  25B6:  ▶
+  0xe296b6
+  25BC:  ▼
+  0xe296bc
+  25C0:  ◀
+  0xe29780
+  25C6:  ◆
+  0xe29786
+  25C7:  ◇
+  0xe29787
+  25CA:  ◊
+  0xe2978a
+  25CB:  ○
+  0xe2978b
+  25CF:  ●
+  0xe2978f
+  25D3:  ◓
+  0xe29793
+  25E2:  ◢
+  0xe297a2
+  25E4:  ◤
+  0xe297a4
+  25E7:  ◧
+  0xe297a7
+  25EC:  ◬
+  0xe297ac
+  2605:  ★
+  0xe29885
+  2606:  ☆
+  0xe29886
+  2640:  ♀
+  0xe29980
+  2642:  ♂
+  0xe29982
+  2660:  ♠
+  0xe299a0
+  2663:  ♣
+  0xe299a3
+  266D:  ♭
+  0xe299ad
+  266E:  ♮
+  0xe299ae
+  27C5:  ⟅
+  0xe29f85
+  27C6:  ⟆
+  0xe29f86
+  27E6:  ⟦
+  0xe29fa6
+  27E7:  ⟧
+  0xe29fa7
+  27E8:  ⟨
+  0xe29fa8
+  27E9:  ⟩
+  0xe29fa9
+  27EA:  ⟪
+  0xe29faa
+  27EB:  ⟫
+  0xe29fab
+  27EC:  ⟬
+  0xe29fac
+  27ED:  ⟭
+  0xe29fad
+  27EE:  ⟮
+  0xe29fae
+  27EF:  ⟯
+  0xe29faf
+  2983:  ⦃
+  0xe2a683
+  2984:  ⦄
+  0xe2a684
+  2985:  ⦅
+  0xe2a685
+  2986:  ⦆
+  0xe2a686
+  2987:  ⦇
+  0xe2a687
+  2988:  ⦈
+  0xe2a688
+  2989:  ⦉
+  0xe2a689
+  298A:  ⦊
+  0xe2a68a
+  298B:  ⦋
+  0xe2a68b
+  298C:  ⦌
+  0xe2a68c
+  298D:  ⦍
+  0xe2a68d
+  298E:  ⦎
+  0xe2a68e
+  298F:  ⦏
+  0xe2a68f
+  2990:  ⦐
+  0xe2a690
+  2991:  ⦑
+  0xe2a691
+  2992:  ⦒
+  0xe2a692
+  2993:  ⦓
+  0xe2a693
+  2994:  ⦔
+  0xe2a694
+  2995:  ⦕
+  0xe2a695
+  2996:  ⦖
+  0xe2a696
+  2997:  ⦗
+  0xe2a697
+  2998:  ⦘
+  0xe2a698
+  29D8:  ⧘
+  0xe2a798
+  29D9:  ⧙
+  0xe2a799
+  29DA:  ⧚
+  0xe2a79a
+  29DB:  ⧛
+  0xe2a79b
+  29FC:  ⧼
+  0xe2a7bc
+  29FD:  ⧽
+  0xe2a7bd
+  FE61:  ﹡
+  0xefb9a1
+  FE63:  ﹣
+  0xefb9a3
+  FE68:  ﹨
+  0xefb9a8
+  FF3C:  ＼
+  0xefbcbc
+  FF3E:  ＾
+  0xefbcbe
+  1D400:  𝐀
+  0xf09d9080
+  1D454:  𝑔
+  0xf09d9194
+  1D456:  𝑖
+  0xf09d9196
+  1D49C:  𝒜
+  0xf09d929c
+  1D49E:  𝒞
+  0xf09d929e
+  1D49F:  𝒟
+  0xf09d929f
+  1D4A2:  𝒢
+  0xf09d92a2
+  1D4A5:  𝒥
+  0xf09d92a5
+  1D4A6:  𝒦
+  0xf09d92a6
+  1D4A9:  𝒩
+  0xf09d92a9
+  1D4AC:  𝒬
+  0xf09d92ac
+  1D4AE:  𝒮
+  0xf09d92ae
+  1D4B9:  𝒹
+  0xf09d92b9
+  1D4BB:  𝒻
+  0xf09d92bb
+  1D4BD:  𝒽
+  0xf09d92bd
+  1D4C3:  𝓃
+  0xf09d9383
+  1D4C5:  𝓅
+  0xf09d9385
+  1D505:  𝔅
+  0xf09d9485
+  1D507:  𝔇
+  0xf09d9487
+  1D50A:  𝔊
+  0xf09d948a
+  1D50D:  𝔍
+  0xf09d948d
+  1D514:  𝔔
+  0xf09d9494
+  1D516:  𝔖
+  0xf09d9496
+  1D51C:  𝔜
+  0xf09d949c
+  1D51E:  𝔞
+  0xf09d949e
+  1D539:  𝔹
+  0xf09d94b9
+  1D53B:  𝔻
+  0xf09d94bb
+  1D53E:  𝔾
+  0xf09d94be
+  1D540:  𝕀
+  0xf09d9580
+  1D544:  𝕄
+  0xf09d9584
+  1D546:  𝕆
+  0xf09d9586
+  1D54A:  𝕊
+  0xf09d958a
+  1D550:  𝕐
+  0xf09d9590
+  1D552:  𝕒
+  0xf09d9592
+  1D6A5:  𝚥
+  0xf09d9aa5
+  1D6A8:  𝚨
+  0xf09d9aa8
+  1D6C0:  𝛀
+  0xf09d9b80
+  1D6C2:  𝛂
+  0xf09d9b82
+  1D6DA:  𝛚
+  0xf09d9b9a
+  1D6DC:  𝛜
+  0xf09d9b9c
+  1D6FA:  𝛺
+  0xf09d9bba
+  1D6FC:  𝛼
+  0xf09d9bbc
+  1D714:  𝜔
+  0xf09d9c94
+  1D716:  𝜖
+  0xf09d9c96
+  1D734:  𝜴
+  0xf09d9cb4
+  1D736:  𝜶
+  0xf09d9cb6
+  1D74E:  𝝎
+  0xf09d9d8e
+  1D750:  𝝐
+  0xf09d9d90
+  1D76E:  𝝮
+  0xf09d9dae
+  1D770:  𝝰
+  0xf09d9db0
+  1D788:  𝞈
+  0xf09d9e88
+  1D78A:  𝞊
+  0xf09d9e8a
+  1D7A8:  𝞨
+  0xf09d9ea8
+  1D7AA:  𝞪
+  0xf09d9eaa
+  1D7C2:  𝟂
+  0xf09d9f82
+  1D7C4:  𝟄
+  0xf09d9f84
+  1D7CB:  𝟋
+  0xf09d9f8b
+  1D7CE:  𝟎
+  0xf09d9f8e
+  1D7FF:  𝟿
+  0xf09d9fbf
+  1EE00:  𞸀
+  0xf09eb880
+  1EE03:  𞸃
+  0xf09eb883
+  1EE05:  𞸅
+  0xf09eb885
+  1EE1F:  𞸟
+  0xf09eb89f
+  1EE21:  𞸡
+  0xf09eb8a1
+  1EE22:  𞸢
+  0xf09eb8a2
+  1EE24:  𞸤
+  0xf09eb8a4
+  1EE27:  𞸧
+  0xf09eb8a7
+  1EE29:  𞸩
+  0xf09eb8a9
+  1EE32:  𞸲
+  0xf09eb8b2
+  1EE34:  𞸴
+  0xf09eb8b4
+  1EE37:  𞸷
+  0xf09eb8b7
+  1EE39:  𞸹
+  0xf09eb8b9
+  1EE3B:  𞸻
+  0xf09eb8bb
+  1EE42:  𞹂
+  0xf09eb982
+  1EE47:  𞹇
+  0xf09eb987
+  1EE49:  𞹉
+  0xf09eb989
+  1EE4B:  𞹋
+  0xf09eb98b
+  1EE4D:  𞹍
+  0xf09eb98d
+  1EE4F:  𞹏
+  0xf09eb98f
+  1EE51:  𞹑
+  0xf09eb991
+  1EE52:  𞹒
+  0xf09eb992
+  1EE54:  𞹔
+  0xf09eb994
+  1EE57:  𞹗
+  0xf09eb997
+  1EE59:  𞹙
+  0xf09eb999
+  1EE5B:  𞹛
+  0xf09eb99b
+  1EE5D:  𞹝
+  0xf09eb99d
+  1EE5F:  𞹟
+  0xf09eb99f
+  1EE61:  𞹡
+  0xf09eb9a1
+  1EE62:  𞹢
+  0xf09eb9a2
+  1EE64:  𞹤
+  0xf09eb9a4
+  1EE67:  𞹧
+  0xf09eb9a7
+  1EE6A:  𞹪
+  0xf09eb9aa
+  1EE6C:  𞹬
+  0xf09eb9ac
+  1EE72:  𞹲
+  0xf09eb9b2
+  1EE74:  𞹴
+  0xf09eb9b4
+  1EE77:  𞹷
+  0xf09eb9b7
+  1EE79:  𞹹
+  0xf09eb9b9
+  1EE7C:  𞹼
+  0xf09eb9bc
+  1EE7E:  𞹾
+  0xf09eb9be
+  1EE80:  𞺀
+  0xf09eba80
+  1EE89:  𞺉
+  0xf09eba89
+  1EE8B:  𞺋
+  0xf09eba8b
+  1EE9B:  𞺛
+  0xf09eba9b
+  1EEA1:  𞺡
+  0xf09ebaa1
+  1EEA3:  𞺣
+  0xf09ebaa3
+  1EEA5:  𞺥
+  0xf09ebaa5
+  1EEA9:  𞺩
+  0xf09ebaa9
+  1EEAB:  𞺫
+  0xf09ebaab
+  1EEBB:  𞺻
+  0xf09ebabb
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 299.78ms (279.44ms CPU time)
+
+Ran 1 test suite in 316.14ms (299.78ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
