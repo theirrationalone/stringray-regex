@@ -15473,7 +15473,91 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyModifierCombiningMark() public pure {
-        // @TODO: complete the property Modifier_Combining_Mark testing🧪...🚀🚀
+        string memory modifierCombiningMark0654 = "\\u{0654}";
+        bytes memory utf8ModifierCombiningMark0654 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0654));
+        console2.log("0654: ", string(utf8ModifierCombiningMark0654));
+        console2.logBytes(utf8ModifierCombiningMark0654);
+
+        console2.log("..");
+
+        string memory modifierCombiningMark0655 = "\\u{0655}";
+        bytes memory utf8ModifierCombiningMark0655 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0655));
+        console2.log("0655: ", string(utf8ModifierCombiningMark0655));
+        console2.logBytes(utf8ModifierCombiningMark0655);
+
+        string memory modifierCombiningMark0658 = "\\u{0658}";
+        bytes memory utf8ModifierCombiningMark0658 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark0658));
+        console2.log("0658: ", string(utf8ModifierCombiningMark0658));
+        console2.logBytes(utf8ModifierCombiningMark0658);
+
+        string memory modifierCombiningMark06DC = "\\u{06DC}";
+        bytes memory utf8ModifierCombiningMark06DC =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06DC));
+        console2.log("06DC: ", string(utf8ModifierCombiningMark06DC));
+        console2.logBytes(utf8ModifierCombiningMark06DC);
+
+        string memory modifierCombiningMark06E3 = "\\u{06E3}";
+        bytes memory utf8ModifierCombiningMark06E3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E3));
+        console2.log("06E3: ", string(utf8ModifierCombiningMark06E3));
+        console2.logBytes(utf8ModifierCombiningMark06E3);
+
+        string memory modifierCombiningMark06E7 = "\\u{06E7}";
+        bytes memory utf8ModifierCombiningMark06E7 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E7));
+        console2.log("06E7: ", string(utf8ModifierCombiningMark06E7));
+        console2.logBytes(utf8ModifierCombiningMark06E7);
+
+        console2.log("..");
+
+        string memory modifierCombiningMark06E8 = "\\u{06E8}";
+        bytes memory utf8ModifierCombiningMark06E8 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark06E8));
+        console2.log("06E8: ", string(utf8ModifierCombiningMark06E8));
+        console2.logBytes(utf8ModifierCombiningMark06E8);
+
+        string memory modifierCombiningMark08CA = "\\u{08CA}";
+        bytes memory utf8ModifierCombiningMark08CA =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CA));
+        console2.log("08CA: ", string(utf8ModifierCombiningMark08CA));
+        console2.logBytes(utf8ModifierCombiningMark08CA);
+
+        console2.log("..");
+
+        string memory modifierCombiningMark08CB = "\\u{08CB}";
+        bytes memory utf8ModifierCombiningMark08CB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CB));
+        console2.log("08CB: ", string(utf8ModifierCombiningMark08CB));
+        console2.logBytes(utf8ModifierCombiningMark08CB);
+
+        string memory modifierCombiningMark08CD = "\\u{08CD}";
+        bytes memory utf8ModifierCombiningMark08CD =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CD));
+        console2.log("08CD: ", string(utf8ModifierCombiningMark08CD));
+        console2.logBytes(utf8ModifierCombiningMark08CD);
+
+        console2.log("..");
+
+        string memory modifierCombiningMark08CF = "\\u{08CF}";
+        bytes memory utf8ModifierCombiningMark08CF =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08CF));
+        console2.log("08CF: ", string(utf8ModifierCombiningMark08CF));
+        console2.logBytes(utf8ModifierCombiningMark08CF);
+
+        string memory modifierCombiningMark08D3 = "\\u{08D3}";
+        bytes memory utf8ModifierCombiningMark08D3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08D3));
+        console2.log("08D3: ", string(utf8ModifierCombiningMark08D3));
+        console2.logBytes(utf8ModifierCombiningMark08D3);
+
+        string memory modifierCombiningMark08F3 = "\\u{08F3}";
+        bytes memory utf8ModifierCombiningMark08F3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(modifiercombiningMark08F3));
+        console2.log("08F3: ", string(utf8ModifierCombiningMark08F3));
+        console2.logBytes(utf8ModifierCombiningMark08F3);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
