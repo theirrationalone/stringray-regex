@@ -1,0 +1,303 @@
+string memory extender00B7 = "\\u{00B7}";
+bytes memory utf8Extender00B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender00B7));
+console2.log("00B7: ", string(utf8Extender00B7));
+console2.logBytes(utf8Extender00B7);
+
+string memory extender02D0 = "\\u{02D0}";
+bytes memory utf8Extender02D0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender02D0));
+console2.log("02D0: ", string(utf8Extender02D0));
+console2.logBytes(utf8Extender02D0);
+
+console2.log("..");
+
+string memory extender02D1 = "\\u{02D1}";
+bytes memory utf8Extender02D1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender02D1));
+console2.log("02D1: ", string(utf8Extender02D1));
+console2.logBytes(utf8Extender02D1);
+
+string memory extender0640 = "\\u{0640}";
+bytes memory utf8Extender0640 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0640));
+console2.log("0640: ", string(utf8Extender0640));
+console2.logBytes(utf8Extender0640);
+
+string memory extender07FA = "\\u{07FA}";
+bytes memory utf8Extender07FA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender07FA));
+console2.log("07FA: ", string(utf8Extender07FA));
+console2.logBytes(utf8Extender07FA);
+
+string memory extender0A71 = "\\u{0A71}";
+bytes memory utf8Extender0A71 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0A71));
+console2.log("0A71: ", string(utf8Extender0A71));
+console2.logBytes(utf8Extender0A71);
+
+string memory extender0AFB = "\\u{0AFB}";
+bytes memory utf8Extender0AFB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0AFB));
+console2.log("0AFB: ", string(utf8Extender0AFB));
+console2.logBytes(utf8Extender0AFB);
+
+string memory extender0B55 = "\\u{0B55}";
+bytes memory utf8Extender0B55 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0B55));
+console2.log("0B55: ", string(utf8Extender0B55));
+console2.logBytes(utf8Extender0B55);
+
+string memory extender0E46 = "\\u{0E46}";
+bytes memory utf8Extender0E46 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0E46));
+console2.log("0E46: ", string(utf8Extender0E46));
+console2.logBytes(utf8Extender0E46);
+
+string memory extender0EC6 = "\\u{0EC6}";
+bytes memory utf8Extender0EC6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender0EC6));
+console2.log("0EC6: ", string(utf8Extender0EC6));
+console2.logBytes(utf8Extender0EC6);
+
+string memory extender180A = "\\u{180A}";
+bytes memory utf8Extender180A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender180A));
+console2.log("180A: ", string(utf8Extender180A));
+console2.logBytes(utf8Extender180A);
+
+string memory extender1843 = "\\u{1843}";
+bytes memory utf8Extender1843 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1843));
+console2.log("1843: ", string(utf8Extender1843));
+console2.logBytes(utf8Extender1843);
+
+string memory extender1AA7 = "\\u{1AA7}";
+bytes memory utf8Extender1AA7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1AA7));
+console2.log("1AA7: ", string(utf8Extender1AA7));
+console2.logBytes(utf8Extender1AA7);
+
+string memory extender1C36 = "\\u{1C36}";
+bytes memory utf8Extender1C36 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1C36));
+console2.log("1C36: ", string(utf8Extender1C36));
+console2.logBytes(utf8Extender1C36);
+
+string memory extender1C7B = "\\u{1C7B}";
+bytes memory utf8Extender1C7B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1C7B));
+console2.log("1C7B: ", string(utf8Extender1C7B));
+console2.logBytes(utf8Extender1C7B);
+
+string memory extender3005 = "\\u{3005}";
+bytes memory utf8Extender3005 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender3005));
+console2.log("3005: ", string(utf8Extender3005));
+console2.logBytes(utf8Extender3005);
+
+string memory extender3031 = "\\u{3031}";
+bytes memory utf8Extender3031 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender3031));
+console2.log("3031: ", string(utf8Extender3031));
+console2.logBytes(utf8Extender3031);
+
+console2.log("..");
+
+string memory extender3035 = "\\u{3035}";
+bytes memory utf8Extender3035 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender3035));
+console2.log("3035: ", string(utf8Extender3035));
+console2.logBytes(utf8Extender3035);
+
+string memory extender309D = "\\u{309D}";
+bytes memory utf8Extender309D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender309D));
+console2.log("309D: ", string(utf8Extender309D));
+console2.logBytes(utf8Extender309D);
+
+console2.log("..");
+
+string memory extender309E = "\\u{309E}";
+bytes memory utf8Extender309E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender309E));
+console2.log("309E: ", string(utf8Extender309E));
+console2.logBytes(utf8Extender309E);
+
+string memory extender30FC = "\\u{30FC}";
+bytes memory utf8Extender30FC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender30FC));
+console2.log("30FC: ", string(utf8Extender30FC));
+console2.logBytes(utf8Extender30FC);
+
+console2.log("..");
+
+string memory extender30FE = "\\u{30FE}";
+bytes memory utf8Extender30FE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender30FE));
+console2.log("30FE: ", string(utf8Extender30FE));
+console2.logBytes(utf8Extender30FE);
+
+string memory extenderA015 = "\\u{A015}";
+bytes memory utf8ExtenderA015 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderA015));
+console2.log("A015: ", string(utf8ExtenderA015));
+console2.logBytes(utf8ExtenderA015);
+
+string memory extenderA60C = "\\u{A60C}";
+bytes memory utf8ExtenderA60C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderA60C));
+console2.log("A60C: ", string(utf8ExtenderA60C));
+console2.logBytes(utf8ExtenderA60C);
+
+string memory extenderA9CF = "\\u{A9CF}";
+bytes memory utf8ExtenderA9CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderA9CF));
+console2.log("A9CF: ", string(utf8ExtenderA9CF));
+console2.logBytes(utf8ExtenderA9CF);
+
+string memory extenderA9E6 = "\\u{A9E6}";
+bytes memory utf8ExtenderA9E6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderA9E6));
+console2.log("A9E6: ", string(utf8ExtenderA9E6));
+console2.logBytes(utf8ExtenderA9E6);
+
+string memory extenderAA70 = "\\u{AA70}";
+bytes memory utf8ExtenderAA70 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderAA70));
+console2.log("AA70: ", string(utf8ExtenderAA70));
+console2.logBytes(utf8ExtenderAA70);
+
+string memory extenderAADD = "\\u{AADD}";
+bytes memory utf8ExtenderAADD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderAADD));
+console2.log("AADD: ", string(utf8ExtenderAADD));
+console2.logBytes(utf8ExtenderAADD);
+
+string memory extenderAAF3 = "\\u{AAF3}";
+bytes memory utf8ExtenderAAF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderAAF3));
+console2.log("AAF3: ", string(utf8ExtenderAAF3));
+console2.logBytes(utf8ExtenderAAF3);
+
+console2.log("..");
+
+string memory extenderAAF4 = "\\u{AAF4}";
+bytes memory utf8ExtenderAAF4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderAAF4));
+console2.log("AAF4: ", string(utf8ExtenderAAF4));
+console2.logBytes(utf8ExtenderAAF4);
+
+string memory extenderFF70 = "\\u{FF70}";
+bytes memory utf8ExtenderFF70 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extenderFF70));
+console2.log("FF70: ", string(utf8ExtenderFF70));
+console2.logBytes(utf8ExtenderFF70);
+
+string memory extender10781 = "\\u{10781}";
+bytes memory utf8Extender10781 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender10781));
+console2.log("10781: ", string(utf8Extender10781));
+console2.logBytes(utf8Extender10781);
+
+console2.log("..");
+
+string memory extender10782 = "\\u{10782}";
+bytes memory utf8Extender10782 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender10782));
+console2.log("10782: ", string(utf8Extender10782));
+console2.logBytes(utf8Extender10782);
+
+string memory extender10D4E = "\\u{10D4E}";
+bytes memory utf8Extender10D4E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender10D4E));
+console2.log("10D4E: ", string(utf8Extender10D4E));
+console2.logBytes(utf8Extender10D4E);
+
+string memory extender10D6A = "\\u{10D6A}";
+bytes memory utf8Extender10D6A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender10D6A));
+console2.log("10D6A: ", string(utf8Extender10D6A));
+console2.logBytes(utf8Extender10D6A);
+
+string memory extender10D6F = "\\u{10D6F}";
+bytes memory utf8Extender10D6F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender10D6F));
+console2.log("10D6F: ", string(utf8Extender10D6F));
+console2.logBytes(utf8Extender10D6F);
+
+string memory extender11237 = "\\u{11237}";
+bytes memory utf8Extender11237 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender11237));
+console2.log("11237: ", string(utf8Extender11237));
+console2.logBytes(utf8Extender11237);
+
+string memory extender1135D = "\\u{1135D}";
+bytes memory utf8Extender1135D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1135D));
+console2.log("1135D: ", string(utf8Extender1135D));
+console2.logBytes(utf8Extender1135D);
+
+string memory extender113D2 = "\\u{113D2}";
+bytes memory utf8Extender113D2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender113D2));
+console2.log("113D2: ", string(utf8Extender113D2));
+console2.logBytes(utf8Extender113D2);
+
+string memory extender113D3 = "\\u{113D3}";
+bytes memory utf8Extender113D3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender113D3));
+console2.log("113D3: ", string(utf8Extender113D3));
+console2.logBytes(utf8Extender113D3);
+
+string memory extender115C6 = "\\u{115C6}";
+bytes memory utf8Extender115C6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender115C6));
+console2.log("115C6: ", string(utf8Extender115C6));
+console2.logBytes(utf8Extender115C6);
+
+console2.log("..");
+
+string memory extender115C8 = "\\u{115C8}";
+bytes memory utf8Extender115C8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender115C8));
+console2.log("115C8: ", string(utf8Extender115C8));
+console2.logBytes(utf8Extender115C8);
+
+string memory extender11A98 = "\\u{11A98}";
+bytes memory utf8Extender11A98 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender11A98));
+console2.log("11A98: ", string(utf8Extender11A98));
+console2.logBytes(utf8Extender11A98);
+
+string memory extender11DD9 = "\\u{11DD9}";
+bytes memory utf8Extender11DD9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender11DD9));
+console2.log("11DD9: ", string(utf8Extender11DD9));
+console2.logBytes(utf8Extender11DD9);
+
+string memory extender16B42 = "\\u{16B42}";
+bytes memory utf8Extender16B42 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16B42));
+console2.log("16B42: ", string(utf8Extender16B42));
+console2.logBytes(utf8Extender16B42);
+
+console2.log("..");
+
+string memory extender16B43 = "\\u{16B43}";
+bytes memory utf8Extender16B43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16B43));
+console2.log("16B43: ", string(utf8Extender16B43));
+console2.logBytes(utf8Extender16B43);
+
+string memory extender16FE0 = "\\u{16FE0}";
+bytes memory utf8Extender16FE0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16FE0));
+console2.log("16FE0: ", string(utf8Extender16FE0));
+console2.logBytes(utf8Extender16FE0);
+
+console2.log("..");
+
+string memory extender16FE1 = "\\u{16FE1}";
+bytes memory utf8Extender16FE1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16FE1));
+console2.log("16FE1: ", string(utf8Extender16FE1));
+console2.logBytes(utf8Extender16FE1);
+
+string memory extender16FE3 = "\\u{16FE3}";
+bytes memory utf8Extender16FE3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16FE3));
+console2.log("16FE3: ", string(utf8Extender16FE3));
+console2.logBytes(utf8Extender16FE3);
+
+string memory extender16FF2 = "\\u{16FF2}";
+bytes memory utf8Extender16FF2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16FF2));
+console2.log("16FF2: ", string(utf8Extender16FF2));
+console2.logBytes(utf8Extender16FF2);
+
+console2.log("..");
+
+string memory extender16FF3 = "\\u{16FF3}";
+bytes memory utf8Extender16FF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender16FF3));
+console2.log("16FF3: ", string(utf8Extender16FF3));
+console2.logBytes(utf8Extender16FF3);
+
+string memory extender1E13C = "\\u{1E13C}";
+bytes memory utf8Extender1E13C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1E13C));
+console2.log("1E13C: ", string(utf8Extender1E13C));
+console2.logBytes(utf8Extender1E13C);
+
+console2.log("..");
+
+string memory extender1E13D = "\\u{1E13D}";
+bytes memory utf8Extender1E13D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1E13D));
+console2.log("1E13D: ", string(utf8Extender1E13D));
+console2.logBytes(utf8Extender1E13D);
+
+string memory extender1E5EF = "\\u{1E5EF}";
+bytes memory utf8Extender1E5EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1E5EF));
+console2.log("1E5EF: ", string(utf8Extender1E5EF));
+console2.logBytes(utf8Extender1E5EF);
+
+string memory extender1E944 = "\\u{1E944}";
+bytes memory utf8Extender1E944 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1E944));
+console2.log("1E944: ", string(utf8Extender1E944));
+console2.logBytes(utf8Extender1E944);
+
+console2.log("..");
+
+string memory extender1E946 = "\\u{1E946}";
+bytes memory utf8Extender1E946 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(extender1E946));
+console2.log("1E946: ", string(utf8Extender1E946));
+console2.logBytes(utf8Extender1E946);

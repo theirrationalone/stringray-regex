@@ -12134,6 +12134,10 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8Ideographic33479);
     }
 
+    function testRegexPropertyExtender() public pure {
+        // @TODO: complete extender property testing...🚀🚀
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();

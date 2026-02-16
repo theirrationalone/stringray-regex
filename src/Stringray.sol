@@ -1914,6 +1914,14 @@ library Stringray {
         }
     }
 
+    function isPropertyExtender(bytes memory _pattern, uint256 _currentParticleIndex)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        // @TODO: complete the extender property implementation...🚀🚀
+    }
+
     function isPropertyIdeographic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
