@@ -15397,7 +15397,63 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyPrependedConcatenationMark() public pure {
-        // @TODO: complete the property Prepended_Concatenation_Mark testing🧪...🚀🚀
+        string memory prependedConcatenationMark0600 = "\\u{0600}";
+        bytes memory utf8PrependedConcatenationMark0600 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0600));
+        console2.log("0600: ", utf8PrependedConcatenationMark0600);
+        console2.logBytes(utf8PrependedConcatenationMark0600);
+
+        console2.log("..");
+
+        string memory prependedConcatenationMark0605 = "\\u{0605}";
+        bytes memory utf8PrependedConcatenationMark0605 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0605));
+        console2.log("0605: ", utf8PrependedConcatenationMark0605);
+        console2.logBytes(utf8PrependedConcatenationMark0605);
+
+        string memory prependedConcatenationMark06DD = "\\u{06DD}";
+        bytes memory utf8PrependedConcatenationMark06DD =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark06DD));
+        console2.log("06DD: ", utf8PrependedConcatenationMark06DD);
+        console2.logBytes(utf8PrependedConcatenationMark06DD);
+
+        string memory prependedConcatenationMark070F = "\\u{070F}";
+        bytes memory utf8PrependedConcatenationMark070F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark070F));
+        console2.log("070F: ", utf8PrependedConcatenationMark070F);
+        console2.logBytes(utf8PrependedConcatenationMark070F);
+
+        string memory prependedConcatenationMark0890 = "\\u{0890}";
+        bytes memory utf8PrependedConcatenationMark0890 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0890));
+        console2.log("0890: ", utf8PrependedConcatenationMark0890);
+        console2.logBytes(utf8PrependedConcatenationMark0890);
+
+        console2.log("..");
+
+        string memory prependedConcatenationMark0891 = "\\u{0891}";
+        bytes memory utf8PrependedConcatenationMark0891 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark0891));
+        console2.log("0891: ", utf8PrependedConcatenationMark0891);
+        console2.logBytes(utf8PrependedConcatenationMark0891);
+
+        string memory prependedConcatenationMark08E2 = "\\u{08E2}";
+        bytes memory utf8PrependedConcatenationMark08E2 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark08E2));
+        console2.log("08E2: ", utf8PrependedConcatenationMark08E2);
+        console2.logBytes(utf8PrependedConcatenationMark08E2);
+
+        string memory prependedConcatenationMark110BD = "\\u{110BD}";
+        bytes memory utf8PrependedConcatenationMark110BD =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark110BD));
+        console2.log("110BD: ", utf8PrependedConcatenationMark110BD);
+        console2.logBytes(utf8PrependedConcatenationMark110BD);
+
+        string memory prependedConcatenationMark110CD = "\\u{110CD}";
+        bytes memory utf8PrependedConcatenationMark110CD =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(prependedConcatenationMark110CD));
+        console2.log("110CD: ", utf8PrependedConcatenationMark110CD);
+        console2.logBytes(utf8PrependedConcatenationMark110CD);
     }
 
     function testRegexPropertyRegionalIndicator() public pure {
