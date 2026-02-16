@@ -14500,7 +14500,80 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyIDCompatMathStart() public pure {
-        // @TODO: complete the property ID_Compat_Math_Start testing🧪...🚀🚀
+        string memory idCompatMathStart2202 = "\\u{2202}";
+        bytes memory utf8IdCompatMathStart2202 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2202));
+        console2.log("2202: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart2207 = "\\u{2207}";
+        bytes memory utf8IdCompatMathStart2207 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2207));
+        console2.log("2207: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart221E = "\\u{221E}";
+        bytes memory utf8IdCompatMathStart221E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart221E));
+        console2.log("221E: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D6C1 = "\\u{1D6C1}";
+        bytes memory utf8IdCompatMathStart1D6C1 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6C1));
+        console2.log("1D6C1: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D6DB = "\\u{1D6DB}";
+        bytes memory utf8IdCompatMathStart1D6DB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6DB));
+        console2.log("1D6DB: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D6FB = "\\u{1D6FB}";
+        bytes memory utf8IdCompatMathStart1D6FB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6FB));
+        console2.log("1D6FB: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D715 = "\\u{1D715}";
+        bytes memory utf8IdCompatMathStart1D715 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D715));
+        console2.log("1D715: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D735 = "\\u{1D735}";
+        bytes memory utf8IdCompatMathStart1D735 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D735));
+        console2.log("1D735: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D74F = "\\u{1D74F}";
+        bytes memory utf8IdCompatMathStart1D74F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D74F));
+        console2.log("1D74F: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D76F = "\\u{1D76F}";
+        bytes memory utf8IdCompatMathStart1D76F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D76F));
+        console2.log("1D76F: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D789 = "\\u{1D789}";
+        bytes memory utf8IdCompatMathStart1D789 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D789));
+        console2.log("1D789: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D7A9 = "\\u{1D7A9}";
+        bytes memory utf8IdCompatMathStart1D7A9 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7A9));
+        console2.log("1D7A9: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
+
+        string memory idCompatMathStart1D7C3 = "\\u{1D7C3}";
+        bytes memory utf8IdCompatMathStart1D7C3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7C3));
+        console2.log("1D7C3: ", string(utf8IdCompatMathStart));
+        console2.logBytes(utf8IdCompatMathStart);
     }
 
     function testRegexPropertySentenceTerminal() public pure {
