@@ -12441,7 +12441,264 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyOtherLowercase() public pure {
-        // @TODO: complete the other_lowercase property testing🧪...🚀🚀
+        string memory otherLowercase00AA = "\\u{00AA}";
+        bytes memory utf8OtherLowercase00AA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase00AA));
+        console2.log("00AA: ", string(utf8OtherLowercase00AA));
+        console2.logBytes(utf8OtherLowercase00AA);
+
+        string memory otherLowercase00BA = "\\u{00BA}";
+        bytes memory utf8OtherLowercase00BA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase00BA));
+        console2.log("00BA: ", string(utf8OtherLowercase00BA));
+        console2.logBytes(utf8OtherLowercase00BA);
+
+        string memory otherLowercase02B0 = "\\u{02B0}";
+        bytes memory utf8OtherLowercase02B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02B0));
+        console2.log("02B0: ", string(utf8OtherLowercase02B0));
+        console2.logBytes(utf8OtherLowercase02B0);
+
+        console2.log("..");
+
+        string memory otherLowercase02B8 = "\\u{02B8}";
+        bytes memory utf8OtherLowercase02B8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02B8));
+        console2.log("02B8: ", string(utf8OtherLowercase02B8));
+        console2.logBytes(utf8OtherLowercase02B8);
+
+        string memory otherLowercase02C0 = "\\u{02C0}";
+        bytes memory utf8OtherLowercase02C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02C0));
+        console2.log("02C0: ", string(utf8OtherLowercase02C0));
+        console2.logBytes(utf8OtherLowercase02C0);
+
+        console2.log("..");
+
+        string memory otherLowercase02C1 = "\\u{02C1}";
+        bytes memory utf8OtherLowercase02C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02C1));
+        console2.log("02C1: ", string(utf8OtherLowercase02C1));
+        console2.logBytes(utf8OtherLowercase02C1);
+
+        string memory otherLowercase02E0 = "\\u{02E0}";
+        bytes memory utf8OtherLowercase02E0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02E0));
+        console2.log("02E0: ", string(utf8OtherLowercase02E0));
+        console2.logBytes(utf8OtherLowercase02E0);
+
+        console2.log("..");
+
+        string memory otherLowercase02E4 = "\\u{02E4}";
+        bytes memory utf8OtherLowercase02E4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase02E4));
+        console2.log("02E4: ", string(utf8OtherLowercase02E4));
+        console2.logBytes(utf8OtherLowercase02E4);
+
+        string memory otherLowercase0345 = "\\u{0345}";
+        bytes memory utf8OtherLowercase0345 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase0345));
+        console2.log("0345: ", string(utf8OtherLowercase0345));
+        console2.logBytes(utf8OtherLowercase0345);
+
+        string memory otherLowercase037A = "\\u{037A}";
+        bytes memory utf8OtherLowercase037A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase037A));
+        console2.log("037A: ", string(utf8OtherLowercase037A));
+        console2.logBytes(utf8OtherLowercase037A);
+
+        string memory otherLowercase10FC = "\\u{10FC}";
+        bytes memory utf8OtherLowercase10FC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase10FC));
+        console2.log("10FC: ", string(utf8OtherLowercase10FC));
+        console2.logBytes(utf8OtherLowercase10FC);
+
+        string memory otherLowercase1D2C = "\\u{1D2C}";
+        bytes memory utf8OtherLowercase1D2C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1D2C));
+        console2.log("1D2C: ", string(utf8OtherLowercase1D2C));
+        console2.logBytes(utf8OtherLowercase1D2C);
+
+        console2.log("..");
+
+        string memory otherLowercase1D6A = "\\u{1D6A}";
+        bytes memory utf8OtherLowercase1D6A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1D6A));
+        console2.log("1D6A: ", string(utf8OtherLowercase1D6A));
+        console2.logBytes(utf8OtherLowercase1D6A);
+
+        string memory otherLowercase1D78 = "\\u{1D78}";
+        bytes memory utf8OtherLowercase1D78 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1D78));
+        console2.log("1D78: ", string(utf8OtherLowercase1D78));
+        console2.logBytes(utf8OtherLowercase1D78);
+
+        string memory otherLowercase1D9B = "\\u{1D9B}";
+        bytes memory utf8OtherLowercase1D9B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1D9B));
+        console2.log("1D9B: ", string(utf8OtherLowercase1D9B));
+        console2.logBytes(utf8OtherLowercase1D9B);
+
+        console2.log("..");
+
+        string memory otherLowercase1DBF = "\\u{1DBF}";
+        bytes memory utf8OtherLowercase1DBF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1DBF));
+        console2.log("1DBF: ", string(utf8OtherLowercase1DBF));
+        console2.logBytes(utf8OtherLowercase1DBF);
+
+        string memory otherLowercase2071 = "\\u{2071}";
+        bytes memory utf8OtherLowercase2071 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase2071));
+        console2.log("2071: ", string(utf8OtherLowercase2071));
+        console2.logBytes(utf8OtherLowercase2071);
+
+        string memory otherLowercase207F = "\\u{207F}";
+        bytes memory utf8OtherLowercase207F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase207F));
+        console2.log("207F: ", string(utf8OtherLowercase207F));
+        console2.logBytes(utf8OtherLowercase207F);
+
+        string memory otherLowercase2090 = "\\u{2090}";
+        bytes memory utf8OtherLowercase2090 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase2090));
+        console2.log("2090: ", string(utf8OtherLowercase2090));
+        console2.logBytes(utf8OtherLowercase2090);
+
+        console2.log("..");
+
+        string memory otherLowercase209C = "\\u{209C}";
+        bytes memory utf8OtherLowercase209C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase209C));
+        console2.log("209C: ", string(utf8OtherLowercase209C));
+        console2.logBytes(utf8OtherLowercase209C);
+
+        string memory otherLowercase2170 = "\\u{2170}";
+        bytes memory utf8OtherLowercase2170 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase2170));
+        console2.log("2170: ", string(utf8OtherLowercase2170));
+        console2.logBytes(utf8OtherLowercase2170);
+
+        console2.log("..");
+
+        string memory otherLowercase217F = "\\u{217F}";
+        bytes memory utf8OtherLowercase217F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase217F));
+        console2.log("217F: ", string(utf8OtherLowercase217F));
+        console2.logBytes(utf8OtherLowercase217F);
+
+        string memory otherLowercase24D0 = "\\u{24D0}";
+        bytes memory utf8OtherLowercase24D0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase24D0));
+        console2.log("24D0: ", string(utf8OtherLowercase24D0));
+        console2.logBytes(utf8OtherLowercase24D0);
+
+        console2.log("..");
+
+        string memory otherLowercase24E9 = "\\u{24E9}";
+        bytes memory utf8OtherLowercase24E9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase24E9));
+        console2.log("24E9: ", string(utf8OtherLowercase24E9));
+        console2.logBytes(utf8OtherLowercase24E9);
+
+        string memory otherLowercase2C7C = "\\u{2C7C}";
+        bytes memory utf8OtherLowercase2C7C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase2C7C));
+        console2.log("2C7C: ", string(utf8OtherLowercase2C7C));
+        console2.logBytes(utf8OtherLowercase2C7C);
+
+        console2.log("..");
+
+        string memory otherLowercase2C7D = "\\u{2C7D}";
+        bytes memory utf8OtherLowercase2C7D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase2C7D));
+        console2.log("2C7D: ", string(utf8OtherLowercase2C7D));
+        console2.logBytes(utf8OtherLowercase2C7D);
+
+        string memory otherLowercaseA69C = "\\u{A69C}";
+        bytes memory utf8OtherLowercaseA69C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA69C));
+        console2.log("A69C: ", string(utf8OtherLowercaseA69C));
+        console2.logBytes(utf8OtherLowercaseA69C);
+
+        console2.log("..");
+
+        string memory otherLowercaseA69D = "\\u{A69D}";
+        bytes memory utf8OtherLowercaseA69D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA69D));
+        console2.log("A69D: ", string(utf8OtherLowercaseA69D));
+        console2.logBytes(utf8OtherLowercaseA69D);
+
+        string memory otherLowercaseA770 = "\\u{A770}";
+        bytes memory utf8OtherLowercaseA770 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA770));
+        console2.log("A770: ", string(utf8OtherLowercaseA770));
+        console2.logBytes(utf8OtherLowercaseA770);
+
+        string memory otherLowercaseA7F1 = "\\u{A7F1}";
+        bytes memory utf8OtherLowercaseA7F1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA7F1));
+        console2.log("A7F1: ", string(utf8OtherLowercaseA7F1));
+        console2.logBytes(utf8OtherLowercaseA7F1);
+
+        console2.log("..");
+
+        string memory otherLowercaseA7F4 = "\\u{A7F4}";
+        bytes memory utf8OtherLowercaseA7F4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA7F4));
+        console2.log("A7F4: ", string(utf8OtherLowercaseA7F4));
+        console2.logBytes(utf8OtherLowercaseA7F4);
+
+        string memory otherLowercaseA7F8 = "\\u{A7F8}";
+        bytes memory utf8OtherLowercaseA7F8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA7F8));
+        console2.log("A7F8: ", string(utf8OtherLowercaseA7F8));
+        console2.logBytes(utf8OtherLowercaseA7F8);
+
+        console2.log("..");
+
+        string memory otherLowercaseA7F9 = "\\u{A7F9}";
+        bytes memory utf8OtherLowercaseA7F9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseA7F9));
+        console2.log("A7F9: ", string(utf8OtherLowercaseA7F9));
+        console2.logBytes(utf8OtherLowercaseA7F9);
+
+        string memory otherLowercaseAB5C = "\\u{AB5C}";
+        bytes memory utf8OtherLowercaseAB5C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseAB5C));
+        console2.log("AB5C: ", string(utf8OtherLowercaseAB5C));
+        console2.logBytes(utf8OtherLowercaseAB5C);
+
+        console2.log("..");
+
+        string memory otherLowercaseAB5F = "\\u{AB5F}";
+        bytes memory utf8OtherLowercaseAB5F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseAB5F));
+        console2.log("AB5F: ", string(utf8OtherLowercaseAB5F));
+        console2.logBytes(utf8OtherLowercaseAB5F);
+
+        string memory otherLowercaseAB69 = "\\u{AB69}";
+        bytes memory utf8OtherLowercaseAB69 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercaseAB69));
+        console2.log("AB69: ", string(utf8OtherLowercaseAB69));
+        console2.logBytes(utf8OtherLowercaseAB69);
+
+        string memory otherLowercase10780 = "\\u{10780}";
+        bytes memory utf8OtherLowercase10780 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase10780));
+        console2.log("10780: ", string(utf8OtherLowercase10780));
+        console2.logBytes(utf8OtherLowercase10780);
+
+        string memory otherLowercase10783 = "\\u{10783}";
+        bytes memory utf8OtherLowercase10783 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase10783));
+        console2.log("10783: ", string(utf8OtherLowercase10783));
+        console2.logBytes(utf8OtherLowercase10783);
+
+        console2.log("..");
+
+        string memory otherLowercase10785 = "\\u{10785}";
+        bytes memory utf8OtherLowercase10785 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase10785));
+        console2.log("10785: ", string(utf8OtherLowercase10785));
+        console2.logBytes(utf8OtherLowercase10785);
+
+        string memory otherLowercase10787 = "\\u{10787}";
+        bytes memory utf8OtherLowercase10787 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase10787));
+        console2.log("10787: ", string(utf8OtherLowercase10787));
+        console2.logBytes(utf8OtherLowercase10787);
+
+        console2.log("..");
+
+        string memory otherLowercase107B0 = "\\u{107B0}";
+        bytes memory utf8OtherLowercase107B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase107B0));
+        console2.log("107B0: ", string(utf8OtherLowercase107B0));
+        console2.logBytes(utf8OtherLowercase107B0);
+
+        string memory otherLowercase107B2 = "\\u{107B2}";
+        bytes memory utf8OtherLowercase107B2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase107B2));
+        console2.log("107B2: ", string(utf8OtherLowercase107B2));
+        console2.logBytes(utf8OtherLowercase107B2);
+
+        console2.log("..");
+
+        string memory otherLowercase107BA = "\\u{107BA}";
+        bytes memory utf8OtherLowercase107BA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase107BA));
+        console2.log("107BA: ", string(utf8OtherLowercase107BA));
+        console2.logBytes(utf8OtherLowercase107BA);
+
+        string memory otherLowercase1E030 = "\\u{1E030}";
+        bytes memory utf8OtherLowercase1E030 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1E030));
+        console2.log("1E030: ", string(utf8OtherLowercase1E030));
+        console2.logBytes(utf8OtherLowercase1E030);
+
+        console2.log("..");
+
+        string memory otherLowercase1E06D = "\\u{1E06D}";
+        bytes memory utf8OtherLowercase1E06D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherLowercase1E06D));
+        console2.log("1E06D: ", string(utf8OtherLowercase1E06D));
+        console2.logBytes(utf8OtherLowercase1E06D);
     }
 
     function testRegexutf8HexToUnicodeHexCases() public {
