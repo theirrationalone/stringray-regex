@@ -13798,7 +13798,64 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertyDeprecated() public pure {
-        // @TODO: complete the property Deprecated testing🧪...🚀🚀
+        string memory deprecated0149 = "\\u{0149}";
+        bytes memory utf8Deprecated0149 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated0149));
+        console2.log("0149: ", string(utf8Deprecated0149));
+        console2.logBytes(utf8Deprecated0149);
+
+        string memory deprecated0673 = "\\u{0673}";
+        bytes memory utf8Deprecated0673 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated0673));
+        console2.log("0673: ", string(utf8Deprecated0673));
+        console2.logBytes(utf8Deprecated0673);
+
+        string memory deprecated0F77 = "\\u{0F77}";
+        bytes memory utf8Deprecated0F77 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated0F77));
+        console2.log("0F77: ", string(utf8Deprecated0F77));
+        console2.logBytes(utf8Deprecated0F77);
+
+        string memory deprecated0F79 = "\\u{0F79}";
+        bytes memory utf8Deprecated0F79 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated0F79));
+        console2.log("0F79: ", string(utf8Deprecated0F79));
+        console2.logBytes(utf8Deprecated0F79);
+
+        string memory deprecated17A3 = "\\u{17A3}";
+        bytes memory utf8Deprecated17A3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated17A3));
+        console2.log("17A3: ", string(utf8Deprecated17A3));
+        console2.logBytes(utf8Deprecated17A3);
+
+        console2.log("..");
+
+        string memory deprecated17A4 = "\\u{17A4}";
+        bytes memory utf8Deprecated17A4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated17A4));
+        console2.log("17A4: ", string(utf8Deprecated17A4));
+        console2.logBytes(utf8Deprecated17A4);
+
+        string memory deprecated206A = "\\u{206A}";
+        bytes memory utf8Deprecated206A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated206A));
+        console2.log("206A: ", string(utf8Deprecated206A));
+        console2.logBytes(utf8Deprecated206A);
+
+        console2.log("..");
+
+        string memory deprecated206F = "\\u{206F}";
+        bytes memory utf8Deprecated206F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated206F));
+        console2.log("206F: ", string(utf8Deprecated206F));
+        console2.logBytes(utf8Deprecated206F);
+
+        string memory deprecated2329 = "\\u{2329}";
+        bytes memory utf8Deprecated2329 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated2329));
+        console2.log("2329: ", string(utf8Deprecated2329));
+        console2.logBytes(utf8Deprecated2329);
+
+        string memory deprecated232A = "\\u{232A}";
+        bytes memory utf8Deprecated232A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecated232A));
+        console2.log("232A: ", string(utf8Deprecated232A));
+        console2.logBytes(utf8Deprecated232A);
+
+        string memory deprecatedE0001 = "\\u{E0001}";
+        bytes memory utf8DeprecatedE0001 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(deprecatedE0001));
+        console2.log("E0001: ", string(utf8DeprecatedE0001));
+        console2.logBytes(utf8DeprecatedE0001);
     }
 
     function testRegexPropertySoft_Dotted() public pure {
