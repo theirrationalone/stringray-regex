@@ -2264,9 +2264,77 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2E80: 0xe2ba80 ... 2E99: 0xe2ba99
-        // 2E9B: 0xe2ba9b ... 2EF3: 0xe2bbb3
-        // 2F00: 0xe2bc80 ... 2FD5: 0xe2bf95
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2E80: 0xe2ba80 ... 2E99: 0xe2ba99 [26]
+                // 2E9B: 0xe2ba9b ... 2EF3: 0xe2bbb3 [89]
+                // - 0xe2ba9b ... 0xe2babf [37]
+                if (_pattern[_currentParticleIndex + 1] == 0xba) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x99)
+                                || (_pattern[_currentParticleIndex + 2] >= 0x9b
+                                    && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // - 0xe2bb80 ... 0xe2bbb3 [52]
+                if (_pattern[_currentParticleIndex + 1] == 0xbb) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xb3)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 2F00: 0xe2bc80 ... 2FD5: 0xe2bf95 [214]
+                // - 0xe2bc80 ... 0xe2bcbf [64]
+                if (_pattern[_currentParticleIndex + 1] == 0xbc) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // - 0xe2bd80 ... 0xe2bdbf [64]
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // - 0xe2be80 ... 0xe2bebf [64]
+                if (_pattern[_currentParticleIndex + 1] == 0xbe) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // - 0xe2bf80 ... 0xe2bf95 [22]
+                if (_pattern[_currentParticleIndex + 1] == 0xbf) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x95)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyIDSUnaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
