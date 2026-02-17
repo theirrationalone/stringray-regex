@@ -3208,16 +3208,151 @@ library Stringray {
         returns (bool, uint256)
     {
         // 034F: 0xcd8f
-        // 115F: 0xe1859f ... 1160: 0xe185a0
-        // 17B4: 0xe19eb4 ... 17B5: 0xe19eb5
-        // 2065: 0xe281a5
-        // 3164: 0xe385a4
-        // FFA0: 0xefbea0
-        // FFF0: 0xefbfb0 ... FFF8: 0xefbfb8
-        // E0000: 0xf3a08080
-        // E0002: 0xf3a08082 ... E001F: 0xf3a0809f
-        // E0080: 0xf3a08280 ... E00FF: 0xf3a083bf
-        // E01F0: 0xf3a087b0 ... E0FFF: 0xf3a0bfbf
+        if (_pattern[_currentParticleIndex] == 0xcd) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x8f) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 115F: 0xe1859f ... 1160: 0xe185a0 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0x85) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9f || _pattern[_currentParticleIndex + 2] == 0xa0)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 17B4: 0xe19eb4 ... 17B5: 0xe19eb5 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0x9e) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb4 || _pattern[_currentParticleIndex + 2] == 0xb5)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2065: 0xe281a5
+                if (_pattern[_currentParticleIndex + 1] == 0x81) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa5) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 3164: 0xe385a4
+                if (_pattern[_currentParticleIndex + 1] == 0x85) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa4) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // FFA0: 0xefbea0
+                if (_pattern[_currentParticleIndex + 1] == 0xbe) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa0) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // FFF0: 0xefbfb0 ... FFF8: 0xefbfb8 [9]
+                if (_pattern[_currentParticleIndex + 1] == 0xbf) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xb0 && _pattern[_currentParticleIndex + 2] >= 0xb8)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // E0000: 0xf3a08080
+                        // E0002: 0xf3a08082 ... E001F: 0xf3a0809f [30]
+                        if (_pattern[_currentParticleIndex + 2] == 0x80) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x80
+                                        || (_pattern[_currentParticleIndex + 3] >= 0x82
+                                            && _pattern[_currentParticleIndex + 3] <= 0x9f)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // E0080: 0xf3a08280 ... E00FF: 0xf3a083bf [128]
+                        // - 0xf3a08280 ... 0xf3a082bf [64]
+                        // - 0xf3a08380 ... 0xf3a083bf [64]
+                        if (_pattern[_currentParticleIndex + 2] == 0x82 || _pattern[_currentParticleIndex + 2] == 0x83)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // E01F0: 0xf3a087b0 ... E0FFF: 0xf3a0bfbf [16 + 3584 = 3600]
+                        // - 0xf3a087b0 ... 0xf3a087bf [16]
+                        if (_pattern[_currentParticleIndex + 2] == 0x87) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0xb0
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 0xf3a08880 ... 0xf3a0bfbf [64*56=3584]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x88 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyUnifiedIdeograph(bytes memory _pattern, uint256 _currentParticleIndex)
