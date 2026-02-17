@@ -2381,11 +2381,94 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2160: 0xe285a0 ... 216F: 0xe285af
-        // 24B6: 0xe292b6 ... 24CF: 0xe2938f
-        // 1F130: 0xf09f84b0 ... 1F149: 0xf09f8589
-        // 1F150: 0xf09f8590 ... 1F169: 0xf09f85a9
-        // 1F170: 0xf09f85b0 ... 1F189: 0xf09f8689
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2160: 0xe285a0 ... 216F: 0xe285af [16]
+                if (_pattern[_currentParticleIndex + 1] == 0x85) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xa0 && _pattern[_currentParticleIndex + 2] <= 0xaf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 24B6: 0xe292b6 ... 24CF: 0xe2938f [26]
+                // - 0xe292b6 ... 0xe292bf [10]
+                if (_pattern[_currentParticleIndex + 1] == 0x92) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xb6 && _pattern[_currentParticleIndex + 2] <= 0xbf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // - 0xe29380 ... 0xe2938f [16]
+                if (_pattern[_currentParticleIndex + 1] == 0x93) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x8f)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x9f) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 1F130: 0xf09f84b0 ... 1F149: 0xf09f8589 [26]
+                        //  - 0xf09f84b0 ... 0xf09f84bf [16]
+                        if (_pattern[_currentParticleIndex + 2] == 0x84) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0xb0
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf09f8580 ... 0xf09f8589 [10]
+                        // 1F150: 0xf09f8590 ... 1F169: 0xf09f85a9 [26]
+                        // 1F170: 0xf09f85b0 ... 1F189: 0xf09f8689 [26]
+                        // - 0xf09f85b0 ... 0xf09f85bf [16]
+                        if (_pattern[_currentParticleIndex + 2] == 0x85) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    (_pattern[_currentParticleIndex + 3] >= 0x80
+                                            && _pattern[_currentParticleIndex + 3] <= 0x89)
+                                        || (_pattern[_currentParticleIndex + 3] >= 0x90
+                                            && _pattern[_currentParticleIndex + 3] <= 0xa9)
+                                        || (_pattern[_currentParticleIndex + 3] >= 0xb0
+                                            && _pattern[_currentParticleIndex + 3] <= 0xbf)
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // - 0xf09f8680 ... 0xf09f8689 [10]
+                        if (_pattern[_currentParticleIndex + 2] == 0x86) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0x89
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyOtherLowercase(bytes memory _pattern, uint256 _currentParticleIndex)
