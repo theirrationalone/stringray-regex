@@ -1921,13 +1921,54 @@ library Stringray {
     {
         // 0654: 0xd994 ... 0655: 0xd995
         // 0658: 0xd998
+        if (_pattern[_currentParticleIndex] == 0xd9) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (
+                    _pattern[_currentParticleIndex + 1] == 0x94 || _pattern[_currentParticleIndex + 1] == 0x95
+                        || _pattern[_currentParticleIndex + 1] == 0x98
+                ) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
         // 06DC: 0xdb9c
         // 06E3: 0xdba3
-        // 06E7: 0xdba7 ... 06E8: 0xdba8
-        // 08CA: 0xe0a38a ... 08CB: 0xe0a38b
-        // 08CD: 0xe0a38d ... 08CF: 0xe0a38f
-        // 08D3: 0xe0a393
-        // 08F3: 0xe0a3b3
+        // 06E7: 0xdba7 ... 06E8: 0xdba8 [2]
+        if (_pattern[_currentParticleIndex] == 0xdb) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (
+                    _pattern[_currentParticleIndex + 1] == 0x9c || _pattern[_currentParticleIndex + 1] == 0xa3
+                        || _pattern[_currentParticleIndex + 1] == 0xa7 || _pattern[_currentParticleIndex + 1] == 0xa8
+                ) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 08CA: 0xe0a38a ... 08CB: 0xe0a38b [2]
+                // 08CD: 0xe0a38d ... 08CF: 0xe0a38f [3]
+                // 08D3: 0xe0a393
+                // 08F3: 0xe0a3b3
+                if (_pattern[_currentParticleIndex + 1] == 0xa3) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x8a || _pattern[_currentParticleIndex + 2] == 0x8b
+                                || (_pattern[_currentParticleIndex + 2] >= 0x8d
+                                    && _pattern[_currentParticleIndex + 2] <= 0x8f)
+                                || _pattern[_currentParticleIndex + 2] == 0x93
+                                || _pattern[_currentParticleIndex + 2] == 0xb3
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyRegionalIndicator(bytes memory _pattern, uint256 _currentParticleIndex)
