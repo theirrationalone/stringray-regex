@@ -3616,7 +3616,7 @@ library Stringray {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
                                     _pattern[_currentParticleIndex + 3] == 0x96
-                                        || _pattern[_currentParticleIndex + 3] == 0x7
+                                        || _pattern[_currentParticleIndex + 3] == 0x97
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
