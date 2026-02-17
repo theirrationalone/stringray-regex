@@ -2855,10 +2855,50 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 1885: 0xe1a285 ... 1886: 0xe1a286
-        // 2118: 0xe28498
-        // 212E: 0xe284ae
-        // 309B: 0xe3829b ... 309C: 0xe3829c
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 1885: 0xe1a285 ... 1886: 0xe1a286 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0xa2) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x85 || _pattern[_currentParticleIndex + 2] == 0x86)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2118: 0xe28498
+                // 212E: 0xe284ae
+                if (_pattern[_currentParticleIndex + 1] == 0x84) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x98 || _pattern[_currentParticleIndex + 2] == 0xae)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 309B: 0xe3829b ... 309C: 0xe3829c
+                if (_pattern[_currentParticleIndex + 1] == 0x82) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x9b || _pattern[_currentParticleIndex + 2] == 0x9c)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyLogicalOrderException(bytes memory _pattern, uint256 _currentParticleIndex)
