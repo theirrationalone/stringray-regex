@@ -2765,8 +2765,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2781,8 +2781,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2797,8 +2797,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2817,8 +2817,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2833,8 +2833,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2849,8 +2849,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2865,8 +2865,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2885,8 +2885,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2900,8 +2900,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2916,8 +2916,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2932,8 +2932,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2952,8 +2952,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2967,8 +2967,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2982,8 +2982,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -2998,8 +2998,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -3018,8 +3018,8 @@ library Stringray {
                         if (_pattern[_currentParticleIndex + 2] == 0xbf) {
                             if (_currentParticleIndex + 3 < _pattern.length) {
                                 if (
-                                    _pattern[_currentParticleIndex + 2] == 0xbe
-                                        || _pattern[_currentParticleIndex + 2] == 0xbf
+                                    _pattern[_currentParticleIndex + 3] == 0xbe
+                                        || _pattern[_currentParticleIndex + 3] == 0xbf
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
