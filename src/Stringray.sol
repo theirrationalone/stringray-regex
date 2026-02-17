@@ -1977,12 +1977,44 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 0009: 0x09 ... 000D: 0x0d
+        // 0009: 0x09 ... 000D: 0x0d [5]
         // 0020: 0x20
+        if (
+            (_pattern[_currentParticleIndex] >= 0x09 && _pattern[_currentParticleIndex] <= 0x0d)
+                || _pattern[_currentParticleIndex] == 0x20
+        ) {
+            return (true, _currentParticleIndex);
+        }
+
         // 0085: 0xc285
-        // 200E: 0xe2808e ... 200F: 0xe2808f
-        // 2028: 0xe280a8
-        // 2029: 0xe280a9
+        if (_pattern[_currentParticleIndex] == 0xc2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x85) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 200E: 0xe2808e ... 200F: 0xe2808f [2]
+                // 2028: 0xe280a8
+                // 2029: 0xe280a9
+                if (_pattern[_currentParticleIndex + 1] == 0x80) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x8e || _pattern[_currentParticleIndex + 2] == 0x8f
+                                || _pattern[_currentParticleIndex + 2] == 0xa8
+                                || _pattern[_currentParticleIndex + 2] == 0xa9
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyVariationSelector(bytes memory _pattern, uint256 _currentParticleIndex)
