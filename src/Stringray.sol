@@ -2290,9 +2290,38 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2FF0: 0xe2bfb0 ... 2FF1: 0xe2bfb1
-        // 2FF4: 0xe2bfb4 ... 2FFD: 0xe2bfbd
-        // 31EF: 0xe387af
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2FF0: 0xe2bfb0 ... 2FF1: 0xe2bfb1 [2]
+                // 2FF4: 0xe2bfb4 ... 2FFD: 0xe2bfbd [10]
+                if (_pattern[_currentParticleIndex + 1] == 0xbf) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0xb0 || _pattern[_currentParticleIndex + 2] == 0xb1
+                                || (_pattern[_currentParticleIndex + 2] >= 0xb4
+                                    && _pattern[_currentParticleIndex + 2] <= 0xbd)
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 31EF: 0xe387af
+                if (_pattern[_currentParticleIndex + 1] == 0x87) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0af) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyOtherGraphemeExtend(bytes memory _pattern, uint256 _currentParticleIndex)
