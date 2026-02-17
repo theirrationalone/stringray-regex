@@ -1935,7 +1935,27 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 1F1E6: 0xf09f87a6 ... 1F1FF: 0xf09f87bf
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x9f) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 1F1E6: 0xf09f87a6 ... 1F1FF: 0xf09f87bf
+                        if (_pattern[_currentParticleIndex + 2] == 0x87) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0xa6
+                                        || _pattern[_currentParticleIndex + 3] == 0xa7
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyPrependedConcatenationMark(bytes memory _pattern, uint256 _currentParticleIndex)
