@@ -3014,19 +3014,96 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2202: 0xe28882
-        // 2207: 0xe28887
-        // 221E: 0xe2889e
-        // 1D6C1: 0xf09d9b81
-        // 1D6DB: 0xf09d9b9b
-        // 1D6FB: 0xf09d9bbb
-        // 1D715: 0xf09d9c95
-        // 1D735: 0xf09d9cb5
-        // 1D74F: 0xf09d9d8f
-        // 1D76F: 0xf09d9daf
-        // 1D789: 0xf09d9e89
-        // 1D7A9: 0xf09d9ea9
-        // 1D7C3: 0xf09d9f83
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2202: 0xe28882
+                // 2207: 0xe28887
+                // 221E: 0xe2889e
+                if (_pattern[_currentParticleIndex + 1] == 0x88) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x82 || _pattern[_currentParticleIndex + 2] == 0x87
+                                || _pattern[_currentParticleIndex + 2] == 0x9e
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x9d) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // 1D6C1: 0xf09d9b81
+                        // 1D6DB: 0xf09d9b9b
+                        // 1D6FB: 0xf09d9bbb
+                        if (_pattern[_currentParticleIndex + 2] == 0x9b) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x81
+                                        || _pattern[_currentParticleIndex + 3] == 0x9b
+                                        || _pattern[_currentParticleIndex + 3] == 0xbb
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1D715: 0xf09d9c95
+                        // 1D735: 0xf09d9cb5
+                        if (_pattern[_currentParticleIndex + 2] == 0x9c) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x95
+                                        || _pattern[_currentParticleIndex + 3] == 0xb5
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1D74F: 0xf09d9d8f
+                        // 1D76F: 0xf09d9daf
+                        if (_pattern[_currentParticleIndex + 2] == 0x9d) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x8f
+                                        || _pattern[_currentParticleIndex + 3] == 0xaf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1D789: 0xf09d9e89
+                        // 1D7A9: 0xf09d9ea9
+                        if (_pattern[_currentParticleIndex + 2] == 0x9e) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] == 0x89
+                                        || _pattern[_currentParticleIndex + 3] == 0xa9
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 1D7C3: 0xf09d9f83
+                        if (_pattern[_currentParticleIndex + 2] == 0x9f) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0x83) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyIDCompatMathContinue(bytes memory _pattern, uint256 _currentParticleIndex)
