@@ -2282,7 +2282,19 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2FF2: 0xe2bfb2 ... 2FF3: 0xe2bfb3
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2FF2: 0xe2bfb2 ... 2FF3: 0xe2bfb3 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0xbf) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb2 || _pattern[_currentParticleIndex + 2] == 0xb3)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     function isPropertyIDSBinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2313,7 +2325,7 @@ library Stringray {
                 // 31EF: 0xe387af
                 if (_pattern[_currentParticleIndex + 1] == 0x87) {
                     if (_currentParticleIndex + 2 < _pattern.length) {
-                        if (_pattern[_currentParticleIndex + 2] == 0af) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xaf) {
                             return (true, _currentParticleIndex + 2);
                         }
                     }
