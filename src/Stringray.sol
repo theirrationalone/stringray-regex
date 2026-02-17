@@ -1990,10 +1990,71 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 180B: 0xe1a08b ... 180D: 0xe1a08d
-        // 180F: 0xe1a08f
-        // FE00: 0xefb880 ... FE0F: 0xefb88f
-        // E0100: 0xf3a08480 ... E01EF: 0xf3a087af
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 180B: 0xe1a08b ... 180D: 0xe1a08d [3]
+                // 180F: 0xe1a08f
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0x8b || _pattern[_currentParticleIndex + 2] == 0x8d
+                                || _pattern[_currentParticleIndex + 2] == 0x8f
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xef) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // FE00: 0xefb880 ... FE0F: 0xefb88f [16]
+                if (_pattern[_currentParticleIndex + 1] == 0xb8) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x8f)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        // E0100: 0xf3a08480 ... E01EF: 0xf3a087af [(64*3=192) + 48 = 240]
+                        if (_pattern[_currentParticleIndex + 2] >= 0x84 && _pattern[_currentParticleIndex + 2] >= 0x86)
+                        {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xbf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+
+                        // 0xf3a08780 ... 0xf3a087af [48]
+                        if (_pattern[_currentParticleIndex + 2] == 0x87) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (
+                                    _pattern[_currentParticleIndex + 3] >= 0x80
+                                        && _pattern[_currentParticleIndex + 3] <= 0xaf
+                                ) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertySentenceTerminal(bytes memory _pattern, uint256 _currentParticleIndex)
