@@ -3192,14 +3192,95 @@ library Stringray {
         returns (bool, uint256)
     {
         // 0149: 0xc589
+        if (_pattern[_currentParticleIndex] == 0xc5) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0x89) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
         // 0673: 0xd9b3
-        // 0F77: 0xe0bdb7
-        // 0F79: 0xe0bdb9
-        // 17A3: 0xe19ea3 ... 17A4: 0xe19ea4
-        // 206A: 0xe281aa ... 206F: 0xe281af
-        // 2329: 0xe28ca9
-        // 232A: 0xe28caa
-        // E0001: 0xf3a08081
+        if (_pattern[_currentParticleIndex] == 0xd9) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                if (_pattern[_currentParticleIndex + 1] == 0xb3) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 0F77: 0xe0bdb7
+                // 0F79: 0xe0bdb9
+                if (_pattern[_currentParticleIndex + 1] == 0xbd) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xb7 || _pattern[_currentParticleIndex + 2] == 0xb9)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 17A3: 0xe19ea3 ... 17A4: 0xe19ea4 [2]
+                if (_pattern[_currentParticleIndex + 1] == 0x9e) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa3 || _pattern[_currentParticleIndex + 2] == 0xa4)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 206A: 0xe281aa ... 206F: 0xe281af [6]
+                if (_pattern[_currentParticleIndex + 1] == 0x81) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0xaa && _pattern[_currentParticleIndex + 2] <= 0xaf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 2329: 0xe28ca9
+                // 232A: 0xe28caa
+                if (_pattern[_currentParticleIndex + 1] == 0x8c) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xa9 || _pattern[_currentParticleIndex + 2] == 0xaa)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xf3) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // E0001: 0xf3a08081
+                if (_pattern[_currentParticleIndex + 1] == 0xa0) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0x80) {
+                            if (_currentParticleIndex + 3 < _pattern.length) {
+                                if (_pattern[_currentParticleIndex + 3] == 0x81) {
+                                    return (true, _currentParticleIndex + 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyOtherDefaultIgnorableCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
