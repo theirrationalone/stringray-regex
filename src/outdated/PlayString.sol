@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.20;
 
-import {Stringray} from "./Stringray.sol";
+import {Stringray} from "../Stringray.sol";
 
 contract Play {
     using Stringray for string;

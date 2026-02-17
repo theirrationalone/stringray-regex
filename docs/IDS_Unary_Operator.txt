@@ -1,11 +1,14 @@
-string memory idsUnaryOperator2FFE = "\\u{2FFE}";
-bytes memory utf8UnaryOperator2FFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFE));
-console2.log("2FFE: ", string(utf8UnaryOperator2FFE));
-console2.logBytes(utf8UnaryOperator2FFE);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyIDSUnaryOperator() (gas: 290296)
+Logs:
+  2FFE:  ⿾
+  0xe2bfbe
+  ..
+  2FFF:  ⿿
+  0xe2bfbf
 
-string memory idsUnaryOperator2FFF = "\\u{2FFF}";
-bytes memory utf8UnaryOperator2FFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsUnaryOperator2FFF));
-console2.log("2FFF: ", string(utf8UnaryOperator2FFF));
-console2.logBytes(utf8UnaryOperator2FFF);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 23.41ms (3.43ms CPU time)
+
+Ran 1 test suite in 26.13ms (23.41ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

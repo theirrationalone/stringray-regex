@@ -13859,284 +13859,284 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPropertySoft_Dotted() public pure {
-        string memory softDotted0069 = "\\u{softDotted0069}";
+        string memory softDotted0069 = "\\u{0069}";
         bytes memory utf8SoftDotted0069 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted0069));
         console2.log("0069: ", string(utf8SoftDotted0069));
         console2.logBytes(utf8SoftDotted0069);
 
         console2.log("..");
 
-        string memory softDotted006A = "\\u{softDotted006A}";
+        string memory softDotted006A = "\\u{006A}";
         bytes memory utf8SoftDotted006A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted006A));
         console2.log("006A: ", string(utf8SoftDotted006A));
         console2.logBytes(utf8SoftDotted006A);
 
-        string memory softDotted012F = "\\u{softDotted012F}";
+        string memory softDotted012F = "\\u{012F}";
         bytes memory utf8SoftDotted012F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted012F));
         console2.log("012F: ", string(utf8SoftDotted012F));
         console2.logBytes(utf8SoftDotted012F);
 
-        string memory softDotted0249 = "\\u{softDotted0249}";
+        string memory softDotted0249 = "\\u{0249}";
         bytes memory utf8SoftDotted0249 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted0249));
         console2.log("0249: ", string(utf8SoftDotted0249));
         console2.logBytes(utf8SoftDotted0249);
 
-        string memory softDotted0268 = "\\u{softDotted0268}";
+        string memory softDotted0268 = "\\u{0268}";
         bytes memory utf8SoftDotted0268 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted0268));
         console2.log("0268: ", string(utf8SoftDotted0268));
         console2.logBytes(utf8SoftDotted0268);
 
-        string memory softDotted029D = "\\u{softDotted029D}";
+        string memory softDotted029D = "\\u{029D}";
         bytes memory utf8SoftDotted029D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted029D));
         console2.log("029D: ", string(utf8SoftDotted029D));
         console2.logBytes(utf8SoftDotted029D);
 
-        string memory softDotted02B2 = "\\u{softDotted02B2}";
+        string memory softDotted02B2 = "\\u{02B2}";
         bytes memory utf8SoftDotted02B2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted02B2));
         console2.log("02B2: ", string(utf8SoftDotted02B2));
         console2.logBytes(utf8SoftDotted02B2);
 
-        string memory softDotted03F3 = "\\u{softDotted03F3}";
+        string memory softDotted03F3 = "\\u{03F3}";
         bytes memory utf8SoftDotted03F3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted03F3));
         console2.log("03F3: ", string(utf8SoftDotted03F3));
         console2.logBytes(utf8SoftDotted03F3);
 
-        string memory softDotted0456 = "\\u{softDotted0456}";
+        string memory softDotted0456 = "\\u{0456}";
         bytes memory utf8SoftDotted0456 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted0456));
         console2.log("0456: ", string(utf8SoftDotted0456));
         console2.logBytes(utf8SoftDotted0456);
 
-        string memory softDotted0458 = "\\u{softDotted0458}";
+        string memory softDotted0458 = "\\u{0458}";
         bytes memory utf8SoftDotted0458 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted0458));
         console2.log("0458: ", string(utf8SoftDotted0458));
         console2.logBytes(utf8SoftDotted0458);
 
-        string memory softDotted1D62 = "\\u{softDotted1D62}";
+        string memory softDotted1D62 = "\\u{1D62}";
         bytes memory utf8SoftDotted1D62 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D62));
         console2.log("1D62: ", string(utf8SoftDotted1D62));
         console2.logBytes(utf8SoftDotted1D62);
 
-        string memory softDotted1D96 = "\\u{softDotted1D96}";
+        string memory softDotted1D96 = "\\u{1D96}";
         bytes memory utf8SoftDotted1D96 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D96));
         console2.log("1D96: ", string(utf8SoftDotted1D96));
         console2.logBytes(utf8SoftDotted1D96);
 
-        string memory softDotted1DA4 = "\\u{softDotted1DA4}";
+        string memory softDotted1DA4 = "\\u{1DA4}";
         bytes memory utf8SoftDotted1DA4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1DA4));
         console2.log("1DA4: ", string(utf8SoftDotted1DA4));
         console2.logBytes(utf8SoftDotted1DA4);
 
-        string memory softDotted1DA8 = "\\u{softDotted1DA8}";
+        string memory softDotted1DA8 = "\\u{1DA8}";
         bytes memory utf8SoftDotted1DA8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1DA8));
         console2.log("1DA8: ", string(utf8SoftDotted1DA8));
         console2.logBytes(utf8SoftDotted1DA8);
 
-        string memory softDotted1E2D = "\\u{softDotted1E2D}";
+        string memory softDotted1E2D = "\\u{1E2D}";
         bytes memory utf8SoftDotted1E2D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1E2D));
         console2.log("1E2D: ", string(utf8SoftDotted1E2D));
         console2.logBytes(utf8SoftDotted1E2D);
 
-        string memory softDotted1ECB = "\\u{softDotted1ECB}";
+        string memory softDotted1ECB = "\\u{1ECB}";
         bytes memory utf8SoftDotted1ECB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1ECB));
         console2.log("1ECB: ", string(utf8SoftDotted1ECB));
         console2.logBytes(utf8SoftDotted1ECB);
 
-        string memory softDotted2071 = "\\u{softDotted2071}";
+        string memory softDotted2071 = "\\u{2071}";
         bytes memory utf8SoftDotted2071 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted2071));
         console2.log("2071: ", string(utf8SoftDotted2071));
         console2.logBytes(utf8SoftDotted2071);
 
-        string memory softDotted2148 = "\\u{softDotted2148}";
+        string memory softDotted2148 = "\\u{2148}";
         bytes memory utf8SoftDotted2148 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted2148));
         console2.log("2148: ", string(utf8SoftDotted2148));
         console2.logBytes(utf8SoftDotted2148);
 
         console2.log("..");
 
-        string memory softDotted2149 = "\\u{softDotted2149}";
+        string memory softDotted2149 = "\\u{2149}";
         bytes memory utf8SoftDotted2149 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted2149));
         console2.log("2149: ", string(utf8SoftDotted2149));
         console2.logBytes(utf8SoftDotted2149);
 
-        string memory softDotted2C7C = "\\u{softDotted2C7C}";
+        string memory softDotted2C7C = "\\u{2C7C}";
         bytes memory utf8SoftDotted2C7C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted2C7C));
         console2.log("2C7C: ", string(utf8SoftDotted2C7C));
         console2.logBytes(utf8SoftDotted2C7C);
 
-        string memory softDotted1D422 = "\\u{softDotted1D422}";
+        string memory softDotted1D422 = "\\u{1D422}";
         bytes memory utf8SoftDotted1D422 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D422));
         console2.log("1D422: ", string(utf8SoftDotted1D422));
         console2.logBytes(utf8SoftDotted1D422);
 
         console2.log("..");
 
-        string memory softDotted1D423 = "\\u{softDotted1D423}";
+        string memory softDotted1D423 = "\\u{1D423}";
         bytes memory utf8SoftDotted1D423 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D423));
         console2.log("1D423: ", string(utf8SoftDotted1D423));
         console2.logBytes(utf8SoftDotted1D423);
 
-        string memory softDotted1D456 = "\\u{softDotted1D456}";
+        string memory softDotted1D456 = "\\u{1D456}";
         bytes memory utf8SoftDotted1D456 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D456));
         console2.log("1D456: ", string(utf8SoftDotted1D456));
         console2.logBytes(utf8SoftDotted1D456);
 
         console2.log("..");
 
-        string memory softDotted1D457 = "\\u{softDotted1D457}";
+        string memory softDotted1D457 = "\\u{1D457}";
         bytes memory utf8SoftDotted1D457 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D457));
         console2.log("1D457: ", string(utf8SoftDotted1D457));
         console2.logBytes(utf8SoftDotted1D457);
 
-        string memory softDotted1D48A = "\\u{softDotted1D48A}";
+        string memory softDotted1D48A = "\\u{1D48A}";
         bytes memory utf8SoftDotted1D48A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D48A));
         console2.log("1D48A: ", string(utf8SoftDotted1D48A));
         console2.logBytes(utf8SoftDotted1D48A);
 
         console2.log("..");
 
-        string memory softDotted1D48B = "\\u{softDotted1D48B}";
+        string memory softDotted1D48B = "\\u{1D48B}";
         bytes memory utf8SoftDotted1D48B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D48B));
         console2.log("1D48B: ", string(utf8SoftDotted1D48B));
         console2.logBytes(utf8SoftDotted1D48B);
 
-        string memory softDotted1D4BE = "\\u{softDotted1D4BE}";
+        string memory softDotted1D4BE = "\\u{1D4BE}";
         bytes memory utf8SoftDotted1D4BE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D4BE));
         console2.log("1D4BE: ", string(utf8SoftDotted1D4BE));
         console2.logBytes(utf8SoftDotted1D4BE);
 
         console2.log("..");
 
-        string memory softDotted1D4BF = "\\u{softDotted1D4BF}";
+        string memory softDotted1D4BF = "\\u{1D4BF}";
         bytes memory utf8SoftDotted1D4BF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D4BF));
         console2.log("1D4BF: ", string(utf8SoftDotted1D4BF));
         console2.logBytes(utf8SoftDotted1D4BF);
 
-        string memory softDotted1D4F2 = "\\u{softDotted1D4F2}";
+        string memory softDotted1D4F2 = "\\u{1D4F2}";
         bytes memory utf8SoftDotted1D4F2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D4F2));
         console2.log("1D4F2: ", string(utf8SoftDotted1D4F2));
         console2.logBytes(utf8SoftDotted1D4F2);
 
         console2.log("..");
 
-        string memory softDotted1D4F3 = "\\u{softDotted1D4F3}";
+        string memory softDotted1D4F3 = "\\u{1D4F3}";
         bytes memory utf8SoftDotted1D4F3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D4F3));
         console2.log("1D4F3: ", string(utf8SoftDotted1D4F3));
         console2.logBytes(utf8SoftDotted1D4F3);
 
-        string memory softDotted1D526 = "\\u{softDotted1D526}";
+        string memory softDotted1D526 = "\\u{1D526}";
         bytes memory utf8SoftDotted1D526 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D526));
         console2.log("1D526: ", string(utf8SoftDotted1D526));
         console2.logBytes(utf8SoftDotted1D526);
 
         console2.log("..");
 
-        string memory softDotted1D527 = "\\u{softDotted1D527}";
+        string memory softDotted1D527 = "\\u{1D527}";
         bytes memory utf8SoftDotted1D527 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D527));
         console2.log("1D527: ", string(utf8SoftDotted1D527));
         console2.logBytes(utf8SoftDotted1D527);
 
-        string memory softDotted1D55A = "\\u{softDotted1D55A}";
+        string memory softDotted1D55A = "\\u{1D55A}";
         bytes memory utf8SoftDotted1D55A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D55A));
         console2.log("1D55A: ", string(utf8SoftDotted1D55A));
         console2.logBytes(utf8SoftDotted1D55A);
 
         console2.log("..");
 
-        string memory softDotted1D55B = "\\u{softDotted1D55B}";
+        string memory softDotted1D55B = "\\u{1D55B}";
         bytes memory utf8SoftDotted1D55B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D55B));
         console2.log("1D55B: ", string(utf8SoftDotted1D55B));
         console2.logBytes(utf8SoftDotted1D55B);
 
-        string memory softDotted1D58E = "\\u{softDotted1D58E}";
+        string memory softDotted1D58E = "\\u{1D58E}";
         bytes memory utf8SoftDotted1D58E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D58E));
         console2.log("1D58E: ", string(utf8SoftDotted1D58E));
         console2.logBytes(utf8SoftDotted1D58E);
 
         console2.log("..");
 
-        string memory softDotted1D58F = "\\u{softDotted1D58F}";
+        string memory softDotted1D58F = "\\u{1D58F}";
         bytes memory utf8SoftDotted1D58F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D58F));
         console2.log("1D58F: ", string(utf8SoftDotted1D58F));
         console2.logBytes(utf8SoftDotted1D58F);
 
-        string memory softDotted1D5C2 = "\\u{softDotted1D5C2}";
+        string memory softDotted1D5C2 = "\\u{1D5C2}";
         bytes memory utf8SoftDotted1D5C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D5C2));
         console2.log("1D5C2: ", string(utf8SoftDotted1D5C2));
         console2.logBytes(utf8SoftDotted1D5C2);
 
         console2.log("..");
 
-        string memory softDotted1D5C3 = "\\u{softDotted1D5C3}";
+        string memory softDotted1D5C3 = "\\u{1D5C3}";
         bytes memory utf8SoftDotted1D5C3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D5C3));
         console2.log("1D5C3: ", string(utf8SoftDotted1D5C3));
         console2.logBytes(utf8SoftDotted1D5C3);
 
-        string memory softDotted1D5F6 = "\\u{softDotted1D5F6}";
+        string memory softDotted1D5F6 = "\\u{1D5F6}";
         bytes memory utf8SoftDotted1D5F6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D5F6));
         console2.log("1D5F6: ", string(utf8SoftDotted1D5F6));
         console2.logBytes(utf8SoftDotted1D5F6);
 
         console2.log("..");
 
-        string memory softDotted1D5F7 = "\\u{softDotted1D5F7}";
+        string memory softDotted1D5F7 = "\\u{1D5F7}";
         bytes memory utf8SoftDotted1D5F7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D5F7));
         console2.log("1D5F7: ", string(utf8SoftDotted1D5F7));
         console2.logBytes(utf8SoftDotted1D5F7);
 
-        string memory softDotted1D62A = "\\u{softDotted1D62A}";
+        string memory softDotted1D62A = "\\u{1D62A}";
         bytes memory utf8SoftDotted1D62A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D62A));
         console2.log("1D62A: ", string(utf8SoftDotted1D62A));
         console2.logBytes(utf8SoftDotted1D62A);
 
         console2.log("..");
 
-        string memory softDotted1D62B = "\\u{softDotted1D62B}";
+        string memory softDotted1D62B = "\\u{1D62B}";
         bytes memory utf8SoftDotted1D62B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D62B));
         console2.log("1D62B: ", string(utf8SoftDotted1D62B));
         console2.logBytes(utf8SoftDotted1D62B);
 
-        string memory softDotted1D65E = "\\u{softDotted1D65E}";
+        string memory softDotted1D65E = "\\u{1D65E}";
         bytes memory utf8SoftDotted1D65E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D65E));
         console2.log("1D65E: ", string(utf8SoftDotted1D65E));
         console2.logBytes(utf8SoftDotted1D65E);
 
         console2.log("..");
 
-        string memory softDotted1D65F = "\\u{softDotted1D65F}";
+        string memory softDotted1D65F = "\\u{1D65F}";
         bytes memory utf8SoftDotted1D65F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D65F));
         console2.log("1D65F: ", string(utf8SoftDotted1D65F));
         console2.logBytes(utf8SoftDotted1D65F);
 
-        string memory softDotted1D692 = "\\u{softDotted1D692}";
+        string memory softDotted1D692 = "\\u{1D692}";
         bytes memory utf8SoftDotted1D692 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D692));
         console2.log("1D692: ", string(utf8SoftDotted1D692));
         console2.logBytes(utf8SoftDotted1D692);
 
         console2.log("..");
 
-        string memory softDotted1D693 = "\\u{softDotted1D693}";
+        string memory softDotted1D693 = "\\u{1D693}";
         bytes memory utf8SoftDotted1D693 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1D693));
         console2.log("1D693: ", string(utf8SoftDotted1D693));
         console2.logBytes(utf8SoftDotted1D693);
 
-        string memory softDotted1DF1A = "\\u{softDotted1DF1A}";
+        string memory softDotted1DF1A = "\\u{1DF1A}";
         bytes memory utf8SoftDotted1DF1A = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1DF1A));
         console2.log("1DF1A: ", string(utf8SoftDotted1DF1A));
         console2.logBytes(utf8SoftDotted1DF1A);
 
-        string memory softDotted1E04C = "\\u{softDotted1E04C}";
+        string memory softDotted1E04C = "\\u{1E04C}";
         bytes memory utf8SoftDotted1E04C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1E04C));
         console2.log("1E04C: ", string(utf8SoftDotted1E04C));
         console2.logBytes(utf8SoftDotted1E04C);
 
         console2.log("..");
 
-        string memory softDotted1E04D = "\\u{softDotted1E04D}";
+        string memory softDotted1E04D = "\\u{1E04D}";
         bytes memory utf8SoftDotted1E04D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1E04D));
         console2.log("1E04D: ", string(utf8SoftDotted1E04D));
         console2.logBytes(utf8SoftDotted1E04D);
 
-        string memory softDotted1E068 = "\\u{softDotted1E068}";
+        string memory softDotted1E068 = "\\u{1E068}";
         bytes memory utf8SoftDotted1E068 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(softDotted1E068));
         console2.log("1E068: ", string(utf8SoftDotted1E068));
         console2.logBytes(utf8SoftDotted1E068);
@@ -14497,6 +14497,83 @@ contract PlayStringTest is Test {
             Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathContinue1D7C3));
         console2.log("1D7C3: ", string(utf8IdCompatMathContinue1D7C3));
         console2.logBytes(utf8IdCompatMathContinue1D7C3);
+    }
+
+    function testRegexPropertyIDCompatMathStart() public pure {
+        string memory idCompatMathStart2202 = "\\u{2202}";
+        bytes memory utf8IdCompatMathStart2202 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2202));
+        console2.log("2202: ", string(utf8IdCompatMathStart2202));
+        console2.logBytes(utf8IdCompatMathStart2202);
+
+        string memory idCompatMathStart2207 = "\\u{2207}";
+        bytes memory utf8IdCompatMathStart2207 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2207));
+        console2.log("2207: ", string(utf8IdCompatMathStart2207));
+        console2.logBytes(utf8IdCompatMathStart2207);
+
+        string memory idCompatMathStart221E = "\\u{221E}";
+        bytes memory utf8IdCompatMathStart221E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart221E));
+        console2.log("221E: ", string(utf8IdCompatMathStart221E));
+        console2.logBytes(utf8IdCompatMathStart221E);
+
+        string memory idCompatMathStart1D6C1 = "\\u{1D6C1}";
+        bytes memory utf8IdCompatMathStart1D6C1 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6C1));
+        console2.log("1D6C1: ", string(utf8IdCompatMathStart1D6C1));
+        console2.logBytes(utf8IdCompatMathStart1D6C1);
+
+        string memory idCompatMathStart1D6DB = "\\u{1D6DB}";
+        bytes memory utf8IdCompatMathStart1D6DB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6DB));
+        console2.log("1D6DB: ", string(utf8IdCompatMathStart1D6DB));
+        console2.logBytes(utf8IdCompatMathStart1D6DB);
+
+        string memory idCompatMathStart1D6FB = "\\u{1D6FB}";
+        bytes memory utf8IdCompatMathStart1D6FB =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6FB));
+        console2.log("1D6FB: ", string(utf8IdCompatMathStart1D6FB));
+        console2.logBytes(utf8IdCompatMathStart1D6FB);
+
+        string memory idCompatMathStart1D715 = "\\u{1D715}";
+        bytes memory utf8IdCompatMathStart1D715 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D715));
+        console2.log("1D715: ", string(utf8IdCompatMathStart1D715));
+        console2.logBytes(utf8IdCompatMathStart1D715);
+
+        string memory idCompatMathStart1D735 = "\\u{1D735}";
+        bytes memory utf8IdCompatMathStart1D735 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D735));
+        console2.log("1D735: ", string(utf8IdCompatMathStart1D735));
+        console2.logBytes(utf8IdCompatMathStart1D735);
+
+        string memory idCompatMathStart1D74F = "\\u{1D74F}";
+        bytes memory utf8IdCompatMathStart1D74F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D74F));
+        console2.log("1D74F: ", string(utf8IdCompatMathStart1D74F));
+        console2.logBytes(utf8IdCompatMathStart1D74F);
+
+        string memory idCompatMathStart1D76F = "\\u{1D76F}";
+        bytes memory utf8IdCompatMathStart1D76F =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D76F));
+        console2.log("1D76F: ", string(utf8IdCompatMathStart1D76F));
+        console2.logBytes(utf8IdCompatMathStart1D76F);
+
+        string memory idCompatMathStart1D789 = "\\u{1D789}";
+        bytes memory utf8IdCompatMathStart1D789 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D789));
+        console2.log("1D789: ", string(utf8IdCompatMathStart1D789));
+        console2.logBytes(utf8IdCompatMathStart1D789);
+
+        string memory idCompatMathStart1D7A9 = "\\u{1D7A9}";
+        bytes memory utf8IdCompatMathStart1D7A9 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7A9));
+        console2.log("1D7A9: ", string(utf8IdCompatMathStart1D7A9));
+        console2.logBytes(utf8IdCompatMathStart1D7A9);
+
+        string memory idCompatMathStart1D7C3 = "\\u{1D7C3}";
+        bytes memory utf8IdCompatMathStart1D7C3 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7C3));
+        console2.log("1D7C3: ", string(utf8IdCompatMathStart1D7C3));
+        console2.logBytes(utf8IdCompatMathStart1D7C3);
     }
 
     function testRegexPropertySentenceTerminal() public pure {

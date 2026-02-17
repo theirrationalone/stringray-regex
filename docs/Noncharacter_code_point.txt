@@ -1,215 +1,99 @@
-string memory noncharacterCodePointFDD0 = "\\u{FDD0}";
-bytes memory utf8NoncharacterCodePointFDD0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFDD0));
-console2.log("FDD0: ", string(utf8NoncharacterCodePointFDD0));
-console2.logBytes(utf8NoncharacterCodePointFDD0);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyNoncharacterCodePoint() (gas: 6493827)
+Logs:
+  FDD0:  ﷐
+  0xefb790
+  ..
+  FDEF:  ﷯
+  0xefb7af
+  FFFE:  ￾
+  0xefbfbe
+  ..
+  FFFF:  ￿
+  0xefbfbf
+  1FFFE:  🿾
+  0xf09fbfbe
+  ..
+  1FFFF:  🿿
+  0xf09fbfbf
+  2FFFE:  𯿾
+  0xf0afbfbe
+  ..
+  2FFFF:  𯿿
+  0xf0afbfbf
+  3FFFE:  𿿾
+  0xf0bfbfbe
+  ..
+  3FFFF:  𿿿
+  0xf0bfbfbf
+  4FFFE:  񏿾
+  0xf18fbfbe
+  ..
+  4FFFF:  񏿿
+  0xf18fbfbf
+  5FFFE:  񟿾
+  0xf19fbfbe
+  ..
+  5FFFF:  񟿿
+  0xf19fbfbf
+  6FFFE:  񯿾
+  0xf1afbfbe
+  ..
+  6FFFF:  񯿿
+  0xf1afbfbf
+  7FFFE:  񿿾
+  0xf1bfbfbe
+  ..
+  7FFFF:  񿿿
+  0xf1bfbfbf
+  8FFFE:  򏿾
+  0xf28fbfbe
+  ..
+  8FFFF:  򏿿
+  0xf28fbfbf
+  9FFFE:  򟿾
+  0xf29fbfbe
+  ..
+  9FFFF:  򟿿
+  0xf29fbfbf
+  AFFFE:  򯿾
+  0xf2afbfbe
+  ..
+  AFFFF:  򯿿
+  0xf2afbfbf
+  BFFFE:  򿿾
+  0xf2bfbfbe
+  ..
+  BFFFF:  򿿿
+  0xf2bfbfbf
+  CFFFE:  󏿾
+  0xf38fbfbe
+  ..
+  CFFFF:  󏿿
+  0xf38fbfbf
+  DFFFE:  󟿾
+  0xf39fbfbe
+  ..
+  DFFFF:  󟿿
+  0xf39fbfbf
+  EFFFE:  󯿾
+  0xf3afbfbe
+  ..
+  EFFFF:  󯿿
+  0xf3afbfbf
+  FFFFE:  󿿾
+  0xf3bfbfbe
+  ..
+  FFFFF:  󿿿
+  0xf3bfbfbf
+  10FFFE:  􏿾
+  0xf48fbfbe
+  ..
+  10FFFF:  􏿿
+  0xf48fbfbf
 
-string memory noncharacterCodePointFDEF = "\\u{FDEF}";
-bytes memory utf8NoncharacterCodePointFDEF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFDEF));
-console2.log("FDEF: ", string(utf8NoncharacterCodePointFDEF));
-console2.logBytes(utf8NoncharacterCodePointFDEF);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 57.23ms (45.44ms CPU time)
 
-string memory noncharacterCodePointFFFE = "\\u{FFFE}";
-bytes memory utf8NoncharacterCodePointFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFE));
-console2.log("FFFE: ", string(utf8NoncharacterCodePointFFFE));
-console2.logBytes(utf8NoncharacterCodePointFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointFFFF = "\\u{FFFF}";
-bytes memory utf8NoncharacterCodePointFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFF));
-console2.log("FFFF: ", string(utf8NoncharacterCodePointFFFF));
-console2.logBytes(utf8NoncharacterCodePointFFFF);
-
-string memory noncharacterCodePoint1FFFE = "\\u{1FFFE}";
-bytes memory utf8NoncharacterCodePoint1FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint1FFFE));
-console2.log("1FFFE: ", string(utf8NoncharacterCodePoint1FFFE));
-console2.logBytes(utf8NoncharacterCodePoint1FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint1FFFF = "\\u{1FFFF}";
-bytes memory utf8NoncharacterCodePoint1FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint1FFFF));
-console2.log("1FFFF: ", string(utf8NoncharacterCodePoint1FFFF));
-console2.logBytes(utf8NoncharacterCodePoint1FFFF);
-
-string memory noncharacterCodePoint2FFFE = "\\u{2FFFE}";
-bytes memory utf8NoncharacterCodePoint2FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint2FFFE));
-console2.log("2FFFE: ", string(utf8NoncharacterCodePoint2FFFE));
-console2.logBytes(utf8NoncharacterCodePoint2FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint2FFFF = "\\u{2FFFF}";
-bytes memory utf8NoncharacterCodePoint2FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint2FFFF));
-console2.log("2FFFF: ", string(utf8NoncharacterCodePoint2FFFF));
-console2.logBytes(utf8NoncharacterCodePoint2FFFF);
-
-string memory noncharacterCodePoint3FFFE = "\\u{3FFFE}";
-bytes memory utf8NoncharacterCodePoint3FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint3FFFE));
-console2.log("3FFFE: ", string(utf8NoncharacterCodePoint3FFFE));
-console2.logBytes(utf8NoncharacterCodePoint3FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint3FFFF = "\\u{3FFFF}";
-bytes memory utf8NoncharacterCodePoint3FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint3FFFF));
-console2.log("3FFFF: ", string(utf8NoncharacterCodePoint3FFFF));
-console2.logBytes(utf8NoncharacterCodePoint3FFFF);
-
-string memory noncharacterCodePoint4FFFE = "\\u{4FFFE}";
-bytes memory utf8NoncharacterCodePoint4FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint4FFFE));
-console2.log("4FFFE: ", string(utf8NoncharacterCodePoint4FFFE));
-console2.logBytes(utf8NoncharacterCodePoint4FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint4FFFF = "\\u{4FFFF}";
-bytes memory utf8NoncharacterCodePoint4FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint4FFFF));
-console2.log("4FFFF: ", string(utf8NoncharacterCodePoint4FFFF));
-console2.logBytes(utf8NoncharacterCodePoint4FFFF);
-
-string memory noncharacterCodePoint5FFFE = "\\u{5FFFE}";
-bytes memory utf8NoncharacterCodePoint5FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint5FFFE));
-console2.log("5FFFE: ", string(utf8NoncharacterCodePoint5FFFE));
-console2.logBytes(utf8NoncharacterCodePoint5FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint5FFFF = "\\u{5FFFF}";
-bytes memory utf8NoncharacterCodePoint5FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint5FFFF));
-console2.log("5FFFF: ", string(utf8NoncharacterCodePoint5FFFF));
-console2.logBytes(utf8NoncharacterCodePoint5FFFF);
-
-string memory noncharacterCodePoint6FFFE = "\\u{6FFFE}";
-bytes memory utf8NoncharacterCodePoint6FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint6FFFE));
-console2.log("6FFFE: ", string(utf8NoncharacterCodePoint6FFFE));
-console2.logBytes(utf8NoncharacterCodePoint6FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint6FFFF = "\\u{6FFFF}";
-bytes memory utf8NoncharacterCodePoint6FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint6FFFF));
-console2.log("6FFFF: ", string(utf8NoncharacterCodePoint6FFFF));
-console2.logBytes(utf8NoncharacterCodePoint6FFFF);
-
-string memory noncharacterCodePoint7FFFE = "\\u{7FFFE}";
-bytes memory utf8NoncharacterCodePoint7FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint7FFFE));
-console2.log("7FFFE: ", string(utf8NoncharacterCodePoint7FFFE));
-console2.logBytes(utf8NoncharacterCodePoint7FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint7FFFF = "\\u{7FFFF}";
-bytes memory utf8NoncharacterCodePoint7FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint7FFFF));
-console2.log("7FFFF: ", string(utf8NoncharacterCodePoint7FFFF));
-console2.logBytes(utf8NoncharacterCodePoint7FFFF);
-
-string memory noncharacterCodePoint8FFFE = "\\u{8FFFE}";
-bytes memory utf8NoncharacterCodePoint8FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint8FFFE));
-console2.log("8FFFE: ", string(utf8NoncharacterCodePoint8FFFE));
-console2.logBytes(utf8NoncharacterCodePoint8FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint8FFFF = "\\u{8FFFF}";
-bytes memory utf8NoncharacterCodePoint8FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint8FFFF));
-console2.log("8FFFF: ", string(utf8NoncharacterCodePoint8FFFF));
-console2.logBytes(utf8NoncharacterCodePoint8FFFF);
-
-string memory noncharacterCodePoint9FFFE = "\\u{9FFFE}";
-bytes memory utf8NoncharacterCodePoint9FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint9FFFE));
-console2.log("9FFFE: ", string(utf8NoncharacterCodePoint9FFFE));
-console2.logBytes(utf8NoncharacterCodePoint9FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint9FFFF = "\\u{9FFFF}";
-bytes memory utf8NoncharacterCodePoint9FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint9FFFF));
-console2.log("9FFFF: ", string(utf8NoncharacterCodePoint9FFFF));
-console2.logBytes(utf8NoncharacterCodePoint9FFFF);
-
-string memory noncharacterCodePointAFFFE = "\\u{AFFFE}";
-bytes memory utf8NoncharacterCodePointAFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointAFFFE));
-console2.log("AFFFE: ", string(utf8NoncharacterCodePointAFFFE));
-console2.logBytes(utf8NoncharacterCodePointAFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointAFFFF = "\\u{AFFFF}";
-bytes memory utf8NoncharacterCodePointAFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointAFFFF));
-console2.log("AFFFF: ", string(utf8NoncharacterCodePointAFFFF));
-console2.logBytes(utf8NoncharacterCodePointAFFFF);
-
-string memory noncharacterCodePointBFFFE = "\\u{BFFFE}";
-bytes memory utf8NoncharacterCodePointBFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointBFFFE));
-console2.log("BFFFE: ", string(utf8NoncharacterCodePointBFFFE));
-console2.logBytes(utf8NoncharacterCodePointBFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointBFFFF = "\\u{BFFFF}";
-bytes memory utf8NoncharacterCodePointBFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointBFFFF));
-console2.log("BFFFF: ", string(utf8NoncharacterCodePointBFFFF));
-console2.logBytes(utf8NoncharacterCodePointBFFFF);
-
-string memory noncharacterCodePointCFFFE = "\\u{CFFFE}";
-bytes memory utf8NoncharacterCodePointCFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointCFFFE));
-console2.log("CFFFE: ", string(utf8NoncharacterCodePointCFFFE));
-console2.logBytes(utf8NoncharacterCodePointCFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointCFFFF = "\\u{CFFFF}";
-bytes memory utf8NoncharacterCodePointCFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointCFFFF));
-console2.log("CFFFF: ", string(utf8NoncharacterCodePointCFFFF));
-console2.logBytes(utf8NoncharacterCodePointCFFFF);
-
-string memory noncharacterCodePointDFFFE = "\\u{DFFFE}";
-bytes memory utf8NoncharacterCodePointDFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointDFFFE));
-console2.log("DFFFE: ", string(utf8NoncharacterCodePointDFFFE));
-console2.logBytes(utf8NoncharacterCodePointDFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointDFFFF = "\\u{DFFFF}";
-bytes memory utf8NoncharacterCodePointDFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointDFFFF));
-console2.log("DFFFF: ", string(utf8NoncharacterCodePointDFFFF));
-console2.logBytes(utf8NoncharacterCodePointDFFFF);
-
-string memory noncharacterCodePointEFFFE = "\\u{EFFFE}";
-bytes memory utf8NoncharacterCodePointEFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointEFFFE));
-console2.log("EFFFE: ", string(utf8NoncharacterCodePointEFFFE));
-console2.logBytes(utf8NoncharacterCodePointEFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointEFFFF = "\\u{EFFFF}";
-bytes memory utf8NoncharacterCodePointEFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointEFFFF));
-console2.log("EFFFF: ", string(utf8NoncharacterCodePointEFFFF));
-console2.logBytes(utf8NoncharacterCodePointEFFFF);
-
-string memory noncharacterCodePointFFFFE = "\\u{FFFFE}";
-bytes memory utf8NoncharacterCodePointFFFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFFE));
-console2.log("FFFFE: ", string(utf8NoncharacterCodePointFFFFE));
-console2.logBytes(utf8NoncharacterCodePointFFFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePointFFFFF = "\\u{FFFFF}";
-bytes memory utf8NoncharacterCodePointFFFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePointFFFFF));
-console2.log("FFFFF: ", string(utf8NoncharacterCodePointFFFFF));
-console2.logBytes(utf8NoncharacterCodePointFFFFF);
-
-string memory noncharacterCodePoint10FFFE = "\\u{10FFFE}";
-bytes memory utf8NoncharacterCodePoint10FFFE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint10FFFE));
-console2.log("10FFFE: ", string(utf8NoncharacterCodePoint10FFFE));
-console2.logBytes(utf8NoncharacterCodePoint10FFFE);
-
-console2.log("..");
-
-string memory noncharacterCodePoint10FFFF = "\\u{10FFFF}";
-bytes memory utf8NoncharacterCodePoint10FFFF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(noncharacterCodePoint10FFFF));
-console2.log("10FFFF: ", string(utf8NoncharacterCodePoint10FFFF));
-console2.logBytes(utf8NoncharacterCodePoint10FFFF);
+Ran 1 test suite in 59.29ms (57.23ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

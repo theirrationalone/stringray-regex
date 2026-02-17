@@ -1919,7 +1919,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Modifier_Combining_Mark implementation⚗️...🚀🚀
+        // 0654: 0xd994 ... 0655: 0xd995
+        // 0658: 0xd998
+        // 06DC: 0xdb9c
+        // 06E3: 0xdba3
+        // 06E7: 0xdba7 ... 06E8: 0xdba8
+        // 08CA: 0xe0a38a ... 08CB: 0xe0a38b
+        // 08CD: 0xe0a38d ... 08CF: 0xe0a38f
+        // 08D3: 0xe0a393
+        // 08F3: 0xe0a3b3
     }
 
     function isPropertyRegionalIndicator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1927,7 +1935,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Regional_Indicator implementation⚗️...🚀🚀
+        // 1F1E6: 0xf09f87a6 ... 1F1FF: 0xf09f87bf
     }
 
     function isPropertyPrependedConcatenationMark(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1935,7 +1943,13 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Prepended_Concatenation_Mark implementation⚗️...🚀🚀
+        // 0600: 0xd880 ... 0605: 0xd885
+        // 06DD: 0xdb9d
+        // 070F: 0xdc8f
+        // 0890: 0xe0a290 ... 0891: 0xe0a291
+        // 08E2: 0xe0a3a2
+        // 110BD: 0xf09182bd
+        // 110CD: 0xf091838d
     }
 
     function isPropertyPatternWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1943,7 +1957,12 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Pattern_White_Space implementation⚗️...🚀🚀
+        // 0009: 0x09 ... 000D: 0x0d
+        // 0020: 0x20
+        // 0085: 0xc285
+        // 200E: 0xe2808e ... 200F: 0xe2808f
+        // 2028: 0xe280a8
+        // 2029: 0xe280a9
     }
 
     function isPropertyVariationSelector(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1951,7 +1970,10 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Variation_Selector implementation⚗️...🚀🚀
+        // 180B: 0xe1a08b ... 180D: 0xe1a08d
+        // 180F: 0xe1a08f
+        // FE00: 0xefb880 ... FE0F: 0xefb88f
+        // E0100: 0xf3a08480 ... E01EF: 0xf3a087af
     }
 
     function isPropertySentenceTerminal(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1959,7 +1981,94 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Sentence_Terminal implementation⚗️...🚀🚀
+        // 0021: 0x21
+        // 002E: 0x2e
+        // 003F: 0x3f
+        // 0589: 0xd689
+        // 061D: 0xd89d ... 061F: 0xd89f
+        // 06D4: 0xdb94
+        // 0700: 0xdc80 ... 0702: 0xdc82
+        // 07F9: 0xdfb9
+        // 0837: 0xe0a0b7
+        // 0839: 0xe0a0b9
+        // 083D: 0xe0a0bd ... 083E: 0xe0a0be
+        // 0964: 0xe0a5a4 ... 0965: 0xe0a5a5
+        // 104A: 0xe1818a ... 104B: 0xe1818b
+        // 1362: 0xe18da2
+        // 1367: 0xe18da7 ... 1368: 0xe18da8
+        // 166E: 0xe199ae
+        // 1735: 0xe19cb5 ... 1736: 0xe19cb6
+        // 17D4: 0xe19f94 ... 17D5: 0xe19f95
+        // 1803: 0xe1a083
+        // 1809: 0xe1a089
+        // 1944: 0xe1a584 ... 1945: 0xe1a585
+        // 1AA8: 0xe1aaa8 ... 1AAB: 0xe1aaab
+        // 1B4E: 0xe1ad8e ... 1B4F: 0xe1ad8f
+        // 1B5A: 0xe1ad9a ... 1B5B: 0xe1ad9b
+        // 1B5E: 0xe1ad9e ... 1B5F: 0xe1ad9f
+        // 1B7D: 0xe1adbd ... 1B7F: 0xe1adbf
+        // 1C3B: 0xe1b0bb ... 1C3C: 0xe1b0bc
+        // 1C7E: 0xe1b1be ... 1C7F: 0xe1b1bf
+        // 2024: 0xe280a4
+        // 203C: 0xe280bc ... 203D: 0xe280bd
+        // 2047: 0xe28187 ... 2049: 0xe28189
+        // 2CF9: 0xe2b3b9 ... 2CFB: 0xe2b3bb
+        // 2E2E: 0xe2b8ae
+        // 2E3C: 0xe2b8bc
+        // 2E53: 0xe2b993 ... 2E54: 0xe2b994
+        // 3002: 0xe38082
+        // A4FF: 0xea93bf
+        // A60E: 0xea988e ... A60F: 0xea988f
+        // A6F3: 0xea9bb3
+        // A6F7: 0xea9bb7
+        // A876: 0xeaa1b6 ... A877: 0xeaa1b7
+        // A8CE: 0xeaa38e ... A8CF: 0xeaa38f
+        // A92F: 0xeaa4af
+        // A9C8: 0xeaa788 ... A9C9: 0xeaa789
+        // AA5D: 0xeaa99d ... AA5F: 0xeaa99f
+        // AAF0: 0xeaabb0 ... AAF1: 0xeaabb1
+        // ABEB: 0xeaafab
+        // FE12: 0xefb892
+        // FE15: 0xefb895 ... FE16: 0xefb896
+        // FE52: 0xefb992
+        // FE56: 0xefb996 ... FE57: 0xefb997
+        // FF01: 0xefbc81
+        // FF0E: 0xefbc8e
+        // FF1F: 0xefbc9f
+        // FF61: 0xefbda1
+        // 10A56: 0xf090a996 ... 10A57: 0xf090a997
+        // 10F55: 0xf090bd95 ... 10F59: 0xf090bd99
+        // 10F86: 0xf090be86 ... 10F89: 0xf090be89
+        // 11047: 0xf0918187 ... 11048: 0xf0918188
+        // 110BE: 0xf09182be ... 110C1: 0xf0918381
+        // 11141: 0xf0918581 ... 11143: 0xf0918583
+        // 111C5: 0xf0918785 ... 111C6: 0xf0918786
+        // 111CD: 0xf091878d
+        // 111DE: 0xf091879e ... 111DF: 0xf091879f
+        // 11238: 0xf09188b8 ... 11239: 0xf09188b9
+        // 1123B: 0xf09188bb ... 1123C: 0xf09188bc
+        // 112A9: 0xf0918aa9
+        // 113D4: 0xf0918f94 ... 113D5: 0xf0918f95
+        // 1144B: 0xf091918b ... 1144C: 0xf091918c
+        // 115C2: 0xf0919782 ... 115C3: 0xf0919783
+        // 115C9: 0xf0919789 ... 115D7: 0xf0919797
+        // 11641: 0xf0919981 ... 11642: 0xf0919982
+        // 1173C: 0xf0919cbc ... 1173E: 0xf0919cbe
+        // 11944: 0xf091a584
+        // 11946: 0xf091a586
+        // 11A42: 0xf091a982 ... 11A43: 0xf091a983
+        // 11A9B: 0xf091aa9b ... 11A9C: 0xf091aa9c
+        // 11C41: 0xf091b181 ... 11C42: 0xf091b182
+        // 11EF7: 0xf091bbb7 ... 11EF8: 0xf091bbb8
+        // 11F43: 0xf091bd83 ... 11F44: 0xf091bd84
+        // 16A6E: 0xf096a9ae ... 16A6F: 0xf096a9af
+        // 16AF5: 0xf096abb5
+        // 16B37: 0xf096acb7 ... 16B38: 0xf096acb8
+        // 16B44: 0xf096ad84
+        // 16D6E: 0xf096b5ae ... 16D6F: 0xf096b5af
+        // 16E98: 0xf096ba98
+        // 1BC9F: 0xf09bb29f
+        // 1DA88: 0xf09daa88
     }
 
     function isPropertyIDCompatMathStart(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1967,7 +2076,19 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property ID_Compat_Math_Start implementation⚗️...🚀🚀
+        // 2202: 0xe28882
+        // 2207: 0xe28887
+        // 221E: 0xe2889e
+        // 1D6C1: 0xf09d9b81
+        // 1D6DB: 0xf09d9b9b
+        // 1D6FB: 0xf09d9bbb
+        // 1D715: 0xf09d9c95
+        // 1D735: 0xf09d9cb5
+        // 1D74F: 0xf09d9d8f
+        // 1D76F: 0xf09d9daf
+        // 1D789: 0xf09d9e89
+        // 1D7A9: 0xf09d9ea9
+        // 1D7C3: 0xf09d9f83
     }
 
     function isPropertyIDCompatMathContinue(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1975,7 +2096,30 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property ID_Compat_Math_Continue implementation⚗️...🚀🚀
+        // 00B2: 0xc2b2 ... 00B3: 0xc2b3
+        // 00B9: 0xc2b9
+        // 2070: 0xe281b0
+        // 2074: 0xe281b4 ... 2079: 0xe281b9
+        // 207A: 0xe281ba ... 207C: 0xe281bc
+        // 207D: 0xe281bd
+        // 207E: 0xe281be
+        // 2080: 0xe28280 ... 2089: 0xe28289
+        // 208A: 0xe2828a ... 208C: 0xe2828c
+        // 208D: 0xe2828d
+        // 208E: 0xe2828e
+        // 2202: 0xe28882
+        // 2207: 0xe28887
+        // 221E: 0xe2889e
+        // 1D6C1: 0xf09d9b81
+        // 1D6DB: 0xf09d9b9b
+        // 1D6FB: 0xf09d9bbb
+        // 1D715: 0xf09d9c95
+        // 1D735: 0xf09d9cb5
+        // 1D74F: 0xf09d9d8f
+        // 1D76F: 0xf09d9daf
+        // 1D789: 0xf09d9e89
+        // 1D7A9: 0xf09d9ea9
+        // 1D7C3: 0xf09d9f83
     }
 
     function isPropertyOtherIDContinue(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1983,7 +2127,13 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Other_ID_Continue implementation⚗️...🚀🚀
+        // 00B7: 0xc2b7
+        // 0387: 0xce87
+        // 1369: 0xe18da9 ... 1371: 0xe18db1
+        // 19DA: 0xe1a79a
+        // 200C: 0xe2808c ... 200D: 0xe2808d
+        // 30FB: 0xe383bb
+        // FF65: 0xefbda5
     }
 
     function isPropertyOtherIDStart(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1991,7 +2141,10 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Other_ID_Start implementation⚗️...🚀🚀
+        // 1885: 0xe1a285 ... 1886: 0xe1a286
+        // 2118: 0xe28498
+        // 212E: 0xe284ae
+        // 309B: 0xe3829b ... 309C: 0xe3829c
     }
 
     function isPropertyLogicalOrderException(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -1999,15 +2152,54 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Logical_Order_Exception implementation⚗️...🚀🚀
+        // 0E40: 0xe0b980 ... 0E44: 0xe0b984
+        // 0EC0: 0xe0bb80 ... 0EC4: 0xe0bb84
+        // 19B5: 0xe1a6b5 ... 19B7: 0xe1a6b7
+        // 19BA: 0xe1a6ba
+        // AAB5: 0xeaaab5 ... AAB6: 0xeaaab6
+        // AAB9: 0xeaaab9
+        // AABB: 0xeaaabb ... AABC: 0xeaaabc
     }
 
-    function isPropertySoft_Dotted(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isPropertySoftDotted(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Soft_Dotted implementation⚗️...🚀🚀
+        // 0069: 0x69 ... 006A: 0x6a
+        // 012F: 0xc4af
+        // 0249: 0xc989
+        // 0268: 0xc9a8
+        // 029D: 0xca9d
+        // 02B2: 0xcab2
+        // 03F3: 0xcfb3
+        // 0456: 0xd196
+        // 0458: 0xd198
+        // 1D62: 0xe1b5a2
+        // 1D96: 0xe1b696
+        // 1DA4: 0xe1b6a4
+        // 1DA8: 0xe1b6a8
+        // 1E2D: 0xe1b8ad
+        // 1ECB: 0xe1bb8b
+        // 2071: 0xe281b1
+        // 2148: 0xe28588 ... 2149: 0xe28589
+        // 2C7C: 0xe2b1bc
+        // 1D422: 0xf09d90a2 ... 1D423: 0xf09d90a3
+        // 1D456: 0xf09d9196 ... 1D457: 0xf09d9197
+        // 1D48A: 0xf09d928a ... 1D48B: 0xf09d928b
+        // 1D4BE: 0xf09d92be ... 1D4BF: 0xf09d92bf
+        // 1D4F2: 0xf09d93b2 ... 1D4F3: 0xf09d93b3
+        // 1D526: 0xf09d94a6 ... 1D527: 0xf09d94a7
+        // 1D55A: 0xf09d959a ... 1D55B: 0xf09d959b
+        // 1D58E: 0xf09d968e ... 1D58F: 0xf09d968f
+        // 1D5C2: 0xf09d9782 ... 1D5C3: 0xf09d9783
+        // 1D5F6: 0xf09d97b6 ... 1D5F7: 0xf09d97b7
+        // 1D62A: 0xf09d98aa ... 1D62B: 0xf09d98ab
+        // 1D65E: 0xf09d999e ... 1D65F: 0xf09d999f
+        // 1D692: 0xf09d9a92 ... 1D693: 0xf09d9a93
+        // 1DF1A: 0xf09dbc9a
+        // 1E04C: 0xf09e818c ... 1E04D: 0xf09e818d
+        // 1E068: 0xf09e81a8
     }
 
     function isPropertyDeprecated(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2015,7 +2207,15 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Deprecated implementation⚗️...🚀🚀
+        // 0149: 0xc589
+        // 0673: 0xd9b3
+        // 0F77: 0xe0bdb7
+        // 0F79: 0xe0bdb9
+        // 17A3: 0xe19ea3 ... 17A4: 0xe19ea4
+        // 206A: 0xe281aa ... 206F: 0xe281af
+        // 2329: 0xe28ca9
+        // 232A: 0xe28caa
+        // E0001: 0xf3a08081
     }
 
     function isPropertyOtherDefaultIgnorableCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2023,7 +2223,17 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Other_Default_Ignorable_Code_Point implementation⚗️...🚀🚀
+        // 034F: 0xcd8f
+        // 115F: 0xe1859f ... 1160: 0xe185a0
+        // 17B4: 0xe19eb4 ... 17B5: 0xe19eb5
+        // 2065: 0xe281a5
+        // 3164: 0xe385a4
+        // FFA0: 0xefbea0
+        // FFF0: 0xefbfb0 ... FFF8: 0xefbfb8
+        // E0000: 0xf3a08080
+        // E0002: 0xf3a08082 ... E001F: 0xf3a0809f
+        // E0080: 0xf3a08280 ... E00FF: 0xf3a083bf
+        // E01F0: 0xf3a087b0 ... E0FFF: 0xf3a0bfbf
     }
 
     function isPropertyUnifiedIdeograph(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2031,7 +2241,22 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Unified_Ideograph implementation⚗️...🚀🚀
+        // 3400: 0xe39080 ... 4DBF: 0xe4b6bf
+        // 4E00: 0xe4b880 ... 9FFF: 0xe9bfbf
+        // FA0E: 0xefa88e ... FA0F: 0xefa88f
+        // FA11: 0xefa891
+        // FA13: 0xefa893 ... FA14: 0xefa894
+        // FA1F: 0xefa89f
+        // FA21: 0xefa8a1
+        // FA23: 0xefa8a3 ... FA24: 0xefa8a4
+        // FA27: 0xefa8a7 ... FA29: 0xefa8a9
+        // 20000: 0xf0a08080 ... 2A6DF: 0xf0aa9b9f
+        // 2A700: 0xf0aa9c80 ... 2B81D: 0xf0aba09d
+        // 2B820: 0xf0aba0a0 ... 2CEAD: 0xf0acbaad
+        // 2CEB0: 0xf0acbab0 ... 2EBE0: 0xf0aeafa0
+        // 2EBF0: 0xf0aeafb0 ... 2EE5D: 0xf0aeb99d
+        // 30000: 0xf0b08080 ... 3134A: 0xf0b18d8a
+        // 31350: 0xf0b18d90 ... 33479: 0xf0b391b9
     }
 
     function isPropertyRadical(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2039,7 +2264,9 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Radical implementation⚗️...🚀🚀
+        // 2E80: 0xe2ba80 ... 2E99: 0xe2ba99
+        // 2E9B: 0xe2ba9b ... 2EF3: 0xe2bbb3
+        // 2F00: 0xe2bc80 ... 2FD5: 0xe2bf95
     }
 
     function isPropertyIDSUnaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2047,7 +2274,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property IDS_Unary_Operator implementation⚗️...🚀🚀
+        // 2FFE: 0xe2bfbe ... 2FFF: 0xe2bfbf
     }
 
     function isPropertyIDSTrinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2055,7 +2282,7 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property IDS_Trinary_Operator implementation⚗️...🚀🚀
+        // 2FF2: 0xe2bfb2 ... 2FF3: 0xe2bfb3
     }
 
     function isPropertyIDSBinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2063,7 +2290,9 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property IDS_Binary_Operator implementation⚗️...🚀🚀
+        // 2FF0: 0xe2bfb0 ... 2FF1: 0xe2bfb1
+        // 2FF4: 0xe2bfb4 ... 2FFD: 0xe2bfbd
+        // 31EF: 0xe387af
     }
 
     function isPropertyOtherGraphemeExtend(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2071,7 +2300,55 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Other_Grapheme_Extend implementation⚗️...🚀🚀
+        // 09BE: 0xe0a6be
+        // 09D7: 0xe0a797
+        // 0B3E: 0xe0acbe
+        // 0B57: 0xe0ad97
+        // 0BBE: 0xe0aebe
+        // 0BD7: 0xe0af97
+        // 0CC0: 0xe0b380
+        // 0CC2: 0xe0b382
+        // 0CC7: 0xe0b387 ... 0CC8: 0xe0b388
+        // 0CCA: 0xe0b38a ... 0CCB: 0xe0b38b
+        // 0CD5: 0xe0b395 ... 0CD6: 0xe0b396
+        // 0D3E: 0xe0b4be
+        // 0D57: 0xe0b597
+        // 0DCF: 0xe0b78f
+        // 0DDF: 0xe0b79f
+        // 1715: 0xe19c95
+        // 1734: 0xe19cb4
+        // 1B35: 0xe1acb5
+        // 1B3B: 0xe1acbb
+        // 1B3D: 0xe1acbd
+        // 1B43: 0xe1ad83 ... 1B44: 0xe1ad84
+        // 1BAA: 0xe1aeaa
+        // 1BF2: 0xe1afb2 ... 1BF3: 0xe1afb3
+        // 200C: 0xe2808c
+        // 302E: 0xe380ae ... 302F: 0xe380af
+        // A953: 0xeaa593
+        // A9C0: 0xeaa780
+        // FF9E: 0xefbe9e ... FF9F: 0xefbe9f
+        // 111C0: 0xf0918780
+        // 11235: 0xf09188b5
+        // 1133E: 0xf0918cbe
+        // 1134D: 0xf0918d8d
+        // 11357: 0xf0918d97
+        // 113B8: 0xf0918eb8
+        // 113C2: 0xf0918f82
+        // 113C5: 0xf0918f85
+        // 113C7: 0xf0918f87 ... 113C9: 0xf0918f89
+        // 113CF: 0xf0918f8f
+        // 114B0: 0xf09192b0
+        // 114BD: 0xf09192bd
+        // 115AF: 0xf09196af
+        // 116B6: 0xf0919ab6
+        // 11930: 0xf091a4b0
+        // 1193D: 0xf091a4bd
+        // 11F41: 0xf091bd81
+        // 16FF0: 0xf096bfb0 ... 16FF1: 0xf096bfb1
+        // 1D165: 0xf09d85a5 ... 1D166: 0xf09d85a6
+        // 1D16D: 0xf09d85ad ... 1D172: 0xf09d85b2
+        // E0020: 0xf3a080a0 ... E007F: 0xf3a081bf
     }
 
     function isPropertyNoncharacterCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2079,7 +2356,24 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property Noncharacter_code_point implementation⚗️...🚀🚀
+        // FDD0: 0xefb790 ... FDEF: 0xefb7af
+        // FFFE: 0xefbfbe ... FFFF: 0xefbfbf
+        // 1FFFE: 0xf09fbfbe ... 1FFFF: 0xf09fbfbf
+        // 2FFFE: 0xf0afbfbe ... 2FFFF: 0xf0afbfbf
+        // 3FFFE: 0xf0bfbfbe ... 3FFFF: 0xf0bfbfbf
+        // 4FFFE: 0xf18fbfbe ... 4FFFF: 0xf18fbfbf
+        // 5FFFE: 0xf19fbfbe ... 5FFFF: 0xf19fbfbf
+        // 6FFFE: 0xf1afbfbe ... 6FFFF: 0xf1afbfbf
+        // 7FFFE: 0xf1bfbfbe ... 7FFFF: 0xf1bfbfbf
+        // 8FFFE: 0xf28fbfbe ... 8FFFF: 0xf28fbfbf
+        // 9FFFE: 0xf29fbfbe ... 9FFFF: 0xf29fbfbf
+        // AFFFE: 0xf2afbfbe ... AFFFF: 0xf2afbfbf
+        // BFFFE: 0xf2bfbfbe ... BFFFF: 0xf2bfbfbf
+        // CFFFE: 0xf38fbfbe ... CFFFF: 0xf38fbfbf
+        // DFFFE: 0xf39fbfbe ... DFFFF: 0xf39fbfbf
+        // EFFFE: 0xf3afbfbe ... EFFFF: 0xf3afbfbf
+        // FFFFE: 0xf3bfbfbe ... FFFFF: 0xf3bfbfbf
+        // 10FFFE: 0xf48fbfbe ... 10FFFF: 0xf48fbfbf
     }
 
     function isPropertyOtherUppercase(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2087,7 +2381,11 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // @TODO: complete the property other_uppercase implementation⚗️...🚀🚀
+        // 2160: 0xe285a0 ... 216F: 0xe285af
+        // 24B6: 0xe292b6 ... 24CF: 0xe2938f
+        // 1F130: 0xf09f84b0 ... 1F149: 0xf09f8589
+        // 1F150: 0xf09f8590 ... 1F169: 0xf09f85a9
+        // 1F170: 0xf09f85b0 ... 1F189: 0xf09f8689
     }
 
     function isPropertyOtherLowercase(bytes memory _pattern, uint256 _currentParticleIndex)

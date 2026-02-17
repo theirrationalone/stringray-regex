@@ -1,36 +1,24 @@
-string memory radical2E80 = "\\u{2E80}";
-bytes memory utf8Radical2E80 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E80));
-console2.log("2E80: ", string(utf8Radical2E80));
-console2.logBytes(utf8Radical2E80);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyRadical() (gas: 778918)
+Logs:
+  2E80:  ⺀
+  0xe2ba80
+  ..
+  2E99:  ⺙
+  0xe2ba99
+  2E9B:  ⺛
+  0xe2ba9b
+  ..
+  2EF3:  ⻳
+  0xe2bbb3
+  2F00:  ⼀
+  0xe2bc80
+  ..
+  2FD5:  ⿕
+  0xe2bf95
 
-string memory radical2E99 = "\\u{2E99}";
-bytes memory utf8Radical2E99 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E99));
-console2.log("2E99: ", string(utf8Radical2E99));
-console2.logBytes(utf8Radical2E99);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 20.54ms (5.37ms CPU time)
 
-string memory radical2E9B = "\\u{2E9B}";
-bytes memory utf8Radical2E9B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2E9B));
-console2.log("2E9B: ", string(utf8Radical2E9B));
-console2.logBytes(utf8Radical2E9B);
-
-console2.log("..");
-
-string memory radical2EF3 = "\\u{2EF3}";
-bytes memory utf8Radical2EF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2EF3));
-console2.log("2EF3: ", string(utf8Radical2EF3));
-console2.logBytes(utf8Radical2EF3);
-
-string memory radical2F00 = "\\u{2F00}";
-bytes memory utf8Radical2F00 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2F00));
-console2.log("2F00: ", string(utf8Radical2F00));
-console2.logBytes(utf8Radical2F00);
-
-console2.log("..");
-
-string memory radical2FD5 = "\\u{2FD5}";
-bytes memory utf8Radical2FD5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(radical2FD5));
-console2.log("2FD5: ", string(utf8Radical2FD5));
-console2.logBytes(utf8Radical2FD5);
-
+Ran 1 test suite in 22.67ms (20.54ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

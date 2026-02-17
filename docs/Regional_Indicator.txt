@@ -1,11 +1,14 @@
-string memory regionalIndicator1F1E6 = "\\u{1F1E6}";
-bytes memory utf8RegionalIndicator1F1E6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(regionalIndicator1F1E6));
-console2.log("1F1E6: ", string(utf8RegionalIndicator1F1E6));
-console2.logBytes(utf8RegionalIndicator1F1E6);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyRegionalIndicator() (gas: 369144)
+Logs:
+  1F1E6:  🇦
+  0xf09f87a6
+  ..
+  1F1FF:  🇿
+  0xf09f87bf
 
-string memory regionalIndicator1F1FF = "\\u{1F1FF}";
-bytes memory utf8RegionalIndicator1F1FF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(regionalIndicator1F1FF));
-console2.log("1F1FF: ", string(utf8RegionalIndicator1F1FF));
-console2.logBytes(utf8RegionalIndicator1F1FF);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 25.55ms (4.22ms CPU time)
+
+Ran 1 test suite in 28.76ms (25.55ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

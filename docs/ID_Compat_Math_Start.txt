@@ -1,64 +1,35 @@
-string memory idCompatMathStart2202 = "\\u{2202}";
-bytes memory utf8IdCompatMathStart2202 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2202));
-console2.log("2202: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
+No files changed, compilation skipped
 
-string memory idCompatMathStart2207 = "\\u{2207}";
-bytes memory utf8IdCompatMathStart2207 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart2207));
-console2.log("2207: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyIDCompatMathStart() (gas: 2152530)
+Logs:
+  2202:  ∂
+  0xe28882
+  2207:  ∇
+  0xe28887
+  221E:  ∞
+  0xe2889e
+  1D6C1:  𝛁
+  0xf09d9b81
+  1D6DB:  𝛛
+  0xf09d9b9b
+  1D6FB:  𝛻
+  0xf09d9bbb
+  1D715:  𝜕
+  0xf09d9c95
+  1D735:  𝜵
+  0xf09d9cb5
+  1D74F:  𝝏
+  0xf09d9d8f
+  1D76F:  𝝯
+  0xf09d9daf
+  1D789:  𝞉
+  0xf09d9e89
+  1D7A9:  𝞩
+  0xf09d9ea9
+  1D7C3:  𝟃
+  0xf09d9f83
 
-string memory idCompatMathStart221E = "\\u{221E}";
-bytes memory utf8IdCompatMathStart221E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart221E));
-console2.log("221E: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 31.05ms (16.78ms CPU time)
 
-string memory idCompatMathStart1D6C1 = "\\u{1D6C1}";
-bytes memory utf8IdCompatMathStart1D6C1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6C1));
-console2.log("1D6C1: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D6DB = "\\u{1D6DB}";
-bytes memory utf8IdCompatMathStart1D6DB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6DB));
-console2.log("1D6DB: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D6FB = "\\u{1D6FB}";
-bytes memory utf8IdCompatMathStart1D6FB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D6FB));
-console2.log("1D6FB: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D715 = "\\u{1D715}";
-bytes memory utf8IdCompatMathStart1D715 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D715));
-console2.log("1D715: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D735 = "\\u{1D735}";
-bytes memory utf8IdCompatMathStart1D735 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D735));
-console2.log("1D735: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D74F = "\\u{1D74F}";
-bytes memory utf8IdCompatMathStart1D74F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D74F));
-console2.log("1D74F: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D76F = "\\u{1D76F}";
-bytes memory utf8IdCompatMathStart1D76F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D76F));
-console2.log("1D76F: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D789 = "\\u{1D789}";
-bytes memory utf8IdCompatMathStart1D789 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D789));
-console2.log("1D789: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D7A9 = "\\u{1D7A9}";
-bytes memory utf8IdCompatMathStart1D7A9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7A9));
-console2.log("1D7A9: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
-
-string memory idCompatMathStart1D7C3 = "\\u{1D7C3}";
-bytes memory utf8IdCompatMathStart1D7C3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idCompatMathStart1D7C3));
-console2.log("1D7C3: ", string(utf8IdCompatMathStart));
-console2.logBytes(utf8IdCompatMathStart);
+Ran 1 test suite in 33.41ms (31.05ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

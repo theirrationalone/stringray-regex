@@ -1,328 +1,143 @@
-string memory otherGraphemeExtend09BE = "\\u{09BE}";
-bytes memory utf8OtherGraphemeExtend09BE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend09BE));
-console2.log("09BE: ", string(utf8OtherGraphemeExtend09BE));
-console2.logBytes(utf8OtherGraphemeExtend09BE);
-
-string memory otherGraphemeExtend09D7 = "\\u{09D7}";
-bytes memory utf8OtherGraphemeExtend09D7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend09D7));
-console2.log("09D7: ", string(utf8OtherGraphemeExtend09D7));
-console2.logBytes(utf8OtherGraphemeExtend09D7);
-
-string memory otherGraphemeExtend0B3E = "\\u{0B3E}";
-bytes memory utf8OtherGraphemeExtend0B3E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0B3E));
-console2.log("0B3E: ", string(utf8OtherGraphemeExtend0B3E));
-console2.logBytes(utf8OtherGraphemeExtend0B3E);
-
-string memory otherGraphemeExtend0B57 = "\\u{0B57}";
-bytes memory utf8OtherGraphemeExtend0B57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0B57));
-console2.log("0B57: ", string(utf8OtherGraphemeExtend0B57));
-console2.logBytes(utf8OtherGraphemeExtend0B57);
-
-string memory otherGraphemeExtend0BBE = "\\u{0BBE}";
-bytes memory utf8OtherGraphemeExtend0BBE = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0BBE));
-console2.log("0BBE: ", string(utf8OtherGraphemeExtend0BBE));
-console2.logBytes(utf8OtherGraphemeExtend0BBE);
-
-string memory otherGraphemeExtend0BD7 = "\\u{0BD7}";
-bytes memory utf8OtherGraphemeExtend0BD7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0BD7));
-console2.log("0BD7: ", string(utf8OtherGraphemeExtend0BD7));
-console2.logBytes(utf8OtherGraphemeExtend0BD7);
-
-string memory otherGraphemeExtend0CC0 = "\\u{0CC0}";
-bytes memory utf8OtherGraphemeExtend0CC0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC0));
-console2.log("0CC0: ", string(utf8OtherGraphemeExtend0CC0));
-console2.logBytes(utf8OtherGraphemeExtend0CC0);
-
-string memory otherGraphemeExtend0CC2 = "\\u{0CC2}";
-bytes memory utf8OtherGraphemeExtend0CC2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC2));
-console2.log("0CC2: ", string(utf8OtherGraphemeExtend0CC2));
-console2.logBytes(utf8OtherGraphemeExtend0CC2);
-
-string memory otherGraphemeExtend0CC7 = "\\u{0CC7}";
-bytes memory utf8OtherGraphemeExtend0CC7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC7));
-console2.log("0CC7: ", string(utf8OtherGraphemeExtend0CC7));
-console2.logBytes(utf8OtherGraphemeExtend0CC7);
-
-console2.log("..");
-
-string memory otherGraphemeExtend0CC8 = "\\u{0CC8}";
-bytes memory utf8OtherGraphemeExtend0CC8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CC8));
-console2.log("0CC8: ", string(utf8OtherGraphemeExtend0CC8));
-console2.logBytes(utf8OtherGraphemeExtend0CC8);
-
-string memory otherGraphemeExtend0CCA = "\\u{0CCA}";
-bytes memory utf8OtherGraphemeExtend0CCA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CCA));
-console2.log("0CCA: ", string(utf8OtherGraphemeExtend0CCA));
-console2.logBytes(utf8OtherGraphemeExtend0CCA);
-
-console2.log("..");
-
-string memory otherGraphemeExtend0CCB = "\\u{0CCB}";
-bytes memory utf8OtherGraphemeExtend0CCB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CCB));
-console2.log("0CCB: ", string(utf8OtherGraphemeExtend0CCB));
-console2.logBytes(utf8OtherGraphemeExtend0CCB);
-
-string memory otherGraphemeExtend0CD5 = "\\u{0CD5}";
-bytes memory utf8OtherGraphemeExtend0CD5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CD5));
-console2.log("0CD5: ", string(utf8OtherGraphemeExtend0CD5));
-console2.logBytes(utf8OtherGraphemeExtend0CD5);
-
-console2.log("..");
-
-string memory otherGraphemeExtend0CD6 = "\\u{0CD6}";
-bytes memory utf8OtherGraphemeExtend0CD6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0CD6));
-console2.log("0CD6: ", string(utf8OtherGraphemeExtend0CD6));
-console2.logBytes(utf8OtherGraphemeExtend0CD6);
-
-string memory otherGraphemeExtend0D3E = "\\u{0D3E}";
-bytes memory utf8OtherGraphemeExtend0D3E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0D3E));
-console2.log("0D3E: ", string(utf8OtherGraphemeExtend0D3E));
-console2.logBytes(utf8OtherGraphemeExtend0D3E);
-
-string memory otherGraphemeExtend0D57 = "\\u{0D57}";
-bytes memory utf8OtherGraphemeExtend0D57 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0D57));
-console2.log("0D57: ", string(utf8OtherGraphemeExtend0D57));
-console2.logBytes(utf8OtherGraphemeExtend0D57);
-
-string memory otherGraphemeExtend0DCF = "\\u{0DCF}";
-bytes memory utf8OtherGraphemeExtend0DCF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0DCF));
-console2.log("0DCF: ", string(utf8OtherGraphemeExtend0DCF));
-console2.logBytes(utf8OtherGraphemeExtend0DCF);
-
-string memory otherGraphemeExtend0DDF = "\\u{0DDF}";
-bytes memory utf8OtherGraphemeExtend0DDF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend0DDF));
-console2.log("0DDF: ", string(utf8OtherGraphemeExtend0DDF));
-console2.logBytes(utf8OtherGraphemeExtend0DDF);
-
-string memory otherGraphemeExtend1715 = "\\u{1715}";
-bytes memory utf8OtherGraphemeExtend1715 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1715));
-console2.log("1715: ", string(utf8OtherGraphemeExtend1715));
-console2.logBytes(utf8OtherGraphemeExtend1715);
-
-string memory otherGraphemeExtend1734 = "\\u{1734}";
-bytes memory utf8OtherGraphemeExtend1734 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1734));
-console2.log("1734: ", string(utf8OtherGraphemeExtend1734));
-console2.logBytes(utf8OtherGraphemeExtend1734);
-
-string memory otherGraphemeExtend1B35 = "\\u{1B35}";
-bytes memory utf8OtherGraphemeExtend1B35 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B35));
-console2.log("1B35: ", string(utf8OtherGraphemeExtend1B35));
-console2.logBytes(utf8OtherGraphemeExtend1B35);
-
-string memory otherGraphemeExtend1B3B = "\\u{1B3B}";
-bytes memory utf8OtherGraphemeExtend1B3B = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B3B));
-console2.log("1B3B: ", string(utf8OtherGraphemeExtend1B3B));
-console2.logBytes(utf8OtherGraphemeExtend1B3B);
-
-string memory otherGraphemeExtend1B3D = "\\u{1B3D}";
-bytes memory utf8OtherGraphemeExtend1B3D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B3D));
-console2.log("1B3D: ", string(utf8OtherGraphemeExtend1B3D));
-console2.logBytes(utf8OtherGraphemeExtend1B3D);
-
-string memory otherGraphemeExtend1B43 = "\\u{1B43}";
-bytes memory utf8OtherGraphemeExtend1B43 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B43));
-console2.log("1B43: ", string(utf8OtherGraphemeExtend1B43));
-console2.logBytes(utf8OtherGraphemeExtend1B43);
-
-console2.log("..");
-
-string memory otherGraphemeExtend1B44 = "\\u{1B44}";
-bytes memory utf8OtherGraphemeExtend1B44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1B44));
-console2.log("1B44: ", string(utf8OtherGraphemeExtend1B44));
-console2.logBytes(utf8OtherGraphemeExtend1B44);
-
-string memory otherGraphemeExtend1BAA = "\\u{1BAA}";
-bytes memory utf8OtherGraphemeExtend1BAA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BAA));
-console2.log("1BAA: ", string(utf8OtherGraphemeExtend1BAA));
-console2.logBytes(utf8OtherGraphemeExtend1BAA);
-
-string memory otherGraphemeExtend1BF2 = "\\u{1BF2}";
-bytes memory utf8OtherGraphemeExtend1BF2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BF2));
-console2.log("1BF2: ", string(utf8OtherGraphemeExtend1BF2));
-console2.logBytes(utf8OtherGraphemeExtend1BF2);
-
-console2.log("..");
-
-string memory otherGraphemeExtend1BF3 = "\\u{1BF3}";
-bytes memory utf8OtherGraphemeExtend1BF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1BF3));
-console2.log("1BF3: ", string(utf8OtherGraphemeExtend1BF3));
-console2.logBytes(utf8OtherGraphemeExtend1BF3);
-
-string memory otherGraphemeExtend200C = "\\u{200C}";
-bytes memory utf8OtherGraphemeExtend200C = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend200C));
-console2.log("200C: ", string(utf8OtherGraphemeExtend200C));
-console2.logBytes(utf8OtherGraphemeExtend200C);
-
-string memory otherGraphemeExtend302E = "\\u{302E}";
-bytes memory utf8OtherGraphemeExtend302E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend302E));
-console2.log("302E: ", string(utf8OtherGraphemeExtend302E));
-console2.logBytes(utf8OtherGraphemeExtend302E);
-
-console2.log("..");
-
-string memory otherGraphemeExtend302F = "\\u{302F}";
-bytes memory utf8OtherGraphemeExtend302F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend302F));
-console2.log("302F: ", string(utf8OtherGraphemeExtend302F));
-console2.logBytes(utf8OtherGraphemeExtend302F);
-
-string memory otherGraphemeExtendA953 = "\\u{A953}";
-bytes memory utf8OtherGraphemeExtendA953 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendA953));
-console2.log("A953: ", string(utf8OtherGraphemeExtendA953));
-console2.logBytes(utf8OtherGraphemeExtendA953);
-
-string memory otherGraphemeExtendA9C0 = "\\u{A9C0}";
-bytes memory utf8OtherGraphemeExtendA9C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendA9C0));
-console2.log("A9C0: ", string(utf8OtherGraphemeExtendA9C0));
-console2.logBytes(utf8OtherGraphemeExtendA9C0);
-
-string memory otherGraphemeExtendFF9E = "\\u{FF9E}";
-bytes memory utf8OtherGraphemeExtendFF9E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendFF9E));
-console2.log("FF9E: ", string(utf8OtherGraphemeExtendFF9E));
-console2.logBytes(utf8OtherGraphemeExtendFF9E);
-
-console2.log("..");
-
-string memory otherGraphemeExtendFF9F = "\\u{FF9F}";
-bytes memory utf8OtherGraphemeExtendFF9F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendFF9F));
-console2.log("FF9F: ", string(utf8OtherGraphemeExtendFF9F));
-console2.logBytes(utf8OtherGraphemeExtendFF9F);
-
-string memory otherGraphemeExtend111C0 = "\\u{111C0}";
-bytes memory utf8OtherGraphemeExtend111C0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend111C0));
-console2.log("111C0: ", string(utf8OtherGraphemeExtend111C0));
-console2.logBytes(utf8OtherGraphemeExtend111C0);
-
-string memory otherGraphemeExtend11235 = "\\u{11235}";
-bytes memory utf8OtherGraphemeExtend11235 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11235));
-console2.log("11235: ", string(utf8OtherGraphemeExtend11235));
-console2.logBytes(utf8OtherGraphemeExtend11235);
-
-string memory otherGraphemeExtend1133E = "\\u{1133E}";
-bytes memory utf8OtherGraphemeExtend1133E = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1133E));
-console2.log("1133E: ", string(utf8OtherGraphemeExtend1133E));
-console2.logBytes(utf8OtherGraphemeExtend1133E);
-
-string memory otherGraphemeExtend1134D = "\\u{1134D}";
-bytes memory utf8OtherGraphemeExtend1134D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1134D));
-console2.log("1134D: ", string(utf8OtherGraphemeExtend1134D));
-console2.logBytes(utf8OtherGraphemeExtend1134D);
-
-string memory otherGraphemeExtend11357 = "\\u{11357}";
-bytes memory utf8OtherGraphemeExtend11357 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11357));
-console2.log("11357: ", string(utf8OtherGraphemeExtend11357));
-console2.logBytes(utf8OtherGraphemeExtend11357);
-
-string memory otherGraphemeExtend113B8 = "\\u{113B8}";
-bytes memory utf8OtherGraphemeExtend113B8 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113B8));
-console2.log("113B8: ", string(utf8OtherGraphemeExtend113B8));
-console2.logBytes(utf8OtherGraphemeExtend113B8);
-
-string memory otherGraphemeExtend113C2 = "\\u{113C2}";
-bytes memory utf8OtherGraphemeExtend113C2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C2));
-console2.log("113C2: ", string(utf8OtherGraphemeExtend113C2));
-console2.logBytes(utf8OtherGraphemeExtend113C2);
-
-string memory otherGraphemeExtend113C5 = "\\u{113C5}";
-bytes memory utf8OtherGraphemeExtend113C5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C5));
-console2.log("113C5: ", string(utf8OtherGraphemeExtend113C5));
-console2.logBytes(utf8OtherGraphemeExtend113C5);
-
-string memory otherGraphemeExtend113C7 = "\\u{113C7}";
-bytes memory utf8OtherGraphemeExtend113C7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C7));
-console2.log("113C7: ", string(utf8OtherGraphemeExtend113C7));
-console2.logBytes(utf8OtherGraphemeExtend113C7);
-
-console2.log("..");
-
-string memory otherGraphemeExtend113C9 = "\\u{113C9}";
-bytes memory utf8OtherGraphemeExtend113C9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113C9));
-console2.log("113C9: ", string(utf8OtherGraphemeExtend113C9));
-console2.logBytes(utf8OtherGraphemeExtend113C9);
-
-string memory otherGraphemeExtend113CF = "\\u{113CF}";
-bytes memory utf8OtherGraphemeExtend113CF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend113CF));
-console2.log("113CF: ", string(utf8OtherGraphemeExtend113CF));
-console2.logBytes(utf8OtherGraphemeExtend113CF);
-
-string memory otherGraphemeExtend114B0 = "\\u{114B0}";
-bytes memory utf8OtherGraphemeExtend114B0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend114B0));
-console2.log("114B0: ", string(utf8OtherGraphemeExtend114B0));
-console2.logBytes(utf8OtherGraphemeExtend114B0);
-
-string memory otherGraphemeExtend114BD = "\\u{114BD}";
-bytes memory utf8OtherGraphemeExtend114BD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend114BD));
-console2.log("114BD: ", string(utf8OtherGraphemeExtend114BD));
-console2.logBytes(utf8OtherGraphemeExtend114BD);
-
-string memory otherGraphemeExtend115AF = "\\u{115AF}";
-bytes memory utf8OtherGraphemeExtend115AF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend115AF));
-console2.log("115AF: ", string(utf8OtherGraphemeExtend115AF));
-console2.logBytes(utf8OtherGraphemeExtend115AF);
-
-string memory otherGraphemeExtend116B6 = "\\u{116B6}";
-bytes memory utf8OtherGraphemeExtend116B6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend116B6));
-console2.log("116B6: ", string(utf8OtherGraphemeExtend116B6));
-console2.logBytes(utf8OtherGraphemeExtend116B6);
-
-string memory otherGraphemeExtend11930 = "\\u{11930}";
-bytes memory utf8OtherGraphemeExtend11930 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11930));
-console2.log("11930: ", string(utf8OtherGraphemeExtend11930));
-console2.logBytes(utf8OtherGraphemeExtend11930);
-
-string memory otherGraphemeExtend1193D = "\\u{1193D}";
-bytes memory utf8OtherGraphemeExtend1193D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1193D));
-console2.log("1193D: ", string(utf8OtherGraphemeExtend1193D));
-console2.logBytes(utf8OtherGraphemeExtend1193D);
-
-string memory otherGraphemeExtend11F41 = "\\u{11F41}";
-bytes memory utf8OtherGraphemeExtend11F41 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend11F41));
-console2.log("11F41: ", string(utf8OtherGraphemeExtend11F41));
-console2.logBytes(utf8OtherGraphemeExtend11F41);
-
-string memory otherGraphemeExtend16FF0 = "\\u{16FF0}";
-bytes memory utf8OtherGraphemeExtend16FF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend16FF0));
-console2.log("16FF0: ", string(utf8OtherGraphemeExtend16FF0));
-console2.logBytes(utf8OtherGraphemeExtend16FF0);
-
-console2.log("..");
-
-string memory otherGraphemeExtend16FF1 = "\\u{16FF1}";
-bytes memory utf8OtherGraphemeExtend16FF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend16FF1));
-console2.log("16FF1: ", string(utf8OtherGraphemeExtend16FF1));
-console2.logBytes(utf8OtherGraphemeExtend16FF1);
-
-string memory otherGraphemeExtend1D165 = "\\u{1D165}";
-bytes memory utf8OtherGraphemeExtend1D165 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D165));
-console2.log("1D165: ", string(utf8OtherGraphemeExtend1D165));
-console2.logBytes(utf8OtherGraphemeExtend1D165);
-
-console2.log("..");
-
-string memory otherGraphemeExtend1D166 = "\\u{1D166}";
-bytes memory utf8OtherGraphemeExtend1D166 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D166));
-console2.log("1D166: ", string(utf8OtherGraphemeExtend1D166));
-console2.logBytes(utf8OtherGraphemeExtend1D166);
-
-string memory otherGraphemeExtend1D16D = "\\u{1D16D}";
-bytes memory utf8OtherGraphemeExtend1D16D = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D16D));
-console2.log("1D16D: ", string(utf8OtherGraphemeExtend1D16D));
-console2.logBytes(utf8OtherGraphemeExtend1D16D);
-
-console2.log("..");
-
-string memory otherGraphemeExtend1D172 = "\\u{1D172}";
-bytes memory utf8OtherGraphemeExtend1D172 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtend1D172));
-console2.log("1D172: ", string(utf8OtherGraphemeExtend1D172));
-console2.logBytes(utf8OtherGraphemeExtend1D172);
-
-string memory otherGraphemeExtendE0020 = "\\u{E0020}";
-bytes memory utf8OtherGraphemeExtendE0020 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendE0020));
-console2.log("E0020: ", string(utf8OtherGraphemeExtendE0020));
-console2.logBytes(utf8OtherGraphemeExtendE0020);
-
-console2.log("..");
-
-string memory otherGraphemeExtendE007F = "\\u{E007F}";
-bytes memory utf8OtherGraphemeExtendE007F = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(otherGraphemeExtendE007F));
-console2.log("E007F: ", string(utf8OtherGraphemeExtendE007F));
-console2.logBytes(utf8OtherGraphemeExtendE007F);
+No files changed, compilation skipped
+
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyOtherGraphemeExtend() (gas: 9478323)
+Logs:
+  09BE:  া
+  0xe0a6be
+  09D7:  ৗ
+  0xe0a797
+  0B3E:  ା
+  0xe0acbe
+  0B57:  ୗ
+  0xe0ad97
+  0BBE:  ா
+  0xe0aebe
+  0BD7:  ௗ
+  0xe0af97
+  0CC0:  ೀ
+  0xe0b380
+  0CC2:  ೂ
+  0xe0b382
+  0CC7:  ೇ
+  0xe0b387
+  ..
+  0CC8:  ೈ
+  0xe0b388
+  0CCA:  ೊ
+  0xe0b38a
+  ..
+  0CCB:  ೋ
+  0xe0b38b
+  0CD5:  ೕ
+  0xe0b395
+  ..
+  0CD6:  ೖ
+  0xe0b396
+  0D3E:  ാ
+  0xe0b4be
+  0D57:  ൗ
+  0xe0b597
+  0DCF:  ා
+  0xe0b78f
+  0DDF:  ෟ
+  0xe0b79f
+  1715:  ᜕
+  0xe19c95
+  1734:  ᜴
+  0xe19cb4
+  1B35:  ᬵ
+  0xe1acb5
+  1B3B:  ᬻ
+  0xe1acbb
+  1B3D:  ᬽ
+  0xe1acbd
+  1B43:  ᭃ
+  0xe1ad83
+  ..
+  1B44:  ᭄
+  0xe1ad84
+  1BAA:  ᮪
+  0xe1aeaa
+  1BF2:  ᯲
+  0xe1afb2
+  ..
+  1BF3:  ᯳
+  0xe1afb3
+  200C:  ‌
+  0xe2808c
+  302E:  〮
+  0xe380ae
+  ..
+  302F:  〯
+  0xe380af
+  A953:  ꥓
+  0xeaa593
+  A9C0:  ꧀
+  0xeaa780
+  FF9E:  ﾞ
+  0xefbe9e
+  ..
+  FF9F:  ﾟ
+  0xefbe9f
+  111C0:  𑇀
+  0xf0918780
+  11235:  𑈵
+  0xf09188b5
+  1133E:  𑌾
+  0xf0918cbe
+  1134D:  𑍍
+  0xf0918d8d
+  11357:  𑍗
+  0xf0918d97
+  113B8:  𑎸
+  0xf0918eb8
+  113C2:  𑏂
+  0xf0918f82
+  113C5:  𑏅
+  0xf0918f85
+  113C7:  𑏇
+  0xf0918f87
+  ..
+  113C9:  𑏉
+  0xf0918f89
+  113CF:  𑏏
+  0xf0918f8f
+  114B0:  𑒰
+  0xf09192b0
+  114BD:  𑒽
+  0xf09192bd
+  115AF:  𑖯
+  0xf09196af
+  116B6:  𑚶
+  0xf0919ab6
+  11930:  𑤰
+  0xf091a4b0
+  1193D:  𑤽
+  0xf091a4bd
+  11F41:  𑽁
+  0xf091bd81
+  16FF0:  𖿰
+  0xf096bfb0
+  ..
+  16FF1:  𖿱
+  0xf096bfb1
+  1D165:  𝅥
+  0xf09d85a5
+  ..
+  1D166:  𝅦
+  0xf09d85a6
+  1D16D:  𝅭
+  0xf09d85ad
+  ..
+  1D172:  𝅲
+  0xf09d85b2
+  E0020:  󠀠
+  0xf3a080a0
+  ..
+  E007F:  󠁿
+  0xf3a081bf
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 106.17ms (85.05ms CPU time)
+
+Ran 1 test suite in 108.95ms (106.17ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

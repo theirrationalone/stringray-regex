@@ -1,29 +1,21 @@
-string memory idsBinaryOperator2FF0 = "\\u{2FF0}";
-bytes memory utf8IdsBinaryOperator2FF0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF0));
-console2.log("2FF0: ", string(utf8IdsBinaryOperator2FF0));
-console2.logBytes(utf8IdsBinaryOperator2FF0);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyIDSBinaryOperator() (gas: 676928)
+Logs:
+  2FF0:  ⿰
+  0xe2bfb0
+  ..
+  2FF1:  ⿱
+  0xe2bfb1
+  2FF4:  ⿴
+  0xe2bfb4
+  ..
+  2FFD:  ⿽
+  0xe2bfbd
+  31EF:  ㇯
+  0xe387af
 
-string memory idsBinaryOperator2FF1 = "\\u{2FF1}";
-bytes memory utf8IdsBinaryOperator2FF1 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF1));
-console2.log("2FF1: ", string(utf8IdsBinaryOperator2FF1));
-console2.logBytes(utf8IdsBinaryOperator2FF1);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 28.58ms (7.65ms CPU time)
 
-string memory idsBinaryOperator2FF4 = "\\u{2FF4}";
-bytes memory utf8IdsBinaryOperator2FF4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FF4));
-console2.log("2FF4: ", string(utf8IdsBinaryOperator2FF4));
-console2.logBytes(utf8IdsBinaryOperator2FF4);
-
-console2.log("..");
-
-string memory idsBinaryOperator2FFD = "\\u{2FFD}";
-bytes memory utf8IdsBinaryOperator2FFD = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator2FFD));
-console2.log("2FFD: ", string(utf8IdsBinaryOperator2FFD));
-console2.logBytes(utf8IdsBinaryOperator2FFD);
-
-string memory idsBinaryOperator31EF = "\\u{31EF}";
-bytes memory utf8IdsBinaryOperator31EF = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsBinaryOperator31EF));
-console2.log("31EF: ", string(utf8IdsBinaryOperator31EF));
-console2.logBytes(utf8IdsBinaryOperator31EF);
-
+Ran 1 test suite in 31.11ms (28.58ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

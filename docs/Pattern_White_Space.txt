@@ -1,43 +1,27 @@
-string memory patternWhiteSpace0009 = "\\u{0009}";
-bytes memory utf8PatternWhiteSpace0009 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0009);
-console2.log("0009: ", utf8PatternWhiteSpace0009);
-console2.logBytes(utf8PatternWhiteSpace0009);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyPatternWhiteSpace() (gas: 982581)
+Logs:
+  0009:  	
+  0x09
+  ..
+  000D:  
+  0x0d
+  0020:   
+  0x20
+  0085:  
+  0xc285
+  200E:  ‎
+  0xe2808e
+  ..
+  200F:  ‏
+  0xe2808f
+  2028:   
+  0xe280a8
+  2029:   
+  0xe280a9
 
-string memory patternWhiteSpace000D = "\\u{000D}";
-bytes memory utf8PatternWhiteSpace000D = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace000D);
-console2.log("000D: ", utf8PatternWhiteSpace000D);
-console2.logBytes(utf8PatternWhiteSpace000D);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 33.86ms (11.30ms CPU time)
 
-string memory patternWhiteSpace0020 = "\\u{0020}";
-bytes memory utf8PatternWhiteSpace0020 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0020);
-console2.log("0020: ", utf8PatternWhiteSpace0020);
-console2.logBytes(utf8PatternWhiteSpace0020);
-
-string memory patternWhiteSpace0085 = "\\u{0085}";
-bytes memory utf8PatternWhiteSpace0085 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace0085);
-console2.log("0085: ", utf8PatternWhiteSpace0085);
-console2.logBytes(utf8PatternWhiteSpace0085);
-
-string memory patternWhiteSpace200E = "\\u{200E}";
-bytes memory utf8PatternWhiteSpace200E = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200E);
-console2.log("200E: ", utf8PatternWhiteSpace200E);
-console2.logBytes(utf8PatternWhiteSpace200E);
-
-console2.log("..");
-
-string memory patternWhiteSpace200F = "\\u{200F}";
-bytes memory utf8PatternWhiteSpace200F = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace200F);
-console2.log("200F: ", utf8PatternWhiteSpace200F);
-console2.logBytes(utf8PatternWhiteSpace200F);
-
-string memory patternWhiteSpace2028 = "\\u{2028}";
-bytes memory utf8PatternWhiteSpace2028 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2028);
-console2.log("2028: ", utf8PatternWhiteSpace2028);
-console2.logBytes(utf8PatternWhiteSpace2028);
-
-string memory patternWhiteSpace2029 = "\\u{2029}";
-bytes memory utf8PatternWhiteSpace2029 = Stringray.unicodeHexToUtf8Hex(patternWhiteSpace2029);
-console2.log("2029: ", utf8PatternWhiteSpace2029);
-console2.logBytes(utf8PatternWhiteSpace2029);
+Ran 1 test suite in 37.65ms (33.86ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

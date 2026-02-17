@@ -1,11 +1,14 @@
-string memory idsTrinaryOperator2FF2 = "\\u{2FF2}";
-bytes memory utf8IdsTrinaryOperator2FF2 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsTrinaryOperator2FF2));
-console2.log("2FF2: ", string(utf8IdsTrinaryOperator2FF2));
-console2.logBytes(utf8IdsTrinaryOperator2FF2);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyIDSTrinaryOperator() (gas: 271752)
+Logs:
+  2FF2:  ⿲
+  0xe2bfb2
+  ..
+  2FF3:  ⿳
+  0xe2bfb3
 
-string memory idsTrinaryOperator2FF3 = "\\u{2FF3}";
-bytes memory utf8IdsTrinaryOperator2FF3 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(idsTrinaryOperator2FF3));
-console2.log("2FF3: ", string(utf8IdsTrinaryOperator2FF3));
-console2.logBytes(utf8IdsTrinaryOperator2FF3);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 31.15ms (3.98ms CPU time)
+
+Ran 1 test suite in 34.71ms (31.15ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

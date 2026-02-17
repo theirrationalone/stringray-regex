@@ -1,70 +1,38 @@
-string memory logicalOrderException0E40 = "\\u{0E40}";
-bytes memory utf8LogicalOrderException0E40 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0E40));
-console2.log("0E40: ", string(utf8LogicalOrderException0E40));
-console2.logBytes(utf8LogicalOrderException0E40);
+No files changed, compilation skipped
 
-console2.log("..");
+Ran 1 test for test/PlayStringTest.t.sol:PlayStringTest
+[PASS] testRegexPropertyLogicalOrderException() (gas: 1566523)
+Logs:
+  0E40:  เ
+  0xe0b980
+  ..
+  0E44:  ไ
+  0xe0b984
+  0EC0:  ເ
+  0xe0bb80
+  ..
+  0EC4:  ໄ
+  0xe0bb84
+  19B5:  ᦵ
+  0xe1a6b5
+  ..
+  19B7:  ᦷ
+  0xe1a6b7
+  19BA:  ᦺ
+  0xe1a6ba
+  AAB5:  ꪵ
+  0xeaaab5
+  ..
+  AAB6:  ꪶ
+  0xeaaab6
+  AAB9:  ꪹ
+  0xeaaab9
+  AABB:  ꪻ
+  0xeaaabb
+  ..
+  AABC:  ꪼ
+  0xeaaabc
 
-string memory logicalOrderException0E44 = "\\u{0E44}";
-bytes memory utf8LogicalOrderException0E44 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0E44));
-console2.log("0E44: ", string(utf8LogicalOrderException0E44));
-console2.logBytes(utf8LogicalOrderException0E44);
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 45.22ms (20.11ms CPU time)
 
-string memory logicalOrderException0EC0 = "\\u{0EC0}";
-bytes memory utf8LogicalOrderException0EC0 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0EC0));
-console2.log("0EC0: ", string(utf8LogicalOrderException0EC0));
-console2.logBytes(utf8LogicalOrderException0EC0);
-
-console2.log("..");
-
-string memory logicalOrderException0EC4 = "\\u{0EC4}";
-bytes memory utf8LogicalOrderException0EC4 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException0EC4));
-console2.log("0EC4: ", string(utf8LogicalOrderException0EC4));
-console2.logBytes(utf8LogicalOrderException0EC4);
-
-string memory logicalOrderException19B5 = "\\u{19B5}";
-bytes memory utf8LogicalOrderException19B5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19B5));
-console2.log("19B5: ", string(utf8LogicalOrderException19B5));
-console2.logBytes(utf8LogicalOrderException19B5);
-
-console2.log("..");
-
-string memory logicalOrderException19B7 = "\\u{19B7}";
-bytes memory utf8LogicalOrderException19B7 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19B7));
-console2.log("19B7: ", string(utf8LogicalOrderException19B7));
-console2.logBytes(utf8LogicalOrderException19B7);
-
-string memory logicalOrderException19BA = "\\u{19BA}";
-bytes memory utf8LogicalOrderException19BA = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderException19BA));
-console2.log("19BA: ", string(utf8LogicalOrderException19BA));
-console2.logBytes(utf8LogicalOrderException19BA);
-
-string memory logicalOrderExceptionAAB5 = "\\u{AAB5}";
-bytes memory utf8LogicalOrderExceptionAAB5 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB5));
-console2.log("AAB5: ", string(utf8LogicalOrderExceptionAAB5));
-console2.logBytes(utf8LogicalOrderExceptionAAB5);
-
-console2.log("..");
-
-string memory logicalOrderExceptionAAB6 = "\\u{AAB6}";
-bytes memory utf8LogicalOrderExceptionAAB6 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB6));
-console2.log("AAB6: ", string(utf8LogicalOrderExceptionAAB6));
-console2.logBytes(utf8LogicalOrderExceptionAAB6);
-
-string memory logicalOrderExceptionAAB9 = "\\u{AAB9}";
-bytes memory utf8LogicalOrderExceptionAAB9 = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAAB9));
-console2.log("AAB9: ", string(utf8LogicalOrderExceptionAAB9));
-console2.logBytes(utf8LogicalOrderExceptionAAB9);
-
-string memory logicalOrderExceptionAABB = "\\u{AABB}";
-bytes memory utf8LogicalOrderExceptionAABB = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAABB));
-console2.log("AABB: ", string(utf8LogicalOrderExceptionAABB));
-console2.logBytes(utf8LogicalOrderExceptionAABB);
-
-console2.log("..");
-
-string memory logicalOrderExceptionAABC = "\\u{AABC}";
-bytes memory utf8LogicalOrderExceptionAABC = Stringray.unicodeHexToUtf8Hex(abi.encodePacked(logicalOrderExceptionAABC));
-console2.log("AABC: ", string(utf8LogicalOrderExceptionAABC));
-console2.logBytes(utf8LogicalOrderExceptionAABC);
-
+Ran 1 test suite in 48.22ms (45.22ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
