@@ -2274,7 +2274,21 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 2FFE: 0xe2bfbe ... 2FFF: 0xe2bfbf
+        if (_pattern[_currentParticleIndex] == 0xe2) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 2FFE: 0xe2bfbe ... 2FFF: 0xe2bfbf [2]
+                if (_pattern[_currentParticleIndex + 1] == 0xbf) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] == 0xbe || _pattern[_currentParticleIndex + 2] == 0xbf)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertyIDSTrinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
@@ -2295,6 +2309,8 @@ library Stringray {
                 }
             }
         }
+
+        return (false, 0);
     }
 
     function isPropertyIDSBinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
