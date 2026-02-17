@@ -2866,13 +2866,68 @@ library Stringray {
         pure
         returns (bool, uint256)
     {
-        // 0E40: 0xe0b980 ... 0E44: 0xe0b984
-        // 0EC0: 0xe0bb80 ... 0EC4: 0xe0bb84
-        // 19B5: 0xe1a6b5 ... 19B7: 0xe1a6b7
-        // 19BA: 0xe1a6ba
-        // AAB5: 0xeaaab5 ... AAB6: 0xeaaab6
-        // AAB9: 0xeaaab9
-        // AABB: 0xeaaabb ... AABC: 0xeaaabc
+        if (_pattern[_currentParticleIndex] == 0xe0) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 0E40: 0xe0b980 ... 0E44: 0xe0b984 [5]
+                if (_pattern[_currentParticleIndex + 1] == 0xb9) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x84)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+
+                // 0EC0: 0xe0bb80 ... 0EC4: 0xe0bb84 [5]
+                if (_pattern[_currentParticleIndex + 1] == 0xbb) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (_pattern[_currentParticleIndex + 2] >= 0x80 && _pattern[_currentParticleIndex + 2] <= 0x84)
+                        {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // 19B5: 0xe1a6b5 ... 19B7: 0xe1a6b7 [3]
+                // 19BA: 0xe1a6ba
+                if (_pattern[_currentParticleIndex + 1] == 0xa6) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            (_pattern[_currentParticleIndex + 2] >= 0xb5 && _pattern[_currentParticleIndex + 2] <= 0xb7)
+                                || _pattern[_currentParticleIndex + 2] == 0xba
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (_pattern[_currentParticleIndex] == 0xe1) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
+                // AAB5: 0xeaaab5 ... AAB6: 0xeaaab6 [2]
+                // AAB9: 0xeaaab9
+                // AABB: 0xeaaabb ... AABC: 0xeaaabc [2]
+                if (_pattern[_currentParticleIndex + 1] == 0xaa) {
+                    if (_currentParticleIndex + 2 < _pattern.length) {
+                        if (
+                            _pattern[_currentParticleIndex + 2] == 0xb5 || _pattern[_currentParticleIndex + 2] == 0xb6
+                                || _pattern[_currentParticleIndex + 2] == 0xb9
+                                || _pattern[_currentParticleIndex + 2] == 0xbb
+                                || _pattern[_currentParticleIndex + 2] == 0xbc
+                        ) {
+                            return (true, _currentParticleIndex + 2);
+                        }
+                    }
+                }
+            }
+        }
+
+        return (false, 0);
     }
 
     function isPropertySoftDotted(bytes memory _pattern, uint256 _currentParticleIndex)
