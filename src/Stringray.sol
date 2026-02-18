@@ -956,11 +956,11 @@ library Stringray {
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
-            console2.log("---In classifyAtom---");
-            console2.log("atom: ", string(atom));
-            console2.log("atomLastIdx: ", atomLastIdx);
-            console2.log("atomLastIdx cast: ", int256(atomLastIdx));
-            console2.log("---");
+            // console2.log("---In classifyAtom---");
+            // console2.log("atom: ", string(atom));
+            // console2.log("atomLastIdx: ", atomLastIdx);
+            // console2.log("atomLastIdx cast: ", int256(atomLastIdx));
+            // console2.log("---");
             return (atom, atomType, int256(atomLastIdx));
         }
 
@@ -986,7 +986,7 @@ library Stringray {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex + 1, atomType);
             if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
-                console2.log("Yes it has a greedy quantifier atom");
+                // console2.log("Yes it has a greedy quantifier atom");
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -1004,9 +1004,9 @@ library Stringray {
                     } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
                         (flag, atomType, lastMatchedParticleIndex) =
                             isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex, atomType);
-                        console2.log("Flag under lazy: ", flag);
+                        // console2.log("Flag under lazy: ", flag);
                         if (flag) {
-                            console2.log("Yes flag is true under lazy, expecting a revert...");
+                            // console2.log("Yes flag is true under lazy, expecting a revert...");
                             string memory errorMsg = string(
                                 abi.encodePacked(
                                     "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
@@ -1018,9 +1018,9 @@ library Stringray {
                 } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
                     (flag, atomType, lastMatchedParticleIndex) =
                         isGreedyQuantifierAtom(_pattern, lastMatchedParticleIndex, atomType);
-                    console2.log("Flag: ", flag);
+                    // console2.log("Flag: ", flag);
                     if (flag) {
-                        console2.log("Yes flag is true, expecting a revert...");
+                        // console2.log("Yes flag is true, expecting a revert...");
                         string memory errorMsg = string(
                             abi.encodePacked(
                                 "SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat"
@@ -1041,10 +1041,10 @@ library Stringray {
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(_pattern, _currentParticleIdx, atomType);
-            console2.log("flag for jackless greedy quantifier atom.............");
-            console2.log("flag: ", flag);
-            console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-            console2.log("---");
+            // console2.log("flag for jackless greedy quantifier atom.............");
+            // console2.log("flag: ", flag);
+            // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+            // console2.log("---");
             if (flag) {
                 string memory errorMsg = string(
                     abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Nothing to repeat")
@@ -1079,8 +1079,8 @@ library Stringray {
             (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
         }
 
-        console2.log("flag: ", flag);
-        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+        // console2.log("flag: ", flag);
+        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
 
         if (flag) {
             if (
@@ -1181,10 +1181,10 @@ library Stringray {
             }
         }
 
-        console2.log("---In isLiteralAtom---");
-        console2.log("flag: ", flag);
-        console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-        console2.log("---");
+        // console2.log("---In isLiteralAtom---");
+        // console2.log("flag: ", flag);
+        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+        // console2.log("---");
 
         return (flag, atomType, lastMatchedParticleIndex);
     }
@@ -1346,7 +1346,7 @@ library Stringray {
                         || uint8(_pattern[i + 1]) == uint8(abi.encodePacked("P")[0])
                 ) {
                     (bool isValid,) = validateBackslash_p_propertyNameEscape(_pattern, i);
-                    console2.log("passing through here...");
+                    // console2.log("passing through here...");
 
                     if (!isValid) {
                         string memory errorMsg = string(
@@ -1409,12 +1409,12 @@ library Stringray {
             (flag, stripFromIndex, lastMatchedParticleIndex) = validateGroup(_pattern, _currentParticleIndex + 1);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
-                console2.log(
-                    "----------------------------------------sub pattern fission----------------------------------------"
-                );
-                console2.log("sub pattern string: ", string(subPattern));
+                // console2.log(
+                //     "----------------------------------------sub pattern fission----------------------------------------"
+                // );
+                // console2.log("sub pattern string: ", string(subPattern));
                 nuclearFission(subPattern);
-                console2.log("----------------------------------------END----------------------------------------");
+                // console2.log("----------------------------------------END----------------------------------------");
             }
         }
 
@@ -1783,7 +1783,7 @@ library Stringray {
                     greedyQuantifier = true;
                     quantifierType = N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM;
                     lastIndex = _currentParticleIdx + 4;
-                    console2.log("yes it was a n and m range greedy quantifier atom");
+                    // console2.log("yes it was a n and m range greedy quantifier atom");
                 }
             }
         }
@@ -16149,7 +16149,7 @@ library Stringray {
 
         if (!flag) {
             // TODO: Implement f unicode range detection logic...
-            console2.log("departed through here...");
+            // console2.log("departed through here...");
             (flag, lastMatchedIndex) = fUnicodeRange(_pattern, _currentParticleIndex);
         }
 
@@ -16186,10 +16186,10 @@ library Stringray {
 
     function f0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f0 90 80 80 - f0 bf bf bf
-        console2.log("departed through here also...");
+        // console2.log("departed through here also...");
         if (_pattern[_currentParticleIndex] == 0xf0) {
-            console2.log("yeah that's came true: ", _pattern[_currentParticleIndex] == 0xf0);
-            console2.logBytes1(_pattern[_currentParticleIndex]);
+            // console2.log("yeah that's came true: ", _pattern[_currentParticleIndex] == 0xf0);
+            // console2.logBytes1(_pattern[_currentParticleIndex]);
             (bool flag, uint256 lastMatchedParticleIndex) = secondByte90bfValidator(_pattern, _currentParticleIndex);
 
             if (flag) {
@@ -16197,7 +16197,7 @@ library Stringray {
                 if (flag) {
                     (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
                     if (flag) {
-                        console2.log("fulfilling all requirements...!");
+                        // console2.log("fulfilling all requirements...!");
                         return (true, lastMatchedParticleIndex);
                     }
                 }
@@ -17224,14 +17224,14 @@ library Stringray {
                 return (true, _currentParticleIndex);
             }
 
-            console2.log("passed first if check!");
+            // console2.log("passed first if check!");
 
             if (patternNRangeMaxIndex <= patternLastIndex) {
                 if (!isDigit(_pattern[nextParticleIndex], false)) {
                     return (true, _currentParticleIndex);
                 }
 
-                console2.log("passed second if check!");
+                // console2.log("passed second if check!");
 
                 if (
                     uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
@@ -17244,7 +17244,7 @@ library Stringray {
                     return (false, 0);
                 }
 
-                console2.log("passed third if check!");
+                // console2.log("passed third if check!");
 
                 if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
@@ -17275,7 +17275,7 @@ library Stringray {
                     }
                 }
 
-                console2.log("passed fourth if check!");
+                // console2.log("passed fourth if check!");
             } else {
                 return (true, _currentParticleIndex);
             }
@@ -17856,7 +17856,7 @@ library Stringray {
             }
         }
 
-        console2.log("property name end index: ", propertyNameEndIdx);
+        // console2.log("property name end index: ", propertyNameEndIdx);
 
         if (propertyNameEndIdx == 0) {
             string memory errorMsg = string(
