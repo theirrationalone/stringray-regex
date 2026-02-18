@@ -39,4 +39,72 @@ contract PlayStringTest is Test {
         pattern = unicode"/😀/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsCase2() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/hello/";
+        target.regex(pattern);
+
+        pattern = unicode"/anil/";
+        target.regex(pattern);
+
+        pattern = unicode"/abc/";
+        target.regex(pattern);
+
+        pattern = unicode"/123/";
+        target.regex(pattern);
+
+        pattern = unicode"/😀🚀🔥/";
+        target.regex(pattern);
+
+        pattern = unicode"/abc123/";
+        target.regex(pattern);
+
+        pattern = unicode"/कखग/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase3() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\$/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\./";
+        target.regex(pattern);
+
+        pattern = unicode"/\\*/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\+/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\?/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\(/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\)/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\{/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\}/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\[/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\]/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\|/";
+        target.regex(pattern);
+
+        pattern = unicode"/\\\\/";
+        target.regex(pattern);
+    }
 }
