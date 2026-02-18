@@ -11,4 +11,10 @@ contract PlayStringTest is Test {
     function setUp() external {
         // done
     }
+
+    function testRegexLiteralsCase1() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab){1,}/";
+        target.regex(pattern);
+    }
 }
