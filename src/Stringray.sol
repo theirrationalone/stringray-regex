@@ -1075,19 +1075,8 @@ library Stringray {
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bytes1 targetChar = _pattern[_currentParticleIdx];
 
-        bool flag = isBigAlphabet(targetChar);
-
-        if (!flag) {
-            flag = isSmallAlphabet(targetChar);
-        }
-
-        if (!flag) {
-            flag = isPunctuation(targetChar);
-        }
-
-        if (!flag) {
-            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
-        }
+        bool flag;
+        (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
 
         // console2.log("flag: ", flag);
         // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
@@ -1183,9 +1172,37 @@ library Stringray {
         }
 
         if (!flag) {
+            flag = isSmallAlphabet(targetChar);
+        }
+
+        if (!flag) {
+            flag = isPunctuation(targetChar);
+        }
+
+        if (!flag) {
+            flag = isBigAlphabet(targetChar);
+        }
+
+        if (!flag) {
             if (uint8(targetChar) == DOT) {
                 flag = true;
                 atomType = DOT_ATOM;
+                lastMatchedParticleIndex = _currentParticleIdx;
+            }
+        }
+
+        if (!flag) {
+            if (uint8(targetChar) == CLOSE_SQUARE_BRACKET) {
+                if (uint8(_patternFlag) == SMALL_u) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone Character class brackets"
+                        )
+                    );
+                    revert(errorMsg);
+                }
+                flag = true;
+                atomType = LITERAL_ATOM;
                 lastMatchedParticleIndex = _currentParticleIdx;
             }
         }
@@ -1234,6 +1251,15 @@ library Stringray {
                     );
                     revert(errorMsg);
                 }
+            }
+
+            if (_pattern.length < 3 && uint8(_pattern[1]) != CLOSE_SQUARE_BRACKET) {
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated Character class"
+                    )
+                );
+                revert(errorMsg);
             }
 
             if (_currentParticleIndex == 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH) {
@@ -17263,7 +17289,7 @@ library Stringray {
             return (true, lastMatchedIndex);
         }
 
-        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex, _patternFlag);
+        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
             return (true, lastMatchedIndex);
@@ -17370,7 +17396,7 @@ library Stringray {
         return (false, 0);
     }
 
-    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
+    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
@@ -17470,7 +17496,7 @@ library Stringray {
     }
 
     // @info: dEaD and verbose function
-    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
+    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
