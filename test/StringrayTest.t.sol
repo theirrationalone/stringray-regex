@@ -261,4 +261,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\u{110000}/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsCase14() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/./";
+        target.regex(pattern);
+    }
 }
