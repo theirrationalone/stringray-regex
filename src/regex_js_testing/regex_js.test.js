@@ -135,6 +135,16 @@ const testMain = () => {
         // let regex = /a/b/;
         // assert.strictEqual(regex.test("a/b"), true);
     });
+
+    test("Regex-Literals: Case10", () => {
+        // let regex = /ab/\;
+        // assert.strictEqual(regex.test("a/b"), true);
+    });
+
+    test("Regex-Literals: Case11", () => {
+        // let regex = /\u{110000}/;
+        // assert.strictEqual(regex.test("\u{110000}"), true);
+    });
 }
 
 testMain();

@@ -1812,7 +1812,7 @@ library Stringray {
         uint8 patternSecondLastChar = uint8(patternInBytes[patternInBytes.length - 2]);
         uint8 patternThirdLastChar = uint8(patternInBytes[patternInBytes.length - 3]);
 
-        if (patternFirstChar != FORWARD_SLASH || patternLastChar != FORWARD_SLASH) {
+        if (patternFirstChar != FORWARD_SLASH) {
             string memory errorMsg = string(
                 abi.encodePacked(
                     "SyntaxError: Invalid regular expression: ",
@@ -1823,6 +1823,27 @@ library Stringray {
                 )
             );
             revert(errorMsg);
+        }
+
+        if (
+            patternLastChar != FORWARD_SLASH
+                && (patternSecondLastChar == FORWARD_SLASH
+                    && (patternThirdLastChar != BACK_SLASH
+                        || (patternInBytes.length > 3
+                            && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH)))
+        ) {
+            if (
+                patternLastChar != uint8(abi.encodePacked("g")[0]) && patternLastChar != uint8(abi.encodePacked("i")[0])
+                    && patternLastChar != uint8(abi.encodePacked("m")[0])
+                    && patternLastChar != uint8(abi.encodePacked("s")[0])
+                    && patternLastChar != uint8(abi.encodePacked("u")[0])
+                    && patternLastChar != uint8(abi.encodePacked("y")[0])
+                    && patternLastChar != uint8(abi.encodePacked("d")[0])
+            ) {
+                string memory errorMsg =
+                    string(abi.encodePacked("SyntaxError: Invalid regular expression flags: ", _pattern));
+                revert(errorMsg);
+            }
         }
 
         if (
@@ -1854,7 +1875,9 @@ library Stringray {
                                     || uint8(patternInBytes[i - 2]) == BACK_SLASH))
                             || (uint8(patternInBytes[i - 1]) != BACK_SLASH))
                 ) {
-                    string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid regular expression flags"));
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression flags: ", _pattern)
+                    );
                     revert(errorMsg);
                 }
             }
