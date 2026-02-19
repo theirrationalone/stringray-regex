@@ -130,6 +130,11 @@ const testMain = () => {
         let regex = /\//;
         assert.strictEqual(regex.test("/"), true);
     });
+
+    test("Regex-Literals: Case9", () => {
+        // let regex = /a/b/;
+        // assert.strictEqual(regex.test("a/b"), true);
+    });
 }
 
 testMain();

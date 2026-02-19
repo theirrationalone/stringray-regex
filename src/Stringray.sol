@@ -1840,6 +1840,25 @@ library Stringray {
             );
             revert(errorMsg);
         }
+
+        if (
+            patternLastChar == FORWARD_SLASH
+                && ((patternSecondLastChar == BACK_SLASH && patternThirdLastChar == BACK_SLASH)
+                    || (patternSecondLastChar != BACK_SLASH))
+        ) {
+            for (uint256 i = 1; i < patternInBytes.length - 1; i++) {
+                if (
+                    uint8(patternInBytes[i]) == FORWARD_SLASH
+                        && ((i > 1
+                                && (uint8(patternInBytes[i - 1]) != BACK_SLASH
+                                    || uint8(patternInBytes[i - 2]) == BACK_SLASH))
+                            || (uint8(patternInBytes[i - 1]) != BACK_SLASH))
+                ) {
+                    string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid regular expression flags"));
+                    revert(errorMsg);
+                }
+            }
+        }
     }
 
     function isBigAlphabet(bytes1 _targetChar) private pure returns (bool) {
