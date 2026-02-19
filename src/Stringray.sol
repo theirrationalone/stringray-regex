@@ -325,6 +325,7 @@ library Stringray {
 
     bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
+    bytes32 private constant DOT_ATOM = "DOT_ATOM";
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
     bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
     bytes32 private constant DOLLAR_ANCHOR = "DOLLAR_ANCHOR";
@@ -1173,6 +1174,14 @@ library Stringray {
         }
 
         if (!flag) {
+            if (uint8(targetChar) == DOT) {
+                flag = true;
+                atomType = DOT_ATOM;
+                lastMatchedParticleIndex = _currentParticleIdx;
+            }
+        }
+
+        if (!flag) {
             (flag, lastMatchedParticleIndex) = isRangeLiteral(_pattern, _currentParticleIdx);
 
             if (flag) {
@@ -1598,7 +1607,9 @@ library Stringray {
     function printAtomType(bytes32 atomType) private pure {
         if (atomType == LITERAL_ATOM) {
             console2.log("Atom Type: LITERAL_ATOM");
-        } else if (atomType == WORD_BOUNDARY) {
+        } else if (atomType == DOT_ATOM) {
+            console2.log("Atom Type: DOT_ATOM");
+        } else if (atomType == CONTROL_PREFIX) {} else if (atomType == WORD_BOUNDARY) {
             console2.log("Atom Type: WORD_BOUNDARY");
         } else if (atomType == CONTROL_PREFIX) {
             console2.log("Atom Type: CONTROL_PREFIX");

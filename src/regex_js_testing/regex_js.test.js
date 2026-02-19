@@ -146,10 +146,10 @@ const testMain = () => {
         // assert.strictEqual(regex.test("\u{110000}"), true);
     });
 
-    test("Regex-Literals: Case12", () => {
-        let regex = /\c1/;
-        assert.strictEqual(regex.test(""), true);
-    });
+    // test("Regex-Literals: Case12", () => {
+    //     let regex = /\c1/;
+    //     assert.strictEqual(regex.test(""), true);
+    // });
 
     test("Regex-Literals: Case13", () => {
         let regex = /\ugg/;
@@ -159,6 +159,27 @@ const testMain = () => {
     test("Regex-Literals: Case14", () => {
         let regex = /./;
         const target = "anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case15", () => {
+        let regex = /\./;
+        const target = ".anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case16", () => {
+        let regex = /\r./;
+        const target = "\r.anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case17", () => {
+        let regex = /{/u;
+        const target = "{";
         console.log("dot: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });

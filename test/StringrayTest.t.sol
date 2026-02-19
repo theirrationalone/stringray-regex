@@ -268,4 +268,41 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/./";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsCase15() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\./";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase15a() public pure {
+        string memory target = "anything";
+
+        // @Note: Keep it in mind: one pair of \\ is considered as one backslash \ because we can't place
+        // a single backspace \ directly, solidity inferred that as an invalid escape sequence.
+        // Moreover, for the sake of escape, we have to use one pair of backspaces \\ i.e., to escape a .
+        // we would use \\., to escape a backspace: \\\\ -> here first pair of \\ inferred as a single backspace
+        // and single backspace escapes nothing so if we leave a pair of backspace \\ into the regex /\\/ then that will
+        // throw an error, that way second pair of backspace \\ followed by the first pair \\ \\ will make sense as
+        // a legit valid escape for a backspace \.
+
+        string memory pattern = unicode"/\\\\./";
+        target.regex(pattern);
+    }
+
+    // function testRegexLiteralsCase16() public pure {
+    //     string memory target = "anything";
+
+    //     string memory pattern = unicode"/.
+    //     /";
+    //     target.regex(pattern);
+    // }
+
+    function testRegexLiteralsCase17() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{1,1}/";
+        target.regex(pattern);
+    }
 }
