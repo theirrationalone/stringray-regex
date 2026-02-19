@@ -178,8 +178,57 @@ const testMain = () => {
     });
 
     test("Regex-Literals: Case17", () => {
-        let regex = /{/u;
+        // let regex = /{/u;
+        let regex = /{/;
         const target = "{";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case18", () => {
+        // let regex = /}/u;
+        let regex = /}/;
+        const target = ",}";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case19", () => {
+        // let regex = /1/u;
+        let regex = /1/u;
+        const target = "1";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Regex-Literals: Case20", () => {
+        // let regex = /,/u;
+        let regex = /,/u;
+        const target = ",";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case21", () => {
+        // let regex = /1,/u;
+        let regex = /1,/u;
+        const target = "1,";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case22", () => {
+        // let regex = /1,2/;
+        let regex = /1,2/;
+        const target = "1,2";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals: Case23", () => {
+        // let regex = /2,1/;
+        let regex = /2,1/;
+        const target = "2,1";
         console.log("dot: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });

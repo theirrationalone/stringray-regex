@@ -314,6 +314,10 @@ library Stringray {
     uint8 private constant SMALL_s = 115;
     uint8 private constant BIG_S = 83;
     uint8 private constant SMALL_g = 103;
+    uint8 private constant SMALL_i = 105;
+    uint8 private constant SMALL_m = 109;
+    uint8 private constant SMALL_u = 117;
+    uint8 private constant SMALL_y = 121;
     uint8 private constant ASSIGNMENT_SIGN = 61;
     uint8 private constant GREATER_THAN_SIGN = 62;
     uint8 private constant LESS_THAN_SIGN = 60;
@@ -918,14 +922,18 @@ library Stringray {
         console2.log("pattern in bytes: ");
         console2.logBytes(patternInBytes);
         console2.log("----------------");
-        bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, int256(patternInBytes.length - 2));
-        nuclearFission(filteredPatternInBytes);
+        bytes1 patternFlag = patternInBytes[patternInBytes.length - 1];
+        bytes memory filteredPatternInBytes =
+            trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
+
+        nuclearFission(filteredPatternInBytes, patternFlag);
     }
 
-    function nuclearFission(bytes memory _pattern) private pure {
+    function nuclearFission(bytes memory _pattern, bytes1 _patternFlag) private pure {
         int256 patternLength = int256(_pattern.length);
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
-            (bytes memory atom, bytes32 atomType, int256 atomEndIdx) = classifyAtom(_pattern, uint256(particleIdx));
+            (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
+                classifyAtom(_pattern, uint256(particleIdx), _patternFlag);
 
             console2.log("---In nuclearFission---");
             console2.log("Iteration no: ", particleIdx + 1);
@@ -943,7 +951,7 @@ library Stringray {
         }
     }
 
-    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag)
         private
         pure
         returns (bytes memory, bytes32, int256)
@@ -953,7 +961,7 @@ library Stringray {
         uint256 atomLastIdx;
         bytes32 atomType;
 
-        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx);
+        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx, _patternFlag);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -968,19 +976,20 @@ library Stringray {
         return (atom, atomType, int256(atomLastIdx));
     }
 
-    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx)
+    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag)
         private
         pure
         returns (bool, bytes32, uint256)
     {
-        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(_pattern, _currentParticleIdx);
+        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
+            isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag);
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx);
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx);
+            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx, _patternFlag);
         }
 
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -1057,7 +1066,7 @@ library Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
-    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx)
+    function isLiteralAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -1182,7 +1191,7 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) = isRangeLiteral(_pattern, _currentParticleIdx);
+            (flag, lastMatchedParticleIndex) = isRangeLiteral(_pattern, _currentParticleIdx, _patternFlag);
 
             if (flag) {
                 atomType = LITERAL_ATOM;
@@ -1381,7 +1390,7 @@ library Stringray {
         return true;
     }
 
-    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -1429,7 +1438,7 @@ library Stringray {
                 //     "----------------------------------------sub pattern fission----------------------------------------"
                 // );
                 // console2.log("sub pattern string: ", string(subPattern));
-                nuclearFission(subPattern);
+                nuclearFission(subPattern, _patternFlag);
                 // console2.log("----------------------------------------END----------------------------------------");
             }
         }
@@ -1844,12 +1853,9 @@ library Stringray {
                             && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH)))
         ) {
             if (
-                patternLastChar != uint8(abi.encodePacked("g")[0]) && patternLastChar != uint8(abi.encodePacked("i")[0])
-                    && patternLastChar != uint8(abi.encodePacked("m")[0])
-                    && patternLastChar != uint8(abi.encodePacked("s")[0])
-                    && patternLastChar != uint8(abi.encodePacked("u")[0])
-                    && patternLastChar != uint8(abi.encodePacked("y")[0])
-                    && patternLastChar != uint8(abi.encodePacked("d")[0])
+                patternLastChar != SMALL_d && patternLastChar != SMALL_i && patternLastChar != SMALL_g
+                    && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
+                    && patternLastChar != SMALL_y
             ) {
                 string memory errorMsg =
                     string(abi.encodePacked("SyntaxError: Invalid regular expression flags: ", _pattern));
@@ -17235,31 +17241,51 @@ library Stringray {
         return (false, 0);
     }
 
-    function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
+    function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
+        private
+        pure
+        returns (bool, uint256)
+    {
         bool isValid;
         uint256 lastMatchedIndex;
 
         (isValid, lastMatchedIndex) = isOpenCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
+            if (uint8(_patternFlag) == SMALL_u) {
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
+                    )
+                );
+                revert(errorMsg);
+            }
             return (true, lastMatchedIndex);
         }
 
-        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex);
+        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex, _patternFlag);
 
         if (isValid) {
             return (true, lastMatchedIndex);
         }
 
-        (isValid, lastMatchedIndex) = isCommaOfRangeEscape(_pattern, _currentParticleIndex);
+        // (isValid, lastMatchedIndex) = isCommaOfRangeEscape(_pattern, _currentParticleIndex, _patternFlag);
 
-        if (isValid) {
-            return (true, lastMatchedIndex);
-        }
+        // if (isValid) {
+        //     return (true, lastMatchedIndex);
+        // }
 
         (isValid, lastMatchedIndex) = isCloseCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
+            if (uint8(_patternFlag) == SMALL_u) {
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
+                    )
+                );
+                revert(errorMsg);
+            }
             return (true, lastMatchedIndex);
         }
 
@@ -17344,7 +17370,7 @@ library Stringray {
         return (false, 0);
     }
 
-    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
         private
         pure
         returns (bool, uint256)
@@ -17443,7 +17469,8 @@ library Stringray {
         return (false, 0);
     }
 
-    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+    // @info: dEaD and verbose function
+    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
         private
         pure
         returns (bool, uint256)
@@ -17461,42 +17488,41 @@ library Stringray {
                     return (true, _currentParticleIndex);
                 }
 
-                if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
-                    if (_currentParticleIndex > 1) {
-                        if (uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE) {
-                            return (true, _currentParticleIndex);
-                        }
-                    } else {
+                // if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
+                if (_currentParticleIndex > 1) {
+                    if (uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE) {
                         return (true, _currentParticleIndex);
                     }
-
-                    if (_currentParticleIndex + 1 <= patternLastIndex) {
-                        if (
-                            !isDigit(_pattern[_currentParticleIndex + 1], false)
-                                && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
-                        ) {
-                            return (true, _currentParticleIndex);
-                        }
-
-                        if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
-                            return (false, 0);
-                        }
-
-                        if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
-                            if (_currentParticleIndex + 2 <= patternLastIndex) {
-                                if (uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE) {
-                                    return (true, _currentParticleIndex);
-                                } else {
-                                    return (false, 0);
-                                }
-                            } else {
-                                return (true, _currentParticleIndex);
-                            }
-                        }
-                    } else {
-                        return (true, _currentParticleIndex);
-                    }
+                } else {
+                    return (true, _currentParticleIndex);
                 }
+
+                if (_currentParticleIndex + 1 <= patternLastIndex) {
+                    if (
+                        !isDigit(_pattern[_currentParticleIndex + 1], false)
+                            && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
+                    ) {
+                        return (true, _currentParticleIndex);
+                    }
+
+                    if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
+                        return (false, 0);
+                    }
+
+                    // if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
+                    if (_currentParticleIndex + 2 <= patternLastIndex) {
+                        if (uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE) {
+                            return (true, _currentParticleIndex);
+                        }
+                        return (false, 0);
+                    } else {
+                        return (true, _currentParticleIndex);
+                    }
+                    // }
+                } else {
+                    return (true, _currentParticleIndex);
+                }
+                // }
             }
         }
         return (false, 0);
@@ -17541,17 +17567,17 @@ library Stringray {
                                     return (true, _currentParticleIndex);
                                 }
 
-                                if (isDigit(_pattern[_currentParticleIndex - 3], false)) {
-                                    if (_currentParticleIndex > 3) {
-                                        if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
-                                            return (true, _currentParticleIndex);
-                                        } else {
-                                            return (false, 0);
-                                        }
-                                    } else {
+                                // if (isDigit(_pattern[_currentParticleIndex - 3], false)) {
+                                if (_currentParticleIndex > 3) {
+                                    if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
                                         return (true, _currentParticleIndex);
+                                    } else {
+                                        return (false, 0);
                                     }
+                                } else {
+                                    return (true, _currentParticleIndex);
                                 }
+                                // }
                             } else {
                                 return (true, _currentParticleIndex);
                             }
@@ -17563,15 +17589,15 @@ library Stringray {
                             return (true, _currentParticleIndex);
                         }
 
-                        if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
-                            if (_currentParticleIndex > 2) {
-                                if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
-                                    return (true, _currentParticleIndex);
-                                }
-                            } else {
+                        // if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
+                        if (_currentParticleIndex > 2) {
+                            if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
                                 return (true, _currentParticleIndex);
                             }
+                        } else {
+                            return (true, _currentParticleIndex);
                         }
+                        // }
                     }
                 } else {
                     return (true, _currentParticleIndex);
