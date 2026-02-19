@@ -1114,10 +1114,17 @@ library Stringray {
             ) {
                 atomType = CONTROL_PREFIX;
             } else if (
-                _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
-                    && isDigit(_pattern[lastMatchedParticleIndex], false)
+                _currentParticleIdx + 1 <= lastMatchedParticleIndex
+                    && ((_pattern[_currentParticleIdx + 1] == 0x00 && _pattern[lastMatchedParticleIndex] == 0x00)
+                        || (_pattern[_currentParticleIdx + 1] == 0x41 && _pattern[lastMatchedParticleIndex] == 0x41))
             ) {
-                atomType = DIGIT_BACKREFERENCE_PREFIX;
+                //     else if (
+                //     _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
+                //         && isDigit(_pattern[lastMatchedParticleIndex], false)
+                // ) {
+                //     atomType = DIGIT_BACKREFERENCE_PREFIX;
+                // }
+                atomType = NULL_CHARACTER;
             } else if (
                 _currentParticleIdx + 1 == lastMatchedParticleIndex
                     && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
