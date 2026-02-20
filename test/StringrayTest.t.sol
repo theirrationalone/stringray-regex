@@ -375,4 +375,88 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/]/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsCase28() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/?/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase29() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\?/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase30() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/+/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase31() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\+/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase32() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/*/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase33() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\*/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase34() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a???/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase35() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a??/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase36() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a+??/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase37() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a+?/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase38() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a*??/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsCase39() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a*?/";
+        target.regex(pattern);
+    }
 }

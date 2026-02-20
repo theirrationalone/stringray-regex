@@ -276,6 +276,102 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    // test("Regex-Literals: Case28", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /?/;
+    //     const target = "?";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case29", () => {
+        // let regex = /[]/u;
+        let regex = /\?/;
+        const target = "?";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals: Case30", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /+/;
+    //     const target = "+";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case31", () => {
+        // let regex = /[]/u;
+        let regex = /\+/;
+        const target = "+";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals: Case32", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /\\+*/;
+    //     const target = "\\\\*";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case33", () => {
+        // let regex = /[]/u;
+        let regex = /\*/;
+        const target = "*";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals: Case34", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /a???/;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case35", () => {
+        // let regex = /[]/u;
+        let regex = /a??/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals: Case36", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /a+??/;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case37", () => {
+        // let regex = /[]/u;
+        let regex = /a+?/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals: Case38", () => {
+    //     // let regex = /[]/u;
+    //     let regex = /a*??/;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals: Case39", () => {
+        // let regex = /[]/u;
+        let regex = /a*?/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
