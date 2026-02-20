@@ -459,4 +459,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/a*?/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsCase40() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/a^|$sian/";
+        target.regex(pattern);
+    }
 }

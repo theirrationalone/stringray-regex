@@ -347,6 +347,7 @@ library Stringray {
     bytes32 private constant TAB = "TAB";
     bytes32 private constant UNICODE_ESCAPE = "UNICODE_ESCAPE";
     bytes32 private constant VERTICAL_TAB = "VERTICAL_TAB";
+    bytes32 private constant ALTERNATION_OPERATOR = "ALTERNATION_OPERATOR";
     bytes32 private constant WORD_CHARACTER = "WORD_CHARACTER";
     bytes32 private constant HEX_ESCAPE = "HEX_ESCAPE";
     bytes32 private constant NOT_WORD_BOUNDARY = "NOT_WORD_BOUNDARY";
@@ -1075,8 +1076,19 @@ library Stringray {
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bytes1 targetChar = _pattern[_currentParticleIdx];
 
-        bool flag;
-        (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
+        bool flag = isSmallAlphabet(targetChar);
+
+        if (!flag) {
+            flag = isPunctuation(targetChar);
+        }
+
+        if (!flag) {
+            flag = isBigAlphabet(targetChar);
+        }
+
+        if (!flag) {
+            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
+        }
 
         // console2.log("flag: ", flag);
         // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
@@ -1172,21 +1184,21 @@ library Stringray {
         }
 
         if (!flag) {
-            flag = isSmallAlphabet(targetChar);
-        }
-
-        if (!flag) {
-            flag = isPunctuation(targetChar);
-        }
-
-        if (!flag) {
-            flag = isBigAlphabet(targetChar);
-        }
-
-        if (!flag) {
             if (uint8(targetChar) == DOT) {
                 flag = true;
                 atomType = DOT_ATOM;
+                lastMatchedParticleIndex = _currentParticleIdx;
+            }
+        }
+
+        if (!flag) {
+            (flag, atomType, lastMatchedParticleIndex) = isDollarOrCaretAnchor(_pattern, _currentParticleIdx);
+        }
+
+        if (!flag) {
+            if (uint8(targetChar) == VERTICAL_BAR) {
+                flag = true;
+                atomType = ALTERNATION_OPERATOR;
                 lastMatchedParticleIndex = _currentParticleIdx;
             }
         }
@@ -1615,7 +1627,7 @@ library Stringray {
         return (true, stripFrom);
     }
 
-    function isDollarOrCaertAnchor(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isDollarOrCaretAnchor(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -1644,7 +1656,13 @@ library Stringray {
             console2.log("Atom Type: LITERAL_ATOM");
         } else if (atomType == DOT_ATOM) {
             console2.log("Atom Type: DOT_ATOM");
-        } else if (atomType == CONTROL_PREFIX) {} else if (atomType == WORD_BOUNDARY) {
+        } else if (atomType == CARET_ANCHOR) {
+            console2.log("Atom Type: CARET_ANCHOR");
+        } else if (atomType == DOLLAR_ANCHOR) {
+            console2.log("Atom Type: DOLLAR_ANCHOR");
+        } else if (atomType == ALTERNATION_OPERATOR) {
+            console2.log("Atom Type: ALTERNATION_OPERATOR");
+        } else if (atomType == WORD_BOUNDARY) {
             console2.log("Atom Type: WORD_BOUNDARY");
         } else if (atomType == CONTROL_PREFIX) {
             console2.log("Atom Type: CONTROL_PREFIX");

@@ -372,6 +372,14 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Regex-Literals: Case40", () => {
+        // let regex = /a^sian/;
+        let regex = /asian/;
+        const target = "asian";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
