@@ -1168,13 +1168,9 @@ library Stringray {
                     atomType = NOT_WHITESPACE;
                 } else if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
                     atomType = NOT_WORD_CHARACTER;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
-                    atomType = NULL_CHARACTER;
-                } else if (
-                    lastMatchedParticle >= uint8(abi.encodePacked("1")[0])
-                        && lastMatchedParticle <= uint8(abi.encodePacked("7")[0])
-                ) {
-                    atomType = OCTAL;
+                    //      else if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
+                    //     atomType = NULL_CHARACTER;
+                    // }
                 } else {
                     if (uint8(_patternFlag) == SMALL_u) {
                         string memory errorMsg = string(
@@ -1188,6 +1184,18 @@ library Stringray {
                 }
             } else {
                 atomType = LITERAL_ATOM;
+                bool isOctal = true;
+
+                for (uint256 i = _currentParticleIdx + 1; i <= lastMatchedParticleIndex; i++) {
+                    if (!(i >= uint8(abi.encodePacked("1")[0]) && i <= uint8(abi.encodePacked("7")[0]))) {
+                        isOctal = false;
+                        break;
+                    }
+                }
+
+                if (isOctal) {
+                    atomType = OCTAL;
+                }
             }
         }
 
@@ -17715,9 +17723,15 @@ library Stringray {
             if (
                 isDigit(_pattern[_currentParticleIndex + 1], false)
                     && uint8(_pattern[_currentParticleIndex + 1]) != uint8(abi.encodePacked("0")[0])
+            ) {
                 // @BUG: octal validation functionality missing
                 // @status: not resolved
-            ) {
+                (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
+
+                if (isValid) {
+                    return (true, lastMatchedIndex);
+                }
+
                 (isValid, lastMatchedIndex) =
                     validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 
@@ -17727,6 +17741,50 @@ library Stringray {
             }
 
             return (true, _currentParticleIndex + 1);
+        }
+
+        return (false, 0);
+    }
+
+    function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
+        bool flag;
+
+        if (
+            uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("1")[0])
+                && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
+        ) {
+            flag = true;
+        }
+
+        if (flag) {
+            if (
+                _indexToStartFrom + 1 <= patternLastIndex
+                    && uint8(_pattern[_indexToStartFrom + 1]) >= uint8(abi.encodePacked("1")[0])
+                    && uint8(_pattern[_indexToStartFrom + 1]) <= uint8(abi.encodePacked("7")[0])
+            ) {
+                flag = true;
+            } else {
+                return (true, _indexToStartFrom);
+            }
+        }
+
+        if (flag) {
+            if (
+                _indexToStartFrom + 2 <= patternLastIndex
+                    && uint8(_pattern[_indexToStartFrom + 2]) >= uint8(abi.encodePacked("1")[0])
+                    && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
+            ) {
+                if (uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])) {
+                    return (true, _indexToStartFrom + 2);
+                }
+            } else {
+                return (true, _indexToStartFrom + 1);
+            }
         }
 
         return (false, 0);
