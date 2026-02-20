@@ -1176,6 +1176,14 @@ library Stringray {
                 ) {
                     atomType = OCTAL;
                 } else {
+                    if (uint8(_patternFlag) == SMALL_u) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
                     atomType = LITERAL_ATOM;
                 }
             } else {
@@ -17704,7 +17712,12 @@ library Stringray {
                 }
             }
 
-            if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
+            if (
+                isDigit(_pattern[_currentParticleIndex + 1], false)
+                    && uint8(_pattern[_currentParticleIndex + 1]) != uint8(abi.encodePacked("0")[0])
+                // @BUG: octal validation functionality missing
+                // @status: not resolved
+            ) {
                 (isValid, lastMatchedIndex) =
                     validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 

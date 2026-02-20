@@ -380,6 +380,40 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Regex-Literals-escape_seqs: Case001", () => {
+        // let regex = /a^sian/;
+        let regex = /\08/;
+        const target = "\x008";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case002", () => {
+        // let regex = /a^sian/;
+        // let regex = /\07/;
+        // const target = "\u0007";
+        let regex = /\038/;
+        const target = "\u00038";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case003", () => {
+        // let regex = /a^sian/;
+        let regex = /\a/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case004", () => {
+        // let regex = /a^sian/;
+        let regex = /\8/;
+        const target = "8";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
