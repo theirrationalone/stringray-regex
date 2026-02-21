@@ -1125,12 +1125,6 @@ library Stringray {
             ) {
                 atomType = CONTROL_PREFIX;
             } else if (
-                _currentParticleIdx + 1 <= lastMatchedParticleIndex
-                    && ((_pattern[_currentParticleIdx + 1] == 0x00 && _pattern[lastMatchedParticleIndex] == 0x00)
-                        || (_pattern[_currentParticleIdx + 1] == 0x30 && _pattern[lastMatchedParticleIndex] == 0x30))
-            ) {
-                atomType = NULL_CHARACTER;
-            } else if (
                 _currentParticleIdx + 1 == lastMatchedParticleIndex
                     && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
                     && !isDigit(_pattern[_currentParticleIdx + 1], false)
@@ -1186,9 +1180,23 @@ library Stringray {
                         && isDigit(_pattern[_currentParticleIdx + 1], false)
                         && isDigit(_pattern[lastMatchedParticleIndex], false)
                 ) {
-                    (isOctal,) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
+                    (isOctal, lastMatchedParticleIndex) =
+                        validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
+                    console2.log("isOctal: ", isOctal);
+                    console2.log("_currentParticleIdx: ", _currentParticleIdx);
+                    console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
                     if (!isOctal) {
-                        atomType = DIGIT_BACKREFERENCE_PREFIX;
+                        if (
+                            _currentParticleIdx + 1 <= lastMatchedParticleIndex
+                                && ((_pattern[_currentParticleIdx + 1] == 0x00
+                                        && _pattern[lastMatchedParticleIndex] == 0x00)
+                                    || (_pattern[_currentParticleIdx + 1] == 0x30
+                                        && _pattern[lastMatchedParticleIndex] == 0x30))
+                        ) {
+                            atomType = NULL_CHARACTER;
+                        } else {
+                            atomType = DIGIT_BACKREFERENCE_PREFIX;
+                        }
                     } else {
                         atomType = OCTAL;
                     }
@@ -17729,10 +17737,7 @@ library Stringray {
                 }
             }
 
-            if (
-                isDigit(_pattern[_currentParticleIndex + 1], false)
-                    && uint8(_pattern[_currentParticleIndex + 1]) != uint8(abi.encodePacked("0")[0])
-            ) {
+            if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
                 // @BUG: octal validation functionality missing
                 // @status: not resolved
                 (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
@@ -17764,7 +17769,7 @@ library Stringray {
         bool flag;
 
         if (
-            uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("1")[0])
+            uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
                 && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
         ) {
             flag = true;
@@ -17778,7 +17783,14 @@ library Stringray {
             ) {
                 flag = true;
             } else {
-                return (true, _indexToStartFrom);
+                if (
+                    uint8(_pattern[_indexToStartFrom]) > uint8(abi.encodePacked("0")[0])
+                        && uint8(_pattern[_indexToStartFrom]) < uint8(abi.encodePacked("8")[0])
+                ) {
+                    return (true, _indexToStartFrom);
+                } else {
+                    return (false, _indexToStartFrom);
+                }
             }
         }
 
@@ -17789,8 +17801,8 @@ library Stringray {
                     && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
             ) {
                 if (
-                    uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
-                        && uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("1")[0])
+                    uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
+                        && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
                 ) {
                     return (true, _indexToStartFrom + 2);
                 } else {

@@ -526,7 +526,35 @@ contract PlayStringTest is Test {
     function testRegexLiteralsEscapeSeqsCase9() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/\\8/";
+        string memory pattern = unicode"/\\0/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase10() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\00/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase11() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\000/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase12() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\08/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase13() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\008/";
         target.regex(pattern);
     }
 }
