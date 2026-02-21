@@ -17793,6 +17793,8 @@ library Stringray {
                         && uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("1")[0])
                 ) {
                     return (true, _indexToStartFrom + 2);
+                } else {
+                    return (true, _indexToStartFrom + 1);
                 }
             } else {
                 return (true, _indexToStartFrom + 1);

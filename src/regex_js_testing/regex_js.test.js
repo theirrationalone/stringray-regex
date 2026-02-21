@@ -415,12 +415,26 @@ const testMain = () => {
 
     test("Regex-Literals-escape_seqs: Case005", () => {
         let regex = /\777/;
-        const target = "\u003E7";
+        const target = "\u003F7";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Regex-Literals-escape_seqs: Case00sd", () => {
+    test("Regex-Literals-escape_seqs: Case006", () => {
+        let regex = /\378/;
+        const target = "\u001F8";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case007", () => {
+        let regex = /\397/;
+        const target = "\u000397";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case008", () => {
         // let regex = /a^sian/;
         let regex = /\a/;
         const target = "a";
@@ -428,7 +442,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Regex-Literals-escape_seqs: Case004", () => {
+    test("Regex-Literals-escape_seqs: Case009", () => {
         // let regex = /a^sian/;
         let regex = /\8/;
         const target = "8";
