@@ -481,6 +481,38 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    // test("Regex-Literals-escape_seqs: Case014", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\000/u;
+    //     const target = "abba";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Regex-Literals-escape_seqs: Case015", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\118/u;
+    //     const target = "abba";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Regex-Literals-escape_seqs: Case016", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\988/u;
+    //     const target = "abba";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Regex-Literals-escape_seqs: Case017", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\0988/u;
+    //     const target = "abba";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();

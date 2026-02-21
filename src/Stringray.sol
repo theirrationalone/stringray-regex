@@ -1182,37 +1182,70 @@ library Stringray {
                 ) {
                     (isOctal, lastMatchedParticleIndex) =
                         validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
-                    console2.log("isOctal: ", isOctal);
-                    console2.log("_currentParticleIdx: ", _currentParticleIdx);
-                    console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
                     if (!isOctal) {
-                        if (
-                            _currentParticleIdx + 1 <= lastMatchedParticleIndex
-                                && ((_pattern[_currentParticleIdx + 1] == 0x00
-                                        && _pattern[lastMatchedParticleIndex] == 0x00)
-                                    || (_pattern[_currentParticleIdx + 1] == 0x30
-                                        && _pattern[lastMatchedParticleIndex] == 0x30))
+                        if (uint8(_patternFlag) != SMALL_u) {
+                            if (
+                                _currentParticleIdx + 1 <= lastMatchedParticleIndex
+                                    && ((_pattern[_currentParticleIdx + 1] == 0x00
+                                            && _pattern[lastMatchedParticleIndex] == 0x00)
+                                        || (_pattern[_currentParticleIdx + 1] == 0x30
+                                            && _pattern[lastMatchedParticleIndex] == 0x30))
+                            ) {
+                                atomType = NULL_CHARACTER;
+                            } else {
+                                atomType = DIGIT_BACKREFERENCE_PREFIX;
+                            }
+                        } else if (
+                            uint8(_patternFlag) == SMALL_u
+                                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
                         ) {
-                            atomType = NULL_CHARACTER;
-                        } else {
-                            atomType = DIGIT_BACKREFERENCE_PREFIX;
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
+                                )
+                            );
+                            revert(errorMsg);
+                        } else if (
+                            uint8(_patternFlag) == SMALL_u
+                                && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+                                && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+                        ) {
+                            // @TODO: backreference check and validation remains
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
+                                )
+                            );
+                            revert(errorMsg);
                         }
                     } else {
-                        atomType = OCTAL;
+                        if (uint8(_patternFlag) != SMALL_u) {
+                            atomType = OCTAL;
+                        } else if (
+                            uint8(_patternFlag) == SMALL_u
+                                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+                        ) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
+                                )
+                            );
+                            revert(errorMsg);
+                        } else if (
+                            uint8(_patternFlag) == SMALL_u
+                                && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+                                && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+                        ) {
+                            // @TODO: backreference check and validation remains
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
                     }
                 }
-
-                // for (uint256 i = _currentParticleIdx + 1; i <= lastMatchedParticleIndex; i++) {
-                //     if (!(uint8(_pattern[i]) >= uint8(abi.encodePacked("0")[0])
-                //                 && uint8(_pattern[i]) <= uint8(abi.encodePacked("7")[0]))) {
-                //         isOctal = false;
-                //         break;
-                //     }
-                // }
-
-                // if (isOctal) {
-                //     atomType = OCTAL;
-                // }
             }
         }
 
