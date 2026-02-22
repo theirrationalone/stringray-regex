@@ -585,4 +585,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\0988/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase18() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\\\a/";
+        target.regex(pattern);
+    }
 }
