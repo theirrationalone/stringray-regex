@@ -1087,7 +1087,7 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx);
+            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag);
         }
 
         // console2.log("flag: ", flag);
@@ -17718,7 +17718,7 @@ library Stringray {
         return (false, 0);
     }
 
-    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
         private
         pure
         returns (bool, uint256)
@@ -17729,6 +17729,10 @@ library Stringray {
             uint256 lastMatchedIndex;
 
             if (_nextChar == uint8(abi.encodePacked("u")[0])) {
+                if (uint8(_patternFlag) != SMALL_u) {
+                    return (true, _currentParticleIndex + 1);
+                }
+
                 (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {
