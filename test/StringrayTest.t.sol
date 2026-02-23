@@ -707,4 +707,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\c1/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase35() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u{23,20}/";
+        target.regex(pattern);
+    }
 }

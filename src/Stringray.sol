@@ -1838,94 +1838,88 @@ library Stringray {
         pure
         returns (bool, bytes32, uint256)
     {
-        uint8 currentParticle = uint8(_pattern[_currentParticleIdx]);
         bool greedyQuantifier;
         bytes32 quantifierType = _lastAtomType;
         uint256 lastIndex = _currentParticleIdx;
 
-        if (currentParticle == ASTERISK) {
-            greedyQuantifier = true;
-            quantifierType = ASTERISK_GREEDY_QUANTIFIER_ATOM;
-            lastIndex = _currentParticleIdx;
-            return (greedyQuantifier, quantifierType, lastIndex);
+        if (uint8(_pattern[_currentParticleIdx]) == ASTERISK) {
+            return (true, ASTERISK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
         }
 
-        if (!greedyQuantifier && currentParticle == PLUS_SIGN) {
-            greedyQuantifier = true;
-            quantifierType = PLUS_GREEDY_QUANTIFIER_ATOM;
-            lastIndex = _currentParticleIdx;
-            return (greedyQuantifier, quantifierType, lastIndex);
+        if (uint8(_pattern[_currentParticleIdx]) == PLUS_SIGN) {
+            return (true, PLUS_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
         }
 
-        if (!greedyQuantifier && currentParticle == QUESTION_MARK) {
-            greedyQuantifier = true;
-            quantifierType = QUESTION_MARK_GREEDY_QUANTIFIER_ATOM;
-            lastIndex = _currentParticleIdx;
-            return (greedyQuantifier, quantifierType, lastIndex);
+        if (uint8(_pattern[_currentParticleIdx]) == QUESTION_MARK) {
+            return (true, QUESTION_MARK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
         }
 
-        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
-            if (_pattern.length - 1 >= _currentParticleIdx + 2) {
-                if (
-                    isDigit(_pattern[_currentParticleIdx + 1], false)
-                        && uint8(_pattern[_currentParticleIdx + 2]) == CLOSE_CURLY_BRACE
-                ) {
-                    greedyQuantifier = true;
-                    quantifierType = N_RANGE_GREEDY_QUANTIFIER_ATOM;
-                    lastIndex = _currentParticleIdx + 2;
-                    return (greedyQuantifier, quantifierType, lastIndex);
-                }
+        if (
+            uint8(_pattern[_currentParticleIdx]) == OPEN_CURLY_BRACE
+                && (_currentParticleIdx + 1 <= _pattern.length - 1
+                    && uint8(_pattern[_currentParticleIdx + 1]) != CLOSE_CURLY_BRACE)
+        ) {
+            (bool isValid, bytes32 atomType, uint256 lastMatchedParticleIndex) =
+                isValidRangeQuantifier(_pattern, _currentParticleIdx);
+
+            if (isValid) {
+                return (true, atomType, lastMatchedParticleIndex);
             }
         }
 
-        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
-            if (_pattern.length - 1 >= _currentParticleIdx + 3) {
-                if (
-                    isDigit(_pattern[_currentParticleIdx + 1], false)
-                        && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
-                        && uint8(_pattern[_currentParticleIdx + 3]) == CLOSE_CURLY_BRACE
-                ) {
-                    greedyQuantifier = true;
-                    quantifierType = N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM;
-                    lastIndex = _currentParticleIdx + 3;
-                    return (greedyQuantifier, quantifierType, lastIndex);
+        return (false, _lastAtomType, _currentParticleIdx);
+    }
+
+    function isValidRangeQuantifier(bytes memory _pattern, uint256 _currentParticleIdx)
+        private
+        pure
+        returns (bool, bytes32, uint256)
+    {
+        bool commaFlag;
+        uint256 commaIndex;
+
+        for (uint256 i = _currentParticleIdx + 1; i <= _pattern.length - 1; i++) {
+            if (isDigit(_pattern[i], false)) {
+                continue;
+            }
+
+            if (uint8(_pattern[i]) == COMMA_SIGN) {
+                commaFlag = true;
+                commaIndex = i;
+            }
+
+            if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE && !commaFlag) {
+                return (true, N_RANGE_GREEDY_QUANTIFIER_ATOM, i);
+            }
+
+            if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE && commaFlag && uint8(_pattern[i - 1]) == COMMA_SIGN) {
+                return (true, N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM, i);
+            }
+
+            if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE && commaFlag && uint8(_pattern[i - 1]) != COMMA_SIGN) {
+                bytes memory commaLeft = trimString(_pattern, _currentParticleIdx + 1, int256(commaIndex - 1));
+                bytes memory commaRight = trimString(_pattern, commaIndex + 1, int256(i - 1));
+
+                uint256 leftRange = hexToDec(commaLeft, 4, true);
+                uint256 rightRange = hexToDec(commaRight, 4, true);
+
+                console2.log("leftRange: ", leftRange);
+                console2.log("rightRange: ", rightRange);
+
+                if (leftRange > rightRange) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ",
+                            _pattern,
+                            ": numbers out of order in {} quantifier"
+                        )
+                    );
+                    revert(errorMsg);
                 }
+
+                return (true, N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM, i);
             }
         }
-
-        // BUG: Ghost|Phantom, vars yields issue (let's find it using console log)
-        // @status: resolved!
-        if (!greedyQuantifier && currentParticle == OPEN_CURLY_BRACE) {
-            if (_pattern.length - 1 >= _currentParticleIdx + 4) {
-                if (
-                    isDigit(_pattern[_currentParticleIdx + 1], false)
-                        && uint8(_pattern[_currentParticleIdx + 2]) == COMMA_SIGN
-                        && isDigit(_pattern[_currentParticleIdx + 3], false)
-                        && uint8(_pattern[_currentParticleIdx + 4]) == CLOSE_CURLY_BRACE
-                ) {
-                    // @BUG: there was a bug: uint8(_pattern[_currentParticleIdx + 4]) however it should be
-                    // uint8(_pattern[_currentParticleIdx + 3])
-                    // @status: resolved!
-                    if (uint8(_pattern[_currentParticleIdx + 1]) > uint8(_pattern[_currentParticleIdx + 3])) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: ",
-                                _pattern,
-                                ": numbers out of order in {} quantifier"
-                            )
-                        );
-                        revert(errorMsg);
-                    }
-
-                    greedyQuantifier = true;
-                    quantifierType = N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM;
-                    lastIndex = _currentParticleIdx + 4;
-                    // console2.log("yes it was a n and m range greedy quantifier atom");
-                }
-            }
-        }
-
-        return (greedyQuantifier, quantifierType, lastIndex);
     }
 
     function validateRegex(string memory _pattern) private pure {
