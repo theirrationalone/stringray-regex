@@ -251,10 +251,10 @@ const testMain = () => {
 
     test("Regex-Literals: Case26", () => {
         // let regex = /[acw/;
-        // let regex = /[]/u;
+        let regex = /[]/u;
         const target = "[]";
         console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        assert.strictEqual(regex.test(target), false);
     });
 
     test("Regex-Literals: Case27", () => {
@@ -272,9 +272,9 @@ const testMain = () => {
         // @BUG: should throw error i.e., SyntaxError: Invalid regular expression: []: Empty Character class
         // let regex = /[]/u;
         let regex = /[]/;
-        const target = "[]";
+        const target = "";
         console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        assert.strictEqual(regex.test(target), false);
     });
 
     // test("Regex-Literals: Case28", () => {
@@ -510,6 +510,46 @@ const testMain = () => {
     //     // let regex = /a^sian/;
     //     let regex = /\0988/u;
     //     const target = "abba";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case018", () => {
+        // let regex = /a^sian/;
+        let regex = /\\a/;
+        const target = "\\a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case019", () => {
+        // let regex = /a^sian/;
+        let regex = /\_/;
+        const target = "_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case020", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\_/u;
+    //     const target = "_";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case021", () => {
+        // let regex = /a^sian/;
+        let regex = /\!/;
+        const target = "!";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case022", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /\!/u;
+    //     const target = "!";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
