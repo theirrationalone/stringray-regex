@@ -648,4 +648,63 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\u/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase27() public pure {
+        string memory target = "anything";
+
+        // @NOTE: Doesn't either Throw error or fail silently.
+        // Exclusive to solidity, not in Js whatsoever, Js makes it silently fail [returns null or false accordingly]
+        // In solidity, \c matches with c literal
+        string memory pattern = unicode"/\\c/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase28() public pure {
+        string memory target = "anything";
+        // @NOTE: Common in both Solidity & Js, Throws error
+        string memory pattern = unicode"/\\c/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase29() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\cA/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase30() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\cA/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase31() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\ca/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase32() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\ca/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase33() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\c1/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase34() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\c1/u";
+        target.regex(pattern);
+    }
 }

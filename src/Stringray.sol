@@ -17754,7 +17754,16 @@ library Stringray {
                 if (isValid) {
                     return (true, lastMatchedIndex);
                 } else {
-                    return (true, _currentParticleIndex);
+                    if (uint8(_patternFlag) == SMALL_u) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid Unicode Escape"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+
+                    return (true, _currentParticleIndex + 1);
                 }
             }
 
