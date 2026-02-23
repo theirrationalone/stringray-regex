@@ -650,20 +650,84 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Regex-Literals-escape_seqs: Case035", () => {
+    // test("Regex-Literals-escape_seqs: Case035", () => {
+    //     let regex = /\u{23,20}/;
+    //     const target = "uuuuu";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case036", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{230,240}/;
+        const target = "uuuuuuuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Regex-Literals-escape_seqs: Case037", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{2}/;
+        const target = "uuuuuuuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case038", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{2,}/;
+        const target = "uuuuuuuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case039", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{,23335}/;
+        const target = "u{,23335}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case040", () => {
+        // let regex = /a^sian/;
         let regex = /\u{,}/;
         const target = "u{,}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Regex-Literals-escape_seqs: Case035", () => {
+    test("Regex-Literals-escape_seqs: Case041", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{}/;
+        const target = "uuuuuuuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Regex-Literals-escape_seqs: Case042", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{1}/;
+        const target = "u";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case043", () => {
     //     // let regex = /a^sian/;
-    //     let regex = /\u{110000}/u;
-    //     const target = "\u{110000}";
+    //     let regex = /{1}/;
+    //     const target = "uuuuuuuuuu";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Regex-Literals-escape_seqs: Case044", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{1:1}/;
+        const target = "u{1:1}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
