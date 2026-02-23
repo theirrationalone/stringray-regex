@@ -1838,10 +1838,6 @@ library Stringray {
         pure
         returns (bool, bytes32, uint256)
     {
-        bool greedyQuantifier;
-        bytes32 quantifierType = _lastAtomType;
-        uint256 lastIndex = _currentParticleIdx;
-
         if (uint8(_pattern[_currentParticleIdx]) == ASTERISK) {
             return (true, ASTERISK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
         }
@@ -1879,11 +1875,22 @@ library Stringray {
         uint256 commaIndex;
 
         for (uint256 i = _currentParticleIdx + 1; i <= _pattern.length - 1; i++) {
+            if (
+                !isDigit(_pattern[i], false) && uint8(_pattern[i]) != COMMA_SIGN
+                    && uint8(_pattern[i]) != CLOSE_CURLY_BRACE
+            ) {
+                return (false, bytes32(0), 0);
+            }
+
             if (isDigit(_pattern[i], false)) {
                 continue;
             }
 
             if (uint8(_pattern[i]) == COMMA_SIGN) {
+                if (uint8(_pattern[i - 1]) == OPEN_CURLY_BRACE) {
+                    return (false, bytes32(0), 0);
+                }
+
                 commaFlag = true;
                 commaIndex = i;
             }
@@ -1900,8 +1907,11 @@ library Stringray {
                 bytes memory commaLeft = trimString(_pattern, _currentParticleIdx + 1, int256(commaIndex - 1));
                 bytes memory commaRight = trimString(_pattern, commaIndex + 1, int256(i - 1));
 
-                uint256 leftRange = hexToDec(commaLeft, 4, true);
-                uint256 rightRange = hexToDec(commaRight, 4, true);
+                console2.log("commaLeft: ", string(commaLeft));
+                console2.log("commaRight: ", string(commaRight));
+
+                uint256 leftRange = stringDigitToDecDigit(commaLeft);
+                uint256 rightRange = stringDigitToDecDigit(commaRight);
 
                 console2.log("leftRange: ", leftRange);
                 console2.log("rightRange: ", rightRange);
@@ -1920,6 +1930,8 @@ library Stringray {
                 return (true, N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM, i);
             }
         }
+
+        return (false, bytes32(0), 0);
     }
 
     function validateRegex(string memory _pattern) private pure {
@@ -18514,6 +18526,47 @@ library Stringray {
         return (false, 0);
     }
 
+    function stringDigitToDecDigit(bytes memory _hexString) internal pure returns (uint256) {
+        uint256 hexStringLastIndex = _hexString.length - 1;
+        bytes memory hexFullBinary;
+
+        for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
+            bytes memory binary = hexToBinary(_hexString[hi], 4, true);
+            hexFullBinary = abi.encodePacked(binary, hexFullBinary);
+            if (hi == 0) break;
+        }
+
+        return binToDecDigit(hexFullBinary);
+    }
+
+    function binToDecDigit(bytes memory binary) private pure returns (uint256) {
+        uint256 binExp;
+        uint256 decExp;
+        uint256 binBase = 2;
+        uint256 decBase = 10;
+        uint256 binCount;
+        uint256 binDec;
+        uint256 decimal;
+
+        for (uint256 bi = binary.length - 1; bi >= 0; bi--) {
+            binCount++;
+            binDec += binary[bi] == 0x30 ? 0 : binBase ** binExp;
+            if (binCount == 4) {
+                decimal = decimal + (binDec * (decBase ** decExp));
+                if (bi == 0) break;
+                binDec = 0;
+                binCount = 0;
+                binExp = 0;
+                decExp++;
+                continue;
+            }
+            if (bi == 0) break;
+            binExp++;
+        }
+
+        return decimal;
+    }
+
     function hexToDec(bytes memory _hexString, uint8 numBits, bool isInterpolated) internal pure returns (uint256) {
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
@@ -18523,6 +18576,7 @@ library Stringray {
             hexFullBinary = abi.encodePacked(binary, hexFullBinary);
             if (hi == 0) break;
         }
+
         return binToDec(hexFullBinary);
     }
 

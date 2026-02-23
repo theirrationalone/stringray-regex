@@ -651,8 +651,8 @@ const testMain = () => {
     // });
 
     test("Regex-Literals-escape_seqs: Case035", () => {
-        let regex = /\u{}/;
-        const target = "u{}";
+        let regex = /\u{,}/;
+        const target = "u{,}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });

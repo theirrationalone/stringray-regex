@@ -15637,6 +15637,14 @@ contract PlayStringTest is Test {
         console2.logBytes(utf8ModifierCombiningMark08F3);
     }
 
+    function testNewExp() public pure {
+        string memory terminalPunctuation113 = "\\u{1039F}";
+        bytes memory utf8TerminalPunctuation113 =
+            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(terminalPunctuation113));
+        console2.log("1039F: ", string(utf8TerminalPunctuation113));
+        console2.logBytes(utf8TerminalPunctuation113);
+    }
+
     function testRegexutf8HexToUnicodeHexCases() public {
         DummyContract dContract = new DummyContract();
         dContract.regexUtf8HexToUnicodeHex2BytesCase1();
