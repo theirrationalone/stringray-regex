@@ -553,6 +553,22 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Regex-Literals-escape_seqs: Case023", () => {
+        // let regex = /a^sian/;
+        let regex = /\u{1F600}/;
+        const target = "\\u{1F600}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case024", () => {
+        // let regex = /a^sian/;
+        let regex = /\u/;
+        const target = "u";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();

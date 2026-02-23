@@ -18006,7 +18006,7 @@ library Stringray {
     {
         uint256 patternLastIndex = _pattern.length - 1;
 
-        if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
+        if (_indexToStartFrom + 2 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
             // @info: BUG: OVERFLOW BUG resides in this function.
             // @status: Resolved!
             if (
