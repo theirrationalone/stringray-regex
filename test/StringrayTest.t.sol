@@ -777,4 +777,67 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\u{1:1}/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase45() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u1234/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase46() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u123/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase47() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u1234/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase48() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u123/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase49() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u12345/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase50() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u1/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase51() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u12/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase52() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u1/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase53() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u12/u";
+        target.regex(pattern);
+    }
 }

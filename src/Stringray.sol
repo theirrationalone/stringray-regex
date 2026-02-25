@@ -17735,7 +17735,7 @@ library Stringray {
             uint256 lastMatchedIndex;
 
             if (_nextChar == uint8(abi.encodePacked("u")[0])) {
-                if (uint8(_patternFlag) != SMALL_u) {
+                if (uint8(_patternFlag) != SMALL_u && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
                     return (true, _currentParticleIndex + 1);
                 }
 
