@@ -17774,6 +17774,10 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
+                if (uint8(_patternFlag) != SMALL_u) {
+                    return (true, _currentParticleIndex + 1);
+                }
+
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {
@@ -17913,7 +17917,9 @@ library Stringray {
                     && uint8(_pattern[_indexToStartFrom + 3]) == CLOSE_CURLY_BRACE
             ) {
                 string memory errorMsg = string(
-                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid property name")
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: /", _pattern, ":/u Invalid property name"
+                    )
                 );
                 revert(errorMsg);
             }
@@ -18139,21 +18145,26 @@ library Stringray {
 
         if (propertyNameEndIdx == 0) {
             string memory errorMsg = string(
-                abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid property name")
+                abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
             );
             revert(errorMsg);
         }
 
         bytes memory propertyName = trimString(_pattern, _indexToStartFrom, int256(propertyNameEndIdx));
 
-        if (propertyName.length < 2) {
-            return (false, 0);
-        }
+        // if (propertyName.length < 2) {
+        //     return (false, 0);
+        // }
 
         bool isValidProperty = validatePropertyName(propertyName);
 
         if (isValidProperty) {
             return (true, propertyNameEndIdx + 1);
+        } else {
+            string memory errorMsg = string(
+                abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
+            );
+            revert(errorMsg);
         }
 
         return (false, 0);

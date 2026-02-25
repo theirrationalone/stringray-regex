@@ -840,4 +840,63 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\u12/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase54() public pure {
+        string memory target = "anything";
+
+        // @NOTE: Throws different error msg than Js therefore (exclusive to solidity)
+        string memory pattern = unicode"/[abc/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase55() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(abc/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase56() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(?<1>a)/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase57() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(?<a-b>a)/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase58() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\k<a>/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase59() public pure {
+        string memory target = "anything";
+
+        // @BUG found
+        // @Status: not resolved
+        string memory pattern = unicode"/\\k<a>/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase60() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{L}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase61() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{XYZ}/";
+        target.regex(pattern);
+    }
 }

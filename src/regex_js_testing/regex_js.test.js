@@ -812,7 +812,7 @@ const testMain = () => {
     // test("Regex-Literals-escape_seqs: Case055", () => {
     //     // let regex = /a^sian/;
     //     let regex = /(abc/;
-    //     const target = "[abc";
+    //     const target = "(abc";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
@@ -857,13 +857,13 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Regex-Literals-escape_seqs: Case061", () => {
-    //     // let regex = /a^sian/;
-    //     let regex = /\p{XYZ}/u;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Regex-Literals-escape_seqs: Case061", () => {
+        // let regex = /a^sian/;
+        let regex = /\p{XYZ}/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
