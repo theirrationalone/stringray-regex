@@ -17435,6 +17435,9 @@ library Stringray {
 
                 // console2.log("passed second if check!");
 
+                // @BUG: if there're more than one digit, logic fails then!
+                // @status: not resolved!
+
                 if (
                     uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
                         && uint8(_pattern[patternNRangeMaxIndex]) != COMMA_SIGN

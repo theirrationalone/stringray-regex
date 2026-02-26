@@ -880,6 +880,14 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Regex-Literals-escape_seqs: Case064", () => {
+        // let regex = /a^sian/;
+        let regex = /{122222}/;
+        const target = "{122222}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();

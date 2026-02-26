@@ -913,4 +913,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\p{XYZ}/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase64() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{122222}/";
+        target.regex(pattern);
+    }
 }
