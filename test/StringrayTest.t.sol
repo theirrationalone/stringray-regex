@@ -1060,4 +1060,60 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/1234,24}/u";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase85() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase86() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase87() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{=LETTER}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase88() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{=LETTER}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase89() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{g=LETTER}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase90() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{g=LETTER}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase91() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{gc=Letter}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase92() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{gc=Letter}/u";
+        target.regex(pattern);
+    }
 }

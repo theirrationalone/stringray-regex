@@ -17458,8 +17458,12 @@ library Stringray {
             uint256 lastMatchedIndex;
 
             if (_nextChar == uint8(abi.encodePacked("u")[0])) {
-                if (uint8(_patternFlag) != SMALL_u && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE) {
-                    return (true, _currentParticleIndex + 1);
+                if (_currentParticleIndex + 2 <= _pattern.length - 1) {
+                    if (
+                        uint8(_patternFlag) != SMALL_u && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE
+                    ) {
+                        return (true, _currentParticleIndex + 1);
+                    }
                 }
 
                 (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
@@ -17497,10 +17501,6 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                // if (uint8(_patternFlag) != SMALL_u) {
-                //     return (true, _currentParticleIndex + 1);
-                // }
-
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {
@@ -17612,7 +17612,7 @@ library Stringray {
             // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
             // @status: resolved
 
-            // @path: below LoC
+            // @patch: below LoC
             if (i == patternLastIndex && isDigit(_pattern[i], false)) {
                 return (true, i);
             }
@@ -17870,18 +17870,15 @@ library Stringray {
 
         // console2.log("property name end index: ", propertyNameEndIdx);
 
-        if (propertyNameEndIdx == 0) {
-            string memory errorMsg = string(
-                abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
-            );
-            revert(errorMsg);
-        }
+        // @note: impossible to hit below LoC chunk
+        // if (propertyNameEndIdx == 0) {
+        //     string memory errorMsg = string(
+        //         abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
+        //     );
+        //     revert(errorMsg);
+        // }
 
         bytes memory propertyName = trimString(_pattern, _indexToStartFrom, int256(propertyNameEndIdx));
-
-        // if (propertyName.length < 2) {
-        //     return (false, 0);
-        // }
 
         bool isValidProperty = validatePropertyName(propertyName);
 
