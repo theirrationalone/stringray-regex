@@ -17376,6 +17376,7 @@ library Stringray {
                 );
                 revert(errorMsg);
             }
+
             return (true, lastMatchedIndex);
         }
 
@@ -17417,11 +17418,6 @@ library Stringray {
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (_targetChar == OPEN_CURLY_BRACE) {
-            uint256 patternNAndMRangeMaxIndex = _currentParticleIndex + 4;
-            uint256 patternNAndInfinityRangeMaxIndex = _currentParticleIndex + 3;
-            uint256 patternNRangeMaxIndex = _currentParticleIndex + 2;
-            uint256 nextParticleIndex = _currentParticleIndex + 1;
-
             if (_currentParticleIndex == patternLastIndex) {
                 return (true, _currentParticleIndex);
             }
@@ -17432,7 +17428,7 @@ library Stringray {
                         || uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN
                         || !isDigit(_pattern[_currentParticleIndex + 1], false)
                 ) {
-                    return (true, _currentParticleIndex + 1);
+                    return (true, _currentParticleIndex);
                 }
 
                 bool commaFlag;
@@ -17448,12 +17444,14 @@ library Stringray {
                     }
 
                     if (uint8(_pattern[i]) == COMMA_SIGN && commaFlag) {
-                        return (true, )
+                        return (true, _currentParticleIndex);
                     }
 
                     if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
                         return (false, 0);
                     }
+
+                    return (true, _currentParticleIndex);
                 }
             }
 
@@ -17513,6 +17511,8 @@ library Stringray {
             // } else {
             //     return (true, _currentParticleIndex);
             // }
+
+            return (true, _currentParticleIndex);
         }
 
         return (false, 0);
