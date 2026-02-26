@@ -924,21 +924,140 @@ contract PlayStringTest is Test {
     function testRegexLiteralsEscapeSeqsCase65() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/{/";
+        string memory pattern = unicode"/{}/";
         target.regex(pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase66() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/{/u";
+        string memory pattern = unicode"/{}/u";
         target.regex(pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase67() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/{}/u";
+        string memory pattern = unicode"/{/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase68() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase69() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{,11}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase70() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{,11}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase71() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase72() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase73() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase74() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase75() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/143242/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase76() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/143242/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase77() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase78() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase79() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/123424}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase80() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/123424}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase81() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1234,24/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase82() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1234,24/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase83() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1234,24}/";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase84() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/1234,24}/u";
         target.regex(pattern);
     }
 }

@@ -931,8 +931,120 @@ const testMain = () => {
 
     // test("Regex-Literals-escape_seqs: Case070", () => {
     //     // let regex = /a^sian/;
+    //     let regex = /{,11}/u;
+    //     const target = "{,11}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case071", () => {
+        // let regex = /a^sian/;
+        let regex = /}/;
+        const target = "}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case072", () => {
+    //     // let regex = /a^sian/;
     //     let regex = /}/u;
     //     const target = "}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case073", () => {
+        // let regex = /a^sian/;
+        let regex = /1/;
+        const target = "1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case074", () => {
+        // let regex = /a^sian/;
+        let regex = /1/u;
+        const target = "1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case075", () => {
+        // let regex = /a^sian/;
+        let regex = /143242/;
+        const target = "143242";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case076", () => {
+        // let regex = /a^sian/;
+        let regex = /143242/u;
+        const target = "143242";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case077", () => {
+        // let regex = /a^sian/;
+        let regex = /1}/;
+        const target = "1}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case078", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /1}/u;
+    //     const target = "1}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case079", () => {
+        // let regex = /a^sian/;
+        let regex = /123424}/;
+        const target = "123424}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case080", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /123424}/u;
+    //     const target = "123424}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case081", () => {
+        // let regex = /a^sian/;
+        let regex = /1234,24/;
+        const target = "1234,24";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case082", () => {
+        // let regex = /a^sian/;
+        let regex = /1234,24/u;
+        const target = "1234,24";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case083", () => {
+        // let regex = /a^sian/;
+        let regex = /1234,24}/;
+        const target = "1234,24}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case084", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /1234,24}/u;
+    //     const target = "1234,24}";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });

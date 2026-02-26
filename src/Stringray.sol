@@ -1301,6 +1301,14 @@ library Stringray {
             }
         }
 
+        if (!flag) {
+            if (isDigit(targetChar, false)) {
+                flag = true;
+                atomType = LITERAL_ATOM;
+                lastMatchedParticleIndex = _currentParticleIdx;
+            }
+        }
+
         // console2.log("---In isLiteralAtom---");
         // console2.log("flag: ", flag);
         // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
@@ -17365,7 +17373,7 @@ library Stringray {
         bool isValid;
         uint256 lastMatchedIndex;
 
-        (isValid, lastMatchedIndex) = isOpenCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
+        (isValid, lastMatchedIndex) = isCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
             if (uint8(_patternFlag) == SMALL_u) {
@@ -17377,39 +17385,13 @@ library Stringray {
                 revert(errorMsg);
             }
 
-            return (true, lastMatchedIndex);
-        }
-
-        (isValid, lastMatchedIndex) = isDigitOfRangeEscape(_pattern, _currentParticleIndex);
-
-        if (isValid) {
-            return (true, lastMatchedIndex);
-        }
-
-        // (isValid, lastMatchedIndex) = isCommaOfRangeEscape(_pattern, _currentParticleIndex, _patternFlag);
-
-        // if (isValid) {
-        //     return (true, lastMatchedIndex);
-        // }
-
-        (isValid, lastMatchedIndex) = isCloseCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
-
-        if (isValid) {
-            if (uint8(_patternFlag) == SMALL_u) {
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
-                    )
-                );
-                revert(errorMsg);
-            }
             return (true, lastMatchedIndex);
         }
 
         return (false, 0);
     }
 
-    function isOpenCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
         returns (bool, uint256)
@@ -17455,302 +17437,11 @@ library Stringray {
                 }
             }
 
-            // if (_currentParticleIndex + 2 <= patternLastIndex) {
-            //     if (!isDigit(_pattern[_currentParticleIndex + 1], false)) {
-            //         return (true, _currentParticleIndex);
-            //     }
-
-            //     // console2.log("passed second if check!");
-
-            //     // @BUG: if there're more than one digit, logic fails then!
-            //     // @status: not resolved!
-
-            //     if (
-            //         uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
-            //             && uint8(_pattern[_currentParticleIndex + 2]) != COMMA_SIGN
-            //     ) {
-            //         return (true, _currentParticleIndex);
-            //     }
-
-            //     if (uint8(_pattern[_currentParticleIndex + 2]) == CLOSE_CURLY_BRACE) {
-            //         return (false, 0);
-            //     }
-
-            //     // console2.log("passed third if check!");
-
-            //     if (uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN) {
-            //         if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
-            //             if (
-            //                 !isDigit(_pattern[patternNAndInfinityRangeMaxIndex], false)
-            //                     && uint8(_pattern[patternNAndInfinityRangeMaxIndex]) != CLOSE_CURLY_BRACE
-            //             ) {
-            //                 return (true, _currentParticleIndex);
-            //             }
-
-            //             if (uint8(_pattern[patternNAndInfinityRangeMaxIndex]) == CLOSE_CURLY_BRACE) {
-            //                 return (false, 0);
-            //             }
-
-            //             if (isDigit(_pattern[patternNAndInfinityRangeMaxIndex], false)) {
-            //                 if (patternNAndMRangeMaxIndex <= patternLastIndex) {
-            //                     if (uint8(_pattern[patternNAndMRangeMaxIndex]) != CLOSE_CURLY_BRACE) {
-            //                         return (true, _currentParticleIndex);
-            //                     } else {
-            //                         return (false, 0);
-            //                     }
-            //                 } else {
-            //                     return (true, _currentParticleIndex);
-            //                 }
-            //             }
-            //         } else {
-            //             return (true, _currentParticleIndex);
-            //         }
-            //     }
-
-            //     // console2.log("passed fourth if check!");
-            // } else {
-            //     return (true, _currentParticleIndex);
-            // }
-
             return (true, _currentParticleIndex);
         }
 
-        return (false, 0);
-    }
-
-    function isDigitOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        uint256 patternLastIndex = _pattern.length - 1;
-
-        if (isDigit(_pattern[_currentParticleIndex], false)) {
-            if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
-                return (true, _currentParticleIndex);
-            }
-
-            if (_currentParticleIndex > 0 && _currentParticleIndex < patternLastIndex) {
-                if (
-                    uint8(_pattern[_currentParticleIndex - 1]) != OPEN_CURLY_BRACE
-                        && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
-                ) {
-                    return (true, _currentParticleIndex);
-                }
-
-                if (uint8(_pattern[_currentParticleIndex - 1]) == OPEN_CURLY_BRACE) {
-                    if (_currentParticleIndex + 1 <= patternLastIndex) {
-                        if (
-                            uint8(_pattern[_currentParticleIndex + 1]) != COMMA_SIGN
-                                && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
-                        ) {
-                            return (true, _currentParticleIndex);
-                        }
-
-                        if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
-                            return (false, 0);
-                        }
-
-                        if (uint8(_pattern[_currentParticleIndex + 1]) == COMMA_SIGN) {
-                            if (_currentParticleIndex + 2 <= patternLastIndex) {
-                                if (
-                                    !isDigit(_pattern[_currentParticleIndex + 2], false)
-                                        && uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
-                                ) {
-                                    return (true, _currentParticleIndex);
-                                }
-
-                                if (uint8(_pattern[_currentParticleIndex + 2]) == CLOSE_CURLY_BRACE) {
-                                    return (false, 0);
-                                }
-
-                                if (isDigit(_pattern[_currentParticleIndex + 2], false)) {
-                                    if (_currentParticleIndex + 3 <= patternLastIndex) {
-                                        if (uint8(_pattern[_currentParticleIndex + 3]) != CLOSE_CURLY_BRACE) {
-                                            return (true, _currentParticleIndex);
-                                        } else {
-                                            return (false, 0);
-                                        }
-                                    } else {
-                                        return (true, _currentParticleIndex);
-                                    }
-                                }
-                            } else {
-                                return (true, _currentParticleIndex);
-                            }
-                        }
-                    } else {
-                        return (true, _currentParticleIndex);
-                    }
-                }
-
-                if (
-                    uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN
-                        && (_currentParticleIndex + 1 <= patternLastIndex
-                            && uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE)
-                ) {
-                    if (_currentParticleIndex > 1) {
-                        if (!isDigit(_pattern[_currentParticleIndex - 2], false)) {
-                            return (true, _currentParticleIndex);
-                        }
-
-                        if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
-                            if (_currentParticleIndex > 2) {
-                                if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
-                                    return (true, _currentParticleIndex);
-                                } else {
-                                    return (false, 0);
-                                }
-                            } else {
-                                return (true, _currentParticleIndex);
-                            }
-                        }
-                    } else {
-                        return (true, _currentParticleIndex);
-                    }
-                } else {
-                    return (true, _currentParticleIndex);
-                }
-            }
-        }
-
-        return (false, 0);
-    }
-
-    // @info: dEaD and verbose function
-    function isCommaOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
-        uint256 patternLastIndex = _pattern.length - 1;
-
-        if (_targetChar == COMMA_SIGN) {
-            if (_currentParticleIndex == 0 || _currentParticleIndex == patternLastIndex) {
-                return (true, _currentParticleIndex);
-            }
-
-            if (_currentParticleIndex > 0) {
-                if (!isDigit(_pattern[_currentParticleIndex - 1], false)) {
-                    return (true, _currentParticleIndex);
-                }
-
-                // if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
-                if (_currentParticleIndex > 1) {
-                    if (uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE) {
-                        return (true, _currentParticleIndex);
-                    }
-                } else {
-                    return (true, _currentParticleIndex);
-                }
-
-                if (_currentParticleIndex + 1 <= patternLastIndex) {
-                    if (
-                        !isDigit(_pattern[_currentParticleIndex + 1], false)
-                            && uint8(_pattern[_currentParticleIndex + 1]) != CLOSE_CURLY_BRACE
-                    ) {
-                        return (true, _currentParticleIndex);
-                    }
-
-                    if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_CURLY_BRACE) {
-                        return (false, 0);
-                    }
-
-                    // if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
-                    if (_currentParticleIndex + 2 <= patternLastIndex) {
-                        if (uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE) {
-                            return (true, _currentParticleIndex);
-                        }
-                        return (false, 0);
-                    } else {
-                        return (true, _currentParticleIndex);
-                    }
-                    // }
-                } else {
-                    return (true, _currentParticleIndex);
-                }
-                // }
-            }
-        }
-        return (false, 0);
-    }
-
-    function isCloseCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        uint8 _targetChar = uint8(_pattern[_currentParticleIndex]);
-
         if (_targetChar == CLOSE_CURLY_BRACE) {
-            if (_currentParticleIndex == 0) {
-                return (true, _currentParticleIndex);
-            }
-
-            if (_currentParticleIndex > 0) {
-                if (
-                    !isDigit(_pattern[_currentParticleIndex - 1], false)
-                        && uint8(_pattern[_currentParticleIndex - 1]) != COMMA_SIGN
-                ) {
-                    return (true, _currentParticleIndex);
-                }
-
-                if (_currentParticleIndex > 1) {
-                    if (isDigit(_pattern[_currentParticleIndex - 1], false)) {
-                        if (
-                            uint8(_pattern[_currentParticleIndex - 2]) != COMMA_SIGN
-                                && uint8(_pattern[_currentParticleIndex - 2]) != OPEN_CURLY_BRACE
-                        ) {
-                            return (true, _currentParticleIndex);
-                        }
-
-                        if (uint8(_pattern[_currentParticleIndex - 2]) == OPEN_CURLY_BRACE) {
-                            return (false, 0);
-                        }
-
-                        if (uint8(_pattern[_currentParticleIndex - 2]) == COMMA_SIGN) {
-                            if (_currentParticleIndex > 2) {
-                                if (!isDigit(_pattern[_currentParticleIndex - 3], false)) {
-                                    return (true, _currentParticleIndex);
-                                }
-
-                                // if (isDigit(_pattern[_currentParticleIndex - 3], false)) {
-                                if (_currentParticleIndex > 3) {
-                                    if (uint8(_pattern[_currentParticleIndex - 4]) != OPEN_CURLY_BRACE) {
-                                        return (true, _currentParticleIndex);
-                                    } else {
-                                        return (false, 0);
-                                    }
-                                } else {
-                                    return (true, _currentParticleIndex);
-                                }
-                                // }
-                            } else {
-                                return (true, _currentParticleIndex);
-                            }
-                        }
-                    }
-
-                    if (uint8(_pattern[_currentParticleIndex - 1]) == COMMA_SIGN) {
-                        if (!isDigit(_pattern[_currentParticleIndex - 2], false)) {
-                            return (true, _currentParticleIndex);
-                        }
-
-                        // if (isDigit(_pattern[_currentParticleIndex - 2], false)) {
-                        if (_currentParticleIndex > 2) {
-                            if (uint8(_pattern[_currentParticleIndex - 3]) != OPEN_CURLY_BRACE) {
-                                return (true, _currentParticleIndex);
-                            }
-                        } else {
-                            return (true, _currentParticleIndex);
-                        }
-                        // }
-                    }
-                } else {
-                    return (true, _currentParticleIndex);
-                }
-            }
+            return (true, _currentParticleIndex);
         }
 
         return (false, 0);
