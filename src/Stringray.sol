@@ -17368,14 +17368,14 @@ library Stringray {
         (isValid, lastMatchedIndex) = isOpenCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
-            if (uint8(_patternFlag) == SMALL_u) {
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
-                    )
-                );
-                revert(errorMsg);
-            }
+            // if (uint8(_patternFlag) == SMALL_u) {
+            //     string memory errorMsg = string(
+            //         abi.encodePacked(
+            //             "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
+            //         )
+            //     );
+            //     revert(errorMsg);
+            // }
             return (true, lastMatchedIndex);
         }
 
@@ -17426,10 +17426,22 @@ library Stringray {
                 return (true, _currentParticleIndex);
             }
 
-            // console2.log("passed first if check!");
+            if (_currentParticleIndex + 1 <= patternLastIndex) {
+                if (!isDigit(_pattern[_currentParticleIndex + 1], false)) {
+                    return (true, _currentParticleIndex);
+                }
 
-            if (patternNRangeMaxIndex <= patternLastIndex) {
-                if (!isDigit(_pattern[nextParticleIndex], false)) {
+                for (uint256 i = _currentParticleIndex + 2; i <= patternLastIndex; i++) {
+                    if (isDigit(_pattern[i], false)) {
+                        continue;
+                    }
+
+                    if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {}
+                }
+            }
+
+            if (_currentParticleIndex + 2 <= patternLastIndex) {
+                if (!isDigit(_pattern[_currentParticleIndex + 1], false)) {
                     return (true, _currentParticleIndex);
                 }
 
@@ -17439,19 +17451,19 @@ library Stringray {
                 // @status: not resolved!
 
                 if (
-                    uint8(_pattern[patternNRangeMaxIndex]) != CLOSE_CURLY_BRACE
-                        && uint8(_pattern[patternNRangeMaxIndex]) != COMMA_SIGN
+                    uint8(_pattern[_currentParticleIndex + 2]) != CLOSE_CURLY_BRACE
+                        && uint8(_pattern[_currentParticleIndex + 2]) != COMMA_SIGN
                 ) {
                     return (true, _currentParticleIndex);
                 }
 
-                if (uint8(_pattern[patternNRangeMaxIndex]) == CLOSE_CURLY_BRACE) {
+                if (uint8(_pattern[_currentParticleIndex + 2]) == CLOSE_CURLY_BRACE) {
                     return (false, 0);
                 }
 
                 // console2.log("passed third if check!");
 
-                if (uint8(_pattern[patternNRangeMaxIndex]) == COMMA_SIGN) {
+                if (uint8(_pattern[_currentParticleIndex + 2]) == COMMA_SIGN) {
                     if (patternNAndInfinityRangeMaxIndex <= patternLastIndex) {
                         if (
                             !isDigit(_pattern[patternNAndInfinityRangeMaxIndex], false)

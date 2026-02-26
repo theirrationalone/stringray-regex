@@ -881,10 +881,58 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Regex-Literals-escape_seqs: Case064", () => {
+    // test("Regex-Literals-escape_seqs: Case064", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /{122222}/;
+    //     const target = "{122222}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case065", () => {
         // let regex = /a^sian/;
-        let regex = /{122222}/;
-        const target = "{122222}";
+        let regex = /{}/;
+        const target = "{}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case066", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /{}/u;
+    //     const target = "{}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case067", () => {
+        // let regex = /a^sian/;
+        let regex = /{/;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals-escape_seqs: Case068", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /{/u;
+    //     const target = "{";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals-escape_seqs: Case069", () => {
+        // let regex = /a^sian/;
+        let regex = /}/;
+        const target = "}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals-escape_seqs: Case070", () => {
+        // let regex = /a^sian/;
+        let regex = /}/u;
+        const target = "}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
