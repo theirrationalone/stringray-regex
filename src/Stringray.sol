@@ -1175,6 +1175,7 @@ library Stringray {
                 atomType = LITERAL_ATOM;
                 bool isOctal = true;
 
+                // @note: bad design choice
                 if (
                     _currentParticleIdx + 1 <= lastMatchedParticleIndex
                         && isDigit(_pattern[_currentParticleIdx + 1], false)
@@ -17522,7 +17523,7 @@ library Stringray {
 
             if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
                 // @BUG: octal validation functionality missing
-                // @status: not resolved
+                // @status: resolved
                 (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
 
                 if (isValid) {
