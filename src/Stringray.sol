@@ -17774,9 +17774,9 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                if (uint8(_patternFlag) != SMALL_u) {
-                    return (true, _currentParticleIndex + 1);
-                }
+                // if (uint8(_patternFlag) != SMALL_u) {
+                //     return (true, _currentParticleIndex + 1);
+                // }
 
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
@@ -17786,6 +17786,10 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("p")[0]) || _nextChar == uint8(abi.encodePacked("P")[0])) {
+                if (uint8(_patternFlag) != SMALL_u) {
+                    return (true, _currentParticleIndex + 1);
+                }
+
                 (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {

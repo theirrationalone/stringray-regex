@@ -859,8 +859,8 @@ const testMain = () => {
 
     test("Regex-Literals-escape_seqs: Case061", () => {
         // let regex = /a^sian/;
-        let regex = /\p{XYZ}/u;
-        const target = "a";
+        let regex = /\p{XYZ}/;
+        const target = "p{XYZ}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
