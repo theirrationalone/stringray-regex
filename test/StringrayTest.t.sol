@@ -899,4 +899,18 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/\\p{XYZ}/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase62() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{L}/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase63() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\p{XYZ}/u";
+        target.regex(pattern);
+    }
 }

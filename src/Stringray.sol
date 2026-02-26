@@ -18202,7 +18202,13 @@ library Stringray {
 
         propertyValueHash = keccak256(propertyName);
 
-        return isBinaryValue(propertyValueHash);
+        if (!isGeneralCategoryValue(propertyValueHash)) {
+            if (!isScriptValue(propertyValueHash)) {
+                return isBinaryValue(propertyValueHash);
+            }
+        }
+
+        return true;
     }
 
     function isGeneralCategoryValue(bytes32 propertyValueHash) private pure returns (bool) {
