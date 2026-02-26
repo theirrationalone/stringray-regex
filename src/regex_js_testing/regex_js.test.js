@@ -1112,6 +1112,468 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+    
+    // test("Character Classes[]: Case0001", () => {
+    //     let regex = /[]/;
+    //     const target = "\x00";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case0002", () => {
+    //     let regex = /[]/u;
+    //     const target = "\x00";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case0003", () => {
+        let regex = /[.]/;
+        const target = ".";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case0004", () => {
+        let regex = /[.]/u;
+        const target = ".";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case0005", () => {
+        let regex = /[abc123_,:;!@#%&(){}? ]/;
+        const target = "abc123_,:;!@#%&(){}? ";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case0006", () => {
+        let regex = /[abc123_,:;!@#%&(){}? ]/u;
+        const target = "abc123_,:;!@#%&(){}? ";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case0007", () => {
+    //     let regex = /[abc/;
+    //     const target = "[abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case0008", () => {
+    //     let regex = /[abc/u;
+    //     const target = "[abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case0009", () => {
+        let regex = /[^]/;
+        const target = "z";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00010", () => {
+        let regex = /[^]/u;
+        const target = "z";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00011", () => {
+        let regex = /[a-z]/;
+        const target = "q";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00012", () => {
+        let regex = /[a-z]/u;
+        const target = "q";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00013", () => {
+    //     let regex = /[z-a]/;
+    //     const target = "q";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00014", () => {
+    //     let regex = /[z-a]/u;
+    //     const target = "q";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00015", () => {
+        let regex = /[a-\d]/;
+        const target = "[a-\d]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // tes`t("Character Classes[]: Case00016", () => {
+    //     let regex = /[z-\d]/u;
+    //     const target = "[a-\d]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00017", () => {
+        let regex = /[\d-a]/;
+        const target = "[\d-a]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00018", () => {
+    //     let regex = /[\d-a]/u;
+    //     const target = "[\d-a]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00019", () => {
+        let regex = /[a-\w]/;
+        const target = "[a-\w]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00020", () => {
+    //     let regex = /[z-\w]/u;
+    //     const target = "[a-\w]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00021", () => {
+        let regex = /[\w-a]/;
+        const target = "[\w-a]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00022", () => {
+    //     let regex = /[\w-a]/u;
+    //     const target = "[\w-a]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00023", () => {
+        let regex = /[\w-\d]/;
+        const target = "[\w-\d]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00024", () => {
+    //     let regex = /[\w-\d]/u;
+    //     const target = "[\w-\d]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00025", () => {
+        let regex = /[\d-\w]/;
+        const target = "[\d-\w]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00026", () => {
+    //     let regex = /[\d-\w]/u;
+    //     const target = "[\d-\w]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00027", () => {
+        let regex = /[\d-\d]/;
+        const target = "[\d-\d]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00028", () => {
+    //     let regex = /[\d-\d]/u;
+    //     const target = "[\d-\d]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00029", () => {
+        let regex = /[\w-\w]/;
+        const target = "[\w-\w]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00030", () => {
+    //     let regex = /[\w-\w]/u;
+    //     const target = "[\w-\w]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00031", () => {
+        let regex = /[a-c-h]/;
+        // const target = "a"; // true
+        // const target = "b"; // true
+        // const target = "c"; // true
+        // const target = "-"; // true
+        // const target = "h"; // true
+        // const target = "d"; // false
+        // const target = "e"; // false
+        // const target = "f"; // false
+        // const target = "g"; // false
+        // const target = "i"; // false
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00032", () => {
+        let regex = /[a-c-h]/u;
+        // const target = "a"; // true
+        // const target = "b"; // true
+        // const target = "c"; // true
+        // const target = "-"; // true
+        // const target = "h"; // true
+        // const target = "d"; // false
+        // const target = "e"; // false
+        // const target = "f"; // false
+        // const target = "g"; // false
+        // const target = "i"; // false
+        const target = "b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00033", () => {
+        let regex = /[-a]/;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00034", () => {
+        let regex = /[-a]/u;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00035", () => {
+        let regex = /[a-]/;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00036", () => {
+        let regex = /[a-]/u;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00037", () => {
+    //     // @Note: - is smaller than a
+    //     let regex = /[a--z]/;
+    //     const target = "-";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00038", () => {
+    //     // @Note: - is smaller than a
+    //     let regex = /[a--z]/u;
+    //     const target = "-";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00039", () => {
+        // @Note: - is smaller than a
+        let regex = /[--a]/;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00040", () => {
+        // @Note: - is smaller than a
+        let regex = /[--a]/u;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00041", () => {
+        let regex = /[\8]/;
+        const target = "8";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00042", () => {
+    //     let regex = /[\8]/u;
+    //     const target = "8";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00043", () => {
+        let regex = /[\u123]/;
+        // const target = "u"; // true
+        // const target = "1"; // true
+        // const target = "2"; // true
+        // const target = "4"; // false
+        const target = "3";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00044", () => {
+    //     let regex = /[\u123]/u;
+    //     const target = "3";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00045", () => {
+        let regex = /[\u0123]/;
+        const target = "\u0123";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00046", () => {
+        let regex = /[\u0123]/u;
+        const target = "\u0123";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00047", () => {
+    //     let regex = /[\]/;
+    //     const target = "\\";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00048", () => {
+    //     let regex = /[\]/u;
+    //     const target = "\\";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00049", () => {
+        let regex = /[\0]/;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00050", () => {
+        let regex = /[\0]/u;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00051", () => {
+        let regex = /[\00]/;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00052", () => {
+    //     let regex = /[\00]/u;
+    //     const target = "\x00";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00053", () => {
+        let regex = /[\000]/;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00054", () => {
+    //     let regex = /[\000]/u;
+    //     const target = "\x00";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00055", () => {
+        let regex = /[\377]/;
+        const target = "\u00ff";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00056", () => {
+    //     let regex = /[\377]/u;
+    //     const target = "\u00ff";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00057", () => {
+        let regex = /[\1]/;
+        const target = "\u0001";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00058", () => {
+    //     let regex = /[\1]/u;
+    //     const target = "1";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00059", () => {
+        let regex = /(a)[\1]/;
+        const target = "a\x01";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00060", () => {
+    //     let regex = /(a)[\1]/u;
+    //     const target = "a\x01";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00061", () => {
+        let regex = /[\p{Letter}]/;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00062", () => {
+        let regex = /[\p{Letter}]/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
