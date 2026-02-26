@@ -920,4 +920,18 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/{122222}/";
         target.regex(pattern);
     }
+
+    function testRegexLiteralsEscapeSeqsCase65() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{/u";
+        target.regex(pattern);
+    }
+
+    function testRegexLiteralsEscapeSeqsCase66() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/{}/u";
+        target.regex(pattern);
+    }
 }

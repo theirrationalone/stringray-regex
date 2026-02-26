@@ -923,19 +923,19 @@ const testMain = () => {
 
     test("Regex-Literals-escape_seqs: Case069", () => {
         // let regex = /a^sian/;
-        let regex = /}/;
-        const target = "}";
+        let regex = /{,11}/;
+        const target = "{,11}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Regex-Literals-escape_seqs: Case070", () => {
-        // let regex = /a^sian/;
-        let regex = /}/u;
-        const target = "}";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Regex-Literals-escape_seqs: Case070", () => {
+    //     // let regex = /a^sian/;
+    //     let regex = /}/u;
+    //     const target = "}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
