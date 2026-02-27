@@ -1319,7 +1319,7 @@ library Stringray {
     }
 
     function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
-        private
+        internal
         pure
         returns (bool, bytes32, uint256)
     {
@@ -1327,6 +1327,9 @@ library Stringray {
         // @status: Implementation finished ~ Jan 22, 2026 03:54 PM IST
         uint256 lastMatchedParticleIndex;
         bool flag;
+        console2.log("pattern length: ", _pattern.length);
+        console2.log("pattern: ");
+        console2.logBytes(_pattern);
 
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
             if (_currentParticleIndex + 1 < _pattern.length) {
@@ -1411,12 +1414,11 @@ library Stringray {
         uint256 lastMatchedParticleIndex,
         bytes1 _patternFlag
     ) private pure returns (bool) {
+        // bool isValid = isValidCharacterClass(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
+
         bool rangeFlag;
         for (uint256 i = _currentParticleIndex + 2; i < lastMatchedParticleIndex - 1; i++) {
             if (uint8(_pattern[i]) == MINUS_SIGN && !rangeFlag) {
-                // @BUG: Actually a character could be a unicode codepoint of more than one byte
-                // In that case the below logic would fail to validate a range set
-                // @status: fixed and resolved!
                 if (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH) {
                     if ((uint8(_pattern[i + 1]) != BACK_SLASH || uint8(_pattern[i + 2]) == BACK_SLASH)) {
                         bool flag;
@@ -1518,6 +1520,36 @@ library Stringray {
         }
 
         return true;
+    }
+
+    function isValidCharacterClass(
+        bytes memory _pattern,
+        uint256 _currentParticleIndex,
+        uint256 lastMatchedParticleIndex,
+        bytes1 _patternFlag
+    ) private pure returns (bool) {
+        for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
+            if (
+                uint8(_pattern[i]) == MINUS_SIGN
+                    && (uint8(_pattern[i - 1]) != BACK_SLASH
+                        || (i - 2 > _currentParticleIndex && uint8(_pattern[i - 2]) == BACK_SLASH))
+            ) {
+                if (
+                    (uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
+                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex)
+                ) {
+                    continue;
+                }
+
+                if (i - 2 > _currentParticleIndex && uint8(_pattern[i - 2]) == BACK_SLASH) {
+                    // if (uint8(_pattern[i - 1]) != ) {}
+                }
+
+                if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == BACK_SLASH) {
+                    // if (uint8(_pattern[i - 2])) {}
+                }
+            }
+        }
     }
 
     function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
