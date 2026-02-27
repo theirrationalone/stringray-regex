@@ -1087,6 +1087,11 @@ library Stringray {
             flag = isBigAlphabet(targetChar);
         }
 
+        if (flag) {
+            flag = true;
+            atomType = LITERAL_ATOM;
+        }
+
         if (!flag) {
             (flag, lastMatchedParticleIndex) =
                 isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
