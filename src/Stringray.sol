@@ -986,7 +986,7 @@ library Stringray {
             isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag);
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx);
+            (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx, _patternFlag);
         }
 
         if (!flag) {
@@ -1318,7 +1318,7 @@ library Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
-    function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -1333,7 +1333,11 @@ library Stringray {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
                     string memory errorMsg = string(
                         abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: ", _pattern, ": Empty Character class"
+                            "SyntaxError: Invalid regular expression: /",
+                            _pattern,
+                            "/",
+                            _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
+                            ": Empty Character class"
                         )
                     );
                     revert(errorMsg);
@@ -1343,7 +1347,11 @@ library Stringray {
             if (_pattern.length < 3 && uint8(_pattern[1]) != CLOSE_SQUARE_BRACKET) {
                 string memory errorMsg = string(
                     abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated Character class"
+                        "SyntaxError: Invalid regular expression: /",
+                        _pattern,
+                        "/",
+                        _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
+                        ": Unterminated Character class"
                     )
                 );
                 revert(errorMsg);
@@ -1375,7 +1383,11 @@ library Stringray {
                 if (!flag) {
                     string memory errorMsg = string(
                         abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated Character class"
+                            "SyntaxError: Invalid regular expression: /",
+                            _pattern,
+                            "/",
+                            _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
+                            ": Unterminated Character class"
                         )
                     );
                     revert(errorMsg);
@@ -1384,7 +1396,7 @@ library Stringray {
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-            flag = characterClassValidator(_pattern, _currentParticleIndex, lastMatchedParticleIndex);
+            flag = characterClassValidator(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
             if (flag) {
                 return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
             }
@@ -1396,7 +1408,8 @@ library Stringray {
     function characterClassValidator(
         bytes memory _pattern,
         uint256 _currentParticleIndex,
-        uint256 lastMatchedParticleIndex
+        uint256 lastMatchedParticleIndex,
+        bytes1 _patternFlag
     ) private pure returns (bool) {
         bool rangeFlag;
         for (uint256 i = _currentParticleIndex + 2; i < lastMatchedParticleIndex - 1; i++) {
@@ -1461,8 +1474,10 @@ library Stringray {
                         if (leftAtomDecimal > rightAtomDecimal) {
                             string memory errorMsg = string(
                                 abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: ",
+                                    "SyntaxError: Invalid regular expression: /",
                                     _pattern,
+                                    "/",
+                                    _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
                                     ": Range out of order in character class"
                                 )
                             );
@@ -1489,8 +1504,10 @@ library Stringray {
                     if (!isValid) {
                         string memory errorMsg = string(
                             abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: ",
+                                "SyntaxError: Invalid regular expression: /",
                                 _pattern,
+                                "/",
+                                _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
                                 ": Invalid property name in character class"
                             )
                         );
