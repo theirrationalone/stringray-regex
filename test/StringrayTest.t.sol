@@ -1630,43 +1630,71 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexExxxxx() public pure {
+    function testRegexCharacterClassesCase73() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/\\!/u";
+        string memory pattern = unicode"/[\\k]/";
         target.regex(pattern);
     }
 
-    function testRegexCharacterClassesExperimental() public pure {
-        // direct unicode injection into character class testing....
+    function testRegexCharacterClassesCase74() public pure {
+        string memory target = "anything";
 
-        string memory terminalPunctuation130 = "\\u{1104D}";
-        bytes memory utf8TerminalPunctuation130 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(terminalPunctuation130));
-        console2.log("1104D: ", string(utf8TerminalPunctuation130));
-        console2.logBytes(utf8TerminalPunctuation130);
-
-        string memory terminalPunctuation131 = "\\u{1104E}";
-        bytes memory utf8TerminalPunctuation131 =
-            Stringray.unicodeHexToUtf8Hex(abi.encodePacked(terminalPunctuation131));
-        console2.log("1104D: ", string(utf8TerminalPunctuation131));
-        console2.logBytes(utf8TerminalPunctuation131);
-
-        bytes memory utf8Hex = abi.encodePacked("[", utf8TerminalPunctuation131, "-", utf8TerminalPunctuation130, "]");
-        console2.log("pattern: /", string(utf8Hex), "/");
-        console2.log("------------------");
-        console2.logBytes(utf8Hex);
-        console2.log("------------------");
-        (bool flag, bytes32 atomType, uint256 lastMatchedIndex) = Stringray.isCharacterClass(utf8Hex, 0, bytes1(0));
-
-        console2.log("------------result------------");
-        console2.log("flag: ", flag);
-        console2.log("atomType: ");
-        console2.logBytes32(atomType);
-        console2.log(
-            "AtomType: ", atomType == bytes32("CHARACTER_CLASS_ATOM") ? "CHARACTER_CLASS_ATOM" : "INVALID_ATOM"
-        );
-        console2.log("lastMatchedIndex: ", lastMatchedIndex);
-        console2.log("------------");
+        string memory pattern = unicode"/[\\k]/u";
+        target.regex(pattern);
     }
+
+    function testRegexCharacterClassesCase75() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[(a)\\k<a>]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase76() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[(a)\\k<a>]/u";
+        target.regex(pattern);
+    }
+
+    // function testRegexExxxxx() public pure {
+    //     string memory target = "anything";
+
+    //     string memory pattern = unicode"/\\!/u";
+    //     target.regex(pattern);
+    // }
+
+    // function testRegexCharacterClassesExperimental() public pure {
+    //     // direct unicode injection into character class testing....
+
+    //     string memory terminalPunctuation130 = "\\u{1104D}";
+    //     bytes memory utf8TerminalPunctuation130 =
+    //         Stringray.unicodeHexToUtf8Hex(abi.encodePacked(terminalPunctuation130));
+    //     console2.log("1104D: ", string(utf8TerminalPunctuation130));
+    //     console2.logBytes(utf8TerminalPunctuation130);
+
+    //     string memory terminalPunctuation131 = "\\u{1104E}";
+    //     bytes memory utf8TerminalPunctuation131 =
+    //         Stringray.unicodeHexToUtf8Hex(abi.encodePacked(terminalPunctuation131));
+    //     console2.log("1104D: ", string(utf8TerminalPunctuation131));
+    //     console2.logBytes(utf8TerminalPunctuation131);
+
+    //     bytes memory utf8Hex = abi.encodePacked("[", utf8TerminalPunctuation131, "-", utf8TerminalPunctuation130, "]");
+    //     console2.log("pattern: /", string(utf8Hex), "/");
+    //     console2.log("------------------");
+    //     console2.logBytes(utf8Hex);
+    //     console2.log("------------------");
+    //     (bool flag, bytes32 atomType, uint256 lastMatchedIndex) = Stringray.isCharacterClass(utf8Hex, 0, bytes1(0));
+
+    //     console2.log("------------result------------");
+    //     console2.log("flag: ", flag);
+    //     console2.log("atomType: ");
+    //     console2.logBytes32(atomType);
+    //     console2.log(
+    //         "AtomType: ", atomType == bytes32("CHARACTER_CLASS_ATOM") ? "CHARACTER_CLASS_ATOM" : "INVALID_ATOM"
+    //     );
+    //     console2.log("lastMatchedIndex: ", lastMatchedIndex);
+    //     console2.log("------------");
+    // }
 }

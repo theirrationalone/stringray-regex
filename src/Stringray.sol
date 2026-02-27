@@ -17597,6 +17597,7 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
+                // @BUG: no support for escape in character class with u flag mode
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {
