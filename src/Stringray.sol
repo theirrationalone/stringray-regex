@@ -1088,180 +1088,13 @@ library Stringray {
 
         if (!flag) {
             (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag);
-        }
 
-        // console2.log("flag: ", flag);
-        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-
-        if (flag) {
-            if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("x")[0])
-            ) {
-                atomType = HEX_ESCAPE;
-            } else if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("u")[0])
-            ) {
-                atomType = UNICODE_ESCAPE;
-            } else if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("K")[0])
-            ) {
-                atomType = NAMED_BACKREFERENCE_PREFIX;
-            } else if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("p")[0])
-            ) {
-                atomType = UNICODE_PROPERTY;
-            } else if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("P")[0])
-            ) {
-                atomType = UNICODE_PROPERTY_NEGATION;
-            } else if (
-                _currentParticleIdx + 1 < lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("c")[0])
-            ) {
-                atomType = CONTROL_PREFIX;
-            } else if (
-                _currentParticleIdx + 1 == lastMatchedParticleIndex
-                    && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
-                    && !isDigit(_pattern[_currentParticleIdx + 1], false)
-            ) {
-                uint8 lastMatchedParticle = uint8(_pattern[lastMatchedParticleIndex]);
-
-                if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
-                    atomType = WORD_BOUNDARY;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
-                    atomType = DIGIT;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
-                    atomType = FORMFEED;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
-                    atomType = NEWLINE;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
-                    atomType = CARRIAGE_RETURN;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
-                    atomType = WHITESPACE;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
-                    atomType = TAB;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
-                    atomType = VERTICAL_TAB;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
-                    atomType = WORD_CHARACTER;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
-                    atomType = NOT_WORD_BOUNDARY;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
-                    atomType = NOT_DIGIT;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
-                    atomType = NOT_WHITESPACE;
-                } else if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
-                    atomType = NOT_WORD_CHARACTER;
-                    //      else if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
-                    //     atomType = NULL_CHARACTER;
-                    // }
-                } else {
-                    if (
-                        uint8(_patternFlag) == SMALL_u
-                            && (lastMatchedParticle != CARET_SIGN
-                                || lastMatchedParticle != DOLLAR_SIGN
-                                || lastMatchedParticle != BACK_SLASH
-                                || lastMatchedParticle != DOT
-                                || lastMatchedParticle != ASTERISK
-                                || lastMatchedParticle != PLUS_SIGN
-                                || lastMatchedParticle != QUESTION_MARK
-                                || lastMatchedParticle != OPEN_PARANTHESIS
-                                || lastMatchedParticle != CLOSE_PARANTHESIS
-                                || lastMatchedParticle != OPEN_SQUARE_BRACKET
-                                || lastMatchedParticle != CLOSE_SQUARE_BRACKET
-                                || lastMatchedParticle != OPEN_CURLY_BRACE
-                                || lastMatchedParticle != VERTICAL_BAR
-                                || lastMatchedParticle != FORWARD_SLASH)
-                    ) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
-                            )
-                        );
-                        revert(errorMsg);
-                    }
-                    atomType = LITERAL_ATOM;
-                }
-            } else {
-                atomType = LITERAL_ATOM;
-                bool isOctal = true;
-
-                // @note: bad design choice
-                if (
-                    _currentParticleIdx + 1 <= lastMatchedParticleIndex
-                        && isDigit(_pattern[_currentParticleIdx + 1], false)
-                        && isDigit(_pattern[lastMatchedParticleIndex], false)
-                ) {
-                    (isOctal, lastMatchedParticleIndex) =
-                        validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
-                    if (!isOctal) {
-                        if (uint8(_patternFlag) != SMALL_u) {
-                            if (
-                                _currentParticleIdx + 1 <= lastMatchedParticleIndex
-                                    && ((_pattern[_currentParticleIdx + 1] == 0x00
-                                            && _pattern[lastMatchedParticleIndex] == 0x00)
-                                        || (_pattern[_currentParticleIdx + 1] == 0x30
-                                            && _pattern[lastMatchedParticleIndex] == 0x30))
-                            ) {
-                                atomType = NULL_CHARACTER;
-                            } else {
-                                atomType = DIGIT_BACKREFERENCE_PREFIX;
-                            }
-                        } else if (
-                            uint8(_patternFlag) == SMALL_u
-                                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-                        ) {
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
-                                )
-                            );
-                            revert(errorMsg);
-                        } else if (
-                            uint8(_patternFlag) == SMALL_u
-                                && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-                                && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-                        ) {
-                            // @TODO: backreference check and validation remains
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
-                                )
-                            );
-                            revert(errorMsg);
-                        }
-                    } else {
-                        if (uint8(_patternFlag) != SMALL_u) {
-                            atomType = OCTAL;
-                        } else if (
-                            uint8(_patternFlag) == SMALL_u
-                                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-                        ) {
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
-                                )
-                            );
-                            revert(errorMsg);
-                        } else if (
-                            uint8(_patternFlag) == SMALL_u
-                                && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-                                && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-                        ) {
-                            // @TODO: backreference check and validation remains
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
-                                )
-                            );
-                            revert(errorMsg);
-                        }
-                    }
+            if (flag) {
+                atomType = isCommonEscapes(_pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag);
+                if (atomType == INVALID_ATOM) {
+                    atomType = nullOctalOrDigitBackReference(
+                        _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag
+                    );
                 }
             }
         }
@@ -1332,6 +1165,189 @@ library Stringray {
         // console2.log("---");
 
         return (flag, atomType, lastMatchedParticleIndex);
+    }
+
+    function nullOctalOrDigitBackReference(
+        bytes memory _pattern,
+        uint256 _currentParticleIdx,
+        uint256 lastMatchedParticleIndex,
+        bytes1 _patternFlag
+    ) private pure returns (bytes32) {
+        bytes32 atomType = LITERAL_ATOM;
+
+        // @note: bad design choice
+        if (
+            _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
+                && isDigit(_pattern[lastMatchedParticleIndex], false)
+        ) {
+            bool isOctal = true;
+
+            (isOctal, lastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
+
+            if (!isOctal) {
+                if (uint8(_patternFlag) != SMALL_u) {
+                    if (
+                        _currentParticleIdx + 1 <= lastMatchedParticleIndex
+                            && ((_pattern[_currentParticleIdx + 1] == 0x00
+                                    && _pattern[lastMatchedParticleIndex] == 0x00)
+                                || (_pattern[_currentParticleIdx + 1] == 0x30
+                                    && _pattern[lastMatchedParticleIndex] == 0x30))
+                    ) {
+                        atomType = NULL_CHARACTER;
+                    } else {
+                        atomType = DIGIT_BACKREFERENCE_PREFIX;
+                    }
+                } else if (
+                    uint8(_patternFlag) == SMALL_u
+                        && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+                ) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
+                        )
+                    );
+                    revert(errorMsg);
+                } else if (
+                    uint8(_patternFlag) == SMALL_u
+                        && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+                        && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+                ) {
+                    // @TODO: backreference check and validation remains
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    );
+                    revert(errorMsg);
+                }
+            } else {
+                if (uint8(_patternFlag) != SMALL_u) {
+                    atomType = OCTAL;
+                } else if (
+                    uint8(_patternFlag) == SMALL_u
+                        && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+                ) {
+                    string memory errorMsg = string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
+                        )
+                    );
+                    revert(errorMsg);
+                } else if (
+                    uint8(_patternFlag) == SMALL_u
+                        && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+                        && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+                ) {
+                    // @TODO: backreference check and validation remains
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    );
+                    revert(errorMsg);
+                }
+            }
+        }
+
+        return atomType;
+    }
+
+    function isCommonEscapes(
+        bytes memory _pattern,
+        uint256 _currentParticleIdx,
+        uint256 lastMatchedParticleIndex,
+        bytes1 _patternFlag
+    ) private pure returns (bytes32) {
+        bytes32 atomType = INVALID_ATOM;
+        if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("x")[0])
+        ) {
+            atomType = HEX_ESCAPE;
+        } else if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("u")[0])
+        ) {
+            atomType = UNICODE_ESCAPE;
+        } else if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("K")[0])
+        ) {
+            atomType = NAMED_BACKREFERENCE_PREFIX;
+        } else if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("p")[0])
+        ) {
+            atomType = UNICODE_PROPERTY;
+        } else if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("P")[0])
+        ) {
+            atomType = UNICODE_PROPERTY_NEGATION;
+        } else if (
+            _currentParticleIdx + 1 < lastMatchedParticleIndex
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("c")[0])
+        ) {
+            atomType = CONTROL_PREFIX;
+        } else if (
+            _currentParticleIdx + 1 == lastMatchedParticleIndex && uint8(_pattern[_currentParticleIdx]) == BACK_SLASH
+                && !isDigit(_pattern[_currentParticleIdx + 1], false)
+        ) {
+            uint8 lastMatchedParticle = uint8(_pattern[lastMatchedParticleIndex]);
+
+            if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
+                atomType = WORD_BOUNDARY;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
+                atomType = DIGIT;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
+                atomType = FORMFEED;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
+                atomType = NEWLINE;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
+                atomType = CARRIAGE_RETURN;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
+                atomType = WHITESPACE;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
+                atomType = TAB;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
+                atomType = VERTICAL_TAB;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
+                atomType = WORD_CHARACTER;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
+                atomType = NOT_WORD_BOUNDARY;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
+                atomType = NOT_DIGIT;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
+                atomType = NOT_WHITESPACE;
+            } else if (lastMatchedParticle == uint8(abi.encodePacked("W")[0])) {
+                atomType = NOT_WORD_CHARACTER;
+                //      else if (lastMatchedParticle == uint8(abi.encodePacked("0")[0])) {
+                //     atomType = NULL_CHARACTER;
+                // }
+            } else {
+                if (
+                    uint8(_patternFlag) == SMALL_u
+                        && (lastMatchedParticle != CARET_SIGN
+                            || lastMatchedParticle != DOLLAR_SIGN
+                            || lastMatchedParticle != BACK_SLASH
+                            || lastMatchedParticle != DOT
+                            || lastMatchedParticle != ASTERISK
+                            || lastMatchedParticle != PLUS_SIGN
+                            || lastMatchedParticle != QUESTION_MARK
+                            || lastMatchedParticle != OPEN_PARANTHESIS
+                            || lastMatchedParticle != CLOSE_PARANTHESIS
+                            || lastMatchedParticle != OPEN_SQUARE_BRACKET
+                            || lastMatchedParticle != CLOSE_SQUARE_BRACKET
+                            || lastMatchedParticle != OPEN_CURLY_BRACE
+                            || lastMatchedParticle != VERTICAL_BAR
+                            || lastMatchedParticle != FORWARD_SLASH)
+                ) {
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    );
+                    revert(errorMsg);
+                }
+                atomType = LITERAL_ATOM;
+            }
+        }
+
+        return atomType;
     }
 
     function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
