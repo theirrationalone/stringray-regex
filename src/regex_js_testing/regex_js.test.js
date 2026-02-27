@@ -1595,6 +1595,13 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Character Classes[]: Case00065", () => {
+        let regex = /[\p{Letter}\a]/u;
+        const target = "T";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();

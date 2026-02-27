@@ -1574,6 +1574,13 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassesCase65() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\\p{LETTER}]/";
+        target.regex(pattern);
+    }
+
     function testRegexExxxxx() public pure {
         string memory target = "anything";
 
