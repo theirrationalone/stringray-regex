@@ -1088,7 +1088,8 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) = isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag);
+            (flag, lastMatchedParticleIndex) =
+                isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
 
             if (flag) {
                 atomType = isCommonEscapes(_pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag);
@@ -1556,10 +1557,8 @@ library Stringray {
         uint256 lastMatchedParticleIndex,
         bytes1 _patternFlag
     ) private pure returns (bool) {
-        bytes memory ccPattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
-
-        for (uint256 i = 0; i < ccPattern.length;) {
-            (bool flag,, uint256 lastParticleIndex) = isLiteralAtom(ccPattern, i, _patternFlag, true);
+        for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
+            (bool flag,, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
             if (flag) {
                 i = lastParticleIndex + 1;
             } else {
@@ -17543,11 +17542,12 @@ library Stringray {
         return (false, 0);
     }
 
-    function isEscapeLiteral(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function isEscapeLiteral(
+        bytes memory _pattern,
+        uint256 _currentParticleIndex,
+        bytes1 _patternFlag,
+        bool fromCharacterClass
+    ) private pure returns (bool, uint256) {
         if (uint8(_pattern[_currentParticleIndex]) == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
             bool isValid;
@@ -17609,7 +17609,8 @@ library Stringray {
                     return (true, _currentParticleIndex + 1);
                 }
 
-                (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex);
+                (isValid, lastMatchedIndex) =
+                    validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex, fromCharacterClass);
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -17727,11 +17728,11 @@ library Stringray {
         return (false, 0);
     }
 
-    function validateBackslash_p_propertyNameEscape(bytes memory _pattern, uint256 _indexToStartFrom)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function validateBackslash_p_propertyNameEscape(
+        bytes memory _pattern,
+        uint256 _indexToStartFrom,
+        bool fromCharacterClass
+    ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 3 <= patternLastIndex) {
@@ -17739,17 +17740,17 @@ library Stringray {
                 uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE
                     && uint8(_pattern[_indexToStartFrom + 3]) == CLOSE_CURLY_BRACE
             ) {
+                string memory eMsg = " Invalid property name";
+                string memory lastMsg = fromCharacterClass ? " in character class" : "";
                 string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /", _pattern, ":/u Invalid property name"
-                    )
+                    abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", eMsg, lastMsg)
                 );
                 revert(errorMsg);
             }
 
             if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
                 (bool isValidPropertyName, uint256 lastMatchedIndex) =
-                    validatePropertyNameAndSyntax(_pattern, _indexToStartFrom + 3);
+                    validatePropertyNameAndSyntax(_pattern, _indexToStartFrom + 3, fromCharacterClass);
 
                 if (isValidPropertyName) {
                     return (true, lastMatchedIndex);
@@ -17949,7 +17950,7 @@ library Stringray {
         return (false, 0);
     }
 
-    function validatePropertyNameAndSyntax(bytes memory _pattern, uint256 _indexToStartFrom)
+    function validatePropertyNameAndSyntax(bytes memory _pattern, uint256 _indexToStartFrom, bool fromCharacterClass)
         private
         pure
         returns (bool, uint256)
@@ -17981,9 +17982,10 @@ library Stringray {
         if (isValidProperty) {
             return (true, propertyNameEndIdx + 1);
         } else {
-            string memory errorMsg = string(
-                abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
-            );
+            string memory eMsg = " Invalid property name";
+            string memory lastMsg = fromCharacterClass ? " in character class" : "";
+            string memory errorMsg =
+                string(abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", eMsg, lastMsg));
             revert(errorMsg);
         }
 

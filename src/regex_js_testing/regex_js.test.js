@@ -1597,8 +1597,57 @@ const testMain = () => {
     });
 
     test("Character Classes[]: Case00065", () => {
-        let regex = /[\p{Letter}\a]/u;
+        let regex = /[\p{}]/;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00066", () => {
+    //     let regex = /[\p{}]/u;
+    //     const target = "T";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00067", () => {
+        let regex = /[\p{LETTER}]/;
         const target = "T";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00068", () => {
+    //     let regex = /[\p{LETTER}]/u;
+    //     const target = "T";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00069", () => {
+        let regex = /[\x001]/;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00070", () => {
+        let regex = /[\x001]/u;
+        const target = "1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00071", () => {
+        let regex = /[\xg1]/;
+        const target = "x";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00072", () => {
+        let regex = /[\xg1]/u;
+        const target = "g";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
