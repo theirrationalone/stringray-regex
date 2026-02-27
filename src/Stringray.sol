@@ -1161,7 +1161,23 @@ library Stringray {
                     //     atomType = NULL_CHARACTER;
                     // }
                 } else {
-                    if (uint8(_patternFlag) == SMALL_u) {
+                    if (
+                        uint8(_patternFlag) == SMALL_u
+                            && (lastMatchedParticle != CARET_SIGN
+                                || lastMatchedParticle != DOLLAR_SIGN
+                                || lastMatchedParticle != BACK_SLASH
+                                || lastMatchedParticle != DOT
+                                || lastMatchedParticle != ASTERISK
+                                || lastMatchedParticle != PLUS_SIGN
+                                || lastMatchedParticle != QUESTION_MARK
+                                || lastMatchedParticle != OPEN_PARANTHESIS
+                                || lastMatchedParticle != CLOSE_PARANTHESIS
+                                || lastMatchedParticle != OPEN_SQUARE_BRACKET
+                                || lastMatchedParticle != CLOSE_SQUARE_BRACKET
+                                || lastMatchedParticle != OPEN_CURLY_BRACE
+                                || lastMatchedParticle != VERTICAL_BAR
+                                || lastMatchedParticle != FORWARD_SLASH)
+                    ) {
                         string memory errorMsg = string(
                             abi.encodePacked(
                                 "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape"
