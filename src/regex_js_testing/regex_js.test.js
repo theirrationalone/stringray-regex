@@ -1171,7 +1171,7 @@ const testMain = () => {
 
     test("Character Classes[]: Case0009", () => {
         let regex = /[^]/;
-        const target = "z";
+        const target = "{";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
@@ -1218,7 +1218,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // tes`t("Character Classes[]: Case00016", () => {
+    // test("Character Classes[]: Case00016", () => {
     //     let regex = /[z-\d]/u;
     //     const target = "[a-\d]";
     //     console.log("output: ", target.match(regex));

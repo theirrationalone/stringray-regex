@@ -1162,12 +1162,19 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase7() public pure {
         string memory target = "anything";
 
+        // @NOTE: Exclusive to solidity!
+        // Solidity  : SyntaxError: Invalid regular expression: /[abc/: Unterminated Character class
+        // Javascript: SyntaxError: Invalid regular expression: missing /
         string memory pattern = unicode"/[abc/";
         target.regex(pattern);
     }
 
     function testRegexCharacterClassesCase8() public pure {
         string memory target = "anything";
+
+        // @NOTE: Exclusive to solidity!
+        // Solidity  : SyntaxError: Invalid regular expression: /[abc/u: Unterminated Character class
+        // Javascript: SyntaxError: Invalid regular expression: missing /
 
         string memory pattern = unicode"/[abc/u";
         target.regex(pattern);
@@ -1176,6 +1183,7 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase9() public pure {
         string memory target = "anything";
 
+        // @INFO: Weird behavior, Matches literally everything, each and every possible literal
         string memory pattern = unicode"/[^]/";
         target.regex(pattern);
     }
@@ -1183,6 +1191,7 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase10() public pure {
         string memory target = "anything";
 
+        // @INFO: Weird behavior, Matches literally everything, each and every possible literal
         string memory pattern = unicode"/[^]/u";
         target.regex(pattern);
     }
