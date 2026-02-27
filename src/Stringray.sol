@@ -17597,7 +17597,13 @@ library Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                // @BUG: no support for escape in character class with u flag mode
+                if (uint8(_patternFlag) == SMALL_u && fromCharacterClass) {
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    );
+                    revert(errorMsg);
+                }
+
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
 
                 if (isValid) {

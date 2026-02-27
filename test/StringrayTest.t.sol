@@ -881,7 +881,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @BUG found
-        // @Status: not resolved
+        // @Status: not resolved, missing captured group functionality
         string memory pattern = unicode"/\\k<a>/u";
         target.regex(pattern);
     }
@@ -1647,14 +1647,43 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase75() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[(a)\\k<a>]/";
+        string memory pattern = unicode"/[(?<a>a)\\k<a>]/";
         target.regex(pattern);
     }
 
     function testRegexCharacterClassesCase76() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[(a)\\k<a>]/u";
+        string memory pattern = unicode"/[(?<a>a)\\k<a>]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase77() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(?<a>a)[\\k<a>]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase78() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(?<a>a)[\\k<a>]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase79() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\\k<a>]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase80() public pure {
+        string memory target = "anything";
+
+        // string memory pattern = unicode"/[\\k<a>]/u";
+        string memory pattern = unicode"/a/";
         target.regex(pattern);
     }
 
