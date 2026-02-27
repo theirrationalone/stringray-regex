@@ -1562,13 +1562,27 @@ const testMain = () => {
     // });
 
     test("Character Classes[]: Case00061", () => {
+        let regex = /[(a)\1]/;
+        const target = ")";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00062", () => {
+    //     let regex = /[(a)\1]/u;
+    //     const target = ")";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00063", () => {
         let regex = /[\p{Letter}]/;
         const target = "{";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Character Classes[]: Case00062", () => {
+    test("Character Classes[]: Case00064", () => {
         let regex = /[\p{Letter}]/u;
         const target = "a";
         console.log("output: ", target.match(regex));
