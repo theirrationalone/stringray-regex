@@ -1563,7 +1563,7 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase63() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[\\p{Letter}]/";
+        string memory pattern = unicode"/[\\p{LETTER}]/";
         target.regex(pattern);
     }
 
@@ -1572,5 +1572,9 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/[\\p{Letter}]/u";
         target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesExperimental() public pure {
+        // direct unicode injection into character class testing....
     }
 }
