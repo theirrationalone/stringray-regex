@@ -1709,6 +1709,9 @@ library Stringray {
         uint256 lastParticleIndex,
         uint256 rightLastParticleIndex
     ) private pure returns (uint256, uint256) {
+        uint256 leftLiteralDecimalValue;
+        uint256 rightLiteralDecimalValue;
+
         if (atomType == WORD_BOUNDARY) {
             leftLiteralDecimalValue = 8;
         }
@@ -1744,6 +1747,44 @@ library Stringray {
         if (atomType == HEX_ESCAPE) {
             leftLiteralDecimalValue = hexUnicodeEquivalentDecimal(_pattern, lastParticleIndex);
         }
+
+        if (rightAtomType == WORD_BOUNDARY) {
+            rightLiteralDecimalValue = 8;
+        }
+
+        if (rightAtomType == TAB) {
+            rightLiteralDecimalValue = 9;
+        }
+
+        if (rightAtomType == NEWLINE) {
+            rightLiteralDecimalValue = 10;
+        }
+
+        if (rightAtomType == VERTICAL_TAB) {
+            rightLiteralDecimalValue = 11;
+        }
+
+        if (rightAtomType == FORMFEED) {
+            rightLiteralDecimalValue = 12;
+        }
+
+        if (rightAtomType == CARRIAGE_RETURN) {
+            rightLiteralDecimalValue = 13;
+        }
+
+        if (rightAtomType == CONTROL_PREFIX) {
+            rightLiteralDecimalValue = controlPrefixEquivalentDecimal(uint8(_pattern[rightLastParticleIndex]));
+        }
+
+        if (rightAtomType == UNICODE_ESCAPE) {
+            rightLiteralDecimalValue = unicodeEquivalentDecimal(_pattern, rightLastParticleIndex);
+        }
+
+        if (rightAtomType == HEX_ESCAPE) {
+            rightLiteralDecimalValue = hexUnicodeEquivalentDecimal(_pattern, rightLastParticleIndex);
+        }
+
+        return (leftLiteralDecimalValue, rightLiteralDecimalValue);
     }
 
     function unicodeEquivalentDecimal(bytes _pattern, uint256 lastIndex) private pure returns (uint256) {}
