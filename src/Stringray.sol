@@ -1320,7 +1320,7 @@ library Stringray {
             } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
                 atomType = WORD_CHARACTER;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
-                if (fromCharacterClass && _patternFlag == SMALL_u) {
+                if (fromCharacterClass && uint8(_patternFlag) == SMALL_u) {
                     string memory errorMsg = string(
                         abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
                     );
@@ -1573,18 +1573,22 @@ library Stringray {
         bytes1 _patternFlag
     ) private pure returns (bool) {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
+            if (
+                uint8(_pattern[i]) == MINUS_SIGN
+                    && ((uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
+                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex))
+            ) {
+                i = lastParticleIndex + 1;
+                continue;
+            }
+
             (bool flag, bytes32 atomType, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
+
             if (flag) {
                 if (
-                    uint8(_pattern[i]) == MINUS_SIGN
-                        && ((uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
-                            || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex))
+                    lastParticleIndex + 1 < lastMatchedParticleIndex
+                        && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN
                 ) {
-                    i = lastParticleIndex + 1;
-                    continue;
-                }
-
-                if (lastParticleIndex + 1 < lastMatchedParticleIndex && _pattern[lastParticleIndex + 1] == MINUS_SIGN) {
                     if (
                         (atomType == DIGIT
                                 || atomType == WHITESPACE
@@ -1593,11 +1597,91 @@ library Stringray {
                                 || atomType == NOT_DIGIT
                                 || atomType == NOT_WORD_CHARACTER
                                 || atomType == UNICODE_PROPERTY
-                                || atomType == UNICODE_PROPERTY_NEGATION) && _patternFlag == SMALL_u
+                                || atomType == UNICODE_PROPERTY_NEGATION) && uint8(_patternFlag) == SMALL_u
                     ) {
-                        // throw error
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid character class"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
 
+                    if (lastParticleIndex + 2 < lastMatchedParticleIndex) {
+                        (, bytes32 rightAtomType, uint256 rightLastParticleIndex) =
+                            isLiteralAtom(_pattern, lastParticleIndex + 2, _patternFlag, true);
+
+                        if (
+                            (rightAtomType == DIGIT
+                                    || rightAtomType == WHITESPACE
+                                    || rightAtomType == NOT_WHITESPACE
+                                    || rightAtomType == WORD_CHARACTER
+                                    || rightAtomType == NOT_DIGIT
+                                    || rightAtomType == NOT_WORD_CHARACTER
+                                    || rightAtomType == UNICODE_PROPERTY
+                                    || rightAtomType == UNICODE_PROPERTY_NEGATION) && uint8(_patternFlag) == SMALL_u
+                        ) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /",
+                                    _pattern,
+                                    "/u: Invalid character class"
+                                )
+                            );
+                            revert(errorMsg);
                         }
+
+                        if (
+                            ((rightAtomType == DIGIT
+                                        || rightAtomType == WHITESPACE
+                                        || rightAtomType == NOT_WHITESPACE
+                                        || rightAtomType == WORD_CHARACTER
+                                        || rightAtomType == NOT_DIGIT
+                                        || rightAtomType == NOT_WORD_CHARACTER
+                                        || rightAtomType == UNICODE_PROPERTY
+                                        || rightAtomType == UNICODE_PROPERTY_NEGATION)
+                                    || (atomType == DIGIT
+                                        || atomType == WHITESPACE
+                                        || atomType == NOT_WHITESPACE
+                                        || atomType == WORD_CHARACTER
+                                        || atomType == NOT_DIGIT
+                                        || atomType == NOT_WORD_CHARACTER
+                                        || atomType == UNICODE_PROPERTY
+                                        || atomType == UNICODE_PROPERTY_NEGATION)) && uint8(_patternFlag) != SMALL_u
+                        ) {
+                            i = rightLastParticleIndex + 1;
+                            continue;
+                        }
+
+                        // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
+                        uint256 leftLiteralDecimalValue;
+                        if (atomType == WORD_BOUNDARY) {
+                            // @TODO: find decimal values of each valid escape and
+                            // assign them to leftLiteralDecimalValue
+                        }
+
+                        /**
+                         * if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
+                         * atomType = WORD_BOUNDARY;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
+                         * atomType = DIGIT;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
+                         * atomType = FORMFEED;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
+                         * atomType = NEWLINE;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
+                         * atomType = CARRIAGE_RETURN;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
+                         * atomType = WHITESPACE;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
+                         * atomType = TAB;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
+                         * atomType = VERTICAL_TAB;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
+                         * atomType = WORD_CHARACTER;
+                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
+                         */
+                    }
                 }
 
                 // pseudo:

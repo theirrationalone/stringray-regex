@@ -1219,7 +1219,7 @@ const testMain = () => {
     });
 
     test("Character Classes[]: Case00015", () => {
-        let regex = /[\s-b]/u;
+        let regex = /[\s-b]/;
         const target = "a";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
