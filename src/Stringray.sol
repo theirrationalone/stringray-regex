@@ -1097,7 +1097,9 @@ library Stringray {
                 isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
 
             if (flag) {
-                atomType = isCommonEscapes(_pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag);
+                atomType = isCommonEscapes(
+                    _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass
+                );
                 if (atomType == INVALID_ATOM) {
                     atomType = nullOctalOrDigitBackReference(
                         _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag
@@ -1259,7 +1261,8 @@ library Stringray {
         bytes memory _pattern,
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag
+        bytes1 _patternFlag,
+        bool fromCharacterClass
     ) private pure returns (bytes32) {
         bytes32 atomType = INVALID_ATOM;
         if (
@@ -1317,6 +1320,12 @@ library Stringray {
             } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
                 atomType = WORD_CHARACTER;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
+                if (fromCharacterClass && _patternFlag == SMALL_u) {
+                    string memory errorMsg = string(
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    );
+                    revert(errorMsg);
+                }
                 atomType = NOT_WORD_BOUNDARY;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
                 atomType = NOT_DIGIT;
@@ -1339,6 +1348,7 @@ library Stringray {
                             || lastMatchedParticle != OPEN_SQUARE_BRACKET
                             || lastMatchedParticle != CLOSE_SQUARE_BRACKET
                             || lastMatchedParticle != OPEN_CURLY_BRACE
+                            || lastMatchedParticle != CLOSE_CURLY_BRACE
                             || lastMatchedParticle != VERTICAL_BAR
                             || lastMatchedParticle != FORWARD_SLASH)
                 ) {
@@ -1563,8 +1573,33 @@ library Stringray {
         bytes1 _patternFlag
     ) private pure returns (bool) {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
-            (bool flag,, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
+            (bool flag, bytes32 atomType, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
             if (flag) {
+                if (
+                    uint8(_pattern[i]) == MINUS_SIGN
+                        && ((uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
+                            || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex))
+                ) {
+                    i = lastParticleIndex + 1;
+                    continue;
+                }
+
+                if (lastParticleIndex + 1 < lastMatchedParticleIndex && _pattern[lastParticleIndex + 1] == MINUS_SIGN) {
+                    if (
+                        (atomType == DIGIT
+                                || atomType == WHITESPACE
+                                || atomType == NOT_WHITESPACE
+                                || atomType == WORD_CHARACTER
+                                || atomType == NOT_DIGIT
+                                || atomType == NOT_WORD_CHARACTER
+                                || atomType == UNICODE_PROPERTY
+                                || atomType == UNICODE_PROPERTY_NEGATION) && _patternFlag == SMALL_u
+                    ) {
+                        // throw error
+
+                        }
+                }
+
                 // pseudo:
                 //    if range literl:
                 //        if first or last: continue
