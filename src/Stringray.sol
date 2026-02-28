@@ -1653,34 +1653,29 @@ library Stringray {
                             continue;
                         }
 
-                        // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
-                        uint256 leftLiteralDecimalValue;
-                        if (atomType == WORD_BOUNDARY) {
-                            // @TODO: find decimal values of each valid escape and
-                            // assign them to leftLiteralDecimalValue
+                        if (
+                            (rightAtomType != DIGIT
+                                    && rightAtomType != WHITESPACE
+                                    && rightAtomType != NOT_WHITESPACE
+                                    && rightAtomType != WORD_CHARACTER
+                                    && rightAtomType != NOT_DIGIT
+                                    && rightAtomType != NOT_WORD_CHARACTER
+                                    && rightAtomType != UNICODE_PROPERTY
+                                    && rightAtomType != UNICODE_PROPERTY_NEGATION)
+                                && (atomType != DIGIT
+                                    && atomType != WHITESPACE
+                                    && atomType != NOT_WHITESPACE
+                                    && atomType != WORD_CHARACTER
+                                    && atomType != NOT_DIGIT
+                                    && atomType != NOT_WORD_CHARACTER
+                                    && atomType != UNICODE_PROPERTY
+                                    && atomType != UNICODE_PROPERTY_NEGATION)
+                        ) {
+                            // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
+                            (uint256 leftLiteralDecimalValue, uint256 rightLiteralDecimalValue) = leftAndRightAtomsDecimalValues(
+                                atomType, rightAtomType, _pattern, lastParticleIndex, rightLastParticleIndex
+                            );
                         }
-
-                        /**
-                         * if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
-                         * atomType = WORD_BOUNDARY;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
-                         * atomType = DIGIT;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
-                         * atomType = FORMFEED;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("n")[0])) {
-                         * atomType = NEWLINE;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("r")[0])) {
-                         * atomType = CARRIAGE_RETURN;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("s")[0])) {
-                         * atomType = WHITESPACE;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("t")[0])) {
-                         * atomType = TAB;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("v")[0])) {
-                         * atomType = VERTICAL_TAB;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
-                         * atomType = WORD_CHARACTER;
-                         * } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
-                         */
                     }
                 }
 
@@ -1706,6 +1701,55 @@ library Stringray {
             }
         }
     }
+
+    function leftAndRightAtomsDecimalValues(
+        bytes32 atomType,
+        bytes32 rightAtomType,
+        bytes memory _pattern,
+        uint256 lastParticleIndex,
+        uint256 rightLastParticleIndex
+    ) private pure returns (uint256, uint256) {
+        if (atomType == WORD_BOUNDARY) {
+            leftLiteralDecimalValue = 8;
+        }
+
+        if (atomType == TAB) {
+            leftLiteralDecimalValue = 9;
+        }
+
+        if (atomType == NEWLINE) {
+            leftLiteralDecimalValue = 10;
+        }
+
+        if (atomType == VERTICAL_TAB) {
+            leftLiteralDecimalValue = 11;
+        }
+
+        if (atomType == FORMFEED) {
+            leftLiteralDecimalValue = 12;
+        }
+
+        if (atomType == CARRIAGE_RETURN) {
+            leftLiteralDecimalValue = 13;
+        }
+
+        if (atomType == CONTROL_PREFIX) {
+            leftLiteralDecimalValue = controlPrefixEquivalentDecimal(uint8(_pattern[lastParticleIndex]));
+        }
+
+        if (atomType == UNICODE_ESCAPE) {
+            leftLiteralDecimalValue = unicodeEquivalentDecimal(_pattern, lastParticleIndex);
+        }
+
+        if (atomType == HEX_ESCAPE) {
+            leftLiteralDecimalValue = hexUnicodeEquivalentDecimal(_pattern, lastParticleIndex);
+        }
+    }
+
+    function unicodeEquivalentDecimal(bytes _pattern, uint256 lastIndex) private pure returns (uint256) {}
+    function hexUnicodeEquivalentDecimal(bytes _pattern, uint256 lastIndex) private pure returns (uint256) {}
+
+    function controlPrefixEquivalentDecimal(uint8 unicodeLiteral) private pure returns (uint8) {}
 
     function isValidCharacterClass(
         bytes memory _pattern,
