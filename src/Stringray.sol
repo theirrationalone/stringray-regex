@@ -1565,6 +1565,22 @@ library Stringray {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
             (bool flag,, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
             if (flag) {
+                // pseudo:
+                //    if range literl:
+                //        if first or last: continue
+                //    if literal is an escape:
+                //        if multi atom escape:
+                //            if i + 1 < last && i + 1 = range literal:
+                //                (i + 1) + 1 -> is any literal:
+                //                    if u mode: throw error
+                //                    else: continue to next literal validation
+                //    if vanila literal:
+                //        if i + 1 < last && i + 1 = range literal:
+                //            if (i + 1) + 1 -> is multi atom escape literal:
+                //                if u mode: throw error
+                //                else: continue to next literal validation
+                //            if (i + 1) + 1 -> is vanila literal:
+                //                if left literal > right literal: throw error
                 i = lastParticleIndex + 1;
             } else {
                 i++;
