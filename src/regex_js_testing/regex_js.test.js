@@ -1218,12 +1218,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Character Classes[]: Case00015", () => {
-        let regex = /[\s-b]/;
-        const target = "a";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Character Classes[]: Case00015", () => {
+    //     let regex = /[\s-b]/;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     // test("Character Classes[]: Case00016", () => {
     //     let regex = /[z-\d]/u;

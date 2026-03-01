@@ -1210,6 +1210,7 @@ library Stringray {
                 } else if (
                     uint8(_patternFlag) == SMALL_u
                         && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+                        && _currentParticleIdx + 1 != lastMatchedParticleIndex
                 ) {
                     string memory errorMsg = string(
                         abi.encodePacked(
@@ -1234,6 +1235,7 @@ library Stringray {
                 } else if (
                     uint8(_patternFlag) == SMALL_u
                         && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+                        && _currentParticleIdx + 1 != lastMatchedParticleIndex
                 ) {
                     string memory errorMsg = string(
                         abi.encodePacked(
@@ -1353,8 +1355,13 @@ library Stringray {
                             || lastMatchedParticle != VERTICAL_BAR
                             || lastMatchedParticle != FORWARD_SLASH)
                 ) {
+                    string memory lastMsg = " Invalid escape";
+                    if (lastMatchedParticle == SMALL_u) {
+                        lastMsg = " Invalid Unicode escape";
+                    }
+
                     string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
                     );
                     revert(errorMsg);
                 }
