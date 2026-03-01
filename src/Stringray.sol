@@ -1578,7 +1578,7 @@ library Stringray {
                     && ((uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
                         || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex))
             ) {
-                i = lastParticleIndex + 1;
+                i = i + 1;
                 continue;
             }
 
@@ -1672,9 +1672,22 @@ library Stringray {
                                     && atomType != UNICODE_PROPERTY_NEGATION)
                         ) {
                             // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
-                            (uint256 leftLiteralDecimalValue, uint256 rightLiteralDecimalValue) = leftAndRightAtomsDecimalValues(
-                                atomType, rightAtomType, _pattern, lastParticleIndex, rightLastParticleIndex
-                            );
+                            uint256 leftLiteralDecimalValue = atomsDecimalValues(atomType, _pattern, lastParticleIndex);
+                            uint256 rightLiteralDecimalValue =
+                                atomsDecimalValues(rightAtomType, _pattern, rightLastParticleIndex);
+
+                            if (leftLiteralDecimalValue > rightLiteralDecimalValue) {
+                                string memory errorMsg = string(
+                                    abi.encodePacked(
+                                        "SyntaxError: Invalid regular expression: /",
+                                        _pattern,
+                                        "/",
+                                        _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
+                                        ": Range out of order in character class"
+                                    )
+                                );
+                                revert(errorMsg);
+                            }
                         }
                     }
                 }
@@ -1702,95 +1715,73 @@ library Stringray {
         }
     }
 
-    function leftAndRightAtomsDecimalValues(
-        bytes32 atomType,
-        bytes32 rightAtomType,
-        bytes memory _pattern,
-        uint256 lastParticleIndex,
-        uint256 rightLastParticleIndex
-    ) private pure returns (uint256, uint256) {
-        uint256 leftLiteralDecimalValue;
-        uint256 rightLiteralDecimalValue;
+    function atomsDecimalValues(bytes32 atomType, bytes memory _pattern, uint256 lastParticleIndex)
+        private
+        pure
+        returns (uint256)
+    {
+        uint256 decimal;
 
         if (atomType == WORD_BOUNDARY) {
-            leftLiteralDecimalValue = 8;
+            decimal = 8;
+        } else if (atomType == TAB) {
+            decimal = 9;
+        } else if (atomType == NEWLINE) {
+            decimal = 10;
+        } else if (atomType == VERTICAL_TAB) {
+            decimal = 11;
+        } else if (atomType == FORMFEED) {
+            decimal = 12;
+        } else if (atomType == CARRIAGE_RETURN) {
+            decimal = 13;
+        } else if (atomType == CONTROL_PREFIX) {
+            decimal = controlPrefixEquivalentDecimal(uint8(_pattern[lastParticleIndex]));
+        } else if (atomType == UNICODE_ESCAPE) {
+            decimal = unicodeEquivalentDecimal(_pattern, lastParticleIndex);
+        } else if (atomType == HEX_ESCAPE) {
+            decimal = hexUnicodeEquivalentDecimal(_pattern, lastParticleIndex);
+        } else {
+            decimal = uint8(_pattern[lastParticleIndex]);
         }
 
-        if (atomType == TAB) {
-            leftLiteralDecimalValue = 9;
-        }
-
-        if (atomType == NEWLINE) {
-            leftLiteralDecimalValue = 10;
-        }
-
-        if (atomType == VERTICAL_TAB) {
-            leftLiteralDecimalValue = 11;
-        }
-
-        if (atomType == FORMFEED) {
-            leftLiteralDecimalValue = 12;
-        }
-
-        if (atomType == CARRIAGE_RETURN) {
-            leftLiteralDecimalValue = 13;
-        }
-
-        if (atomType == CONTROL_PREFIX) {
-            leftLiteralDecimalValue = controlPrefixEquivalentDecimal(uint8(_pattern[lastParticleIndex]));
-        }
-
-        if (atomType == UNICODE_ESCAPE) {
-            leftLiteralDecimalValue = unicodeEquivalentDecimal(_pattern, lastParticleIndex);
-        }
-
-        if (atomType == HEX_ESCAPE) {
-            leftLiteralDecimalValue = hexUnicodeEquivalentDecimal(_pattern, lastParticleIndex);
-        }
-
-        if (rightAtomType == WORD_BOUNDARY) {
-            rightLiteralDecimalValue = 8;
-        }
-
-        if (rightAtomType == TAB) {
-            rightLiteralDecimalValue = 9;
-        }
-
-        if (rightAtomType == NEWLINE) {
-            rightLiteralDecimalValue = 10;
-        }
-
-        if (rightAtomType == VERTICAL_TAB) {
-            rightLiteralDecimalValue = 11;
-        }
-
-        if (rightAtomType == FORMFEED) {
-            rightLiteralDecimalValue = 12;
-        }
-
-        if (rightAtomType == CARRIAGE_RETURN) {
-            rightLiteralDecimalValue = 13;
-        }
-
-        if (rightAtomType == CONTROL_PREFIX) {
-            rightLiteralDecimalValue = controlPrefixEquivalentDecimal(uint8(_pattern[rightLastParticleIndex]));
-        }
-
-        if (rightAtomType == UNICODE_ESCAPE) {
-            rightLiteralDecimalValue = unicodeEquivalentDecimal(_pattern, rightLastParticleIndex);
-        }
-
-        if (rightAtomType == HEX_ESCAPE) {
-            rightLiteralDecimalValue = hexUnicodeEquivalentDecimal(_pattern, rightLastParticleIndex);
-        }
-
-        return (leftLiteralDecimalValue, rightLiteralDecimalValue);
+        return decimal;
     }
 
-    function unicodeEquivalentDecimal(bytes _pattern, uint256 lastIndex) private pure returns (uint256) {}
-    function hexUnicodeEquivalentDecimal(bytes _pattern, uint256 lastIndex) private pure returns (uint256) {}
+    function unicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
+        bytes memory unicodeHex;
+        if (uint8(_pattern[lastIndex]) == CLOSE_CURLY_BRACE) {
+            // \u{123456}
+            unicodeHex = trimString(_pattern, lastIndex - 6, int256(lastIndex - 1));
+        } else {
+            // \u1234
+            unicodeHex = trimString(_pattern, lastIndex - 3, int256(lastIndex));
+        }
 
-    function controlPrefixEquivalentDecimal(uint8 unicodeLiteral) private pure returns (uint8) {}
+        uint256 decValue = hexToDec(unicodeHex, 4, true);
+
+        return decValue;
+    }
+
+    function hexUnicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
+        // \x12
+        bytes memory unicodeHex = trimString(_pattern, lastIndex - 1, int256(lastIndex));
+        uint256 decValue = hexToDec(unicodeHex, 4, true);
+        return decValue;
+    }
+
+    function controlPrefixEquivalentDecimal(uint8 unicodeLiteral) private pure returns (uint8) {
+        uint8 decimal;
+
+        if (unicodeLiteral >= 97 && unicodeLiteral <= 122) {
+            decimal = unicodeLiteral - 96;
+        }
+
+        if (unicodeLiteral >= 65 && unicodeLiteral <= 90) {
+            decimal = unicodeLiteral - 64;
+        }
+
+        return decimal;
+    }
 
     function isValidCharacterClass(
         bytes memory _pattern,
@@ -16422,7 +16413,7 @@ library Stringray {
     }
 
     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
-        // _unicodeHex: "\u{XXXXXX}"
+        // _unicodeHex: "\u{XXXXXX}" or \uXXXX
         (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, 0);
 
         if (!isValid) {
