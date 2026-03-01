@@ -1145,7 +1145,8 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) = isRangeLiteral(_pattern, _currentParticleIdx, _patternFlag);
+            (flag, lastMatchedParticleIndex) =
+                isRangeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
 
             if (flag) {
                 atomType = LITERAL_ATOM;
@@ -1631,27 +1632,27 @@ library Stringray {
                             revert(errorMsg);
                         }
 
-                        if (
-                            ((rightAtomType == DIGIT
-                                        || rightAtomType == WHITESPACE
-                                        || rightAtomType == NOT_WHITESPACE
-                                        || rightAtomType == WORD_CHARACTER
-                                        || rightAtomType == NOT_DIGIT
-                                        || rightAtomType == NOT_WORD_CHARACTER
-                                        || rightAtomType == UNICODE_PROPERTY
-                                        || rightAtomType == UNICODE_PROPERTY_NEGATION)
-                                    || (atomType == DIGIT
-                                        || atomType == WHITESPACE
-                                        || atomType == NOT_WHITESPACE
-                                        || atomType == WORD_CHARACTER
-                                        || atomType == NOT_DIGIT
-                                        || atomType == NOT_WORD_CHARACTER
-                                        || atomType == UNICODE_PROPERTY
-                                        || atomType == UNICODE_PROPERTY_NEGATION)) && uint8(_patternFlag) != SMALL_u
-                        ) {
-                            i = rightLastParticleIndex + 1;
-                            continue;
-                        }
+                        // if (
+                        //     ((rightAtomType == DIGIT
+                        //                 || rightAtomType == WHITESPACE
+                        //                 || rightAtomType == NOT_WHITESPACE
+                        //                 || rightAtomType == WORD_CHARACTER
+                        //                 || rightAtomType == NOT_DIGIT
+                        //                 || rightAtomType == NOT_WORD_CHARACTER
+                        //                 || rightAtomType == UNICODE_PROPERTY
+                        //                 || rightAtomType == UNICODE_PROPERTY_NEGATION)
+                        //             || (atomType == DIGIT
+                        //                 || atomType == WHITESPACE
+                        //                 || atomType == NOT_WHITESPACE
+                        //                 || atomType == WORD_CHARACTER
+                        //                 || atomType == NOT_DIGIT
+                        //                 || atomType == NOT_WORD_CHARACTER
+                        //                 || atomType == UNICODE_PROPERTY
+                        //                 || atomType == UNICODE_PROPERTY_NEGATION)) && uint8(_patternFlag) != SMALL_u
+                        // ) {
+                        //     i = rightLastParticleIndex + 1;
+                        //     continue;
+                        // }
 
                         if (
                             (rightAtomType != DIGIT
@@ -1689,25 +1690,10 @@ library Stringray {
                                 revert(errorMsg);
                             }
                         }
+                        i = rightLastParticleIndex + 1;
+                        continue;
                     }
                 }
-
-                // pseudo:
-                //    if range literl:
-                //        if first or last: continue
-                //    if literal is an escape:
-                //        if multi atom escape:
-                //            if i + 1 < last && i + 1 = range literal:
-                //                (i + 1) + 1 -> is any literal:
-                //                    if u mode: throw error
-                //                    else: continue to next literal validation
-                //    if vanila literal:
-                //        if i + 1 < last && i + 1 = range literal:
-                //            if (i + 1) + 1 -> is multi atom escape literal:
-                //                if u mode: throw error
-                //                else: continue to next literal validation
-                //            if (i + 1) + 1 -> is vanila literal:
-                //                if left literal > right literal: throw error
                 i = lastParticleIndex + 1;
             } else {
                 i++;
@@ -17676,18 +17662,19 @@ library Stringray {
         return (false, 0);
     }
 
-    function isRangeLiteral(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function isRangeLiteral(
+        bytes memory _pattern,
+        uint256 _currentParticleIndex,
+        bytes1 _patternFlag,
+        bool fromCharacterClass
+    ) private pure returns (bool, uint256) {
         bool isValid;
         uint256 lastMatchedIndex;
 
         (isValid, lastMatchedIndex) = isCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
-            if (uint8(_patternFlag) == SMALL_u) {
+            if (uint8(_patternFlag) == SMALL_u && !fromCharacterClass) {
                 string memory errorMsg = string(
                     abi.encodePacked(
                         "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
