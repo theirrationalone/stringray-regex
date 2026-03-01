@@ -1102,7 +1102,7 @@ library Stringray {
                 );
                 if (atomType == INVALID_ATOM) {
                     atomType = nullOctalOrDigitBackReference(
-                        _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag
+                        _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass
                     );
                 }
             }
@@ -1181,7 +1181,8 @@ library Stringray {
         bytes memory _pattern,
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag
+        bytes1 _patternFlag,
+        bool fromCharacterClass
     ) private pure returns (bytes32) {
         bytes32 atomType = LITERAL_ATOM;
 
@@ -1224,8 +1225,13 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
                 ) {
                     // @TODO: backreference check and validation remains
+                    string memory lastMsg = " Invalid escape";
+                    if (fromCharacterClass) {
+                        lastMsg = " Invalid decimal escape";
+                    }
+
                     string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
                     );
                     revert(errorMsg);
                 }
@@ -1249,8 +1255,13 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
                 ) {
                     // @TODO: backreference check and validation remains
+                    string memory lastMsg = " Invalid escape";
+                    if (fromCharacterClass) {
+                        lastMsg = " Invalid decimal escape";
+                    }
+
                     string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
                     );
                     revert(errorMsg);
                 }

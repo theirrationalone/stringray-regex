@@ -1661,6 +1661,11 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase77() public pure {
         string memory target = "anything";
 
+        // @NOTE: it's different here...
+        //  According to Js regex, if there's any group exist then \k always first tries
+        // reference the group name, if no associated group reference found then
+        // engine throws error: Invalid escape
+        // @STATUS: missing \k complete funcitonality, yet to get implemented
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/";
         target.regex(pattern);
     }
@@ -1668,6 +1673,9 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase78() public pure {
         string memory target = "anything";
 
+        // @NOTE: Throwing error as expected.
+        // @CAUTION: Working as expected doesn't mean working well and accurately
+        // still missing funcitonality
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/u";
         target.regex(pattern);
     }
@@ -1682,8 +1690,25 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase80() public pure {
         string memory target = "anything";
 
-        // string memory pattern = unicode"/[\\k<a>]/u";
-        string memory pattern = unicode"/a/";
+        string memory pattern = unicode"/[\\k<a>]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase81() public pure {
+        string memory target = "anything";
+
+        // @NOTE: Same case as of Case77
+        string memory pattern = unicode"/(?<b>a)\\k<a>/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase82() public pure {
+        string memory target = "anything";
+
+        // @NOTE: Here we can distinguish this case with case78
+        // Here, it's not throwing error unexpectedly
+        // @REASON: Missing \k complete functionality
+        string memory pattern = unicode"/(?<b>a)\\k<a>/u";
         target.regex(pattern);
     }
 
