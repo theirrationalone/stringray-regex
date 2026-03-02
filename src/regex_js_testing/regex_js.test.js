@@ -1805,6 +1805,34 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("Character Classes[]: Case00095", () => {
+    //     let regex = /[\^-\$]/;
+    //     const target = "\uc293";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00096", () => {
+    //     let regex = /[\^-\$]/u;
+    //     const target = "\uc293";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00097", () => {
+        let regex = /[\$-\^]/;
+        const target = "\$";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00098", () => {
+        let regex = /[\$-\^]/u;
+        const target = "\^";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();

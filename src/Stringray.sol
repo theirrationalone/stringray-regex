@@ -1349,22 +1349,14 @@ library Stringray {
                 atomType = NOT_WORD_CHARACTER;
             } else {
                 if (
-                    uint8(_patternFlag) == SMALL_u
-                        && (lastMatchedParticle != CARET_SIGN
-                            || lastMatchedParticle != DOLLAR_SIGN
-                            || lastMatchedParticle != BACK_SLASH
-                            || lastMatchedParticle != DOT
-                            || lastMatchedParticle != ASTERISK
-                            || lastMatchedParticle != PLUS_SIGN
-                            || lastMatchedParticle != QUESTION_MARK
-                            || lastMatchedParticle != OPEN_PARANTHESIS
-                            || lastMatchedParticle != CLOSE_PARANTHESIS
-                            || lastMatchedParticle != OPEN_SQUARE_BRACKET
-                            || lastMatchedParticle != CLOSE_SQUARE_BRACKET
-                            || lastMatchedParticle != OPEN_CURLY_BRACE
-                            || lastMatchedParticle != CLOSE_CURLY_BRACE
-                            || lastMatchedParticle != VERTICAL_BAR
-                            || lastMatchedParticle != FORWARD_SLASH)
+                    uint8(_patternFlag) == SMALL_u && lastMatchedParticle != CARET_SIGN
+                        && lastMatchedParticle != DOLLAR_SIGN && lastMatchedParticle != BACK_SLASH
+                        && lastMatchedParticle != DOT && lastMatchedParticle != ASTERISK
+                        && lastMatchedParticle != PLUS_SIGN && lastMatchedParticle != QUESTION_MARK
+                        && lastMatchedParticle != OPEN_PARANTHESIS && lastMatchedParticle != CLOSE_PARANTHESIS
+                        && lastMatchedParticle != OPEN_SQUARE_BRACKET && lastMatchedParticle != CLOSE_SQUARE_BRACKET
+                        && lastMatchedParticle != OPEN_CURLY_BRACE && lastMatchedParticle != CLOSE_CURLY_BRACE
+                        && lastMatchedParticle != VERTICAL_BAR && lastMatchedParticle != FORWARD_SLASH
                 ) {
                     string memory lastMsg = " Invalid escape";
                     if (lastMatchedParticle == SMALL_u) {
