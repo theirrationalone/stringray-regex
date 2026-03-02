@@ -1749,6 +1749,34 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("Character Classes[]: Case00087", () => {
+    //     let regex = /[€-क]/;
+    //     const target = "क";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // test("Character Classes[]: Case00088", () => {
+    //     let regex = /[€-क]/u;
+    //     const target = "क";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case00089", () => {
+        let regex = /[क-€]/;
+        const target = "€";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00090", () => {
+        let regex = /[क-€]/u;
+        const target = "€";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
