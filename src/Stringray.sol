@@ -1453,128 +1453,13 @@ library Stringray {
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-            flag = characterClassValidator(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
+            flag = isValidCharacterClassLiteral(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
             if (flag) {
                 return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
             }
         }
 
         return (false, INVALID_ATOM, 0);
-    }
-
-    function characterClassValidator(
-        bytes memory _pattern,
-        uint256 _currentParticleIndex,
-        uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag
-    ) private pure returns (bool) {
-        // bool isValid = isValidCharacterClass(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
-        isValidCharacterClassLiteral(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
-
-        // bool rangeFlag;
-        // for (uint256 i = _currentParticleIndex + 2; i < lastMatchedParticleIndex - 1; i++) {
-        //     if (uint8(_pattern[i]) == MINUS_SIGN && !rangeFlag) {
-        //         if (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH) {
-        //             if ((uint8(_pattern[i + 1]) != BACK_SLASH || uint8(_pattern[i + 2]) == BACK_SLASH)) {
-        //                 bool flag;
-        //                 uint256 firstUnicodeIndex;
-        //                 uint256 lastUnicodeIndex;
-        //                 if (uint8(_pattern[i - 1]) != BACK_SLASH) {
-        //                     if (i >= 5 && _currentParticleIndex < i - 5) {
-        //                         firstUnicodeIndex = i - 5;
-        //                         (flag, lastUnicodeIndex) = fUnicodeRange(_pattern, firstUnicodeIndex);
-        //                     } else if (i >= 4 && _currentParticleIndex < i - 4) {
-        //                         firstUnicodeIndex = i - 4;
-        //                         (flag, lastUnicodeIndex) = eUnicodeRange(_pattern, firstUnicodeIndex);
-        //                     } else if (i >= 3 && _currentParticleIndex < i - 3) {
-        //                         firstUnicodeIndex = i - 3;
-        //                         (flag, lastUnicodeIndex) = cUnicodeRange(_pattern, firstUnicodeIndex);
-        //                         if (!flag) {
-        //                             (flag, lastUnicodeIndex) = dUnicodeRange(_pattern, firstUnicodeIndex);
-        //                         }
-        //                     }
-        //                 }
-
-        //                 uint256 leftAtomDecimal;
-        //                 if (flag) {
-        //                     bytes memory unicodeHex =
-        //                         utf8HexToUnicodeHex(trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex)));
-        //                     leftAtomDecimal = hexToDec(unicodeHex, 8, false);
-        //                 } else {
-        //                     leftAtomDecimal = uint8(_pattern[i - 1]);
-        //                 }
-
-        //                 if (uint8(_pattern[i + 1]) != BACK_SLASH) {
-        //                     firstUnicodeIndex = i + 1;
-        //                     flag = false;
-        //                     if (i + 5 < lastMatchedParticleIndex) {
-        //                         (flag, lastUnicodeIndex) = fUnicodeRange(_pattern, firstUnicodeIndex);
-        //                     } else if (i + 4 < lastMatchedParticleIndex) {
-        //                         (flag, lastUnicodeIndex) = eUnicodeRange(_pattern, firstUnicodeIndex);
-        //                     } else if (i + 3 < lastMatchedParticleIndex) {
-        //                         (flag, lastUnicodeIndex) = cUnicodeRange(_pattern, firstUnicodeIndex);
-        //                         if (!flag) {
-        //                             (flag, lastUnicodeIndex) = dUnicodeRange(_pattern, firstUnicodeIndex);
-        //                         }
-        //                     }
-        //                 }
-
-        //                 uint256 rightAtomDecimal;
-        //                 if (flag) {
-        //                     bytes memory unicodeHex =
-        //                         utf8HexToUnicodeHex(trimString(_pattern, firstUnicodeIndex, int256(lastUnicodeIndex)));
-        //                     rightAtomDecimal = hexToDec(unicodeHex, 8, false);
-        //                 } else {
-        //                     rightAtomDecimal = uint8(_pattern[i + 1]);
-        //                 }
-
-        //                 if (leftAtomDecimal > rightAtomDecimal) {
-        //                     string memory errorMsg = string(
-        //                         abi.encodePacked(
-        //                             "SyntaxError: Invalid regular expression: /",
-        //                             _pattern,
-        //                             "/",
-        //                             _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-        //                             ": Range out of order in character class"
-        //                         )
-        //                     );
-        //                     revert(errorMsg);
-        //                 }
-        //             }
-        //         }
-        //         i += 1;
-        //         rangeFlag = true;
-        //     } else {
-        //         rangeFlag = false;
-        //     }
-        // }
-
-        // for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
-        //     if (uint8(_pattern[i]) == BACK_SLASH) {
-        //         if (
-        //             uint8(_pattern[i + 1]) == uint8(abi.encodePacked("p")[0])
-        //                 || uint8(_pattern[i + 1]) == uint8(abi.encodePacked("P")[0])
-        //         ) {
-        //             (bool isValid,) = validateBackslash_p_propertyNameEscape(_pattern, i);
-        //             // console2.log("passing through here...");
-
-        //             if (!isValid) {
-        //                 string memory errorMsg = string(
-        //                     abi.encodePacked(
-        //                         "SyntaxError: Invalid regular expression: /",
-        //                         _pattern,
-        //                         "/",
-        //                         _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-        //                         ": Invalid property name in character class"
-        //                     )
-        //                 );
-        //                 revert(errorMsg);
-        //             }
-        //         }
-        //     }
-        // }
-
-        return true;
     }
 
     function isValidCharacterClassLiteral(
@@ -1642,28 +1527,6 @@ library Stringray {
                             revert(errorMsg);
                         }
 
-                        // if (
-                        //     ((rightAtomType == DIGIT
-                        //                 || rightAtomType == WHITESPACE
-                        //                 || rightAtomType == NOT_WHITESPACE
-                        //                 || rightAtomType == WORD_CHARACTER
-                        //                 || rightAtomType == NOT_DIGIT
-                        //                 || rightAtomType == NOT_WORD_CHARACTER
-                        //                 || rightAtomType == UNICODE_PROPERTY
-                        //                 || rightAtomType == UNICODE_PROPERTY_NEGATION)
-                        //             || (atomType == DIGIT
-                        //                 || atomType == WHITESPACE
-                        //                 || atomType == NOT_WHITESPACE
-                        //                 || atomType == WORD_CHARACTER
-                        //                 || atomType == NOT_DIGIT
-                        //                 || atomType == NOT_WORD_CHARACTER
-                        //                 || atomType == UNICODE_PROPERTY
-                        //                 || atomType == UNICODE_PROPERTY_NEGATION)) && uint8(_patternFlag) != SMALL_u
-                        // ) {
-                        //     i = rightLastParticleIndex + 1;
-                        //     continue;
-                        // }
-
                         if (
                             (rightAtomType != DIGIT
                                     && rightAtomType != WHITESPACE
@@ -1709,6 +1572,8 @@ library Stringray {
                 i++;
             }
         }
+
+        return true;
     }
 
     function atomsDecimalValues(bytes32 atomType, bytes memory _pattern, uint256 lastParticleIndex)

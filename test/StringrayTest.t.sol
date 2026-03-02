@@ -1807,6 +1807,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @BUG: throwing invalid escape error...
+        // @STATUS: RESOLVED!
         string memory pattern = unicode"/[\\^-\\$]/u";
         target.regex(pattern);
     }
@@ -1821,7 +1822,8 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase98() public pure {
         string memory target = "anything";
 
-        // // @BUG: throwing invalid escape error...
+        // @BUG: throwing invalid escape error...
+        // @STATUS: RESOLVED!
         string memory pattern = unicode"/[\\$-\\^]/u";
         target.regex(pattern);
     }
