@@ -1777,6 +1777,34 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Character Classes[]: Case00091", () => {
+        let regex = /[\uc290-\uc295]/;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00092", () => {
+        let regex = /[\uc290-\uc295]/u;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00093", () => {
+    //     let regex = /[\uc295-\uc290]/;
+    //     const target = "\uc293";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00094", () => {
+    //     let regex = /[\uc295-\uc290]/u;
+    //     const target = "\uc293";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
