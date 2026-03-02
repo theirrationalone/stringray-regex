@@ -1721,6 +1721,34 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Character Classes[]: Case00083", () => {
+        let regex = /[✅-🧪]/;
+        const target = "🧪";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case00084", () => {
+        let regex = /[✅-🧪]/u;
+        const target = "🧪";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case00085", () => {
+    //     let regex = /[🧪-✅]/;
+    //     const target = "✅";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case00086", () => {
+    //     let regex = /[🧪-✅]/u;
+    //     const target = "✅";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();

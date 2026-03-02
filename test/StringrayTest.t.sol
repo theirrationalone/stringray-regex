@@ -1712,6 +1712,34 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassesCase83() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[✅-🧪]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase84() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[✅-🧪]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase85() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[🧪-✅]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase86() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[🧪-✅]/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 
