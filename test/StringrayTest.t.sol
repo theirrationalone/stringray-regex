@@ -1148,6 +1148,8 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase5() public pure {
         string memory target = "anything";
 
+        // @BUG: Throwing error due to '(' or ')' paranthesis
+        // @STATUS: NOT RESOLVED!
         string memory pattern = unicode"/[abc123_,:;!@#%&(){}? ]/";
         target.regex(pattern);
     }

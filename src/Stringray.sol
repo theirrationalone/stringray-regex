@@ -1587,6 +1587,11 @@ library Stringray {
                 }
                 i = lastParticleIndex + 1;
             } else {
+                if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                    i++;
+                    continue;
+                }
+
                 if (
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
                         && uint8(_patternFlag) != SMALL_u
