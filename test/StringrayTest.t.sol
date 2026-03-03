@@ -1150,14 +1150,14 @@ contract PlayStringTest is Test {
 
         // @BUG: Throwing error due to '(' or ')' paranthesis
         // @STATUS: NOT RESOLVED!
-        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^|/ ]/";
+        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/";
         target.regex(pattern);
     }
 
     function testRegexCharacterClassesCase6() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[abc123_,:;!@#%&(){}? ]/u";
+        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/u";
         target.regex(pattern);
     }
 
@@ -1875,14 +1875,14 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase105() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[\\c_]/";
+        string memory pattern = unicode"/[a\\c_z]/";
         target.regex(pattern);
     }
 
     function testRegexCharacterClassesCase106() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[\\c_]/u";
+        string memory pattern = unicode"/[a\\c_z]/u";
         target.regex(pattern);
     }
 

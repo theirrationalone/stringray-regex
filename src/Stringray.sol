@@ -1292,7 +1292,7 @@ library Stringray {
             atomType = UNICODE_ESCAPE;
         } else if (
             _currentParticleIdx + 1 < lastMatchedParticleIndex
-                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("K")[0])
+                && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("k")[0])
         ) {
             atomType = NAMED_BACKREFERENCE_PREFIX;
         } else if (

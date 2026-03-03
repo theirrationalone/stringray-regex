@@ -1425,8 +1425,8 @@ const testMain = () => {
 
     test("Character Classes[]: Case00040", () => {
         // @Note: - is smaller than a
-        let regex = /[--a]/u;
-        const target = "-";
+        let regex = /[--b]/u;
+        const target = "a";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
@@ -1884,14 +1884,14 @@ const testMain = () => {
     // });
 
     test("Character Classes[]: Case000105", () => {
-        let regex = /[\c_]/;
-        const target = "c_";
+        let regex = /[a\c_z]/;
+        const target = "z";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
     // test("Character Classes[]: Case000106", () => {
-    //     let regex = /[\c_]/u;
+    //     let regex = /[a\c_z]/u;
     //     const target = "c_";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
