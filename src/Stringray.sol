@@ -1587,7 +1587,14 @@ library Stringray {
                 }
                 i = lastParticleIndex + 1;
             } else {
-                if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                // lastMatchedParticle != CARET_SIGN
+                // && lastMatchedParticle != OPEN_CURLY_BRACE && lastMatchedParticle != CLOSE_CURLY_BRACE
+                // && lastMatchedParticle != VERTICAL_BAR && lastMatchedParticle != FORWARD_SLASH
+                if (
+                    uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS
+                        || uint8(_pattern[i]) == QUESTION_MARK || uint8(_pattern[i]) == PLUS_SIGN
+                        || uint8(_pattern[i]) == ASTERISK
+                ) {
                     i++;
                     continue;
                 }

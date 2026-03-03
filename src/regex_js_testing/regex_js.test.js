@@ -1142,15 +1142,15 @@ const testMain = () => {
     });
 
     test("Character Classes[]: Case0005", () => {
-        let regex = /[abc123_,:;!@#%&(){}? ]/;
-        const target = "abc123_,:;!@#%&(){}? ";
+        let regex = /[abc123_,:;!@#%&()$^{}?+*/|"'<>=`~ ]/;
+        const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
     test("Character Classes[]: Case0006", () => {
-        let regex = /[abc123_,:;!@#%&(){}? ]/u;
-        const target = "abc123_,:;!@#%&(){}? ";
+        let regex = /[abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ]/u;
+        const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
