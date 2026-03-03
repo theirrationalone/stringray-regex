@@ -1828,6 +1828,22 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassesCase99() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\\c-b]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase100() public pure {
+        string memory target = "anything";
+
+        // @BUG: throwing invalid escape error...
+        // @STATUS: RESOLVED!
+        string memory pattern = unicode"/[\\c-b]/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 
