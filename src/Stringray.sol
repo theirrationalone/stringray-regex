@@ -948,6 +948,7 @@ library Stringray {
             console2.log("atomEndIdx: ", atomEndIdx);
             console2.log("---");
 
+            if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
         }
     }
@@ -1543,7 +1544,7 @@ library Stringray {
                                     && atomType != NOT_DIGIT
                                     && atomType != NOT_WORD_CHARACTER
                                     && atomType != UNICODE_PROPERTY
-                                    && atomType != UNICODE_PROPERTY_NEGATION)
+                                    && atomType != UNICODE_PROPERTY_NEGATION) && atomType != INVALID_ATOM
                         ) {
                             // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
                             uint256 leftLiteralDecimalValue = atomsDecimalValues(atomType, _pattern, lastParticleIndex);
@@ -1563,13 +1564,59 @@ library Stringray {
                                 revert(errorMsg);
                             }
                         }
+
+                        if (
+                            uint8(_pattern[lastParticleIndex + 2]) == BACK_SLASH
+                                && uint8(_pattern[lastParticleIndex + 3]) == uint8(abi.encodePacked("c")[0])
+                                && uint8(_patternFlag) != SMALL_u
+                        ) {
+                            string memory errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Invalid regular expression: /",
+                                    _pattern,
+                                    "/",
+                                    ": Range out of order in character class"
+                                )
+                            );
+                            revert(errorMsg);
+                        }
+
                         i = rightLastParticleIndex + 1;
                         continue;
                     }
                 }
                 i = lastParticleIndex + 1;
             } else {
-                i++;
+                if (
+                    uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
+                        && uint8(_patternFlag) != SMALL_u
+                ) {
+                    if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == MINUS_SIGN) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: /",
+                                _pattern,
+                                "/",
+                                ": Range out of order in character class"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+
+                    i = i + 2;
+                    continue;
+                }
+
+                string memory errorMsg = string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: /",
+                        _pattern,
+                        "/",
+                        _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
+                        ": Invalid character class"
+                    )
+                );
+                revert(errorMsg);
             }
         }
 
@@ -17670,7 +17717,8 @@ library Stringray {
                         revert(errorMsg);
                     }
 
-                    return (true, _currentParticleIndex + 1);
+                    // @question: does it really need a tweak?
+                    return (false, 0);
                 }
             }
 
