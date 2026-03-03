@@ -1472,8 +1472,9 @@ library Stringray {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
-                    && ((uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
-                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex))
+                    && ((i - 1 == _currentParticleIndex && uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET)
+                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex)
+                        || (i - 1 == _currentParticleIndex + 1 && uint8(_pattern[i - 1]) == CARET_SIGN))
             ) {
                 i = i + 1;
                 continue;
@@ -1587,9 +1588,6 @@ library Stringray {
                 }
                 i = lastParticleIndex + 1;
             } else {
-                // lastMatchedParticle != CARET_SIGN
-                // && lastMatchedParticle != OPEN_CURLY_BRACE && lastMatchedParticle != CLOSE_CURLY_BRACE
-                // && lastMatchedParticle != VERTICAL_BAR && lastMatchedParticle != FORWARD_SLASH
                 if (
                     uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS
                         || uint8(_pattern[i]) == QUESTION_MARK || uint8(_pattern[i]) == PLUS_SIGN
@@ -1701,36 +1699,6 @@ library Stringray {
         }
 
         return decimal;
-    }
-
-    function isValidCharacterClass(
-        bytes memory _pattern,
-        uint256 _currentParticleIndex,
-        uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag
-    ) private pure returns (bool) {
-        for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
-            if (
-                uint8(_pattern[i]) == MINUS_SIGN
-                    && (uint8(_pattern[i - 1]) != BACK_SLASH
-                        || (i - 2 > _currentParticleIndex && uint8(_pattern[i - 2]) == BACK_SLASH))
-            ) {
-                if (
-                    (uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET && i - 1 == _currentParticleIndex)
-                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex)
-                ) {
-                    continue;
-                }
-
-                if (i - 2 > _currentParticleIndex && uint8(_pattern[i - 2]) == BACK_SLASH) {
-                    // if (uint8(_pattern[i - 1]) != ) {}
-                }
-
-                if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == BACK_SLASH) {
-                    // if (uint8(_pattern[i - 2])) {}
-                }
-            }
-        }
     }
 
     function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
@@ -2247,9 +2215,75 @@ library Stringray {
                                     || uint8(patternInBytes[i - 2]) == BACK_SLASH))
                             || (uint8(patternInBytes[i - 1]) != BACK_SLASH))
                 ) {
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression flags: ", _pattern)
-                    );
+                    uint256 openSquareBracketIdx;
+                    uint256 closeSquareBracketIdx;
+                    // /ab/p[c][aba/[b/
+                    for (uint256 j = i - 1; j >= 1; j--) {
+                        if (
+                            uint8(patternInBytes[j]) == CLOSE_SQUARE_BRACKET
+                                && (uint8(patternInBytes[j - 1]) != BACK_SLASH
+                                    || (j > 1 && uint8(patternInBytes[j - 2]) == BACK_SLASH))
+                        ) {
+                            break;
+                        }
+
+                        if (
+                            uint8(patternInBytes[j]) == OPEN_SQUARE_BRACKET
+                                && (uint8(patternInBytes[j - 1]) != BACK_SLASH
+                                    || (j > 1 && uint8(patternInBytes[j - 2]) == BACK_SLASH))
+                        ) {
+                            openSquareBracketIdx = j;
+                        }
+                    }
+
+                    if (openSquareBracketIdx > 0) {
+                        for (uint256 j = i + 1; j < patternInBytes.length - 1; j++) {
+                            if (
+                                uint8(patternInBytes[j]) == CLOSE_SQUARE_BRACKET
+                                    && (uint8(patternInBytes[j - 1]) != BACK_SLASH
+                                        || (j > 1 && uint8(patternInBytes[j - 2]) == BACK_SLASH))
+                            ) {
+                                closeSquareBracketIdx = j;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (
+                        openSquareBracketIdx != 0 && closeSquareBracketIdx != 0 && openSquareBracketIdx < i
+                            && closeSquareBracketIdx > i
+                    ) {
+                        continue;
+                    }
+
+                    string memory errorMsg;
+
+                    if (
+                        (openSquareBracketIdx == 0 && closeSquareBracketIdx == 0)
+                            || (openSquareBracketIdx != 0 && closeSquareBracketIdx == 0)
+                    ) {
+                        if (uint8(patternInBytes[i + 1]) == FORWARD_SLASH) {
+                            errorMsg = string(abi.encodePacked("SyntaxError: Unexpected token ';'"));
+                        } else if (
+                            !isSmallAlphabet(patternInBytes[i + 1]) && !isBigAlphabet(patternInBytes[i + 1])
+                                && uint8(patternInBytes[i + 1]) != BACK_SLASH
+                        ) {
+                            errorMsg = string(
+                                abi.encodePacked(
+                                    "SyntaxError: Unexpected token '",
+                                    string(abi.encodePacked(patternInBytes[i + 1])),
+                                    "'"
+                                )
+                            );
+                        } else {
+                            errorMsg = string(abi.encodePacked("SyntaxError: Invalid regular expression flags"));
+                        }
+                    }
+
+                    if (openSquareBracketIdx == 0 && closeSquareBracketIdx != 0) {
+                        errorMsg = string(abi.encodePacked("SyntaxError: Invalid regular expression: missing /"));
+                    }
+
                     revert(errorMsg);
                 }
             }

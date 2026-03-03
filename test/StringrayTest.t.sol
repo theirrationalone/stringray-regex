@@ -1150,7 +1150,7 @@ contract PlayStringTest is Test {
 
         // @BUG: Throwing error due to '(' or ')' paranthesis
         // @STATUS: NOT RESOLVED!
-        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/ ]/";
+        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^|/ ]/";
         target.regex(pattern);
     }
 
