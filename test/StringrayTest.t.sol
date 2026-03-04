@@ -1886,6 +1886,426 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexCharacterClassesCase107() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[_-,]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase108() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[_-,]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase109() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[,-_]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase110() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[,-_]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase111() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[:-;]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase112() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[:-;]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase113() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[;-:]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase114() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[;-:]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase115() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[!-@]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase116() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[!-@]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase117() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[@-!]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase118() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[@-!]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase119() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[#-%]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase120() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[#-%]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase121() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[%-#]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase122() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[%-#]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase123() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[&-(]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase124() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[&-(]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase125() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[(-&]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase126() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[(-&]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase127() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[)-$]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase128() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[)-$]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase129() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[$-)]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase130() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[$-)]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase131() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[^-{]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase132() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[^-{]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase133() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[{-^]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase134() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[{-^]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase135() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\\^-{]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase136() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\\^-{]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase137() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[{-\\^]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase138() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[{-\\^]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase139() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[}-?]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase140() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[}-?]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase141() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[?-}]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase142() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[?-}]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase143() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[+-*]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase144() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[+-*]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase145() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[*-+]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase146() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[*-+]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase147() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[/-|]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase148() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[/-|]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase149() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[|-/]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase150() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[|-/]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase151() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\"-']/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase152() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[\"-']/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase153() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/['-\"]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase154() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/['-\"]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase155() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[<->]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase156() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[<->]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase157() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[>-<]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase158() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[>-<]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase159() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[=-`]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase160() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[=-`]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase161() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[`-=]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase162() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[`-=]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase163() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[`-~]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase164() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[`-~]/u";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase165() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[~-`]/";
+        target.regex(pattern);
+    }
+
+    function testRegexCharacterClassesCase166() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/[~-`]/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 

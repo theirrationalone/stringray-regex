@@ -1482,6 +1482,20 @@ library Stringray {
 
             (bool flag, bytes32 atomType, uint256 lastParticleIndex) = isLiteralAtom(_pattern, i, _patternFlag, true);
 
+            if (
+                !flag
+                    && (uint8(_pattern[i]) == OPEN_PARANTHESIS
+                        || uint8(_pattern[i]) == CLOSE_PARANTHESIS
+                        || uint8(_pattern[i]) == QUESTION_MARK
+                        || uint8(_pattern[i]) == PLUS_SIGN
+                        || uint8(_pattern[i]) == FORWARD_SLASH
+                        || uint8(_pattern[i]) == ASTERISK)
+            ) {
+                flag = true;
+                atomType = LITERAL_ATOM;
+                lastParticleIndex = i;
+            }
+
             if (flag) {
                 if (
                     lastParticleIndex + 1 < lastMatchedParticleIndex
@@ -1527,6 +1541,19 @@ library Stringray {
                                 )
                             );
                             revert(errorMsg);
+                        }
+
+                        if (
+                            rightAtomType == INVALID_ATOM
+                                && (uint8(_pattern[i + 2]) == OPEN_PARANTHESIS
+                                    || uint8(_pattern[i + 2]) == CLOSE_PARANTHESIS
+                                    || uint8(_pattern[i + 2]) == QUESTION_MARK
+                                    || uint8(_pattern[i + 2]) == PLUS_SIGN
+                                    || uint8(_pattern[i + 2]) == FORWARD_SLASH
+                                    || uint8(_pattern[i + 2]) == ASTERISK)
+                        ) {
+                            rightAtomType = LITERAL_ATOM;
+                            rightLastParticleIndex = lastParticleIndex + 2;
                         }
 
                         if (
@@ -1588,15 +1615,6 @@ library Stringray {
                 }
                 i = lastParticleIndex + 1;
             } else {
-                if (
-                    uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS
-                        || uint8(_pattern[i]) == QUESTION_MARK || uint8(_pattern[i]) == PLUS_SIGN
-                        || uint8(_pattern[i]) == ASTERISK
-                ) {
-                    i++;
-                    continue;
-                }
-
                 if (
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
                         && uint8(_patternFlag) != SMALL_u
