@@ -2414,6 +2414,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase8() public pure {
         string memory target = "anything";
 
+        // @BUG: not throwing error in u mode
         string memory pattern = unicode"/(abcd/ghij)/u";
         target.regex(pattern);
     }
