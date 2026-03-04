@@ -1486,6 +1486,7 @@ library Stringray {
                 !flag
                     && (uint8(_pattern[i]) == OPEN_PARANTHESIS
                         || uint8(_pattern[i]) == CLOSE_PARANTHESIS
+                        || uint8(_pattern[i]) == OPEN_SQUARE_BRACKET
                         || uint8(_pattern[i]) == QUESTION_MARK
                         || uint8(_pattern[i]) == PLUS_SIGN
                         || uint8(_pattern[i]) == FORWARD_SLASH
@@ -1547,6 +1548,7 @@ library Stringray {
                             rightAtomType == INVALID_ATOM
                                 && (uint8(_pattern[i + 2]) == OPEN_PARANTHESIS
                                     || uint8(_pattern[i + 2]) == CLOSE_PARANTHESIS
+                                    || uint8(_pattern[i + 2]) == OPEN_SQUARE_BRACKET
                                     || uint8(_pattern[i + 2]) == QUESTION_MARK
                                     || uint8(_pattern[i + 2]) == PLUS_SIGN
                                     || uint8(_pattern[i + 2]) == FORWARD_SLASH

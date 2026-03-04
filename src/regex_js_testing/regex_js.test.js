@@ -2315,7 +2315,66 @@ const testMain = () => {
     //     const target = "`";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
-    // }); 
+    // });
+
+    test("Character Classes[]: Case000167", () => {
+        let regex = /[[]/;
+        const target = "[";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case000168", () => {
+        let regex = /[[]/u;
+        const target = "[";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case000169", () => {
+        let regex = /[[-b]/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case000170", () => {
+        let regex = /[[-b]/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character Classes[]: Case000171", () => {
+    //     let regex = /[b-[]/;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character Classes[]: Case000172", () => {
+    //     let regex = /[b-[]/u;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character Classes[]: Case000173", () => {
+        let regex = /[ab]a]/;
+        const target = "ba]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character Classes[]: Case000174", () => {
+        // @JS-BUG: Throwing error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone quantifier brackets
+        // @RESOLUTION: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
+        
+        let regex = /[ab]a]/u;
+        const target = "ba]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
