@@ -2223,11 +2223,17 @@ library Stringray {
         }
 
         if (
-            patternLastChar == FORWARD_SLASH
-                && ((patternSecondLastChar == BACK_SLASH && patternThirdLastChar == BACK_SLASH)
-                    || (patternSecondLastChar != BACK_SLASH))
+            (patternLastChar == FORWARD_SLASH
+                    && ((patternSecondLastChar == BACK_SLASH && patternThirdLastChar == BACK_SLASH)
+                        || (patternSecondLastChar != BACK_SLASH)))
+                || (patternSecondLastChar == FORWARD_SLASH
+                    && ((patternThirdLastChar == BACK_SLASH
+                            && (patternInBytes.length > 3
+                                && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH))
+                        || (patternThirdLastChar != BACK_SLASH)))
         ) {
-            for (uint256 i = 1; i < patternInBytes.length - 1; i++) {
+            uint256 bound = patternLastChar == FORWARD_SLASH ? patternInBytes.length - 1 : patternInBytes.length - 2;
+            for (uint256 i = 1; i < bound; i++) {
                 if (
                     uint8(patternInBytes[i]) == FORWARD_SLASH
                         && ((i > 1
@@ -2257,7 +2263,7 @@ library Stringray {
                     }
 
                     if (openSquareBracketIdx > 0) {
-                        for (uint256 j = i + 1; j < patternInBytes.length - 1; j++) {
+                        for (uint256 j = i + 1; j < bound; j++) {
                             if (
                                 uint8(patternInBytes[j]) == CLOSE_SQUARE_BRACKET
                                     && (uint8(patternInBytes[j - 1]) != BACK_SLASH
