@@ -2366,15 +2366,155 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Character Classes[]: Case000174", () => {
-        // @JS-BUG: Throwing error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone quantifier brackets
-        // @RESOLUTION: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
+    // test("Character Classes[]: Case000174", () => {
+    //     // @JS-BUG: Throwing error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone quantifier brackets
+    //     // @RESOLUTION: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
         
-        let regex = /[ab]a]/u;
-        const target = "ba]";
+    //     let regex = /[ab]a]/u;
+    //     const target = "ba]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case00001", () => {
+        let regex = /(a)/;
+        const target = "a";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Groups(): Case00002", () => {
+        let regex = /(a)/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case00003", () => {
+        let regex = /(abcdefjklmnostuvwxyz)/;
+        const target = "abcdefjklmnostuvwxyz";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case00004", () => {
+        let regex = /(abcdefjklmnostuvwxyz)/u;
+        const target = "abcdefjklmnostuvwxyz";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case00005", () => {
+        let regex = /(abcd-ghij)/;
+        const target = "abcd-ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case00006", () => {
+        let regex = /(abcd-ghij)/u;
+        const target = "abcd-ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case00007", () => {
+    //     let regex = /(abcd/ghij)/;
+    //     const target = "abcd/ghij";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case00008", () => {
+    //     let regex = /(abcd/ghij)/u;
+    //     const target = "abcd/ghij";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case00009", () => {
+        let regex = /(abcd!@#%=';:><.,~`"&ghij)/;
+        const target = "abcd!@#%=';:><.,~`\"&ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case000010", () => {
+        let regex = /(abcd!@#%=';:><.,~`"&ghij)/u;
+        const target = "abcd!@#%=';:><.,~`\"&ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case000011", () => {
+        let regex = /(\a)/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case000012", () => {
+    //     let regex = /(\a)/u;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case000013", () => {
+        let regex = /(\a\e\j\k\l\m\o\y\z)/;
+        const target = "aejklmoyz";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case000014", () => {
+    //     let regex = /(\a\e\j\k\l\m\o\y\z)/u;
+    //     const target = "aejklmoyz";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case000015", () => {
+        let regex = /(\a\-\g\h\i\j)/;
+        const target = "a-ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case000016", () => {
+    //     let regex = /(\a\-\g\h\i\j)/u;
+    //     const target = "a-ghij";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case000017", () => {
+        let regex = /(\a\/\g\h\i\j)/;
+        const target = "a/ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case000018", () => {
+    //     let regex = /(\a\/\g\h\i\j)/u;
+    //     const target = "a/ghij";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case000019", () => {
+        let regex = /(\a\!\@\#\%\=\'\;\:\>\<\.\,\~\`\"\&\g\h\i\j)/;
+        const target = "a!@#%=';:><.,~`\"&ghij";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case000020", () => {
+    //     let regex = /(\a\!\@\#\%\=\'\;\:\>\<\.\,\~\`\"\&\g\h\i\j)/u;
+    //     const target = "a!@#%=';:><.,~`\"&ghij"";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
