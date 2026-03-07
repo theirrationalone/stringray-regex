@@ -1375,9 +1375,15 @@ library Stringray {
                 atomType = WORD_CHARACTER;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
                 if (fromCharacterClass && uint8(_patternFlag) == SMALL_u) {
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = "/u: Invalid escape";
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = ")/u: Invalid escape";
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
                 atomType = NOT_WORD_BOUNDARY;
@@ -1398,14 +1404,20 @@ library Stringray {
                         && lastMatchedParticle != OPEN_CURLY_BRACE && lastMatchedParticle != CLOSE_CURLY_BRACE
                         && lastMatchedParticle != VERTICAL_BAR && lastMatchedParticle != FORWARD_SLASH
                 ) {
-                    string memory lastMsg = " Invalid escape";
+                    string memory lastMsg = "/u: Invalid escape";
                     if (lastMatchedParticle == SMALL_u) {
-                        lastMsg = " Invalid Unicode escape";
+                        lastMsg = "/u: Invalid Unicode escape";
                     }
 
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = lastMsg;
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = string(abi.encodePacked(")", lastMsg));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
                 atomType = LITERAL_ATOM;
@@ -1415,7 +1427,7 @@ library Stringray {
         return atomType;
     }
 
-    function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
+    function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
         internal
         pure
         returns (bool, bytes32, uint256)
@@ -1428,29 +1440,37 @@ library Stringray {
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
-                    string memory errorMsg = string(
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = string(
                         abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: /",
-                            _pattern,
-                            "/",
-                            _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-                            ": Empty Character class"
+                            "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Empty Character class"
                         )
                     );
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = string(abi.encodePacked(")", lastMsg));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
             }
 
             if (_pattern.length < 3 && uint8(_pattern[1]) != CLOSE_SQUARE_BRACKET) {
-                string memory errorMsg = string(
+                string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                string memory errorRight = string(
                     abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /",
-                        _pattern,
-                        "/",
-                        _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-                        ": Unterminated Character class"
+                        "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Unterminated Character class"
                     )
                 );
+
+                if (fromGroup) {
+                    errorLeft = "SyntaxError: Invalid regular expression: /(";
+                    errorRight = string(abi.encodePacked(")", lastMsg));
+                }
+
+                string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                 revert(errorMsg);
             }
 
@@ -1478,15 +1498,19 @@ library Stringray {
                 }
 
                 if (!flag) {
-                    string memory errorMsg = string(
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = string(
                         abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: /",
-                            _pattern,
-                            "/",
-                            _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-                            ": Unterminated Character class"
+                            "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Unterminated Character class"
                         )
                     );
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = string(abi.encodePacked(")", lastMsg));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
             }
