@@ -1212,14 +1212,20 @@ library Stringray {
                 } else if (
                     uint8(_patternFlag) == SMALL_u
                         && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-                        && _currentParticleIdx + 1 != lastMatchedParticleIndex
+                        && _currentParticleIdx + 1 == lastMatchedParticleIndex
                 ) {
-                    string memory errorMsg = string(
-                        abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
-                        )
-                    );
-                    revert(errorMsg);
+                    if (
+                        lastMatchedParticleIndex + 1 < _pattern.length
+                            && isDigit(_pattern[lastMatchedParticleIndex + 1], false)
+                    ) {
+                        string memory errorMsg = string(
+                            abi.encodePacked(
+                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
+                            )
+                        );
+                        revert(errorMsg);
+                    }
+                    atomType = NULL_CHARACTER;
                 } else if (
                     uint8(_patternFlag) == SMALL_u
                         && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])

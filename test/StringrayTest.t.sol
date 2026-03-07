@@ -1149,7 +1149,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @BUG: Throwing error due to '(' or ')' paranthesis
-        // @STATUS: NOT RESOLVED!
+        // @STATUS: Fixed ✅
         string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/";
         target.regex(pattern);
     }
@@ -2415,6 +2415,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @BUG: not throwing error in u mode
+        // @Status: Fixed ✅
         string memory pattern = unicode"/(abcd/ghij)/u";
         target.regex(pattern);
     }
@@ -3412,6 +3413,7 @@ contract PlayStringTest is Test {
 
         // @BUG: not throwing error: Invalid decimal escape, in both cases literal and group
         // string memory pattern = unicode"/\\0988/u";
+        // @Status: Fixed ✅
         string memory pattern = unicode"/(\\0988)/u";
         target.regex(pattern);
     }
