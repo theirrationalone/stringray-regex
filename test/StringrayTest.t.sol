@@ -4236,6 +4236,7 @@ contract PlayStringTest is Test {
 
         // @BUG: throws: Invalid escape for literal escape \8 and Invalid decimal escape for cc [\8]
         // However, should always throw Invalid escape
+        // @Status: Fixed ✅
         string memory pattern = unicode"/([\\8])/u";
         target.regex(pattern);
     }

@@ -1233,7 +1233,9 @@ library Stringray {
                 ) {
                     // @TODO: backreference check and validation remains
                     string memory lastMsg = " Invalid escape";
-                    if (fromCharacterClass) {
+                    if (
+                        fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
+                    ) {
                         lastMsg = " Invalid decimal escape";
                     }
 
@@ -1263,7 +1265,9 @@ library Stringray {
                 ) {
                     // @TODO: backreference check and validation remains
                     string memory lastMsg = " Invalid escape";
-                    if (fromCharacterClass) {
+                    if (
+                        fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
+                    ) {
                         lastMsg = " Invalid decimal escape";
                     }
 
