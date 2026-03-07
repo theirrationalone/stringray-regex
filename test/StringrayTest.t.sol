@@ -2937,7 +2937,10 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase77() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\$)/";
+        string memory pattern = unicode"/(\\^)/";
+        target.regex(pattern);
+
+        pattern = unicode"/(\\$)/";
         target.regex(pattern);
 
         pattern = unicode"/(\\.)/";
@@ -2980,11 +2983,6 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase78() public pure {
         string memory target = "anything";
 
-        // @Note: \x41 or any valid sequence with \xHH would be interpolated as a hexadecimal character
-        // automatically (builtin capability of solidity)
-        // So, for \xHH explicit support we do escape the backspace with preceding backslash \ followed by a backslash \
-        // along with valid Hexdecimal sequences i.e., \\xHH
-        // string memory pattern = unicode"/\x41/";
         string memory pattern = unicode"/(\\x41)/";
         target.regex(pattern);
     }
@@ -2992,32 +2990,18 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase79() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\x4)/";
+        string memory pattern = unicode"/(\\u0061)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase80() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\u0061)/";
+        string memory pattern = unicode"/(\\u{1F600})/u";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase82() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/(\\u61)/";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase83() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/(\\u{1F600})/";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase84() public pure {
+    function testRegexGroupsCase81() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\n)/";
@@ -3048,291 +3032,302 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase85() public pure {
+    function testRegexGroupsCase82() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\/)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase86() public pure {
+    function testRegexGroupsCase83() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(a\\/b)/";
-        target.regex(pattern);
-
-        // pattern = unicode"/(a/b)/";
-        pattern = unicode"/(a\\\\/b)/";
+        string memory pattern = unicode"/(a/b)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase87() public pure {
+    function testRegexGroupsCase84() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(ab)/g";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/i";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/m";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/s";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/u";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/y";
-        target.regex(pattern);
-
-        pattern = unicode"/(ab)/d";
-        target.regex(pattern);
-
-        pattern = unicode"/(a)/d";
-        target.regex(pattern);
-
-        pattern = unicode"/(b)/\\";
+        string memory pattern = unicode"/(ab)/\\";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase88() public pure {
+    function testRegexGroupsCase85() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u{110000})/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase89() public pure {
+    function testRegexGroupsCase86() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(\\c1)/";
+        target.regex(pattern);
+
+        pattern = unicode"/(\\u{1F600})/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase87() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(\\ugg)/";
+        target.regex(pattern);
+
+        // pattern = unicode"/(\\u{1F600})/";
+    }
+
+    function testRegexGroupsCase88() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(.)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase90() public pure {
+    function testRegexGroupsCase89() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\.)/";
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase90() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(\\r.)/";
+        target.regex(pattern);
+    }
+
     function testRegexGroupsCase91() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\\\.)/";
+        string memory pattern = unicode"/({)/";
         target.regex(pattern);
     }
 
-    // function testRegexGroupsCase92() public pure {
-    //     string memory target = "anything";
+    function testRegexGroupsCase92() public pure {
+        string memory target = "anything";
 
-    //     string memory pattern = unicode"(/.
-    //     /)";
-    //     target.regex(pattern);
-    // }
+        string memory pattern = unicode"/(})/";
+        target.regex(pattern);
+    }
 
     function testRegexGroupsCase93() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/({)/u";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase94() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/(0,1})/u";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase95() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(1)/u";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase96() public pure {
+    function testRegexGroupsCase94() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(,)/u";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase97() public pure {
+    function testRegexGroupsCase95() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(1,)/u";
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase96() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(1,2)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase97() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(2,1)/";
+        target.regex(pattern);
+    }
+
     function testRegexGroupsCase98() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/(1,2)/u";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase99() public pure {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/(2,1)/u";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase100() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(()/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase101() public pure {
+    function testRegexGroupsCase99() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/())/";
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase100() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/([])/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase101() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(])/";
+        target.regex(pattern);
+    }
+
     function testRegexGroupsCase102() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/([aa)/";
+        string memory pattern = unicode"/([])/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase103() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(])/u";
+        string memory pattern = unicode"/(?)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase104() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(?)/";
+        string memory pattern = unicode"/(\\?)/u";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase105() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\?)/";
+        string memory pattern = unicode"/(+)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase106() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(+)/";
+        string memory pattern = unicode"/(\\+)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase107() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\+)/";
+        string memory pattern = unicode"/(*)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase108() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(*)/";
-        target.regex(pattern);
-    }
-
-    function testRegexGroupsCase109() public pure {
-        string memory target = "anything";
-
         string memory pattern = unicode"/(\\*)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase110() public pure {
+    // function testRegexGroupsCase109() public pure {
+    //     string memory target = "anything";
+
+    //     string memory pattern = unicode"/(*)/";
+    //     target.regex(pattern);
+    // }
+
+    // function testRegexGroupsCase110() public pure {
+    //     string memory target = "anything";
+
+    //     string memory pattern = unicode"/(\\*)/";
+    //     target.regex(pattern);
+    // }
+
+    function testRegexGroupsCase109() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a???)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase111() public pure {
+    function testRegexGroupsCase110() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a??)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase112() public pure {
+    function testRegexGroupsCase111() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a+??)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase113() public pure {
+    function testRegexGroupsCase112() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a+?)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase114() public pure {
+    function testRegexGroupsCase113() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a*??)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase115() public pure {
+    function testRegexGroupsCase114() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a*?)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase116() public pure {
+    function testRegexGroupsCase115() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(a^|$sian)/";
+        string memory pattern = unicode"/(asian)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase117() public pure {
+    function testRegexGroupsCase116() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\08)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase118() public pure {
+    function testRegexGroupsCase117() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\107)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase119() public pure {
+    function testRegexGroupsCase118() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\377)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase120() public pure {
+    function testRegexGroupsCase119() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\400)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase121() public pure {
+    function testRegexGroupsCase120() public pure {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\777)/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase121() public pure {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/(a^|$sian)/";
         target.regex(pattern);
     }
 
