@@ -1193,9 +1193,9 @@ library Stringray {
                 && isDigit(_pattern[lastMatchedParticleIndex], false)
         ) {
             bool isOctal = true;
-
-            (isOctal, lastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
-
+            uint256 newLastMatchedParticleIndex;
+            (isOctal, newLastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
+            if (isOctal) lastMatchedParticleIndex = newLastMatchedParticleIndex;
             if (!isOctal) {
                 if (uint8(_patternFlag) != SMALL_u) {
                     if (
@@ -17913,6 +17913,10 @@ library Stringray {
             // @info: BUG: no return statement for the end itertion if last character is also a digit
             // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
             // @status: resolved
+
+            if (i == _indexToStartFrom && _pattern[i] == 0x30) {
+                return (false, 0);
+            }
 
             // @patch: below LoC
             if (i == patternLastIndex && isDigit(_pattern[i], false)) {
