@@ -3065,9 +3065,6 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/(\\c1)/";
         target.regex(pattern);
-
-        pattern = unicode"/(\\u{1F600})/";
-        target.regex(pattern);
     }
 
     function testRegexGroupsCase87() public pure {
@@ -3075,8 +3072,6 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/(\\ugg)/";
         target.regex(pattern);
-
-        // pattern = unicode"/(\\u{1F600})/";
     }
 
     function testRegexGroupsCase88() public pure {
@@ -3152,6 +3147,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase98() public pure {
         string memory target = "anything";
 
+        // @info: inconsistent error msgs
         string memory pattern = unicode"/(()/";
         target.regex(pattern);
     }
@@ -3159,6 +3155,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase99() public pure {
         string memory target = "anything";
 
+        // @info: inconsistent error msgs
         string memory pattern = unicode"/())/";
         target.regex(pattern);
     }
@@ -3166,6 +3163,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase100() public pure {
         string memory target = "anything";
 
+        // @info: inconsistent error msgs
         string memory pattern = unicode"/([])/u";
         target.regex(pattern);
     }

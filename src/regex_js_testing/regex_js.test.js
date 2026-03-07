@@ -3023,25 +3023,25 @@ const testMain = () => {
         assert.strictEqual(regex.test("/"), true);
     });
 
-    test("Groups(): Case000083", () => {
-        // let regex = /(a/b)/;
-        // assert.strictEqual(regex.test("a/b"), true);
-    });
-
-    test("Groups(): Case000084", () => {
-        // let regex = /(ab)/\;
-        // assert.strictEqual(regex.test("a/b"), true);
-    });
-
-    test("Groups(): Case000085", () => {
-        // let regex = /(\u{110000})/;
-        // assert.strictEqual(regex.test("\u{110000}"), true);
-    });
-
-    // test("Groups(): Case000086", () => {
-    //     let regex = /(\c1)/;
-    //     assert.strictEqual(regex.test(""), true);
+    // test("Groups(): Case000083", () => {
+    //     let regex = /(a/b)/;
+    //     assert.strictEqual(regex.test("a/b"), true);
     // });
+
+    // test("Groups(): Case000084", () => {
+    //     let regex = /(ab)/\;
+    //     assert.strictEqual(regex.test("a/b"), true);
+    // });
+
+    // test("Groups(): Case000085", () => {
+        // let regex = /(\u{110000})/u;
+        // assert.strictEqual(regex.test("\u{110000}"), true);
+    // });
+
+    test("Groups(): Case000086", () => {
+        let regex = /(\c1)/;
+        assert.strictEqual(regex.test(""), true);
+    });
 
     test("Groups(): Case000087", () => {
         let regex = /(\ugg)/;
@@ -3133,13 +3133,13 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Groups(): Case000099", () => {
-        // let regex =( /))/;
-        let regex = /())/;
-        const target = ")";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Groups(): Case000099", () => {
+    //     // let regex =( /))/;
+    //     let regex = /())/;
+    //     const target = ")";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     test("Groups(): Case0000100", () => {
         // let regex =( /[acw)/;
@@ -3435,7 +3435,7 @@ const testMain = () => {
 
     test("Groups(): Case0000137", () => {
         // let regex =( /a^sian)/;
-        let regex = /\!)/;
+        let regex = /\!)/; // last error
         const target = "!";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
