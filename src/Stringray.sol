@@ -927,14 +927,14 @@ library Stringray {
         bytes memory filteredPatternInBytes =
             trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
 
-        nuclearFission(filteredPatternInBytes, patternFlag);
+        nuclearFission(filteredPatternInBytes, patternFlag, false);
     }
 
-    function nuclearFission(bytes memory _pattern, bytes1 _patternFlag) private pure {
+    function nuclearFission(bytes memory _pattern, bytes1 _patternFlag, bool fromGroup) private pure {
         int256 patternLength = int256(_pattern.length);
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
-                classifyAtom(_pattern, uint256(particleIdx), _patternFlag);
+                classifyAtom(_pattern, uint256(particleIdx), _patternFlag, fromGroup);
 
             console2.log("---In nuclearFission---");
             console2.log("Iteration no: ", particleIdx + 1);
@@ -953,7 +953,7 @@ library Stringray {
         }
     }
 
-    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag)
+    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag, bool fromGroup)
         private
         pure
         returns (bytes memory, bytes32, int256)
@@ -963,7 +963,7 @@ library Stringray {
         uint256 atomLastIdx;
         bytes32 atomType;
 
-        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx, _patternFlag);
+        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -978,20 +978,21 @@ library Stringray {
         return (atom, atomType, int256(atomLastIdx));
     }
 
-    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag)
+    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag, bool fromGroup)
         private
         pure
         returns (bool, bytes32, uint256)
     {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
-            isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag, false);
+            isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag, false, fromGroup);
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isCharacterClass(_pattern, _currentParticleIdx, _patternFlag);
+            (flag, atomType, lastMatchedParticleIndex) =
+                isCharacterClass(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx, _patternFlag);
+            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
         }
 
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -1072,7 +1073,8 @@ library Stringray {
         bytes memory _pattern,
         uint256 _currentParticleIdx,
         bytes1 _patternFlag,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool fromGroup
     ) private pure returns (bool, bytes32, uint256) {
         bytes32 atomType = INVALID_ATOM;
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
@@ -1095,15 +1097,20 @@ library Stringray {
 
         if (!flag) {
             (flag, lastMatchedParticleIndex) =
-                isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
+                isEscapeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass, fromGroup);
 
             if (flag) {
                 atomType = isCommonEscapes(
-                    _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass
+                    _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass, fromGroup
                 );
                 if (atomType == INVALID_ATOM) {
                     atomType = nullOctalOrDigitBackReference(
-                        _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass
+                        _pattern,
+                        _currentParticleIdx,
+                        lastMatchedParticleIndex,
+                        _patternFlag,
+                        fromCharacterClass,
+                        fromGroup
                     );
                 }
             }
@@ -1132,11 +1139,13 @@ library Stringray {
         if (!flag) {
             if (uint8(targetChar) == CLOSE_SQUARE_BRACKET) {
                 if (uint8(_patternFlag) == SMALL_u) {
-                    string memory errorMsg = string(
-                        abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone Character class brackets"
-                        )
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = "/u: Lone Character class brackets";
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = ")/u: Lone Character class brackets";
+                    }
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
                 flag = true;
@@ -1147,7 +1156,7 @@ library Stringray {
 
         if (!flag) {
             (flag, lastMatchedParticleIndex) =
-                isRangeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass);
+                isRangeLiteral(_pattern, _currentParticleIdx, _patternFlag, fromCharacterClass, fromGroup);
 
             if (flag) {
                 atomType = LITERAL_ATOM;
@@ -1155,7 +1164,7 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) = isUnicodeLiteral(_pattern, _currentParticleIdx);
+            (flag, lastMatchedParticleIndex) = isUnicodeLiteral(_pattern, _currentParticleIdx, fromGroup);
 
             if (flag) {
                 atomType = LITERAL_ATOM;
@@ -1183,7 +1192,8 @@ library Stringray {
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
         bytes1 _patternFlag,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool fromGroup
     ) private pure returns (bytes32) {
         bytes32 atomType = LITERAL_ATOM;
 
@@ -1218,11 +1228,13 @@ library Stringray {
                         lastMatchedParticleIndex + 1 < _pattern.length
                             && isDigit(_pattern[lastMatchedParticleIndex + 1], false)
                     ) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
-                            )
-                        );
+                        string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                        string memory errorRight = "/u: Invalid decimal escape";
+                        if (fromGroup) {
+                            errorLeft = "SyntaxError: Invalid regular expression: /(";
+                            errorRight = ")/u: Invalid decimal escape";
+                        }
+                        string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                         revert(errorMsg);
                     }
                     atomType = NULL_CHARACTER;
@@ -1232,16 +1244,22 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
                 ) {
                     // @TODO: backreference check and validation remains
-                    string memory lastMsg = " Invalid escape";
+                    string memory lastMsg = "/u: Invalid escape";
                     if (
                         fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
                     ) {
-                        lastMsg = " Invalid decimal escape";
+                        lastMsg = "/u: Invalid decimal escape";
                     }
 
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = lastMsg;
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = string(abi.encodePacked(")", lastMsg));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
             } else {
@@ -1252,11 +1270,15 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
                         && _currentParticleIdx + 1 != lastMatchedParticleIndex
                 ) {
-                    string memory errorMsg = string(
-                        abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid decimal escape"
-                        )
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = "/u: Invalid decimal escape";
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = ")/u: Invalid decimal escape";
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 } else if (
                     uint8(_patternFlag) == SMALL_u
@@ -1264,16 +1286,22 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
                 ) {
                     // @TODO: backreference check and validation remains
-                    string memory lastMsg = " Invalid escape";
+                    string memory lastMsg = "/u: Invalid escape";
                     if (
                         fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
                     ) {
-                        lastMsg = " Invalid decimal escape";
+                        lastMsg = "/u: Invalid decimal escape";
                     }
 
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", lastMsg)
-                    );
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = lastMsg;
+
+                    if (fromGroup) {
+                        errorLeft = "SyntaxError: Invalid regular expression: /(";
+                        errorRight = string(abi.encodePacked(")", lastMsg));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
             }
@@ -1287,7 +1315,8 @@ library Stringray {
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
         bytes1 _patternFlag,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool fromGroup
     ) private pure returns (bytes32) {
         bytes32 atomType = INVALID_ATOM;
         if (
@@ -1779,7 +1808,7 @@ library Stringray {
                 //     "----------------------------------------sub pattern fission----------------------------------------"
                 // );
                 // console2.log("sub pattern string: ", string(subPattern));
-                nuclearFission(subPattern, _patternFlag);
+                nuclearFission(subPattern, _patternFlag, true);
                 // console2.log("----------------------------------------END----------------------------------------");
             }
         }
