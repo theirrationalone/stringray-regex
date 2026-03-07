@@ -3289,7 +3289,7 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase116() public pure {
         string memory target = "anything";
-
+        // @BUG: returning complete \08 as null character
         string memory pattern = unicode"/(\\08)/";
         target.regex(pattern);
     }
@@ -3373,7 +3373,7 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase128() public pure {
         string memory target = "anything";
-
+        // @BUG: returning complete \08 as null character
         string memory pattern = unicode"/(\\08)/";
         target.regex(pattern);
     }
@@ -3409,6 +3409,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase133() public pure {
         string memory target = "anything";
 
+        // @BUG: not throwing error: Invalid decimal escape, in both cases literal and group
+        // string memory pattern = unicode"/\\0988/u";
         string memory pattern = unicode"/(\\0988)/u";
         target.regex(pattern);
     }
@@ -3520,7 +3522,7 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase149() public pure {
         string memory target = "anything";
-
+        // @INFO: not throwing any error as expected however still required behavioral verification
         string memory pattern = unicode"/(\\c1)/";
         target.regex(pattern);
     }
@@ -4229,6 +4231,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase250() public pure {
         string memory target = "anything";
 
+        // @BUG: throws: Invalid escape for literal escape \8 and Invalid decimal escape for cc [\8]
+        // However, should always throw Invalid escape
         string memory pattern = unicode"/([\\8])/u";
         target.regex(pattern);
     }
@@ -4347,15 +4351,15 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase267() public pure {
         string memory target = "anything";
-
-        string memory pattern = unicode"/(a)[\\1]/";
+        // @BUG: not supporting nested groups
+        string memory pattern = unicode"/((a)[\\1])/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase268() public pure {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(a)[\\1]/u";
+        string memory pattern = unicode"/((a)[\\1])/u";
         target.regex(pattern);
     }
 
