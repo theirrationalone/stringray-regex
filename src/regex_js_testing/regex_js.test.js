@@ -3545,14 +3545,14 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    // test("Groups(): Case0000149", () => {
-    //     let regex =( /\u{23,20})/;
-    //     const target = "uuuuu";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000151", () => {
+        let regex =/(\u{23,20})/;
+        const target = "uuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000150", () => {
+    test("Groups(): Case0000152", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u{230,240})/;
         const target = "uuuuuuuuuu";
@@ -3560,25 +3560,9 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), false);
     });
 
-    test("Groups(): Case0000151", () => {
-        // let regex =( /a^sian)/;
-        let regex = /(\u{2})/;
-        const target = "uuuuuuuuuu";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
-
-    test("Groups(): Case0000152", () => {
-        // let regex =( /a^sian)/;
-        let regex = /(\u{2,})/;
-        const target = "uuuuuuuuuu";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
-
     test("Groups(): Case0000153", () => {
         // let regex =( /a^sian)/;
-        let regex = /(\u{,23335})/;
+        let regex = /(\u{23335})/;
         const target = "u{,23335}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -3586,13 +3570,29 @@ const testMain = () => {
 
     test("Groups(): Case0000154", () => {
         // let regex =( /a^sian)/;
+        let regex = /(\u{23335,})/;
+        const target = "u{,23335}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000155", () => {
+        // let regex =( /a^sian)/;
+        let regex = /(\u{,23335})/;
+        const target = "u{,23335}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000156", () => {
+        // let regex =( /a^sian)/;
         let regex = /(\u{,})/;
         const target = "u{,}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000155", () => {
+    test("Groups(): Case0000157", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u{})/;
         const target = "uuuuuuuuuu";
@@ -3600,7 +3600,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), false);
     });
 
-    test("Groups(): Case0000156", () => {
+    test("Groups(): Case0000158", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u{1})/;
         const target = "u";
@@ -3608,15 +3608,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000157", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /{1})/;
-    //     const target = "uuuuuuuuuu";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000159", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /({1})/;
+        const target = "uuuuuuuuuu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000158", () => {
+    test("Groups(): Case0000160", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u{1:1})/;
         const target = "u{1:1}";
@@ -3624,7 +3624,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000159", () => {
+    test("Groups(): Case0000161", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u1234)/;
         const target = "\u1234";
@@ -3632,7 +3632,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000160", () => {
+    test("Groups(): Case0000162", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u123)/;
         const target = "u123";
@@ -3640,7 +3640,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000161", () => {
+    test("Groups(): Case0000163", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u1234)/u;
         const target = "\u1234";
@@ -3648,15 +3648,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
     
-    // test("Groups(): Case0000162", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\u123)/u;
-    //     const target = "u123";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000164", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\u123)/u;
+        const target = "u123";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000163", () => {
+    test("Groups(): Case0000165", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u12345)/;
         const target = "\u12345";
@@ -3664,7 +3664,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000164", () => {
+    test("Groups(): Case0000166", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u1)/;
         const target = "u1";
@@ -3672,7 +3672,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000165", () => {
+    test("Groups(): Case0000167", () => {
         // let regex =( /a^sian)/;
         let regex = /(\u12)/;
         const target = "u12";
@@ -3680,55 +3680,55 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000166", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\u1)/u;
-    //     const target = "u1";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000168", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\u1)/u;
+        const target = "u1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000167", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\u12)/u;
-    //     const target = "u12";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000168", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /[abc)/;
-    //     const target = "[abc";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000169", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /(abc)/;
-    //     const target = "(abc";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000169", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\u12)/u;
+        const target = "u12";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Groups(): Case0000170", () => {
     //     // let r(egex = /a^sian)/;
-    //     let regex =( /(?<1>a))/;
-    //     const target = "a";
+    //     let regex = /([abc)/;
+    //     const target = "[abc";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
 
     // test("Groups(): Case0000171", () => {
     //     // let r(egex = /a^sian)/;
-    //     let regex =( /(?<a-b>a))/;
-    //     const target = "a";
+    //     let regex = /((abc)/;
+    //     const target = "(abc";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
 
     test("Groups(): Case0000172", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /((?<1>a))/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000173", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /((?<a-b>a))/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000174", () => {
         // let regex =( /a^sian)/;
         let regex = /(\k<a>)/;
         const target = "k<a>";
@@ -3736,15 +3736,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000173", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\k<a>)/u;
-    //     const target = "k<a>";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000175", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\k<a>)/u;
+        const target = "k<a>";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000174", () => {
+    test("Groups(): Case0000176", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{L})/;
         const target = "p{L}";
@@ -3752,7 +3752,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000175", () => {
+    test("Groups(): Case0000177", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{XYZ})/;
         const target = "p{XYZ}";
@@ -3760,7 +3760,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000176", () => {
+    test("Groups(): Case0000178", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{L})/u;
         const target = "p{L}";
@@ -3768,55 +3768,55 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000177", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\p{XYZ})/u;
-    //     const target = "p{XYZ}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000178", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /{122222})/;
-    //     const target = "{122222}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
     test("Groups(): Case0000179", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\p{XYZ})/u;
+        const target = "p{XYZ}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000180", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /({122222})/;
+        const target = "{122222}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000181", () => {
         // let regex =( /a^sian)/;
-        let regex = /{})/;
+        let regex = /({})/;
         const target = "{}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000180", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /{})/u;
-    //     const target = "{}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000182", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /({})/u;
+        const target = "{}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000181", () => {
+    test("Groups(): Case0000183", () => {
         // let regex =( /a^sian)/;
-        let regex = /{)/;
+        let regex = /({)/;
         const target = "{";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000182", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /{)/u;
-    //     const target = "{";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000184", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /({)/u;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000183", () => {
+    test("Groups(): Case0000185", () => {
         // let regex =( /a^sian)/;
         let regex = /({,11})/;
         const target = "{,11}";
@@ -3824,31 +3824,31 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000184", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /{,11})/u;
-    //     const target = "{,11}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000186", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /({,11})/u;
+        const target = "{,11}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000185", () => {
+    test("Groups(): Case0000187", () => {
         // let regex =( /a^sian)/;
-        let regex = /})/;
+        let regex = /(})/;
         const target = "}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000186", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /})/u;
-    //     const target = "}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000188", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(})/u;
+        const target = "}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000187", () => {
+    test("Groups(): Case0000189", () => {
         // let regex =( /a^sian)/;
         let regex = /(1)/;
         const target = "1";
@@ -3856,15 +3856,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000188", () => {
+    test("Groups(): Case0000190", () => {
         // let regex =( /a^sian)/;
-        let regex = /1()/u;
+        let regex = /(1)/u;
         const target = "1";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000189", () => {
+    test("Groups(): Case0000191", () => {
         // let regex =( /a^sian)/;
         let regex = /(143242)/;
         const target = "143242";
@@ -3872,15 +3872,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000190", () => {
+    test("Groups(): Case0000192", () => {
         // let regex =( /a^sian)/;
-        let regex = /1(43242)/u;
+        let regex = /(143242)/u;
         const target = "143242";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000191", () => {
+    test("Groups(): Case0000193", () => {
         // let regex =( /a^sian)/;
         let regex = /(1})/;
         const target = "1}";
@@ -3888,15 +3888,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000192", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /1})/u;
-    //     const target = "1}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000194", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(1})/u;
+        const target = "1}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000193", () => {
+    test("Groups(): Case0000195", () => {
         // let regex =( /a^sian)/;
         let regex = /(123424})/;
         const target = "123424}";
@@ -3904,15 +3904,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000194", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /123424})/u;
-    //     const target = "123424}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000196", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(123424})/u;
+        const target = "123424}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000195", () => {
+    test("Groups(): Case0000197", () => {
         // let regex =( /a^sian)/;
         let regex = /(1234,24)/;
         const target = "1234,24";
@@ -3920,15 +3920,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000196", () => {
+    test("Groups(): Case0000198", () => {
         // let regex =( /a^sian)/;
-        let regex = /1(234,24)/u;
+        let regex = /(1234,24)/u;
         const target = "1234,24";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000197", () => {
+    test("Groups(): Case0000199", () => {
         // let regex =( /a^sian)/;
         let regex = /(1234,24})/;
         const target = "1234,24}";
@@ -3936,15 +3936,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000198", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /1234,24})/u;
-    //     const target = "1234,24}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000200", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(1234,24})/u;
+        const target = "1234,24}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000199", () => {
+    test("Groups(): Case0000201", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{})/;
         const target = "p{}";
@@ -3952,15 +3952,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000200", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\p{})/u;
-    //     const target = "p{}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000202", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\p{})/u;
+        const target = "p{}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000201", () => {
+    test("Groups(): Case0000203", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{=LETTER})/;
         const target = "p{=LETTER}";
@@ -3968,15 +3968,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000202", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\p{=LETTER})/u;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000204", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\p{=LETTER})/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000203", () => {
+    test("Groups(): Case0000205", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{g=LETTER})/;
         const target = "p{g=LETTER}";
@@ -3984,15 +3984,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000204", () => {
-    //     // let r(egex = /a^sian)/;
-    //     let regex =( /\p{g=LETTER})/u;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000206", () => {
+        // let r(egex = /a^sian)/;
+        let regex = /(\p{g=LETTER})/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups(): Case0000205", () => {
+    test("Groups(): Case0000207", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{gc=Letter})/;
         const target = "p{gc=Letter}";
@@ -4000,7 +4000,7 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000206", () => {
+    test("Groups(): Case0000208", () => {
         // let regex =( /a^sian)/;
         let regex = /(\p{gc=Letter})/u;
         const target = "a";
@@ -4008,159 +4008,145 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
     
-    // test("Groups(): Case0000207", () => {
-    //     let regex =( /[])/;
-    //     const target = "\x00";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000208", () => {
-    //     let regex =( /[])/u;
-    //     const target = "\x00";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    test("Groups()(: Case0000209", () => {
-        let regex = /[.])/;
-        const target = ".";
+    test("Groups(): Case0000209", () => {
+        let regex = /([])/;
+        const target = "\x00";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
     test("Groups(): Case0000210", () => {
+        let regex = /([])/u;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups()(: Case0000211", () => {
+        let regex = /([.])/;
+        const target = ".";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000212", () => {
         let regex = /([.])/u;
         const target = ".";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000211", () => {
+    test("Groups(): Case0000213", () => {
         let regex = /([abc123_,:;!@#%&()$^{}?+*/|"'<>=`~ ])/;
         const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000212", () => {
+    test("Groups(): Case0000214", () => {
         let regex = /([abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ])/u;
         const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000213", () => {
-    //     let regex =( /raa/]df)/;
-    //     const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000214", () => {
-    //     let regex =( /[abc)/;
-    //     const target = "[abc";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
     // test("Groups(): Case0000215", () => {
-    //     let regex =( /[abc)/u;
+    //     let regex = /([abc)/;
     //     const target = "[abc";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Groups()(: Case0000216", () => {
-        let regex = /[^])/;
+    // test("Groups(): Case0000216", () => {
+    //     let regex = /([abc)/u;
+    //     const target = "[abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups()(: Case0000217", () => {
+        let regex = /([^])/;
         const target = "{";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000217", () => {
+    test("Groups(): Case0000218", () => {
         let regex = /([^])/u;
         const target = "z";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000218", () => {
+    test("Groups(): Case0000219", () => {
         let regex = /([a-z])/;
         const target = "q";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000219", () => {
+    test("Groups(): Case0000220", () => {
         let regex = /([a-z])/u;
         const target = "q";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000220", () => {
-    //     let regex =( /[z-a])/;
-    //     const target = "q";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000221", () => {
-    //     let regex =( /[z-a])/u;
-    //     const target = "q";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000221", () => {
+        let regex = /([z-a])/;
+        const target = "q";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000222", () => {
+        let regex = /([z-a])/u;
+        const target = "q";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000223", () => {
         let regex = /([a-\d])/;
         const target = "-";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000223", () => {
-    //     let regex =( /[\s-b])/;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    // test("Groups(): Case0000224", () => {
-    //     let regex =( /[z-\d])/u;
-    //     const target = "-";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
-    test("Groups(): Case0000225", () => {
-        let regex = /([\d-a])/;
-        const target = "[\d-a]";
+    test("Groups(): Case0000224", () => {
+        let regex = /([a-\d])/u;
+        const target = "a";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000226", () => {
-    //     let regex =( /[\d-a])/u;
-    //     const target = "[\d-a]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000225", () => {
+        let regex = /([\d-a])/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000226", () => {
+        let regex = /([\d-a])/u;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000227", () => {
         let regex = /([a-\w])/;
+        const target = "[\w-a]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000228", () => {
+        let regex = /([a-\w])/u;
         const target = "[a-\w]";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-
-    // test("Groups(): Case0000228", () => {
-    //     let regex =( /[z-\w])/u;
-    //     const target = "[a-\w]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
 
     test("Groups(): Case0000229", () => {
         let regex = /([\w-a])/;
@@ -4169,12 +4155,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000230", () => {
-    //     let regex =( /[\w-a])/u;
-    //     const target = "[\w-a]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000230", () => {
+        let regex = /([\w-a])/u;
+        const target = "[\w-a]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000231", () => {
         let regex = /([\w-\d])/;
@@ -4183,12 +4169,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000232", () => {
-    //     let regex =( /[\w-\d])/u;
-    //     const target = "[\w-\d]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000232", () => {
+        let regex = /([\w-\d])/u;
+        const target = "[\w-\d]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000233", () => {
         let regex = /([\d-\w])/;
@@ -4197,12 +4183,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000234", () => {
-    //     let regex =( /[\d-\w])/u;
-    //     const target = "[\d-\w]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000234", () => {
+        let regex = /([\d-\w])/u;
+        const target = "[\d-\w]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000235", () => {
         let regex = /([\d-\d])/;
@@ -4211,12 +4197,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000236", () => {
-    //     let regex =( /[\d-\d])/u;
-    //     const target = "[\d-\d]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000236", () => {
+        let regex = /([\d-\d])/u;
+        const target = "[\d-\d]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000237", () => {
         let regex = /([\w-\w])/;
@@ -4225,25 +4211,15 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000238", () => {
-    //     let regex =( /[\w-\w])/u;
-    //     const target = "[\w-\w]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000238", () => {
+        let regex = /([\w-\w])/u;
+        const target = "[\w-\w]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000239", () => {
         let regex = /([a-c-h])/;
-        // const target = "a"; // true
-        // const target = "b"; // true
-        // const target = "c"; // true
-        // const target = "-"; // true
-        // const target = "h"; // true
-        // const target = "d"; // false
-        // const target = "e"; // false
-        // const target = "f"; // false
-        // const target = "g"; // false
-        // const target = "i"; // false
         const target = "-";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4251,16 +4227,6 @@ const testMain = () => {
 
     test("Groups(): Case0000240", () => {
         let regex = /([a-c-h])/u;
-        // const target = "a"; // true
-        // const target = "b"; // true
-        // const target = "c"; // true
-        // const target = "-"; // true
-        // const target = "h"; // true
-        // const target = "d"; // false
-        // const target = "e"; // false
-        // const target = "f"; // false
-        // const target = "g"; // false
-        // const target = "i"; // false
         const target = "b";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4294,21 +4260,20 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000245", () => {
-    //     // @Note: - is smaller than a
-    //     let regex =( /[a--z])/;
-    //     const target = "-";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000245", () => {
+        let regex = /([a--z])/;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000246", () => {
-    //     // @Note: - is smaller than a
-    //     let regex =( /[a--z])/u;
-    //     const target = "-";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000246", () => {
+        // @Note: - is smaller than a
+        let regex = /([a--z])/u;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000247", () => {
         // @Note: - is smaller than a
@@ -4333,12 +4298,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000250", () => {
-    //     let regex =( /[\8])/u;
-    //     const target = "8";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000250", () => {
+        let regex = /([\8])/u;
+        const target = "8";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000251", () => {
         let regex = /([\u123])/;
@@ -4351,12 +4316,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000252", () => {
-    //     let regex =( /[\u123])/u;
-    //     const target = "3";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000252", () => {
+        let regex = /([\u123])/u;
+        const target = "3";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000253", () => {
         let regex = /([\u0123])/;
@@ -4373,14 +4338,14 @@ const testMain = () => {
     });
 
     // test("Groups(): Case0000255", () => {
-    //     let regex =( /[\])/;
+    //     let regex = /([\])/;
     //     const target = "\\";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
 
     // test("Groups(): Case0000256", () => {
-    //     let regex =( /[\])/u;
+    //     let regex = /([\])/u;
     //     const target = "\\";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
@@ -4407,12 +4372,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000260", () => {
-    //     let regex =( /[\00])/u;
-    //     const target = "\x00";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000260", () => {
+        let regex = /([\00])/u;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000261", () => {
         let regex = /([\000])/;
@@ -4421,12 +4386,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000262", () => {
-    //     let regex =( /[\000])/u;
-    //     const target = "\x00";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000262", () => {
+        let regex = /([\000])/u;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000263", () => {
         let regex = /([\377])/;
@@ -4435,12 +4400,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000264", () => {
-    //     let regex =( /[\377])/u;
-    //     const target = "\u00ff";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000264", () => {
+        let regex = /([\377])/u;
+        const target = "\u00ff";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000265", () => {
         let regex = /([\1])/;
@@ -4449,12 +4414,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000266", () => {
-    //     let regex =( /[\1])/u;
-    //     const target = "1";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000266", () => {
+        let regex = /([\1])/u;
+        const target = "1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000267", () => {
         let regex = /((a)[\1])/;
@@ -4463,12 +4428,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000268", () => {
-    //     let regex =( /(a)[\1])/u;
-    //     const target = "a\x01";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000268", () => {
+        let regex = /((a)[\1])/u;
+        const target = "a\x01";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000269", () => {
         let regex = /([(a)\1])/;
@@ -4477,12 +4442,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000270", () => {
-    //     let regex =( /[(a)\1])/u;
-    //     const target = ")";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000270", () => {
+        let regex = /([(a)\1])/u;
+        const target = ")";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000271", () => {
         let regex = /([\p{Letter}])/;
@@ -4505,12 +4470,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000274", () => {
-    //     let regex =( /[\p{}])/u;
-    //     const target = "T";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000274", () => {
+        let regex = /([\p{}])/u;
+        const target = "T";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000275", () => {
         let regex = /([\p{LETTER}])/;
@@ -4519,12 +4484,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000276", () => {
-    //     let regex =( /[\p{LETTER}])/u;
-    //     const target = "T";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000276", () => {
+        let regex = /([\p{LETTER}])/u;
+        const target = "T";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000277", () => {
         let regex = /([\x001])/;
@@ -4547,12 +4512,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000280", () => {
-    //     let regex =( /[\xg1])/u;
-    //     const target = "g";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000280", () => {
+        let regex = /([\xg1])/u;
+        const target = "g";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000281", () => {
         let regex = /([\k])/;
@@ -4561,12 +4526,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000282", () => {
-    //     let regex =( /[\k])/u;
-    //     const target = "g";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000282", () => {
+        let regex = /([\k])/u;
+        const target = "g";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000283", () => {
         let regex = /([(?<a>a)\k<a>])/;
@@ -4575,26 +4540,26 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000284", () => {
-    //     let regex =( /[(?<a>a)\k<a>])/u;
-    //     const target = ")";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000284", () => {
+        let regex = /([(?<a>a)\k<a>])/u;
+        const target = ")";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000285", () => {
-    //     let regex =( /(?<a>a)[\k<a>])/;
-    //     const target = "aa";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000285", () => {
+        let regex = /((?<a>a)[\k<a>])/;
+        const target = "aa";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000286", () => {
-    //     let regex =( /(?<a>a)[\k<a>])/u;
-    //     const target = ")";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000286", () => {
+        let regex = /((?<a>a)[\k<a>])/u;
+        const target = ")";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000287", () => {
         let regex = /([\k<a>])/;
@@ -4603,26 +4568,26 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000288", () => {
-    //     let regex =( /[\k<a>])/u;
-    //     const target = "aa";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000288", () => {
+        let regex = /([\k<a>])/u;
+        const target = "aa";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000289", () => {
-    //     let regex =( /(?<b>a)\k<a>)/;
-    //     const target = "aa";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000289", () => {
+        let regex = /((?<b>a)\k<a>)/;
+        const target = "aa";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000290", () => {
-    //     let regex =( /(?<b>a)\k<a>)/u;
-    //     const target = "aa";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000290", () => {
+        let regex = /((?<b>a)\k<a>)/u;
+        const target = "aa";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000291", () => {
         let regex = /([✅-🧪])/;
@@ -4638,33 +4603,33 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000293", () => {
-    //     let regex =( /[🧪-✅])/;
-    //     const target = "✅";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000293", () => {
+        let regex = /([🧪-✅])/;
+        const target = "✅";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000294", () => {
-    //     let regex =( /[🧪-✅])/u;
-    //     const target = "✅";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000294", () => {
+        let regex = /([🧪-✅])/u;
+        const target = "✅";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000295", () => {
-    //     let regex =( /[€-क])/;
-    //     const target = "क";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000295", () => {
+        let regex = /([€-क])/;
+        const target = "क";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
     
-    // test("Groups(): Case0000296", () => {
-    //     let regex =( /[€-क])/u;
-    //     const target = "क";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000296", () => {
+        let regex = /([€-क])/u;
+        const target = "क";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000297", () => {
         let regex = /([क-€])/;
@@ -4694,36 +4659,36 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000301", () => {
-    //     let regex =( /[\uc295-\uc290])/;
-    //     const target = "\uc293";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000301", () => {
+        let regex = /([\uc295-\uc290])/;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000302", () => {
-    //     let regex =( /[\uc295-\uc290])/u;
-    //     const target = "\uc293";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000302", () => {
+        let regex = /([\uc295-\uc290])/u;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000303", () => {
-    //     let regex =( /[\^-\$])/;
-    //     const target = "\uc293";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000303", () => {
+        let regex = /([\^-\$])/;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000304", () => {
-    //     let regex =( /[\^-\$])/u;
-    //     const target = "\uc293";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000304", () => {
+        let regex = /([\^-\$])/u;
+        const target = "\uc293";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups()(: Case0000305", () => {
-        let regex = /[\$-\^])/;
+        let regex = /([\$-\^])/;
         const target = "\$";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4736,47 +4701,47 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000307", () => {
-    //     let regex =( /[\c-b])/;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000307", () => {
+        let regex = /([\c-b])/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000308", () => {
-    //     let regex =( /[\c-b])/u;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000308", () => {
+        let regex = /([\c-b])/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000309", () => {
-    //     let regex =( /[b-\c])/;
-    //     const target = "c";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000309", () => {
+        let regex = /([b-\c])/;
+        const target = "c";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000310", () => {
-    //     let regex =( /[b-\c])/u;
-    //     const target = "c_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000310", () => {
+        let regex = /([b-\c])/u;
+        const target = "c_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000311", () => {
-    //     let regex =( /\c_)/;
-    //     const target = "c_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000311", () => {
+        let regex = /(\c_)/;
+        const target = "c_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000312", () => {
-    //     let regex =( /\c_)/u;
-    //     const target = "c_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000312", () => {
+        let regex =/(\c_)/u;
+        const target = "c_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000313", () => {
         let regex = /([a\c_z])/;
@@ -4785,26 +4750,26 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000314", () => {
-    //     let regex =( /[a\c_z])/u;
-    //     const target = "c_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000314", () => {
+        let regex = /([a\c_z])/u;
+        const target = "c_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000315", () => {
-    //     let regex =( /[_-,])/;
-    //     const target = ",";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000315", () => {
+        let regex = /([_-,])/;
+        const target = ",";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000316", () => {
-    //     let regex =( /[_-,])/u;
-    //     const target = "_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000316", () => {
+        let regex = /([_-,])/u;
+        const target = "_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000317", () => {
         let regex = /([,-_])/;
@@ -4834,22 +4799,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000321", () => {
-    //     let regex =( /[;-:])/;
-    //     const target = ";";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000321", () => {
+        let regex = /([;-:])/;
+        const target = ";";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000322", () => {
-    //     let regex =( /[;-:])/u;
-    //     const target = ":";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000322", () => {
+        let regex = /([;-:])/u;
+        const target = ":";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000323", () => {
-        let regex = /[!-@])/;
+    test("Groups(): Case0000323", () => {
+        let regex = /([!-@])/;
         const target = "@";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4862,22 +4827,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000325", () => {
-    //     let regex =( /[@-!])/;
-    //     const target = "@";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000325", () => {
+        let regex = /([@-!])/;
+        const target = "@";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000326", () => {
-    //     let regex =( /[@-!])/u;
-    //     const target = "!";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000326", () => {
+        let regex = /([@-!])/u;
+        const target = "!";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000327", () => {
-        let regex = /[#-%])/;
+    test("Groups(): Case0000327", () => {
+        let regex = /([#-%])/;
         const target = "%";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4890,22 +4855,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000329", () => {
-    //     let regex =( /[%-#])/;
-    //     const target = "%";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000329", () => {
+        let regex = /([%-#])/;
+        const target = "%";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000330", () => {
-    //     let regex =( /[%-#])/u;
-    //     const target = "#";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000330", () => {
+        let regex = /([%-#])/u;
+        const target = "#";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000331", () => {
-        let regex = /[&-(])/;
+    test("Groups(): Case0000331", () => {
+        let regex = /([&-(])/;
         const target = "&";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4918,36 +4883,36 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000333", () => {
-    //     let regex =( /[(-&])/;
-    //     const target = "&";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000333", () => {
+        let regex = /([(-&])/;
+        const target = "&";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000334", () => {
-    //     let regex =( /[(-&])/u;
-    //     const target = "(";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000334", () => {
+        let regex = /([(-&])/u;
+        const target = "(";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000335", () => {
-    //     let regex =( /[)-$])/;
-    //     const target = "&";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000335", () => {
+        let regex = /([)-$])/;
+        const target = "&";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000336", () => {
-    //     let regex =( /[)-$])/u;
-    //     const target = "(";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000336", () => {
+        let regex = /([)-$])/u;
+        const target = "(";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000337", () => {
-        let regex = /[$-)])/;
+    test("Groups(): Case0000337", () => {
+        let regex = /([$-)])/;
         const target = "&";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4961,7 +4926,7 @@ const testMain = () => {
     });
 
     test("Groups()(: Case0000339", () => {
-        let regex = /[^-{])/;
+        let regex = /([^-{])/;
         const target = "}";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -4974,22 +4939,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000341", () => {
-    //     let regex =( /[{-^])/;
-    //     const target = "^";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000341", () => {
+        let regex = /([{-^])/;
+        const target = "^";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000342", () => {
-    //     let regex =( /[{-^])/u;
-    //     const target = "{";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000342", () => {
+        let regex = /([{-^])/u;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups()(: Case0000343", () => {
-        let regex = /[\^-{])/;
+        let regex = /([\^-{])/;
         const target = "^";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5002,36 +4967,36 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000345", () => {
-    //     let regex =( /[{-\^])/;
-    //     const target = "^";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000345", () => {
+        let regex = /([{-\^])/;
+        const target = "^";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000346", () => {
-    //     let regex =( /[{-\^])/u;
-    //     const target = "{";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000346", () => {
+        let regex = /([{-\^])/u;
+        const target = "{";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000347", () => {
-    //     let regex =( /[}-?])/;
-    //     const target = "?";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000347", () => {
+        let regex = /([}-?])/;
+        const target = "?";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000348", () => {
-    //     let regex =( /[}-?])/u;
-    //     const target = "}";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000348", () => {
+        let regex = /([}-?])/u;
+        const target = "}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000349", () => {
-        let regex = /[?-}])/;
+    test("Groups(): Case0000349", () => {
+        let regex = /([?-}])/;
         const target = "?";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5044,22 +5009,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000351", () => {
-    //     let regex =( /[+-*])/;
-    //     const target = "+";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000351", () => {
+        let regex = /([+-*])/;
+        const target = "+";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000352", () => {
-    //     let regex =( /[+-*])/u;
-    //     const target = "*";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000352", () => {
+        let regex = /([+-*])/u;
+        const target = "*";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups()(: Case0000353", () => {
-        let regex = /[*-+])/;
+        let regex = /([*-+])/;
         const target = "+";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5073,7 +5038,7 @@ const testMain = () => {
     });
 
     test("Groups()(: Case0000355", () => {
-        let regex = /[/-|])/;
+        let regex = /([/-|])/;
         const target = "/";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5086,22 +5051,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000357", () => {
-    //     let regex =( /[|-/])/;
-    //     const target = "+";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000357", () => {
+        let regex = /([|-/])/;
+        const target = "+";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000358", () => {
-    //     let regex =( /[|-/])/u;
-    //     const target = "*";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000358", () => {
+        let regex = /([|-/])/u;
+        const target = "*";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000359", () => {
-        let regex = /["-'])/;
+    test("Groups(): Case0000359", () => {
+        let regex = /(["-'])/;
         const target = "\"";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5114,22 +5079,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000361", () => {
-    //     let regex =( /['-"])/;
-    //     const target = "\"";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000361", () => {
+        let regex = /(['-"])/;
+        const target = "\"";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000362", () => {
-    //     let regex =( /['-"])/u;
-    //     const target = "'";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000362", () => {
+        let regex = /(['-"])/u;
+        const target = "'";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000363", () => {
-        let regex = /[<->])/;
+    test("Groups(): Case0000363", () => {
+        let regex = /([<->])/;
         const target = "<";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5142,22 +5107,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000365", () => {
-    //     let regex =( /[>-<])/;
-    //     const target = "<";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000365", () => {
+        let regex = /([>-<])/;
+        const target = "<";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000366", () => {
-    //     let regex =( /[>-<])/u;
-    //     const target = ">";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000366", () => {
+        let regex = /([>-<])/u;
+        const target = ">";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000367", () => {
-        let regex = /[=-`])/;
+    test("Groups(): Case0000367", () => {
+        let regex = /([=-`])/;
         const target = "=";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5170,22 +5135,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000369", () => {
-    //     let regex =( /[`-=])/;
-    //     const target = "=";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000369", () => {
+        let regex = /([`-=])/;
+        const target = "=";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000370", () => {
-    //     let regex =( /[`-=])/u;
-    //     const target = "`";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000370", () => {
+        let regex = /([`-=])/u;
+        const target = "`";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000371", () => {
-        let regex = /[`-~])/;
+    test("Groups(): Case0000371", () => {
+        let regex = /([`-~])/;
         const target = "~";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5198,22 +5163,22 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000373", () => {
-    //     let regex =( /[~-`])/;
-    //     const target = "~";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000373", () => {
+        let regex = /([~-`])/;
+        const target = "~";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000374", () => {
-    //     let regex =( /[~-`])/u;
-    //     const target = "`";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000374", () => {
+        let regex = /([~-`])/u;
+        const target = "`";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    test("Groups()(: Case0000375", () => {
-        let regex = /[[])/;
+    test("Groups(): Case0000375", () => {
+        let regex = /([[])/;
         const target = "[";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
@@ -5240,19 +5205,19 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000379", () => {
-    //     let regex =( /[b-[])/;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000379", () => {
+        let regex = /([b-[])/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
-    // test("Groups(): Case0000380", () => {
-    //     let regex =( /[b-[])/u;
-    //     const target = "a";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000380", () => {
+        let regex = /([b-[])/u;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     test("Groups(): Case0000381", () => {
         let regex = /([ab]a])/;
@@ -5261,15 +5226,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000382", () => {
-    //     // @JS-BUG: Throwing error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone quantifier brackets
-    //     // @RESOLUTION: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
-        
-    //     let regex =( /[ab]a])/u;
-    //     const target = "ba]";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000382", () => {
+        let regex = /([ab]a])/u;
+        const target = "ba]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
