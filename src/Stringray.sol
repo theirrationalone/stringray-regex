@@ -1807,13 +1807,14 @@ library Stringray {
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
 
-        for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
+        for (uint256 i = stripFromIndex; i < _pattern.length; i++) {
             if (
                 uint8(_pattern[i]) == OPEN_PARANTHESIS
                     && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
             ) {
                 numOpenParanthesis++;
-                validateGroupBody(_pattern, i + 1);
+                (, i) = validateGroupBody(_pattern, i + 1);
+                continue;
             }
 
             if (

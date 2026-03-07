@@ -4356,6 +4356,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase267() public pure {
         string memory target = "anything";
         // @BUG: not supporting nested groups
+        // @Status: Fixed ✅
         string memory pattern = unicode"/((a)[\\1])/";
         target.regex(pattern);
     }
