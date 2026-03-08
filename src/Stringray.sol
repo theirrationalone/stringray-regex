@@ -1517,7 +1517,9 @@ library Stringray {
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-            flag = isValidCharacterClassLiteral(_pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag);
+            flag = isValidCharacterClassLiteral(
+                _pattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag, fromGroup
+            );
             if (flag) {
                 return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
             }
@@ -1530,7 +1532,8 @@ library Stringray {
         bytes memory _pattern,
         uint256 _currentParticleIndex,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag
+        bytes1 _patternFlag,
+        bool fromGroup
     ) private pure returns (bool) {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
             if (
@@ -1575,17 +1578,21 @@ library Stringray {
                                 || atomType == UNICODE_PROPERTY
                                 || atomType == UNICODE_PROPERTY_NEGATION) && uint8(_patternFlag) == SMALL_u
                     ) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid character class"
-                            )
-                        );
+                        string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                        string memory errorRight = "/u: Invalid character class";
+
+                        if (fromGroup) {
+                            errorLeft = "SyntaxError: Invalid regular expression: /(";
+                            errorRight = ")/u: Invalid character class";
+                        }
+
+                        string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                         revert(errorMsg);
                     }
 
                     if (lastParticleIndex + 2 < lastMatchedParticleIndex) {
                         (, bytes32 rightAtomType, uint256 rightLastParticleIndex) =
-                            isLiteralAtom(_pattern, lastParticleIndex + 2, _patternFlag, true);
+                            isLiteralAtom(_pattern, lastParticleIndex + 2, _patternFlag, true, fromGroup);
 
                         if (
                             (rightAtomType == DIGIT
@@ -1597,13 +1604,15 @@ library Stringray {
                                     || rightAtomType == UNICODE_PROPERTY
                                     || rightAtomType == UNICODE_PROPERTY_NEGATION) && uint8(_patternFlag) == SMALL_u
                         ) {
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /",
-                                    _pattern,
-                                    "/u: Invalid character class"
-                                )
-                            );
+                            string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                            string memory errorRight = "/u: Invalid character class";
+
+                            if (fromGroup) {
+                                errorLeft = "SyntaxError: Invalid regular expression: /(";
+                                errorRight = ")/u: Invalid character class";
+                            }
+
+                            string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                             revert(errorMsg);
                         }
 
@@ -1645,15 +1654,21 @@ library Stringray {
                                 atomsDecimalValues(rightAtomType, _pattern, rightLastParticleIndex);
 
                             if (leftLiteralDecimalValue > rightLiteralDecimalValue) {
-                                string memory errorMsg = string(
+                                string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                                string memory errorRight = string(
                                     abi.encodePacked(
-                                        "SyntaxError: Invalid regular expression: /",
-                                        _pattern,
                                         "/",
                                         _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
                                         ": Range out of order in character class"
                                     )
                                 );
+
+                                if (fromGroup) {
+                                    errorLeft = "SyntaxError: Invalid regular expression: /(";
+                                    errorRight = string(abi.encodePacked(")", errorRight));
+                                }
+
+                                string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                                 revert(errorMsg);
                             }
                         }
@@ -1663,14 +1678,15 @@ library Stringray {
                                 && uint8(_pattern[lastParticleIndex + 3]) == uint8(abi.encodePacked("c")[0])
                                 && uint8(_patternFlag) != SMALL_u
                         ) {
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: /",
-                                    _pattern,
-                                    "/",
-                                    ": Range out of order in character class"
-                                )
-                            );
+                            string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                            string memory errorRight = "/: Range out of order in character class";
+
+                            if (fromGroup) {
+                                errorLeft = string(abi.encodePacked(errorLeft, "("));
+                                errorRight = string(abi.encodePacked(")", errorRight));
+                            }
+
+                            string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                             revert(errorMsg);
                         }
 
@@ -1685,14 +1701,15 @@ library Stringray {
                         && uint8(_patternFlag) != SMALL_u
                 ) {
                     if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == MINUS_SIGN) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: /",
-                                _pattern,
-                                "/",
-                                ": Range out of order in character class"
-                            )
-                        );
+                        string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                        string memory errorRight = "/: Range out of order in character class";
+
+                        if (fromGroup) {
+                            errorLeft = string(abi.encodePacked(errorLeft, "("));
+                            errorRight = string(abi.encodePacked(")", errorRight));
+                        }
+
+                        string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                         revert(errorMsg);
                     }
 
@@ -1700,15 +1717,17 @@ library Stringray {
                     continue;
                 }
 
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /",
-                        _pattern,
-                        "/",
-                        _patternFlag == 0x2f ? bytes1(0) : _patternFlag,
-                        ": Invalid character class"
-                    )
+                string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                string memory errorRight = string(
+                    abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Invalid character class")
                 );
+
+                if (fromGroup) {
+                    errorLeft = string(abi.encodePacked(errorLeft, "("));
+                    errorRight = string(abi.encodePacked(")", errorRight));
+                }
+
+                string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                 revert(errorMsg);
             }
         }
@@ -1784,7 +1803,7 @@ library Stringray {
         return decimal;
     }
 
-    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag)
+    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -1793,8 +1812,16 @@ library Stringray {
         uint256 lastMatchedParticleIndex;
 
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
-            string memory errorMsg =
-                string(abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unmatched ')'"));
+            string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+            string memory errorRight =
+                string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Unmatched ')'"));
+
+            if (fromGroup) {
+                errorLeft = string(abi.encodePacked(errorLeft, "("));
+                errorRight = string(abi.encodePacked(")", errorRight));
+            }
+
+            string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
             revert(errorMsg);
         }
 
@@ -1807,9 +1834,17 @@ library Stringray {
                             || uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH))
                     || (uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS && _pattern.length == 1)
             ) {
-                string memory errorMsg = string(
-                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group")
+                string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                string memory errorRight = string(
+                    abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Unterminated group")
                 );
+
+                if (fromGroup) {
+                    errorLeft = string(abi.encodePacked(errorLeft, "("));
+                    errorRight = string(abi.encodePacked(")", errorRight));
+                }
+
+                string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                 revert(errorMsg);
             }
         }
@@ -1825,7 +1860,8 @@ library Stringray {
                         || (_currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH)))
         ) {
             uint256 stripFromIndex;
-            (flag, stripFromIndex, lastMatchedParticleIndex) = validateGroup(_pattern, _currentParticleIndex + 1);
+            (flag, stripFromIndex, lastMatchedParticleIndex) =
+                validateGroup(_pattern, _currentParticleIndex + 1, _patternFlag, fromGroup);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
                 // console2.log(
@@ -1843,7 +1879,7 @@ library Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
-    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex)
+    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
         private
         pure
         returns (bool, uint256, uint256)
@@ -1855,7 +1891,7 @@ library Stringray {
             return (true, _currentParticleIndex, _currentParticleIndex);
         }
 
-        (, uint256 stripFromIndex) = validateGroupBody(_pattern, _currentParticleIndex);
+        (, uint256 stripFromIndex) = validateGroupBody(_pattern, _currentParticleIndex, _patternFlag, fromGroup);
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
@@ -1866,7 +1902,7 @@ library Stringray {
                     && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
             ) {
                 numOpenParanthesis++;
-                (, i) = validateGroupBody(_pattern, i + 1);
+                (, i) = validateGroupBody(_pattern, i + 1, _patternFlag, fromGroup);
                 continue;
             }
 
@@ -1882,11 +1918,19 @@ library Stringray {
                     if (i + 1 < _pattern.length) {
                         (bool isQuantifier,,) = isGreedyQuantifierAtom(_pattern, i + 1, GROUP_ATOM);
                         if (isQuantifier) {
-                            string memory errorMsg = string(
+                            string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                            string memory errorRight = string(
                                 abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid quantifier"
+                                    "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Invalid quantifier"
                                 )
                             );
+
+                            if (fromGroup) {
+                                errorLeft = string(abi.encodePacked(errorLeft, "("));
+                                errorRight = string(abi.encodePacked(")", errorRight));
+                            }
+
+                            string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                             revert(errorMsg);
                         }
                     }
@@ -1896,16 +1940,25 @@ library Stringray {
             }
         }
 
-        string memory errorMsg =
-            string(abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Unterminated group"));
+        string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+        string memory errorRight =
+            string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Unterminated group"));
+
+        if (fromGroup) {
+            errorLeft = string(abi.encodePacked(errorLeft, "("));
+            errorRight = string(abi.encodePacked(")", errorRight));
+        }
+
+        string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
         revert(errorMsg);
     }
 
-    function validateGroupBody(bytes memory _pattern, uint256 _currentParticleIndex)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function validateGroupBody(
+        bytes memory _pattern,
+        uint256 _currentParticleIndex,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, uint256) {
         uint256 stripFrom = _currentParticleIndex;
         if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
             if (
@@ -1915,9 +1968,16 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIndex + 1]) != EXCLAMATION_MARK
                         && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
             ) {
-                string memory errorMsg = string(
-                    abi.encodePacked("SyntaxError: Invalid regular expression: ", _pattern, ": Invalid group")
-                );
+                string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                string memory errorRight =
+                    string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Invalid group"));
+
+                if (fromGroup) {
+                    errorLeft = string(abi.encodePacked(errorLeft, "("));
+                    errorRight = string(abi.encodePacked(")", errorRight));
+                }
+
+                string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                 revert(errorMsg);
             }
 
@@ -1932,11 +1992,19 @@ library Stringray {
                             && !isSmallAlphabet(_pattern[_currentParticleIndex + 2])
                             && !isBigAlphabet(_pattern[_currentParticleIndex + 2]))
                 ) {
-                    string memory errorMsg = string(
+                    string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                    string memory errorRight = string(
                         abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid capture group name"
+                            "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Invalid capture group name"
                         )
                     );
+
+                    if (fromGroup) {
+                        errorLeft = string(abi.encodePacked(errorLeft, "("));
+                        errorRight = string(abi.encodePacked(")", errorRight));
+                    }
+
+                    string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                     revert(errorMsg);
                 }
 
@@ -1963,13 +2031,19 @@ library Stringray {
                                     && !isDigit(_pattern[i], false))
                                 || (i == _pattern.length - 1 && uint8(_pattern[i]) != GREATER_THAN_SIGN)
                         ) {
-                            string memory errorMsg = string(
+                            string memory errorLeft = "SyntaxError: Invalid regular expression: /";
+                            string memory errorRight = string(
                                 abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: ",
-                                    _pattern,
-                                    ": Invalid capture group name"
+                                    "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, ": Invalid capture group name"
                                 )
                             );
+
+                            if (fromGroup) {
+                                errorLeft = string(abi.encodePacked(errorLeft, "("));
+                                errorRight = string(abi.encodePacked(")", errorRight));
+                            }
+
+                            string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
                             revert(errorMsg);
                         }
                     }
