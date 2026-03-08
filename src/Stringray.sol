@@ -1284,9 +1284,14 @@ library Stringray {
                     if (
                         fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
                     ) {
-                        string memory errorRight = ": Invalid decimal escape";
+                        // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
+                        // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
+                        // @Status: Fixed ✅
+                        errorRight = ": Invalid decimal escape";
                     }
 
+                    // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
+                    // @Status: Fixed ✅
                     throwError(
                         _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
                     );
@@ -2352,7 +2357,7 @@ library Stringray {
         string memory errorLeft = _errorLeft;
         string memory errorRight = _errorRight;
 
-        _errorRight = string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, _errorRight));
+        errorRight = string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, _errorRight));
 
         if (fromGroup) {
             errorLeft = string(abi.encodePacked(errorLeft, "("));

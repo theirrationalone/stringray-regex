@@ -4430,12 +4430,13 @@ const testMain = () => {
 
     test("Groups(): Case0000268", () => {
         let regex = /((a)[\1])/u;
+        // let regex = /[\1]/u;
         const target = "a\x01";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // tested upto above
+    // @Last: 08 March 2026, Sun 10:05 IST, Tested last above
 
     test("Groups(): Case0000269", () => {
         let regex = /([(a)\1])/;
