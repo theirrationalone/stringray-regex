@@ -1012,10 +1012,7 @@ library Stringray {
                             _pattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Nothing to repeat",
-                            "",
-                            "",
                             _patternFlag,
-                            false,
                             fromGroup
                         );
                     } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
@@ -1027,10 +1024,7 @@ library Stringray {
                                 _pattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Nothing to repeat",
-                                "",
-                                "",
                                 _patternFlag,
-                                false,
                                 fromGroup
                             );
                         }
@@ -1043,10 +1037,7 @@ library Stringray {
                             _pattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Nothing to repeat",
-                            "",
-                            "",
                             _patternFlag,
-                            false,
                             fromGroup
                         );
                     }
@@ -1073,10 +1064,7 @@ library Stringray {
                     _pattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Nothing to repeat",
-                    "",
-                    "",
                     _patternFlag,
-                    false,
                     fromGroup
                 );
             }
@@ -1159,10 +1147,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Lone Character class brackets",
-                        "",
-                        "",
                         _patternFlag,
-                        false,
                         fromGroup
                     );
                 }
@@ -1250,10 +1235,7 @@ library Stringray {
                             _pattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Invalid decimal escape",
-                            "",
-                            "",
                             _patternFlag,
-                            fromCharacterClass,
                             fromGroup
                         );
                     }
@@ -1273,14 +1255,7 @@ library Stringray {
                     }
 
                     throwError(
-                        _pattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        errorRight,
-                        "",
-                        "",
-                        _patternFlag,
-                        fromCharacterClass,
-                        fromGroup
+                        _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
                     );
                 }
             } else {
@@ -1295,10 +1270,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid decimal escape",
-                        "",
-                        "",
                         _patternFlag,
-                        fromCharacterClass,
                         fromGroup
                     );
                 } else if (
@@ -1316,14 +1288,7 @@ library Stringray {
                     }
 
                     throwError(
-                        _pattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        errorRight,
-                        "",
-                        "",
-                        _patternFlag,
-                        fromCharacterClass,
-                        fromGroup
+                        _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
                     );
                 }
             }
@@ -1401,10 +1366,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid escape",
-                        "",
-                        "",
                         _patternFlag,
-                        fromCharacterClass,
                         fromGroup
                     );
                 }
@@ -1433,14 +1395,7 @@ library Stringray {
                     }
 
                     throwError(
-                        _pattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        errorRight,
-                        "",
-                        "",
-                        _patternFlag,
-                        false,
-                        fromGroup
+                        _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
                     );
                 }
                 atomType = LITERAL_ATOM;
@@ -1467,10 +1422,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Empty Character class",
-                        "",
-                        "",
                         _patternFlag,
-                        false,
                         fromGroup
                     );
                 }
@@ -1481,10 +1433,7 @@ library Stringray {
                     _pattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Unterminated Character class",
-                    "",
-                    "",
                     _patternFlag,
-                    false,
                     fromGroup
                 );
             }
@@ -1517,10 +1466,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Unterminated Character class",
-                        "",
-                        "",
                         _patternFlag,
-                        false,
                         fromGroup
                     );
                 }
@@ -1594,10 +1540,7 @@ library Stringray {
                             _pattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Invalid character class",
-                            "",
-                            "",
                             _patternFlag,
-                            false,
                             fromGroup
                         );
                     }
@@ -1620,10 +1563,7 @@ library Stringray {
                                 _pattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid character class",
-                                "",
-                                "",
                                 _patternFlag,
-                                false,
                                 fromGroup
                             );
                         }
@@ -1670,10 +1610,7 @@ library Stringray {
                                     _pattern,
                                     "SyntaxError: Invalid regular expression: /",
                                     ": Range out of order in character class",
-                                    "",
-                                    "",
                                     _patternFlag,
-                                    false,
                                     fromGroup
                                 );
                             }
@@ -1688,10 +1625,7 @@ library Stringray {
                                 _pattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Range out of order in character class",
-                                "",
-                                "",
                                 _patternFlag,
-                                false,
                                 fromGroup
                             );
                         }
@@ -1711,10 +1645,7 @@ library Stringray {
                             _pattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Range out of order in character class",
-                            "",
-                            "",
                             _patternFlag,
-                            false,
                             fromGroup
                         );
                     }
@@ -1726,10 +1657,7 @@ library Stringray {
                     _pattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Invalid character class",
-                    "",
-                    "",
                     _patternFlag,
-                    false,
                     fromGroup
                 );
             }
@@ -1816,14 +1744,7 @@ library Stringray {
 
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
             throwError(
-                _pattern,
-                "SyntaxError: Invalid regular expression: /",
-                ": Unmatched ')'",
-                "",
-                "",
-                _patternFlag,
-                false,
-                fromGroup
+                _pattern, "SyntaxError: Invalid regular expression: /", ": Unmatched ')'", _patternFlag, fromGroup
             );
         }
 
@@ -1840,10 +1761,7 @@ library Stringray {
                     _pattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Unterminated group",
-                    "",
-                    "",
                     _patternFlag,
-                    false,
                     fromGroup
                 );
             }
@@ -1923,10 +1841,7 @@ library Stringray {
                                 _pattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid quantifier",
-                                "",
-                                "",
                                 _patternFlag,
-                                false,
                                 fromGroup
                             );
                         }
@@ -1938,14 +1853,7 @@ library Stringray {
         }
 
         throwError(
-            _pattern,
-            "SyntaxError: Invalid regular expression: /",
-            ": Unterminated group",
-            "",
-            "",
-            _patternFlag,
-            false,
-            fromGroup
+            _pattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlag, fromGroup
         );
     }
 
@@ -1965,14 +1873,7 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
             ) {
                 throwError(
-                    _pattern,
-                    "SyntaxError: Invalid regular expression: /",
-                    ": Invalid group",
-                    "",
-                    "",
-                    _patternFlag,
-                    false,
-                    fromGroup
+                    _pattern, "SyntaxError: Invalid regular expression: /", ": Invalid group", _patternFlag, fromGroup
                 );
             }
 
@@ -1991,10 +1892,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid capture group name",
-                        "",
-                        "",
                         _patternFlag,
-                        false,
                         fromGroup
                     );
                 }
@@ -2026,10 +1924,7 @@ library Stringray {
                                 _pattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid capture group name",
-                                "",
-                                "",
                                 _patternFlag,
-                                false,
                                 fromGroup
                             );
                         }
@@ -2272,10 +2167,7 @@ library Stringray {
                         _pattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": numbers out of order in {} quantifier",
-                        "",
-                        "",
                         _patternFlag,
-                        false,
                         fromGroup
                     );
                 }
@@ -2290,15 +2182,11 @@ library Stringray {
     function validateRegex(string memory _pattern) private pure {
         bytes memory patternInBytes = bytes(_pattern);
         if (patternInBytes.length <= 2) {
-            revert(errorMsg);
             throwError(
-                _pattern,
+                patternInBytes,
                 "SyntaxError: Invalid regular expression: ",
                 " , required: /valid_seq/",
-                "",
-                "",
-                bytes(0),
-                false,
+                bytes1(0),
                 false
             );
         }
@@ -2310,13 +2198,10 @@ library Stringray {
 
         if (patternFirstChar != FORWARD_SLASH) {
             throwError(
-                _pattern,
+                patternInBytes,
                 "SyntaxError: Invalid regular expression: ",
                 string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
-                "",
-                "",
-                bytes(0),
-                false,
+                bytes1(0),
                 false
             );
         }
@@ -2333,9 +2218,7 @@ library Stringray {
                     && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
                     && patternLastChar != SMALL_y
             ) {
-                throwError(
-                    _pattern, "SyntaxError: Invalid regular expression flags: ", "", "", "", bytes(0), false, false
-                );
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "", bytes1(0), false);
             }
         }
 
@@ -2344,13 +2227,10 @@ library Stringray {
                 && (patternSecondLastChar == BACK_SLASH && patternThirdLastChar != BACK_SLASH)
         ) {
             throwError(
-                _pattern,
+                patternInBytes,
                 "SyntaxError: Invalid regular expression: ",
                 string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
-                "",
-                "",
-                bytes(0),
-                false,
+                bytes1(0),
                 false
             );
         }
@@ -2422,16 +2302,7 @@ library Stringray {
                             || (openSquareBracketIdx != 0 && closeSquareBracketIdx == 0)
                     ) {
                         if (uint8(patternInBytes[i + 1]) == FORWARD_SLASH) {
-                            throwError(
-                                abi.encodePacked(""),
-                                "SyntaxError: Unexpected token ';'",
-                                "",
-                                "",
-                                "",
-                                bytes(0),
-                                false,
-                                false
-                            );
+                            throwError(abi.encodePacked(""), "SyntaxError: Unexpected token ';'", "", bytes1(0), false);
                         } else if (
                             !isSmallAlphabet(patternInBytes[i + 1]) && !isBigAlphabet(patternInBytes[i + 1])
                                 && uint8(patternInBytes[i + 1]) != BACK_SLASH
@@ -2440,10 +2311,7 @@ library Stringray {
                                 abi.encodePacked(""),
                                 "SyntaxError: Unexpected token '",
                                 string(abi.encodePacked(patternInBytes[i + 1], "'")),
-                                "",
-                                "",
-                                bytes(0),
-                                false,
+                                bytes1(0),
                                 false
                             );
                         } else {
@@ -2452,10 +2320,7 @@ library Stringray {
                                 abi.encodePacked(""),
                                 "SyntaxError: Invalid regular expression flags",
                                 "",
-                                "",
-                                "",
-                                bytes(0),
-                                false,
+                                bytes1(0),
                                 false
                             );
                         }
@@ -2466,10 +2331,7 @@ library Stringray {
                             abi.encodePacked(""),
                             "SyntaxError: Invalid regular expression",
                             ": missing /",
-                            "",
-                            "",
                             bytes1(0),
-                            false,
                             false
                         );
                     }
@@ -2484,21 +2346,13 @@ library Stringray {
         bytes memory _pattern,
         string memory _errorLeft,
         string memory _errorRight,
-        string memory _errorLeftCC,
-        string memory _errorRightCC,
         bytes1 _patternFlag,
-        bool fromCharacterClass,
         bool fromGroup
     ) private pure {
         string memory errorLeft = _errorLeft;
         string memory errorRight = _errorRight;
 
         _errorRight = string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, _errorRight));
-
-        if (fromCharacterClass) {
-            errorLeft = string(abi.encodePacked(_errorLeft, _errorLeftCC));
-            errorRight = string(abi.encodePacked(_errorRight, _errorRightCC));
-        }
 
         if (fromGroup) {
             errorLeft = string(abi.encodePacked(errorLeft, "("));
