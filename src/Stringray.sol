@@ -16441,11 +16441,14 @@ library Stringray {
 
     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
         // _unicodeHex: "\u{XXXXXX}" or \uXXXX
-        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, 0);
+        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, 0, bytes1(0), false);
 
         if (!isValid) {
             string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _unicodeHex));
             revert(errorMsg);
+            throwError(
+                abi.encodePacked(""), "SyntaxError: Invalid Unicode codepoint: ", string(_unicodeHex), bytes1(0), false
+            );
         }
 
         bytes memory binary;
@@ -17717,12 +17720,13 @@ library Stringray {
 
         if (isValid) {
             if (uint8(_patternFlag) == SMALL_u && !fromCharacterClass) {
-                string memory errorMsg = string(
-                    abi.encodePacked(
-                        "SyntaxError: Invalid regular expression: /", _pattern, "/u: Lone quantifier brackets"
-                    )
+                throwError(
+                    _pattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Lone quantifier brackets",
+                    _patternFlag,
+                    fromGroup
                 );
-                revert(errorMsg);
             }
 
             return (true, lastMatchedIndex);
@@ -17808,7 +17812,8 @@ library Stringray {
                     }
                 }
 
-                (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex);
+                (isValid, lastMatchedIndex) =
+                    validateBackslash_u_UnicodeEscape(_pattern, _currentParticleIndex, _patternFlag, fromGroup);
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -17830,12 +17835,13 @@ library Stringray {
                     return (true, lastMatchedIndex);
                 } else {
                     if (uint8(_patternFlag) == SMALL_u) {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid Unicode Escape"
-                            )
+                        throwError(
+                            _pattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid Unicode Escape",
+                            _patternFlag,
+                            fromGroup
                         );
-                        revert(errorMsg);
                     }
 
                     // @question: does it really need a tweak?
@@ -17845,13 +17851,17 @@ library Stringray {
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
                 if (uint8(_patternFlag) == SMALL_u && fromCharacterClass) {
-                    string memory errorMsg = string(
-                        abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid escape")
+                    throwError(
+                        _pattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid Escape",
+                        _patternFlag,
+                        fromGroup
                     );
-                    revert(errorMsg);
                 }
 
-                (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(_pattern, _currentParticleIndex);
+                (isValid, lastMatchedIndex) =
+                    validateBackslash_k_groupEscape(_pattern, _currentParticleIndex, _patternFlag, fromGroup);
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -17863,8 +17873,9 @@ library Stringray {
                     return (true, _currentParticleIndex + 1);
                 }
 
-                (isValid, lastMatchedIndex) =
-                    validateBackslash_p_propertyNameEscape(_pattern, _currentParticleIndex, fromCharacterClass);
+                (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(
+                    _pattern, _currentParticleIndex, fromCharacterClass, _patternFlag, fromGroup
+                );
 
                 if (isValid) {
                     return (true, lastMatchedIndex);
@@ -17989,7 +18000,9 @@ library Stringray {
     function validateBackslash_p_propertyNameEscape(
         bytes memory _pattern,
         uint256 _indexToStartFrom,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bytes1 _patternFlag,
+        bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
@@ -17999,16 +18012,20 @@ library Stringray {
                     && uint8(_pattern[_indexToStartFrom + 3]) == CLOSE_CURLY_BRACE
             ) {
                 string memory eMsg = " Invalid property name";
-                string memory lastMsg = fromCharacterClass ? " in character class" : "";
-                string memory errorMsg = string(
-                    abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", eMsg, lastMsg)
+                string memory errorRight = fromCharacterClass ? " in character class" : "";
+                throwError(
+                    _pattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    string(abi.encodePacked(eMsg, errorRight)),
+                    _patternFlag,
+                    fromGroup
                 );
-                revert(errorMsg);
             }
 
             if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
-                (bool isValidPropertyName, uint256 lastMatchedIndex) =
-                    validatePropertyNameAndSyntax(_pattern, _indexToStartFrom + 3, fromCharacterClass);
+                (bool isValidPropertyName, uint256 lastMatchedIndex) = validatePropertyNameAndSyntax(
+                    _pattern, _indexToStartFrom + 3, fromCharacterClass, _patternFlag, fromGroup
+                );
 
                 if (isValidPropertyName) {
                     return (true, lastMatchedIndex);
@@ -18019,11 +18036,12 @@ library Stringray {
         return (false, 0);
     }
 
-    function validateBackslash_k_groupEscape(bytes memory _pattern, uint256 _indexToStartFrom)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function validateBackslash_k_groupEscape(
+        bytes memory _pattern,
+        uint256 _indexToStartFrom,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
         // @info: BUG: if (_indexToStartFrom + 5 <= patternLastIndex)
@@ -18049,23 +18067,23 @@ library Stringray {
                                 && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0]))
                                 && !isDigit(_pattern[i], false)
                         ) {
-                            string memory errorMsg = string(
-                                abi.encodePacked(
-                                    "SyntaxError: Invalid regular expression: ",
-                                    _pattern,
-                                    ": Invalid capture group name"
-                                )
+                            throwError(
+                                _pattern,
+                                "SyntaxError: Invalid regular expression: /",
+                                ": Invalid capture group name",
+                                _patternFlag,
+                                fromGroup
                             );
-                            revert(errorMsg);
                         }
                     }
                 } else {
-                    string memory errorMsg = string(
-                        abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid capture group name"
-                        )
+                    throwError(
+                        _pattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid capture group name",
+                        _patternFlag,
+                        fromGroup
                     );
-                    revert(errorMsg);
                 }
             }
         }
@@ -18106,11 +18124,12 @@ library Stringray {
         return (false, 0);
     }
 
-    function validateBackslash_u_UnicodeEscape(bytes memory _pattern, uint256 _indexToStartFrom)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function validateBackslash_u_UnicodeEscape(
+        bytes memory _pattern,
+        uint256 _indexToStartFrom,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 2 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
@@ -18181,12 +18200,13 @@ library Stringray {
                     if (decValue <= 1114111) {
                         return (true, _indexToStartFrom + 9);
                     } else {
-                        string memory errorMsg = string(
-                            abi.encodePacked(
-                                "SyntaxError: Invalid regular expression: ", _pattern, ": Invalid Unicode escape"
-                            )
+                        throwError(
+                            _pattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid Unicode escape",
+                            _patternFlag,
+                            fromGroup
                         );
-                        revert(errorMsg);
                     }
                 }
             }
@@ -18208,11 +18228,13 @@ library Stringray {
         return (false, 0);
     }
 
-    function validatePropertyNameAndSyntax(bytes memory _pattern, uint256 _indexToStartFrom, bool fromCharacterClass)
-        private
-        pure
-        returns (bool, uint256)
-    {
+    function validatePropertyNameAndSyntax(
+        bytes memory _pattern,
+        uint256 _indexToStartFrom,
+        bool fromCharacterClass,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, uint256) {
         uint256 propertyNameEndIdx;
         for (uint256 i = _indexToStartFrom; i < _pattern.length; i++) {
             // @info: BUG: if (uint8(_pattern[_indexToStartFrom]) == CLOSE_CURLY_BRACE) and missing a break keyword.
@@ -18242,9 +18264,13 @@ library Stringray {
         } else {
             string memory eMsg = " Invalid property name";
             string memory lastMsg = fromCharacterClass ? " in character class" : "";
-            string memory errorMsg =
-                string(abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u:", eMsg, lastMsg));
-            revert(errorMsg);
+            throwError(
+                _pattern,
+                "SyntaxError: Invalid regular expression: /",
+                string(abi.encodePacked(eMsg, lastMsg)),
+                _patternFlag,
+                fromGroup
+            );
         }
 
         return (false, 0);
