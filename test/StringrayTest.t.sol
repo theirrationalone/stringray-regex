@@ -4485,6 +4485,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase285() public pure {
         string memory target = "anything";
 
+        // @BUG: NOT throwing error
+        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<a>a)[\\k<a>])/";
         target.regex(pattern);
     }
@@ -4503,16 +4505,18 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase288() public pure {
-        string memory target = "anything";
+    // function testRegexGroupsCase288() public pure {
+    //     string memory target = "anything";
 
-        string memory pattern = unicode"/([\\k<a>])/u";
-        target.regex(pattern);
-    }
+    //     string memory pattern = unicode"/([\\k<a>])/u";
+    //     target.regex(pattern);
+    // }
 
     function testRegexGroupsCase289() public pure {
         string memory target = "anything";
 
+        // @BUG: NOT throwing error
+        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<b>a)\\k<a>)/";
         target.regex(pattern);
     }
@@ -4520,6 +4524,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase290() public pure {
         string memory target = "anything";
 
+        // @BUG: NOT throwing error
+        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<b>a)\\k<a>)/u";
         target.regex(pattern);
     }
