@@ -1823,6 +1823,13 @@ library Stringray {
         uint256 numCloseParanthesis;
 
         for (uint256 i = stripFromIndex; i < _pattern.length; i++) {
+            (bool isCC,, uint256 ccLastIdx) = isCharacterClass(_pattern, i, _patternFlag, fromGroup);
+
+            if (isCC) {
+                i = ccLastIdx;
+                continue;
+            }
+
             if (
                 uint8(_pattern[i]) == OPEN_PARANTHESIS
                     && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
