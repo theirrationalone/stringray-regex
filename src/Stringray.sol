@@ -936,17 +936,19 @@ library Stringray {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
                 classifyAtom(_pattern, uint256(particleIdx), _patternFlag, fromGroup);
 
-            console2.log("---In nuclearFission---");
-            console2.log("Iteration no: ", particleIdx + 1);
-            console2.log("atom bytes form: ");
-            console2.logBytes(atom);
-            console2.log("atom: ", string(atom));
+            if (!fromGroup) {
+                console2.log("---In nuclearFission---");
+                console2.log("Iteration no: ", particleIdx + 1);
+                console2.log("atom bytes form: ");
+                console2.logBytes(atom);
+                console2.log("atom: ", string(atom));
 
-            console2.log("ATOM TYPE HASH: ");
-            console2.logBytes32(atomType);
-            printAtomType(atomType);
-            console2.log("atomEndIdx: ", atomEndIdx);
-            console2.log("---");
+                console2.log("ATOM TYPE HASH: ");
+                console2.logBytes32(atomType);
+                printAtomType(atomType);
+                console2.log("atomEndIdx: ", atomEndIdx);
+                console2.log("---");
+            }
 
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
