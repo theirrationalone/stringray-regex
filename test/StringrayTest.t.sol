@@ -4673,6 +4673,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase311() public pure {
         string memory target = "anything";
 
+        // @info: not recognizing the atom \c_ therefore marking atom as an INVALID ATOM.
+        // @follow-up: Required to be verified!
         string memory pattern = unicode"/(\\c_)/";
         target.regex(pattern);
     }
@@ -4813,6 +4815,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase331() public pure {
         string memory target = "anything";
 
+        // @BUG: Reading character class open-paranthesis as a syntax
+        // @status: not resolved
         string memory pattern = unicode"/([&-(])/";
         target.regex(pattern);
     }
@@ -4820,6 +4824,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase332() public pure {
         string memory target = "anything";
 
+        // @BUG: Reading character class open-paranthesis as a syntax
+        // @status: not resolved
         string memory pattern = unicode"/([&-(])/u";
         target.regex(pattern);
     }
@@ -4827,6 +4833,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase333() public pure {
         string memory target = "anything";
 
+        // @BUG: Reading character class open-paranthesis as a syntax
+        // @status: not resolved
         string memory pattern = unicode"/([(-&])/";
         target.regex(pattern);
     }
@@ -4834,6 +4842,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase334() public pure {
         string memory target = "anything";
 
+        // @BUG: Reading character class open-paranthesis as a syntax
+        // @status: not resolved
         string memory pattern = unicode"/([(-&])/u";
         target.regex(pattern);
     }
@@ -4841,6 +4851,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase335() public pure {
         string memory target = "anything";
 
+        // @BUG: Crashing with error array out of bounds access 0x32 code
+        // @status: not resolved
         string memory pattern = unicode"/([)-$])/";
         target.regex(pattern);
     }
