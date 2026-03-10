@@ -4,5 +4,6 @@
 
 ## Stringray
 
-1. **Literals Sequences Done ✅**
-2. Done Literals with dot meta-character ✅
+1. **Patterns Detection ✅**
+2. **Patterns Validation ✅**
+3. **Patterns Error Support ✅**
