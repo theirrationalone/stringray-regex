@@ -5245,7 +5245,7 @@ contract PlayStringTest is Test {
 
     function testRegexGroupCase392() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(abc++)u/";
+        string memory pattern = unicode"/(abc++)/u";
         target.regex(pattern);
     }
 
@@ -5371,12 +5371,18 @@ contract PlayStringTest is Test {
 
     function testRegexGroupCase413() public pure {
         string memory target = "anything";
+
+        // @BUG: not throwing expected error: Invalid quantifier
+        // @status: not resolved!
         string memory pattern = unicode"/(ab(?=ab)+)+/";
         target.regex(pattern);
     }
 
     function testRegexGroupCase414() public pure {
         string memory target = "anything";
+
+        // @BUG: not throwing expected error: Invalid quantifier
+        // @status: not resolved!
         string memory pattern = unicode"/(ab(?=ab)+)+/u";
         target.regex(pattern);
     }

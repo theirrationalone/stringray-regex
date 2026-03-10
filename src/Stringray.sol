@@ -927,14 +927,17 @@ library Stringray {
         bytes memory filteredPatternInBytes =
             trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
 
-        nuclearFission(filteredPatternInBytes, patternFlag, false);
+        nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlag, false);
     }
 
-    function nuclearFission(bytes memory _pattern, bytes1 _patternFlag, bool fromGroup) private pure {
+    function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes1 _patternFlag, bool fromGroup)
+        private
+        pure
+    {
         int256 patternLength = int256(_pattern.length);
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
-                classifyAtom(_pattern, uint256(particleIdx), _patternFlag, fromGroup);
+                classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlag, fromGroup);
 
             console2.log("---In nuclearFission---");
             if (fromGroup) {
@@ -956,17 +959,20 @@ library Stringray {
         }
     }
 
-    function classifyAtom(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag, bool fromGroup)
-        private
-        pure
-        returns (bytes memory, bytes32, int256)
-    {
+    function classifyAtom(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIdx,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bytes memory, bytes32, int256) {
         bytes memory atom;
         bool isTrue;
         uint256 atomLastIdx;
         bytes32 atomType;
 
-        (isTrue, atomType, atomLastIdx) = atomIdClassifier(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
+        (isTrue, atomType, atomLastIdx) =
+            atomIdClassifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -981,11 +987,13 @@ library Stringray {
         return (atom, atomType, int256(atomLastIdx));
     }
 
-    function atomIdClassifier(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag, bool fromGroup)
-        private
-        pure
-        returns (bool, bytes32, uint256)
-    {
+    function atomIdClassifier(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIdx,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, bytes32, uint256) {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
             isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag, false, fromGroup);
 
@@ -995,7 +1003,8 @@ library Stringray {
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isGroup(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
+            (flag, atomType, lastMatchedParticleIndex) =
+                isGroup(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
         }
 
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -1742,17 +1751,19 @@ library Stringray {
         return decimal;
     }
 
-    function isGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
-        private
-        pure
-        returns (bool, bytes32, uint256)
-    {
+    function isGroup(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIndex,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, bytes32, uint256) {
         bool flag;
         uint256 lastMatchedParticleIndex;
 
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
             throwError(
-                _pattern, "SyntaxError: Invalid regular expression: /", ": Unmatched ')'", _patternFlag, fromGroup
+                _orgPattern, "SyntaxError: Invalid regular expression: /", ": Unmatched ')'", _patternFlag, fromGroup
             );
         }
 
@@ -1766,7 +1777,7 @@ library Stringray {
                     || (uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS && _pattern.length == 1)
             ) {
                 throwError(
-                    _pattern,
+                    _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Unterminated group",
                     _patternFlag,
@@ -1787,14 +1798,14 @@ library Stringray {
         ) {
             uint256 stripFromIndex;
             (flag, stripFromIndex, lastMatchedParticleIndex) =
-                validateGroup(_pattern, _currentParticleIndex + 1, _patternFlag, fromGroup);
+                validateGroup(_pattern, _orgPattern, _currentParticleIndex + 1, _patternFlag, fromGroup);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
                 // console2.log(
                 //     "----------------------------------------sub pattern fission----------------------------------------"
                 // );
                 // console2.log("sub pattern string: ", string(subPattern));
-                nuclearFission(subPattern, _patternFlag, true);
+                nuclearFission(subPattern, _orgPattern, _patternFlag, true);
                 // console2.log("----------------------------------------END----------------------------------------");
             }
         }
@@ -1805,11 +1816,13 @@ library Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
-    function validateGroup(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
-        private
-        pure
-        returns (bool, uint256, uint256)
-    {
+    function validateGroup(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIndex,
+        bytes1 _patternFlag,
+        bool fromGroup
+    ) private pure returns (bool, uint256, uint256) {
         // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
         // @status: not fixed, needs a better validation implementation
         // @status: Fixed ✅, this is the fix status in response of above status, meaning current acklgd bug has been fixed now
@@ -1817,7 +1830,8 @@ library Stringray {
             return (true, _currentParticleIndex, _currentParticleIndex);
         }
 
-        (, uint256 stripFromIndex) = validateGroupBody(_pattern, _currentParticleIndex, _patternFlag, fromGroup);
+        (, uint256 stripFromIndex) =
+            validateGroupBody(_pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromGroup);
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
@@ -1835,7 +1849,7 @@ library Stringray {
                     && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
             ) {
                 numOpenParanthesis++;
-                (, i) = validateGroupBody(_pattern, i + 1, _patternFlag, fromGroup);
+                (, i) = validateGroupBody(_pattern, _orgPattern, i + 1, _patternFlag, fromGroup);
                 continue;
             }
 
@@ -1853,7 +1867,7 @@ library Stringray {
                             isGreedyQuantifierAtom(_pattern, i + 1, GROUP_ATOM, _patternFlag, fromGroup);
                         if (isQuantifier) {
                             throwError(
-                                _pattern,
+                                _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid quantifier",
                                 _patternFlag,
@@ -1874,6 +1888,7 @@ library Stringray {
 
     function validateGroupBody(
         bytes memory _pattern,
+        bytes memory _orgPattern,
         uint256 _currentParticleIndex,
         bytes1 _patternFlag,
         bool fromGroup
@@ -1888,7 +1903,11 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
             ) {
                 throwError(
-                    _pattern, "SyntaxError: Invalid regular expression: /", ": Invalid group", _patternFlag, fromGroup
+                    _orgPattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid group",
+                    _patternFlag,
+                    fromGroup
                 );
             }
 
@@ -1904,7 +1923,7 @@ library Stringray {
                             && !isBigAlphabet(_pattern[_currentParticleIndex + 2]))
                 ) {
                     throwError(
-                        _pattern,
+                        _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid capture group name",
                         _patternFlag,
@@ -1936,7 +1955,7 @@ library Stringray {
                                 || (i == _pattern.length - 1 && uint8(_pattern[i]) != GREATER_THAN_SIGN)
                         ) {
                             throwError(
-                                _pattern,
+                                _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid capture group name",
                                 _patternFlag,
