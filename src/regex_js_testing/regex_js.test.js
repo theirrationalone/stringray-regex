@@ -5237,6 +5237,48 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Groups(): Case0000383", () => {
+        let regex = /(a(b(c)d(e)f)g(hi)j)klm/;
+        const target = "abcdefghijklm";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000384", () => {
+        let regex = /(a(b(c)d(e)f)g(hi)j)klm/u;
+        const target = "abcdefghijklm";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000385", () => {
+        let regex = /(?:abc)/;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000386", () => {
+        let regex = /(?:abc)/u;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000387", () => {
+    //     let regex = /(?>abc)/;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case0000388", () => {
+        let regex = /(?>abc)/u;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
