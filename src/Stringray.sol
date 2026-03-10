@@ -1850,6 +1850,7 @@ library Stringray {
             ) {
                 numOpenParanthesis++;
                 (, i) = validateGroupBody(_pattern, _orgPattern, i + 1, _patternFlag, fromGroup);
+                // if (i + 1 < _pattern.length && uint8(_pattern[i]) == CLOSE_PARANTHESIS) {}
                 continue;
             }
 
@@ -1861,7 +1862,13 @@ library Stringray {
             }
 
             if (numOpenParanthesis == numCloseParanthesis) {
-                if (stripFromIndex == _currentParticleIndex + 3) {
+                if (
+                    stripFromIndex == _currentParticleIndex + 3
+                        || (stripFromIndex == _currentParticleIndex + 2
+                            && (uint8(_pattern[stripFromIndex - 1]) == EXCLAMATION_MARK
+                                || uint8(_pattern[stripFromIndex - 1]) == ASSIGNMENT_SIGN)
+                            && uint8(_patternFlag) == SMALL_u)
+                ) {
                     if (i + 1 < _pattern.length) {
                         (bool isQuantifier,,) =
                             isGreedyQuantifierAtom(_pattern, i + 1, GROUP_ATOM, _patternFlag, fromGroup);

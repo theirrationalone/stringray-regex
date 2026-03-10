@@ -5372,8 +5372,6 @@ contract PlayStringTest is Test {
     function testRegexGroupCase413() public pure {
         string memory target = "anything";
 
-        // @BUG: not throwing expected error: Invalid quantifier
-        // @status: not resolved!
         string memory pattern = unicode"/(ab(?=ab)+)+/";
         target.regex(pattern);
     }
