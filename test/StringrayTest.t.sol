@@ -5433,6 +5433,66 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase423() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a+)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase424() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a+)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase425() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a*)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase426() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a*)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase427() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{1,3})b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase428() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{1,3})b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase429() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\w+)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase430() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\w+)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase431() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab|abc)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase432() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab|abc)b/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 
