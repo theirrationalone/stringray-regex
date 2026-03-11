@@ -5461,6 +5461,62 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Groups(): Case0000415", () => {
+        let regex = /(?=ab)+/;
+        const target = "abab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000416", () => {
+    //     let regex = /(?=ab)+/u;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Groups(): Case0000417", () => {
+        let regex = /(?!ab)*/;
+        const target = "abab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000418", () => {
+    //     let regex = /(?!ab)*/u;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000419", () => {
+    //     let regex = /(?<=ab)+/;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000420", () => {
+    //     let regex = /(?<=ab)+/u;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000421", () => {
+    //     let regex = /(?<!ab)?/;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000422", () => {
+    //     let regex = /(?<!ab)?/u;
+    //     const target = "abab";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
