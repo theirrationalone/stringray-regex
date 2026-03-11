@@ -5565,6 +5565,54 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase445() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{2,4})b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase446() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{2,4})b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase447() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\d+)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase448() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\d+)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase449() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a*)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase450() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a*)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase451() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{3})b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase452() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=a{3})b/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 

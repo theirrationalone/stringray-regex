@@ -5671,6 +5671,62 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Groups(): Case0000445", () => {
+        let regex = /(?<=a{2,4})b/;
+        const target = "aab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000446", () => {
+        let regex = /(?<=a{2,4})b/u;
+        const target = "aab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000447", () => {
+        let regex = /(?<=\d+)b/;
+        const target = "1b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000448", () => {
+        let regex = /(?<=\d+)b/u;
+        const target = "1b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000449", () => {
+        let regex = /(?<=a*)b/;
+        const target = "b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000450", () => {
+        let regex = /(?<=a*)b/u;
+        const target = "ab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000451", () => {
+        let regex = /(?<=a{3})b/;
+        const target = "aaab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000452", () => {
+        let regex = /(?<=a{3})b/u;
+        const target = "aaab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
@@ -5686,3 +5742,7 @@ testMain();
 //    // /(?<=\w+)b/ <- doesn't throw in any mode
 //    // /(?<=ab|abc)b/ <- doesn't throw in any mode
 //    // /(?<=a|bc|def)g/ <- doesn't throw in any mode
+
+//    // /(?<=a{2,4})b/ <- doesn't throw in any mode
+//    // /(?<=\d+)b/ <- doesn't throw in any mode
+//    // /(?<=a*)b/ <- doesn't throw in any mode
