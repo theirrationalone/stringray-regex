@@ -1290,23 +1290,26 @@ library Stringray {
                         && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
                         && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
                 ) {
-                    // @TODO: backreference check and validation remains
-                    string memory errorRight = ": Invalid escape";
+                    if (!(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)) {
+                        // @TODO: backreference check and validation remains
+                        string memory errorRight = ": Invalid escape";
 
-                    if (
-                        fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
-                    ) {
-                        // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
-                        // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
+                        if (
+                            fromCharacterClass
+                                && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
+                        ) {
+                            // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
+                            // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
+                            // @Status: Fixed ✅
+                            errorRight = ": Invalid decimal escape";
+                        }
+
+                        // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
                         // @Status: Fixed ✅
-                        errorRight = ": Invalid decimal escape";
+                        throwError(
+                            _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
+                        );
                     }
-
-                    // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
-                    // @Status: Fixed ✅
-                    throwError(
-                        _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-                    );
                 }
             }
         }

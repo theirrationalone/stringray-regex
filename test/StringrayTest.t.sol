@@ -5657,19 +5657,20 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase460() public pure {
         string memory target = "anything";
+        // @info: throwing error, unexpected in context of Js regex
         string memory pattern = unicode"/(?=(\\1))/u";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase461() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=(?<x>a)\k<y>)/";
+        string memory pattern = unicode"/(?=(?<x>a)\\k<y>)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase462() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=(?<x>a)\k<y>)/u";
+        string memory pattern = unicode"/(?=(?<x>a)\\k<y>)/u";
         target.regex(pattern);
     }
 
@@ -5687,25 +5688,25 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase465() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=\xZ)/";
+        string memory pattern = unicode"/(?=\\xZ)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase466() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=\xZ)/u";
+        string memory pattern = unicode"/(?=\\xZ)/u";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase467() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?<=\u123)/";
+        string memory pattern = unicode"/(?<=\\u123)/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase468() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?<=\u123)/u";
+        string memory pattern = unicode"/(?<=\\u123)/u";
         target.regex(pattern);
     }
 
@@ -5855,13 +5856,13 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase493() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=\p{FakeProperty})/";
+        string memory pattern = unicode"/(?=\\p{FakeProperty})/";
         target.regex(pattern);
     }
 
     function testRegexGroupsCase494() public pure {
         string memory target = "anything";
-        string memory pattern = unicode"/(?=\p{FakeProperty})/u";
+        string memory pattern = unicode"/(?=\\p{FakeProperty})/u";
         target.regex(pattern);
     }
 
@@ -5949,13 +5950,13 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase493() public pure {
+    function testRegexGroupsCase509() public pure {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)(?!a)/";
         target.regex(pattern);
     }
 
-    function testRegexGroupsCase494() public pure {
+    function testRegexGroupsCase510() public pure {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)(?!a)/u";
         target.regex(pattern);

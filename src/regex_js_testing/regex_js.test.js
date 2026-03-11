@@ -5774,15 +5774,17 @@ const testMain = () => {
     // 9. /(?=(\1))/
     test("Groups(): Case0000459", () => {
         let regex = /(?=(\1))/;
-        const target = "(?=(1))";
+        // @info: matches with anything
+        const target = "any35}{[thin%g";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
     test("Groups(): Case0000460", () => {
-        let regex = /(?=(\1))/u;
-        const target = "abcd";
-        console.log("output: ", target.match(regex));
+        let regex = /(?=(\1))\1/u;
+        // @info: matches with anything
+        const target = "any35}{[thin%g";
+        console.log("output46000: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
@@ -5817,12 +5819,12 @@ const testMain = () => {
     // });
 
     // 12. /(?=\xZ)/
-    // test("Groups(): Case0000465", () => {
-    //     let regex = /(?=\xZ)/;
-    //     const target = "abcd";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000465", () => {
+        let regex = /(?=\xZ)/;
+        const target = "xZ";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Groups(): Case0000466", () => {
     //     let regex = /(?=\xZ)/u;
@@ -5832,12 +5834,12 @@ const testMain = () => {
     // });
 
     // 12. /(?<=\u123)/
-    // test("Groups(): Case0000467", () => {
-    //     let regex = /(?<=\u123)/;
-    //     const target = "abcd";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000467", () => {
+        let regex = /(?<=\u123)/;
+        const target = "u123";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Groups(): Case0000468", () => {
     //     let regex = /(?<=\u123)/u;
@@ -6072,14 +6074,14 @@ const testMain = () => {
     });
     
     // 21. /(?=a)+/
-    test("Groups(): Case0000501", () => {
+    test("Groups(): Case0000499", () => {
         let regex = /(?=a)+/;
         const target = "abcd";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000502", () => {
+    // test("Groups(): Case0000500", () => {
     //     let regex = /(?=a)+/u;
     //     const target = "abcd";
     //     console.log("output: ", target.match(regex));
@@ -6087,14 +6089,14 @@ const testMain = () => {
     // });
     
     // 24. /(?=(?=a))/
-    test("Groups(): Case0000503", () => {
+    test("Groups(): Case0000501", () => {
         let regex = /(?=(?=a))/;
         const target = "abcd";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000504", () => {
+    test("Groups(): Case0000502", () => {
         let regex = /(?=(?=a))/u;
         const target = "abcd";
         console.log("output: ", target.match(regex));
@@ -6102,14 +6104,14 @@ const testMain = () => {
     });
     
     // 25. /(?=(?=(?=a)))*/
-    test("Groups(): Case0000505", () => {
+    test("Groups(): Case0000503", () => {
         let regex = /(?=(?=(?=a)))*/;
         const target = "abcd";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Groups(): Case0000506", () => {
+    // test("Groups(): Case0000504", () => {
     //     let regex = /(?=(?=(?=a)))*/u;
     //     const target = "abcd";
     //     console.log("output: ", target.match(regex));
@@ -6117,14 +6119,14 @@ const testMain = () => {
     // });
     
     // 26. /(?: (?<=a)b )+/
-    test("Groups(): Case0000507", () => {
+    test("Groups(): Case0000505", () => {
         let regex = /(?: (?<=a)b )+/;
         const target = " ab ";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), false);
     });
 
-    test("Groups(): Case0000508", () => {
+    test("Groups(): Case0000506", () => {
         let regex = /(?: (?<=a)b )+/u;
         const target = "abcd";
         console.log("output: ", target.match(regex));
@@ -6132,14 +6134,14 @@ const testMain = () => {
     });
     
     // 29. /(?<=^a)b/
-    test("Groups(): Case0000509", () => {
+    test("Groups(): Case0000507", () => {
         let regex = /(?<=^a)b/;
         const target = "abcd";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Groups(): Case0000510", () => {
+    test("Groups(): Case0000508", () => {
         let regex = /(?<=^a)b/u;
         const target = "abcd";
         console.log("output: ", target.match(regex));
@@ -6147,14 +6149,14 @@ const testMain = () => {
     });
     
     // 30. /(?=a)(?!a)/
-    test("Groups(): Case0000511", () => {
+    test("Groups(): Case0000509", () => {
         let regex = /(?=a)(?!a)/;
         const target = "aa";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), false);
     });
 
-    test("Groups(): Case0000512", () => {
+    test("Groups(): Case0000510", () => {
         let regex = /(?=a)(?!a)/u;
         const target = "abcd";
         console.log("output: ", target.match(regex));
@@ -6183,6 +6185,8 @@ testMain();
 
 // 6. /(?<=a(?<=b+))c/ <- doesn't throw in any mode
 // 9. /(?=(\1))/ <- doesn't throw in any mode
+// 12. /(?=\xZ)/ <- doesn't throw in legacy mode
+// 12. /(?<=\u123)/ <- doesn't throw in legacy mode
 // 13. /(?<=\p{Letter}+)x/u <- doesn't throw in any mode
 // 14. /[ (?=a) ]/ <- doesn't throw in any mode
 // 18. /(?<=\1(a))b/ <- doesn't throw in any mode
