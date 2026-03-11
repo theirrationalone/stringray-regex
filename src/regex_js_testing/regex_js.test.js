@@ -5727,6 +5727,34 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Groups(): Case0000453", () => {
+        let regex = /(?<=(a+))b/;
+        const target = "aaab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000454", () => {
+        let regex = /(?<=(a+))b/u;
+        const target = "aaab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000455", () => {
+        let regex = /(?<=(abc))d/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000456", () => {
+        let regex = /(?<=(abc))d/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
@@ -5746,3 +5774,4 @@ testMain();
 //    // /(?<=a{2,4})b/ <- doesn't throw in any mode
 //    // /(?<=\d+)b/ <- doesn't throw in any mode
 //    // /(?<=a*)b/ <- doesn't throw in any mode
+//    // /(?<=(a+))b/ <- doesn't throw in any mode
