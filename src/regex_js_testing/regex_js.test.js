@@ -5629,6 +5629,60 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Groups(): Case0000439", () => {
+        let regex = /(?:(?=ab))+/;
+        const target = "abab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000440", () => {
+        let regex = /(?:(?=ab))+/u;
+        const target = "abab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000441", () => {
+        let regex = /(?<=a|bc|def)g/;
+        const target = "defg";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000442", () => {
+        let regex = /(?<=a|bc|def)g/u;
+        const target = "bcg";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000443", () => {
+        let regex = /(?<=ab|cd)g/;
+        const target = "cdg";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000444", () => {
+        let regex = /(?<=ab|cd)g/u;
+        const target = "abg";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
+
+// GPTs errors
+
+// Below all do not throw any error, however you said all below are invalid and so.
+//    // /(?=ab)+/ <- throws in u mode only
+//    // /(?!ab)*/ <- throws in u mode only
+//    // /(?<=a+)b/ <- doesn't throw in any mode
+//    // /(?<=a*)b/ <- doesn't throw in any mode
+//    // /(?<=a{1,3})b/ <- doesn't throw in any mode
+//    // /(?<=\w+)b/ <- doesn't throw in any mode
+//    // /(?<=ab|abc)b/ <- doesn't throw in any mode
+//    // /(?<=a|bc|def)g/ <- doesn't throw in any mode
