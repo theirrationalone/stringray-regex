@@ -1341,6 +1341,119 @@ contract Stringray {
         return atomType;
     }
 
+    function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag)
+        private
+        pure
+        returns (bool, bytes32, uint256)
+    {
+        (bool flag, uint256 lastMatchedDigitIndex) =
+            validateBackslash_digit_backreferenceEscape(_pattern, _indexToStartFrom);
+
+        if (!flag && _pattern[_indexToStartFrom] == 0x30) {
+            if (uint8(_patternFlag) != SMALL_u) {
+                (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
+
+                if (isOctal) {
+                    return (true, OCTAL, lastOctalIndex);
+                }
+
+                return (true, NULL_CHARACTER, _indexToStartFrom);
+            }
+        }
+    }
+
+    function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
+        bool flag;
+
+        if (
+            uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
+                && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
+        ) {
+            flag = true;
+        }
+
+        if (flag) {
+            if (
+                _indexToStartFrom + 1 <= patternLastIndex
+                    && uint8(_pattern[_indexToStartFrom + 1]) >= uint8(abi.encodePacked("0")[0])
+                    && uint8(_pattern[_indexToStartFrom + 1]) <= uint8(abi.encodePacked("7")[0])
+            ) {
+                flag = true;
+            } else {
+                if (
+                    uint8(_pattern[_indexToStartFrom]) > uint8(abi.encodePacked("0")[0])
+                        && uint8(_pattern[_indexToStartFrom]) < uint8(abi.encodePacked("8")[0])
+                ) {
+                    return (true, _indexToStartFrom);
+                } else {
+                    return (false, _indexToStartFrom);
+                }
+            }
+        }
+
+        if (flag) {
+            if (
+                _indexToStartFrom + 2 <= patternLastIndex
+                    && uint8(_pattern[_indexToStartFrom + 2]) >= uint8(abi.encodePacked("0")[0])
+                    && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
+            ) {
+                if (
+                    uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
+                        && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
+                ) {
+                    return (true, _indexToStartFrom + 2);
+                } else {
+                    return (true, _indexToStartFrom + 1);
+                }
+            } else {
+                return (true, _indexToStartFrom + 1);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+        private
+        pure
+        returns (bool, uint256)
+    {
+        uint256 patternLastIndex = _pattern.length - 1;
+        // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
+        // @status: resolved!
+        for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
+            // @info: BUG: no return statement for the end itertion if last character is also a digit
+            // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
+            // @status: resolved
+
+            if (i == _indexToStartFrom && _pattern[i] == 0x30) {
+                return (false, 0);
+            }
+
+            // @patch: below LoC
+            if (i == patternLastIndex && isDigit(_pattern[i], false)) {
+                return (true, i);
+            }
+
+            if (!isDigit(_pattern[i], false)) {
+                return (true, i - 1);
+            }
+        }
+
+        // TODO: Add functionality to verify whether specific number of groups exist
+        // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
+        // then read digits as plain literals
+        // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
+        // because in all cases \0, \00, \000, ..., all are null characters
+
+        return (false, 0);
+    }
+
     function isCommonEscapes(
         bytes memory _pattern,
         uint256 _currentParticleIdx,
