@@ -4,5 +4,8 @@
     "solidity.soliumRules": {},
     "[solidity]": {
         "editor.defaultFormatter": "JuanBlanco.solidity"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

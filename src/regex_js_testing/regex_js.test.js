@@ -28,7 +28,7 @@ const testMain = () => {
     test("Regex-Literals: Case2", () => {
         let regex = /abc/;
         assert.strictEqual(regex.test("abc"), true);
-        
+
         regex = /hello/;
         assert.strictEqual(regex.test("hello"), true);
 
@@ -200,7 +200,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     test("Regex-Literals: Case20", () => {
         // let regex = /,/u;
         let regex = /,/u;
@@ -752,7 +752,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     // test("Regex-Literals-escape_seqs: Case048", () => {
     //     // let regex = /a^sian/;
     //     let regex = /\u123/u;
@@ -1112,7 +1112,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     // test("Character Classes[]: Case0001", () => {
     //     let regex = /[]/;
     //     const target = "\x00";
@@ -1763,7 +1763,7 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
-    
+
     // test("Character Classes[]: Case00088", () => {
     //     let regex = /[€-क]/u;
     //     const target = "क";
@@ -2207,7 +2207,7 @@ const testMain = () => {
 
     test("Character Classes[]: Case000151", () => {
         let regex = /["-']/;
-        const target = "\"";
+        const target = '"';
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
@@ -2369,7 +2369,7 @@ const testMain = () => {
     // test("Character Classes[]: Case000174", () => {
     //     // @JS-BUG: Throwing error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone quantifier brackets
     //     // @RESOLUTION: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
-        
+
     //     let regex = /[ab]a]/u;
     //     const target = "ba]";
     //     console.log("output: ", target.match(regex));
@@ -2920,7 +2920,7 @@ const testMain = () => {
     test("Groups(): Case000076", () => {
         let regex = /(abc)/;
         assert.strictEqual(regex.test("abc"), true);
-        
+
         regex = /(hello)/;
         assert.strictEqual(regex.test("hello"), true);
 
@@ -3034,8 +3034,8 @@ const testMain = () => {
     // });
 
     // test("Groups(): Case000085", () => {
-        // let regex = /(\u{110000})/u;
-        // assert.strictEqual(regex.test("\u{110000}"), true);
+    // let regex = /(\u{110000})/u;
+    // assert.strictEqual(regex.test("\u{110000}"), true);
     // });
 
     test("Groups(): Case000086", () => {
@@ -3092,7 +3092,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     test("Groups(): Case000094", () => {
         // let regex =( /,)/u;
         let regex = /(,)/u;
@@ -3649,7 +3649,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     // test("Groups(): Case0000164", () => {
     //     // let r(egex = /a^sian)/;
     //     let regex = /(\u123)/u;
@@ -4009,7 +4009,7 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
-    
+
     test("Groups(): Case0000209", () => {
         let regex = /([])/;
         const target = "\x00";
@@ -4628,7 +4628,7 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
-    
+
     // test("Groups(): Case0000296", () => {
     //     let regex = /([€-क])/u;
     //     const target = "क";
@@ -5072,7 +5072,7 @@ const testMain = () => {
 
     test("Groups(): Case0000359", () => {
         let regex = /(["-'])/;
-        const target = "\"";
+        const target = '"';
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
@@ -5755,6 +5755,411 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    // 6. /(?<=a(?<=b+))c/
+    test("Groups(): Case0000457", () => {
+        let regex = /(?<=a(?<=b+))c/;
+        const target = "a(bb)c";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Groups(): Case0000458", () => {
+        let regex = /(?<=a(?<=b+))c/u;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    // 9. /(?=(\1))/
+    test("Groups(): Case0000459", () => {
+        let regex = /(?=(\1))/;
+        const target = "(?=(1))";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000460", () => {
+        let regex = /(?=(\1))/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // // 10. /(?=(?<x>a)\k<y>)/
+    // test("Groups(): Case0000461", () => {
+    //     let regex = /(?=(?<x>a)\k<y>)/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000462", () => {
+    //     let regex = /(?=(?<x>a)\k<y>)/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 11. /(?=(?<x>a))(?=(?<x>b))/
+    // test("Groups(): Case00004563", () => {
+    //     let regex = /(?=(?<x>a))(?=(?<x>b))/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000464", () => {
+    //     let regex = /(?=(?<x>a))(?=(?<x>b))/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 12. /(?=\xZ)/
+    // test("Groups(): Case0000465", () => {
+    //     let regex = /(?=\xZ)/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000466", () => {
+    //     let regex = /(?=\xZ)/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 12. /(?<=\u123)/
+    // test("Groups(): Case0000467", () => {
+    //     let regex = /(?<=\u123)/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000468", () => {
+    //     let regex = /(?<=\u123)/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 13. /(?<=\p{Letter}+)x/u
+    test("Groups(): Case0000469", () => {
+        let regex = /(?<=\p{Letter}+)x/;
+        const target = "p{Letter}}x";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000470", () => {
+        let regex = /(?<=\p{Letter}+)x/u;
+        const target = "abx";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // 14. /[ (?=a) ]/
+    test("Groups(): Case0000471", () => {
+        let regex = /[ (?=a) ]/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000472", () => {
+        let regex = /[ (?=a) ]/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // 15. /(?=a)+*/
+    // test("Groups(): Case0000473", () => {
+    //     let regex = /(?=a)+*/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000474", () => {
+    //     let regex = /(?=a)+*/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 16. /(?=[z-a])/
+    // test("Groups(): Case0000475", () => {
+    //     let regex = /(?=[z-a])/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000476", () => {
+    //     let regex = /(?=[z-a])/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 17. /(?=abc
+    // test("Groups(): Case0000477", () => {
+    //     let regex = /(?=abc;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000478", () => {
+    //     let regex = /(?=abcu;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 18. /(?<=\1(a))b/
+    test("Groups(): Case0000479", () => {
+        let regex = /(?<=\1(a))b/;
+        const target = "1(a)b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Groups(): Case0000480", () => {
+        let regex = /(?<=\1(a))b/u;
+        const target = "ab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    // 19. /(?<=>a)b/
+    test("Groups(): Case0000481", () => {
+        let regex = /(?<=>a)b/;
+        const target = ">ab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000482", () => {
+        let regex = /(?<=>a)b/u;
+        const target = ">ab";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // 20. /(?<=a{1,3})b/u
+    test("Groups(): Case0000483", () => {
+        let regex = /(?<=a{1,3})b/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000484", () => {
+        let regex = /(?<=a{1,3})b/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // 21. /(?=a)+/u
+    test("Groups(): Case0000485", () => {
+        let regex = /(?=a)+/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000486", () => {
+    //     let regex = /(?=a)+/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 22. /(?=(a)\2)/
+    test("Groups(): Case0000487", () => {
+        let regex = /(?=(a)\2)/;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    // test("Groups(): Case0000488", () => {
+    //     let regex = /(?=(a)\2)/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 23. /(?<=\1)(a)/
+    test("Groups(): Case0000489", () => {
+        let regex = /(?<=\1)(a)/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000490", () => {
+        let regex = /(?<=\1)(a)/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // 27. /(?<1>a)/
+    // test("Groups(): Case0000491", () => {
+    //     let regex = /(?<1>a)/;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Groups(): Case0000492", () => {
+    //     let regex = /(?<1>a)/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // 28. /(?=\p{FakeProperty})/u
+    test("Groups(): Case0000493", () => {
+        let regex = /(?=\p{FakeProperty})/;
+        const target = "p{FakeProperty}";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000494", () => {
+    //     let regex = /(?=\p{FakeProperty})/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // 7. /(?<=)a/
+    test("Groups(): Case0000495", () => {
+        let regex = /(?<=)a/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000496", () => {
+        let regex = /(?<=)a/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // 8. /(?<=a)b/
+    test("Groups(): Case0000497", () => {
+        let regex = /(?<=a)b/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000498", () => {
+        let regex = /(?<=a)b/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // 21. /(?=a)+/
+    test("Groups(): Case0000501", () => {
+        let regex = /(?=a)+/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000502", () => {
+    //     let regex = /(?=a)+/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // 24. /(?=(?=a))/
+    test("Groups(): Case0000503", () => {
+        let regex = /(?=(?=a))/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000504", () => {
+        let regex = /(?=(?=a))/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // 25. /(?=(?=(?=a)))*/
+    test("Groups(): Case0000505", () => {
+        let regex = /(?=(?=(?=a)))*/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Groups(): Case0000506", () => {
+    //     let regex = /(?=(?=(?=a)))*/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // 26. /(?: (?<=a)b )+/
+    test("Groups(): Case0000507", () => {
+        let regex = /(?: (?<=a)b )+/;
+        const target = " ab ";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Groups(): Case0000508", () => {
+        let regex = /(?: (?<=a)b )+/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+    
+    // 29. /(?<=^a)b/
+    test("Groups(): Case0000509", () => {
+        let regex = /(?<=^a)b/;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000510", () => {
+        let regex = /(?<=^a)b/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // 30. /(?=a)(?!a)/
+    test("Groups(): Case0000511", () => {
+        let regex = /(?=a)(?!a)/;
+        const target = "aa";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    test("Groups(): Case0000512", () => {
+        let regex = /(?=a)(?!a)/u;
+        const target = "abcd";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
 }
 
 testMain();
@@ -5775,3 +6180,27 @@ testMain();
 //    // /(?<=\d+)b/ <- doesn't throw in any mode
 //    // /(?<=a*)b/ <- doesn't throw in any mode
 //    // /(?<=(a+))b/ <- doesn't throw in any mode
+
+// 6. /(?<=a(?<=b+))c/ <- doesn't throw in any mode
+// 9. /(?=(\1))/ <- doesn't throw in any mode
+// 13. /(?<=\p{Letter}+)x/u <- doesn't throw in any mode
+// 14. /[ (?=a) ]/ <- doesn't throw in any mode
+// 18. /(?<=\1(a))b/ <- doesn't throw in any mode
+// 19. /(?<=>a)b/ <- doesn't throw in any mode
+// 20. /(?<=a{1,3})b/u  <- doesn't throw in any mode
+// 21. /(?=a)+/u <- doesn't throw in legacy mode
+// 22. /(?=(a)\2)/ <- doesn't throw in legacy mode
+// 23. /(?<=\1)(a)/ <- doesn't throw in any mode
+// 28. /(?=\p{FakeProperty})/u  <- doesn't throw in legacy mode
+
+// GPT says valid
+
+// 7. /(?<=)a/ <- doesn't throw in any mode
+// 8. /(?<=a)b/ <- doesn't throw in any mode
+// 20. /(?<=a)b/u  <- doesn't throw in any mode
+// 21. /(?=a)+/ <- doesn't throw in in legacy mode but throws in restrict mode (with u flag)
+// 24. /(?=(?=a))/ <- doesn't throw in any mode
+// 25. /(?=(?=(?=a)))*/ <- doesn't throw in legacy mode but throws in restrict mode (with u flag)
+// 26. /(?: (?<=a)b )+/ <- doesn't throw in any mode
+// 29. /(?<=^a)b/  <- doesn't throw in any mode
+// 30. /(?=a)(?!a)/ <- doesn't throw in any mode
