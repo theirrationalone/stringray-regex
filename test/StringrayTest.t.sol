@@ -5493,6 +5493,42 @@ contract PlayStringTest is Test {
         target.regex(pattern);
     }
 
+    function testRegexGroupsCase433() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=abc)b/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase434() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=abc)b/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase435() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\d{3})x/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase436() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=\\d{3})x/u";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase437() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab|cd)x/";
+        target.regex(pattern);
+    }
+
+    function testRegexGroupsCase438() public pure {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=ab|cd)x/u";
+        target.regex(pattern);
+    }
+
     // function testRegexExxxxx() public pure {
     //     string memory target = "anything";
 
@@ -5533,3 +5569,18 @@ contract PlayStringTest is Test {
     //     console2.log("------------");
     // }
 }
+
+// GPTs errors
+
+// ...................
+//    // /(?=ab)+/ <- this one is valid
+//    // /(?!ab)*/
+//    // /(?<=ab)+/
+//    // /(?<!ab)?/
+
+// Below all do not throw any error, however you said all below are invalid and throw errors so.
+//    // /(?<=a+)b/
+//    // /(?<=a*)b/
+//    // /(?<=a{1,3})b/
+//    // /(?<=\w+)b/
+//    // /(?<=ab|abc)b/

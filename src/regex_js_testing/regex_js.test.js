@@ -5587,6 +5587,48 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    test("Groups(): Case0000433", () => {
+        let regex = /(?<=abc)b/;
+        const target = "abcb";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000434", () => {
+        let regex = /(?<=abc)b/u;
+        const target = "abcb";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000435", () => {
+        let regex = /(?<=\d{3})x/;
+        const target = "123x";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000436", () => {
+        let regex = /(?<=\d{3})x/u;
+        const target = "123x";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000437", () => {
+        let regex = /(?<=ab|cd)x/;
+        const target = "cdx";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Groups(): Case0000438", () => {
+        let regex = /(?<=ab|cd)x/u;
+        const target = "abx";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
