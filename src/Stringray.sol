@@ -1853,7 +1853,7 @@ library Stringray {
             ) {
                 numOpenParanthesis++;
                 (, i) = validateGroupBody(_pattern, _orgPattern, i + 1, _patternFlag, fromGroup);
-                // if (i + 1 < _pattern.length && uint8(_pattern[i]) == CLOSE_PARANTHESIS) {}
+                i -= 1;
                 continue;
             }
 
