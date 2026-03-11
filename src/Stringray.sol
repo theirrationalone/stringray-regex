@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 
 import {console2} from "forge-std/console2.sol";
 
-library Stringray {
+contract Stringray {
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
         bytes memory bytesForm = bytes(_string);
         bytes memory bytesFormSpace = new bytes(1);
@@ -911,7 +911,26 @@ library Stringray {
     bytes32 private constant WS = keccak256(abi.encodePacked("WS"));
     bytes32 private constant space = keccak256(abi.encodePacked("space"));
 
-    function regex(string memory _proposedString, string memory _pattern) internal pure {
+    struct AtomTrait {
+        bytes32 atomType;
+        bytes atom;
+        int256 atomEndIdx;
+    }
+
+    AtomTrait[] private allAtoms;
+
+    function seeAllAtoms() public view {
+        AtomTrait[] memory atoms = allAtoms;
+        for (uint256 i; i < atoms.length; i++) {
+            console2.log("------------------------seeAllAtoms------------------------");
+            printAtomType(atoms[i].atomType);
+            console2.log("Atom: ", string(atoms[i].atom));
+            console2.log("Atom end index: ", atoms[i].atomEndIdx);
+            console2.log("------------------------------------------------");
+        }
+    }
+
+    function regex(string memory _proposedString, string memory _pattern) public {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
@@ -932,9 +951,9 @@ library Stringray {
 
     function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes1 _patternFlag, bool fromGroup)
         private
-        pure
     {
         int256 patternLength = int256(_pattern.length);
+
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
                 classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlag, fromGroup);
@@ -943,6 +962,11 @@ library Stringray {
             if (fromGroup) {
                 console2.log("inside group atom...");
             }
+
+            if (!fromGroup) {
+                allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
+            }
+
             console2.log("Iteration no: ", particleIdx + 1);
             console2.log("atom bytes form: ");
             console2.logBytes(atom);
@@ -965,7 +989,7 @@ library Stringray {
         uint256 _currentParticleIdx,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bytes memory, bytes32, int256) {
+    ) private returns (bytes memory, bytes32, int256) {
         bytes memory atom;
         bool isTrue;
         uint256 atomLastIdx;
@@ -993,7 +1017,7 @@ library Stringray {
         uint256 _currentParticleIdx,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bool, bytes32, uint256) {
+    ) private returns (bool, bytes32, uint256) {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
             isLiteralAtom(_pattern, _currentParticleIdx, _patternFlag, false, fromGroup);
 
@@ -1760,7 +1784,7 @@ library Stringray {
         uint256 _currentParticleIndex,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bool, bytes32, uint256) {
+    ) private returns (bool, bytes32, uint256) {
         bool flag;
         uint256 lastMatchedParticleIndex;
 
