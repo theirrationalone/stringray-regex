@@ -1341,14 +1341,14 @@ contract Stringray {
         return atomType;
     }
 
-    function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag)
+    function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag, bool fromGroup)
         private
         pure
         returns (bool, bytes32, uint256)
     {
         (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _indexToStartFrom);
 
-        if (!flag) {
+        if (!flag && _pattern[_indexToStartFrom] == 0x30) {
             if (uint8(_patternFlag) != SMALL_u) {
                 (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
 
@@ -1356,9 +1356,7 @@ contract Stringray {
                     return (true, OCTAL, lastOctalIndex);
                 }
 
-                if (_pattern[_indexToStartFrom] == 0x30) {
-                    return (true, NULL_CHARACTER, _indexToStartFrom);
-                }
+                return (true, NULL_CHARACTER, _indexToStartFrom);
             }
 
             if (_indexToStartFrom + 1 < _pattern.length && isDigit(_pattern[_indexToStartFrom + 1], false)) {
@@ -1370,8 +1368,26 @@ contract Stringray {
                     fromGroup
                 );
             }
-            atomType = NULL_CHARACTER;
+
+            return (true, NULL_CHARACTER, _indexToStartFrom);
         }
+
+        if (flag) {
+            uint256 numGroups = countGroupAtoms();
+        }
+
+        return (false, INVALID_ATOM, 0);
+    }
+
+    function countGroupAtoms() private returns (uint256) {
+        AtomTrait[] memory atoms = allAtoms;
+        uint256 numGroups;
+
+        for (uint256 i; i < atoms.length; i++) {
+            atoms[i].atomType == GROUP_ATOM ? numGroups++ : continue;
+        }
+
+        return numGroups;
     }
 
     function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
@@ -2268,6 +2284,8 @@ contract Stringray {
                 lazyQuantifierAtomType = N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM;
             } else if (_lastGreedyQuantifierAtomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 lazyQuantifierAtomType = N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM;
+            } else {
+                lazyQuantifierAtomType = _lastGreedyQuantifierAtomType;
             }
             flag = true;
         } else {
@@ -2284,15 +2302,22 @@ contract Stringray {
         bool fromGroup
     ) private pure returns (bool, bytes32, uint256) {
         if (uint8(_pattern[_currentParticleIdx]) == ASTERISK) {
-            return (true, ASTERISK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
+            return (
+                true, _lastAtomType == GROUP_ATOM ? _lastAtomType : ASTERISK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx
+            );
         }
 
         if (uint8(_pattern[_currentParticleIdx]) == PLUS_SIGN) {
-            return (true, PLUS_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
+            return
+                (true, _lastAtomType == GROUP_ATOM ? _lastAtomType : PLUS_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
         }
 
         if (uint8(_pattern[_currentParticleIdx]) == QUESTION_MARK) {
-            return (true, QUESTION_MARK_GREEDY_QUANTIFIER_ATOM, _currentParticleIdx);
+            return (
+                true,
+                _lastAtomType == GROUP_ATOM ? _lastAtomType : QUESTION_MARK_GREEDY_QUANTIFIER_ATOM,
+                _currentParticleIdx
+            );
         }
 
         if (
@@ -2304,7 +2329,7 @@ contract Stringray {
                 isValidRangeQuantifier(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
 
             if (isValid) {
-                return (true, atomType, lastMatchedParticleIndex);
+                return (true, _lastAtomType == GROUP_ATOM ? _lastAtomType : atomType, lastMatchedParticleIndex);
             }
         }
 
