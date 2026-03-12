@@ -963,7 +963,7 @@ contract Stringray {
                 console2.log("inside group atom...");
             }
 
-            if (!fromGroup) {
+            if (!fromGroup || atomType == GROUP_ATOM) {
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
 
@@ -1400,6 +1400,8 @@ contract Stringray {
         uint256 decDigit = stringDigitToDecDigit(decString);
         uint256 numGroups = countGroupAtoms();
 
+        console2.log("numGroups: ", numGroups);
+
         if (uint8(_patternFlag) != SMALL_u) {
             if (numGroups < decDigit) {
                 (bool isOctal, uint256 lastOctalIndex) =
@@ -1407,6 +1409,9 @@ contract Stringray {
                 if (isOctal) {
                     return (true, OCTAL, lastOctalIndex);
                 }
+                // @BUG🐍: make digit escapes > 7 invalid atoms
+                // @status: Fixed✅
+                return (true, LITERAL_ATOM, _currentParticleIdx + 1);
             } else {
                 return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
             }
