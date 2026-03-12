@@ -1115,7 +1115,7 @@ contract Stringray {
         bytes1 _patternFlag,
         bool fromCharacterClass,
         bool fromGroup
-    ) private pure returns (bool, bytes32, uint256) {
+    ) private returns (bool, bytes32, uint256) {
         bytes32 atomType = INVALID_ATOM;
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
         bytes1 targetChar = _pattern[_currentParticleIdx];
@@ -1144,7 +1144,7 @@ contract Stringray {
                     _pattern, _currentParticleIdx, lastMatchedParticleIndex, _patternFlag, fromCharacterClass, fromGroup
                 );
                 if (atomType == INVALID_ATOM) {
-                    atomType = nullOctalOrDigitBackReference(
+                    (flag, atomType, lastMatchedParticleIndex) = nullOctalOrDigitBackReference(
                         _pattern,
                         _currentParticleIdx,
                         lastMatchedParticleIndex,
@@ -1152,6 +1152,11 @@ contract Stringray {
                         fromCharacterClass,
                         fromGroup
                     );
+
+                    if (!flag && atomType == INVALID_ATOM) {
+                        atomType = LITERAL_ATOM;
+                        lastMatchedParticleIndex = _currentParticleIdx + 1;
+                    }
                 }
             }
         }
@@ -1233,218 +1238,336 @@ contract Stringray {
         bytes1 _patternFlag,
         bool fromCharacterClass,
         bool fromGroup
-    ) private pure returns (bytes32) {
-        bytes32 atomType = LITERAL_ATOM;
-
-        // @note: bad design choice
+    ) private returns (bool, bytes32, uint256) {
         if (
             _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
                 && isDigit(_pattern[lastMatchedParticleIndex], false)
         ) {
-            bool isOctal = true;
-            uint256 newLastMatchedParticleIndex;
-            (isOctal, newLastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
-            if (isOctal) lastMatchedParticleIndex = newLastMatchedParticleIndex;
-            if (!isOctal) {
-                if (uint8(_patternFlag) != SMALL_u) {
-                    if (
-                        _currentParticleIdx + 1 <= lastMatchedParticleIndex
-                            && ((_pattern[_currentParticleIdx + 1] == 0x00
-                                    && _pattern[lastMatchedParticleIndex] == 0x00)
-                                || (_pattern[_currentParticleIdx + 1] == 0x30
-                                    && _pattern[lastMatchedParticleIndex] == 0x30))
-                    ) {
-                        atomType = NULL_CHARACTER;
-                    } else {
-                        atomType = DIGIT_BACKREFERENCE_PREFIX;
-                    }
-                } else if (
-                    uint8(_patternFlag) == SMALL_u
-                        && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-                        && _currentParticleIdx + 1 == lastMatchedParticleIndex
-                ) {
-                    if (
-                        lastMatchedParticleIndex + 1 < _pattern.length
-                            && isDigit(_pattern[lastMatchedParticleIndex + 1], false)
-                    ) {
-                        throwError(
-                            _pattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Invalid decimal escape",
-                            _patternFlag,
-                            fromGroup
-                        );
-                    }
-                    atomType = NULL_CHARACTER;
-                } else if (
-                    uint8(_patternFlag) == SMALL_u
-                        && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-                        && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-                ) {
-                    // @TODO: backreference check and validation remains
-                    string memory errorRight = ": Invalid escape";
+            (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _currentParticleIdx + 1);
 
-                    if (
-                        fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
-                    ) {
-                        errorRight = ": Invalid decimal escape";
-                    }
+            if (!flag && _pattern[_currentParticleIdx + 1] == 0x30) {
+                return isOctalOrNull(_pattern, _currentParticleIdx, _patternFlag, fromGroup);
+            }
 
-                    throwError(
-                        _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-                    );
-                }
-            } else {
-                if (uint8(_patternFlag) != SMALL_u) {
-                    atomType = OCTAL;
-                } else if (
-                    uint8(_patternFlag) == SMALL_u
-                        && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-                        && _currentParticleIdx + 1 != lastMatchedParticleIndex
-                ) {
-                    throwError(
-                        _pattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Invalid decimal escape",
-                        _patternFlag,
-                        fromGroup
-                    );
-                } else if (
-                    uint8(_patternFlag) == SMALL_u
-                        && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-                        && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-                ) {
-                    if (!(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)) {
-                        // @TODO: backreference check and validation remains
-                        string memory errorRight = ": Invalid escape";
-
-                        if (
-                            fromCharacterClass
-                                && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
-                        ) {
-                            // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
-                            // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
-                            // @Status: Fixed ✅
-                            errorRight = ": Invalid decimal escape";
-                        }
-
-                        // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
-                        // @Status: Fixed ✅
-                        throwError(
-                            _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-                        );
-                    }
-                }
+            if (flag) {
+                return isOctalOrDigitBackReference(
+                    _pattern, _currentParticleIdx, lastMatchedDigitIndex, _patternFlag, fromCharacterClass, fromGroup
+                );
             }
         }
 
-        return atomType;
+        return (false, INVALID_ATOM, 0);
+
+        // @note: bad design choice
+        // if (
+        //     _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
+        //         && isDigit(_pattern[lastMatchedParticleIndex], false)
+        // ) {
+        //     bool isOctal = true;
+        //     uint256 newLastMatchedParticleIndex;
+        //     (isOctal, newLastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
+        //     if (isOctal) lastMatchedParticleIndex = newLastMatchedParticleIndex;
+        //     if (!isOctal) {
+        //         if (uint8(_patternFlag) != SMALL_u) {
+        //             if (
+        //                 _currentParticleIdx + 1 <= lastMatchedParticleIndex
+        //                     && ((_pattern[_currentParticleIdx + 1] == 0x00
+        //                             && _pattern[lastMatchedParticleIndex] == 0x00)
+        //                         || (_pattern[_currentParticleIdx + 1] == 0x30
+        //                             && _pattern[lastMatchedParticleIndex] == 0x30))
+        //             ) {
+        //                 atomType = NULL_CHARACTER;
+        //             } else {
+        //                 atomType = DIGIT_BACKREFERENCE_PREFIX;
+        //             }
+        //         } else if (
+        //             uint8(_patternFlag) == SMALL_u
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+        //                 && _currentParticleIdx + 1 == lastMatchedParticleIndex
+        //         ) {
+        //             if (
+        //                 lastMatchedParticleIndex + 1 < _pattern.length
+        //                     && isDigit(_pattern[lastMatchedParticleIndex + 1], false)
+        //             ) {
+        //                 throwError(
+        //                     _pattern,
+        //                     "SyntaxError: Invalid regular expression: /",
+        //                     ": Invalid decimal escape",
+        //                     _patternFlag,
+        //                     fromGroup
+        //                 );
+        //             }
+        //             atomType = NULL_CHARACTER;
+        //         } else if (
+        //             uint8(_patternFlag) == SMALL_u
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+        //         ) {
+        //             // @TODO: backreference check and validation remains
+        //             string memory errorRight = ": Invalid escape";
+
+        //             if (
+        //                 fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
+        //             ) {
+        //                 errorRight = ": Invalid decimal escape";
+        //             }
+
+        //             throwError(
+        //                 _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
+        //             );
+        //         }
+        //     } else {
+        //         if (uint8(_patternFlag) != SMALL_u) {
+        //             atomType = OCTAL;
+        //         } else if (
+        //             uint8(_patternFlag) == SMALL_u
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
+        //                 && _currentParticleIdx + 1 != lastMatchedParticleIndex
+        //         ) {
+        //             throwError(
+        //                 _pattern,
+        //                 "SyntaxError: Invalid regular expression: /",
+        //                 ": Invalid decimal escape",
+        //                 _patternFlag,
+        //                 fromGroup
+        //             );
+        //         } else if (
+        //             uint8(_patternFlag) == SMALL_u
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
+        //                 && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
+        //         ) {
+        //             if (!(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)) {
+        //                 // @TODO: backreference check and validation remains
+        //                 string memory errorRight = ": Invalid escape";
+
+        //                 if (
+        //                     fromCharacterClass
+        //                         && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
+        //                 ) {
+        //                     // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
+        //                     // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
+        //                     // @Status: Fixed ✅
+        //                     errorRight = ": Invalid decimal escape";
+        //                 }
+
+        //                 // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
+        //                 // @Status: Fixed ✅
+        //                 throwError(
+        //                     _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
+        //                 );
+        //             }
+        //         }
+        //     }
+        // }
     }
 
-    function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag, bool fromGroup)
+    function isOctalOrNull(bytes memory _pattern, uint256 _currentParticleIdx, bytes1 _patternFlag, bool fromGroup)
         private
-        pure
         returns (bool, bytes32, uint256)
     {
-        (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _indexToStartFrom);
+        if (uint8(_patternFlag) != SMALL_u) {
+            (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
 
-        if (!flag && _pattern[_indexToStartFrom] == 0x30) {
-            if (uint8(_patternFlag) != SMALL_u) {
-                (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
+            if (isOctal) {
+                return (true, OCTAL, lastOctalIndex);
+            }
 
+            return (true, NULL_CHARACTER, _currentParticleIdx + 1);
+        }
+
+        if (_currentParticleIdx + 2 < _pattern.length && isDigit(_pattern[_currentParticleIdx + 2], false)) {
+            throwError(
+                _pattern,
+                "SyntaxError: Invalid regular expression: /",
+                ": Invalid decimal escape",
+                _patternFlag,
+                fromGroup
+            );
+        }
+
+        return (true, NULL_CHARACTER, _currentParticleIdx + 1);
+    }
+
+    function isOctalOrDigitBackReference(
+        bytes memory _pattern,
+        uint256 _currentParticleIdx,
+        uint256 lastMatchedDigitIndex,
+        bytes1 _patternFlag,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (bool, bytes32, uint256) {
+        bytes memory decString = trimString(_pattern, _currentParticleIdx + 1, int256(lastMatchedDigitIndex));
+        uint256 decDigit = stringDigitToDecDigit(decString);
+        uint256 numGroups = countGroupAtoms();
+
+        if (uint8(_patternFlag) != SMALL_u) {
+            if (numGroups < decDigit) {
+                (bool isOctal, uint256 lastOctalIndex) =
+                    validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
                 if (isOctal) {
                     return (true, OCTAL, lastOctalIndex);
                 }
-
-                return (true, NULL_CHARACTER, _indexToStartFrom);
+            } else {
+                return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
             }
-
-            if (_indexToStartFrom + 1 < _pattern.length && isDigit(_pattern[_indexToStartFrom + 1], false)) {
-                throwError(
-                    _pattern,
-                    "SyntaxError: Invalid regular expression: /",
-                    ": Invalid decimal escape",
-                    _patternFlag,
-                    fromGroup
-                );
-            }
-
-            return (true, NULL_CHARACTER, _indexToStartFrom);
         }
 
-        if (flag) {
-            uint256 numGroups = countGroupAtoms();
+        if (uint8(_patternFlag) == SMALL_u) {
+            if (
+                numGroups < decDigit
+                    && !(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)
+            ) {
+                string memory errorRight = ": Invalid escape";
+
+                if (fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
+                    errorRight = ": Invalid decimal escape";
+                }
+
+                throwError(_pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup);
+            }
+
+            return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
         }
 
         return (false, INVALID_ATOM, 0);
     }
+
+    // function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag, bool fromCharacterClass, bool fromGroup)
+    //     private
+    //     pure
+    //     returns (bool, bytes32, uint256)
+    // {
+    //     (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _indexToStartFrom);
+
+    //     if (!flag && _pattern[_indexToStartFrom] == 0x30) {
+    //         if (uint8(_patternFlag) != SMALL_u) {
+    //             (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
+
+    //             if (isOctal) {
+    //                 return (true, OCTAL, lastOctalIndex);
+    //             }
+
+    //             return (true, NULL_CHARACTER, _indexToStartFrom);
+    //         }
+
+    //         if (_indexToStartFrom + 1 < _pattern.length && isDigit(_pattern[_indexToStartFrom + 1], false)) {
+    //             throwError(
+    //                 _pattern,
+    //                 "SyntaxError: Invalid regular expression: /",
+    //                 ": Invalid decimal escape",
+    //                 _patternFlag,
+    //                 fromGroup
+    //             );
+    //         }
+
+    //         return (true, NULL_CHARACTER, _indexToStartFrom);
+    //     }
+
+    //     if (flag) {
+    //         bytes memory decString = trimString(_pattern, _indexToStartFrom, int256(lastMatchedDigitIndex));
+    //         uint256 decDigit = stringDigitToDecDigit(decString);
+    //         uint256 numGroups = countGroupAtoms();
+
+    //         if (uint8(_patternFlag) != SMALL_u) {
+    //             if (numGroups < decDigit) {
+    //                 (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
+    //                 if (isOctal) {
+    //                     return (true, OCTAL, lastOctalIndex);
+    //                 }
+    //                 return (false, INVALID_ATOM, 0);
+    //             } else {
+    //                 return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
+    //             }
+    //         }
+
+    //         if (uint8(_patternFlag) == SMALL_u) {
+    //             if (numGroups < decDigit) {
+    //                 string memory errorRight = ": Invalid escape";
+
+    //                 if (
+    //                     fromCharacterClass && uint8(_pattern[_indexToStartFrom + 1]) < uint8(abi.encodePacked("8")[0])
+    //                 ) {
+    //                     errorRight = ": Invalid decimal escape";
+    //                 }
+
+    //                 throwError(
+    //                     _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
+    //                 );
+    //             }
+
+    //             return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
+    //         }
+    //     }
+
+    //     return (false, INVALID_ATOM, 0);
+    // }
 
     function countGroupAtoms() private returns (uint256) {
         AtomTrait[] memory atoms = allAtoms;
         uint256 numGroups;
 
         for (uint256 i; i < atoms.length; i++) {
-            atoms[i].atomType == GROUP_ATOM ? numGroups++ : continue;
+            if (atoms[i].atomType == GROUP_ATOM) numGroups++;
         }
 
         return numGroups;
     }
 
-    function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        uint256 patternLastIndex = _pattern.length - 1;
-        bool flag;
+    // function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
+    //     private
+    //     pure
+    //     returns (bool, uint256)
+    // {
+    //     uint256 patternLastIndex = _pattern.length - 1;
+    //     bool flag;
 
-        if (
-            uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
-                && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
-        ) {
-            flag = true;
-        }
+    //     if (
+    //         uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
+    //             && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
+    //     ) {
+    //         flag = true;
+    //     }
 
-        if (flag) {
-            if (
-                _indexToStartFrom + 1 <= patternLastIndex
-                    && uint8(_pattern[_indexToStartFrom + 1]) >= uint8(abi.encodePacked("0")[0])
-                    && uint8(_pattern[_indexToStartFrom + 1]) <= uint8(abi.encodePacked("7")[0])
-            ) {
-                flag = true;
-            } else {
-                if (
-                    uint8(_pattern[_indexToStartFrom]) > uint8(abi.encodePacked("0")[0])
-                        && uint8(_pattern[_indexToStartFrom]) < uint8(abi.encodePacked("8")[0])
-                ) {
-                    return (true, _indexToStartFrom);
-                } else {
-                    return (false, _indexToStartFrom);
-                }
-            }
-        }
+    //     if (flag) {
+    //         if (
+    //             _indexToStartFrom + 1 <= patternLastIndex
+    //                 && uint8(_pattern[_indexToStartFrom + 1]) >= uint8(abi.encodePacked("0")[0])
+    //                 && uint8(_pattern[_indexToStartFrom + 1]) <= uint8(abi.encodePacked("7")[0])
+    //         ) {
+    //             flag = true;
+    //         } else {
+    //             if (
+    //                 uint8(_pattern[_indexToStartFrom]) > uint8(abi.encodePacked("0")[0])
+    //                     && uint8(_pattern[_indexToStartFrom]) < uint8(abi.encodePacked("8")[0])
+    //             ) {
+    //                 return (true, _indexToStartFrom);
+    //             } else {
+    //                 return (false, _indexToStartFrom);
+    //             }
+    //         }
+    //     }
 
-        if (flag) {
-            if (
-                _indexToStartFrom + 2 <= patternLastIndex
-                    && uint8(_pattern[_indexToStartFrom + 2]) >= uint8(abi.encodePacked("0")[0])
-                    && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
-            ) {
-                if (
-                    uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
-                        && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
-                ) {
-                    return (true, _indexToStartFrom + 2);
-                } else {
-                    return (true, _indexToStartFrom + 1);
-                }
-            } else {
-                return (true, _indexToStartFrom + 1);
-            }
-        }
+    //     if (flag) {
+    //         if (
+    //             _indexToStartFrom + 2 <= patternLastIndex
+    //                 && uint8(_pattern[_indexToStartFrom + 2]) >= uint8(abi.encodePacked("0")[0])
+    //                 && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
+    //         ) {
+    //             if (
+    //                 uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
+    //                     && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
+    //             ) {
+    //                 return (true, _indexToStartFrom + 2);
+    //             } else {
+    //                 return (true, _indexToStartFrom + 1);
+    //             }
+    //         } else {
+    //             return (true, _indexToStartFrom + 1);
+    //         }
+    //     }
 
-        return (false, 0);
-    }
+    //     return (false, 0);
+    // }
 
     function validateBackslash_digit(bytes memory _pattern, uint256 _indexToStartFrom)
         private
@@ -1593,7 +1716,6 @@ contract Stringray {
 
     function isCharacterClass(bytes memory _pattern, uint256 _currentParticleIndex, bytes1 _patternFlag, bool fromGroup)
         internal
-        pure
         returns (bool, bytes32, uint256)
     {
         // @TODO: Complete the character class detection implementation.
@@ -1677,7 +1799,7 @@ contract Stringray {
         uint256 lastMatchedParticleIndex,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bool) {
+    ) private returns (bool) {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
@@ -1991,7 +2113,7 @@ contract Stringray {
         uint256 _currentParticleIndex,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bool, uint256, uint256) {
+    ) private returns (bool, uint256, uint256) {
         // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
         // @status: not fixed, needs a better validation implementation
         // @status: Fixed ✅, this is the fix status in response of above status, meaning current acklgd bug has been fixed now
@@ -18101,22 +18223,22 @@ contract Stringray {
                 }
             }
 
-            if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
-                // @BUG: octal validation functionality missing
-                // @status: resolved
-                (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
+            // if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
+            //     // @BUG: octal validation functionality missing
+            //     // @status: resolved
+            //     (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
+            //     if (isValid) {
+            //         return (true, lastMatchedIndex);
+            //     }
 
-                (isValid, lastMatchedIndex) =
-                    validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
+            //     (isValid, lastMatchedIndex) =
+            //         validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
 
-                if (isValid) {
-                    return (true, lastMatchedIndex);
-                }
-            }
+            //     if (isValid) {
+            //         return (true, lastMatchedIndex);
+            //     }
+            // }
 
             return (true, _currentParticleIndex + 1);
         }
@@ -18180,41 +18302,41 @@ contract Stringray {
         return (false, 0);
     }
 
-    function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        uint256 patternLastIndex = _pattern.length - 1;
-        // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
-        // @status: resolved!
-        for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
-            // @info: BUG: no return statement for the end itertion if last character is also a digit
-            // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
-            // @status: resolved
+    // function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+    //     private
+    //     pure
+    //     returns (bool, uint256)
+    // {
+    //     uint256 patternLastIndex = _pattern.length - 1;
+    //     // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
+    //     // @status: resolved!
+    //     for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
+    //         // @info: BUG: no return statement for the end itertion if last character is also a digit
+    //         // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
+    //         // @status: resolved
 
-            if (i == _indexToStartFrom && _pattern[i] == 0x30) {
-                return (false, _indexToStartFrom);
-            }
+    //         if (i == _indexToStartFrom && _pattern[i] == 0x30) {
+    //             return (false, _indexToStartFrom);
+    //         }
 
-            // @patch: below LoC
-            if (i == patternLastIndex && isDigit(_pattern[i], false)) {
-                return (true, i);
-            }
+    //         // @patch: below LoC
+    //         if (i == patternLastIndex && isDigit(_pattern[i], false)) {
+    //             return (true, i);
+    //         }
 
-            if (!isDigit(_pattern[i], false)) {
-                return (true, i - 1);
-            }
-        }
+    //         if (!isDigit(_pattern[i], false)) {
+    //             return (true, i - 1);
+    //         }
+    //     }
 
-        // TODO: Add functionality to verify whether specific number of groups exist
-        // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
-        // then read digits as plain literals
-        // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
-        // because in all cases \0, \00, \000, ..., all are null characters
+    //     // TODO: Add functionality to verify whether specific number of groups exist
+    //     // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
+    //     // then read digits as plain literals
+    //     // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
+    //     // because in all cases \0, \00, \000, ..., all are null characters
 
-        return (false, 0);
-    }
+    //     return (false, 0);
+    // }
 
     function validateBackslash_p_propertyNameEscape(
         bytes memory _pattern,
