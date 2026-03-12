@@ -393,9 +393,10 @@ const testMain = () => {
         // const target = "\u0007";
         // let regex = /\107/;
         // const target = "\u0047";
-        // let regex = /(a)(a)(a)(a)(a)(a)(a)(a)(a)(z)(x)\12/;
-        let regex = /\08/;
-        const target = "\x008";
+        let regex = /(a)(a)(a)(a)(a)(a)(a)(a)(a)(z)(x)(c)\13/;
+        const target = "aaaaaaaaazxc\x0b";
+        // let regex = /\01/u;
+        // const target = "\x00";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });

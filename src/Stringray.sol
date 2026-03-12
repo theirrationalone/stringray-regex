@@ -1346,10 +1346,9 @@ contract Stringray {
         pure
         returns (bool, bytes32, uint256)
     {
-        (bool flag, uint256 lastMatchedDigitIndex) =
-            validateBackslash_digit_backreferenceEscape(_pattern, _indexToStartFrom);
+        (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _indexToStartFrom);
 
-        if (!flag && _pattern[_indexToStartFrom] == 0x30) {
+        if (!flag) {
             if (uint8(_patternFlag) != SMALL_u) {
                 (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
 
@@ -1357,8 +1356,21 @@ contract Stringray {
                     return (true, OCTAL, lastOctalIndex);
                 }
 
-                return (true, NULL_CHARACTER, _indexToStartFrom);
+                if (_pattern[_indexToStartFrom] == 0x30) {
+                    return (true, NULL_CHARACTER, _indexToStartFrom);
+                }
             }
+
+            if (_indexToStartFrom + 1 < _pattern.length && isDigit(_pattern[_indexToStartFrom + 1], false)) {
+                throwError(
+                    _pattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid decimal escape",
+                    _patternFlag,
+                    fromGroup
+                );
+            }
+            atomType = NULL_CHARACTER;
         }
     }
 
@@ -1418,22 +1430,23 @@ contract Stringray {
         return (false, 0);
     }
 
-    function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
+    function validateBackslash_digit(bytes memory _pattern, uint256 _indexToStartFrom)
         private
         pure
         returns (bool, uint256)
     {
         uint256 patternLastIndex = _pattern.length - 1;
+
+        if (_pattern[_indexToStartFrom] == 0x30) {
+            return (false, _indexToStartFrom);
+        }
+
         // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
         // @status: resolved!
         for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
             // @info: BUG: no return statement for the end itertion if last character is also a digit
             // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
             // @status: resolved
-
-            if (i == _indexToStartFrom && _pattern[i] == 0x30) {
-                return (false, 0);
-            }
 
             // @patch: below LoC
             if (i == patternLastIndex && isDigit(_pattern[i], false)) {
@@ -18156,7 +18169,7 @@ contract Stringray {
             // @status: resolved
 
             if (i == _indexToStartFrom && _pattern[i] == 0x30) {
-                return (false, 0);
+                return (false, _indexToStartFrom);
             }
 
             // @patch: below LoC
