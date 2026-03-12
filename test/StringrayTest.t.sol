@@ -3290,7 +3290,8 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase116() public {
         string memory target = "anything";
-        // @BUG: returning complete \08 as null character
+        // @BUG🐍: returning complete \08 as null character
+        // @sttus: Fixed✅
         string memory pattern = unicode"/(\\08)/";
         stringray.regex(target, pattern);
     }

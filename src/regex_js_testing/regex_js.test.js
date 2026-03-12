@@ -3385,7 +3385,7 @@ const testMain = () => {
 
     // test("Groups(): Case0000130", () => {
     //     // let r(egex = /a^sian)/;
-    //     let regex =( /\000)/u;
+    //     let regex =/(\000)/u;
     //     const target = "abba";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
@@ -3393,7 +3393,7 @@ const testMain = () => {
 
     // test("Groups(): Case0000131", () => {
     //     // let r(egex = /a^sian)/;
-    //     let regex =( /\118)/u;
+    //     let regex = /(\118)/u;
     //     const target = "abba";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
@@ -3401,7 +3401,7 @@ const testMain = () => {
 
     // test("Groups(): Case0000132", () => {
     //     // let r(egex = /a^sian)/;
-    //     let regex =( /\988)/u;
+    //     let regex = /(\988)/u;
     //     const target = "abba";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);

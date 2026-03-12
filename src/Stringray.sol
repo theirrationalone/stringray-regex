@@ -1400,6 +1400,8 @@ contract Stringray {
         uint256 decDigit = stringDigitToDecDigit(decString);
         uint256 numGroups = countGroupAtoms();
 
+        console2.log("decString: ", string(decString));
+        console2.log("decDigit: ", decDigit);
         console2.log("numGroups: ", numGroups);
 
         if (uint8(_patternFlag) != SMALL_u) {
@@ -1429,10 +1431,11 @@ contract Stringray {
                 throwError(_pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup);
             }
 
-            if (
-                numGroups < decDigit
-                    && !(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)
-            ) {
+            // @BUG🐍: !(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)
+            // @info: only validating the escaped digit
+            // @status: Fixed✅
+
+            if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 throwError(
                     _pattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlag, fromGroup
                 );
