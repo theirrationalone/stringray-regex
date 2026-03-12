@@ -1405,7 +1405,10 @@ contract Stringray {
         console2.log("numGroups: ", numGroups);
 
         if (uint8(_patternFlag) != SMALL_u) {
-            if (numGroups < decDigit) {
+            // @BUG🐍: numGroups < decDigit
+            // @info: digit escape \1 should be mean as a digit backreference inside a group instead as octal
+            // @status: Fixed✅
+            if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 (bool isOctal, uint256 lastOctalIndex) =
                     validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
                 if (isOctal) {
