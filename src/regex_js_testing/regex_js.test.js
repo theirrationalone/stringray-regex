@@ -5992,9 +5992,9 @@ const testMain = () => {
     // 22. /(?=(a)\2)/
     test("Groups(): Case0000487", () => {
         let regex = /(?=(a)\2)/;
-        const target = "a";
+        const target = "a\x02";
         console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), false);
+        assert.strictEqual(regex.test(target), true);
     });
 
     // test("Groups(): Case0000488", () => {

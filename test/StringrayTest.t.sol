@@ -5659,7 +5659,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase460() public {
         string memory target = "anything";
         // @info: throwing error, unexpected in context of Js regex
-        string memory pattern = unicode"/(?=(\\1))/u";
+        string memory pattern = unicode"/(?=(\\1))\\1/u";
         stringray.regex(target, pattern);
     }
 
