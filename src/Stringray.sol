@@ -1418,17 +1418,24 @@ contract Stringray {
         }
 
         if (uint8(_patternFlag) == SMALL_u) {
+            // @BUG🐍: A digit escape inside a character class [...] within the strict mode (with u flag) attached, always
+            // throws error irrespective to groups existance.
+            // @status: Fixed✅
+            if (fromCharacterClass) {
+                string memory errorRight = ": Invalid escape";
+                if (uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
+                    errorRight = ": Invalid decimal escape";
+                }
+                throwError(_pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup);
+            }
+
             if (
                 numGroups < decDigit
                     && !(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)
             ) {
-                string memory errorRight = ": Invalid escape";
-
-                if (fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
-                    errorRight = ": Invalid decimal escape";
-                }
-
-                throwError(_pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup);
+                throwError(
+                    _pattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlag, fromGroup
+                );
             }
 
             return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
