@@ -2135,13 +2135,14 @@ contract Stringray {
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
-        uint256 _patternLength = _pattern.length;
 
-        for (uint256 i = stripFromIndex; i < _patternLength; i++) {
-            (bool isCC,, uint256 ccLastIdx) = isCharacterClass(_pattern, _orgPattern, i, _patternFlag, fromGroup);
+        for (uint256 i = stripFromIndex; i < _pattern.length; i++) {
+            // @Note: Below CC logic helps to eliminate stack too deep issue
+            // @Caveat⚠️: stack too deep occurs when there're more than 10 vars defined in a single function
+            uint256 newI = isValidGroupCC(_pattern, _orgPattern, i, _patternFlag, fromGroup);
 
-            if (isCC) {
-                i = ccLastIdx;
+            if (newI != i) {
+                i = newI;
                 continue;
             }
 
@@ -2163,43 +2164,48 @@ contract Stringray {
             }
 
             if (numOpenParanthesis == numCloseParanthesis) {
-                return isValidGroupQuantifier(
-                    _pattern, _orgPattern, stripFromIndex, _currentParticleIndex, i, _patternFlag, fromGroup
-                );
+                if (
+                    stripFromIndex == _currentParticleIndex + 3
+                        || (stripFromIndex == _currentParticleIndex + 2
+                            && (uint8(_pattern[stripFromIndex - 1]) == EXCLAMATION_MARK
+                                || uint8(_pattern[stripFromIndex - 1]) == ASSIGNMENT_SIGN)
+                            && uint8(_patternFlag) == SMALL_u)
+                ) {
+                    if (i + 1 < _pattern.length) {
+                        (bool isQuantifier,,) = isGreedyQuantifierAtom(
+                            _pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlag, fromGroup
+                        );
+                        if (isQuantifier) {
+                            throwError(
+                                _orgPattern,
+                                "SyntaxError: Invalid regular expression: /",
+                                ": Invalid quantifier",
+                                _patternFlag
+                            );
+                        }
+                    }
+                }
+                return (true, stripFromIndex, i);
             }
         }
 
         throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlag);
     }
 
-    function isValidGroupQuantifier(
+    function isValidGroupCC(
         bytes memory _pattern,
         bytes memory _orgPattern,
-        uint256 stripFromIndex,
-        uint256 _currentParticleIndex,
         uint256 i,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private returns (bool, uint256, uint256) {
-        if (
-            stripFromIndex == _currentParticleIndex + 3
-                || (stripFromIndex == _currentParticleIndex + 2
-                    && (uint8(_pattern[stripFromIndex - 1]) == EXCLAMATION_MARK
-                        || uint8(_pattern[stripFromIndex - 1]) == ASSIGNMENT_SIGN)
-                    && uint8(_patternFlag) == SMALL_u)
-        ) {
-            if (i + 1 < _pattern.length) {
-                (bool isQuantifier,,) =
-                    isGreedyQuantifierAtom(_pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlag, fromGroup);
-                if (isQuantifier) {
-                    throwError(
-                        _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid quantifier", _patternFlag
-                    );
-                }
-            }
+    ) private returns (uint256) {
+        (bool isCC,, uint256 ccLastIdx) = isCharacterClass(_pattern, _orgPattern, i, _patternFlag, fromGroup);
+
+        if (isCC) {
+            i = ccLastIdx;
         }
 
-        return (true, stripFromIndex, i);
+        return i;
     }
 
     function validateGroupBody(
