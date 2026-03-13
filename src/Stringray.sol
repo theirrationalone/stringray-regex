@@ -964,6 +964,9 @@ contract Stringray {
             }
 
             if (!fromGroup || atomType == GROUP_ATOM) {
+                if (atomType == GROUP_ATOM) {
+                    isDuplicateCaptureGroupName(atom, _orgPattern, _patternFlag);
+                }
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
 
@@ -1534,6 +1537,46 @@ contract Stringray {
         }
 
         return numGroups;
+    }
+
+    function isDuplicateCaptureGroupName(bytes memory _atom, bytes memory _orgPattern, bytes1 _patternFlag) private {
+        bytes memory newCaptureName = getCaptureGroupName(_atom);
+
+        if (newCaptureName.length > 0) {
+            AtomTrait[] memory atoms = allAtoms;
+
+            for (uint256 i; i < atoms.length; i++) {
+                if (atoms[i].atomType == GROUP_ATOM) {
+                    bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
+
+                    if (keccak256(existingCaptureName) == keccak256(newCaptureName)) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Duplicate capture group name",
+                            _patternFlag
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    function getCaptureGroupName(bytes memory _atom) private returns (bytes memory) {
+        bytes memory captureName;
+        if (uint8(_atom[1]) == QUESTION_MARK && uint8(_atom[2]) == LESS_THAN_SIGN) {
+            uint256 captureNameLastIndex;
+            for (uint256 i = 3; i < _atom.length - 1; i++) {
+                if (uint8(_atom[i]) == GREATER_THAN_SIGN) {
+                    captureNameLastIndex = i - 1;
+                    break;
+                }
+            }
+
+            captureName = trimString(_atom, 3, int256(captureNameLastIndex));
+        }
+
+        return captureName;
     }
 
     // function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
