@@ -5817,12 +5817,12 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Groups(): Case0000464", () => {
-        let regex = /(?=(?<x>a))(?=(?<x>b))/u;
-        const target = "abcd";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Groups(): Case0000464", () => {
+    //     let regex = /(?=(?<x>a))(?=(?<x>b))/u;
+    //     const target = "abcd";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     // 12. /(?=\xZ)/
     test("Groups(): Case0000465", () => {

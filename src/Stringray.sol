@@ -965,7 +965,7 @@ contract Stringray {
 
             if (!fromGroup || atomType == GROUP_ATOM) {
                 if (atomType == GROUP_ATOM) {
-                    isDuplicateCaptureGroupName(atom, _orgPattern, _patternFlag);
+                    isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlag, false);
                 }
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
@@ -1539,17 +1539,30 @@ contract Stringray {
         return numGroups;
     }
 
-    function isDuplicateCaptureGroupName(bytes memory _atom, bytes memory _orgPattern, bytes1 _patternFlag) private {
-        bytes memory newCaptureName = getCaptureGroupName(_atom);
+    function isDuplicateOrExistingCaptureGroupName(
+        bytes memory _atom,
+        bytes memory _orgPattern,
+        bytes1 _patternFlag,
+        bool checkExist
+    ) private returns (bool) {
+        bytes memory newCaptureName;
+
+        if (checkExist) {
+            newCaptureName = _atom;
+        } else {
+            newCaptureName = getCaptureGroupName(_atom);
+        }
 
         if (newCaptureName.length > 0) {
             AtomTrait[] memory atoms = allAtoms;
+
+            bool groupExist;
 
             for (uint256 i; i < atoms.length; i++) {
                 if (atoms[i].atomType == GROUP_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
 
-                    if (keccak256(existingCaptureName) == keccak256(newCaptureName)) {
+                    if (!checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
@@ -1557,9 +1570,29 @@ contract Stringray {
                             _patternFlag
                         );
                     }
+
+                    if (checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))) {
+                        groupExist = true;
+                        break;
+                    }
                 }
             }
+
+            if (checkExist && !groupExist) {
+                if (uint8(_patternFlag) == SMALL_u) {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid named capture referenced",
+                        _patternFlag
+                    );
+                }
+            }
+
+            return groupExist;
         }
+
+        return false;
     }
 
     function getCaptureGroupName(bytes memory _atom) private returns (bytes memory) {
@@ -18174,7 +18207,7 @@ contract Stringray {
         bytes1 _patternFlag,
         bool fromCharacterClass,
         bool fromGroup
-    ) private pure returns (bool, uint256) {
+    ) private returns (bool, uint256) {
         if (uint8(_pattern[_currentParticleIndex]) == BACK_SLASH && _currentParticleIndex < _pattern.length - 1) {
             uint8 _nextChar = uint8(_pattern[_currentParticleIndex + 1]);
             bool isValid;
@@ -18416,7 +18449,7 @@ contract Stringray {
         uint256 _indexToStartFrom,
         bytes1 _patternFlag,
         bool fromGroup
-    ) private pure returns (bool, uint256) {
+    ) private returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
         // @info: BUG: if (_indexToStartFrom + 5 <= patternLastIndex)
@@ -18433,7 +18466,16 @@ contract Stringray {
                     for (uint256 i = _indexToStartFrom + 4; i <= patternLastIndex; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             // TODO: be sure group name exist to its left
-                            return (true, i);
+
+                            bytes memory groupName = trimString(_pattern, _indexToStartFrom + 3, int256(i - 1));
+                            bool isValidRef =
+                                isDuplicateOrExistingCaptureGroupName(groupName, _orgPattern, _patternFlag, true);
+
+                            if (isValidRef) {
+                                return (true, i);
+                            } else {
+                                return (true, _indexToStartFrom + 1);
+                            }
                         }
 
                         if (
@@ -18442,6 +18484,10 @@ contract Stringray {
                                 && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0]))
                                 && !isDigit(_pattern[i], false)
                         ) {
+                            if (uint8(_patternFlag) != SMALL_u) {
+                                return (true, _indexToStartFrom + 1);
+                            }
+
                             throwError(
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
@@ -18451,6 +18497,10 @@ contract Stringray {
                         }
                     }
                 } else {
+                    if (uint8(_patternFlag) != SMALL_u) {
+                        return (true, _indexToStartFrom + 1);
+                    }
+
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
