@@ -1239,6 +1239,8 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
+        // @BUG🐍: Throwing error with _pattern not with original pattern.
+        // @status: not resolved!
         if (
             _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
                 && isDigit(_pattern[lastMatchedParticleIndex], false)
