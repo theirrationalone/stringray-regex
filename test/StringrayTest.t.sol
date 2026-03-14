@@ -5964,6 +5964,136 @@ contract PlayStringTest is Test {
         stringray.seeAllAtoms();
     }
 
+    function testRegexDigitBackreferenceCase1() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\0/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase2() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\0/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase3() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\1/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase4() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\1/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase5() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\2/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase6() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\2/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase7() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\3/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase8() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\3/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase9() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\4/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase10() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\4/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase11() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\5/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase12() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\5/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase13() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\6/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase14() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\6/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase15() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\7/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase16() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\7/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase17() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\8/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase18() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\8/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase19() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\9/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase20() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\9/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 

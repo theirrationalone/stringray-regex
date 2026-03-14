@@ -6168,6 +6168,146 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), false);
     });
+    
+    test("Digit backreference: Case000001", () => {
+        let regex = /\0/;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case000002", () => {
+        let regex = /\0/u;
+        const target = "\x00";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case000003", () => {
+        let regex = /\1/;
+        const target = "\x01";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case000004", () => {
+    //     let regex = /\1/u;
+    //     const target = "\x01";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case000005", () => {
+        let regex = /\2/;
+        const target = "\x02";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case00006", () => {
+    //     let regex = /\2/u;
+    //     const target = "\x02";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case000007", () => {
+        let regex = /\3/;
+        const target = "\x03";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case000008", () => {
+    //     let regex = /\3/u;
+    //     const target = "\x03";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case000009", () => {
+        let regex = /\4/;
+        const target = "\x04";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000010", () => {
+    //     let regex = /\4/u;
+    //     const target = "\x04";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000011", () => {
+        let regex = /\5/;
+        const target = "\x05";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000012", () => {
+    //     let regex = /\5/u;
+    //     const target = "\x05";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000013", () => {
+        let regex = /\6/;
+        const target = "\x06";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000014", () => {
+    //     let regex = /\6/u;
+    //     const target = "\x06";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000015", () => {
+        let regex = /\7/;
+        const target = "\x07";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000016", () => {
+    //     let regex = /\7/u;
+    //     const target = "\x07";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000017", () => {
+        let regex = /\8/;
+        const target = "8";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000018", () => {
+    //     let regex = /\8/u;
+    //     const target = "\x08";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000019", () => {
+        let regex = /\9/;
+        const target = "9";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000020", () => {
+    //     let regex = /\9/u;
+    //     const target = "\x09";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
