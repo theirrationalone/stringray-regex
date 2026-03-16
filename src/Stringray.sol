@@ -709,8 +709,7 @@ contract Stringray {
     bytes32 private constant Mahj = keccak256(abi.encodePacked("Mahj"));
     bytes32 private constant Maka = keccak256(abi.encodePacked("Maka"));
     bytes32 private constant Mand = keccak256(abi.encodePacked("Mand"));
-    // @typo-fix: sc ; Mani                             ; Manichaean
-    bytes32 private constant Mansi = keccak256(abi.encodePacked("Mansi"));
+    bytes32 private constant Mansi = keccak256(abi.encodePacked("Mani"));
     bytes32 private constant Marc = keccak256(abi.encodePacked("Marc"));
     bytes32 private constant Medf = keccak256(abi.encodePacked("Medf"));
     bytes32 private constant Mend = keccak256(abi.encodePacked("Mend"));
@@ -934,14 +933,6 @@ contract Stringray {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
-        console2.log("----------------");
-        console2.log("ORIGINAL TARGET STRING: ", _proposedString);
-        console2.log("ORIGINAL PATTERN STRING: ", _pattern);
-        console2.log("string in bytes: ");
-        console2.logBytes(stringInBytes);
-        console2.log("pattern in bytes: ");
-        console2.logBytes(patternInBytes);
-        console2.log("----------------");
         bytes1 patternFlag = patternInBytes[patternInBytes.length - 1];
         bytes memory filteredPatternInBytes =
             trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
@@ -958,28 +949,12 @@ contract Stringray {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
                 classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlag, fromGroup);
 
-            console2.log("---In nuclearFission---");
-            if (fromGroup) {
-                console2.log("inside group atom...");
-            }
-
             if (!fromGroup || atomType == GROUP_ATOM) {
                 if (atomType == GROUP_ATOM) {
                     isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlag, false);
                 }
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
-
-            console2.log("Iteration no: ", particleIdx + 1);
-            console2.log("atom bytes form: ");
-            console2.logBytes(atom);
-            console2.log("atom: ", string(atom));
-
-            console2.log("ATOM TYPE HASH: ");
-            console2.logBytes32(atomType);
-            printAtomType(atomType);
-            console2.log("atomEndIdx: ", atomEndIdx);
-            console2.log("---");
 
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
@@ -1003,11 +978,6 @@ contract Stringray {
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
-            // console2.log("---In classifyAtom---");
-            // console2.log("atom: ", string(atom));
-            // console2.log("atomLastIdx: ", atomLastIdx);
-            // console2.log("atomLastIdx cast: ", int256(atomLastIdx));
-            // console2.log("---");
             return (atom, atomType, int256(atomLastIdx));
         }
 
@@ -1040,12 +1010,9 @@ contract Stringray {
                 _pattern, _orgPattern, lastMatchedParticleIndex + 1, atomType, _patternFlag, fromGroup
             );
             if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
-                // console2.log("Yes it has a greedy quantifier atom");
                 (flag, atomType, lastMatchedParticleIndex) =
                     isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1, _patternFlag, fromGroup);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
-                    // @question: is it irrelevent??
-                    // @answer: No, Actually it saves GAS by eliminating one more big iteration
                     (flag, atomType, lastMatchedParticleIndex) =
                         isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1, _patternFlag, fromGroup);
                     if (flag) {
@@ -1094,10 +1061,6 @@ contract Stringray {
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
                 isGreedyQuantifierAtom(_pattern, _orgPattern, _currentParticleIdx, atomType, _patternFlag, fromGroup);
-            // console2.log("flag for jackless greedy quantifier atom.............");
-            // console2.log("flag: ", flag);
-            // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-            // console2.log("---");
             if (flag) {
                 throwError(
                     _orgPattern, "SyntaxError: Invalid regular expression: /", ": Nothing to repeat", _patternFlag
@@ -1229,11 +1192,6 @@ contract Stringray {
             }
         }
 
-        // console2.log("---In isLiteralAtom---");
-        // console2.log("flag: ", flag);
-        // console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-        // console2.log("---");
-
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
@@ -1246,8 +1204,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
-        // @BUG🐍: Throwing error with _pattern not with original pattern.
-        // @status: not resolved!
         if (
             _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
                 && isDigit(_pattern[lastMatchedParticleIndex], false)
@@ -1272,108 +1228,6 @@ contract Stringray {
         }
 
         return (false, INVALID_ATOM, 0);
-
-        // @note: bad design choice
-        // if (
-        //     _currentParticleIdx + 1 <= lastMatchedParticleIndex && isDigit(_pattern[_currentParticleIdx + 1], false)
-        //         && isDigit(_pattern[lastMatchedParticleIndex], false)
-        // ) {
-        //     bool isOctal = true;
-        //     uint256 newLastMatchedParticleIndex;
-        //     (isOctal, newLastMatchedParticleIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
-        //     if (isOctal) lastMatchedParticleIndex = newLastMatchedParticleIndex;
-        //     if (!isOctal) {
-        //         if (uint8(_patternFlag) != SMALL_u) {
-        //             if (
-        //                 _currentParticleIdx + 1 <= lastMatchedParticleIndex
-        //                     && ((_pattern[_currentParticleIdx + 1] == 0x00
-        //                             && _pattern[lastMatchedParticleIndex] == 0x00)
-        //                         || (_pattern[_currentParticleIdx + 1] == 0x30
-        //                             && _pattern[lastMatchedParticleIndex] == 0x30))
-        //             ) {
-        //                 atomType = NULL_CHARACTER;
-        //             } else {
-        //                 atomType = DIGIT_BACKREFERENCE_PREFIX;
-        //             }
-        //         } else if (
-        //             uint8(_patternFlag) == SMALL_u
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-        //                 && _currentParticleIdx + 1 == lastMatchedParticleIndex
-        //         ) {
-        //             if (
-        //                 lastMatchedParticleIndex + 1 < _pattern.length
-        //                     && isDigit(_pattern[lastMatchedParticleIndex + 1], false)
-        //             ) {
-        //                 throwError(
-        //                     _pattern,
-        //                     "SyntaxError: Invalid regular expression: /",
-        //                     ": Invalid decimal escape",
-        //                     _patternFlag,
-        //                     fromGroup
-        //                 );
-        //             }
-        //             atomType = NULL_CHARACTER;
-        //         } else if (
-        //             uint8(_patternFlag) == SMALL_u
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-        //         ) {
-        //             // @TODO: backreference check and validation remains
-        //             string memory errorRight = ": Invalid escape";
-
-        //             if (
-        //                 fromCharacterClass && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
-        //             ) {
-        //                 errorRight = ": Invalid decimal escape";
-        //             }
-
-        //             throwError(
-        //                 _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-        //             );
-        //         }
-        //     } else {
-        //         if (uint8(_patternFlag) != SMALL_u) {
-        //             atomType = OCTAL;
-        //         } else if (
-        //             uint8(_patternFlag) == SMALL_u
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("0")[0])
-        //                 && _currentParticleIdx + 1 != lastMatchedParticleIndex
-        //         ) {
-        //             throwError(
-        //                 _pattern,
-        //                 "SyntaxError: Invalid regular expression: /",
-        //                 ": Invalid decimal escape",
-        //                 _patternFlag,
-        //                 fromGroup
-        //             );
-        //         } else if (
-        //             uint8(_patternFlag) == SMALL_u
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) >= uint8(abi.encodePacked("1")[0])
-        //                 && uint8(_pattern[_currentParticleIdx + 1]) <= uint8(abi.encodePacked("9")[0])
-        //         ) {
-        //             if (!(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)) {
-        //                 // @TODO: backreference check and validation remains
-        //                 string memory errorRight = ": Invalid escape";
-
-        //                 if (
-        //                     fromCharacterClass
-        //                         && uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])
-        //                 ) {
-        //                     // @BUG: context ends inside the brackets, therefore, It's a closure BUG🦟
-        //                     // @ref-BUG: string memory errorRight = ": Invalid decimal escape";
-        //                     // @Status: Fixed ✅
-        //                     errorRight = ": Invalid decimal escape";
-        //                 }
-
-        //                 // @#ref-BUG: The closure isn't visible here, so, the errorRight isn't updated
-        //                 // @Status: Fixed ✅
-        //                 throwError(
-        //                     _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-        //                 );
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     function isOctalOrNull(
@@ -1415,17 +1269,12 @@ contract Stringray {
         uint256 numGroups = countGroupAtoms();
 
         if (uint8(_patternFlag) != SMALL_u) {
-            // @BUG🐍: numGroups < decDigit
-            // @info: digit escape \1 should be mean as a digit backreference inside a group instead as octal
-            // @status: Fixed✅
             if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 (bool isOctal, uint256 lastOctalIndex) =
                     validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
                 if (isOctal) {
                     return (true, OCTAL, lastOctalIndex);
                 }
-                // @BUG🐍: make digit escapes > 7 invalid atoms
-                // @status: Fixed✅
                 return (true, LITERAL_ATOM, _currentParticleIdx + 1);
             } else {
                 return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
@@ -1433,9 +1282,6 @@ contract Stringray {
         }
 
         if (uint8(_patternFlag) == SMALL_u) {
-            // @BUG🐍: A digit escape inside a character class [...] within the strict mode (with u flag) attached, always
-            // throws error irrespective to groups existance.
-            // @status: Fixed✅
             if (fromCharacterClass) {
                 string memory errorRight = ": Invalid escape";
                 if (uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
@@ -1443,10 +1289,6 @@ contract Stringray {
                 }
                 throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag);
             }
-
-            // @BUG🐍: !(uint8(_pattern[_currentParticleIdx + 1]) == uint8(abi.encodePacked("1")[0]) && fromGroup)
-            // @info: only validating the escaped digit
-            // @status: Fixed✅
 
             if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlag);
@@ -1457,76 +1299,6 @@ contract Stringray {
 
         return (false, INVALID_ATOM, 0);
     }
-
-    // function isDigitEscape(bytes memory _pattern, uint256 _indexToStartFrom, bytes1 _patternFlag, bool fromCharacterClass, bool fromGroup)
-    //     private
-    //     pure
-    //     returns (bool, bytes32, uint256)
-    // {
-    //     (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _indexToStartFrom);
-
-    //     if (!flag && _pattern[_indexToStartFrom] == 0x30) {
-    //         if (uint8(_patternFlag) != SMALL_u) {
-    //             (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
-
-    //             if (isOctal) {
-    //                 return (true, OCTAL, lastOctalIndex);
-    //             }
-
-    //             return (true, NULL_CHARACTER, _indexToStartFrom);
-    //         }
-
-    //         if (_indexToStartFrom + 1 < _pattern.length && isDigit(_pattern[_indexToStartFrom + 1], false)) {
-    //             throwError(
-    //                 _pattern,
-    //                 "SyntaxError: Invalid regular expression: /",
-    //                 ": Invalid decimal escape",
-    //                 _patternFlag,
-    //                 fromGroup
-    //             );
-    //         }
-
-    //         return (true, NULL_CHARACTER, _indexToStartFrom);
-    //     }
-
-    //     if (flag) {
-    //         bytes memory decString = trimString(_pattern, _indexToStartFrom, int256(lastMatchedDigitIndex));
-    //         uint256 decDigit = stringDigitToDecDigit(decString);
-    //         uint256 numGroups = countGroupAtoms();
-
-    //         if (uint8(_patternFlag) != SMALL_u) {
-    //             if (numGroups < decDigit) {
-    //                 (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _indexToStartFrom);
-    //                 if (isOctal) {
-    //                     return (true, OCTAL, lastOctalIndex);
-    //                 }
-    //                 return (false, INVALID_ATOM, 0);
-    //             } else {
-    //                 return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
-    //             }
-    //         }
-
-    //         if (uint8(_patternFlag) == SMALL_u) {
-    //             if (numGroups < decDigit) {
-    //                 string memory errorRight = ": Invalid escape";
-
-    //                 if (
-    //                     fromCharacterClass && uint8(_pattern[_indexToStartFrom + 1]) < uint8(abi.encodePacked("8")[0])
-    //                 ) {
-    //                     errorRight = ": Invalid decimal escape";
-    //                 }
-
-    //                 throwError(
-    //                     _pattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag, fromGroup
-    //                 );
-    //             }
-
-    //             return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
-    //         }
-    //     }
-
-    //     return (false, INVALID_ATOM, 0);
-    // }
 
     function countGroupAtoms() private returns (uint256) {
         AtomTrait[] memory atoms = allAtoms;
@@ -1566,10 +1338,6 @@ contract Stringray {
 
                 if (atoms[i].atomType == GROUP_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
-                    // @BUG🐍: Js allows duplicate capture group names iff they are of different branches i.e.,
-                    // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
-                    // However, current logic isn't respecting | alternation(or branch)
-                    // @status: resolved✅
                     if (
                         !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
                             && (alternationIndex < 0 || uint256(alternationIndex) < i)
@@ -1616,68 +1384,10 @@ contract Stringray {
                     break;
                 }
             }
-
             captureName = trimString(_atom, 3, int256(captureNameLastIndex));
         }
-
         return captureName;
     }
-
-    // function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
-    //     private
-    //     pure
-    //     returns (bool, uint256)
-    // {
-    //     uint256 patternLastIndex = _pattern.length - 1;
-    //     bool flag;
-
-    //     if (
-    //         uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
-    //             && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("7")[0])
-    //     ) {
-    //         flag = true;
-    //     }
-
-    //     if (flag) {
-    //         if (
-    //             _indexToStartFrom + 1 <= patternLastIndex
-    //                 && uint8(_pattern[_indexToStartFrom + 1]) >= uint8(abi.encodePacked("0")[0])
-    //                 && uint8(_pattern[_indexToStartFrom + 1]) <= uint8(abi.encodePacked("7")[0])
-    //         ) {
-    //             flag = true;
-    //         } else {
-    //             if (
-    //                 uint8(_pattern[_indexToStartFrom]) > uint8(abi.encodePacked("0")[0])
-    //                     && uint8(_pattern[_indexToStartFrom]) < uint8(abi.encodePacked("8")[0])
-    //             ) {
-    //                 return (true, _indexToStartFrom);
-    //             } else {
-    //                 return (false, _indexToStartFrom);
-    //             }
-    //         }
-    //     }
-
-    //     if (flag) {
-    //         if (
-    //             _indexToStartFrom + 2 <= patternLastIndex
-    //                 && uint8(_pattern[_indexToStartFrom + 2]) >= uint8(abi.encodePacked("0")[0])
-    //                 && uint8(_pattern[_indexToStartFrom + 2]) <= uint8(abi.encodePacked("7")[0])
-    //         ) {
-    //             if (
-    //                 uint8(_pattern[_indexToStartFrom]) >= uint8(abi.encodePacked("0")[0])
-    //                     && uint8(_pattern[_indexToStartFrom]) <= uint8(abi.encodePacked("3")[0])
-    //             ) {
-    //                 return (true, _indexToStartFrom + 2);
-    //             } else {
-    //                 return (true, _indexToStartFrom + 1);
-    //             }
-    //         } else {
-    //             return (true, _indexToStartFrom + 1);
-    //         }
-    //     }
-
-    //     return (false, 0);
-    // }
 
     function validateBackslash_digit(bytes memory _pattern, uint256 _indexToStartFrom)
         private
@@ -1690,14 +1400,7 @@ contract Stringray {
             return (false, _indexToStartFrom);
         }
 
-        // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
-        // @status: resolved!
         for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
-            // @info: BUG: no return statement for the end itertion if last character is also a digit
-            // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
-            // @status: resolved
-
-            // @patch: below LoC
             if (i == patternLastIndex && isDigit(_pattern[i], false)) {
                 return (true, i);
             }
@@ -1706,12 +1409,6 @@ contract Stringray {
                 return (true, i - 1);
             }
         }
-
-        // TODO: Add functionality to verify whether specific number of groups exist
-        // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
-        // then read digits as plain literals
-        // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
-        // because in all cases \0, \00, \000, ..., all are null characters
 
         return (false, 0);
     }
@@ -1825,8 +1522,6 @@ contract Stringray {
         bytes1 _patternFlag,
         bool fromGroup
     ) internal returns (bool, bytes32, uint256) {
-        // @TODO: Complete the character class detection implementation.
-        // @status: Implementation finished ~ Jan 22, 2026 03:54 PM IST
         uint256 lastMatchedParticleIndex;
         bool flag;
 
@@ -2042,7 +1737,6 @@ contract Stringray {
                     && atomType != UNICODE_PROPERTY
                     && atomType != UNICODE_PROPERTY_NEGATION) && atomType != INVALID_ATOM
         ) {
-            // @NOTE: In character class, WORD_BOUNDARY escape or \b becomes BACKSPACE
             uint256 leftLiteralDecimalValue = atomsDecimalValues(atomType, _pattern, lastParticleIndex);
             uint256 rightLiteralDecimalValue = atomsDecimalValues(rightAtomType, _pattern, rightLastParticleIndex);
 
@@ -2111,10 +1805,8 @@ contract Stringray {
     function unicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
         bytes memory unicodeHex;
         if (uint8(_pattern[lastIndex]) == CLOSE_CURLY_BRACE) {
-            // \u{123456}
             unicodeHex = trimString(_pattern, lastIndex - 6, int256(lastIndex - 1));
         } else {
-            // \u1234
             unicodeHex = trimString(_pattern, lastIndex - 3, int256(lastIndex));
         }
 
@@ -2124,7 +1816,6 @@ contract Stringray {
     }
 
     function hexUnicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
-        // \x12
         bytes memory unicodeHex = trimString(_pattern, lastIndex - 1, int256(lastIndex));
         uint256 decValue = hexToDec(unicodeHex, 4, true);
         return decValue;
@@ -2188,12 +1879,7 @@ contract Stringray {
                 validateGroup(_pattern, _orgPattern, _currentParticleIndex + 1, _patternFlag, fromGroup);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
-                // console2.log(
-                //     "----------------------------------------sub pattern fission----------------------------------------"
-                // );
-                // console2.log("sub pattern string: ", string(subPattern));
                 nuclearFission(subPattern, _orgPattern, _patternFlag, true);
-                // console2.log("----------------------------------------END----------------------------------------");
             }
         }
 
@@ -2210,9 +1896,6 @@ contract Stringray {
         bytes1 _patternFlag,
         bool fromGroup
     ) private returns (bool, uint256, uint256) {
-        // @info: BUG: Currently don't validate literals, character classes, quantifiers, escapes, etc, inside a group
-        // @status: not fixed, needs a better validation implementation
-        // @status: Fixed ✅, this is the fix status in response of above status, meaning current acklgd bug has been fixed now
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
             return (true, _currentParticleIndex, _currentParticleIndex);
         }
@@ -2224,8 +1907,6 @@ contract Stringray {
         uint256 numCloseParanthesis;
 
         for (uint256 i = stripFromIndex; i < _pattern.length; i++) {
-            // @Note: Below CC logic helps to eliminate stack too deep issue
-            // @Caveat⚠️: stack too deep occurs when there're more than 10 vars defined in a single function
             uint256 newI = isValidGroupCC(_pattern, _orgPattern, i, _patternFlag, fromGroup);
 
             if (newI != i) {
@@ -2339,9 +2020,6 @@ contract Stringray {
                         || isSmallAlphabet(_pattern[_currentParticleIndex + 2])
                         || isBigAlphabet(_pattern[_currentParticleIndex + 2])
                 ) {
-                    // @info: Still not accurate, according to js or ecmascript, chars lies ID_Start, and ID_Continue
-                    // also the valid ones.
-                    // @status: not implemented
                     for (uint256 i = _currentParticleIndex + 3; i <= _pattern.length - 1; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             stripFrom = i + 1;
@@ -11213,9 +10891,6 @@ contract Stringray {
                     }
                 }
 
-                // @BUG: some obscured syntax error resdies here
-                // @status: resolved
-
                 // 3099: 0xe38299 ... 309A: 0xe3829a [2]
                 // 309B: 0xe3829b ... 309C: 0xe3829c [2]
                 if (_pattern[_currentParticleIndex + 1] == 0x82) {
@@ -14923,7 +14598,6 @@ contract Stringray {
                                 if (
                                     _pattern[_currentParticleIndex + 3] >= 0x80
                                         && _pattern[_currentParticleIndex + 3] <= 0xbf
-                                    // 16 + 16 + 16 + 16 = 64
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -14935,7 +14609,6 @@ contract Stringray {
                                 if (
                                     _pattern[_currentParticleIndex + 3] >= 0x80
                                         && _pattern[_currentParticleIndex + 3] <= 0xbf
-                                    // 16 + 16 + 16 + 16 = 64
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -14947,7 +14620,6 @@ contract Stringray {
                                 if (
                                     _pattern[_currentParticleIndex + 3] >= 0x80
                                         && _pattern[_currentParticleIndex + 3] <= 0xbf
-                                    // 16 + 16 + 16 + 16 = 64
                                 ) {
                                     return (true, _currentParticleIndex + 3);
                                 }
@@ -16747,14 +16419,6 @@ contract Stringray {
         pure
         returns (bool, uint256)
     {
-        // @info: this function is still inaccurate
-        // @TODO: implement some logic to interpolate whitespace hex strings to identify them
-        // @status: just explored and got the idea, now about to begin the implementation...🚀
-        // @status: completed!
-
-        // @info: Please Note-1: These lower and upper bounds also have bitmask applied however they all are 1 byte
-        // and as we know 1-byte atoms masking is also zero(0) bits manipulation so that would have no effect at all.
-        // that's why we're directly converting things like \t, \n, \v, etc, to 1-byte atoms and validating them to.
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
         uint256 lastIndex = _currentParticleIndex;
@@ -16762,7 +16426,6 @@ contract Stringray {
         bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
 
         if (!flag) {
-            // @ref: #Note-1: just like below...
             if (_targetChar == abi.encodePacked(" ")[0]) {
                 flag = true;
             }
@@ -16837,7 +16500,6 @@ contract Stringray {
         pure
         returns (bool, uint256)
     {
-        // @info: legacy unicode code point for backward compatibility
         bool flag;
         uint256 lastIndex;
 
@@ -16862,7 +16524,6 @@ contract Stringray {
     }
 
     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
-        // _unicodeHex: "\u{XXXXXX}" or \uXXXX
         (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, _unicodeHex, 0, bytes1(0), false);
 
         if (!isValid) {
@@ -16953,7 +16614,6 @@ contract Stringray {
     }
 
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) internal pure returns (bytes memory) {
-        // @TODO: Implement utf8 hexadecimal to unicode hexadecimal conversion logic
         uint256 numBytes = _utf8Hex.length;
         bytes memory unicodeHex;
 
@@ -17052,8 +16712,6 @@ contract Stringray {
         bytes memory hexEqv;
         uint256 binLen = _bin.length;
         for (uint8 i = 0; i < binLen; i++) {
-            // @BUG: precedence bug: uint8(2 ** (binLen - 1) - i)
-            // @status: fixed uint8(2 ** ((binLen - 1) - i))
             decEqv += _bin[i] == 0x30 ? 0 : uint8(2 ** ((binLen - 1) - i));
         }
         bytes memory tempHexEqv = abi.encodePacked(decEqv);
@@ -17088,25 +16746,16 @@ contract Stringray {
         (flag, lastMatchedIndex) = cUnicodeRange(_pattern, _currentParticleIndex);
 
         if (!flag) {
-            // TODO: Implement d unicode range detection logic...
-            // @status: done
             (flag, lastMatchedIndex) = dUnicodeRange(_pattern, _currentParticleIndex);
         }
 
         if (!flag) {
-            // TODO: Implement e unicode range detection logic...
             (flag, lastMatchedIndex) = eUnicodeRange(_pattern, _currentParticleIndex);
         }
 
         if (!flag) {
-            // TODO: Implement f unicode range detection logic...
-            // console2.log("departed through here...");
             (flag, lastMatchedIndex) = fUnicodeRange(_pattern, _currentParticleIndex);
         }
-
-        // @info: BUG: (false, 0)
-        // @status: resolved!
-        // return (false, 0);
         return (flag, lastMatchedIndex);
     }
 
@@ -17137,10 +16786,7 @@ contract Stringray {
 
     function f0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f0 90 80 80 - f0 bf bf bf
-        // console2.log("departed through here also...");
         if (_pattern[_currentParticleIndex] == 0xf0) {
-            // console2.log("yeah that's came true: ", _pattern[_currentParticleIndex] == 0xf0);
-            // console2.logBytes1(_pattern[_currentParticleIndex]);
             (bool flag, uint256 lastMatchedParticleIndex) = secondByte90bfValidator(_pattern, _currentParticleIndex);
 
             if (flag) {
@@ -17148,7 +16794,6 @@ contract Stringray {
                 if (flag) {
                     (flag, lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, lastMatchedParticleIndex);
                     if (flag) {
-                        // console2.log("fulfilling all requirements...!");
                         return (true, lastMatchedParticleIndex);
                     }
                 }
@@ -18264,8 +17909,6 @@ contract Stringray {
                             _patternFlag
                         );
                     }
-
-                    // @question: does it really need a tweak?
                     return (false, 0);
                 }
             }
@@ -18299,23 +17942,6 @@ contract Stringray {
                     return (true, lastMatchedIndex);
                 }
             }
-
-            // if (isDigit(_pattern[_currentParticleIndex + 1], false)) {
-            //     // @BUG: octal validation functionality missing
-            //     // @status: resolved
-            //     (isValid, lastMatchedIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIndex + 1);
-
-            //     if (isValid) {
-            //         return (true, lastMatchedIndex);
-            //     }
-
-            //     (isValid, lastMatchedIndex) =
-            //         validateBackslash_digit_backreferenceEscape(_pattern, _currentParticleIndex + 1);
-
-            //     if (isValid) {
-            //         return (true, lastMatchedIndex);
-            //     }
-            // }
 
             return (true, _currentParticleIndex + 1);
         }
@@ -18379,42 +18005,6 @@ contract Stringray {
         return (false, 0);
     }
 
-    // function validateBackslash_digit_backreferenceEscape(bytes memory _pattern, uint256 _indexToStartFrom)
-    //     private
-    //     pure
-    //     returns (bool, uint256)
-    // {
-    //     uint256 patternLastIndex = _pattern.length - 1;
-    //     // @info: BUG: for (uint256 i = _indexToStartFrom; i < patternLastIndex; i++)
-    //     // @status: resolved!
-    //     for (uint256 i = _indexToStartFrom; i <= patternLastIndex; i++) {
-    //         // @info: BUG: no return statement for the end itertion if last character is also a digit
-    //         // @info: function will conclude by returning (false, 0) tuple even if there's a correct sequence of digits
-    //         // @status: resolved
-
-    //         if (i == _indexToStartFrom && _pattern[i] == 0x30) {
-    //             return (false, _indexToStartFrom);
-    //         }
-
-    //         // @patch: below LoC
-    //         if (i == patternLastIndex && isDigit(_pattern[i], false)) {
-    //             return (true, i);
-    //         }
-
-    //         if (!isDigit(_pattern[i], false)) {
-    //             return (true, i - 1);
-    //         }
-    //     }
-
-    //     // TODO: Add functionality to verify whether specific number of groups exist
-    //     // if they don't exist then try to interpolate numbers into octal and iff both of that not possible
-    //     // then read digits as plain literals
-    //     // note: Lastly, please care about 0s sequence i.e., \0, \00, \000, \000..., or \0000000000007
-    //     // because in all cases \0, \00, \000, ..., all are null characters
-
-    //     return (false, 0);
-    // }
-
     function validateBackslash_p_propertyNameEscape(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -18463,8 +18053,6 @@ contract Stringray {
     ) private returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
 
-        // @info: BUG: if (_indexToStartFrom + 5 <= patternLastIndex)
-        // @status: resolved!
         if (_indexToStartFrom + 4 <= patternLastIndex) {
             if (uint8(_pattern[_indexToStartFrom + 2]) == LESS_THAN_SIGN) {
                 if (
@@ -18472,12 +18060,8 @@ contract Stringray {
                         || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("_")[0])
                         || uint8(_pattern[_indexToStartFrom + 3]) == uint8(abi.encodePacked("$")[0])
                 ) {
-                    // @info: BUG: for (uint256 i = _indexToStartFrom + 4; i < patternLastIndex; i++)
-                    // @status: resolved!
                     for (uint256 i = _indexToStartFrom + 4; i <= patternLastIndex; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
-                            // TODO: be sure group name exist to its left
-
                             bytes memory groupName = trimString(_pattern, _indexToStartFrom + 3, int256(i - 1));
                             bool isValidRef =
                                 isDuplicateOrExistingCaptureGroupName(groupName, _orgPattern, _patternFlag, true);
@@ -18568,8 +18152,6 @@ contract Stringray {
         uint256 patternLastIndex = _pattern.length - 1;
 
         if (_indexToStartFrom + 2 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
-            // @info: BUG: OVERFLOW BUG resides in this function.
-            // @status: Resolved!
             if (
                 _indexToStartFrom + 4 <= patternLastIndex && uint8(_pattern[_indexToStartFrom + 4]) == CLOSE_CURLY_BRACE
             ) {
@@ -18672,23 +18254,11 @@ contract Stringray {
     ) private pure returns (bool, uint256) {
         uint256 propertyNameEndIdx;
         for (uint256 i = _indexToStartFrom; i < _pattern.length; i++) {
-            // @info: BUG: if (uint8(_pattern[_indexToStartFrom]) == CLOSE_CURLY_BRACE) and missing a break keyword.
-            // @status: resolved!
             if (uint8(_pattern[i]) == CLOSE_CURLY_BRACE) {
                 propertyNameEndIdx = i - 1;
                 break;
             }
         }
-
-        // console2.log("property name end index: ", propertyNameEndIdx);
-
-        // @note: impossible to hit below LoC chunk
-        // if (propertyNameEndIdx == 0) {
-        //     string memory errorMsg = string(
-        //         abi.encodePacked("SyntaxError: Invalid regular expression: /", _pattern, "/u: Invalid property name")
-        //     );
-        //     revert(errorMsg);
-        // }
 
         bytes memory propertyName = trimString(_pattern, _indexToStartFrom, int256(propertyNameEndIdx));
 
@@ -18905,11 +18475,6 @@ contract Stringray {
     }
 
     function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {
-        // @Note: 👇
-        // Excluded: ALL Unicode binary properties (including obscure, deprecated, informational, layout, normalization, bidi, etc.)
-        // are ~75–85. However,
-        // Included: Only Binary properties that are commonly exposed and meaningful for regex matching
-        // (mainly from PropList.txt, DerivedCoreProperties.txt, and EmojiData.txt) ~59-61
         if (
             propertyValueHash == Alphabetic || propertyValueHash == Alpha || propertyValueHash == ASCII_Hex_Digit
                 || propertyValueHash == AHex || propertyValueHash == Bidi_Control || propertyValueHash == Bidi_C
@@ -19283,13 +18848,6 @@ contract Stringray {
             }
             return false;
         }
-
-        // console2.log("---In findPatternStringInRangeBounds---");
-        // console2.log("targetChar: ", string(abi.encodePacked(_targetChar)));
-        // console2.log("targetChar ascii code: ", uint8(_targetChar));
-        // console2.log("lowerBoundUnicode: ", lowerBoundUnicode);
-        // console2.log("upperBoundUnicode: ", upperBoundUnicode);
-        // console2.log("---");
 
         if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
             return true;
