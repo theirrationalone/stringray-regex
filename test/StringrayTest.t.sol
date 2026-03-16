@@ -6328,6 +6328,32 @@ contract PlayStringTest is Test {
         stringray.seeAllAtoms();
     }
 
+    function testRegexDigitBackreferenceCase57() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\10/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase58() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\10/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase59() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\11/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase60() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\11/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 

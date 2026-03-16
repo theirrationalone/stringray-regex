@@ -6560,6 +6560,34 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+    
+    test("Digit backreference: Case0000057", () => {
+        let regex = /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\10/;
+        const target = "anilanilanilanilanilanilanilanilanil\x08";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000058", () => {
+    //     let regex = /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\10/u;
+    //     const target = "anilanilanilanilanilanilanilanilanilanil";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000059", () => {
+        let regex = /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\11/;
+        const target = "anilanilanilanilanilanilanilanilanilanil\x09";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000060", () => {
+    //     let regex = /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\11/u;
+    //     const target = "anilanilanilanilanilanilanilanilanilanil";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
