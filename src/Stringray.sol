@@ -1557,11 +1557,11 @@ contract Stringray {
             AtomTrait[] memory atoms = allAtoms;
 
             bool groupExist;
-            uint256 alternationIndex;
+            int256 alternationIndex = -1;
 
             for (uint256 i; i < atoms.length; i++) {
                 if (atoms[i].atomType == ALTERNATION_OPERATOR) {
-                    alternationIndex = i;
+                    alternationIndex = int256(i);
                 }
 
                 if (atoms[i].atomType == GROUP_ATOM) {
@@ -1569,10 +1569,10 @@ contract Stringray {
                     // @BUG🐍: Js allows duplicate capture group names iff they are of different branches i.e.,
                     // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
                     // However, current logic isn't respecting | alternation(or branch)
-                    // @status: not resolved✅
+                    // @status: resolved✅
                     if (
                         !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
-                            && alternationIndex < i
+                            && (alternationIndex < 0 || uint256(alternationIndex) < i)
                     ) {
                         throwError(
                             _orgPattern,

@@ -6519,6 +6519,45 @@ contract PlayStringTest is Test {
         stringray.seeAllAtoms();
     }
 
+    function testRegexDigitBackreferenceCase85() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<x>didi)|(?<x>nehal)\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase86() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<x>didi)|(?<x>nehal)\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase87() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase88() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase89() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<x>didi)\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase90() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>alka)(?<x>didi)\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 

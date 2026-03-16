@@ -6756,6 +6756,48 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+    
+    // test("Digit backreference: Case0000085", () => {
+    //     let regex = /(?<x>alka)(?<x>didi)|(?<x>nehal)\k<x>/;
+    //     const target = "nehalnehal";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // test("Digit backreference: Case0000086", () => {
+    //     let regex = /(?<x>alka)(?<x>didi)|(?<x>nehal)\k<x>/u;
+    //     const target = "nehalnehal";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Digit backreference: Case0000087", () => {
+        let regex = /(?<x>alka)(?<y>didi)\k<x>/;
+        const target = "alkadidialka";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000088", () => {
+        let regex = /(?<x>alka)(?<y>didi)\k<x>/u;
+        const target = "alkadidialka";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    // test("Digit backreference: Case0000089", () => {
+    //     let regex = /(?<x>alka)(?<x>didi)\k<x>/;
+    //     const target = "alkadidialka";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    // test("Digit backreference: Case0000090", () => {
+    //     let regex = /(?<x>alka)(?<x>didi)\k<x>/u;
+    //     const target = "alkadidialka";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();
