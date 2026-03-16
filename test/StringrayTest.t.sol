@@ -6354,6 +6354,58 @@ contract PlayStringTest is Test {
         stringray.seeAllAtoms();
     }
 
+    function testRegexDigitBackreferenceCase61() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>anil)\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase62() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<x>anil)\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase63() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase64() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase65() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase66() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexDigitBackreferenceCase67() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexDigitBackreferenceCase68() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/u";
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 
