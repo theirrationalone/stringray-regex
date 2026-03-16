@@ -6645,12 +6645,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
     
-    // test("Digit backreference: Case0000069", () => {
-    //     let regex = /(?:gutkha)\k<x>/;
-    //     const target = "gutkha";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Digit backreference: Case0000069", () => {
+        let regex = /(?:gutkha)\k<x>/;
+        const target = "gutkha\k<x>";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
     
     // test("Digit backreference: Case0000070", () => {
     //     let regex = /(?:gutkha)\k<x>/u;
@@ -6659,12 +6659,12 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
     
-    // test("Digit backreference: Case0000071", () => {
-    //     let regex = /(?:<x>gutkha)\k<x>/;
-    //     const target = "gutkha";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Digit backreference: Case0000071", () => {
+        let regex = /(?:<x>gutkha)\k<x>/;
+        const target = "<x>gutkha\k<x>";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
     
     // test("Digit backreference: Case0000072", () => {
     //     let regex = /(?:<x>gutkha)\k<x>/u;
@@ -6683,6 +6683,76 @@ const testMain = () => {
     test("Digit backreference: Case0000074", () => {
         let regex = /(?:<x>gutkha)/u;
         const target = "<x>gutkha";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000075", () => {
+        let regex = /(?<x>a)?\k<x>/;
+        const target = "golu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000076", () => {
+        let regex = /(?<x>a)?\k<x>/u;
+        const target = "golu";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000077", () => {
+        let regex = /(?<x>b)?\k<x>/;
+        const target = "alkaDidi";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000078", () => {
+        let regex = /(?<x>b)?\k<x>/u;
+        const target = "alkaDidi";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000079", () => {
+        let regex = /(?<x>alka)|(?<x>didi)\k<x>/;
+        const target = "didididi";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000080", () => {
+        let regex = /(?<x>alka)|(?<x>didi)\k<x>/u;
+        const target = "didididi";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000081", () => {
+        let regex = /(?<x>kamal)+\k<x>/;
+        const target = "kamalkamal";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000082", () => {
+        let regex = /(?<x>kamal)+\k<x>/u;
+        const target = "kamalkamal";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000083", () => {
+        let regex = /(?<x>kamal)|tinku\k<x>/;
+        const target = "tinku";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Digit backreference: Case0000084", () => {
+        let regex = /(?<x>kamal)|tinku\k<x>/u;
+        const target = "kamal";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
