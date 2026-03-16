@@ -6473,10 +6473,10 @@ contract PlayStringTest is Test {
     }
 
     function testRegexDigitBackreferenceCase79() public {
-        // @BUG: Js allows duplicate capture group names iff they are of different branches i.e.,
+        // @BUG🐍: Js allows duplicate capture group names iff they are of different branches i.e.,
         // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
         // However, current logic isn't respecting | alternation(or branch)
-        // @status: not resolved
+        // @status:  resolved✅
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/";
         stringray.regex(target, pattern);
@@ -6486,7 +6486,7 @@ contract PlayStringTest is Test {
         // @BUG: Js allows duplicate capture group names iff they are of different branches i.e.,
         // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
         // However, current logic isn't respecting | alternation(or branch)
-        // @status: not resolved
+        // @status: resolved✅
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/u";
         stringray.regex(target, pattern);

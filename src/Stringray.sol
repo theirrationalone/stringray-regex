@@ -1557,15 +1557,23 @@ contract Stringray {
             AtomTrait[] memory atoms = allAtoms;
 
             bool groupExist;
+            uint256 alternationIndex;
 
             for (uint256 i; i < atoms.length; i++) {
+                if (atoms[i].atomType == ALTERNATION_OPERATOR) {
+                    alternationIndex = i;
+                }
+
                 if (atoms[i].atomType == GROUP_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
-                    // @BUG: Js allows duplicate capture group names iff they are of different branches i.e.,
+                    // @BUG🐍: Js allows duplicate capture group names iff they are of different branches i.e.,
                     // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
                     // However, current logic isn't respecting | alternation(or branch)
-                    // @status: not resolved
-                    if (!checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))) {
+                    // @status: not resolved✅
+                    if (
+                        !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
+                            && alternationIndex < i
+                    ) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
