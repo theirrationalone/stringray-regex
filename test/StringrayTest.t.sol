@@ -597,29 +597,37 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase14() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\000/u";
+
+        // @Error:  SyntaxError: Invalid regular expression: /\000/u: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase15() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\118/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\118/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase16() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\988/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\988/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase17() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\0988/u";
+
+        // @Error:  SyntaxError: Invalid regular expression: /\0988/u: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -639,8 +647,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase20() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\_/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\_/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -653,8 +663,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase22() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\!/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\!/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -681,8 +693,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase26() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\u/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u/u: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -691,7 +705,7 @@ contract PlayStringTest is Test {
 
         // @NOTE: Doesn't either Throw error or fail silently.
         // Exclusive to solidity, not in Js whatsoever, Js makes it silently fail [returns null or false accordingly]
-        // In solidity, \c matches with c literal
+        // In solidity, \c matches with nothing and returns null on match
         string memory pattern = unicode"/\\c/";
         stringray.regex(target, pattern);
     }
@@ -700,6 +714,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         // @NOTE: Common in both Solidity & Js, Throws error
         string memory pattern = unicode"/\\c/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\c/u: Invalid Unicode Escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -740,15 +757,19 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase34() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\c1/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\c1/u: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase35() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\u{23,20}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u{23,20}/: numbers out of order in {} quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -803,8 +824,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase43() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{1}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /{1}/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -838,8 +861,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase48() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\u123/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u123/u: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -866,44 +891,56 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase52() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\u1/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u1/u: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase53() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\u12/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u12/u: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase54() public {
         string memory target = "anything";
-
         // @NOTE: Throws different error msg than Js therefore (exclusive to solidity)
         string memory pattern = unicode"/[abc/";
+
+        // @Error: SyntaxError: Invalid regular expression: /[abc/: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase55() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(abc/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(abc/: Unterminated group
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase56() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(?<1>a)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<1>a)/: Invalid capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase57() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(?<a-b>a)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<a-b>a)/: Invalid capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -916,10 +953,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase59() public {
         string memory target = "anything";
-
-        // @BUG found
-        // @Status: not resolved, missing captured group functionality
         string memory pattern = unicode"/\\k<a>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\k<a>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
