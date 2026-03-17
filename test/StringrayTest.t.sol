@@ -983,15 +983,19 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase63() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\p{XYZ}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p{XYZ}/u Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsEscapeSeqsCase64() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{122222}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /{122222}/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1004,8 +1008,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase66() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /{}/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1018,8 +1024,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase68() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /{/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1032,8 +1040,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase70() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{,11}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /{,11}/u Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1046,8 +1056,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase72() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /}/u Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1088,8 +1100,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase78() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/1}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /1}/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1102,8 +1116,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase80() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/123424}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /123424}/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1130,8 +1146,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase84() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/1234,24}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /1234,24}/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1144,8 +1162,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase86() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\p{}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p{}/u Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1158,8 +1178,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase88() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\p{=LETTER}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p{=LETTER}/u Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1172,8 +1194,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsEscapeSeqsCase90() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\p{g=LETTER}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p{g=LETTER}/u Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
