@@ -1163,13 +1163,6 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Character Classes[]: Case0006", () => {
-    //     let regex = /raa/]df/;
-    //     const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
-
     // test("Character Classes[]: Case0007", () => {
     //     let regex = /[abc/;
     //     const target = "[abc";
