@@ -204,10 +204,12 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/a\\/b/";
         stringray.regex(target, pattern);
 
-        // pattern = unicode"/a\\\\/b/";
-        // stringray.regex(target, pattern);
+        pattern = unicode"/a\\\\/b/";
+        vm.expectRevert();
+        stringray.regex(target, pattern);
 
         pattern = unicode"/a/b/";
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
