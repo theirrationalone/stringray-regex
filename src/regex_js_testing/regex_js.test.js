@@ -142,8 +142,10 @@ const testMain = () => {
     });
 
     test("Regex-Literals: Case11", () => {
-        // let regex = /\u{110000}/;
-        // assert.strictEqual(regex.test("\u{110000}"), true);
+        let regex = /\u{110000}/;
+        const target = "u{110000}";
+        console.log("targettttttttttttttttttttttttttttt: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
     });
 
     // test("Regex-Literals: Case12", () => {

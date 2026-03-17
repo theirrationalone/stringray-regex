@@ -956,6 +956,11 @@ contract Stringray {
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
 
+            console2.log("---------------------ATOM_TYPE---------------------");
+            console2.log("Atom: ", string(atom));
+            printAtomType(atomType);
+            console2.log("---------------------");
+
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
         }
@@ -2336,7 +2341,7 @@ contract Stringray {
                     && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
                     && patternLastChar != SMALL_y
             ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "", bytes1(0));
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
             }
         }
 
@@ -2412,8 +2417,6 @@ contract Stringray {
                         continue;
                     }
 
-                    string memory errorMsg;
-
                     if (
                         (openSquareBracketIdx == 0 && closeSquareBracketIdx == 0)
                             || (openSquareBracketIdx != 0 && closeSquareBracketIdx == 0)
@@ -2431,9 +2434,8 @@ contract Stringray {
                                 bytes1(0)
                             );
                         } else {
-                            errorMsg = string(abi.encodePacked("SyntaxError: Invalid regular expression flags"));
                             throwError(
-                                abi.encodePacked(""), "SyntaxError: Invalid regular expression flags", "", bytes1(0)
+                                patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0)
                             );
                         }
                     }
@@ -2443,8 +2445,6 @@ contract Stringray {
                             abi.encodePacked(""), "SyntaxError: Invalid regular expression", ": missing /", bytes1(0)
                         );
                     }
-
-                    revert(errorMsg);
                 }
             }
         }
@@ -2456,8 +2456,13 @@ contract Stringray {
     {
         string memory errorLeft = _errorLeft;
         string memory errorRight = _errorRight;
+        bool rmvFlag = keccak256(bytes(errorRight)) == keccak256("rmv");
 
-        errorRight = string(abi.encodePacked("/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, _errorRight));
+        errorRight = string(
+            abi.encodePacked(
+                rmvFlag ? "" : "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, rmvFlag ? "" : _errorRight
+            )
+        );
 
         string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
         revert(errorMsg);

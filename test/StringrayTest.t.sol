@@ -123,13 +123,6 @@ contract PlayStringTest is Test {
     function testRegexLiteralsCase5() public {
         string memory target = "anything";
 
-        string memory pattern = unicode"/\\x4/";
-        stringray.regex(target, pattern);
-    }
-
-    function testRegexLiteralsCase6() public {
-        string memory target = "anything";
-
         // @Note: \u0061 or any valid sequence with \uHHHH would be interpolated as a hexadecimal character
         // automatically (builtin capability of solidity)
         // So, for \uHHHH explicit support we do escape the backspace with preceding backslash \ followed by a backslash \
@@ -139,22 +132,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
+    function testRegexLiteralsCase6() public {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/\\u{1F600}/u";
+        stringray.regex(target, pattern);
+    }
+
     function testRegexLiteralsCase7() public {
-        string memory target = "anything";
-
-        string memory pattern = unicode"/\\u61/";
-        stringray.regex(target, pattern);
-    }
-
-    function testRegexLiteralsCase8() public {
-        string memory target = "anything";
-
-        // @Note: solidity doesn't support vanila unicode escape \u{HHHHH}
-        string memory pattern = unicode"/\\u{1F600}/";
-        stringray.regex(target, pattern);
-    }
-
-    function testRegexLiteralsCase9() public {
         string memory target = "anything";
 
         // @Note: solidity has newline \n support
@@ -206,21 +191,38 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexLiteralsCase10() public {
+    function testRegexLiteralsCase8() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/\\//";
         stringray.regex(target, pattern);
     }
 
-    function testRegexLiteralsCase11() public {
+    function testRegexLiteralsCase9() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/a\\/b/";
         stringray.regex(target, pattern);
 
-        // pattern = unicode"/a/b/";
-        pattern = unicode"/a\\\\/b/";
+        // pattern = unicode"/a\\\\/b/";
+        // stringray.regex(target, pattern);
+
+        pattern = unicode"/a/b/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsCase10() public {
+        string memory target = "anything";
+
+        string memory pattern = unicode"/ab/\\";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsCase11() public {
+        string memory target = "anything";
+
+        // @Note: solidity doesn't support vanila unicode escape \u{HHHHH}
+        string memory pattern = unicode"/\\u{1F600}/";
         stringray.regex(target, pattern);
     }
 
