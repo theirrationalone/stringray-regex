@@ -205,18 +205,24 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
 
         pattern = unicode"/a\\\\/b/";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /a\\/b/
         vm.expectRevert();
         stringray.regex(target, pattern);
 
         pattern = unicode"/a/b/";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /a/b/
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase10() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/ab/\\";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /ab/\
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -256,6 +262,9 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
 
         pattern = unicode"/b/\\";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /b/\
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -305,15 +314,19 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase17() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/{/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /{/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase18() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/0,1}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /0,1}/u: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -354,36 +367,46 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase24() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(/: Unterminated group
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase25() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /)/: Unmatched ')'
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase26() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[aa/";
+
+        // @Error: SyntaxError: Invalid regular expression: /[aa/: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase27() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /]/u: Lone Character class brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexLiteralsCase28() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/?/";
+
+        // @Error: SyntaxError: Invalid regular expression: /?/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -396,8 +419,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase30() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/+/";
+
+        // @Error: SyntaxError: Invalid regular expression: /+/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -410,8 +435,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase32() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/*/";
+
+        // @Error: SyntaxError: Invalid regular expression: /*/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -424,8 +451,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase34() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/a???/";
+
+        // @Error: SyntaxError: Invalid regular expression: /a???/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -438,8 +467,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase36() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/a+??/";
+
+        // @Error: SyntaxError: Invalid regular expression: /a+??/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -452,8 +483,10 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase38() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/a*??/";
+
+        // @Error: SyntaxError: Invalid regular expression: /a*??/: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 

@@ -235,21 +235,21 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Regex-Literals: Case24", () => {
-        // let regex = /(/;
-        let regex = /()/;
-        const target = "(";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Regex-Literals: Case24", () => {
+    //     // let regex = /(/;
+    //     let regex = /(/;
+    //     const target = "(";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
-    test("Regex-Literals: Case25", () => {
-        // let regex = /)/;
-        let regex = /()/;
-        const target = ")";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Regex-Literals: Case25", () => {
+    //     // let regex = /)/;
+    //     let regex = /)/;
+    //     const target = ")";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     test("Regex-Literals: Case26", () => {
         // let regex = /[acw/;
