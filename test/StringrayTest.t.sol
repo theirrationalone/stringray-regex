@@ -7174,16 +7174,13 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)|(?<x>didi)\k<x>/: Duplicate capture group name
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase80() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/u";
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)|(?<x>didi)\k<x>/u: Duplicate capture group name
-        vm.expectRevert();
+
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }

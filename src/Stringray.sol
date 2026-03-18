@@ -1335,14 +1335,9 @@ contract Stringray {
             AtomTrait[] memory atoms = allAtoms;
 
             bool groupExist;
-            int256 alternationIndex = -1;
             uint256 numCaptureName;
 
             for (uint256 i; i < atoms.length; i++) {
-                if (atoms[i].atomType == ALTERNATION_OPERATOR) {
-                    alternationIndex = int256(i);
-                }
-
                 if (atoms[i].atomType == GROUP_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
 
@@ -1357,16 +1352,32 @@ contract Stringray {
                     }
 
                     // @BUG: duplicate dilema
-                    if (
-                        !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
-                            && (alternationIndex < 0 || uint256(alternationIndex) < i)
-                    ) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Duplicate capture group name",
-                            _patternFlag
-                        );
+                    if (!checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))) {
+                        bool alternationExist;
+                        for (uint256 j = atoms.length - 1; j >= 0; j--) {
+                            if (atoms[j].atomType == ALTERNATION_OPERATOR) {
+                                alternationExist = true;
+                                if (j < i) {
+                                    throwError(
+                                        _orgPattern,
+                                        "SyntaxError: Invalid regular expression: /",
+                                        ": Duplicate capture group name",
+                                        _patternFlag
+                                    );
+                                }
+                            }
+
+                            if (j == 0) break;
+                        }
+
+                        if (!alternationExist) {
+                            throwError(
+                                _orgPattern,
+                                "SyntaxError: Invalid regular expression: /",
+                                ": Duplicate capture group name",
+                                _patternFlag
+                            );
+                        }
                     }
 
                     if (checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))) {
