@@ -3731,13 +3731,13 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    // test("Groups(): Case0000174", () => {
-    //     // let regex =( /a^sian)/;
-    //     let regex = /(\k<a>)/;
-    //     const target = "k<a>";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Groups(): Case0000174", () => {
+        // let regex =( /a^sian)/;
+        let regex = /(\k<a>)/;
+        const target = "k<a>";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Groups(): Case0000175", () => {
     //     // let r(egex = /a^sian)/;
@@ -4438,8 +4438,6 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
-
-    // @Last: 08 March 2026, Sun 10:05 IST, Tested last above
 
     test("Groups(): Case0000269", () => {
         let regex = /([(a)\1])/;

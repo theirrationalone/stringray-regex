@@ -3436,6 +3436,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/([])/u";
 
+        // @NOTE: This error is exclusive to solidity only, Js forgives
+
         // @Error: SyntaxError: Invalid regular expression: /([])/u: Empty Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
@@ -4755,8 +4757,6 @@ contract PlayStringTest is Test {
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
-
-    // @Last: 08 March 2026, Sun 10:05 IST, Tested last above
 
     function testRegexGroupsCase269() public {
         string memory target = "anything";
@@ -6611,6 +6611,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase4() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\1/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\1/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6624,6 +6627,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase6() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\2/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\2/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6637,6 +6643,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase8() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\3/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\3/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6650,6 +6659,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase10() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\4/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\4/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6663,6 +6675,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase12() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\5/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\5/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6676,6 +6691,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase14() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\6/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\6/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6689,6 +6707,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase16() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\7/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\7/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6702,6 +6723,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase18() public {
         string memory target = "anything";
         string memory pattern = unicode"/\\8/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\8/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6714,7 +6738,10 @@ contract PlayStringTest is Test {
 
     function testRegexDigitBackreferenceCase20() public {
         string memory target = "anything";
+
         string memory pattern = unicode"/\\9/u";
+        // @Error: SyntaxError: Invalid regular expression: /\9/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6754,6 +6781,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase26() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\2/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\2/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6767,6 +6797,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase28() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\3/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\3/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6780,6 +6813,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase30() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\4/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\4/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6793,6 +6829,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase32() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\5/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\5/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6806,6 +6845,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase34() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\6/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\6/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6818,6 +6860,9 @@ contract PlayStringTest is Test {
 
     function testRegexDigitBackreferenceCase36() public {
         string memory target = "anything";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\7/u: Invalid escape
+        vm.expectRevert();
         string memory pattern = unicode"/(anil)\\7/u";
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
@@ -6832,6 +6877,8 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase38() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\8/u";
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\8/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6845,6 +6892,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase40() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)\\9/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)\9/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6962,6 +7012,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase58() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\10/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\10/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6975,6 +7028,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase60() public {
         string memory target = "anything";
         string memory pattern = unicode"/(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\\11/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)(anil)\11/u: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6982,12 +7038,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase61() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>anil)\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>anil)\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase62() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>anil)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>anil)\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -6995,12 +7057,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase63() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<outer>nehal(?<inner>anil))\k<outer>\k<inner>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase64() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<outer>nehal(?<inner>anil))\k<outer>\k<inner>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7008,12 +7076,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase65() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>abc))\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase66() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>abc))\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7021,17 +7095,22 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase67() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=(?<x>a))b\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase68() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=(?<x>a))b\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
 
-    // start
     function testRegexDigitBackreferenceCase69() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?:gutkha)\\k<x>/";
@@ -7041,6 +7120,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase70() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?:gutkha)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?:gutkha)\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7054,6 +7136,9 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase72() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?:<x>gutkha)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?:<x>gutkha)\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7074,12 +7159,19 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase75() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>a)?\\k<x>/";
+        // @BUG🐍: throwing even for valid existing capture group name
+        // @Status: not fixed
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>a)?\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase76() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>a)?\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>a)?\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7087,33 +7179,36 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase77() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>b)?\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>b)?\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase78() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>b)?\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>b)?\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
 
     function testRegexDigitBackreferenceCase79() public {
-        // @BUG🐍: Js allows duplicate capture group names iff they are of different branches i.e.,
-        // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
-        // However, current logic isn't respecting | alternation(or branch)
-        // @status:  resolved✅
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)|(?<x>didi)\k<x>/: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase80() public {
-        // @BUG: Js allows duplicate capture group names iff they are of different branches i.e.,
-        // /(?<x>nehal)|(?<x>drishti)\k<x>/ <- allowed
-        // However, current logic isn't respecting | alternation(or branch)
-        // @status: resolved✅
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)|(?<x>didi)\\k<x>/u";
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)|(?<x>didi)\k<x>/u: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7121,12 +7216,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase81() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)+\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)+\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase82() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)+\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)+\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7134,12 +7235,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase83() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)|tinku\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)|tinku\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase84() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)|tinku\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)|tinku\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7147,12 +7254,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase85() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<x>didi)|(?<x>nehal)\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<x>didi)|(?<x>nehal)\k<x>/: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase86() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<x>didi)|(?<x>nehal)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<x>didi)|(?<x>nehal)\k<x>/u: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7160,12 +7273,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase87() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<y>didi)\k<x>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase88() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<y>didi)\k<x>/u: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7173,12 +7292,18 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase89() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<x>didi)\\k<x>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<x>didi)\k<x>/: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexDigitBackreferenceCase90() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<x>didi)\\k<x>/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<x>didi)\k<x>/u: Duplicate capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
