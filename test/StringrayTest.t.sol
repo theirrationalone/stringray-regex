@@ -1810,6 +1810,7 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/[(?<a>a)\\k<a>]/";
         stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
     }
 
     function testRegexCharacterClassesCase76() public {
@@ -1824,11 +1825,8 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase77() public {
         string memory target = "anything";
 
-        // @NOTE: it's different here...
-        //  According to Js regex, if there's any group exist then \k always first tries
-        // reference the group name, if no associated group reference found then
-        // engine throws error: Invalid escape
-        // @STATUS: missing \k complete funcitonality, yet to get implemented
+        // @BUG: not throwing error
+        // @Status: not resolved
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/";
         stringray.regex(target, pattern);
     }

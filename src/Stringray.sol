@@ -1347,6 +1347,10 @@ contract Stringray {
                         !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
                             && (alternationIndex < 0 || uint256(alternationIndex) < i)
                     ) {
+                        // @BUG: If there are capture groups and \k<name> is inside character class i.e.
+                        // /(?<a>a)[\k<a>]/, no matter name matches or not at least there's at least a capture
+                        // group exist, then, in that case, pattern should throw error.
+                        // @Status: not resolved!
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
