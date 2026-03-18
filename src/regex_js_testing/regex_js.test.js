@@ -1870,12 +1870,12 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    // test("Character Classes[]: Case000103", () => {
-    //     let regex = /\c_/;
-    //     const target = "c_";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Character Classes[]: Case000103", () => {
+        let regex = /\c_/;
+        const target = "c_";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
 
     // test("Character Classes[]: Case000104", () => {
     //     let regex = /\c_/u;

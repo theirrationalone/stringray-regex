@@ -1834,10 +1834,6 @@ contract PlayStringTest is Test {
 
     function testRegexCharacterClassesCase78() public {
         string memory target = "anything";
-
-        // @NOTE: Throwing error as expected.
-        // @CAUTION: Working as expected doesn't mean working well and accurately
-        // still missing funcitonality
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/u";
 
         // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/u: Invalid Escape
@@ -1863,8 +1859,6 @@ contract PlayStringTest is Test {
 
     function testRegexCharacterClassesCase81() public {
         string memory target = "anything";
-
-        // @NOTE: Same case as of Case77
         string memory pattern = unicode"/(?<b>a)\\k<a>/";
 
         // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/: Invalid named capture referenced
@@ -1874,10 +1868,6 @@ contract PlayStringTest is Test {
 
     function testRegexCharacterClassesCase82() public {
         string memory target = "anything";
-
-        // @NOTE: Here we can distinguish this case with case78
-        // Here, it's not throwing error unexpectedly
-        // @REASON: Missing \k complete functionality
         string memory pattern = unicode"/(?<b>a)\\k<a>/u";
 
         // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/u: Invalid named capture referenced
@@ -1993,8 +1983,6 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase96() public {
         string memory target = "anything";
 
-        // @BUG: throwing invalid escape error...
-        // @STATUS: RESOLVED!
         string memory pattern = unicode"/[\\^-\\$]/u";
 
         // @Error: SyntaxError: Invalid regular expression: /[\^-\$]/u: Range out of order in character class
@@ -2012,8 +2000,6 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase98() public {
         string memory target = "anything";
 
-        // @BUG: throwing invalid escape error...
-        // @STATUS: RESOLVED!
         string memory pattern = unicode"/[\\$-\\^]/u";
         stringray.regex(target, pattern);
     }
