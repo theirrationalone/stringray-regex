@@ -1356,6 +1356,7 @@ contract Stringray {
                         );
                     }
 
+                    // @BUG: duplicate dilema
                     if (
                         !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
                             && (alternationIndex < 0 || uint256(alternationIndex) < i)
@@ -1376,7 +1377,7 @@ contract Stringray {
             }
 
             if (checkExist) {
-                if ((!groupExist && uint8(_patternFlag) == SMALL_u) || numCaptureName > 0) {
+                if (!groupExist && (uint8(_patternFlag) == SMALL_u || numCaptureName > 0)) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -1392,7 +1393,7 @@ contract Stringray {
         return false;
     }
 
-    function getCaptureGroupName(bytes memory _atom) private returns (bytes memory) {
+    function getCaptureGroupName(bytes memory _atom) private pure returns (bytes memory) {
         bytes memory captureName;
         if (uint8(_atom[1]) == QUESTION_MARK && uint8(_atom[2]) == LESS_THAN_SIGN) {
             uint256 captureNameLastIndex;

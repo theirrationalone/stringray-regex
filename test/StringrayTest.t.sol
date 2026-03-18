@@ -7039,8 +7039,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>anil)\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>anil)\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7048,8 +7046,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>anil)\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>anil)\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7058,8 +7054,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<outer>nehal(?<inner>anil))\k<outer>\k<inner>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7067,8 +7061,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<outer>nehal(?<inner>anil))\\k<outer>\\k<inner>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<outer>nehal(?<inner>anil))\k<outer>\k<inner>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7077,8 +7069,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>abc))\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7086,8 +7076,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>abc))\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>abc))\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7096,8 +7084,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<=(?<x>a))b\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7105,8 +7091,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(?<x>a))b\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<=(?<x>a))b\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7159,10 +7143,7 @@ contract PlayStringTest is Test {
     function testRegexDigitBackreferenceCase75() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>a)?\\k<x>/";
-        // @BUG🐍: throwing even for valid existing capture group name
-        // @Status: not fixed
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>a)?\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
+
         stringray.regex(target, pattern);
     }
 
@@ -7170,8 +7151,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>a)?\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>a)?\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7180,8 +7159,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>b)?\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>b)?\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7189,8 +7166,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>b)?\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>b)?\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7217,8 +7192,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)+\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)+\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7226,8 +7199,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)+\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)+\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7236,8 +7207,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)|tinku\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)|tinku\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7245,8 +7214,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>kamal)|tinku\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>kamal)|tinku\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7274,8 +7241,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<y>didi)\k<x>/: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7283,8 +7248,6 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<x>alka)(?<y>didi)\\k<x>/u";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<x>alka)(?<y>didi)\k<x>/u: Invalid named capture referenced
-        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
