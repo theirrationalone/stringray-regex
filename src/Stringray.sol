@@ -951,7 +951,7 @@ contract Stringray {
 
             if (!fromGroup || atomType == GROUP_ATOM) {
                 if (atomType == GROUP_ATOM) {
-                    isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlag, false);
+                    isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlag, false, false);
                 }
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
@@ -1320,6 +1320,7 @@ contract Stringray {
         bytes memory _atom,
         bytes memory _orgPattern,
         bytes1 _patternFlag,
+        bool fromCharacterClass,
         bool checkExist
     ) private returns (bool) {
         bytes memory newCaptureName;
@@ -1335,6 +1336,7 @@ contract Stringray {
 
             bool groupExist;
             int256 alternationIndex = -1;
+            uint256 numCaptureName;
 
             for (uint256 i; i < atoms.length; i++) {
                 if (atoms[i].atomType == ALTERNATION_OPERATOR) {
@@ -1343,14 +1345,21 @@ contract Stringray {
 
                 if (atoms[i].atomType == GROUP_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
+
+                    if (existingCaptureName.length > 0) {
+                        numCaptureName++;
+                    }
+
+                    if (existingCaptureName.length > 0 && fromCharacterClass) {
+                        throwError(
+                            _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlag
+                        );
+                    }
+
                     if (
                         !checkExist && (keccak256(existingCaptureName) == keccak256(newCaptureName))
                             && (alternationIndex < 0 || uint256(alternationIndex) < i)
                     ) {
-                        // @BUG: If there are capture groups and \k<name> is inside character class i.e.
-                        // /(?<a>a)[\k<a>]/, no matter name matches or not at least there's at least a capture
-                        // group exist, then, in that case, pattern should throw error.
-                        // @Status: not resolved!
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
@@ -1366,8 +1375,8 @@ contract Stringray {
                 }
             }
 
-            if (checkExist && !groupExist) {
-                if (uint8(_patternFlag) == SMALL_u) {
+            if (checkExist) {
+                if ((!groupExist && uint8(_patternFlag) == SMALL_u) || numCaptureName > 0) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -17930,7 +17939,7 @@ contract Stringray {
                 }
 
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(
-                    _pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromGroup
+                    _pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromCharacterClass, fromGroup
                 );
 
                 if (isValid) {
@@ -18058,6 +18067,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _indexToStartFrom,
         bytes1 _patternFlag,
+        bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
@@ -18072,8 +18082,9 @@ contract Stringray {
                     for (uint256 i = _indexToStartFrom + 4; i <= patternLastIndex; i++) {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             bytes memory groupName = trimString(_pattern, _indexToStartFrom + 3, int256(i - 1));
-                            bool isValidRef =
-                                isDuplicateOrExistingCaptureGroupName(groupName, _orgPattern, _patternFlag, true);
+                            bool isValidRef = isDuplicateOrExistingCaptureGroupName(
+                                groupName, _orgPattern, _patternFlag, fromCharacterClass, true
+                            );
 
                             if (isValidRef) {
                                 return (true, i);

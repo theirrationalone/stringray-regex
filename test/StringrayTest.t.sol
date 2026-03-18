@@ -1825,9 +1825,10 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesCase77() public {
         string memory target = "anything";
 
-        // @BUG: not throwing error
-        // @Status: not resolved
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/: Invalid Escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -1865,6 +1866,9 @@ contract PlayStringTest is Test {
 
         // @NOTE: Same case as of Case77
         string memory pattern = unicode"/(?<b>a)\\k<a>/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
