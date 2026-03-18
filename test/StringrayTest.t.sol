@@ -2659,17 +2659,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase7() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(abcd/ghij)/";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /(abcd/ghij)/
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase8() public {
         string memory target = "anything";
-
-        // @BUG: not throwing error in u mode
-        // @Status: Fixed ✅
         string memory pattern = unicode"/(abcd/ghij)/u";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /(abcd/ghij)/u
         stringray.regex(target, pattern);
     }
 
@@ -2696,8 +2696,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase12() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -2710,8 +2711,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase14() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\e\\j\\k\\l\\m\\o\\y\\z)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\e\j\k\l\m\o\y\z)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -2724,8 +2726,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase16() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\-\\g\\h\\i\\j)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\-\g\h\i\j)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -2738,8 +2741,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase18() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\/\\g\\h\\i\\j)/u";
+
+        // @Error: Invalid regular expression: /(\a\/\g\h\i\j)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -2752,8 +2756,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase20() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\!\\@\\#\\%\\=\\'\\;\\:\\>\\<\\.\\,\\~\\`\\\"\\&\\g\\h\\i\\j)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\!\@\#\%\=\'\;\:\>\<\.\,\~\`\"\&\g\h\i\j)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -3295,15 +3300,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase83() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(a/b)/";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /(a/b)/
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase84() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(ab)/\\";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /(ab)/\
         stringray.regex(target, pattern);
     }
 
@@ -3400,25 +3407,25 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase98() public {
         string memory target = "anything";
-
-        // @info: inconsistent error msgs
         string memory pattern = unicode"/(()/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(()/: Unterminated group
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase99() public {
         string memory target = "anything";
-
-        // @info: inconsistent error msgs
         string memory pattern = unicode"/())/";
+
+        // @Error: SyntaxError: Invalid regular expression: /())/: Unmatched ')'
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase100() public {
         string memory target = "anything";
-
-        // @info: inconsistent error msgs
         string memory pattern = unicode"/([])/u";
+
+        //@Error: SyntaxError: Invalid regular expression: /([])/u: Empty Character class
         stringray.regex(target, pattern);
     }
 
@@ -3431,15 +3438,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase102() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([])/: Empty Character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase103() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(?)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?)/: Invalid group
         stringray.regex(target, pattern);
     }
 
@@ -3452,8 +3461,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase105() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(+)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(+)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3466,8 +3476,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase107() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(*)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(*)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3494,8 +3505,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase109() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(a???)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(a???)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3508,8 +3520,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase111() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(a+??)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(a+??)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3522,8 +3535,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase113() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(a*??)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(a*??)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3543,8 +3557,6 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase116() public {
         string memory target = "anything";
-        // @BUG🐍: returning complete \08 as null character
-        // @sttus: Fixed✅
         string memory pattern = unicode"/(\\08)/";
         stringray.regex(target, pattern);
     }
@@ -3628,8 +3640,6 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase128() public {
         string memory target = "anything";
-        // @BUG: returning complete \08 as null character
-        // @Status: Fixed ✅
         string memory pattern = unicode"/(\\08)/";
         stringray.regex(target, pattern);
     }
@@ -3643,32 +3653,33 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase130() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\000)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\000)/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase131() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\118)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\118)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase132() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\988)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\988)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase133() public {
         string memory target = "anything";
-
-        // @BUG: not throwing error: Invalid decimal escape, in both cases literal and group
-        // string memory pattern = unicode"/\\0988/u";
-        // @Status: Fixed ✅
         string memory pattern = unicode"/(\\0988)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\0988)/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -3688,8 +3699,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase136() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\_)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\_)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -3702,8 +3714,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase138() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\!)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\!)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -3730,8 +3743,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase142() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u)/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
@@ -3744,8 +3758,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase144() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\c)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\c)/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
@@ -3786,15 +3801,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase150() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\c1)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\c1)/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase151() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u{23,20})/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u{23,20})/: numbers out of order in {} quantifier
         stringray.regex(target, pattern);
     }
 
@@ -3849,8 +3866,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase159() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({1})/";
+
+        // @Error: SyntaxError: Invalid regular expression: /({1})/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -3884,8 +3902,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase164() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u123)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u123)/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
@@ -3912,15 +3931,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase168() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u1)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u1)/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase169() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u12)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u12)/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
@@ -3929,27 +3950,32 @@ contract PlayStringTest is Test {
 
         // @NOTE: Throws different error msg than Js therefore (exclusive to solidity)
         string memory pattern = unicode"/([abc)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([abc)/: Unterminated Character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase171() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/((abc)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /((abc)/: Unterminated group
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase172() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/((?<1>a))/";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<1>a))/: Invalid capture group name
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase173() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/((?<a-b>a))/";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<a-b>a))/: Invalid capture group name
         stringray.regex(target, pattern);
     }
 
@@ -3962,8 +3988,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase175() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\k<a>)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\k<a>)/u: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
@@ -3990,15 +4017,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase179() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\p{XYZ})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\p{XYZ})/u Invalid property name
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase180() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({122222})/";
+
+        // @Error: SyntaxError: Invalid regular expression: /({122222})/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -4011,8 +4040,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase182() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /({})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4025,8 +4055,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase184() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /({)/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4039,8 +4070,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase186() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({,11})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /({,11})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4053,8 +4085,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase188() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4095,8 +4128,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase194() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(1})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(1})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4109,8 +4143,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase196() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(123424})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(123424})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4137,8 +4172,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase200() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(1234,24})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(1234,24})/u: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -4151,8 +4187,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase202() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\p{})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\p{})/u Invalid property name
         stringray.regex(target, pattern);
     }
 
@@ -4165,8 +4202,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase204() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\p{=LETTER})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\p{=LETTER})/u Invalid property name
         stringray.regex(target, pattern);
     }
 
@@ -4179,8 +4217,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase206() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\p{g=LETTER})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\p{g=LETTER})/u Invalid property name
         stringray.regex(target, pattern);
     }
 
@@ -4193,22 +4232,24 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase208() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\p{gc=Letter})/u";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase209() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([])/: Empty Character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase210() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([])/u: Empty Character class
         stringray.regex(target, pattern);
     }
 
@@ -4242,15 +4283,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase215() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([abc)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([abc)/: Unterminated Character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase216() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([abc)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([abc)/u: Unterminated Character class
         stringray.regex(target, pattern);
     }
 
@@ -4284,15 +4327,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase221() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([z-a])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([z-a])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase222() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([z-a])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([z-a])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -4305,8 +4350,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase224() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a-\\d])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([a-\d])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4319,8 +4365,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase226() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\d-a])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\d-a])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4333,22 +4380,24 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase228() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a-\\w])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([a-\w])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase229() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\w-a])/";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase230() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\w-a])/u";
+
+        // // @Error: SyntaxError: Invalid regular expression: /([\w-a])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4361,8 +4410,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase232() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\w-\\d])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\w-\d])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4375,8 +4425,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase234() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\d-\\w])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\d-\w])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4389,8 +4440,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase236() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\d-\\d])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\d-\d])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4403,8 +4455,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase238() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\w-\\w])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\w-\w])/u: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -4452,15 +4505,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase245() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a--z])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([a--z])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase246() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a--z])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([a--z])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -4487,11 +4542,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase250() public {
         string memory target = "anything";
-
-        // @BUG: throws: Invalid escape for literal escape \8 and Invalid decimal escape for cc [\8]
-        // However, should always throw Invalid escape
-        // @Status: Fixed ✅
         string memory pattern = unicode"/([\\8])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\8])/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -4504,8 +4557,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase252() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\u123])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\u123])/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
@@ -4525,15 +4579,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase255() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\])/: Unterminated Character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase256() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\])/u: Unterminated Character class
         stringray.regex(target, pattern);
     }
 
@@ -4560,8 +4616,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase260() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\00])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\00])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -4574,8 +4631,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase262() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\000])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\000])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -4588,8 +4646,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase264() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\377])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\377])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -4602,23 +4661,23 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase266() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\1])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\1])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase267() public {
         string memory target = "anything";
-        // @BUG: not supporting nested groups
-        // @Status: Fixed ✅
         string memory pattern = unicode"/((a)[\\1])/";
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase268() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/((a)[\\1])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /((a)[\1])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -4633,8 +4692,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase270() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([(a)\\1])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([(a)\1])/u: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
@@ -4661,8 +4721,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase274() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\p{}])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\p{}])/u Invalid property name in character class
         stringray.regex(target, pattern);
     }
 
@@ -4675,8 +4736,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase276() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\p{LETTER}])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\p{LETTER}])/u Invalid property name in character class
         stringray.regex(target, pattern);
     }
 
@@ -4703,8 +4765,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase280() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\xg1])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\xg1])/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -4717,8 +4780,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase282() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\k])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\k])/u: Invalid Escape
         stringray.regex(target, pattern);
     }
 
@@ -4731,24 +4795,25 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase284() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([(?<a>a)\\k<a>])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([(?<a>a)\k<a>])/u: Invalid Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase285() public {
         string memory target = "anything";
-
-        // @BUG: NOT throwing error
-        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<a>a)[\\k<a>])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<a>a)[\k<a>])/: Invalid Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase286() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/((?<a>a)[\\k<a>])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<a>a)[\k<a>])/u: Invalid Escape
         stringray.regex(target, pattern);
     }
 
@@ -4759,28 +4824,26 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    // function testRegexGroupsCase288() public {
-    //     string memory target = "anything";
+    function testRegexGroupsCase288() public {
+        string memory target = "anything";
 
-    //     string memory pattern = unicode"/([\\k<a>])/u";
-    //     stringray.regex(target, pattern);
-    // }
+        string memory pattern = unicode"/([\\k<a>])/u";
+        stringray.regex(target, pattern);
+    }
 
     function testRegexGroupsCase289() public {
         string memory target = "anything";
-
-        // @BUG: NOT throwing error
-        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<b>a)\\k<a>)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<b>a)\k<a>)/: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase290() public {
         string memory target = "anything";
-
-        // @BUG: NOT throwing error
-        // @reason: currently missing group reference validation functionality
         string memory pattern = unicode"/((?<b>a)\\k<a>)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /((?<b>a)\k<a>)/u: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
@@ -4800,29 +4863,33 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase293() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([🧪-✅])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([🧪-✅])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase294() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([🧪-✅])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([🧪-✅])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase295() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([€-क])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([€-क])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase296() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([€-क])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([€-क])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -4856,29 +4923,33 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase301() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\uc295-\\uc290])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\uc295-\uc290])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase302() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\uc295-\\uc290])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\uc295-\uc290])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase303() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\^-\\$])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\^-\$])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase304() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\^-\\$])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\^-\$])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -4898,46 +4969,48 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase307() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\c-b])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\c-b])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase308() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\c-b])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([\c-b])/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase309() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([b-\\c])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([b-\c])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase310() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([b-\\c])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([b-\c])/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase311() public {
         string memory target = "anything";
-
-        // @info: not recognizing the atom \c_ therefore marking atom as an INVALID ATOM.
-        // @follow-up: Required to be verified!
-        // @status: Follow up done and no issue found. It's "\c_" indeed an INVALID ATOM.
         string memory pattern = unicode"/(\\c_)/";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase312() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\c_)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\c_)/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
@@ -4950,22 +5023,25 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase314() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a\\c_z])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([a\c_z])/u: Invalid Unicode Escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase315() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([_-,])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([_-,])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase316() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([_-,])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([_-,])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -4999,15 +5075,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase321() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([;-:])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([;-:])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase322() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([;-:])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([;-:])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5027,15 +5105,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase325() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([@-!])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([@-!])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase326() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([@-!])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([@-!])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5055,67 +5135,63 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase329() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([%-#])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([%-#])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase330() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([%-#])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([%-#])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase331() public {
         string memory target = "anything";
 
-        // @BUG🐍: Reading character class open-paranthesis as a syntax
-        // @status: Fixed✅
         string memory pattern = unicode"/([&-(])/";
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase332() public {
         string memory target = "anything";
-
-        // @BUG🐍: Reading character class open-paranthesis as a syntax
-        // @status: Fixed✅
         string memory pattern = unicode"/([&-(])/u";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase333() public {
         string memory target = "anything";
-
-        // @BUG🐍: Reading character class open-paranthesis as a syntax
-        // @status: Fixed✅
         string memory pattern = unicode"/([(-&])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([(-&])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase334() public {
         string memory target = "anything";
-
-        // @BUG🐍: Reading character class open-paranthesis as a syntax
-        // @status: Fixed✅
         string memory pattern = unicode"/([(-&])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([(-&])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase335() public {
         string memory target = "anything";
-
-        // @BUG🐍: Crashing with error array out of bounds access 0x32 code
-        // @status: Fixed✅
         string memory pattern = unicode"/([)-$])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([)-$])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase336() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([)-$])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([)-$])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5149,15 +5225,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase341() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([{-^])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([{-^])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase342() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([{-^])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([{-^])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5177,29 +5255,33 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase345() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([{-\\^])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([{-\^])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase346() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([{-\\^])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([{-\^])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase347() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([}-?])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([}-?])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase348() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([}-?])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([}-?])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5219,15 +5301,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase351() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([+-*])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([+-*])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase352() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([+-*])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([+-*])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5261,15 +5345,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase357() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([|-/])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([|-/])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase358() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([|-/])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([|-/])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5289,15 +5375,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase361() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(['-\"])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(['-"])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase362() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(['-\"])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(['-"])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5317,15 +5405,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase365() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([>-<])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([>-<])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase366() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([>-<])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([>-<])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5345,15 +5435,17 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase369() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([`-=])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([`-=])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase370() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([`-=])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([`-=])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5373,22 +5465,25 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase373() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([~-`])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([~-`])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase374() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([~-`])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([~-`])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase375() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([[])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /([b-[])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5422,8 +5517,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase380() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([b-[])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([b-[])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
@@ -5436,8 +5532,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase382() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([ab]a])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /([ab]a])/u: Lone Character class brackets
         stringray.regex(target, pattern);
     }
 
@@ -5470,12 +5567,16 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase387() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?>abc)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?>abc)/: Invalid group
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase388() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?>abc)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?>abc)/u: Invalid group
         stringray.regex(target, pattern);
     }
 
@@ -5494,12 +5595,16 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase391() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc++)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(abc++)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase392() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc++)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(abc++)/u: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -5518,108 +5623,144 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase395() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc*??)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(abc*??)/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase396() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc*??)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(abc*??)/u: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase397() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase398() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase399() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)*/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)*/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase400() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)*/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)*/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase401() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)?/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)?/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase402() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)?/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)?/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase403() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,}/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase404() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,}/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase405() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,1}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,1}/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase406() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,1}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,1}/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase407() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,3}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,3}/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase408() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,3}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){1,3}/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase409() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){3,1}/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){3,1}/: numbers out of order in {} quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase410() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){3,1}/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab){3,1}/u: numbers out of order in {} quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase411() public {
         string memory target = "anything";
         string memory pattern = unicode"/(ab(?<=ab)+)+/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(ab(?<=ab)+)+/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase412() public {
         string memory target = "anything";
         string memory pattern = unicode"/(ab(?<=ab)+)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(ab(?<=ab)+)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -5632,10 +5773,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCase414() public {
         string memory target = "anything";
-
-        // @BUG🐍: not throwing expected error: Invalid quantifier
-        // @status: Fixed✅
         string memory pattern = unicode"/(ab(?=ab)+)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(ab(?=ab)+)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -5648,6 +5788,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase416() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=ab)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=ab)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -5660,30 +5802,40 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase418() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?!ab)*/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?!ab)*/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase419() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase420() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase421() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<!ab)?/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<!ab)?/: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase422() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<!ab)?/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<!ab)?/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -5919,24 +6071,32 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase461() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a)\\k<y>)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>a)\k<y>)/: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase462() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a)\\k<y>)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>a)\k<y>)/u: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase463() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a))(?=(?<x>b))/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>a))(?=(?<x>b))/: Duplicate capture group name
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase464() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a))(?=(?<x>b))/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?<x>a))(?=(?<x>b))/u: Duplicate capture group name
         stringray.regex(target, pattern);
     }
 
@@ -5949,6 +6109,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase466() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=\\xZ)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=\xZ)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -5961,6 +6123,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase468() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\u123)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<=\u123)/u: Invalid Unicode escape
         stringray.regex(target, pattern);
     }
 
@@ -5991,36 +6155,50 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase473() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+*/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+*/: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase474() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+*/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+*/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase475() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=[z-a])/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=[z-a])/: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase476() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=[z-a])/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=[z-a])/u: Range out of order in character class
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase477() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=abc";
+
+        // @BUG: quirky error msg.
+        // @Error: SyntaxError: Invalid regular expression: /(?=a/c: Unterminated group
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase478() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=abcu";
+
+        // @BUG: quirky error msg.
+        // @Error: SyntaxError: Invalid regular expression: /(?=ab/u: Unterminated group
         stringray.regex(target, pattern);
     }
 
@@ -6069,6 +6247,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase486() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -6081,6 +6261,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase488() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(a)\\2)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(a)\2)/u: Invalid escape
         stringray.regex(target, pattern);
     }
 
@@ -6099,12 +6281,16 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase491() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<1>a)/";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<1>a)/: Invalid capture group name
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCase492() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<1>a)/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?<1>a)/u: Invalid capture group name
         stringray.regex(target, pattern);
     }
 
@@ -6117,6 +6303,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase494() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=\\p{FakeProperty})/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=\p{FakeProperty})/u Invalid property name
         stringray.regex(target, pattern);
     }
 
@@ -6153,6 +6341,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase500() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 
@@ -6177,6 +6367,8 @@ contract PlayStringTest is Test {
     function testRegexGroupsCase504() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?=(?=a)))*/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?=(?=a)))*/u: Invalid quantifier
         stringray.regex(target, pattern);
     }
 

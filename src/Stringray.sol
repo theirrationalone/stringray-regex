@@ -2342,6 +2342,38 @@ contract Stringray {
             );
         }
 
+        if (patternFirstChar == FORWARD_SLASH) {
+            // @question: can we minimize loop cycle?
+            bool hasSlashPair;
+            for (uint256 i = 1; i < patternInBytes.length; i++) {
+                if (
+                    uint8(patternInBytes[i]) == FORWARD_SLASH
+                        && (i > 1
+                            && (uint8(patternInBytes[i - 1]) != BACK_SLASH
+                                || uint8(patternInBytes[i - 2]) == BACK_SLASH))
+                ) {
+                    hasSlashPair = true;
+                }
+            }
+
+            if (!hasSlashPair) {
+                throwError(
+                    abi.encodePacked(""),
+                    string(
+                        abi.encodePacked(
+                            "SyntaxError: Invalid regular expression: ",
+                            patternInBytes,
+                            " , missing ",
+                            FORWARD_SLASH,
+                            " , required: /valid_seq/"
+                        )
+                    ),
+                    "rmv",
+                    bytes1(0)
+                );
+            }
+        }
+
         if (
             patternLastChar != FORWARD_SLASH
                 && (patternSecondLastChar == FORWARD_SLASH
