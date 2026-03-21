@@ -7396,6 +7396,546 @@ contract PlayStringTest is Test {
         stringray.seeAllAtoms();
     }
 
+    function testRegexFlagsCase18() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ig";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase19() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ii";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase20() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/im";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase21() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/is";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase22() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/iu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase23() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/iy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase24() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/id";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase25() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/iv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase26() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/mg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase27() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/mi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase28() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/mm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase29() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ms";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase30() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/mu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase31() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/my";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase32() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/md";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase33() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/mv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase34() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/sg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase35() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/si";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase36() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/sm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase37() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ss";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase38() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/su";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase39() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/sy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase40() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/sd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase41() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/sv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase42() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ug";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase43() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ui";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase44() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/um";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase45() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/us";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase46() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/uu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase47() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/uy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase48() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ud";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase49() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/uv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase50() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase51() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase52() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ym";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase53() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ys";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase54() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase55() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase56() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase57() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/yv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase58() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/dg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase59() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/di";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase60() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/dm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase61() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ds";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase62() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/du";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase63() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/dy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase64() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/dd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase65() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/dv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase66() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase67() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase68() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase69() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vs";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase70() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase71() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase72() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase73() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/vv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase74() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggg";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase75() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase76() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase77() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggs";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase78() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase79() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase80() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase81() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/ggv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase82() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gig";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase83() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gii";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase84() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gim";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase85() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gis";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase86() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/giu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase87() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/giy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase88() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gid";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase89() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/giv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 

@@ -2549,7 +2549,7 @@ contract Stringray {
             }
 
             if (
-                num_d > 1 || num_i > 1 || num_g > 1 || num_m > 1 || num_s > 1 || num_u > 1 || num_y > 1
+                num_d > 1 || num_i > 1 || num_g > 1 || num_m > 1 || num_s > 1 || num_u > 1 || num_y > 1 || num_v > 1
                     || (num_u == 1 && num_v == 1)
             ) {
                 throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
