@@ -7302,6 +7302,118 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("flags: Case00000074", () => {
+    //     let regex = /abc/ggg;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000075", () => {
+    //     let regex = /abc/ggi;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000076", () => {
+    //     let regex = /abc/ggm;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000077", () => {
+    //     let regex = /abc/ggs;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000078", () => {
+    //     let regex = /abc/ggu;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000079", () => {
+    //     let regex = /abc/ggy;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000080", () => {
+    //     let regex = /abc/ggd;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000081", () => {
+    //     let regex = /abc/ggv;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000082", () => {
+    //     let regex = /abc/gig;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("flags: Case00000083", () => {
+    //     let regex = /abc/gii;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("flags: Case00000084", () => {
+        let regex = /abc/gim;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("flags: Case00000085", () => {
+        let regex = /abc/gis;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("flags: Case00000086", () => {
+        let regex = /abc/giu;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("flags: Case00000087", () => {
+        let regex = /abc/giy;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("flags: Case00000088", () => {
+        let regex = /abc/gid;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("flags: Case00000089", () => {
+        let regex = /abc/giv;
+        const target = "abc";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
