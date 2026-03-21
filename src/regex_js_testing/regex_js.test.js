@@ -6830,8 +6830,8 @@ const testMain = () => {
     test("flags: Case0000006", () => {
         let regex = /abc/y;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case0000007", () => {
@@ -6949,8 +6949,9 @@ const testMain = () => {
     test("flags: Case00000023", () => {
         let regex = /abc/iy;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000024", () => {
@@ -7005,8 +7006,9 @@ const testMain = () => {
     test("flags: Case00000031", () => {
         let regex = /abc/my;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000032", () => {
@@ -7061,8 +7063,9 @@ const testMain = () => {
     test("flags: Case00000039", () => {
         let regex = /abc/sy;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000040", () => {
@@ -7117,8 +7120,9 @@ const testMain = () => {
     test("flags: Case00000047", () => {
         let regex = /abc/uy;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000048", () => {
@@ -7145,50 +7149,57 @@ const testMain = () => {
     test("flags: Case00000051", () => {
         let regex = /abc/yi;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000052", () => {
         let regex = /abc/ym;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000053", () => {
         let regex = /abc/ys;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000054", () => {
         let regex = /abc/yu;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     // test("flags: Case00000055", () => {
     //     let regex = /abc/yy;
     //     const target = "abc";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
+    //     const matchData = target.match(regex);
+    //     console.log("output: ", matchData);
+    //     assert.strictEqual(matchData.index, 0);
     // });
 
     test("flags: Case00000056", () => {
         let regex = /abc/yd;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000057", () => {
         let regex = /abc/yv;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000058", () => {
@@ -7229,8 +7240,9 @@ const testMain = () => {
     test("flags: Case00000063", () => {
         let regex = /abc/dy;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     // test("flags: Case00000064", () => {
@@ -7285,8 +7297,9 @@ const testMain = () => {
     test("flags: Case00000071", () => {
         let regex = /abc/vy;
         const target = "abc";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
+        const matchData = target.match(regex);
+        console.log("output: ", matchData);
+        assert.strictEqual(matchData.index, 0);
     });
 
     test("flags: Case00000072", () => {
