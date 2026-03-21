@@ -931,31 +931,31 @@ contract Stringray {
     }
 
     function regex(string memory _proposedString, string memory _pattern) public {
-        validateRegex(_pattern);
+        int256 slashPairIndex = validateRegex(_pattern);
+
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
-        // @BUG🐍: If there're more than one flag then pattern bytes isolation fails and
-        // ruins the entire pattern validation mechanism...!
-        // @Status: not resolved
-        bytes1 patternFlag = patternInBytes[patternInBytes.length - 1];
-        bytes memory filteredPatternInBytes =
-            trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
 
-        nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlag, false);
+        if (slashPairIndex > -1) {
+            bytes memory patternFlags = trimString(patternInBytes, uint256(slashPairIndex), -1);
+            bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex);
+
+            nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
+        }
     }
 
-    function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes1 _patternFlag, bool fromGroup)
+    function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes memory _patternFlags, bool fromGroup)
         private
     {
         int256 patternLength = int256(_pattern.length);
 
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
-                classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlag, fromGroup);
+                classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlags, fromGroup);
 
             if (!fromGroup || atomType == GROUP_ATOM) {
                 if (atomType == GROUP_ATOM) {
-                    isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlag, false, false);
+                    isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlags, false, false);
                 }
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
@@ -974,7 +974,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bytes memory, bytes32, int256) {
         bytes memory atom;
@@ -983,7 +983,7 @@ contract Stringray {
         bytes32 atomType;
 
         (isTrue, atomType, atomLastIdx) =
-            atomIdClassifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
+            atomIdClassifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -997,63 +997,63 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
-        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(
-            _pattern, _orgPattern, _currentParticleIdx, _patternFlag, false, fromGroup
-        );
+        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
+            isLiteralAtom(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, false, fromGroup);
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
-                isCharacterClass(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
+                isCharacterClass(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
         }
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
-                isGroup(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
+                isGroup(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
         }
 
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
             (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(
-                _pattern, _orgPattern, lastMatchedParticleIndex + 1, atomType, _patternFlag, fromGroup
+                _pattern, _orgPattern, lastMatchedParticleIndex + 1, atomType, _patternFlags, fromGroup
             );
             if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
                 (flag, atomType, lastMatchedParticleIndex) =
-                    isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1, _patternFlag, fromGroup);
+                    isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1, _patternFlags, fromGroup);
                 if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
-                    (flag, atomType, lastMatchedParticleIndex) =
-                        isLazyQuantifierAtom(_pattern, atomType, lastMatchedParticleIndex + 1, _patternFlag, fromGroup);
-                    if (flag) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Nothing to repeat",
-                            _patternFlag
-                        );
-                    } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
-                        (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(
-                            _pattern, _orgPattern, lastMatchedParticleIndex, atomType, _patternFlag, fromGroup
-                        );
-                        if (flag) {
-                            throwError(
-                                _orgPattern,
-                                "SyntaxError: Invalid regular expression: /",
-                                ": Nothing to repeat",
-                                _patternFlag
-                            );
-                        }
-                    }
-                } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
-                    (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(
-                        _pattern, _orgPattern, lastMatchedParticleIndex, atomType, _patternFlag, fromGroup
+                    (flag, atomType, lastMatchedParticleIndex) = isLazyQuantifierAtom(
+                        _pattern, atomType, lastMatchedParticleIndex + 1, _patternFlags, fromGroup
                     );
                     if (flag) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Nothing to repeat",
-                            _patternFlag
+                            _patternFlags
+                        );
+                    } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
+                        (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(
+                            _pattern, _orgPattern, lastMatchedParticleIndex, atomType, _patternFlags, fromGroup
+                        );
+                        if (flag) {
+                            throwError(
+                                _orgPattern,
+                                "SyntaxError: Invalid regular expression: /",
+                                ": Nothing to repeat",
+                                _patternFlags
+                            );
+                        }
+                    }
+                } else if (!flag && _pattern.length - 1 >= lastMatchedParticleIndex) {
+                    (flag, atomType, lastMatchedParticleIndex) = isGreedyQuantifierAtom(
+                        _pattern, _orgPattern, lastMatchedParticleIndex, atomType, _patternFlags, fromGroup
+                    );
+                    if (flag) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Nothing to repeat",
+                            _patternFlags
                         );
                     }
                 }
@@ -1069,10 +1069,10 @@ contract Stringray {
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
-                isGreedyQuantifierAtom(_pattern, _orgPattern, _currentParticleIdx, atomType, _patternFlag, fromGroup);
+                isGreedyQuantifierAtom(_pattern, _orgPattern, _currentParticleIdx, atomType, _patternFlags, fromGroup);
             if (flag) {
                 throwError(
-                    _orgPattern, "SyntaxError: Invalid regular expression: /", ": Nothing to repeat", _patternFlag
+                    _orgPattern, "SyntaxError: Invalid regular expression: /", ": Nothing to repeat", _patternFlags
                 );
             }
         }
@@ -1084,7 +1084,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
@@ -1109,7 +1109,7 @@ contract Stringray {
 
         if (!flag) {
             (flag, lastMatchedParticleIndex) = isEscapeLiteral(
-                _pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromCharacterClass, fromGroup
+                _pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromCharacterClass, fromGroup
             );
 
             if (flag) {
@@ -1118,7 +1118,7 @@ contract Stringray {
                     _orgPattern,
                     _currentParticleIdx,
                     lastMatchedParticleIndex,
-                    _patternFlag,
+                    _patternFlags,
                     fromCharacterClass
                 );
                 if (atomType == INVALID_ATOM) {
@@ -1127,7 +1127,7 @@ contract Stringray {
                         _orgPattern,
                         _currentParticleIdx,
                         lastMatchedParticleIndex,
-                        _patternFlag,
+                        _patternFlags,
                         fromCharacterClass,
                         fromGroup
                     );
@@ -1162,12 +1162,12 @@ contract Stringray {
 
         if (!flag) {
             if (uint8(targetChar) == CLOSE_SQUARE_BRACKET) {
-                if (uint8(_patternFlag) == SMALL_u) {
+                if (hasFlag(_patternFlags, "u")) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Lone Character class brackets",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
                 flag = true;
@@ -1177,8 +1177,9 @@ contract Stringray {
         }
 
         if (!flag) {
-            (flag, lastMatchedParticleIndex) =
-                isRangeLiteral(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromCharacterClass, fromGroup);
+            (flag, lastMatchedParticleIndex) = isRangeLiteral(
+                _pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromCharacterClass, fromGroup
+            );
 
             if (flag) {
                 atomType = LITERAL_ATOM;
@@ -1209,7 +1210,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
@@ -1220,7 +1221,7 @@ contract Stringray {
             (bool flag, uint256 lastMatchedDigitIndex) = validateBackslash_digit(_pattern, _currentParticleIdx + 1);
 
             if (!flag && _pattern[_currentParticleIdx + 1] == 0x30) {
-                return isOctalOrNull(_pattern, _orgPattern, _currentParticleIdx, _patternFlag);
+                return isOctalOrNull(_pattern, _orgPattern, _currentParticleIdx, _patternFlags);
             }
 
             if (flag) {
@@ -1229,7 +1230,7 @@ contract Stringray {
                     _orgPattern,
                     _currentParticleIdx,
                     lastMatchedDigitIndex,
-                    _patternFlag,
+                    _patternFlags,
                     fromCharacterClass,
                     fromGroup
                 );
@@ -1243,9 +1244,9 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag
+        bytes memory _patternFlags
     ) private returns (bool, bytes32, uint256) {
-        if (uint8(_patternFlag) != SMALL_u) {
+        if (!hasFlag(_patternFlags, "u")) {
             (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
 
             if (isOctal) {
@@ -1257,7 +1258,7 @@ contract Stringray {
 
         if (_currentParticleIdx + 2 < _pattern.length && isDigit(_pattern[_currentParticleIdx + 2], false)) {
             throwError(
-                _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid decimal escape", _patternFlag
+                _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid decimal escape", _patternFlags
             );
         }
 
@@ -1269,7 +1270,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         uint256 lastMatchedDigitIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
@@ -1277,7 +1278,7 @@ contract Stringray {
         uint256 decDigit = stringDigitToDecDigit(decString);
         uint256 numGroups = countGroupAtoms();
 
-        if (uint8(_patternFlag) != SMALL_u) {
+        if (!hasFlag(_patternFlags, "u")) {
             if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 (bool isOctal, uint256 lastOctalIndex) =
                     validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
@@ -1290,17 +1291,17 @@ contract Stringray {
             }
         }
 
-        if (uint8(_patternFlag) == SMALL_u) {
+        if (hasFlag(_patternFlags, "u")) {
             if (fromCharacterClass) {
                 string memory errorRight = ": Invalid escape";
                 if (uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
                     errorRight = ": Invalid decimal escape";
                 }
-                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag);
+                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlags);
             }
 
             if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
-                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlag);
+                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlags);
             }
 
             return (true, DIGIT_BACKREFERENCE_PREFIX, lastMatchedDigitIndex);
@@ -1323,7 +1324,7 @@ contract Stringray {
     function isDuplicateOrExistingCaptureGroupName(
         bytes memory _atom,
         bytes memory _orgPattern,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool checkExist
     ) private returns (bool) {
@@ -1351,7 +1352,7 @@ contract Stringray {
 
                     if (existingCaptureName.length > 0 && fromCharacterClass) {
                         throwError(
-                            _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlag
+                            _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlags
                         );
                     }
 
@@ -1366,7 +1367,7 @@ contract Stringray {
                                         _orgPattern,
                                         "SyntaxError: Invalid regular expression: /",
                                         ": Duplicate capture group name",
-                                        _patternFlag
+                                        _patternFlags
                                     );
                                 }
                             }
@@ -1379,7 +1380,7 @@ contract Stringray {
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Duplicate capture group name",
-                                _patternFlag
+                                _patternFlags
                             );
                         }
                     }
@@ -1392,12 +1393,12 @@ contract Stringray {
             }
 
             if (checkExist) {
-                if (!groupExist && (uint8(_patternFlag) == SMALL_u || numCaptureName > 0)) {
+                if (!groupExist && (hasFlag(_patternFlags, "u") || numCaptureName > 0)) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid named capture referenced",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
             }
@@ -1452,9 +1453,9 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass
-    ) private pure returns (bytes32) {
+    ) private returns (bytes32) {
         bytes32 atomType = INVALID_ATOM;
         if (
             _currentParticleIdx + 1 < lastMatchedParticleIndex
@@ -1511,9 +1512,9 @@ contract Stringray {
             } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
                 atomType = WORD_CHARACTER;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
-                if (fromCharacterClass && uint8(_patternFlag) == SMALL_u) {
+                if (fromCharacterClass && hasFlag(_patternFlags, "u")) {
                     throwError(
-                        _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlag
+                        _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlags
                     );
                 }
                 atomType = NOT_WORD_BOUNDARY;
@@ -1525,7 +1526,7 @@ contract Stringray {
                 atomType = NOT_WORD_CHARACTER;
             } else {
                 if (
-                    uint8(_patternFlag) == SMALL_u && lastMatchedParticle != CARET_SIGN
+                    hasFlag(_patternFlags, "u") && lastMatchedParticle != CARET_SIGN
                         && lastMatchedParticle != DOLLAR_SIGN && lastMatchedParticle != BACK_SLASH
                         && lastMatchedParticle != DOT && lastMatchedParticle != ASTERISK
                         && lastMatchedParticle != PLUS_SIGN && lastMatchedParticle != QUESTION_MARK
@@ -1540,7 +1541,7 @@ contract Stringray {
                         errorRight = ": Invalid Unicode escape";
                     }
 
-                    throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlag);
+                    throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlags);
                 }
                 atomType = LITERAL_ATOM;
             }
@@ -1553,7 +1554,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) internal returns (bool, bytes32, uint256) {
         uint256 lastMatchedParticleIndex;
@@ -1566,7 +1567,7 @@ contract Stringray {
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Empty Character class",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
             }
@@ -1576,7 +1577,7 @@ contract Stringray {
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Unterminated Character class",
-                    _patternFlag
+                    _patternFlags
                 );
             }
 
@@ -1608,7 +1609,7 @@ contract Stringray {
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Unterminated Character class",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
             }
@@ -1616,7 +1617,7 @@ contract Stringray {
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             flag = isValidCharacterClassLiteral(
-                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlag, fromGroup
+                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
             );
             if (flag) {
                 return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
@@ -1631,7 +1632,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
         uint256 lastMatchedParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bool) {
         for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
@@ -1646,7 +1647,7 @@ contract Stringray {
             }
 
             (bool flag, bytes32 atomType, uint256 lastParticleIndex) =
-                isLiteralAtom(_pattern, _orgPattern, i, _patternFlag, true, fromGroup);
+                isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup);
 
             if (
                 !flag
@@ -1668,13 +1669,13 @@ contract Stringray {
                     lastParticleIndex + 1 < lastMatchedParticleIndex
                         && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN
                 ) {
-                    validateCharacterClassRangeLeftRightAtoms(_orgPattern, atomType, _patternFlag);
+                    validateCharacterClassRangeLeftRightAtoms(_orgPattern, atomType, _patternFlags);
 
                     if (lastParticleIndex + 2 < lastMatchedParticleIndex) {
                         (, bytes32 rightAtomType, uint256 rightLastParticleIndex) =
-                            isLiteralAtom(_pattern, _orgPattern, lastParticleIndex + 2, _patternFlag, true, fromGroup);
+                            isLiteralAtom(_pattern, _orgPattern, lastParticleIndex + 2, _patternFlags, true, fromGroup);
 
-                        validateCharacterClassRangeLeftRightAtoms(_orgPattern, rightAtomType, _patternFlag);
+                        validateCharacterClassRangeLeftRightAtoms(_orgPattern, rightAtomType, _patternFlags);
 
                         if (
                             rightAtomType == INVALID_ATOM
@@ -1697,19 +1698,19 @@ contract Stringray {
                             rightAtomType,
                             lastParticleIndex,
                             rightLastParticleIndex,
-                            _patternFlag
+                            _patternFlags
                         );
 
                         if (
                             uint8(_pattern[lastParticleIndex + 2]) == BACK_SLASH
                                 && uint8(_pattern[lastParticleIndex + 3]) == uint8(abi.encodePacked("c")[0])
-                                && uint8(_patternFlag) != SMALL_u
+                                && !hasFlag(_patternFlags, "u")
                         ) {
                             throwError(
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Range out of order in character class",
-                                _patternFlag
+                                _patternFlags
                             );
                         }
 
@@ -1721,14 +1722,14 @@ contract Stringray {
             } else {
                 if (
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
-                        && uint8(_patternFlag) != SMALL_u
+                        && !hasFlag(_patternFlags, "u")
                 ) {
                     if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == MINUS_SIGN) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Range out of order in character class",
-                            _patternFlag
+                            _patternFlags
                         );
                     }
 
@@ -1736,7 +1737,10 @@ contract Stringray {
                     continue;
                 }
                 throwError(
-                    _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid character class", _patternFlag
+                    _orgPattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid character class",
+                    _patternFlags
                 );
             }
         }
@@ -1751,7 +1755,7 @@ contract Stringray {
         bytes32 rightAtomType,
         uint256 lastParticleIndex,
         uint256 rightLastParticleIndex,
-        bytes1 _patternFlag
+        bytes memory _patternFlags
     ) private {
         if (
             (rightAtomType != DIGIT
@@ -1779,15 +1783,17 @@ contract Stringray {
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Range out of order in character class",
-                    _patternFlag
+                    _patternFlags
                 );
             }
         }
     }
 
-    function validateCharacterClassRangeLeftRightAtoms(bytes memory _orgPattern, bytes32 atomType, bytes1 _patternFlag)
-        private
-    {
+    function validateCharacterClassRangeLeftRightAtoms(
+        bytes memory _orgPattern,
+        bytes32 atomType,
+        bytes memory _patternFlags
+    ) private {
         if (
             (atomType == DIGIT
                     || atomType == WHITESPACE
@@ -1796,10 +1802,10 @@ contract Stringray {
                     || atomType == NOT_DIGIT
                     || atomType == NOT_WORD_CHARACTER
                     || atomType == UNICODE_PROPERTY
-                    || atomType == UNICODE_PROPERTY_NEGATION) && uint8(_patternFlag) == SMALL_u
+                    || atomType == UNICODE_PROPERTY_NEGATION) && hasFlag(_patternFlags, "u")
         ) {
             throwError(
-                _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid character class", _patternFlag
+                _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid character class", _patternFlags
             );
         }
     }
@@ -1873,14 +1879,14 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
         bool flag;
         uint256 lastMatchedParticleIndex;
 
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
-            throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unmatched ')'", _patternFlag);
+            throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unmatched ')'", _patternFlags);
         }
 
         if (_currentParticleIndex == _pattern.length - 1 && uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS)
@@ -1893,7 +1899,7 @@ contract Stringray {
                     || (uint8(_pattern[_currentParticleIndex]) == OPEN_PARANTHESIS && _pattern.length == 1)
             ) {
                 throwError(
-                    _orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlag
+                    _orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlags
                 );
             }
         }
@@ -1910,10 +1916,10 @@ contract Stringray {
         ) {
             uint256 stripFromIndex;
             (flag, stripFromIndex, lastMatchedParticleIndex) =
-                validateGroup(_pattern, _orgPattern, _currentParticleIndex + 1, _patternFlag, fromGroup);
+                validateGroup(_pattern, _orgPattern, _currentParticleIndex + 1, _patternFlags, fromGroup);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
-                nuclearFission(subPattern, _orgPattern, _patternFlag, true);
+                nuclearFission(subPattern, _orgPattern, _patternFlags, true);
             }
         }
 
@@ -1927,7 +1933,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bool, uint256, uint256) {
         if (uint8(_pattern[_currentParticleIndex]) == CLOSE_PARANTHESIS) {
@@ -1935,13 +1941,13 @@ contract Stringray {
         }
 
         (, uint256 stripFromIndex) =
-            validateGroupBody(_pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromGroup);
+            validateGroupBody(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
 
         uint256 numOpenParanthesis = 1;
         uint256 numCloseParanthesis;
 
         for (uint256 i = stripFromIndex; i < _pattern.length; i++) {
-            uint256 newI = isValidGroupCC(_pattern, _orgPattern, i, _patternFlag, fromGroup);
+            uint256 newI = isValidGroupCC(_pattern, _orgPattern, i, _patternFlags, fromGroup);
 
             if (newI != i) {
                 i = newI;
@@ -1953,7 +1959,7 @@ contract Stringray {
                     && (uint8(_pattern[i - 1]) != BACK_SLASH || i > 1 && uint8(_pattern[i - 2]) == BACK_SLASH)
             ) {
                 numOpenParanthesis++;
-                (, i) = validateGroupBody(_pattern, _orgPattern, i + 1, _patternFlag, fromGroup);
+                (, i) = validateGroupBody(_pattern, _orgPattern, i + 1, _patternFlags, fromGroup);
                 i -= 1;
                 continue;
             }
@@ -1971,18 +1977,18 @@ contract Stringray {
                         || (stripFromIndex == _currentParticleIndex + 2
                             && (uint8(_pattern[stripFromIndex - 1]) == EXCLAMATION_MARK
                                 || uint8(_pattern[stripFromIndex - 1]) == ASSIGNMENT_SIGN)
-                            && uint8(_patternFlag) == SMALL_u)
+                            && hasFlag(_patternFlags, "u"))
                 ) {
                     if (i + 1 < _pattern.length) {
                         (bool isQuantifier,,) = isGreedyQuantifierAtom(
-                            _pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlag, fromGroup
+                            _pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlags, fromGroup
                         );
                         if (isQuantifier) {
                             throwError(
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid quantifier",
-                                _patternFlag
+                                _patternFlags
                             );
                         }
                     }
@@ -1991,17 +1997,17 @@ contract Stringray {
             }
         }
 
-        throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlag);
+        throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlags);
     }
 
     function isValidGroupCC(
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 i,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private returns (uint256) {
-        (bool isCC,, uint256 ccLastIdx) = isCharacterClass(_pattern, _orgPattern, i, _patternFlag, fromGroup);
+        (bool isCC,, uint256 ccLastIdx) = isCharacterClass(_pattern, _orgPattern, i, _patternFlags, fromGroup);
 
         if (isCC) {
             i = ccLastIdx;
@@ -2014,7 +2020,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 stripFrom = _currentParticleIndex;
@@ -2026,7 +2032,7 @@ contract Stringray {
                         && uint8(_pattern[_currentParticleIndex + 1]) != EXCLAMATION_MARK
                         && uint8(_pattern[_currentParticleIndex + 1]) != LESS_THAN_SIGN)
             ) {
-                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid group", _patternFlag);
+                throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid group", _patternFlags);
             }
 
             if (uint8(_pattern[_currentParticleIndex + 1]) == LESS_THAN_SIGN) {
@@ -2044,7 +2050,7 @@ contract Stringray {
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid capture group name",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
 
@@ -2072,7 +2078,7 @@ contract Stringray {
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid capture group name",
-                                _patternFlag
+                                _patternFlags
                             );
                         }
                     }
@@ -2203,7 +2209,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes32 _lastGreedyQuantifierAtomType,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, bytes32, uint256) {
         bytes32 lazyQuantifierAtomType;
@@ -2236,7 +2242,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         bytes32 _lastAtomType,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, bytes32, uint256) {
         if (uint8(_pattern[_currentParticleIdx]) == ASTERISK) {
@@ -2264,7 +2270,7 @@ contract Stringray {
                     && uint8(_pattern[_currentParticleIdx + 1]) != CLOSE_CURLY_BRACE)
         ) {
             (bool isValid, bytes32 atomType, uint256 lastMatchedParticleIndex) =
-                isValidRangeQuantifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlag, fromGroup);
+                isValidRangeQuantifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
 
             if (isValid) {
                 return (true, _lastAtomType == GROUP_ATOM ? _lastAtomType : atomType, lastMatchedParticleIndex);
@@ -2278,7 +2284,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, bytes32, uint256) {
         bool commaFlag;
@@ -2325,7 +2331,7 @@ contract Stringray {
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": numbers out of order in {} quantifier",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
 
@@ -2336,11 +2342,11 @@ contract Stringray {
         return (false, bytes32(0), 0);
     }
 
-    function validateRegex(string memory _pattern) private {
+    function validateRegex(string memory _pattern) private returns (int256) {
         bytes memory patternInBytes = bytes(_pattern);
         if (patternInBytes.length <= 2) {
             throwError(
-                patternInBytes, "SyntaxError: Invalid regular expression: ", " , required: /valid_seq/", bytes1(0)
+                patternInBytes, "SyntaxError: Invalid regular expression: ", " , required: /valid_seq/", abi.encode("")
             );
         }
 
@@ -2354,71 +2360,59 @@ contract Stringray {
                 patternInBytes,
                 "SyntaxError: Invalid regular expression: ",
                 string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
-                bytes1(0)
+                abi.encode("")
             );
         }
 
-        if (patternFirstChar == FORWARD_SLASH) {
-            // @question: can we minimize loop cycle?
-            int256 slashPairIndex = -1;
-            for (uint256 i = 1; i < patternInBytes.length; i++) {
-                if (
-                    uint8(patternInBytes[i]) == FORWARD_SLASH
-                        && (i > 1
-                            && (uint8(patternInBytes[i - 1]) != BACK_SLASH
-                                || uint8(patternInBytes[i - 2]) == BACK_SLASH))
-                ) {
-                    slashPairIndex = int256(i);
-                }
+        int256 slashPairIndex = -1;
+
+        // @question: can we minimize loop cycle?
+
+        for (uint256 i = 1; i < patternInBytes.length; i++) {
+            if (uint8(patternInBytes[i]) == BACK_SLASH) {
+                i += 1;
+                continue;
             }
 
-            if (slashPairIndex == -1) {
-                throwError(
-                    abi.encodePacked(""),
-                    string(
-                        abi.encodePacked(
-                            "SyntaxError: Invalid regular expression: ",
-                            patternInBytes,
-                            " , missing ",
-                            FORWARD_SLASH,
-                            " , required: /valid_seq/"
-                        )
-                    ),
-                    "rmv",
-                    bytes1(0)
-                );
+            if (
+                uint8(patternInBytes[i]) == FORWARD_SLASH
+                    && (i > 1
+                        && (uint8(patternInBytes[i - 1]) != BACK_SLASH || uint8(patternInBytes[i - 2]) == BACK_SLASH))
+            ) {
+                slashPairIndex = int256(i);
             }
-
-            hasDuplicateFlags(patternInBytes, uint256(slashPairIndex) + 1);
         }
+
+        if (slashPairIndex == -1) {
+            throwError(
+                abi.encodePacked(""),
+                string(
+                    abi.encodePacked(
+                        "SyntaxError: Invalid regular expression: ",
+                        patternInBytes,
+                        " , missing ",
+                        FORWARD_SLASH,
+                        " , required: /valid_seq/"
+                    )
+                ),
+                "rmv",
+                abi.encode("")
+            );
+        }
+
+        hasDuplicateFlags(patternInBytes, uint256(slashPairIndex) + 1);
 
         // if (
-        //     patternLastChar != FORWARD_SLASH
-        //         && (patternSecondLastChar == FORWARD_SLASH
-        //             && (patternThirdLastChar != BACK_SLASH
-        //                 || (patternInBytes.length > 3
-        //                     && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH)))
+        //     patternLastChar == FORWARD_SLASH
+        //         && (patternSecondLastChar == BACK_SLASH && patternThirdLastChar != BACK_SLASH)
         // ) {
-        //     if (
-        //         patternLastChar != SMALL_d && patternLastChar != SMALL_i && patternLastChar != SMALL_g
-        //             && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
-        //             && patternLastChar != SMALL_y
-        //     ) {
-        //         throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
-        //     }
+        //     throwError(
+        //         patternInBytes,
+        //         "SyntaxError: Invalid regular expression: ",
+        //         string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
+        //         abi.encode("")
+        //     );
         // }
-
-        if (
-            patternLastChar == FORWARD_SLASH
-                && (patternSecondLastChar == BACK_SLASH && patternThirdLastChar != BACK_SLASH)
-        ) {
-            throwError(
-                patternInBytes,
-                "SyntaxError: Invalid regular expression: ",
-                string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
-                bytes1(0)
-            );
-        }
 
         if (
             (patternLastChar == FORWARD_SLASH
@@ -2485,7 +2479,7 @@ contract Stringray {
                             || (openSquareBracketIdx != 0 && closeSquareBracketIdx == 0)
                     ) {
                         if (uint8(patternInBytes[i + 1]) == FORWARD_SLASH) {
-                            throwError(abi.encodePacked(""), "SyntaxError: Unexpected token ';'", "", bytes1(0));
+                            throwError(abi.encodePacked(""), "SyntaxError: Unexpected token ';'", "", abi.encode(""));
                         } else if (
                             !isSmallAlphabet(patternInBytes[i + 1]) && !isBigAlphabet(patternInBytes[i + 1])
                                 && uint8(patternInBytes[i + 1]) != BACK_SLASH
@@ -2494,23 +2488,28 @@ contract Stringray {
                                 abi.encodePacked(""),
                                 "SyntaxError: Unexpected token '",
                                 string(abi.encodePacked(patternInBytes[i + 1], "'")),
-                                bytes1(0)
+                                abi.encode("")
                             );
                         } else {
                             throwError(
-                                patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0)
+                                patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode("")
                             );
                         }
                     }
 
                     if (openSquareBracketIdx == 0 && closeSquareBracketIdx != 0) {
                         throwError(
-                            abi.encodePacked(""), "SyntaxError: Invalid regular expression", ": missing /", bytes1(0)
+                            abi.encodePacked(""),
+                            "SyntaxError: Invalid regular expression",
+                            ": missing /",
+                            abi.encode("")
                         );
                     }
                 }
             }
         }
+
+        return slashPairIndex;
     }
 
     function hasDuplicateFlags(bytes memory patternInBytes, uint256 indexToStartFrom) private {
@@ -2530,7 +2529,7 @@ contract Stringray {
                     && uint8(patternInBytes[i]) != SMALL_s && uint8(patternInBytes[i]) != SMALL_u
                     && uint8(patternInBytes[i]) != SMALL_y && uint8(patternInBytes[i]) != SMALL_v
             ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
             }
 
             if (uint8(patternInBytes[i]) == SMALL_d) {
@@ -2555,24 +2554,22 @@ contract Stringray {
                 num_d > 1 || num_i > 1 || num_g > 1 || num_m > 1 || num_s > 1 || num_u > 1 || num_y > 1 || num_v > 1
                     || (num_u == 1 && num_v == 1)
             ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
             }
         }
     }
 
-    function throwError(bytes memory _pattern, string memory _errorLeft, string memory _errorRight, bytes1 _patternFlag)
-        private
-        pure
-    {
+    function throwError(
+        bytes memory _pattern,
+        string memory _errorLeft,
+        string memory _errorRight,
+        bytes memory _patternFlags
+    ) private pure {
         string memory errorLeft = _errorLeft;
         string memory errorRight = _errorRight;
         bool rmvFlag = keccak256(bytes(errorRight)) == keccak256("rmv");
 
-        errorRight = string(
-            abi.encodePacked(
-                rmvFlag ? "" : "/", _patternFlag == 0x2f ? bytes1(0) : _patternFlag, rmvFlag ? "" : _errorRight
-            )
-        );
+        errorRight = string(abi.encodePacked(rmvFlag ? "" : "/", _patternFlags, rmvFlag ? "" : _errorRight));
 
         string memory errorMsg = string(abi.encodePacked(errorLeft, _pattern, errorRight));
         revert(errorMsg);
@@ -16639,12 +16636,14 @@ contract Stringray {
     }
 
     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
-        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, _unicodeHex, 0, bytes1(0), false);
+        (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, _unicodeHex, 0, abi.encode(""), false);
 
         if (!isValid) {
             string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _unicodeHex));
             revert(errorMsg);
-            throwError(abi.encodePacked(""), "SyntaxError: Invalid Unicode codepoint: ", string(_unicodeHex), bytes1(0));
+            throwError(
+                abi.encodePacked(""), "SyntaxError: Invalid Unicode codepoint: ", string(_unicodeHex), abi.encode("")
+            );
         }
 
         bytes memory binary;
@@ -17890,22 +17889,22 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
-    ) private pure returns (bool, uint256) {
+    ) private returns (bool, uint256) {
         bool isValid;
         uint256 lastMatchedIndex;
 
         (isValid, lastMatchedIndex) = isCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
-            if (uint8(_patternFlag) == SMALL_u && !fromCharacterClass) {
+            if (hasFlag(_patternFlags, "u") && !fromCharacterClass) {
                 throwError(
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
                     ": Lone quantifier brackets",
-                    _patternFlag
+                    _patternFlags
                 );
             }
 
@@ -17975,7 +17974,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, uint256) {
@@ -17986,15 +17985,14 @@ contract Stringray {
 
             if (_nextChar == uint8(abi.encodePacked("u")[0])) {
                 if (_currentParticleIndex + 2 <= _pattern.length - 1) {
-                    if (
-                        uint8(_patternFlag) != SMALL_u && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE
-                    ) {
+                    if (!hasFlag(_patternFlags, "u") && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE)
+                    {
                         return (true, _currentParticleIndex + 1);
                     }
                 }
 
                 (isValid, lastMatchedIndex) = validateBackslash_u_UnicodeEscape(
-                    _pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromGroup
+                    _pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup
                 );
 
                 if (isValid) {
@@ -18016,12 +18014,12 @@ contract Stringray {
                 if (isValid) {
                     return (true, lastMatchedIndex);
                 } else {
-                    if (uint8(_patternFlag) == SMALL_u) {
+                    if (hasFlag(_patternFlags, "u")) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Invalid Unicode Escape",
-                            _patternFlag
+                            _patternFlags
                         );
                     }
                     return (false, 0);
@@ -18029,14 +18027,14 @@ contract Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                if (uint8(_patternFlag) == SMALL_u && fromCharacterClass) {
+                if (hasFlag(_patternFlags, "u") && fromCharacterClass) {
                     throwError(
-                        _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlag
+                        _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlags
                     );
                 }
 
                 (isValid, lastMatchedIndex) = validateBackslash_k_groupEscape(
-                    _pattern, _orgPattern, _currentParticleIndex, _patternFlag, fromCharacterClass, fromGroup
+                    _pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromCharacterClass, fromGroup
                 );
 
                 if (isValid) {
@@ -18045,12 +18043,12 @@ contract Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("p")[0]) || _nextChar == uint8(abi.encodePacked("P")[0])) {
-                if (uint8(_patternFlag) != SMALL_u) {
+                if (!hasFlag(_patternFlags, "u")) {
                     return (true, _currentParticleIndex + 1);
                 }
 
                 (isValid, lastMatchedIndex) = validateBackslash_p_propertyNameEscape(
-                    _pattern, _orgPattern, _currentParticleIndex, fromCharacterClass, _patternFlag, fromGroup
+                    _pattern, _orgPattern, _currentParticleIndex, fromCharacterClass, _patternFlags, fromGroup
                 );
 
                 if (isValid) {
@@ -18125,7 +18123,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _indexToStartFrom,
         bool fromCharacterClass,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
@@ -18141,13 +18139,13 @@ contract Stringray {
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
                     string(abi.encodePacked(eMsg, errorRight)),
-                    _patternFlag
+                    _patternFlags
                 );
             }
 
             if (uint8(_pattern[_indexToStartFrom + 2]) == OPEN_CURLY_BRACE) {
                 (bool isValidPropertyName, uint256 lastMatchedIndex) = validatePropertyNameAndSyntax(
-                    _pattern, _orgPattern, _indexToStartFrom + 3, fromCharacterClass, _patternFlag, fromGroup
+                    _pattern, _orgPattern, _indexToStartFrom + 3, fromCharacterClass, _patternFlags, fromGroup
                 );
 
                 if (isValidPropertyName) {
@@ -18163,7 +18161,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _indexToStartFrom,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (bool, uint256) {
@@ -18180,7 +18178,7 @@ contract Stringray {
                         if (uint8(_pattern[i]) == GREATER_THAN_SIGN) {
                             bytes memory groupName = trimString(_pattern, _indexToStartFrom + 3, int256(i - 1));
                             bool isValidRef = isDuplicateOrExistingCaptureGroupName(
-                                groupName, _orgPattern, _patternFlag, fromCharacterClass, true
+                                groupName, _orgPattern, _patternFlags, fromCharacterClass, true
                             );
 
                             if (isValidRef) {
@@ -18196,7 +18194,7 @@ contract Stringray {
                                 && !(uint8(_pattern[i]) == uint8(abi.encodePacked("$")[0]))
                                 && !isDigit(_pattern[i], false)
                         ) {
-                            if (uint8(_patternFlag) != SMALL_u) {
+                            if (!hasFlag(_patternFlags, "u")) {
                                 return (true, _indexToStartFrom + 1);
                             }
 
@@ -18204,12 +18202,12 @@ contract Stringray {
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
                                 ": Invalid capture group name",
-                                _patternFlag
+                                _patternFlags
                             );
                         }
                     }
                 } else {
-                    if (uint8(_patternFlag) != SMALL_u) {
+                    if (!hasFlag(_patternFlags, "u")) {
                         return (true, _indexToStartFrom + 1);
                     }
 
@@ -18217,7 +18215,7 @@ contract Stringray {
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
                         ": Invalid capture group name",
-                        _patternFlag
+                        _patternFlags
                     );
                 }
             }
@@ -18263,7 +18261,7 @@ contract Stringray {
         bytes memory _pattern,
         bytes memory _orgPattern,
         uint256 _indexToStartFrom,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 patternLastIndex = _pattern.length - 1;
@@ -18338,7 +18336,7 @@ contract Stringray {
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
                             ": Invalid Unicode escape",
-                            _patternFlag
+                            _patternFlags
                         );
                     }
                 }
@@ -18366,7 +18364,7 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _indexToStartFrom,
         bool fromCharacterClass,
-        bytes1 _patternFlag,
+        bytes memory _patternFlags,
         bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 propertyNameEndIdx;
@@ -18390,7 +18388,7 @@ contract Stringray {
                 _orgPattern,
                 "SyntaxError: Invalid regular expression: /",
                 string(abi.encodePacked(eMsg, lastMsg)),
-                _patternFlag
+                _patternFlags
             );
         }
 
@@ -18988,5 +18986,9 @@ contract Stringray {
         }
 
         return _newString;
+    }
+
+    function hasFlag(bytes memory _flags, string memory _requiredFlagString) private returns (bool) {
+        return includes(string(_flags), _requiredFlagString);
     }
 }
