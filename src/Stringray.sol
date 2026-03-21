@@ -318,6 +318,7 @@ contract Stringray {
     uint8 private constant SMALL_m = 109;
     uint8 private constant SMALL_u = 117;
     uint8 private constant SMALL_y = 121;
+    uint8 private constant SMALL_v = 118;
     uint8 private constant ASSIGNMENT_SIGN = 61;
     uint8 private constant GREATER_THAN_SIGN = 62;
     uint8 private constant LESS_THAN_SIGN = 60;
@@ -2332,7 +2333,7 @@ contract Stringray {
         return (false, bytes32(0), 0);
     }
 
-    function validateRegex(string memory _pattern) private pure {
+    function validateRegex(string memory _pattern) private {
         bytes memory patternInBytes = bytes(_pattern);
         if (patternInBytes.length <= 2) {
             throwError(
@@ -2356,7 +2357,7 @@ contract Stringray {
 
         if (patternFirstChar == FORWARD_SLASH) {
             // @question: can we minimize loop cycle?
-            bool hasSlashPair;
+            int256 slashPairIndex = -1;
             for (uint256 i = 1; i < patternInBytes.length; i++) {
                 if (
                     uint8(patternInBytes[i]) == FORWARD_SLASH
@@ -2364,11 +2365,11 @@ contract Stringray {
                             && (uint8(patternInBytes[i - 1]) != BACK_SLASH
                                 || uint8(patternInBytes[i - 2]) == BACK_SLASH))
                 ) {
-                    hasSlashPair = true;
+                    slashPairIndex = int256(i);
                 }
             }
 
-            if (!hasSlashPair) {
+            if (slashPairIndex == -1) {
                 throwError(
                     abi.encodePacked(""),
                     string(
@@ -2384,23 +2385,25 @@ contract Stringray {
                     bytes1(0)
                 );
             }
+
+            hasDuplicateFlags(patternInBytes, uint256(slashPairIndex) + 1);
         }
 
-        if (
-            patternLastChar != FORWARD_SLASH
-                && (patternSecondLastChar == FORWARD_SLASH
-                    && (patternThirdLastChar != BACK_SLASH
-                        || (patternInBytes.length > 3
-                            && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH)))
-        ) {
-            if (
-                patternLastChar != SMALL_d && patternLastChar != SMALL_i && patternLastChar != SMALL_g
-                    && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
-                    && patternLastChar != SMALL_y
-            ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
-            }
-        }
+        // if (
+        //     patternLastChar != FORWARD_SLASH
+        //         && (patternSecondLastChar == FORWARD_SLASH
+        //             && (patternThirdLastChar != BACK_SLASH
+        //                 || (patternInBytes.length > 3
+        //                     && uint8(patternInBytes[patternInBytes.length - 4]) == BACK_SLASH)))
+        // ) {
+        //     if (
+        //         patternLastChar != SMALL_d && patternLastChar != SMALL_i && patternLastChar != SMALL_g
+        //             && patternLastChar != SMALL_m && patternLastChar != SMALL_s && patternLastChar != SMALL_u
+        //             && patternLastChar != SMALL_y
+        //     ) {
+        //         throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
+        //     }
+        // }
 
         if (
             patternLastChar == FORWARD_SLASH
@@ -2503,6 +2506,53 @@ contract Stringray {
                         );
                     }
                 }
+            }
+        }
+    }
+
+    function hasDuplicateFlags(bytes memory patternInBytes, uint256 indexToStartFrom) private {
+        uint256 num_d;
+        uint256 num_i;
+        uint256 num_g;
+        uint256 num_m;
+        uint256 num_s;
+        uint256 num_u;
+        uint256 num_y;
+        uint256 num_v;
+
+        for (uint256 i = indexToStartFrom; i < patternInBytes.length; i++) {
+            if (
+                uint8(patternInBytes[i]) != SMALL_d && uint8(patternInBytes[i]) != SMALL_i
+                    && uint8(patternInBytes[i]) != SMALL_g && uint8(patternInBytes[i]) != SMALL_m
+                    && uint8(patternInBytes[i]) != SMALL_s && uint8(patternInBytes[i]) != SMALL_u
+                    && uint8(patternInBytes[i]) != SMALL_y && uint8(patternInBytes[i]) != SMALL_v
+            ) {
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
+            }
+
+            if (uint8(patternInBytes[i]) == SMALL_d) {
+                num_d++;
+            } else if (uint8(patternInBytes[i]) == SMALL_i) {
+                num_i++;
+            } else if (uint8(patternInBytes[i]) == SMALL_g) {
+                num_g++;
+            } else if (uint8(patternInBytes[i]) == SMALL_m) {
+                num_m++;
+            } else if (uint8(patternInBytes[i]) == SMALL_s) {
+                num_s++;
+            } else if (uint8(patternInBytes[i]) == SMALL_u) {
+                num_u++;
+            } else if (uint8(patternInBytes[i]) == SMALL_y) {
+                num_y++;
+            } else if (uint8(patternInBytes[i]) == SMALL_v) {
+                num_v++;
+            }
+
+            if (
+                num_d > 1 || num_i > 1 || num_g > 1 || num_m > 1 || num_s > 1 || num_u > 1 || num_y > 1
+                    || (num_u == 1 && num_v == 1)
+            ) {
+                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", bytes1(0));
             }
         }
     }
