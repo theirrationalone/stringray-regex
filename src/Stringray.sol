@@ -934,6 +934,9 @@ contract Stringray {
         validateRegex(_pattern);
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
+        // @BUG🐍: If there're more than one flag then pattern bytes isolation fails and
+        // ruins the entire pattern validation mechanism...!
+        // @Status: not resolved
         bytes1 patternFlag = patternInBytes[patternInBytes.length - 1];
         bytes memory filteredPatternInBytes =
             trimString(patternInBytes, 1, int256(patternInBytes.length - (patternFlag != 0x2f ? 3 : 2)));
