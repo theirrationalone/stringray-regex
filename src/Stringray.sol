@@ -2512,7 +2512,7 @@ contract Stringray {
         return slashPairIndex;
     }
 
-    function hasDuplicateFlags(bytes memory patternInBytes, uint256 indexToStartFrom) private {
+    function hasDuplicateFlags(bytes memory patternInBytes, uint256 indexToStartFrom) private pure {
         uint256 num_d;
         uint256 num_i;
         uint256 num_g;
@@ -2523,7 +2523,7 @@ contract Stringray {
         uint256 num_v;
 
         if (patternInBytes.length - indexToStartFrom > 7) {
-            throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
+            throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encodePacked(""));
         }
 
         for (uint256 i = indexToStartFrom; i < patternInBytes.length; i++) {
@@ -2533,7 +2533,9 @@ contract Stringray {
                     && uint8(patternInBytes[i]) != SMALL_s && uint8(patternInBytes[i]) != SMALL_u
                     && uint8(patternInBytes[i]) != SMALL_y && uint8(patternInBytes[i]) != SMALL_v
             ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
+                throwError(
+                    patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encodePacked("")
+                );
             }
 
             if (uint8(patternInBytes[i]) == SMALL_d) {
@@ -2558,7 +2560,9 @@ contract Stringray {
                 num_d > 1 || num_i > 1 || num_g > 1 || num_m > 1 || num_s > 1 || num_u > 1 || num_y > 1 || num_v > 1
                     || (num_u == 1 && num_v == 1)
             ) {
-                throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
+                throwError(
+                    patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encodePacked("")
+                );
             }
         }
     }
