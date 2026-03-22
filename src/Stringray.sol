@@ -937,6 +937,8 @@ contract Stringray {
         bytes memory patternInBytes = bytes(_pattern);
 
         if (slashPairIndex > -1) {
+            // @BUG🐍: Trims inconsistently
+            // @Status: not resolved!
             bytes memory patternFlags = trimString(patternInBytes, uint256(slashPairIndex), -1);
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex);
 
@@ -2567,6 +2569,14 @@ contract Stringray {
     ) private pure {
         string memory errorLeft = _errorLeft;
         string memory errorRight = _errorRight;
+        console2.log("-----------Error parts-----------");
+        console2.log("_pattern: ", string(_pattern));
+        console2.log("_errorLeft: ", _errorLeft);
+        console2.log("_errorRight: ", _errorRight);
+        console2.log("_patternFlags: ", string(_patternFlags));
+        console2.log("----------------------");
+        // @BUG🐍: Poluted error data
+        // @Status: not resolved
         bool rmvFlag = keccak256(bytes(errorRight)) == keccak256("rmv");
 
         errorRight = string(abi.encodePacked(rmvFlag ? "" : "/", _patternFlags, rmvFlag ? "" : _errorRight));
