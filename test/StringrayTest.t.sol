@@ -7332,14 +7332,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/l";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/l
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase10() public {
         string memory target = "anything";
         string memory pattern = unicode"/abc/gg";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gg
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7407,8 +7410,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ii";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ii
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase20() public {
@@ -7475,6 +7479,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/mm";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/mm
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7542,8 +7548,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ss";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ss
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase38() public {
@@ -7610,6 +7617,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/uu";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/uu
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7632,8 +7641,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/uv";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/uv
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase50() public {
@@ -7677,8 +7687,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/yy";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/yy
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase56() public {
@@ -7745,6 +7756,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/dd";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/dd
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7790,6 +7803,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/vu";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/vu
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7812,6 +7827,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/vv";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/vv
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7820,6 +7837,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggg";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggg
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7827,6 +7846,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggi";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggi
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7835,6 +7856,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggm";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggm
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7842,6 +7865,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggs";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggs
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7850,6 +7875,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggu";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggu
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7857,6 +7884,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggy";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggy
+        vm.expectRevert();
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
     }
@@ -7865,6 +7894,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggd";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggd
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7872,14 +7903,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/ggv";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/ggv
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase82() public {
         string memory target = "anything";
         string memory pattern = unicode"/abc/gig";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gig
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -7887,8 +7921,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/abc/gii";
 
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gii
+        vm.expectRevert();
         stringray.regex(target, pattern);
-        stringray.seeAllAtoms();
     }
 
     function testRegexFlagsCase84() public {
@@ -7934,6 +7969,389 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
         stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase90() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmg";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gmg
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase91() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase92() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmm";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gmm
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase93() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gms";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase94() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase95() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase96() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase97() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gmv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase98() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsg";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gsg
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase99() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase100() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase101() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gss";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gss
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase102() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase103() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase0104() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase105() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gsv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase106() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gug";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gug
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase107() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gui";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase108() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gum";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase109() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gus";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase110() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/guu";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/guu
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase111() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/guy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase112() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gud";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase113() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/guv";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/guv
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase114() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyg";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gyg
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase115() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase116() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gym";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase117() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gys";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase118() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase119() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyy";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gyy
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase0120() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase121() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gyv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase122() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdg";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gdg
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase123() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase124() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase125() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gds";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase126() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdu";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase127() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase0128() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdd";
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gdd
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase129() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gdv";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase130() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvg";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gvg
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase131() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvi";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase132() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvm";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase133() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvs";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase134() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvu";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gvu
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase135() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvy";
+
+        stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+    }
+
+    function testRegexFlagsCase0136() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvd";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexFlagsCase137() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gvv";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gvv
+        vm.expectRevert();
+        stringray.regex(target, pattern);
     }
 
     // function testRegexExxxxx() public {
