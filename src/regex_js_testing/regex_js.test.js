@@ -7763,6 +7763,13 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("flags: Case000000138", () => {
+    //     let regex = /abc/gimsuydv;
+    //     const target = "abc";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();

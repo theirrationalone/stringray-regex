@@ -2522,6 +2522,10 @@ contract Stringray {
         uint256 num_y;
         uint256 num_v;
 
+        if (patternInBytes.length - indexToStartFrom > 7) {
+            throwError(patternInBytes, "SyntaxError: Invalid regular expression flags: ", "rmv", abi.encode(""));
+        }
+
         for (uint256 i = indexToStartFrom; i < patternInBytes.length; i++) {
             if (
                 uint8(patternInBytes[i]) != SMALL_d && uint8(patternInBytes[i]) != SMALL_i

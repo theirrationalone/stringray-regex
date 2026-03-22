@@ -8354,6 +8354,15 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
+    function testRegexFlagsCase138() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/abc/gimsuydv";
+
+        // @Error: SyntaxError: Invalid regular expression flags: /abc/gimsuydv
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 
