@@ -1162,7 +1162,7 @@ contract Stringray {
 
         if (!flag) {
             if (uint8(targetChar) == CLOSE_SQUARE_BRACKET) {
-                if (hasFlag(_patternFlags, "u")) {
+                if (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -1561,7 +1561,7 @@ contract Stringray {
         bool flag;
 
         if (hasFlag(_patternFlags, "v")) {
-            ccVMode(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
+            return ccVMode(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
         } else {
             if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
                 if (_currentParticleIndex + 1 < _pattern.length) {
@@ -1687,23 +1687,34 @@ contract Stringray {
             }
 
             if (_currentParticleIndex + 2 < _pattern.length) {
+                uint256 numOpenSquareBrackets = 1;
+                uint256 numCloseSquareBrackets;
+
                 for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
                     if (uint8(_pattern[i - 1]) == BACK_SLASH) {
                         i++;
                         continue;
                     }
 
+                    if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
+                        numOpenSquareBrackets++;
+                    }
+
                     if (
                         uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
                             && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
                     ) {
+                        numCloseSquareBrackets++;
+                    }
+
+                    if (numOpenSquareBrackets == numCloseSquareBrackets) {
                         flag = true;
                         lastMatchedParticleIndex = i;
                         break;
                     }
                 }
 
-                if (!flag) {
+                if (numOpenSquareBrackets > numCloseSquareBrackets) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -1713,6 +1724,8 @@ contract Stringray {
                 }
             }
         }
+
+        return (flag, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
     }
 
     function isValidCharacterClassLiteral(
