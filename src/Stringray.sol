@@ -2024,7 +2024,7 @@ contract Stringray {
         bool fromGroup
     ) private pure returns (bool, uint256) {
         uint256 stripFrom = _currentParticleIndex;
-        if (uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
+        if (_currentParticleIndex < _pattern.length && uint8(_pattern[_currentParticleIndex]) == QUESTION_MARK) {
             if (
                 !(_currentParticleIndex + 1 <= _pattern.length - 1)
                     || (uint8(_pattern[_currentParticleIndex + 1]) != COLON
