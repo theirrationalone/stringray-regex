@@ -8279,6 +8279,13 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Character classes in v mode: Case000000072", () => {
+        let regex = /[&]/v;
+        const target = "&";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();

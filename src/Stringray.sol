@@ -303,6 +303,7 @@ contract Stringray {
     uint8 private constant PLUS_SIGN = 43;
     uint8 private constant ASTERISK = 42;
     uint8 private constant MINUS_SIGN = 45;
+    uint8 private constant AMPERSAND_SIGN = 38;
     uint8 private constant DOLLAR_SIGN = 36;
     uint8 private constant CARET_SIGN = 94;
     uint8 private constant SMALL_b = 98;
@@ -918,6 +919,7 @@ contract Stringray {
     }
 
     AtomTrait[] private allAtoms;
+    AtomTrait[] private ccAtoms;
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
@@ -1723,7 +1725,76 @@ contract Stringray {
             }
         }
 
+        if (flag) {
+            setExpressionValidationInsideCC(
+                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
+            );
+        }
+
         return (flag, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
+    }
+
+    function setExpressionValidationInsideCC(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIndex,
+        uint256 lastMatchedParticleIndex,
+        bytes memory _patternFlags,
+        bool fromGroup
+    ) private {
+        bytes memory trimmedPattern = trimString(
+            _pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1)
+        );
+
+        // AtomTrait(atomType, atom, atomEndIdx)
+        // ccAtoms
+
+        // isLiteral(trimmedPattern, _orgPattern, _currentParticleIndex, _patternFlags, true, fromGroup);
+
+        for (uint256 i; i < trimmedPattern.length; i++) {
+            if (uint8(trimmedPattern[i]) == BACK_SLASH) {
+                i++;
+                continue;
+            }
+
+            if (
+                (uint8(trimmedPattern[i]) == AMPERSAND_SIGN
+                        && i + 1 < trimmedPattern.length
+                        && uint8(trimmedPattern[i + 1]) == AMPERSAND_SIGN)
+                    || (uint8(trimmedPattern[i]) == MINUS_SIGN
+                        && i + 1 < trimmedPattern.length
+                        && uint8(trimmedPattern[i + 1]) == MINUS_SIGN)
+            ) {
+                if (i == 0) {
+                    // throw
+                }
+
+                bytes memory insideCCLeftSlice = trimString(trimmedPattern, 0, int256(i - 1));
+                bytes memory insideCCRightSlice =
+                    trimString(trimmedPattern, i + 2, int256(lastMatchedParticleIndex - 1));
+
+                ccINVModeLeftRightSliceValidation(
+                    _orgPattern, _patternFlags, fromGroup, insideCCLeftSlice, insideCCRightSlice
+                );
+            }
+        }
+    }
+
+    function ccINVModeLeftRightSliceValidation(
+        bytes memory _orgPattern,
+        bytes memory _patternFlags,
+        bool fromGroup,
+        bytes memory insideCCLeftSlice,
+        bytes memory insideCCRightSlice
+    ) private {
+        uint256 leftAtomsCount;
+        uint256 rightAtomsCount;
+        if (insideCCLeftSlice.length > 1 && insideCCRightSlice.length > 1) {
+            for (uint256 i; i < insideCCLeftSlice.length; i++) {
+                (bool flag, bytes32 atomType, uint256 lastMatchedIndex) =
+                    isLiteralAtom(insideCCLeftSlice, _orgPattern, i, _patternFlags, true, fromGroup);
+            }
+        }
     }
 
     function isValidCharacterClassLiteral(
