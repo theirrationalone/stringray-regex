@@ -8846,6 +8846,27 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
+    function testRegexVFlagCase70() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc)[abc[[a-h]&&[d-g]]yz]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase71() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc)[abc[s[a-h]&&[d-g]]yz]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase72() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(abc)[abc[[1-9][a-h]&&[d-g][A-F]]yz]/v";
+
+        stringray.regex(target, pattern);
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 
