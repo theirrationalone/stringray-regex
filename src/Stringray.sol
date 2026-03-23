@@ -1680,11 +1680,6 @@ contract Stringray {
                 uint256 numCloseSquareBrackets;
 
                 for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
-                    if (uint8(_pattern[i]) == BACK_SLASH) {
-                        i++;
-                        continue;
-                    }
-
                     if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
                         numOpenSquareBrackets++;
                     }
@@ -1725,6 +1720,12 @@ contract Stringray {
             }
         }
 
+        if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
+            flag = isValidCharacterClassLiteral(
+                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
+            );
+        }
+
         if (flag) {
             setExpressionValidationInsideCC(
                 _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
@@ -1746,11 +1747,6 @@ contract Stringray {
             _pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1)
         );
 
-        // AtomTrait(atomType, atom, atomEndIdx)
-        // ccAtoms
-
-        // isLiteral(trimmedPattern, _orgPattern, _currentParticleIndex, _patternFlags, true, fromGroup);
-
         for (uint256 i; i < trimmedPattern.length; i++) {
             if (uint8(trimmedPattern[i]) == BACK_SLASH) {
                 i++;
@@ -1766,16 +1762,20 @@ contract Stringray {
                         && uint8(trimmedPattern[i + 1]) == MINUS_SIGN)
             ) {
                 if (i == 0) {
-                    // throw
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid set operation in character class",
+                        _patternFlags
+                    );
                 }
 
                 bytes memory insideCCLeftSlice = trimString(trimmedPattern, 0, int256(i - 1));
                 bytes memory insideCCRightSlice =
                     trimString(trimmedPattern, i + 2, int256(lastMatchedParticleIndex - 1));
 
-                ccINVModeLeftRightSliceValidation(
-                    _orgPattern, _patternFlags, fromGroup, insideCCLeftSlice, insideCCRightSlice
-                );
+                ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCLeftSlice);
+                ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
             }
         }
     }
@@ -1784,16 +1784,42 @@ contract Stringray {
         bytes memory _orgPattern,
         bytes memory _patternFlags,
         bool fromGroup,
-        bytes memory insideCCLeftSlice,
-        bytes memory insideCCRightSlice
+        bytes memory insideCCSlice
     ) private {
-        uint256 leftAtomsCount;
-        uint256 rightAtomsCount;
-        if (insideCCLeftSlice.length > 1 && insideCCRightSlice.length > 1) {
-            for (uint256 i; i < insideCCLeftSlice.length; i++) {
-                (bool flag, bytes32 atomType, uint256 lastMatchedIndex) =
-                    isLiteralAtom(insideCCLeftSlice, _orgPattern, i, _patternFlags, true, fromGroup);
+        if (insideCCSlice.length > 1) {
+            // uint256 atomsCount;
+            // for (uint256 i; i < insideCCSlice.length; i++) {
+            bool flag;
+            bytes32 atomType;
+            uint256 lastMatchedIndex;
+            (flag, atomType, lastMatchedIndex) =
+                isLiteralAtom(insideCCSlice, _orgPattern, 0, _patternFlags, true, fromGroup);
+
+            if (!flag) {
+                (flag, atomType, lastMatchedIndex) =
+                    isCharacterClass(insideCCSlice, _orgPattern, 0, _patternFlags, fromGroup);
             }
+
+            if (flag) {
+                if (atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY || atomType == CHARACTER_CLASS_ATOM) {
+                    if (lastMatchedIndex != insideCCSlice.length - 1) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid set operation in character class",
+                            _patternFlags
+                        );
+                    }
+                } else {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid set operation in character class",
+                        _patternFlags
+                    );
+                }
+            }
+            // }
         }
     }
 
@@ -1823,7 +1849,7 @@ contract Stringray {
                 !flag
                     && (uint8(_pattern[i]) == OPEN_PARANTHESIS
                         || uint8(_pattern[i]) == CLOSE_PARANTHESIS
-                        || uint8(_pattern[i]) == OPEN_SQUARE_BRACKET
+                        || (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET && !hasFlag(_patternFlags, "v"))
                         || uint8(_pattern[i]) == QUESTION_MARK
                         || uint8(_pattern[i]) == PLUS_SIGN
                         || uint8(_pattern[i]) == FORWARD_SLASH
@@ -1839,6 +1865,14 @@ contract Stringray {
                     lastParticleIndex + 1 < lastMatchedParticleIndex
                         && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN
                 ) {
+                    if (
+                        hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < lastMatchedParticleIndex
+                            && uint8(_pattern[lastParticleIndex + 2]) == MINUS_SIGN
+                    ) {
+                        i = lastParticleIndex + 2;
+                        continue;
+                    }
+
                     validateCharacterClassRangeLeftRightAtoms(_orgPattern, atomType, _patternFlags);
 
                     if (lastParticleIndex + 2 < lastMatchedParticleIndex) {
@@ -1851,7 +1885,7 @@ contract Stringray {
                             rightAtomType == INVALID_ATOM
                                 && (uint8(_pattern[i + 2]) == OPEN_PARANTHESIS
                                     || uint8(_pattern[i + 2]) == CLOSE_PARANTHESIS
-                                    || uint8(_pattern[i + 2]) == OPEN_SQUARE_BRACKET
+                                    || (uint8(_pattern[i + 2]) == OPEN_SQUARE_BRACKET && !hasFlag(_patternFlags, "v"))
                                     || uint8(_pattern[i + 2]) == QUESTION_MARK
                                     || uint8(_pattern[i + 2]) == PLUS_SIGN
                                     || uint8(_pattern[i + 2]) == FORWARD_SLASH
@@ -1874,7 +1908,7 @@ contract Stringray {
                         if (
                             uint8(_pattern[lastParticleIndex + 2]) == BACK_SLASH
                                 && uint8(_pattern[lastParticleIndex + 3]) == uint8(abi.encodePacked("c")[0])
-                                && !hasFlag(_patternFlags, "u")
+                                && !hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")
                         ) {
                             throwError(
                                 _orgPattern,
@@ -1892,7 +1926,7 @@ contract Stringray {
             } else {
                 if (
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
-                        && !hasFlag(_patternFlags, "u")
+                        && !hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")
                 ) {
                     if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == MINUS_SIGN) {
                         throwError(
@@ -1906,6 +1940,12 @@ contract Stringray {
                     i = i + 2;
                     continue;
                 }
+
+                if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET && hasFlag(_patternFlags, "v")) {
+                    i += 1;
+                    continue;
+                }
+
                 throwError(
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",

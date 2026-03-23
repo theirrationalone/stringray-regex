@@ -7842,12 +7842,12 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    // test("Character classes in v mode: Case000000011", () => {
-    //     let regex = /[a[b]]]/v;
-    //     const target = "b";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Character classes in v mode: Case000000011", () => {
+        let regex = /[a[b]]]/v;
+        const target = "b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Character classes in v mode: Case000000012", () => {
     //     let regex = /[\p{UnknownProperty}]/v;
@@ -8266,12 +8266,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Character classes in v mode: Case000000071", () => {
-    //     let regex = /(abc)[abc[s[a-h]&&[d-g]]yz]/v;
-    //     const target = "abcf";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Character classes in v mode: Case000000071", () => {
+        let regex = /(abc)[abc[s[a-h]&&[d-g]]yz]/v;
+        const target = "abcf";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Character classes in v mode: Case000000072", () => {
     //     let regex = /(abc)[abc[[1-9][a-h]&&[d-g][A-F]]yz]/v;
