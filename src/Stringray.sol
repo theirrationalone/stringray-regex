@@ -1613,6 +1613,19 @@ contract Stringray {
                     );
                 }
             }
+
+            if (hasFlag(_patternFlags, "v")) {
+                for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
+                    if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid character in character class",
+                            _patternFlags
+                        );
+                    }
+                }
+            }
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
@@ -1756,7 +1769,7 @@ contract Stringray {
         uint256 lastParticleIndex,
         uint256 rightLastParticleIndex,
         bytes memory _patternFlags
-    ) private {
+    ) private pure {
         if (
             (rightAtomType != DIGIT
                     && rightAtomType != WHITESPACE
