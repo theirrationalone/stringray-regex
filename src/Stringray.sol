@@ -1560,6 +1560,100 @@ contract Stringray {
         uint256 lastMatchedParticleIndex;
         bool flag;
 
+        if (hasFlag(_patternFlags, "v")) {
+            ccVMode(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
+        } else {
+            if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
+                if (_currentParticleIndex + 1 < _pattern.length) {
+                    if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Empty Character class",
+                            _patternFlags
+                        );
+                    }
+                }
+
+                if (_pattern.length < 3 && uint8(_pattern[1]) != CLOSE_SQUARE_BRACKET) {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Unterminated Character class",
+                        _patternFlags
+                    );
+                }
+
+                if (_currentParticleIndex == 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH) {
+                    return (false, INVALID_ATOM, 0);
+                }
+
+                if (
+                    _currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH
+                        && uint8(_pattern[_currentParticleIndex - 2]) != BACK_SLASH
+                ) {
+                    return (false, INVALID_ATOM, 0);
+                }
+
+                if (_currentParticleIndex + 2 < _pattern.length) {
+                    for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
+                        if (
+                            uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
+                                && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+                        ) {
+                            flag = true;
+                            lastMatchedParticleIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (!flag) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Unterminated Character class",
+                            _patternFlags
+                        );
+                    }
+                }
+
+                // if (hasFlag(_patternFlags, "v")) {
+                //     for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
+                //         if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                //             throwError(
+                //                 _orgPattern,
+                //                 "SyntaxError: Invalid regular expression: /",
+                //                 ": Invalid character in character class",
+                //                 _patternFlags
+                //             );
+                //         }
+                //     }
+                // }
+            }
+
+            if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
+                flag = isValidCharacterClassLiteral(
+                    _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
+                );
+                if (flag) {
+                    return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
+                }
+            }
+        }
+
+        return (false, INVALID_ATOM, 0);
+    }
+
+    function ccVMode(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIndex,
+        bytes memory _patternFlags,
+        bool fromGroup
+    ) private returns (bool, bytes32, uint256) {
+        uint256 lastMatchedParticleIndex;
+        bool flag;
+
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
@@ -1594,6 +1688,11 @@ contract Stringray {
 
             if (_currentParticleIndex + 2 < _pattern.length) {
                 for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
+                    if (uint8(_pattern[i - 1]) == BACK_SLASH) {
+                        i++;
+                        continue;
+                    }
+
                     if (
                         uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
                             && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
@@ -1613,31 +1712,7 @@ contract Stringray {
                     );
                 }
             }
-
-            if (hasFlag(_patternFlags, "v")) {
-                for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
-                    if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Invalid character in character class",
-                            _patternFlags
-                        );
-                    }
-                }
-            }
         }
-
-        if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-            flag = isValidCharacterClassLiteral(
-                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
-            );
-            if (flag) {
-                return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
-            }
-        }
-
-        return (false, INVALID_ATOM, 0);
     }
 
     function isValidCharacterClassLiteral(
