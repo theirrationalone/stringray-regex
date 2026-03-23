@@ -8095,6 +8095,104 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("Character classes in v mode: Case000000047", () => {
+    //     let regex = /[[a`]&&[a`]a]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000048", () => {
+    //     let regex = /[[a][a`]&&[a`][a]]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000049", () => {
+    //     let regex = /[(a)&&(a)]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000050", () => {
+    //     let regex = /[(a)(a)&&(a)(a)]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000051", () => {
+    //     let regex = /[(&&(]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000052", () => {
+    //     let regex = /[)&&)]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000053", () => {
+    //     let regex = /[a+&&a+]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000054", () => {
+    //     let regex = /[a*&&a*]/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character classes in v mode: Case000000055", () => {
+        let regex = /["anil""dev"]/v;
+        const target = "\"";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character classes in v mode: Case000000056", () => {
+    //     let regex = /["anil"&&"anildeveloper"]/v;
+    //     const target = "anil";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character classes in v mode: Case000000057", () => {
+        let regex = /['anil']/v;
+        const target = "'";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character classes in v mode: Case000000058", () => {
+        let regex = /[anil]/v;
+        const target = "n";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character classes in v mode: Case000000059", () => {
+        let regex = /[abc]&&[ebf]/v;
+        const target = "b&&b";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Character classes in v mode: Case000000060", () => {
+        let regex = /abc&&[bcd]/v;
+        const target = "abc&&c";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
