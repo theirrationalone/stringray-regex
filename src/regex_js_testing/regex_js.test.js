@@ -8193,6 +8193,50 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    // test("Character classes in v mode: Case000000061", () => {
+    //     let regex = /)&&)/v;
+    //     const target = "abc&&c";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Character classes in v mode: Case000000062", () => {
+    //     let regex = /(&&(/v;
+    //     const target = "abc&&c";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+    
+    test("Character classes in v mode: Case000000063", () => {
+        // @info: precedence over range
+        let regex = /[a--z]/v;
+        const target = "";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+    
+    test("Character classes in v mode: Case000000064", () => {
+        let regex = /[[a&&b][c--d]]/v;
+        const target = "";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+    
+    test("Character classes in v mode: Case000000065", () => {
+        let regex = /[a["bc"]]/v;
+        // @info: could match with either: a, ", b, c, "
+        const target = "\"";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+    
+    test("Character classes in v mode: Case000000066", () => {
+        let regex = /[a "bc" d]/v;
+        const target = "c";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
