@@ -1645,7 +1645,6 @@ contract Stringray {
         bool flag;
 
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
-            console2.log("checking for cc");
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
                     throwError(
@@ -1677,13 +1676,11 @@ contract Stringray {
                 return (false, INVALID_ATOM, 0);
             }
 
-            console2.log("passing formalities...");
-
-            if (_currentParticleIndex + 2 < _pattern.length) {
+            if (_currentParticleIndex + 1 < _pattern.length) {
                 uint256 numOpenSquareBrackets = 1;
                 uint256 numCloseSquareBrackets;
 
-                for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
+                for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
                     if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
                         numOpenSquareBrackets++;
                     }
@@ -1722,18 +1719,12 @@ contract Stringray {
                     }
                 }
             }
-
-            console2.log("flag: ", flag);
-            console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
-            console2.log("_pattern: ", string(_pattern));
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
             flag = isValidCharacterClassLiteral(_pattern, _orgPattern, _patternFlags, fromGroup, true);
         }
-
-        console2.log("passing cc validation...");
 
         if (flag) {
             setExpressionValidationInsideCC(_pattern, _orgPattern, _patternFlags, fromGroup);
@@ -1748,8 +1739,6 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
-        console2.log("_pattern: ", string(_pattern));
-
         for (uint256 i; i < _pattern.length; i++) {
             if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
@@ -1784,7 +1773,6 @@ contract Stringray {
                         _patternFlags
                     );
                 }
-                console2.log("something is weird...");
                 bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
                 ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
             }
@@ -1841,12 +1829,27 @@ contract Stringray {
         bool fromGroup,
         bool isNestedCC
     ) private returns (bool) {
+        console2.log("_pattern: ", string(_pattern));
         for (uint256 i = 0; i < _pattern.length;) {
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
-                    && (i == 0 || i == _pattern.length - 1 || (i == 1 && uint8(_pattern[0]) == CARET_SIGN))
+                    && (i == 0
+                        || i == _pattern.length - 1
+                        || (i == 1
+                            && uint8(_pattern[0]) == CARET_SIGN
+                            || (i + 1 < _pattern.length
+                                && uint8(_pattern[i + 1]) == MINUS_SIGN
+                                && hasFlag(_patternFlags, "v")
+                                && isNestedCC)))
             ) {
-                i = i + 1;
+                if (
+                    i + 1 < _pattern.length && uint8(_pattern[i + 1]) == MINUS_SIGN && hasFlag(_patternFlags, "v")
+                        && isNestedCC
+                ) {
+                    i = i + 2;
+                } else {
+                    i = i + 1;
+                }
                 continue;
             }
 
@@ -1872,7 +1875,9 @@ contract Stringray {
                 lastParticleIndex = i;
             }
 
-            if (atomType == LITERAL_ATOM) {
+            if (atomType != INVALID_ATOM) {
+                console2.log("atomType is literal");
+                console2.log("atom: ", string(abi.encodePacked(_pattern[i])));
                 if (lastParticleIndex + 1 < _pattern.length && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN) {
                     if (
                         hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < _pattern.length
@@ -1953,6 +1958,11 @@ contract Stringray {
 
                 if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET && hasFlag(_patternFlags, "v")) {
                     i += 1;
+                    continue;
+                }
+
+                if (atomType != INVALID_ATOM) {
+                    i += lastParticleIndex + 1;
                     continue;
                 }
 

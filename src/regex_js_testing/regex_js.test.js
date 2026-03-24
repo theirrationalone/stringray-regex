@@ -2192,12 +2192,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    // test("Character Classes[]: Case000149", () => {
-    //     let regex = /[|-/]/;
-    //     const target = "+";
-    //     console.log("output: ", target.match(regex));
-    //     assert.strictEqual(regex.test(target), true);
-    // });
+    test("Character Classes[]: Case000149", () => {
+        let regex = /[|-/]/;
+        const target = "+";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 
     // test("Character Classes[]: Case000150", () => {
     //     let regex = /[|-/]/u;
