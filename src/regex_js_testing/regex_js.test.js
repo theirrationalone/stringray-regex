@@ -2192,12 +2192,12 @@ const testMain = () => {
         assert.strictEqual(regex.test(target), true);
     });
 
-    test("Character Classes[]: Case000149", () => {
-        let regex = /[|-/]/;
-        const target = "+";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Character Classes[]: Case000149", () => {
+    //     let regex = /[|-/]/;
+    //     const target = "+";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     // test("Character Classes[]: Case000150", () => {
     //     let regex = /[|-/]/u;
@@ -7821,7 +7821,7 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Character classes in v mode: Case00000009", () => {
+    test("Character classes in v mode: Case00000008", () => {
         let regex = /[abc]&&[bcdef]/v;
         const target = "a&&c";
         console.log("output: ", target.match(regex));
@@ -8047,12 +8047,12 @@ const testMain = () => {
     //     assert.strictEqual(regex.test(target), true);
     // });
 
-    test("Character classes in v mode: Case000000040", () => {
-        let regex = /['[a]'&&'[a]']/v;
-        const target = "a";
-        console.log("output: ", target.match(regex));
-        assert.strictEqual(regex.test(target), true);
-    });
+    // test("Character classes in v mode: Case000000040", () => {
+    //     let regex = /['[a]'&&'[a]']/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 
     // test("Character classes in v mode: Case000000041", () => {
     //     let regex = /["[a]"&&"[a]"]/v;

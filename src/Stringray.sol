@@ -1282,7 +1282,7 @@ contract Stringray {
         uint256 decDigit = stringDigitToDecDigit(decString);
         uint256 numGroups = countGroupAtoms();
 
-        if (!hasFlag(_patternFlags, "u")) {
+        if (!hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")) {
             if (numGroups < decDigit && !(decDigit == 1 && fromGroup)) {
                 (bool isOctal, uint256 lastOctalIndex) =
                     validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
@@ -1295,7 +1295,7 @@ contract Stringray {
             }
         }
 
-        if (hasFlag(_patternFlags, "u")) {
+        if (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) {
             if (fromCharacterClass) {
                 string memory errorRight = ": Invalid escape";
                 if (uint8(_pattern[_currentParticleIdx + 1]) < uint8(abi.encodePacked("8")[0])) {
@@ -1516,7 +1516,7 @@ contract Stringray {
             } else if (lastMatchedParticle == uint8(abi.encodePacked("w")[0])) {
                 atomType = WORD_CHARACTER;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("B")[0])) {
-                if (fromCharacterClass && hasFlag(_patternFlags, "u")) {
+                if (fromCharacterClass && (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v"))) {
                     throwError(
                         _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlags
                     );
@@ -1530,7 +1530,7 @@ contract Stringray {
                 atomType = NOT_WORD_CHARACTER;
             } else {
                 if (
-                    hasFlag(_patternFlags, "u") && lastMatchedParticle != CARET_SIGN
+                    (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && lastMatchedParticle != CARET_SIGN
                         && lastMatchedParticle != DOLLAR_SIGN && lastMatchedParticle != BACK_SLASH
                         && lastMatchedParticle != DOT && lastMatchedParticle != ASTERISK
                         && lastMatchedParticle != PLUS_SIGN && lastMatchedParticle != QUESTION_MARK
@@ -1681,6 +1681,11 @@ contract Stringray {
                 uint256 numCloseSquareBrackets;
 
                 for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
+                    if (uint8(_pattern[i]) == BACK_SLASH) {
+                        i += 1;
+                        continue;
+                    }
+
                     if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
                         numOpenSquareBrackets++;
                     }
@@ -1739,6 +1744,7 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
+        console2.log("validation successful...");
         for (uint256 i; i < _pattern.length; i++) {
             if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
@@ -1773,8 +1779,10 @@ contract Stringray {
                         _patternFlags
                     );
                 }
+
                 bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
                 ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
+                i += insideCCRightSlice.length - 1;
             }
         }
     }
@@ -18281,7 +18289,7 @@ contract Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("p")[0]) || _nextChar == uint8(abi.encodePacked("P")[0])) {
-                if (!hasFlag(_patternFlags, "u")) {
+                if (!hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")) {
                     return (true, _currentParticleIndex + 1);
                 }
 
