@@ -1745,9 +1745,11 @@ contract Stringray {
         bool fromGroup
     ) private {
         console2.log("validation successful...");
+        console2.log("_pattern inside exp: ", string(_pattern));
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
+            console2.log("i: ", i);
             if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
                 continue;
@@ -1766,8 +1768,13 @@ contract Stringray {
 
             if (flag) {
                 if (
-                    uint8(_pattern[i]) == AMPERSAND_SIGN && i + 1 < _pattern.length
-                        && uint8(_pattern[i + 1]) == AMPERSAND_SIGN && leftAtomsCount == 0
+                    ((uint8(_pattern[i]) == AMPERSAND_SIGN
+                                && i + 1 < _pattern.length
+                                && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
+                            || (uint8(_pattern[i]) == MINUS_SIGN
+                                && i + 1 < _pattern.length
+                                && uint8(_pattern[i + 1]) == MINUS_SIGN
+                                && leftAtomsCount == 0)) && leftAtomsCount == 0
                 ) {
                     throwError(
                         _orgPattern,
@@ -1777,7 +1784,7 @@ contract Stringray {
                     );
                 }
 
-                console2.log("passing this above check..");
+                console2.log("passing this above check..: ", lastMatchedIndex);
 
                 if (
                     (lastMatchedIndex + 1 < _pattern.length
@@ -1789,6 +1796,8 @@ contract Stringray {
                             && lastMatchedIndex + 2 < _pattern.length
                             && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)
                 ) {
+                    leftAtomsCount++;
+
                     if (leftAtomsCount > 1 || rightAtomsCount > 1) {
                         throwError(
                             _orgPattern,
@@ -1825,9 +1834,18 @@ contract Stringray {
                                             _patternFlags
                                         );
                                     }
+                                    console2.log("lastMatchedIndex of right atoms: ", lastMatchedIndex);
+                                    j = lastMatchedIndex;
+                                    i = lastMatchedIndex;
+                                    console2.log("i inside right atoms: ", lastMatchedIndex);
+                                } else {
+                                    throwError(
+                                        _orgPattern,
+                                        "SyntaxError: Invalid regular expression: /",
+                                        ": Invalid set operation in character class",
+                                        _patternFlags
+                                    );
                                 }
-
-                                i = lastMatchedIndex + 1;
                             }
 
                             if (rightAtomsCount == 0 || rightAtomsCount > 1) {
@@ -1846,10 +1864,20 @@ contract Stringray {
                                 _patternFlags
                             );
                         }
+                        console2.log("i inside right atoms: ", lastMatchedIndex);
+                        console2.log("passing rightAtoms check...");
                     }
                 } else {
+                    i = lastMatchedIndex;
                     leftAtomsCount++;
                 }
+            } else {
+                throwError(
+                    _orgPattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid set operation in character class",
+                    _patternFlags
+                );
             }
 
             // if (

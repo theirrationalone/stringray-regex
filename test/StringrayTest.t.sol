@@ -8381,6 +8381,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a&&]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a&&]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8388,6 +8390,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[&&b]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[&&b]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8395,6 +8399,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a--]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a--]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8402,6 +8408,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[--b]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[--b]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8409,6 +8417,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a&&b--c]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a&&b--c]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8430,6 +8440,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a[b]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a[b]/v: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8437,6 +8449,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a[b]]]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a[b]]]/v: Lone Character class brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8444,6 +8458,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\p{UnknownProperty}]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[\p{UnknownProperty}]/v Invalid property name in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8451,6 +8467,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\p{}]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[\p{}]/v Invalid property name in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8465,6 +8483,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\q]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[\q]/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8479,6 +8499,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[&&]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[&&]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8486,6 +8508,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[]/v: Empty Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8535,6 +8559,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a'&&'a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a'&&'a]/v: Invalid set operation in character class
+
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8542,6 +8569,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a\"&&\"a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a"&&"a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8549,6 +8578,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a`&&`a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a`&&`a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8556,6 +8587,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a'&&a']/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a'&&a']/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8563,6 +8596,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a\"&&a\"]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a"&&a"]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8570,6 +8605,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a`&&a`]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a`&&a`]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8577,6 +8614,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['a&&'a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /['a&&'a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8584,6 +8623,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\"a&&\"a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /["a&&"a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8591,6 +8632,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`a&&`a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[`a&&`a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8598,6 +8641,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['a&&a']/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /['a&&a']/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8605,6 +8650,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\"a&&a\"]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /["a&&a"]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8612,6 +8659,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`a&&a`]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[`a&&a`]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8619,6 +8668,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['a'&&'a']/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /['a'&&'a']/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8626,6 +8677,9 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\"a\"&&\"a\"]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /["a"&&"a"]/v: Invalid set operation in character class
+
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8633,6 +8687,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`a`&&`a`]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[`a`&&`a`]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8640,6 +8696,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['[a]'&&'[a]']/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /['[a]'&&'[a]']/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8647,6 +8705,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\"[a]\"&&\"[a]\"]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /["[a]"&&"[a]"]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8654,6 +8714,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`[a]`&&`[a]`]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[`[a]`&&`[a]`]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8682,6 +8744,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a[a`]&&[a`]]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a[a`]&&[a`]]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8689,6 +8753,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[[a`]&&[a`]a]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[[a`]&&[a`]a]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8696,6 +8762,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[[a][a`]&&[a`][a]]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[[a][a`]&&[a`][a]]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8703,6 +8771,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(a)&&(a)]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[(a)&&(a)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8710,6 +8780,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(a)(a)&&(a)(a)]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[(a)(a)&&(a)(a)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8717,6 +8789,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(&&(]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[(&&(]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8724,6 +8798,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[)&&)]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[)&&)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8731,6 +8807,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a+&&a+]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a+&&a+]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8738,6 +8816,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a*&&a*]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[a*&&a*]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8752,6 +8832,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\"anil\"&&\"anildeveloper\"]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /["anil"&&"anildeveloper"]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8787,6 +8869,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/)&&)/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /)&&)/v: Unmatched ')'
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8794,6 +8878,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(&&(/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /(&&(/v: Unterminated group
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8836,6 +8922,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(abc)]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[(abc)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8857,6 +8945,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(abc)[abc[s[a-h]&&[d-g]]yz]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /(abc)[abc[s[a-h]&&[d-g]]yz]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -8864,6 +8954,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(abc)[abc[[1-9][a-h]&&[d-g][A-F]]yz]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /(abc)[abc[[1-9][a-h]&&[d-g][A-F]]yz]/v: Invalid set operation in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
