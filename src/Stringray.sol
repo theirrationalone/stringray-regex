@@ -1842,21 +1842,15 @@ contract Stringray {
         bool isNestedCC
     ) private returns (bool) {
         for (uint256 i = 0; i < _pattern.length;) {
-            console2.log("recycled...: ", i);
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
-                    && ((i - 1 == 0 && uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET)
-                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == _pattern.length - 1)
-                        || (i - 1 == 1 && uint8(_pattern[i - 1]) == CARET_SIGN))
+                    && (i == 0 || i == _pattern.length - 1 || (i == 1 && uint8(_pattern[0]) == CARET_SIGN))
             ) {
                 i = i + 1;
                 continue;
             }
 
-            console2.log("passing above check...");
-
             if (uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && hasFlag(_patternFlags, "v") && isNestedCC) {
-                console2.log("close square bracket found...");
                 i += 1;
                 continue;
             }
@@ -1884,11 +1878,7 @@ contract Stringray {
                         hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < _pattern.length
                             && uint8(_pattern[lastParticleIndex + 2]) == MINUS_SIGN
                     ) {
-                        console2.log("here we're, continued...");
-                        console2.log("i: ", i);
-                        console2.log("lastParticleIndex: ", lastParticleIndex);
-                        i = lastParticleIndex + 2;
-                        console2.log("i again: ", i);
+                        i = lastParticleIndex + 3;
                         continue;
                     }
 
