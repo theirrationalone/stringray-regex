@@ -1745,45 +1745,146 @@ contract Stringray {
         bool fromGroup
     ) private {
         console2.log("validation successful...");
+        uint256 leftAtomsCount;
+        uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
             if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
                 continue;
             }
 
-            if (
-                (uint8(_pattern[i]) == AMPERSAND_SIGN
-                        && i + 1 < _pattern.length
-                        && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
-                    || (uint8(_pattern[i]) == MINUS_SIGN
-                        && i + 1 < _pattern.length
-                        && uint8(_pattern[i + 1]) == MINUS_SIGN)
-            ) {
-                if (i == 0) {
-                    throwError(
-                        _orgPattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Invalid set operation in character class",
-                        _patternFlags
-                    );
-                }
+            bool flag;
+            bytes32 atomType;
+            uint256 lastMatchedIndex;
+            (flag, atomType, lastMatchedIndex) =
+                isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup, true);
 
-                bytes memory insideCCLeftSlice = trimString(_pattern, 0, int256(i - 1));
-                ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCLeftSlice);
-
-                if (i + 2 >= _pattern.length) {
-                    throwError(
-                        _orgPattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Invalid set operation in character class",
-                        _patternFlags
-                    );
-                }
-
-                bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
-                ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
-                i += insideCCRightSlice.length - 1;
+            if (!flag) {
+                (flag, atomType, lastMatchedIndex) =
+                    isCharacterClass(_pattern, _orgPattern, i, _patternFlags, fromGroup);
             }
+
+            if (flag) {
+                if (
+                    uint8(_pattern[i]) == AMPERSAND_SIGN && i + 1 < _pattern.length
+                        && uint8(_pattern[i + 1]) == AMPERSAND_SIGN && leftAtomsCount == 0
+                ) {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid set operation in character class",
+                        _patternFlags
+                    );
+                }
+
+                console2.log("passing this above check..");
+
+                if (
+                    (lastMatchedIndex + 1 < _pattern.length
+                            && uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
+                            && lastMatchedIndex + 2 < _pattern.length
+                            && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
+                        || (lastMatchedIndex + 1 < _pattern.length
+                            && uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
+                            && lastMatchedIndex + 2 < _pattern.length
+                            && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)
+                ) {
+                    if (leftAtomsCount > 1 || rightAtomsCount > 1) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid set operation in character class",
+                            _patternFlags
+                        );
+                    }
+
+                    if (leftAtomsCount == 1) {
+                        if (
+                            atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY || atomType == CHARACTER_CLASS_ATOM
+                        ) {
+                            for (uint256 j = lastMatchedIndex + 3; j < _pattern.length; j++) {
+                                (flag, atomType, lastMatchedIndex) =
+                                    isLiteralAtom(_pattern, _orgPattern, j, _patternFlags, true, fromGroup, true);
+
+                                if (!flag) {
+                                    (flag, atomType, lastMatchedIndex) =
+                                        isCharacterClass(_pattern, _orgPattern, j, _patternFlags, fromGroup);
+                                }
+
+                                if (flag) {
+                                    if (
+                                        atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
+                                            || atomType == CHARACTER_CLASS_ATOM
+                                    ) {
+                                        rightAtomsCount++;
+                                    } else {
+                                        throwError(
+                                            _orgPattern,
+                                            "SyntaxError: Invalid regular expression: /",
+                                            ": Invalid set operation in character class",
+                                            _patternFlags
+                                        );
+                                    }
+                                }
+
+                                i = lastMatchedIndex + 1;
+                            }
+
+                            if (rightAtomsCount == 0 || rightAtomsCount > 1) {
+                                throwError(
+                                    _orgPattern,
+                                    "SyntaxError: Invalid regular expression: /",
+                                    ": Invalid set operation in character class",
+                                    _patternFlags
+                                );
+                            }
+                        } else {
+                            throwError(
+                                _orgPattern,
+                                "SyntaxError: Invalid regular expression: /",
+                                ": Invalid set operation in character class",
+                                _patternFlags
+                            );
+                        }
+                    }
+                } else {
+                    leftAtomsCount++;
+                }
+            }
+
+            // if (
+            //     (uint8(_pattern[i]) == AMPERSAND_SIGN
+            //             && i + 1 < _pattern.length
+            //             && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
+            //         || (uint8(_pattern[i]) == MINUS_SIGN
+            //             && i + 1 < _pattern.length
+            //             && uint8(_pattern[i + 1]) == MINUS_SIGN)
+            // ) {
+            //     if (i == 0) {
+            //         throwError(
+            //             _orgPattern,
+            //             "SyntaxError: Invalid regular expression: /",
+            //             ": Invalid set operation in character class",
+            //             _patternFlags
+            //         );
+            //     }
+
+            //     bytes memory insideCCLeftSlice = trimString(_pattern, 0, int256(i - 1));
+            //     ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCLeftSlice);
+
+            //     if (i + 2 >= _pattern.length) {
+            //         throwError(
+            //             _orgPattern,
+            //             "SyntaxError: Invalid regular expression: /",
+            //             ": Invalid set operation in character class",
+            //             _patternFlags
+            //         );
+            //     }
+
+            //     bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
+            //     ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
+            //     i += insideCCRightSlice.length - 1;
+            // }
         }
     }
 
