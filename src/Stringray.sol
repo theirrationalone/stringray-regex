@@ -1002,8 +1002,9 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private returns (bool, bytes32, uint256) {
-        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) =
-            isLiteralAtom(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, false, fromGroup);
+        (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(
+            _pattern, _orgPattern, _currentParticleIdx, _patternFlags, false, fromGroup, false
+        );
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
@@ -1088,7 +1089,8 @@ contract Stringray {
         uint256 _currentParticleIdx,
         bytes memory _patternFlags,
         bool fromCharacterClass,
-        bool fromGroup
+        bool fromGroup,
+        bool isNestedCC
     ) private returns (bool, bytes32, uint256) {
         bytes32 atomType = INVALID_ATOM;
         uint256 lastMatchedParticleIndex = _currentParticleIdx;
@@ -1164,7 +1166,7 @@ contract Stringray {
 
         if (!flag) {
             if (uint8(targetChar) == CLOSE_SQUARE_BRACKET) {
-                if (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) {
+                if (hasFlag(_patternFlags, "u") || (hasFlag(_patternFlags, "v") && !isNestedCC)) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -1621,9 +1623,8 @@ contract Stringray {
             }
 
             if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-                flag = isValidCharacterClassLiteral(
-                    _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
-                );
+                _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
+                flag = isValidCharacterClassLiteral(_pattern, _orgPattern, _patternFlags, fromGroup, false);
                 if (flag) {
                     return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
                 }
@@ -1644,6 +1645,7 @@ contract Stringray {
         bool flag;
 
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
+            console2.log("checking for cc");
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
                     throwError(
@@ -1674,6 +1676,8 @@ contract Stringray {
             ) {
                 return (false, INVALID_ATOM, 0);
             }
+
+            console2.log("passing formalities...");
 
             if (_currentParticleIndex + 2 < _pattern.length) {
                 uint256 numOpenSquareBrackets = 1;
@@ -1718,18 +1722,21 @@ contract Stringray {
                     }
                 }
             }
+
+            console2.log("flag: ", flag);
+            console2.log("lastMatchedParticleIndex: ", lastMatchedParticleIndex);
+            console2.log("_pattern: ", string(_pattern));
         }
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-            flag = isValidCharacterClassLiteral(
-                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
-            );
+            _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
+            flag = isValidCharacterClassLiteral(_pattern, _orgPattern, _patternFlags, fromGroup, true);
         }
 
+        console2.log("passing cc validation...");
+
         if (flag) {
-            setExpressionValidationInsideCC(
-                _pattern, _orgPattern, _currentParticleIndex, lastMatchedParticleIndex, _patternFlags, fromGroup
-            );
+            setExpressionValidationInsideCC(_pattern, _orgPattern, _patternFlags, fromGroup);
         }
 
         return (flag, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
@@ -1738,28 +1745,24 @@ contract Stringray {
     function setExpressionValidationInsideCC(
         bytes memory _pattern,
         bytes memory _orgPattern,
-        uint256 _currentParticleIndex,
-        uint256 lastMatchedParticleIndex,
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
-        bytes memory trimmedPattern = trimString(
-            _pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1)
-        );
+        console2.log("_pattern: ", string(_pattern));
 
-        for (uint256 i; i < trimmedPattern.length; i++) {
-            if (uint8(trimmedPattern[i]) == BACK_SLASH) {
+        for (uint256 i; i < _pattern.length; i++) {
+            if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
                 continue;
             }
 
             if (
-                (uint8(trimmedPattern[i]) == AMPERSAND_SIGN
-                        && i + 1 < trimmedPattern.length
-                        && uint8(trimmedPattern[i + 1]) == AMPERSAND_SIGN)
-                    || (uint8(trimmedPattern[i]) == MINUS_SIGN
-                        && i + 1 < trimmedPattern.length
-                        && uint8(trimmedPattern[i + 1]) == MINUS_SIGN)
+                (uint8(_pattern[i]) == AMPERSAND_SIGN
+                        && i + 1 < _pattern.length
+                        && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
+                    || (uint8(_pattern[i]) == MINUS_SIGN
+                        && i + 1 < _pattern.length
+                        && uint8(_pattern[i + 1]) == MINUS_SIGN)
             ) {
                 if (i == 0) {
                     throwError(
@@ -1770,11 +1773,19 @@ contract Stringray {
                     );
                 }
 
-                bytes memory insideCCLeftSlice = trimString(trimmedPattern, 0, int256(i - 1));
-                bytes memory insideCCRightSlice =
-                    trimString(trimmedPattern, i + 2, int256(lastMatchedParticleIndex - 1));
-
+                bytes memory insideCCLeftSlice = trimString(_pattern, 0, int256(i - 1));
                 ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCLeftSlice);
+
+                if (i + 2 >= _pattern.length) {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid set operation in character class",
+                        _patternFlags
+                    );
+                }
+                console2.log("something is weird...");
+                bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
                 ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
             }
         }
@@ -1793,7 +1804,7 @@ contract Stringray {
             bytes32 atomType;
             uint256 lastMatchedIndex;
             (flag, atomType, lastMatchedIndex) =
-                isLiteralAtom(insideCCSlice, _orgPattern, 0, _patternFlags, true, fromGroup);
+                isLiteralAtom(insideCCSlice, _orgPattern, 0, _patternFlags, true, fromGroup, true);
 
             if (!flag) {
                 (flag, atomType, lastMatchedIndex) =
@@ -1826,27 +1837,35 @@ contract Stringray {
     function isValidCharacterClassLiteral(
         bytes memory _pattern,
         bytes memory _orgPattern,
-        uint256 _currentParticleIndex,
-        uint256 lastMatchedParticleIndex,
         bytes memory _patternFlags,
-        bool fromGroup
+        bool fromGroup,
+        bool isNestedCC
     ) private returns (bool) {
-        for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex;) {
+        for (uint256 i = 0; i < _pattern.length;) {
+            console2.log("recycled...: ", i);
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
-                    && ((i - 1 == _currentParticleIndex && uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET)
-                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == lastMatchedParticleIndex)
-                        || (i - 1 == _currentParticleIndex + 1 && uint8(_pattern[i - 1]) == CARET_SIGN))
+                    && ((i - 1 == 0 && uint8(_pattern[i - 1]) == OPEN_SQUARE_BRACKET)
+                        || (uint8(_pattern[i + 1]) == CLOSE_SQUARE_BRACKET && i + 1 == _pattern.length - 1)
+                        || (i - 1 == 1 && uint8(_pattern[i - 1]) == CARET_SIGN))
             ) {
                 i = i + 1;
                 continue;
             }
 
-            (bool flag, bytes32 atomType, uint256 lastParticleIndex) =
-                isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup);
+            console2.log("passing above check...");
+
+            if (uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && hasFlag(_patternFlags, "v") && isNestedCC) {
+                console2.log("close square bracket found...");
+                i += 1;
+                continue;
+            }
+
+            (, bytes32 atomType, uint256 lastParticleIndex) =
+                isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup, isNestedCC);
 
             if (
-                !flag
+                atomType == INVALID_ATOM
                     && (uint8(_pattern[i]) == OPEN_PARANTHESIS
                         || uint8(_pattern[i]) == CLOSE_PARANTHESIS
                         || (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET && !hasFlag(_patternFlags, "v"))
@@ -1855,29 +1874,30 @@ contract Stringray {
                         || uint8(_pattern[i]) == FORWARD_SLASH
                         || uint8(_pattern[i]) == ASTERISK)
             ) {
-                flag = true;
                 atomType = LITERAL_ATOM;
                 lastParticleIndex = i;
             }
 
-            if (flag) {
-                if (
-                    lastParticleIndex + 1 < lastMatchedParticleIndex
-                        && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN
-                ) {
+            if (atomType == LITERAL_ATOM) {
+                if (lastParticleIndex + 1 < _pattern.length && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN) {
                     if (
-                        hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < lastMatchedParticleIndex
+                        hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < _pattern.length
                             && uint8(_pattern[lastParticleIndex + 2]) == MINUS_SIGN
                     ) {
+                        console2.log("here we're, continued...");
+                        console2.log("i: ", i);
+                        console2.log("lastParticleIndex: ", lastParticleIndex);
                         i = lastParticleIndex + 2;
+                        console2.log("i again: ", i);
                         continue;
                     }
 
                     validateCharacterClassRangeLeftRightAtoms(_orgPattern, atomType, _patternFlags);
 
-                    if (lastParticleIndex + 2 < lastMatchedParticleIndex) {
-                        (, bytes32 rightAtomType, uint256 rightLastParticleIndex) =
-                            isLiteralAtom(_pattern, _orgPattern, lastParticleIndex + 2, _patternFlags, true, fromGroup);
+                    if (lastParticleIndex + 2 < _pattern.length) {
+                        (, bytes32 rightAtomType, uint256 rightLastParticleIndex) = isLiteralAtom(
+                            _pattern, _orgPattern, lastParticleIndex + 2, _patternFlags, true, fromGroup, isNestedCC
+                        );
 
                         validateCharacterClassRangeLeftRightAtoms(_orgPattern, rightAtomType, _patternFlags);
 
@@ -1928,7 +1948,7 @@ contract Stringray {
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
                         && !hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")
                 ) {
-                    if (i + 2 < lastMatchedParticleIndex && uint8(_pattern[i + 2]) == MINUS_SIGN) {
+                    if (i + 2 < _pattern.length && uint8(_pattern[i + 2]) == MINUS_SIGN) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
