@@ -8959,6 +8959,22 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
+    function testRegexVFlagCase73() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/[[[a-z]&&[f-h]]&&[[hack]&&[b-k]]]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase74() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/[[[a-z]]&&[f-h]]&&[[hack]&&[b-k]]]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[[[a-z]]&&[f-h]]&&[[hack]&&[b-k]]]/v: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
     // function testRegexExxxxx() public {
     //     string memory target = "anything";
 

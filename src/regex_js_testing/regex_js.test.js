@@ -8279,6 +8279,20 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    test("Character classes in v mode: Case000000073", () => {
+        let regex = /[[[a-z]&&[f-h]]&&[[hack]&&[b-k]]]/v;
+        const target = "h"; // [a-z && fgh] => fgh && [hack && bcdefghijk] => hck ==> fgh && hck => h
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Character classes in v mode: Case000000074", () => {
+    //     let regex = /[[[a-z]]&&[f-h]]&&[[hack]&&[b-k]]]/v;
+    //     const target = "h";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
 }
 
 testMain();

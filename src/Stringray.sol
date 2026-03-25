@@ -919,7 +919,6 @@ contract Stringray {
     }
 
     AtomTrait[] private allAtoms;
-    AtomTrait[] private ccAtoms;
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
@@ -1744,12 +1743,9 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
-        console2.log("validation successful...");
-        console2.log("_pattern inside exp: ", string(_pattern));
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
-            console2.log("i: ", i);
             if (uint8(_pattern[i]) == BACK_SLASH) {
                 i++;
                 continue;
@@ -1783,8 +1779,6 @@ contract Stringray {
                         _patternFlags
                     );
                 }
-
-                console2.log("passing this above check..: ", lastMatchedIndex);
 
                 if (
                     (lastMatchedIndex + 1 < _pattern.length
@@ -1834,10 +1828,8 @@ contract Stringray {
                                             _patternFlags
                                         );
                                     }
-                                    console2.log("lastMatchedIndex of right atoms: ", lastMatchedIndex);
                                     j = lastMatchedIndex;
                                     i = lastMatchedIndex;
-                                    console2.log("i inside right atoms: ", lastMatchedIndex);
                                 } else {
                                     throwError(
                                         _orgPattern,
@@ -1864,8 +1856,6 @@ contract Stringray {
                                 _patternFlags
                             );
                         }
-                        console2.log("i inside right atoms: ", lastMatchedIndex);
-                        console2.log("passing rightAtoms check...");
                     }
                 } else {
                     i = lastMatchedIndex;
@@ -1879,83 +1869,6 @@ contract Stringray {
                     _patternFlags
                 );
             }
-
-            // if (
-            //     (uint8(_pattern[i]) == AMPERSAND_SIGN
-            //             && i + 1 < _pattern.length
-            //             && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
-            //         || (uint8(_pattern[i]) == MINUS_SIGN
-            //             && i + 1 < _pattern.length
-            //             && uint8(_pattern[i + 1]) == MINUS_SIGN)
-            // ) {
-            //     if (i == 0) {
-            //         throwError(
-            //             _orgPattern,
-            //             "SyntaxError: Invalid regular expression: /",
-            //             ": Invalid set operation in character class",
-            //             _patternFlags
-            //         );
-            //     }
-
-            //     bytes memory insideCCLeftSlice = trimString(_pattern, 0, int256(i - 1));
-            //     ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCLeftSlice);
-
-            //     if (i + 2 >= _pattern.length) {
-            //         throwError(
-            //             _orgPattern,
-            //             "SyntaxError: Invalid regular expression: /",
-            //             ": Invalid set operation in character class",
-            //             _patternFlags
-            //         );
-            //     }
-
-            //     bytes memory insideCCRightSlice = trimString(_pattern, i + 2, int256(_pattern.length - 1));
-            //     ccINVModeLeftRightSliceValidation(_orgPattern, _patternFlags, fromGroup, insideCCRightSlice);
-            //     i += insideCCRightSlice.length - 1;
-            // }
-        }
-    }
-
-    function ccINVModeLeftRightSliceValidation(
-        bytes memory _orgPattern,
-        bytes memory _patternFlags,
-        bool fromGroup,
-        bytes memory insideCCSlice
-    ) private {
-        if (insideCCSlice.length > 1) {
-            // uint256 atomsCount;
-            // for (uint256 i; i < insideCCSlice.length; i++) {
-            bool flag;
-            bytes32 atomType;
-            uint256 lastMatchedIndex;
-            (flag, atomType, lastMatchedIndex) =
-                isLiteralAtom(insideCCSlice, _orgPattern, 0, _patternFlags, true, fromGroup, true);
-
-            if (!flag) {
-                (flag, atomType, lastMatchedIndex) =
-                    isCharacterClass(insideCCSlice, _orgPattern, 0, _patternFlags, fromGroup);
-            }
-
-            if (flag) {
-                if (atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY || atomType == CHARACTER_CLASS_ATOM) {
-                    if (lastMatchedIndex != insideCCSlice.length - 1) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Invalid set operation in character class",
-                            _patternFlags
-                        );
-                    }
-                } else {
-                    throwError(
-                        _orgPattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Invalid set operation in character class",
-                        _patternFlags
-                    );
-                }
-            }
-            // }
         }
     }
 
@@ -1966,7 +1879,6 @@ contract Stringray {
         bool fromGroup,
         bool isNestedCC
     ) private returns (bool) {
-        console2.log("_pattern: ", string(_pattern));
         for (uint256 i = 0; i < _pattern.length;) {
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
@@ -2013,8 +1925,6 @@ contract Stringray {
             }
 
             if (atomType != INVALID_ATOM) {
-                console2.log("atomType is literal");
-                console2.log("atom: ", string(abi.encodePacked(_pattern[i])));
                 if (lastParticleIndex + 1 < _pattern.length && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN) {
                     if (
                         hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < _pattern.length
