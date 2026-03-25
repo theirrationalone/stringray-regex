@@ -1122,7 +1122,8 @@ contract Stringray {
                     _currentParticleIdx,
                     lastMatchedParticleIndex,
                     _patternFlags,
-                    fromCharacterClass
+                    fromCharacterClass,
+                    fromGroup
                 );
                 if (atomType == INVALID_ATOM) {
                     (flag, atomType, lastMatchedParticleIndex) = nullOctalOrDigitBackReference(
@@ -1457,7 +1458,8 @@ contract Stringray {
         uint256 _currentParticleIdx,
         uint256 lastMatchedParticleIndex,
         bytes memory _patternFlags,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool fromGroup
     ) private returns (bytes32) {
         bytes32 atomType = INVALID_ATOM;
         if (
@@ -1529,14 +1531,22 @@ contract Stringray {
                 atomType = NOT_WORD_CHARACTER;
             } else {
                 if (
-                    (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && lastMatchedParticle != CARET_SIGN
-                        && lastMatchedParticle != DOLLAR_SIGN && lastMatchedParticle != BACK_SLASH
-                        && lastMatchedParticle != DOT && lastMatchedParticle != ASTERISK
-                        && lastMatchedParticle != PLUS_SIGN && lastMatchedParticle != QUESTION_MARK
-                        && lastMatchedParticle != OPEN_PARANTHESIS && lastMatchedParticle != CLOSE_PARANTHESIS
-                        && lastMatchedParticle != OPEN_SQUARE_BRACKET && lastMatchedParticle != CLOSE_SQUARE_BRACKET
-                        && lastMatchedParticle != OPEN_CURLY_BRACE && lastMatchedParticle != CLOSE_CURLY_BRACE
-                        && lastMatchedParticle != VERTICAL_BAR && lastMatchedParticle != FORWARD_SLASH
+                    (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v"))
+                        && (lastMatchedParticle != CARET_SIGN
+                            && lastMatchedParticle != DOLLAR_SIGN
+                            && lastMatchedParticle != BACK_SLASH
+                            && lastMatchedParticle != DOT
+                            && lastMatchedParticle != ASTERISK
+                            && lastMatchedParticle != PLUS_SIGN
+                            && lastMatchedParticle != QUESTION_MARK
+                            && lastMatchedParticle != OPEN_PARANTHESIS
+                            && lastMatchedParticle != CLOSE_PARANTHESIS
+                            && lastMatchedParticle != OPEN_SQUARE_BRACKET
+                            && lastMatchedParticle != CLOSE_SQUARE_BRACKET
+                            && lastMatchedParticle != OPEN_CURLY_BRACE
+                            && lastMatchedParticle != CLOSE_CURLY_BRACE
+                            && lastMatchedParticle != VERTICAL_BAR
+                            && lastMatchedParticle != FORWARD_SLASH) && !fromCharacterClass
                 ) {
                     string memory errorRight = ": Invalid escape";
 

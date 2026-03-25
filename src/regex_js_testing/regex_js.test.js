@@ -8293,6 +8293,20 @@ const testMain = () => {
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
     // });
+
+    // test("Character classes in v mode: Case000000075", () => {
+    //     let regex = /[[a&&b][c-\-d]]/v;
+    //     const target = "";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character classes in v mode: Case000000075", () => {
+        let regex = /\-/v;
+        const target = "-";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
