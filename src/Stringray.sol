@@ -1563,86 +1563,6 @@ contract Stringray {
         uint256 lastMatchedParticleIndex;
         bool flag;
 
-        if (hasFlag(_patternFlags, "v")) {
-            return ccVMode(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
-        } else {
-            if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
-                if (_currentParticleIndex + 1 < _pattern.length) {
-                    if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Empty Character class",
-                            _patternFlags
-                        );
-                    }
-                }
-
-                if (_pattern.length < 3 && uint8(_pattern[1]) != CLOSE_SQUARE_BRACKET) {
-                    throwError(
-                        _orgPattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Unterminated Character class",
-                        _patternFlags
-                    );
-                }
-
-                if (_currentParticleIndex == 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH) {
-                    return (false, INVALID_ATOM, 0);
-                }
-
-                if (
-                    _currentParticleIndex > 1 && uint8(_pattern[_currentParticleIndex - 1]) == BACK_SLASH
-                        && uint8(_pattern[_currentParticleIndex - 2]) != BACK_SLASH
-                ) {
-                    return (false, INVALID_ATOM, 0);
-                }
-
-                if (_currentParticleIndex + 2 < _pattern.length) {
-                    for (uint256 i = _currentParticleIndex + 2; i < _pattern.length; i++) {
-                        if (
-                            uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
-                                && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
-                        ) {
-                            flag = true;
-                            lastMatchedParticleIndex = i;
-                            break;
-                        }
-                    }
-
-                    if (!flag) {
-                        throwError(
-                            _orgPattern,
-                            "SyntaxError: Invalid regular expression: /",
-                            ": Unterminated Character class",
-                            _patternFlags
-                        );
-                    }
-                }
-            }
-
-            if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
-                _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
-                flag = isValidCharacterClassLiteral(_pattern, _orgPattern, _patternFlags, fromGroup, false);
-                if (flag) {
-                    return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
-                }
-            }
-        }
-
-        return (false, INVALID_ATOM, 0);
-    }
-
-    function ccVMode(
-        bytes memory _pattern,
-        bytes memory _orgPattern,
-        uint256 _currentParticleIndex,
-        bytes memory _patternFlags,
-        bool fromGroup
-    ) private returns (bool, bytes32, uint256) {
-        uint256 lastMatchedParticleIndex;
-        bool flag;
-
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
@@ -1676,48 +1596,31 @@ contract Stringray {
             }
 
             if (_currentParticleIndex + 1 < _pattern.length) {
-                uint256 numOpenSquareBrackets = 1;
-                uint256 numCloseSquareBrackets;
+                if (hasFlag(_patternFlags, "v")) {
+                    (flag, lastMatchedParticleIndex) =
+                        ccVMode(_pattern, _orgPattern, _currentParticleIndex, _patternFlags, fromGroup);
+                } else {
+                    for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
+                        if (uint8(_pattern[i]) == BACK_SLASH) {
+                            i += 1;
+                            continue;
+                        }
 
-                for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
-                    if (uint8(_pattern[i]) == BACK_SLASH) {
-                        i += 1;
-                        continue;
+                        if (
+                            uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
+                                && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+                        ) {
+                            flag = true;
+                            lastMatchedParticleIndex = i;
+                            break;
+                        }
                     }
 
-                    if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
-                        numOpenSquareBrackets++;
-                    }
-
-                    if (
-                        uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
-                            && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
-                    ) {
-                        numCloseSquareBrackets++;
-                    }
-
-                    if (numOpenSquareBrackets == numCloseSquareBrackets) {
-                        flag = true;
-                        lastMatchedParticleIndex = i;
-                        break;
-                    }
-                }
-
-                if (numOpenSquareBrackets > numCloseSquareBrackets) {
-                    throwError(
-                        _orgPattern,
-                        "SyntaxError: Invalid regular expression: /",
-                        ": Unterminated Character class",
-                        _patternFlags
-                    );
-                }
-
-                for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
-                    if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                    if (!flag) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
-                            ": Invalid character in character class",
+                            ": Unterminated Character class",
                             _patternFlags
                         );
                     }
@@ -1727,14 +1630,78 @@ contract Stringray {
 
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
-            flag = isValidCharacterClassLiteral(_pattern, _orgPattern, _patternFlags, fromGroup, true);
+            flag = isValidCharacterClassLiteral(
+                _pattern, _orgPattern, _patternFlags, fromGroup, hasFlag(_patternFlags, "v")
+            );
+            if (flag) {
+                if (hasFlag(_patternFlags, "v")) {
+                    setExpressionValidationInsideCC(_pattern, _orgPattern, _patternFlags, fromGroup);
+                }
+
+                return (true, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
+            }
         }
 
-        if (flag) {
-            setExpressionValidationInsideCC(_pattern, _orgPattern, _patternFlags, fromGroup);
+        return (false, INVALID_ATOM, 0);
+    }
+
+    function ccVMode(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        uint256 _currentParticleIndex,
+        bytes memory _patternFlags,
+        bool fromGroup
+    ) private returns (bool, uint256) {
+        uint256 lastMatchedParticleIndex;
+        bool flag;
+        uint256 numOpenSquareBrackets = 1;
+        uint256 numCloseSquareBrackets;
+
+        for (uint256 i = _currentParticleIndex + 1; i < _pattern.length; i++) {
+            if (uint8(_pattern[i]) == BACK_SLASH) {
+                i += 1;
+                continue;
+            }
+
+            if (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET) {
+                numOpenSquareBrackets++;
+            }
+
+            if (
+                uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET
+                    && (uint8(_pattern[i - 1]) != BACK_SLASH || uint8(_pattern[i - 2]) == BACK_SLASH)
+            ) {
+                numCloseSquareBrackets++;
+            }
+
+            if (numOpenSquareBrackets == numCloseSquareBrackets) {
+                flag = true;
+                lastMatchedParticleIndex = i;
+                break;
+            }
         }
 
-        return (flag, CHARACTER_CLASS_ATOM, lastMatchedParticleIndex);
+        if (numOpenSquareBrackets > numCloseSquareBrackets) {
+            throwError(
+                _orgPattern,
+                "SyntaxError: Invalid regular expression: /",
+                ": Unterminated Character class",
+                _patternFlags
+            );
+        }
+
+        for (uint256 i = _currentParticleIndex + 1; i < lastMatchedParticleIndex; i++) {
+            if (uint8(_pattern[i]) == OPEN_PARANTHESIS || uint8(_pattern[i]) == CLOSE_PARANTHESIS) {
+                throwError(
+                    _orgPattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid character in character class",
+                    _patternFlags
+                );
+            }
+        }
+
+        return (flag, lastMatchedParticleIndex);
     }
 
     function setExpressionValidationInsideCC(
