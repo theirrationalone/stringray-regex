@@ -1921,18 +1921,16 @@ contract Stringray {
 
         for (uint256 i = 0; i < _pattern.length;) {
             if (
-                uint8(_pattern[i]) == MINUS_SIGN
-                    && (i == 0
-                        || i == _pattern.length - 1
-                        || (i == 1
-                            && uint8(_pattern[0]) == CARET_SIGN
-                            || (i + 1 < _pattern.length
-                                && uint8(_pattern[i + 1]) == MINUS_SIGN
-                                && hasFlag(_patternFlags, "v")
-                                && isNestedCC))
-                        || (i == 0 && hasFlag(_patternFlags, "v"))
-                        || (i == 1 && uint8(_pattern[0]) == CARET_SIGN && hasFlag(_patternFlags, "v"))
-                        || i == _pattern.length - 1
+                (uint8(_pattern[i]) == MINUS_SIGN
+                        && (i == 0
+                            || i == _pattern.length - 1
+                            || (i == 0 && hasFlag(_patternFlags, "v"))
+                            || i == _pattern.length - 1
+                            && hasFlag(_patternFlags, "v")))
+                    || (i == 0
+                        && uint8(_pattern[i]) == CARET_SIGN
+                        && i + 1 < _pattern.length
+                        && uint8(_pattern[i + 1]) == MINUS_SIGN
                         && hasFlag(_patternFlags, "v"))
             ) {
                 if ((i == 0 || i == _pattern.length - 1) && hasFlag(_patternFlags, "v")) {

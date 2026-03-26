@@ -8730,6 +8730,20 @@ const testMain = () => {
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
+
+    // test("Character classes in v mode: Case0000000137", () => {
+    //     let regex = /[^-aa]/v;
+    //     const target = "a--b";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Character classes in v mode: Case0000000137", () => {
+        let regex = /[\^-aa]/v;
+        const target = "_"; // a or any char between ^ and a, for example _
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
 }
 
 testMain();
