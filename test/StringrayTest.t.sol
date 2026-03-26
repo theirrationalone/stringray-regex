@@ -9504,6 +9504,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/[^-aa]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[^-aa]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 

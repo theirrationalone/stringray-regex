@@ -1857,9 +1857,6 @@ contract Stringray {
         bool fromGroup,
         bool isNestedCC
     ) private returns (bool) {
-        console2.log("_pattern: ", string(_pattern));
-        console2.log("isNestedCC: ", isNestedCC);
-
         if (hasFlag(_patternFlags, "v")) {
             for (uint256 i = 0; i < _pattern.length; i++) {
                 if (uint8(_pattern[i]) == BACK_SLASH) {
@@ -1925,6 +1922,10 @@ contract Stringray {
                         && (i == 0
                             || i == _pattern.length - 1
                             || (i == 0 && hasFlag(_patternFlags, "v"))
+                            || (i + 1 < _pattern.length
+                                && uint8(_pattern[i + 1]) == MINUS_SIGN
+                                && hasFlag(_patternFlags, "v")
+                                && isNestedCC)
                             || i == _pattern.length - 1
                             && hasFlag(_patternFlags, "v")))
                     || (i == 0
