@@ -9317,56 +9317,98 @@ contract PlayStringTest is Test {
     function testRegexVFlagCase123() public {
         string memory target = "anything";
         string memory pattern = "/[a--c]--c/v";
-        
+
         stringray.regex(target, pattern);
     }
-    
+
     function testRegexVFlagCase124() public {
         string memory target = "anything";
         string memory pattern = "/[-aaa]/v";
-        
+
         stringray.regex(target, pattern);
     }
-    
+
     function testRegexVFlagCase125() public {
         string memory target = "anything";
         string memory pattern = "/[aaa-]/v";
-        
+
         stringray.regex(target, pattern);
     }
 
     function testRegexVFlagCase126() public {
         string memory target = "anything";
         string memory pattern = "/[--]/v";
-        
+
         stringray.regex(target, pattern);
     }
 
     function testRegexVFlagCase127() public {
         string memory target = "anything";
-        string memory pattern = "/[a--b&&c]/v";
-        
+        string memory pattern = "/[abc[--]bc]/v";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexVFlagCase128() public {
         string memory target = "anything";
-        string memory pattern = "/[abcdef]--[bcd]/v";
-        
+        string memory pattern = "/[abc[--]bc-]/v";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexVFlagCase129() public {
         string memory target = "anything";
-        string memory pattern = "/[[abcdefghi]--[bcdef]]/v";
-        
+        string memory pattern = "/[abc[bf]bbc-]/v";
+
         stringray.regex(target, pattern);
     }
 
     function testRegexVFlagCase130() public {
         string memory target = "anything";
+        string memory pattern = "/[abc[bf]-]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase131() public {
+        string memory target = "anything";
+        string memory pattern = "/[abc[bf-]]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase132() public {
+        string memory target = "anything";
+        string memory pattern = "/[abc[bf[a-z]-]]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase133() public {
+        string memory target = "anything";
+        string memory pattern = "/[a--b&&c]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase134() public {
+        string memory target = "anything";
+        string memory pattern = "/[abcdef]--[bcd]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase135() public {
+        string memory target = "anything";
+        string memory pattern = "/[[abcdefghi]--[bcdef]]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexVFlagCase136() public {
+        string memory target = "anything";
         string memory pattern = "/a--b/v";
-        
+
         stringray.regex(target, pattern);
     }
 }

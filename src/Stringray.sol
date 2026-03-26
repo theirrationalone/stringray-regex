@@ -1857,6 +1857,68 @@ contract Stringray {
         bool fromGroup,
         bool isNestedCC
     ) private returns (bool) {
+        console2.log("_pattern: ", string(_pattern));
+        console2.log("isNestedCC: ", isNestedCC);
+
+        if (hasFlag(_patternFlags, "v")) {
+            for (uint256 i = 0; i < _pattern.length; i++) {
+                if (uint8(_pattern[i]) == BACK_SLASH) {
+                    i += 1;
+                    continue;
+                }
+
+                if (
+                    (uint8(_pattern[i]) == OPEN_SQUARE_BRACKET
+                            && (i + 1 < _pattern.length
+                                && (uint8(_pattern[i + 1]) == MINUS_SIGN
+                                    || (uint8(_pattern[i + 1]) == CARET_SIGN
+                                        && i + 2 < _pattern.length
+                                        && uint8(_pattern[i + 2]) == MINUS_SIGN))))
+                        || (uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && i > 0 && uint8(_pattern[i - 1]) == MINUS_SIGN)
+                ) {
+                    if ((uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && i > 0 && uint8(_pattern[i - 1]) == MINUS_SIGN)) {
+                        if (i > 1 && uint8(_pattern[i - 2]) == CLOSE_SQUARE_BRACKET) {
+                            if (i > 2) {
+                                if (uint8(_pattern[i - 3]) != BACK_SLASH) {
+                                    throwError(
+                                        _orgPattern,
+                                        "SyntaxError: Invalid regular expression: /",
+                                        ": Invalid character class",
+                                        _patternFlags
+                                    );
+                                } else {
+                                    if (i > 3) {
+                                        if (uint8(_pattern[i - 4]) == BACK_SLASH) {
+                                            throwError(
+                                                _orgPattern,
+                                                "SyntaxError: Invalid regular expression: /",
+                                                ": Invalid character class",
+                                                _patternFlags
+                                            );
+                                        }
+                                    }
+                                }
+                            } else {
+                                throwError(
+                                    _orgPattern,
+                                    "SyntaxError: Invalid regular expression: /",
+                                    ": Invalid character class",
+                                    _patternFlags
+                                );
+                            }
+                        }
+                    }
+
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid character in character class",
+                        _patternFlags
+                    );
+                }
+            }
+        }
+
         for (uint256 i = 0; i < _pattern.length;) {
             if (
                 uint8(_pattern[i]) == MINUS_SIGN
@@ -1867,8 +1929,30 @@ contract Stringray {
                             || (i + 1 < _pattern.length
                                 && uint8(_pattern[i + 1]) == MINUS_SIGN
                                 && hasFlag(_patternFlags, "v")
-                                && isNestedCC)))
+                                && isNestedCC))
+                        || (i == 0 && hasFlag(_patternFlags, "v"))
+                        || (i == 1 && uint8(_pattern[0]) == CARET_SIGN && hasFlag(_patternFlags, "v"))
+                        || i == _pattern.length - 1
+                        && hasFlag(_patternFlags, "v"))
             ) {
+                if ((i == 0 || i == _pattern.length - 1) && hasFlag(_patternFlags, "v")) {
+                    if (i == _pattern.length - 1 && i > 0 && uint8(_pattern[i - 1]) == CLOSE_SQUARE_BRACKET) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid character class",
+                            _patternFlags
+                        );
+                    }
+
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid character in character class",
+                        _patternFlags
+                    );
+                }
+
                 if (
                     i + 1 < _pattern.length && uint8(_pattern[i + 1]) == MINUS_SIGN && hasFlag(_patternFlags, "v")
                         && isNestedCC
