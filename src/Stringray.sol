@@ -1546,7 +1546,8 @@ contract Stringray {
                             && lastMatchedParticle != OPEN_CURLY_BRACE
                             && lastMatchedParticle != CLOSE_CURLY_BRACE
                             && lastMatchedParticle != VERTICAL_BAR
-                            && lastMatchedParticle != FORWARD_SLASH) && !fromCharacterClass
+                            && lastMatchedParticle != FORWARD_SLASH)
+                        && !(lastMatchedParticle == MINUS_SIGN && fromCharacterClass)
                 ) {
                     string memory errorRight = ": Invalid escape";
 

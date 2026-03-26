@@ -8977,10 +8977,11 @@ contract PlayStringTest is Test {
 
     function testRegexVFlagCase75() public {
         string memory target = "anything";
-        string memory pattern = unicode"/[[a&&b][c-\\-d]]/v";
+        string memory pattern = unicode"/[[a&&b][c-\\-d]]v/";
+        // string memory pattern = unicode"/\\-/v";
 
         // @Error: SyntaxError: Invalid regular expression: /[[a&&b][c-\-d]]/v: Range out of order in character class
-        // vm.expectRevert();
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
