@@ -9851,7 +9851,7 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsInVModeCase33() public {
         string memory target = "anything";
-        string memory pattern = "/\\+*/v";
+        string memory pattern = "/\\\\+*/v";
 
         stringray.regex(target, pattern);
     }
