@@ -18362,7 +18362,7 @@ contract Stringray {
                 if (isValid) {
                     return (true, lastMatchedIndex);
                 } else {
-                    if (hasFlag(_patternFlags, "u")) {
+                    if (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) {
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
