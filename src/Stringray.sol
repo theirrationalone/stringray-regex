@@ -18245,7 +18245,7 @@ contract Stringray {
         (isValid, lastMatchedIndex) = isCurlyBraceOfRangeEscape(_pattern, _currentParticleIndex);
 
         if (isValid) {
-            if (hasFlag(_patternFlags, "u") && !fromCharacterClass) {
+            if ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && !fromCharacterClass) {
                 throwError(
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
