@@ -18331,8 +18331,10 @@ contract Stringray {
 
             if (_nextChar == uint8(abi.encodePacked("u")[0])) {
                 if (_currentParticleIndex + 2 <= _pattern.length - 1) {
-                    if (!hasFlag(_patternFlags, "u") && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE)
-                    {
+                    if (
+                        !hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")
+                            && uint8(_pattern[_currentParticleIndex + 2]) == OPEN_CURLY_BRACE
+                    ) {
                         return (true, _currentParticleIndex + 1);
                     }
                 }
