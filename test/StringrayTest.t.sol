@@ -9515,4 +9515,400 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexLiteralsInVModeCase1() public {
+        string memory target = "anything";
+        string memory pattern = "/a/v";
+
+        stringray.regex(target, pattern);
+
+        pattern = "/b/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/1/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/_/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/€/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/क/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/あ/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/😀/v";
+        stringray.regex(target, pattern);
+
+        // ...
+        // ...U+10FFFF
+        // Js supports upto U+10FFFF(1114111) characters.
+    }
+
+    function testRegexLiteralsInVModeCase2() public {
+        string memory target = "anything";
+        string memory pattern = "/abc/v";
+
+        stringray.regex(target, pattern);
+
+        pattern = "/hello/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/123/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/anil/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/😀🚀🔥/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/hello/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/abc123/v";
+        stringray.regex(target, pattern);
+
+        pattern = unicode"/कखग/v";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase3() public {
+        string memory target = "anything";
+        string memory pattern = "/\\^/v";
+
+        stringray.regex(target, pattern);
+
+        pattern = "/\\$/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\./v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\*/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\+/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\?/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\(/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\)/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\[/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\]/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\{/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\}/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\|/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\\\/v";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase4() public {
+        string memory target = "anything";
+        string memory pattern = "/\\x41/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase5() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u0061/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase6() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u{1F600}/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase7() public {
+        string memory target = "anything";
+        string memory pattern = "/\n/v";
+
+        stringray.regex(target, pattern);
+
+        pattern = "/\\n/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\r/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\r/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\t/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\t/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\v/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\f/v";
+        stringray.regex(target, pattern);
+
+        pattern = "/\\0/v";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase8() public {
+        string memory target = "anything";
+        string memory pattern = "/\\//v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase9() public {
+        string memory target = "anything";
+        string memory pattern = "/a/b/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase10() public {
+        string memory target = "anything";
+        string memory pattern = "/ab/\\v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase11() public {
+        string memory target = "anything";
+        string memory pattern = "/\\u{110000}/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase12() public {
+        string memory target = "anything";
+        string memory pattern = "/\\c1/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase13() public {
+        string memory target = "anything";
+        string memory pattern = "/\\ugg/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase14() public {
+        string memory target = "anything";
+        string memory pattern = "/./v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase15() public {
+        string memory target = "anything";
+        string memory pattern = "/\\./v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase16() public {
+        string memory target = "anything";
+        string memory pattern = "/\\r./v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase17() public {
+        string memory target = "anything";
+        string memory pattern = "/{/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase18() public {
+        string memory target = "anything";
+        string memory pattern = "/}/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase19() public {
+        string memory target = "anything";
+        string memory pattern = "/1/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase20() public {
+        string memory target = "anything";
+        string memory pattern = "/,/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase21() public {
+        string memory target = "anything";
+        string memory pattern = "/1,/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase22() public {
+        string memory target = "anything";
+        string memory pattern = "/1,2/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase23() public {
+        string memory target = "anything";
+        string memory pattern = "/2,1/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase24() public {
+        string memory target = "anything";
+        string memory pattern = "/(/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase25() public {
+        string memory target = "anything";
+        string memory pattern = "/)/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase26() public {
+        string memory target = "anything";
+        string memory pattern = "/[]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase27() public {
+        string memory target = "anything";
+        string memory pattern = "/]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase28() public {
+        string memory target = "anything";
+        string memory pattern = "/[]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase29() public {
+        string memory target = "anything";
+        string memory pattern = "/?/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase30() public {
+        string memory target = "anything";
+        string memory pattern = "/\\?/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase31() public {
+        string memory target = "anything";
+        string memory pattern = "/+/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase32() public {
+        string memory target = "anything";
+        string memory pattern = "/\\+/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase33() public {
+        string memory target = "anything";
+        string memory pattern = "/\\+*/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase34() public {
+        string memory target = "anything";
+        string memory pattern = "/\\*/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase35() public {
+        string memory target = "anything";
+        string memory pattern = "/a???/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase36() public {
+        string memory target = "anything";
+        string memory pattern = "/a??/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase37() public {
+        string memory target = "anything";
+        string memory pattern = "/a+??/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase38() public {
+        string memory target = "anything";
+        string memory pattern = "/a+?/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase39() public {
+        string memory target = "anything";
+        string memory pattern = "/a*??/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase40() public {
+        string memory target = "anything";
+        string memory pattern = "/a*?/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexLiteralsInVModeCase41() public {
+        string memory target = "anything";
+        string memory pattern = "/asian/v";
+
+        stringray.regex(target, pattern);
+    }
 }

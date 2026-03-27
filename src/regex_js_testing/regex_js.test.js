@@ -7133,7 +7133,7 @@ const testMain = () => {
     });
 
     // test("flags: Case00000049", () => {
-    //     let regex = /abc/uv;
+    //     let regex = /abc/v;
     //     const target = "abc";
     //     console.log("output: ", target.match(regex));
     //     assert.strictEqual(regex.test(target), true);
@@ -8741,6 +8741,358 @@ const testMain = () => {
     test("Character classes in v mode: Case0000000137", () => {
         let regex = /[\^-aa]/v;
         const target = "_"; // a or any char between ^ and a, for example _
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000001", () => {
+        let regex = /a/v;
+        assert.strictEqual(regex.test("a"), true);
+        regex = /b/v;
+        assert.strictEqual(regex.test("b"), true);
+        regex = /1/v;
+        assert.strictEqual(regex.test("1"), true);
+        regex = /_/v;
+        assert.strictEqual(regex.test("_"), true);
+        regex = /€/v;
+        assert.strictEqual(regex.test("€"), true);
+        regex = /क/v;
+        assert.strictEqual(regex.test("क"), true);
+        regex = /あ/v;
+        assert.strictEqual(regex.test("あ"), true);
+        regex = /😀/v;
+        assert.strictEqual(regex.test("😀"), true);
+
+        // ...
+        // ...U+10FFFF
+        // Js supports upto U+10FFFF(1114111) characters.
+    });
+
+    test("Regex-Literals in v mode: Case000000002", () => {
+        let regex = /abc/v;
+        assert.strictEqual(regex.test("abc"), true);
+
+        regex = /hello/v;
+        assert.strictEqual(regex.test("hello"), true);
+
+        regex = /123/v;
+        assert.strictEqual(regex.test("123"), true);
+
+        regex = /anil/v;
+        assert.strictEqual(regex.test("anil"), true);
+
+        regex = /😀🚀🔥/v;
+        assert.strictEqual(regex.test("😀🚀🔥"), true);
+
+        regex = /hello/v;
+        assert.strictEqual(regex.test("hello"), true);
+
+        regex = /abc123/v;
+        assert.strictEqual(regex.test("abc123"), true);
+
+        regex = /कखग/v;
+        assert.strictEqual(regex.test("कखग"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000003", () => {
+        let regex = /\^/v;
+        assert.strictEqual(regex.test("^"), true);
+
+        regex = /\$/v;
+        assert.strictEqual(regex.test("$"), true);
+
+        regex = /\./v;
+        assert.strictEqual(regex.test("."), true);
+
+        regex = /\*/v;
+        assert.strictEqual(regex.test("*"), true);
+
+        regex = /\+/v;
+        assert.strictEqual(regex.test("+"), true);
+
+        regex = /\?/v;
+        assert.strictEqual(regex.test("?"), true);
+
+        regex = /\(/v;
+        assert.strictEqual(regex.test("("), true);
+
+        regex = /\)/v;
+        assert.strictEqual(regex.test(")"), true);
+
+        regex = /\[/v;
+        assert.strictEqual(regex.test("["), true);
+
+        regex = /\]/v;
+        assert.strictEqual(regex.test("]"), true);
+
+        regex = /\{/v;
+        assert.strictEqual(regex.test("{"), true);
+
+        regex = /\}/v;
+        assert.strictEqual(regex.test("}"), true);
+
+        regex = /\|/v;
+        assert.strictEqual(regex.test("|"), true);
+
+        regex = /\\/v;
+        assert.strictEqual(regex.test("\\"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000004", () => {
+        let regex = /\x41/v;
+        assert.strictEqual(regex.test("A"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000005", () => {
+        let regex = /\u0061/v;
+        assert.strictEqual(regex.test("a"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000006", () => {
+        let regex = /\u{1F600}/v;
+        assert.strictEqual(regex.test("😀"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000007", () => {
+        let regex = /\n/v;
+        assert.strictEqual(regex.test("\n"), true);
+
+        regex = /\r/v;
+        assert.strictEqual(regex.test("\r"), true);
+        regex = /\t/v;
+        assert.strictEqual(regex.test("\t"), true);
+        regex = /\v/v;
+        assert.strictEqual(regex.test("\v"), true);
+        regex = /\f/v;
+        assert.strictEqual(regex.test("\f"), true);
+        regex = /\0/v;
+        assert.strictEqual(regex.test("\0"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000008", () => {
+        let regex = /\//v;
+        assert.strictEqual(regex.test("/"), true);
+    });
+
+    test("Regex-Literals in v mode: Case000000009", () => {
+        // let regex = /a/b/v;
+        // assert.strictEqual(regex.test("a/b"), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000010", () => {
+        // let regex = /ab/\v;
+        // assert.strictEqual(regex.test("a/b"), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000011", () => {
+    //     let regex = /\u{110000}/v;
+    //     const target = "u{110000}";
+    //     console.log("targettttttttttttttttttttttttttttt: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), false);
+    // });
+
+    // test("Regex-Literals in v mode: Case0000000012", () => {
+    //     let regex = /\c1/v;
+    //     assert.strictEqual(regex.test(""), true);
+    // });
+
+    // test("Regex-Literals in v mode: Case0000000013", () => {
+    //     let regex = /\ugg/v;
+    //     assert.strictEqual(regex.test("ugg"), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000014", () => {
+        let regex = /./v;
+        const target = "anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000015", () => {
+        let regex = /\./v;
+        const target = ".anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000016", () => {
+        let regex = /\r./v;
+        const target = "\r.anil";
+        console.log("dot: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000017", () => {
+    //     let regex = /{/v;
+    //     const target = "{";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Regex-Literals in v mode: Case0000000018", () => {
+    //     let regex = /}/v;
+    //     const target = ",}";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000019", () => {
+        let regex = /1/v;
+        const target = "1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000020", () => {
+        let regex = /,/v;
+        const target = ",";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000021", () => {
+        let regex = /1,/v;
+        const target = "1,";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000022", () => {
+        let regex = /1,2/v;
+        const target = "1,2";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000023", () => {
+        let regex = /2,1/v;
+        const target = "2,1";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000024", () => {
+    //     let regex = /(/v;
+    //     const target = "(";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    // test("Regex-Literals in v mode: Case0000000025", () => {
+    //     let regex = /)/v;
+    //     const target = ")";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000026", () => {
+        let regex = /[]/v;
+        const target = "[]";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000027", () => {
+    //     let regex = /]/v;
+    //     const target = "]";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000028", () => {
+        let regex = /[]/v;
+        const target = "";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), false);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000029", () => {
+    //     let regex = /?/v;
+    //     const target = "?";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000030", () => {
+        let regex = /\?/v;
+        const target = "?";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000031", () => {
+    //     let regex = /+/v;
+    //     const target = "+";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000032", () => {
+        let regex = /\+/v;
+        const target = "+";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000033", () => {
+    //     let regex = /\\+*/v;
+    //     const target = "\\\\*";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000034", () => {
+        let regex = /\*/v;
+        const target = "*";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000035", () => {
+    //     let regex = /a???/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000036", () => {
+        let regex = /a??/v;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000037", () => {
+    //     let regex = /a+??/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000038", () => {
+        let regex = /a+?/v;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    // test("Regex-Literals in v mode: Case0000000039", () => {
+    //     let regex = /a*??/v;
+    //     const target = "a";
+    //     console.log("output: ", target.match(regex));
+    //     assert.strictEqual(regex.test(target), true);
+    // });
+
+    test("Regex-Literals in v mode: Case0000000040", () => {
+        let regex = /a*?/v;
+        const target = "a";
+        console.log("output: ", target.match(regex));
+        assert.strictEqual(regex.test(target), true);
+    });
+
+    test("Regex-Literals in v mode: Case0000000041", () => {
+        let regex = /asian/v;
+        const target = "asian";
         console.log("output: ", target.match(regex));
         assert.strictEqual(regex.test(target), true);
     });
