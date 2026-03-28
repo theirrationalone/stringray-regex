@@ -1397,7 +1397,8 @@ contract Stringray {
             }
 
             if (checkExist) {
-                if (!groupExist && (hasFlag(_patternFlags, "u") || numCaptureName > 0)) {
+                if (!groupExist && ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) || numCaptureName > 0))
+                {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",

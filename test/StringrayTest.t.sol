@@ -10440,6 +10440,7 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\k<a>/v";
 
         // Error: SyntaxError: Invalid regular expression: /\k<a>/v: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10448,6 +10449,7 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\k<a>/v";
 
         // Error: SyntaxError: Invalid regular expression: /\k<a>/v: Invalid named capture referenced
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
