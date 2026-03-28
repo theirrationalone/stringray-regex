@@ -10868,15 +10868,16 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a-\\d]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[a-\d]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[a-\d]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase17() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\d-a]/v";
+
+        // @Error:  SyntaxError: Invalid regular expression: /[\d-a]/v: Invalid character class
         stringray.regex(target, pattern);
     }
 
@@ -10884,15 +10885,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\d-a]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\d-a]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\d-a]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase19() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[a-\\w]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[a-\w]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10900,15 +10903,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a-\\w]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[a-\w]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[a-\w]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase21() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\w-a]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\w-a]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10916,7 +10921,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\w-a]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\w-a]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\w-a]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -10925,6 +10930,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\w-\\d]/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /[\w-\d]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10932,15 +10939,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\w-\\d]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\w-\d]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\w-\d]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase25() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\d-\\w]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\d-\w]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10948,15 +10957,18 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\d-\\w]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\d-\w]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\d-\w]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase27() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\d-\\d]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\d-\d]/v: Invalid character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
         stringray.regex(target, pattern);
     }
 
@@ -10964,15 +10976,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\d-\\d]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\d-\d]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\d-\d]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase29() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\w-\\w]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\w-\w]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10980,7 +10994,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\w-\\w]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\w-\w]/u: Invalid character class
+        // @Error: SyntaxError: Invalid regular expression: /[\w-\w]/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11304,7 +11318,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\xg1]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\xg1]/u: Invalid escape
+        // @Error: SyntaxError: Invalid regular expression: /[\xg1]/v: Invalid escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11320,7 +11334,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\k]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\k]/u: Invalid Escape
+        // @Error: SyntaxError: Invalid regular expression: /[\k]/v: Invalid Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11337,7 +11351,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(?<a>a)\\k<a>]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[(?<a>a)\k<a>]/u: Invalid Escape
+        // @Error: SyntaxError: Invalid regular expression: /[(?<a>a)\k<a>]/v: Invalid Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11347,7 +11361,7 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/: Invalid Escape
+        // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/v: Invalid Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11356,7 +11370,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<a>a)[\\k<a>]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/u: Invalid Escape
+        // @Error: SyntaxError: Invalid regular expression: /(?<a>a)[\k<a>]/v: Invalid Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11372,7 +11386,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\k<a>]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\k<a>]/u: Invalid Escape
+        // @Error: SyntaxError: Invalid regular expression: /[\k<a>]/v: Invalid Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11381,7 +11395,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<b>a)\\k<a>/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/: Invalid named capture referenced
+        // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/v: Invalid named capture referenced
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11390,7 +11404,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(?<b>a)\\k<a>/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/u: Invalid named capture referenced
+        // @Error: SyntaxError: Invalid regular expression: /(?<b>a)\k<a>/v: Invalid named capture referenced
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11413,7 +11427,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[🧪-✅]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[🧪-✅]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[🧪-✅]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11422,7 +11436,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[🧪-✅]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[🧪-✅]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[🧪-✅]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11431,7 +11445,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[€-क]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[€-क]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[€-क]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11440,7 +11454,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[€-क]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[€-क]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[€-क]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11477,7 +11491,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\uc295-\\uc290]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\uc295-\uc290]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[\uc295-\uc290]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11486,7 +11500,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\uc295-\\uc290]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\uc295-\uc290]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[\uc295-\uc290]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11495,7 +11509,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\^-\\$]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\^-\$]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[\^-\$]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11505,7 +11519,7 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/[\\^-\\$]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\^-\$]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[\^-\$]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11528,7 +11542,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\c-b]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\c-b]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[\c-b]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11537,7 +11551,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[\\c-b]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[\c-b]/u: Invalid Unicode Escape
+        // @Error: SyntaxError: Invalid regular expression: /[\c-b]/v: Invalid Unicode Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11546,7 +11560,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[b-\\c]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[b-\c]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[b-\c]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11555,15 +11569,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[b-\\c]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[b-\c]/u: Invalid Unicode Escape
+        // @Error: SyntaxError: Invalid regular expression: /[b-\c]/v: Invalid Unicode Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase103() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/\\c_/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\c_/v: Invalid Unicode Escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11571,15 +11587,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/\\c_/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /\c_/u: Invalid Unicode Escape
+        // @Error: SyntaxError: Invalid regular expression: /\c_/v: Invalid Unicode Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase105() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[a\\c_z]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[a\c_z]/v: Invalid Unicode Escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11587,7 +11605,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[a\\c_z]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[a\c_z]/u: Invalid Unicode Escape
+        // @Error: SyntaxError: Invalid regular expression: /[a\c_z]/v: Invalid Unicode Escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11597,7 +11615,7 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/[_-,]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[_-,]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[_-,]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11606,7 +11624,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[_-,]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[_-,]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[_-,]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11643,7 +11661,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[;-:]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[;-:]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[;-:]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11652,7 +11670,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[;-:]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[;-:]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[;-:]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11675,7 +11693,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[@-!]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[@-!]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[@-!]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11684,7 +11702,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[@-!]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[@-!]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[@-!]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11707,7 +11725,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[%-#]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[%-#]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[%-#]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11716,22 +11734,26 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[%-#]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[%-#]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[%-#]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase123() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[&-(]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[&-(]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase124() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[&-(]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[&-(]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11739,7 +11761,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(-&]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[(-&]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[(-&]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11748,7 +11770,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[(-&]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[(-&]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[(-&]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11757,7 +11779,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[)-$]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[)-$]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[)-$]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11766,36 +11788,44 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[)-$]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[)-$]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[)-$]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase129() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[$-)]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[$-)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase130() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[$-)]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[$-)]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase131() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[^-{]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[^-{]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase132() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[^-{]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[^-{]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11803,7 +11833,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[{-^]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[{-^]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[{-^]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11812,22 +11842,26 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[{-^]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[{-^]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[{-^]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase135() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\^-{]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\^-{]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase136() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[\\^-{]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[\^-{]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11835,7 +11869,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[{-\\^]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[{-\^]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[{-\^]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11844,7 +11878,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[{-\\^]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[{-\^]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[{-\^]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11853,7 +11887,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[}-?]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[}-?]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[}-?]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11862,22 +11896,26 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[}-?]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[}-?]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[}-?]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase141() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[?-}]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[?-}]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase142() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[?-}]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[?-}]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11885,7 +11923,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[+-*]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[+-*]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[+-*]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11894,7 +11932,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[+-*]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[+-*]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[+-*]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11915,15 +11953,19 @@ contract PlayStringTest is Test {
 
     function testRegexCharacterClassesInVModeCase147() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[/-|]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[/-|]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase148() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[/-|]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[/-|]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -11931,7 +11973,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[|-/]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[|-/]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[|-/]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11940,7 +11982,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[|-/]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[|-/]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[|-/]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11963,7 +12005,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['-\"]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /['-"]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /['-"]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11972,7 +12014,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/['-\"]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /['-"]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /['-"]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -11995,7 +12037,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[>-<]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[>-<]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[>-<]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12004,7 +12046,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[>-<]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[>-<]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[>-<]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12027,7 +12069,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`-=]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[`-=]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[`-=]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12036,7 +12078,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[`-=]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[`-=]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[`-=]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12059,7 +12101,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[~-`]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[~-`]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[~-`]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12068,36 +12110,46 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[~-`]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[~-`]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[~-`]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase167() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[[]/v: Unterminated character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase168() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[[]/v: Unterminated character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase169() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[[-b]/v";
+
+        // @info: Js throws ambiguous error: SyntaxError: Invalid regular expression: /[[-b]/v: Invalid character in character class
+        // @Error: SyntaxError: Invalid regular expression: /[[-b]/v: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase170() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[[-b]/v";
+
+        // @info: Js throws ambiguous error: SyntaxError: Invalid regular expression: /[[-b]/v: Invalid character in character class
+        // @Error: SyntaxError: Invalid regular expression: /[[-b]/v: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12105,7 +12157,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[b-[]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[b-[]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[b-[]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12114,15 +12166,17 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[b-[]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[b-[]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[b-[]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase173() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[ab]a]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[ab]a]/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12130,7 +12184,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[ab]a]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[ab]a]/u: Lone Character class brackets
+        // @Error: SyntaxError: Invalid regular expression: /[ab]a]/v: Lone Character class brackets
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
