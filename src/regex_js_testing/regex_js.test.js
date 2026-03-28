@@ -9769,33 +9769,33 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Character Classes[] in v mode: Case00000000005", () => {
-    let regex = /[abc123_,:;!@#%&()$^{}?+*/|"'<>=`~ ]/v;
-    const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case00000000005", () => {
+  //   let regex = /[abc123_,:;!@#%&()$^{}?+*/|"'<>=`~ ]/v;
+  //   const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Character Classes[] in v mode: Case00000000006", () => {
-    let regex = /[abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ]/v;
-    const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case00000000006", () => {
+  //   let regex = /[abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ]/v;
+  //   const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Character Classes[] in v mode: Case00000000007", () => {
-      let regex = /[abc/v;
-      const target = "[abc";
-      console.log("output: ", target.match(regex));
-      assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case00000000007", () => {
+  //     let regex = /[abc/v;
+  //     const target = "[abc";
+  //     console.log("output: ", target.match(regex));
+  //     assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Character Classes[] in v mode: Case00000000008", () => {
-      let regex = /[abc/v;
-      const target = "[abc";
-      console.log("output: ", target.match(regex));
-      assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case00000000008", () => {
+  //     let regex = /[abc/v;
+  //     const target = "[abc";
+  //     console.log("output: ", target.match(regex));
+  //     assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Character Classes[] in v mode: Case00000000009", () => {
     let regex = /[^]/v;

@@ -1754,6 +1754,18 @@ contract Stringray {
 
             if (flag) {
                 if (
+                    uint8(_pattern[i]) == OPEN_CURLY_BRACE || uint8(_pattern[i]) == CLOSE_CURLY_BRACE
+                        || uint8(_pattern[i]) == FORWARD_SLASH || uint8(_pattern[i]) == VERTICAL_BAR
+                ) {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Invalid character in character class",
+                        _patternFlags
+                    );
+                }
+
+                if (
                     ((uint8(_pattern[i]) == AMPERSAND_SIGN
                                 && i + 1 < _pattern.length
                                 && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)

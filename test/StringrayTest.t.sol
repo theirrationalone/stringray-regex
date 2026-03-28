@@ -10764,21 +10764,19 @@ contract PlayStringTest is Test {
 
     function testRegexCharacterClassesInVModeCase5() public {
         string memory target = "anything";
+        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/v";
 
-        // string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/v";
-        // @BUG: {, }, /, |, all are invalid characters inside a [...] in v mode, however, not invalidating them
-        // @Status: not resolved!
-
-        // @BUG: ?, *, +, all are meant to be ignored inside a character class [...], however, not ignoring.
-        // @Status: resolved!
-        string memory pattern = unicode"/[abc123_,:;!@#%&{}?*+$^/|\"'<>=`~ ]/v";
+        // Error: SyntaxError: Invalid regular expression: /[abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase6() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/v";
+
+        // Error: SyntaxError: Invalid regular expression: /[abc123_,:;!@#%&(){}?*+$^/|"'<>=`~ ]/v: Invalid character in character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
