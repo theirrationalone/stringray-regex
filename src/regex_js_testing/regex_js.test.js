@@ -9825,26 +9825,26 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Character Classes[] in v mode: Case000000000013", () => {
-      let regex = /[z-a]/v;
-      const target = "q";
-      console.log("output: ", target.match(regex));
-      assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case000000000013", () => {
+  //     let regex = /[z-a]/v;
+  //     const target = "q";
+  //     console.log("output: ", target.match(regex));
+  //     assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Character Classes[] in v mode: Case000000000014", () => {
-      let regex = /[z-a]/v;
-      const target = "q";
-      console.log("output: ", target.match(regex));
-      assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case000000000014", () => {
+  //     let regex = /[z-a]/v;
+  //     const target = "q";
+  //     console.log("output: ", target.match(regex));
+  //     assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Character Classes[] in v mode: Case000000000015", () => {
-    let regex = /[a-\d]/v;
-    const target = "-";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case000000000015", () => {
+  //   let regex = /[a-\d]/v;
+  //   const target = "-";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Character Classes[] in v mode: Case000000000015", () => {
       let regex = /[\s-b]/v;

@@ -10734,7 +10734,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[]/: Empty Character class
+        // @Error: SyntaxError: Invalid regular expression: /[]/v: Empty Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -10743,7 +10743,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[]/u: Empty Character class
+        // @Error: SyntaxError: Invalid regular expression: /[]/v: Empty Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -10784,11 +10784,11 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @NOTE: Exclusive to solidity!
-        // Solidity  : SyntaxError: Invalid regular expression: /[abc/: Unterminated Character class
+        // Solidity  : SyntaxError: Invalid regular expression: /[abc/v: Unterminated Character class
         // Javascript: SyntaxError: Invalid regular expression: missing /
         string memory pattern = unicode"/[abc/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[abc/: Unterminated Character class
+        // @Error: SyntaxError: Invalid regular expression: /[abc/v: Unterminated Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -10797,12 +10797,12 @@ contract PlayStringTest is Test {
         string memory target = "anything";
 
         // @NOTE: Exclusive to solidity!
-        // Solidity  : SyntaxError: Invalid regular expression: /[abc/u: Unterminated Character class
+        // Solidity  : SyntaxError: Invalid regular expression: /[abc/v: Unterminated Character class
         // Javascript: SyntaxError: Invalid regular expression: missing /
 
         string memory pattern = unicode"/[abc/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[abc/u: Unterminated Character class
+        // @Error: SyntaxError: Invalid regular expression: /[abc/v: Unterminated Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -10841,25 +10841,26 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/[z-a]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[z-a]/: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[z-a]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase14() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[z-a]/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /[z-a]/u: Range out of order in character class
+        // @Error: SyntaxError: Invalid regular expression: /[z-a]/v: Range out of order in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexCharacterClassesInVModeCase15() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/[a-\\d]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /[a-\d]/v: Invalid character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 

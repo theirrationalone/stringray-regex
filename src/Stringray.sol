@@ -2164,7 +2164,8 @@ contract Stringray {
                     || atomType == NOT_DIGIT
                     || atomType == NOT_WORD_CHARACTER
                     || atomType == UNICODE_PROPERTY
-                    || atomType == UNICODE_PROPERTY_NEGATION) && hasFlag(_patternFlags, "u")
+                    || atomType == UNICODE_PROPERTY_NEGATION)
+                && (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v"))
         ) {
             throwError(
                 _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid character class", _patternFlags
