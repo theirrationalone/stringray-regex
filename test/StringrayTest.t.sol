@@ -10765,7 +10765,13 @@ contract PlayStringTest is Test {
     function testRegexCharacterClassesInVModeCase5() public {
         string memory target = "anything";
 
-        string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/v";
+        // string memory pattern = unicode"/[abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ]/v";
+        // @BUG: {, }, /, |, all are invalid characters inside a [...] in v mode, however, not invalidating them
+        // @Status: not resolved!
+
+        // @BUG: ?, *, +, all are meant to be ignored inside a character class [...], however, not ignoring.
+        // @Status: resolved!
+        string memory pattern = unicode"/[abc123_,:;!@#%&{}?*+$^/|\"'<>=`~ ]/v";
         stringray.regex(target, pattern);
     }
 

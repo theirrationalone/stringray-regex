@@ -1737,6 +1737,17 @@ contract Stringray {
                 isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup, true);
 
             if (!flag) {
+                if (
+                    (uint8(_pattern[i]) == QUESTION_MARK) || (uint8(_pattern[i]) == ASTERISK)
+                        || (uint8(_pattern[i]) == PLUS_SIGN)
+                ) {
+                    flag = true;
+                    atomType = LITERAL_ATOM;
+                    lastMatchedIndex = i;
+                }
+            }
+
+            if (!flag) {
                 (flag, atomType, lastMatchedIndex) =
                     isCharacterClass(_pattern, _orgPattern, i, _patternFlags, fromGroup);
             }
