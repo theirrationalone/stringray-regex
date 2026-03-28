@@ -9103,54 +9103,54 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000002", () => {
-    let regex = /\107/v;
-    const target = "\u0047";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000002", () => {
+  //   let regex = /\107/v;
+  //   const target = "\u0047";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000003", () => {
-    let regex = /\377/v;
-    const target = "\u00FF";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000003", () => {
+  //   let regex = /\377/v;
+  //   const target = "\u00FF";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000004", () => {
-    let regex = /\400/v;
-    const target = "\u00200";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000004", () => {
+  //   let regex = /\400/v;
+  //   const target = "\u00200";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000005", () => {
-    let regex = /\777/v;
-    const target = "\u003F7";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000005", () => {
+  //   let regex = /\777/v;
+  //   const target = "\u003F7";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000006", () => {
-    let regex = /\378/v;
-    const target = "\u001F8";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000006", () => {
+  //   let regex = /\378/v;
+  //   const target = "\u001F8";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000007", () => {
-    let regex = /\397/v;
-    const target = "\u000397";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000007", () => {
+  //   let regex = /\397/v;
+  //   const target = "\u000397";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000008", () => {
-    let regex = /\a/v;
-    const target = "a";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000008", () => {
+  //   let regex = /\a/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case0000000009", () => {
     let regex = /\0/v;
@@ -9159,61 +9159,61 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000010", () => {
-    let regex = /\00/v;
-    const target = "\x00";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000010", () => {
+  //   let regex = /\00/v;
+  //   const target = "\x00";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000011", () => {
-    let regex = /\000/v;
-    const target = "\x00";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000011", () => {
+  //   let regex = /\000/v;
+  //   const target = "\x00";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000012", () => {
-    let regex = /\08/v;
-    const target = "\x008";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000012", () => {
+  //   let regex = /\08/v;
+  //   const target = "\x008";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000013", () => {
-    let regex = /\008/v;
-    const target = "\x008";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000013", () => {
+  //   let regex = /\008/v;
+  //   const target = "\x008";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000014", () => {
-    let regex = /\000/v;
-    const target = "abba";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000014", () => {
+  //   let regex = /\000/v;
+  //   const target = "abba";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000015", () => {
-    let regex = /\118/v;
-    const target = "abba";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000015", () => {
+  //   let regex = /\118/v;
+  //   const target = "abba";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000016", () => {
-    let regex = /\988/v;
-    const target = "abba";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000016", () => {
+  //   let regex = /\988/v;
+  //   const target = "abba";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000017", () => {
-    let regex = /\0988/v;
-    const target = "abba";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000017", () => {
+  //   let regex = /\0988/v;
+  //   const target = "abba";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000018", () => {
     let regex = /\\a/v;
@@ -9222,37 +9222,37 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000019", () => {
-    let regex = /\_/v;
-    const target = "_";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000019", () => {
+  //   let regex = /\_/v;
+  //   const target = "_";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000020", () => {
-    let regex = /\_/v;
-    const target = "_";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000020", () => {
+  //   let regex = /\_/v;
+  //   const target = "_";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000021", () => {
-    let regex = /\!/v;
-    const target = "!";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000021", () => {
+  //   let regex = /\!/v;
+  //   const target = "!";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000022", () => {
-    let regex = /\!/v;
-    const target = "!";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000022", () => {
+  //   let regex = /\!/v;
+  //   const target = "!";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000023", () => {
     let regex = /\u{1F600}/v;
-    const target = "\\u{1F600}";
+    const target = "\u{1F600}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
@@ -9264,33 +9264,33 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000025", () => {
-    let regex = /\u/v;
-    const target = "u";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000025", () => {
+  //   let regex = /\u/v;
+  //   const target = "u";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000026", () => {
-    let regex = /\u/v;
-    const target = "u";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000026", () => {
+  //   let regex = /\u/v;
+  //   const target = "u";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000027", () => {
-    let regex = /\c/v;
-    const target = "c";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000027", () => {
+  //   let regex = /\c/v;
+  //   const target = "c";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000028", () => {
-    let regex = /\c/v;
-    const target = "c";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000028", () => {
+  //   let regex = /\c/v;
+  //   const target = "c";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000029", () => {
     let regex = /\cA/v;
@@ -9320,89 +9320,89 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000033", () => {
-    let regex = /\c1/v;
-    const target = "c1";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000033", () => {
+  //   let regex = /\c1/v;
+  //   const target = "c1";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000034", () => {
-    let regex = /\c1/v;
-    const target = "\x011";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000034", () => {
+  //   let regex = /\c1/v;
+  //   const target = "\x011";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000035", () => {
-    let regex = /\u{23,20}/v;
-    const target = "uuuuu";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000035", () => {
+  //   let regex = /\u{23,20}/v;
+  //   const target = "uuuuu";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000036", () => {
-    let regex = /\u{230,240}/v;
-    const target = "uuuuuuuuuu";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000036", () => {
+  //   let regex = /\u{230,240}/v;
+  //   const target = "uuuuuuuuuu";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000037", () => {
     let regex = /\u{2}/v;
-    const target = "uuuuuuuuuu";
+    const target = "\u{2}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000038", () => {
-    let regex = /\u{2,}/v;
-    const target = "uuuuuuuuuu";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000038", () => {
+  //   let regex = /\u{2,}/v;
+  //   const target = "uuuuuuuuuu";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000039", () => {
-    let regex = /\u{,23335}/v;
-    const target = "u{,23335}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000039", () => {
+  //   let regex = /\u{,23335}/v;
+  //   const target = "u{,23335}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000040", () => {
-    let regex = /\u{,}/v;
-    const target = "u{,}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000040", () => {
+  //   let regex = /\u{,}/v;
+  //   const target = "u{,}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000041", () => {
-    let regex = /\u{}/v;
-    const target = "uuuuuuuuuu";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000041", () => {
+  //   let regex = /\u{}/v;
+  //   const target = "uuuuuuuuuu";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000042", () => {
     let regex = /\u{1}/v;
-    const target = "u";
+    const target = "\u{1}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000043", () => {
-    let regex = /{1}/v;
-    const target = "uuuuuuuuuu";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000043", () => {
+  //   let regex = /{1}/v;
+  //   const target = "uuuuuuuuuu";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000044", () => {
-    let regex = /\u{1:1}/v;
-    const target = "u{1:1}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000044", () => {
+  //   let regex = /\u{1:1}/v;
+  //   const target = "u{1:1}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000045", () => {
     let regex = /\u1234/v;
@@ -9411,12 +9411,12 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000046", () => {
-    let regex = /\u123/v;
-    const target = "u123";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000046", () => {
+  //   let regex = /\u123/v;
+  //   const target = "u123";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000047", () => {
     let regex = /\u1234/v;
@@ -9425,12 +9425,12 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000048", () => {
-    let regex = /\u123/v;
-    const target = "u123";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000048", () => {
+  //   let regex = /\u123/v;
+  //   const target = "u123";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000049", () => {
     let regex = /\u12345/v;
@@ -9439,33 +9439,33 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000050", () => {
-    let regex = /\u1/v;
-    const target = "u1";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000050", () => {
+  //   let regex = /\u1/v;
+  //   const target = "u1";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000051", () => {
-    let regex = /\u12/v;
-    const target = "u12";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000051", () => {
+  //   let regex = /\u12/v;
+  //   const target = "u12";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000052", () => {
-    let regex = /\u1/v;
-    const target = "u1";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000052", () => {
+  //   let regex = /\u1/v;
+  //   const target = "u1";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000053", () => {
-    let regex = /\u12/v;
-    const target = "u12";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000053", () => {
+  //   let regex = /\u12/v;
+  //   const target = "u12";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   // test("Regex-Literals-escape_seqs in v mode : Case00000000054", () => {
   //     let regex = /[abc/v;
@@ -9481,19 +9481,19 @@ const testMain = () => {
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000056", () => {
-    let regex = /(?<1>a)/v;
-    const target = "a";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000056", () => {
+  //   let regex = /(?<1>a)/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000057", () => {
-    let regex = /(?<a-b>a)/v;
-    const target = "a";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000057", () => {
+  //   let regex = /(?<a-b>a)/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000058", () => {
     let regex = /\k<a>/v;
@@ -9502,12 +9502,12 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000059", () => {
-    let regex = /\k<a>/v;
-    const target = "k<a>";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000059", () => {
+  //   let regex = /\k<a>/v;
+  //   const target = "k<a>";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000060", () => {
     let regex = /\p{L}/v;
@@ -9516,12 +9516,12 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000061", () => {
-    let regex = /\p{XYZ}/v;
-    const target = "p{XYZ}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000061", () => {
+  //   let regex = /\p{XYZ}/v;
+  //   const target = "p{XYZ}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000062", () => {
     let regex = /\p{L}/v;
@@ -9530,75 +9530,75 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000063", () => {
-    let regex = /\p{XYZ}/v;
-    const target = "p{XYZ}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000063", () => {
+  //   let regex = /\p{XYZ}/v;
+  //   const target = "p{XYZ}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000064", () => {
-    let regex = /{122222}/v;
-    const target = "{122222}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000064", () => {
+  //   let regex = /{122222}/v;
+  //   const target = "{122222}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000065", () => {
-    let regex = /{}/v;
-    const target = "{}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000065", () => {
+  //   let regex = /{}/v;
+  //   const target = "{}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000066", () => {
-    let regex = /{}/v;
-    const target = "{}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000066", () => {
+  //   let regex = /{}/v;
+  //   const target = "{}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000067", () => {
-    let regex = /{/v;
-    const target = "{";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000067", () => {
+  //   let regex = /{/v;
+  //   const target = "{";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000068", () => {
-    let regex = /{/v;
-    const target = "{";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000068", () => {
+  //   let regex = /{/v;
+  //   const target = "{";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000069", () => {
-    let regex = /{,11}/v;
-    const target = "{,11}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000069", () => {
+  //   let regex = /{,11}/v;
+  //   const target = "{,11}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000070", () => {
-    let regex = /{,11}/v;
-    const target = "{,11}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000070", () => {
+  //   let regex = /{,11}/v;
+  //   const target = "{,11}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000071", () => {
-    let regex = /}/v;
-    const target = "}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000071", () => {
+  //   let regex = /}/v;
+  //   const target = "}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000072", () => {
-    let regex = /}/v;
-    const target = "}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000072", () => {
+  //   let regex = /}/v;
+  //   const target = "}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000073", () => {
     let regex = /1/v;
@@ -9628,33 +9628,33 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000077", () => {
-    let regex = /1}/v;
-    const target = "1}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000077", () => {
+  //   let regex = /1}/v;
+  //   const target = "1}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000078", () => {
-    let regex = /1}/v;
-    const target = "1}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000078", () => {
+  //   let regex = /1}/v;
+  //   const target = "1}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000079", () => {
-    let regex = /123424}/v;
-    const target = "123424}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000079", () => {
+  //   let regex = /123424}/v;
+  //   const target = "123424}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000080", () => {
-    let regex = /123424}/v;
-    const target = "123424}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000080", () => {
+  //   let regex = /123424}/v;
+  //   const target = "123424}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000081", () => {
     let regex = /1234,24/v;
@@ -9670,61 +9670,61 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000083", () => {
-    let regex = /1234,24}/v;
-    const target = "1234,24}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000083", () => {
+  //   let regex = /1234,24}/v;
+  //   const target = "1234,24}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000084", () => {
-    let regex = /1234,24}/v;
-    const target = "1234,24}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000084", () => {
+  //   let regex = /1234,24}/v;
+  //   const target = "1234,24}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000085", () => {
-    let regex = /\p{}/v;
-    const target = "p{}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000085", () => {
+  //   let regex = /\p{}/v;
+  //   const target = "p{}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000086", () => {
-    let regex = /\p{}/v;
-    const target = "p{}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000086", () => {
+  //   let regex = /\p{}/v;
+  //   const target = "p{}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000087", () => {
-    let regex = /\p{=LETTER}/v;
-    const target = "p{=LETTER}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000087", () => {
+  //   let regex = /\p{=LETTER}/v;
+  //   const target = "p{=LETTER}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000088", () => {
-    let regex = /\p{=LETTER}/v;
-    const target = "a";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000088", () => {
+  //   let regex = /\p{=LETTER}/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000089", () => {
-    let regex = /\p{g=LETTER}/v;
-    const target = "p{g=LETTER}";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000089", () => {
+  //   let regex = /\p{g=LETTER}/v;
+  //   const target = "p{g=LETTER}";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Regex-Literals-escape_seqs in v mode : Case00000000090", () => {
-    let regex = /\p{g=LETTER}/v;
-    const target = "a";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case00000000090", () => {
+  //   let regex = /\p{g=LETTER}/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case00000000091", () => {
     let regex = /\p{gc=Letter}/v;

@@ -9961,6 +9961,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\107/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /\107/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -9968,6 +9970,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\377/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\377/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -9975,6 +9979,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\400/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\400/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -9982,6 +9988,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\777/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\777/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -9989,6 +9997,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\378/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\378/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -9996,6 +10006,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\397/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\397/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10003,6 +10015,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\a/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\a/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10017,6 +10031,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\00/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\00/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10024,6 +10040,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\000/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\000/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10031,6 +10049,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\08/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\08/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10038,6 +10058,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\008/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\008/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10045,6 +10067,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\000/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\000/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10052,6 +10076,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\118/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\118/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10059,6 +10085,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\988/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\988/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10066,6 +10094,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\0988/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\0988/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10080,6 +10110,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\_/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\_/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10087,6 +10119,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\_/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\_/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10094,6 +10128,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\!/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\!/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10101,6 +10137,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\!/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\!/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10122,6 +10160,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10129,6 +10169,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10136,6 +10178,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\c/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\c/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10143,6 +10187,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\c/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\c/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10178,6 +10224,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\c1/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\c1/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10185,6 +10233,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\c1/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\c1/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10192,6 +10242,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{23,20}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{23,20}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10199,6 +10251,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{230,240}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{230,240}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10213,6 +10267,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{2,}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{2,}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10220,6 +10276,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{,23335}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{,23335}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10227,6 +10285,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{,}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{,}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10234,6 +10294,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10248,6 +10310,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{1}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{1}/v: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10255,6 +10319,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u{1:1}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u{1:1}/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10269,6 +10335,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u123/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u123/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10283,6 +10351,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u123/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u123/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10297,6 +10367,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u1/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u1/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10304,6 +10376,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u12/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u12/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10311,6 +10385,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u1/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u1/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10318,6 +10394,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\u12/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\u12/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10325,6 +10403,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/[abc/v";
 
+        // Error: SyntaxError: Invalid regular expression: /[abc/v: Unterminated Character class
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10332,6 +10412,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/(abc/v";
 
+        // Error: SyntaxError: Invalid regular expression: /(abc/v: Unterminated group
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10339,6 +10421,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/(?<1>a)/v";
 
+        // Error: SyntaxError: Invalid regular expression: /(?<1>a)/v: Invalid capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10346,6 +10430,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/(?<a-b>a)/v";
 
+        // Error: SyntaxError: Invalid regular expression: /(?<a-b>a)/v: Invalid capture group name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10353,6 +10439,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\k<a>/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\k<a>/v: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
@@ -10360,6 +10447,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\k<a>/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\k<a>/v: Invalid named capture referenced
         stringray.regex(target, pattern);
     }
 
@@ -10374,6 +10462,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{XYZ}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{XYZ}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10388,6 +10478,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{XYZ}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{XYZ}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10395,6 +10487,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{122222}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{122222}/v: Nothing to repeat
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10402,6 +10496,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10409,6 +10505,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10416,6 +10514,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10423,6 +10523,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10430,6 +10532,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{,11}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{,11}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10437,6 +10541,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/{,11}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /{,11}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10444,6 +10550,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10451,6 +10559,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10486,6 +10596,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/1}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /1}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10493,6 +10605,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/1}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /1}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10500,6 +10614,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/123424}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /123424}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10507,6 +10623,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/123424}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /123424}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10528,6 +10646,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/1234,24}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /1234,24}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10535,6 +10655,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/1234,24}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /1234,24}/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10542,6 +10664,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10549,6 +10673,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10556,6 +10682,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{=LETTER}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{=LETTER}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10563,6 +10691,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{=LETTER}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{=LETTER}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10570,6 +10700,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{g=LETTER}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{g=LETTER}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -10577,6 +10709,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\p{g=LETTER}/v";
 
+        // Error: SyntaxError: Invalid regular expression: /\p{g=LETTER}/v: Invalid property name
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
