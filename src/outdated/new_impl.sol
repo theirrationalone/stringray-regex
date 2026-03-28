@@ -123,11 +123,7 @@ library Stringray {
         return _indexOf(_string, _subString, _beginIndex);
     }
 
-    function _indexOf(string memory _target, string memory _search, uint256 _startIndex)
-        private
-        pure
-        returns (int256)
-    {
+    function _indexOf(string memory _target, string memory _search, uint256 _startIndex) private pure returns (int256) {
         bytes memory bytesForm = bytes(_target);
         bytes memory subBytesForm = bytes(_search);
 
