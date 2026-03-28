@@ -10322,12 +10322,12 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Character Classes[] in v mode: Case000000000079", () => {
-    let regex = /[\k<a>]/v;
-    const target = "aa";
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Character Classes[] in v mode: Case000000000079", () => {
+  //   let regex = /[\k<a>]/v;
+  //   const target = "aa";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   // test("Character Classes[] in v mode: Case000000000080", () => {
   //   let regex = /[\k<a>]/v;

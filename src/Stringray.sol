@@ -1725,11 +1725,6 @@ contract Stringray {
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
-            if (uint8(_pattern[i]) == BACK_SLASH) {
-                i++;
-                continue;
-            }
-
             bool flag;
             bytes32 atomType;
             uint256 lastMatchedIndex;
@@ -1754,8 +1749,10 @@ contract Stringray {
 
             if (flag) {
                 if (
-                    uint8(_pattern[i]) == OPEN_CURLY_BRACE || uint8(_pattern[i]) == CLOSE_CURLY_BRACE
-                        || uint8(_pattern[i]) == FORWARD_SLASH || uint8(_pattern[i]) == VERTICAL_BAR
+                    (uint8(_pattern[i]) == OPEN_CURLY_BRACE
+                            || uint8(_pattern[i]) == CLOSE_CURLY_BRACE
+                            || uint8(_pattern[i]) == FORWARD_SLASH
+                            || uint8(_pattern[i]) == VERTICAL_BAR) && lastMatchedIndex == i
                 ) {
                     throwError(
                         _orgPattern,
@@ -18400,7 +18397,7 @@ contract Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                if (hasFlag(_patternFlags, "u") && fromCharacterClass) {
+                if ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && fromCharacterClass) {
                     throwError(
                         _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlags
                     );
