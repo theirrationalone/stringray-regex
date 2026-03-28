@@ -1250,7 +1250,7 @@ contract Stringray {
         uint256 _currentParticleIdx,
         bytes memory _patternFlags
     ) private returns (bool, bytes32, uint256) {
-        if (!hasFlag(_patternFlags, "u")) {
+        if (!hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")) {
             (bool isOctal, uint256 lastOctalIndex) = validateBackslash_octal_digit(_pattern, _currentParticleIdx + 1);
 
             if (isOctal) {

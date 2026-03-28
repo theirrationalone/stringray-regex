@@ -9096,12 +9096,12 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Regex-Literals-escape_seqs in v mode : Case0000000001", () => {
-    let regex = /\08/v;
-    const target = "\x008";
-    console.log("outputDigit: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Regex-Literals-escape_seqs in v mode : Case0000000001", () => {
+  //   let regex = /\08/v;
+  //   const target = "\x008";
+  //   console.log("outputDigit: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
   test("Regex-Literals-escape_seqs in v mode : Case0000000002", () => {
     let regex = /\107/v;

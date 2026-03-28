@@ -9952,6 +9952,8 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = "/\\08/v";
 
+        // @Error: SyntaxError: Invalid regular expression: /\08/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
