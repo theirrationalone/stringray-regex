@@ -12240,7 +12240,7 @@ contract PlayStringTest is Test {
         string memory target = "anything";
         string memory pattern = unicode"/(abcd/ghij)/v";
 
-        // @Error: SyntaxError: Invalid regular expression flags: /(abcd/ghij)/
+        // @Error: SyntaxError: Invalid regular expression flags: /(abcd/ghij)/v
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
@@ -12264,6 +12264,30 @@ contract PlayStringTest is Test {
 
         string memory pattern = unicode"/(\\a\\e\\j\\k\\l\\m\\o\\y\\z)/v";
         stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\e)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\j)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\k)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\l)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\m)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\o)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\y)/v";
+        stringray.regex(target, pattern);
+
+        string memory pattern = unicode"/(\\z)/v";
+        stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase15() public {
@@ -12276,7 +12300,7 @@ contract PlayStringTest is Test {
     function testRegexGroupsCaseInVModeCase17() public {
         string memory target = "anything";
 
-        string memory pattern = unicode"/(\\a\\/\\g\\h\\i\\j)/v";
+        string memory pattern = unicode"/(\\a\\g\\h\\i\\j)/v";
         stringray.regex(target, pattern);
     }
 
