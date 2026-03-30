@@ -18397,7 +18397,16 @@ contract Stringray {
             }
 
             if (_nextChar == uint8(abi.encodePacked("k")[0])) {
-                if ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && fromCharacterClass) {
+                if ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && (fromCharacterClass || fromGroup)) {
+                    if (fromGroup) {
+                        throwError(
+                            _orgPattern,
+                            "SyntaxError: Invalid regular expression: /",
+                            ": Invalid named reference",
+                            _patternFlags
+                        );
+                    }
+
                     throwError(
                         _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid Escape", _patternFlags
                     );
