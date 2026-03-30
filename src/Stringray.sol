@@ -2337,12 +2337,11 @@ contract Stringray {
                         || (stripFromIndex == _currentParticleIndex + 2
                             && (uint8(_pattern[stripFromIndex - 1]) == EXCLAMATION_MARK
                                 || uint8(_pattern[stripFromIndex - 1]) == ASSIGNMENT_SIGN)
-                            && hasFlag(_patternFlags, "u"))
+                            && (hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")))
                 ) {
                     if (i + 1 < _pattern.length) {
-                        (bool isQuantifier,,) = isGreedyQuantifierAtom(
-                            _pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlags, fromGroup
-                        );
+                        (bool isQuantifier,,) =
+                            isGreedyQuantifierAtom(_pattern, _orgPattern, i + 1, GROUP_ATOM, _patternFlags, fromGroup);
                         if (isQuantifier) {
                             throwError(
                                 _orgPattern,

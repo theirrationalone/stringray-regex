@@ -11036,231 +11036,231 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000013", () => {
+  // test("Groups() in v mode: Case000000000007", () => {
   //   let regex = /(\a\e\j\l\m\o\y\z)/v;
   //   const target = "aejklmoyz";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000014", () => {
+  // test("Groups() in v mode: Case000000000008", () => {
   //   let regex = /(\k)/v;
   //   const target = "aejklmoyz";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000015", () => {
+  // test("Groups() in v mode: Case000000000009", () => {
   //   let regex = /(\a\-\g\h\i\j)/v;
   //   const target = "a-ghij";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000017", () => {
+  // test("Groups() in v mode: Case0000000000010", () => {
   //   let regex = /(\a\g\h\i\j)/v;
   //   const target = "a/ghij";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000019", () => {
+  // test("Groups() in v mode: Case0000000000011", () => {
   //   let regex = /(\a\!\@\#\%\=\'\;\:\>\<\,\~\`\"\&\g\h\i\j)/v;
   //   const target = "a!@#%=';:><.,~`\"&ghij";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case0000000000021", () => {
+  test("Groups() in v mode: Case0000000000012", () => {
     let regex = /(\n)/v;
     const target = "\n";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000023", () => {
+  test("Groups() in v mode: Case0000000000013", () => {
     let regex = /(\b)/v;
     const target = "-a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000025", () => {
+  test("Groups() in v mode: Case0000000000014", () => {
     let regex = /(\f)/v;
     const target = "\f";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000027", () => {
+  test("Groups() in v mode: Case0000000000015", () => {
     let regex = /(\d)/v;
     const target = "1";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000029", () => {
+  test("Groups() in v mode: Case0000000000016", () => {
     let regex = /(\r)/v;
     const target = "\r";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000031", () => {
+  test("Groups() in v mode: Case0000000000017", () => {
     let regex = /(\s)/v;
     const target = " ";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000033", () => {
+  test("Groups() in v mode: Case0000000000018", () => {
     let regex = /(\t)/v;
     const target = "\t";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000035", () => {
+  test("Groups() in v mode: Case0000000000019", () => {
     let regex = /(\v)/v;
     const target = "\v";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000037", () => {
+  test("Groups() in v mode: Case0000000000020", () => {
     let regex = /(\w\w)/v;
     const target = "a1";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000039", () => {
+  test("Groups() in v mode: Case0000000000021", () => {
     let regex = /(\B)/v;
     const target = "a1";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000041", () => {
+  test("Groups() in v mode: Case0000000000022", () => {
     let regex = /(\D)/v;
     const target = "a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000043", () => {
+  test("Groups() in v mode: Case0000000000023", () => {
     let regex = /(\S)/v;
     const target = "@";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000045", () => {
+  test("Groups() in v mode: Case0000000000024", () => {
     let regex = /(\W)/v;
     const target = ",";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000047", () => {
+  test("Groups() in v mode: Case0000000000025", () => {
     let regex = /(\^)/v;
     const target = "^";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000049", () => {
+  test("Groups() in v mode: Case0000000000026", () => {
     let regex = /(\$)/v;
     const target = "$";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000051", () => {
+  test("Groups() in v mode: Case0000000000027", () => {
     let regex = /(\\)/v;
     const target = "\\";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000053", () => {
+  test("Groups() in v mode: Case0000000000028", () => {
     let regex = /(\.)/v;
     const target = ".";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000055", () => {
+  test("Groups() in v mode: Case0000000000029", () => {
     let regex = /(\*)/v;
     const target = "*";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000057", () => {
+  test("Groups() in v mode: Case0000000000030", () => {
     let regex = /(\+)/v;
     const target = "+";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000059", () => {
+  test("Groups() in v mode: Case0000000000031", () => {
     let regex = /(\?)/v;
     const target = "?";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000061", () => {
+  test("Groups() in v mode: Case0000000000032", () => {
     let regex = /(\[)/v;
     const target = "[";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000063", () => {
+  test("Groups() in v mode: Case0000000000033", () => {
     let regex = /(\])/v;
     const target = "]";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000065", () => {
+  test("Groups() in v mode: Case0000000000034", () => {
     let regex = /(\()/v;
     const target = "(";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000067", () => {
+  test("Groups() in v mode: Case0000000000035", () => {
     let regex = /(\))/v;
     const target = ")";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000069", () => {
+  test("Groups() in v mode: Case0000000000036", () => {
     let regex = /(\{)/v;
     const target = "{";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000071", () => {
+  test("Groups() in v mode: Case0000000000037", () => {
     let regex = /(\|)/v;
     const target = "|";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000073", () => {
+  test("Groups() in v mode: Case0000000000038", () => {
     let regex = /(\/)/v;
     const target = "/";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000075", () => {
+  test("Groups() in v mode: Case0000000000039", () => {
     let regex = /(a)/v;
     assert.strictEqual(regex.test("a"), true);
     regex = /(b)/;
@@ -11283,7 +11283,7 @@ const testMain = () => {
     // Js supports upto U+10FFFF(1114111) characters.
   });
 
-  test("Groups() in v mode: Case0000000000076", () => {
+  test("Groups() in v mode: Case0000000000040", () => {
     let regex = /(abc)/v;
     assert.strictEqual(regex.test("abc"), true);
 
@@ -11309,7 +11309,7 @@ const testMain = () => {
     assert.strictEqual(regex.test("कखग"), true);
   });
 
-  test("Groups() in v mode: Case0000000000077", () => {
+  test("Groups() in v mode: Case0000000000041", () => {
     let regex = /(\^)/v;
     assert.strictEqual(regex.test("^"), true);
 
@@ -11353,17 +11353,17 @@ const testMain = () => {
     assert.strictEqual(regex.test("\\"), true);
   });
 
-  test("Groups() in v mode: Case0000000000078", () => {
+  test("Groups() in v mode: Case0000000000042", () => {
     let regex = /(\x41)/v;
     assert.strictEqual(regex.test("A"), true);
   });
 
-  test("Groups() in v mode: Case0000000000079", () => {
+  test("Groups() in v mode: Case0000000000043", () => {
     let regex = /(\u0061)/v;
     assert.strictEqual(regex.test("a"), true);
   });
 
-  test("Groups() in v mode: Case0000000000081", () => {
+  test("Groups() in v mode: Case0000000000044", () => {
     let regex = /(\n)/v;
     assert.strictEqual(regex.test("\n"), true);
 
@@ -11379,387 +11379,387 @@ const testMain = () => {
     assert.strictEqual(regex.test("\0"), true);
   });
 
-  test("Groups() in v mode: Case0000000000082", () => {
+  test("Groups() in v mode: Case0000000000045", () => {
     let regex = /(\/)/v;
     assert.strictEqual(regex.test("/"), true);
   });
 
-  // test("Groups() in v mode: Case0000000000083", () => {
+  // test("Groups() in v mode: Case0000000000046", () => {
   //     let regex = /(a/b)/v;
   //     assert.strictEqual(regex.test("a/b"), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000084", () => {
+  // test("Groups() in v mode: Case0000000000047", () => {
   //     let regex = /(ab)/\v;
   //     assert.strictEqual(regex.test("a/b"), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000085", () => {
+  // test("Groups() in v mode: Case0000000000048", () => {
   //   let regex = /(\u{110000})/v;
   //   assert.strictEqual(regex.test("a/b"), true);
   // });
 
-  // test("Groups() in v mode: Case00000000086", () => {
+  // test("Groups() in v mode: Case00000000049", () => {
   //   let regex = /(\c1)/v;
   //   assert.strictEqual(regex.test(""), false);
   // });
 
-  // test("Groups() in v mode: Case0000000000087", () => {
+  // test("Groups() in v mode: Case0000000000050", () => {
   //   let regex = /(\ugg)/v;
   //   assert.strictEqual(regex.test("ugg"), true);
   // });
 
-  test("Groups() in v mode: Case0000000000088", () => {
+  test("Groups() in v mode: Case0000000000051", () => {
     let regex = /(.)/v;
     const target = "anil";
     console.log("dot: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000089", () => {
+  test("Groups() in v mode: Case0000000000052", () => {
     let regex = /(\.)/v;
     const target = ".anil";
     console.log("dot: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000090", () => {
+  test("Groups() in v mode: Case0000000000053", () => {
     let regex = /(\r.)/v;
     const target = "\r.anil";
     console.log("dot: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case0000000000091", () => {
+  // test("Groups() in v mode: Case0000000000054", () => {
   //   let regex = /({)/v;
   //   const target = "{";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000092", () => {
+  // test("Groups() in v mode: Case0000000000055", () => {
   //   let regex = /(})/v;
   //   const target = ",}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case0000000000096", () => {
+  test("Groups() in v mode: Case0000000000056", () => {
     let regex = /(1,2)/v;
     const target = "1,2";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case0000000000097", () => {
+  test("Groups() in v mode: Case0000000000057", () => {
     let regex = /(2,1)/v;
     const target = "2,1";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case0000000000098", () => {
+  // test("Groups() in v mode: Case0000000000058", () => {
   //     let regex = /(()/v;
   //     const target = "(";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case0000000000099", () => {
+  // test("Groups() in v mode: Case0000000000059", () => {
   //     let regex = /())/v;
   //     const target = ")";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000101", () => {
+  // test("Groups() in v mode: Case0000000000060", () => {
   //   let regex = /(])/v;
   //   const target = "]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000102", () => {
+  test("Groups() in v mode: Case0000000000061", () => {
     let regex = /([])/v;
     const target = "";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
 
-  // test("Groups() in v mode: Case00000000000103", () => {
+  // test("Groups() in v mode: Case0000000000062", () => {
   //   let regex = /(?)/v;
   //   const target = "";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  test("Groups() in v mode: Case00000000000104", () => {
+  test("Groups() in v mode: Case0000000000063", () => {
     let regex = /(\?)/v;
     const target = "?";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000105", () => {
+  // test("Groups() in v mode: Case0000000000064", () => {
   //     let regex =/(+)/v;
   //     const target = "+";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000106", () => {
+  test("Groups() in v mode: Case0000000000065", () => {
     let regex = /(\+)/v;
     const target = "+";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000107", () => {
+  // test("Groups() in v mode: Case0000000000066", () => {
   //     let regex = /(\\+*)/v;
   //     const target = "\\\\*";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000108", () => {
+  test("Groups() in v mode: Case0000000000067", () => {
     let regex = /(\*)/v;
     const target = "*";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000109", () => {
+  // test("Groups() in v mode: Case0000000000068", () => {
   //   let regex = /(a???)/;
   //   const target = "a";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000110", () => {
+  test("Groups() in v mode: Case0000000000069", () => {
     let regex = /(a??)/v;
     const target = "a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000111", () => {
+  // test("Groups() in v mode: Case0000000000070", () => {
   //     let regex = /(a+??)/v;
   //     const target = "a";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000112", () => {
+  test("Groups() in v mode: Case0000000000071", () => {
     let regex = /(a+?)/v;
     const target = "a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case0000000000113", () => {
+  // test("Groups() in v mode: Case000000000072", () => {
   //     let regex =/(a*??)/v;
   //     const target = "a";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000114", () => {
+  test("Groups() in v mode: Case0000000000073", () => {
     let regex = /(a*?)/v;
     const target = "a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000115", () => {
+  test("Groups() in v mode: Case0000000000074", () => {
     let regex = /(asian)/v;
     const target = "asian";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000116", () => {
+  // test("Groups() in v mode: Case0000000000075", () => {
   //   let regex = /(\08)/v;
   //   const target = "\x008";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000117", () => {
+  // test("Groups() in v mode: Case0000000000076", () => {
   //   let regex = /(\107)/v;
   //   const target = "\u0047";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000118", () => {
+  // test("Groups() in v mode: Case0000000000077", () => {
   //   let regex = /(\377)/v;
   //   const target = "\u00FF";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000119", () => {
+  // test("Groups() in v mode: Case0000000000078", () => {
   //   let regex = /(\400)/v;
   //   const target = "\u00200";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000120", () => {
+  // test("Groups() in v mode: Case0000000000079", () => {
   //   let regex = /(\777)/v;
   //   const target = "\u003F7";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000121", () => {
+  test("Groups() in v mode: Case0000000000080", () => {
     let regex = /(a^|$sian)/v;
     const target = "a^|$sian";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
 
-  // test("Groups() in v mode: Case00000000000122", () => {
+  // test("Groups() in v mode: Case0000000000081", () => {
   //   let regex = /(\378)/v;
   //   const target = "\u001F8";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000123", () => {
+  // test("Groups() in v mode: Case0000000000082", () => {
   //   let regex = /(\397)/v;
   //   const target = "\u000397";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000124", () => {
+  // test("Groups() in v mode: Case0000000000083", () => {
   //   let regex = /(\a)/v;
   //   const target = "a";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000125", () => {
+  test("Groups() in v mode: Case0000000000084", () => {
     let regex = /(\0)/v;
     const target = "\x00";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000126", () => {
+  // test("Groups() in v mode: Case0000000000085", () => {
   //   let regex = /(\00)/v;
   //   const target = "\x00";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000127", () => {
+  // test("Groups() in v mode: Case0000000000086", () => {
   //   let regex = /(\000)/v;
   //   const target = "\x00";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000128", () => {
+  // test("Groups() in v mode: Case0000000000087", () => {
   //   let regex = /(\08)/v;
   //   const target = "\x008";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000129", () => {
+  // test("Groups() in v mode: Case0000000000088", () => {
   //   let regex = /(\008)/v;
   //   const target = "\x008";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000130", () => {
+  // test("Groups() in v mode: Case0000000000089", () => {
   //     let regex =/(\000)/u;
   //     const target = "abba";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000134", () => {
+  test("Groups() in v mode: Case0000000000090", () => {
     let regex = /(\\a)/v;
     const target = "\\a";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000135", () => {
+  // test("Groups() in v mode: Case0000000000091", () => {
   //   let regex = /(\_)/v;
   //   const target = "_";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000137", () => {
+  // test("Groups() in v mode: Case0000000000092", () => {
   //   let regex = /(\!)/v;
   //   const target = "!";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000139", () => {
+  test("Groups() in v mode: Case0000000000093", () => {
     let regex = /(\u{1F600})/v;
     const target = "\u{1F600}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000141", () => {
+  // test("Groups() in v mode: Case0000000000094", () => {
   //   let regex = /(\u)/v;
   //   const target = "u";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000143", () => {
+  // test("Groups() in v mode: Case0000000000095", () => {
   //   let regex = /(\c)/v;
   //   const target = "c";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  test("Groups() in v mode: Case00000000000145", () => {
+  test("Groups() in v mode: Case0000000000096", () => {
     let regex = /(\cA)/v;
     const target = "\x01";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000147", () => {
+  test("Groups() in v mode: Case0000000000097", () => {
     let regex = /(\ca)/v;
     const target = "\x01";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000149", () => {
+  // test("Groups() in v mode: Case0000000000098", () => {
   //   let regex = /(\c1)/v;
   //   const target = "c1";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  // test("Groups() in v mode: Case00000000000151", () => {
+  // test("Groups() in v mode: Case0000000000099", () => {
   //     let regex =/(\u{23,20})/v;
   //     const target = "uuuuu";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000152", () => {
+  // test("Groups() in v mode: Case00000000000100", () => {
   //   let regex = /(\u{230,240})/v;
   //   const target = "uuuuuuuuuu";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  test("Groups() in v mode: Case00000000000153", () => {
+  test("Groups() in v mode: Case00000000000101", () => {
     // let regex =( /a^sian)/;
     let regex = /(\u{23335})/v;
     // regex will match iff 23335 u's are there in target string i.e., uuuuuuuuuuuuuuuuuuuu...+u <- 23335th
@@ -11768,7 +11768,7 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), false);
   });
 
-  // test("Groups() in v mode: Case00000000000154", () => {
+  // test("Groups() in v mode: Case00000000000102", () => {
   //   // let regex =( /a^sian)/;
   //   let regex = /(\u{23335,})/v;
   //   // regex will match iff 23335 or more u's are there in target string i.e., uuuuuuuuuuuuuuuuuuuu...+u <- 23335th or more
@@ -11777,371 +11777,371 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  // test("Groups() in v mode: Case00000000000155", () => {
+  // test("Groups() in v mode: Case00000000000103", () => {
   //   let regex = /(\u{,23335})/v;
   //   const target = "u{,23335}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000156", () => {
+  // test("Groups() in v mode: Case00000000000104", () => {
   //   let regex = /(\u{,})/v;
   //   const target = "u{,}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000157", () => {
+  // test("Groups() in v mode: Case00000000000105", () => {
   //   let regex = /(\u{})/v;
   //   const target = "u{}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000158", () => {
+  test("Groups() in v mode: Case00000000000106", () => {
     let regex = /(\u{1})/v;
     const target = "\u{1}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000159", () => {
+  // test("Groups() in v mode: Case00000000000107", () => {
   //     let regex = /({1})/v;
   //     const target = "uuuuuuuuuu";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000160", () => {
+  // test("Groups() in v mode: Case00000000000108", () => {
   //   let regex = /(\u{1:1})/v;
   //   const target = "u{1:1}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000161", () => {
+  test("Groups() in v mode: Case00000000000109", () => {
     let regex = /(\u1234)/v;
     const target = "\u1234";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000162", () => {
+  // test("Groups() in v mode: Case00000000000110", () => {
   //   let regex = /(\u123)/v;
   //   const target = "u123";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000165", () => {
+  test("Groups() in v mode: Case00000000000111", () => {
     let regex = /(\u12345)/v;
     const target = "\u12345";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000166", () => {
+  // test("Groups() in v mode: Case00000000000112", () => {
   //   let regex = /(\u1)/v;
   //   const target = "u1";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000167", () => {
+  // test("Groups() in v mode: Case00000000000113", () => {
   //   let regex = /(\u12)/v;
   //   const target = "u12";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000170", () => {
+  // test("Groups() in v mode: Case00000000000114", () => {
   //     let regex = /([abc)/v;
   //     const target = "[abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000171", () => {
+  // test("Groups() in v mode: Case00000000000115", () => {
   //     let regex = /((abc)/v;
   //     const target = "(abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000172", () => {
+  // test("Groups() in v mode: Case00000000000116", () => {
   //     let regex = /((?<1>a))/v;
   //     const target = "a";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000173", () => {
+  // test("Groups() in v mode: Case00000000000117", () => {
   //     let regex = /((?<a-b>a))/v;
   //     const target = "a";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000174", () => {
+  // test("Groups() in v mode: Case00000000000118", () => {
   //   let regex = /(\k<a>)/v;
   //   const target = "k<a>";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000176", () => {
+  test("Groups() in v mode: Case00000000000119", () => {
     let regex = /(\p{L})/v;
     const target = "p{L}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000177", () => {
+  // test("Groups() in v mode: Case00000000000120", () => {
   //   let regex = /(\p{XYZ})/v;
   //   const target = "p{XYZ}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000180", () => {
+  // test("Groups() in v mode: Case00000000000121", () => {
   //     let regex = /({122222})/v;
   //     const target = "{122222}";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000181", () => {
+  // test("Groups() in v mode: Case00000000000122", () => {
   //   let regex = /({})/v;
   //   const target = "{}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000183", () => {
+  // test("Groups() in v mode: Case00000000000123", () => {
   //   let regex = /({)/v;
   //   const target = "{";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000185", () => {
+  // test("Groups() in v mode: Case00000000000124", () => {
   //   let regex = /({,11})/v;
   //   const target = "{,11}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000187", () => {
+  // test("Groups() in v mode: Case00000000000125", () => {
   //   let regex = /(})/v;
   //   const target = "}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000189", () => {
+  test("Groups() in v mode: Case00000000000126", () => {
     let regex = /(1)/v;
     const target = "1";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000191", () => {
+  test("Groups() in v mode: Case00000000000127", () => {
     let regex = /(143242)/v;
     const target = "143242";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000193", () => {
+  // test("Groups() in v mode: Case00000000000128", () => {
   //   let regex = /(1})/v;
   //   const target = "1}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000195", () => {
+  // test("Groups() in v mode: Case00000000000129", () => {
   //   let regex = /(123424})/v;
   //   const target = "123424}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000197", () => {
+  test("Groups() in v mode: Case00000000000130", () => {
     let regex = /(1234,24)/v;
     const target = "1234,24";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000199", () => {
+  // test("Groups() in v mode: Case00000000000131", () => {
   //   let regex = /(1234,24})/v;
   //   const target = "1234,24}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000201", () => {
+  // test("Groups() in v mode: Case00000000000132", () => {
   //   let regex = /(\p{})/v;
   //   const target = "p{}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000203", () => {
+  // test("Groups() in v mode: Case00000000000133", () => {
   //   let regex = /(\p{=LETTER})/v;
   //   const target = "p{=LETTER}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000205", () => {
+  // test("Groups() in v mode: Case00000000000134", () => {
   //   let regex = /(\p{g=LETTER})/v;
   //   const target = "p{g=LETTER}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000207", () => {
+  test("Groups() in v mode: Case00000000000135", () => {
     let regex = /(\p{gc=Letter})/v;
     const target = "p{gc=Letter}";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000209", () => {
+  test("Groups() in v mode: Case00000000000136", () => {
     let regex = /([])/v;
     const target = "\x00";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
 
-  test("Groups()(: Case0000211", () => {
+  test("Groups() in v mode: Case0000137", () => {
     let regex = /([.])/v;
     const target = ".";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000213", () => {
+  // test("Groups() in v mode: Case00000000000138", () => {
   //   let regex = /([abc123_,:;!@#%&()$^{}?+*/|"'<>=`~ ])/v;
   //   const target = "abc123_,:;!@#%&()$^{}?+*/|\"'<>=`~ ";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000215", () => {
+  // test("Groups() in v mode: Case00000000000139", () => {
   //     let regex = /([abc)/v;
   //     const target = "[abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups()(: Case0000217", () => {
+  test("Groups() in v mode: Case0000140", () => {
     let regex = /([^])/v;
     const target = "{";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000219", () => {
+  test("Groups() in v mode: Case00000000000141", () => {
     let regex = /([a-z])/v;
     const target = "q";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000221", () => {
+  // test("Groups() in v mode: Case00000000000142", () => {
   //     let regex = /([z-a])/v;
   //     const target = "q";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000223", () => {
+  // test("Groups() in v mode: Case00000000000143", () => {
   //   let regex = /([a-\d])/v;
   //   const target = "-";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000225", () => {
+  // test("Groups() in v mode: Case00000000000144", () => {
   //   let regex = /([\d-a])/v;
   //   const target = "a";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000227", () => {
+  // test("Groups() in v mode: Case00000000000145", () => {
   //   let regex = /([a-\w])/v;
   //   const target = "[\w-a]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000229", () => {
+  // test("Groups() in v mode: Case00000000000146", () => {
   //   let regex = /([\w-a])/v;
   //   const target = "[\w-a]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000231", () => {
+  // test("Groups() in v mode: Case00000000000147", () => {
   //   let regex = /([\w-\d])/v;
   //   const target = "[\w-\d]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000233", () => {
+  // test("Groups() in v mode: Case00000000000148", () => {
   //   let regex = /([\d-\w])/v;
   //   const target = "[\d-\w]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000235", () => {
+  // test("Groups() in v mode: Case00000000000149", () => {
   //   let regex = /([\d-\d])/v;
   //   const target = "[\d-\d]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000237", () => {
+  // test("Groups() in v mode: Case00000000000150", () => {
   //   let regex = /([\w-\w])/v;
   //   const target = "[\w-\w]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000239", () => {
+  // test("Groups() in v mode: Case00000000000151", () => {
   //   let regex = /([a-c-h])/v;
   //   const target = "-";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000241", () => {
+  // test("Groups() in v mode: Case00000000000152", () => {
   //   let regex = /([-a])/v;
   //   const target = "-";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000243", () => {
+  // test("Groups() in v mode: Case00000000000153", () => {
   //   let regex = /([a-])/v;
   //   const target = "-";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000245", () => {
+  test("Groups() in v mode: Case00000000000154", () => {
     let regex = /([a--z])/v;
     const target = "";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
 
-  // test("Groups() in v mode: Case00000000000247", () => {
+  // test("Groups() in v mode: Case00000000000155", () => {
   //   // @Note: - is smaller than a
   //   let regex = /([--a])/v;
   //   const target = "-";
@@ -12149,14 +12149,14 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000249", () => {
+  // test("Groups() in v mode: Case00000000000156", () => {
   //   let regex = /([\8])/v;
   //   const target = "8";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000251", () => {
+  // test("Groups() in v mode: Case00000000000157", () => {
   //   let regex = /([\u123])/v;
   //   // const target = "u"; // true
   //   // const target = "1"; // true
@@ -12167,714 +12167,714 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000253", () => {
+  test("Groups() in v mode: Case00000000000158", () => {
     let regex = /([\u0123])/v;
     const target = "\u0123";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000255", () => {
+  // test("Groups() in v mode: Case00000000000159", () => {
   //     let regex = /([\])/v;
   //     const target = "\\";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000257", () => {
+  test("Groups() in v mode: Case00000000000160", () => {
     let regex = /([\0])/v;
     const target = "\x00";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000259", () => {
+  // test("Groups() in v mode: Case00000000000161", () => {
   //   let regex = /([\00])/v;
   //   const target = "\x00";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000261", () => {
+  // test("Groups() in v mode: Case00000000000162", () => {
   //   let regex = /([\000])/v;
   //   const target = "\x00";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000263", () => {
+  // test("Groups() in v mode: Case00000000000163", () => {
   //   let regex = /([\377])/v;
   //   const target = "\u00ff";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000265", () => {
+  // test("Groups() in v mode: Case00000000000164", () => {
   //   let regex = /([\1])/v;
   //   const target = "\u0001";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000267", () => {
+  // test("Groups() in v mode: Case00000000000165", () => {
   //   let regex = /((a)[\1])/v;
   //   const target = "a\x01";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000269", () => {
+  // test("Groups() in v mode: Case00000000000166", () => {
   //   let regex = /([(a)\1])/v;
   //   const target = ")";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000271", () => {
+  test("Groups() in v mode: Case00000000000167", () => {
     let regex = /([\p{Letter}])/v;
     const target = "l";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000273", () => {
+  // test("Groups() in v mode: Case00000000000168", () => {
   //   let regex = /([\p{}])/v;
   //   const target = "{";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000275", () => {
+  // test("Groups() in v mode: Case00000000000169", () => {
   //   let regex = /([\p{LETTER}])/v;
   //   const target = "T";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000277", () => {
+  test("Groups() in v mode: Case00000000000170", () => {
     let regex = /([\x001])/v;
     const target = "\x00";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000279", () => {
+  // test("Groups() in v mode: Case00000000000171", () => {
   //   let regex = /([\xg1])/v;
   //   const target = "x";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000281", () => {
+  // test("Groups() in v mode: Case00000000000172", () => {
   //   let regex = /([\k])/v;
   //   const target = "k";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000283", () => {
+  // test("Groups() in v mode: Case00000000000173", () => {
   //   let regex = /([(?<a>a)\k<a>])/v;
   //   const target = "<";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000285", () => {
+  // test("Groups() in v mode: Case00000000000174", () => {
   //   let regex = /((?<a>a)[\k<a>])/v;
   //   const target = "aa";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000287", () => {
+  // test("Groups() in v mode: Case00000000000175", () => {
   //   let regex = /([\k<a>])/v;
   //   const target = "aa";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000289", () => {
+  // test("Groups() in v mode: Case00000000000176", () => {
   //     let regex = /((?<b>a)\k<a>)/v;
   //     const target = "aa";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000291", () => {
+  test("Groups() in v mode: Case00000000000177", () => {
     let regex = /([✅-🧪])/v;
     const target = "🧪";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000293", () => {
+  // test("Groups() in v mode: Case00000000000178", () => {
   //     let regex = /([🧪-✅])/v;
   //     const target = "✅";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000295", () => {
+  // test("Groups() in v mode: Case00000000000179", () => {
   //     let regex = /([€-क])/v;
   //     const target = "क";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000297", () => {
+  test("Groups() in v mode: Case00000000000180", () => {
     let regex = /([क-€])/v;
     const target = "€";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000299", () => {
+  test("Groups() in v mode: Case00000000000181", () => {
     let regex = /([\uc290-\uc295])/v;
     const target = "\uc293";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000301", () => {
+  // test("Groups() in v mode: Case00000000000182", () => {
   //     let regex = /([\uc295-\uc290])/v;
   //     const target = "\uc293";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000303", () => {
+  // test("Groups() in v mode: Case00000000000183", () => {
   //     let regex = /([\^-\$])/v;
   //     const target = "\uc293";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups()(: Case0000305", () => {
+  test("Groups() in v mode: Case00000000000184", () => {
     let regex = /([\$-\^])/v;
     const target = "\$";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000307", () => {
+  // test("Groups() in v mode: Case00000000000185", () => {
   //     let regex = /([\c-b])/v;
   //     const target = "a";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000309", () => {
+  // test("Groups() in v mode: Case00000000000186", () => {
   //     let regex = /([b-\c])/v;
   //     const target = "c";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000311", () => {
+  // test("Groups() in v mode: Case00000000000187", () => {
   //   let regex = /(a\c_b)/v;
   //   const target = "a\x00b";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), false);
   // });
 
-  // test("Groups() in v mode: Case00000000000313", () => {
+  // test("Groups() in v mode: Case00000000000188", () => {
   //   let regex = /([a\c_z])/v;
   //   const target = "z";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000315", () => {
+  // test("Groups() in v mode: Case00000000000189", () => {
   //     let regex = /([_-,])/v;
   //     const target = ",";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000317", () => {
+  test("Groups() in v mode: Case00000000000190", () => {
     let regex = /([,-_])/v;
     const target = ",";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups()(: Case0000319", () => {
+  test("Groups() in v mode: Case00000000000191", () => {
     let regex = /([:-;])/v;
     const target = ";";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000321", () => {
+  // test("Groups() in v mode: Case00000000000192", () => {
   //     let regex = /([;-:])/v;
   //     const target = ";";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000323", () => {
+  test("Groups() in v mode: Case00000000000193", () => {
     let regex = /([!-@])/v;
     const target = "@";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000325", () => {
+  // test("Groups() in v mode: Case00000000000194", () => {
   //     let regex = /([@-!])/v;
   //     const target = "@";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000327", () => {
+  test("Groups() in v mode: Case00000000000195", () => {
     let regex = /([#-%])/v;
     const target = "%";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000329", () => {
+  // test("Groups() in v mode: Case00000000000196", () => {
   //     let regex = /([%-#])/v;
   //     const target = "%";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000331", () => {
+  // test("Groups() in v mode: Case00000000000197", () => {
   //   let regex = /([&-(])/v;
   //   const target = "&";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000333", () => {
+  // test("Groups() in v mode: Case00000000000198", () => {
   //     let regex = /([(-&])/v;
   //     const target = "&";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000335", () => {
+  // test("Groups() in v mode: Case00000000000199", () => {
   //     let regex = /([)-$])/v;
   //     const target = "&";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000337", () => {
+  // test("Groups() in v mode: Case00000000000200", () => {
   //   let regex = /([$-)])/v;
   //   const target = "&";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups()(: Case0000339", () => {
+  // test("Groups() in v mode: Case00000000000201", () => {
   //   let regex = /([^-{])/v;
   //   const target = "}";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000341", () => {
+  // test("Groups() in v mode: Case00000000000202", () => {
   //     let regex = /([{-^])/v;
   //     const target = "^";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups()(: Case0000343", () => {
+  // test("Groups() in v mode: Case00000000000203", () => {
   //   let regex = /([\^-{])/v;
   //   const target = "^";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000345", () => {
+  // test("Groups() in v mode: Case00000000000204", () => {
   //     let regex = /([{-\^])/v;
   //     const target = "^";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000347", () => {
+  // test("Groups() in v mode: Case00000000000205", () => {
   //     let regex = /([}-?])/v;
   //     const target = "?";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000349", () => {
+  // test("Groups() in v mode: Case00000000000206", () => {
   //   let regex = /([?-}])/v;
   //   const target = "?";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000351", () => {
+  // test("Groups() in v mode: Case00000000000207", () => {
   //     let regex = /([+-*])/v;
   //     const target = "+";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups()(: Case0000353", () => {
+  test("Groups() in v mode: Case00000000000208", () => {
     let regex = /([*-+])/v;
     const target = "+";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups()(: Case0000355", () => {
+  // test("Groups() in v mode: Case00000000000209", () => {
   //   let regex = /([/-|])/v;
   //   const target = "/";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000357", () => {
+  // test("Groups() in v mode: Case00000000000210", () => {
   //     let regex = /([|-/])/v;
   //     const target = "+";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000359", () => {
+  test("Groups() in v mode: Case00000000000211", () => {
     let regex = /(["-'])/v;
     const target = '"';
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000361", () => {
+  // test("Groups() in v mode: Case00000000000212", () => {
   //     let regex = /(['-"])/v;
   //     const target = "\"";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000363", () => {
+  test("Groups() in v mode: Case00000000000213", () => {
     let regex = /([<->])/v;
     const target = "<";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000365", () => {
+  // test("Groups() in v mode: Case00000000000214", () => {
   //     let regex = /([>-<])/v;
   //     const target = "<";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000367", () => {
+  test("Groups() in v mode: Case00000000000215", () => {
     let regex = /([=-`])/v;
     const target = "=";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000369", () => {
+  // test("Groups() in v mode: Case00000000000216", () => {
   //     let regex = /([`-=])/v;
   //     const target = "=";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000371", () => {
+  test("Groups() in v mode: Case00000000000217", () => {
     let regex = /([`-~])/v;
     const target = "~";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000373", () => {
+  // test("Groups() in v mode: Case00000000000218", () => {
   //     let regex = /([~-`])/v;
   //     const target = "~";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000375", () => {
+  // test("Groups() in v mode: Case00000000000219", () => {
   //   let regex = /([[])/v;
   //   const target = "[";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000377", () => {
+  // test("Groups() in v mode: Case00000000000220", () => {
   //   let regex = /([[-b])/v;
   //   const target = "a";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000379", () => {
-  //     let regex = /([b-[])/v;
-  //     const target = "a";
-  //     console.log("output: ", target.match(regex));
-  //     assert.strictEqual(regex.test(target), true);
+  // test("Groups() in v mode: Case00000000000221", () => {
+  //   let regex = /([b-[])/v;
+  //   const target = "a";
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000381", () => {
+  // test("Groups() in v mode: Case00000000000222", () => {
   //   let regex = /([ab]a])/v;
   //   const target = "ba]";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000383", () => {
+  test("Groups() in v mode: Case00000000000223", () => {
     let regex = /(a(b(c)d(e)f)g(hi)j)klm/v;
     const target = "abcdefghijklm";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000385", () => {
+  test("Groups() in v mode: Case00000000000224", () => {
     let regex = /(?:abc)/v;
     const target = "abc";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000387", () => {
+  // test("Groups() in v mode: Case00000000000225", () => {
   //     let regex = /(?>abc)/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000389", () => {
+  test("Groups() in v mode: Case00000000000226", () => {
     let regex = /(abc+)/v;
     const target = "abc";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000391", () => {
+  // test("Groups() in v mode: Case00000000000227", () => {
   //     let regex = /(abc++)/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000393", () => {
+  test("Groups() in v mode: Case00000000000228", () => {
     let regex = /(abc*?)/v;
     const target = "abc";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  // test("Groups() in v mode: Case00000000000395", () => {
+  // test("Groups() in v mode: Case00000000000229", () => {
   //     let regex = /(abc*??)/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000397", () => {
+  // test("Groups() in v mode: Case00000000000230", () => {
   //     let regex = /(?<=ab)+/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000399", () => {
+  // test("Groups() in v mode: Case00000000000231", () => {
   //     let regex = /(?<=ab)*/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000401", () => {
+  // test("Groups() in v mode: Case00000000000232", () => {
   //     let regex = /(?<=ab)?/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000403", () => {
+  // test("Groups() in v mode: Case00000000000233", () => {
   //     let regex = /(?<=ab){1,}/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000405", () => {
+  // test("Groups() in v mode: Case00000000000234", () => {
   //     let regex = /(?<=ab){1,1}/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000407", () => {
+  // test("Groups() in v mode: Case00000000000235", () => {
   //     let regex = /(?<=ab){1,3}/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000409", () => {
+  // test("Groups() in v mode: Case00000000000236", () => {
   //     let regex = /(?<=ab){3,1}/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000411", () => {
+  // test("Groups() in v mode: Case00000000000237", () => {
   //     let regex = /(ab(?<=ab)+)+/v;
   //     const target = "abc";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000413", () => {
+  // test("Groups() in v mode: Case00000000000238", () => {
   //   let regex = /(ab(?=ab)+)+/v;
   //   const target = "abab";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000415", () => {
+  // test("Groups() in v mode: Case00000000000239", () => {
   //   let regex = /(?=ab)+/v;
   //   const target = "abab";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000417", () => {
+  // test("Groups() in v mode: Case00000000000240", () => {
   //   let regex = /(?!ab)*/v;
   //   const target = "abab";
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000419", () => {
+  // test("Groups() in v mode: Case00000000000241", () => {
   //     let regex = /(?<=ab)+/v;
   //     const target = "abab";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000421", () => {
+  // test("Groups() in v mode: Case00000000000242", () => {
   //     let regex = /(?<!ab)?/v;
   //     const target = "abab";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Groups() in v mode: Case00000000000423", () => {
+  test("Groups() in v mode: Case00000000000243", () => {
     let regex = /(?<=a+)b/v;
     const target = "abab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000425", () => {
+  test("Groups() in v mode: Case00000000000244", () => {
     let regex = /(?<=a*)b/v;
     const target = "abab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000427", () => {
+  test("Groups() in v mode: Case00000000000245", () => {
     let regex = /(?<=a{1,3})b/v;
     const target = "abab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000429", () => {
+  test("Groups() in v mode: Case00000000000246", () => {
     let regex = /(?<=\w+)b/v;
     const target = "abab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000431", () => {
+  test("Groups() in v mode: Case00000000000247", () => {
     let regex = /(?<=ab|abc)b/v;
     const target = "abcb";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000433", () => {
+  test("Groups() in v mode: Case00000000000248", () => {
     let regex = /(?<=abc)b/v;
     const target = "abcb";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000435", () => {
+  test("Groups() in v mode: Case00000000000249", () => {
     let regex = /(?<=\d{3})x/v;
     const target = "123x";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000437", () => {
+  test("Groups() in v mode: Case00000000000250", () => {
     let regex = /(?<=ab|cd)x/v;
     const target = "cdx";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000439", () => {
+  test("Groups() in v mode: Case00000000000251", () => {
     let regex = /(?:(?=ab))+/v;
     const target = "abab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000441", () => {
+  test("Groups() in v mode: Case00000000000252", () => {
     let regex = /(?<=a|bc|def)g/v;
     const target = "defg";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000443", () => {
+  test("Groups() in v mode: Case00000000000253", () => {
     let regex = /(?<=ab|cd)g/v;
     const target = "cdg";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000445", () => {
+  test("Groups() in v mode: Case00000000000254", () => {
     let regex = /(?<=a{2,4})b/v;
     const target = "aab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000447", () => {
+  test("Groups() in v mode: Case00000000000255", () => {
     let regex = /(?<=\d+)b/v;
     const target = "1b";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000449", () => {
+  test("Groups() in v mode: Case00000000000256", () => {
     let regex = /(?<=a*)b/v;
     const target = "b";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000451", () => {
+  test("Groups() in v mode: Case00000000000257", () => {
     let regex = /(?<=a{3})b/v;
     const target = "aaab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000453", () => {
+  test("Groups() in v mode: Case00000000000258", () => {
     let regex = /(?<=(a+))b/v;
     const target = "aaab";
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Groups() in v mode: Case00000000000455", () => {
+  test("Groups() in v mode: Case00000000000259", () => {
     let regex = /(?<=(abc))d/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -12882,7 +12882,7 @@ const testMain = () => {
   });
 
   // 6. /(?<=a(?<=b+))c/
-  test("Groups() in v mode: Case00000000000457", () => {
+  test("Groups() in v mode: Case00000000000260", () => {
     let regex = /(?<=a(?<=b+))c/v;
     const target = "a(bb)c";
     console.log("output: ", target.match(regex));
@@ -12890,7 +12890,7 @@ const testMain = () => {
   });
 
   // 9. /(?=(\1))/
-  test("Groups() in v mode: Case00000000000459", () => {
+  test("Groups() in v mode: Case00000000000261", () => {
     let regex = /(?=(\1))/v;
     // @info: matches with anything
     const target = "any35}{[thin%g";
@@ -12899,7 +12899,7 @@ const testMain = () => {
   });
 
   // 10. /(?=(?<x>a)\k<y>)/
-  // test("Groups() in v mode: Case00000000000461", () => {
+  // test("Groups() in v mode: Case00000000000262", () => {
   //     let regex = /(?=(?<x>a)\k<y>)/v;
   //     const target = "abcd";
   //     console.log("output: ", target.match(regex));
@@ -12907,7 +12907,7 @@ const testMain = () => {
   // });
 
   // 11. /(?=(?<x>a))(?=(?<x>b))/
-  // test("Groups() in v mode: Case00000000000463", () => {
+  // test("Groups() in v mode: Case00000000000263", () => {
   //     let regex = /(?=(?<x>a))(?=(?<x>b))/v;
   //     const target = "abcd";
   //     console.log("output: ", target.match(regex));
@@ -12915,7 +12915,7 @@ const testMain = () => {
   // });
 
   // 12. /(?=\xZ)/
-  // test("Groups() in v mode: Case00000000000465", () => {
+  // test("Groups() in v mode: Case00000000000264", () => {
   //   let regex = /(?=\xZ)/v;
   //   const target = "xZ";
   //   console.log("output: ", target.match(regex));
@@ -12923,7 +12923,7 @@ const testMain = () => {
   // });
 
   // 12. /(?<=\u123)/
-  // test("Groups() in v mode: Case00000000000467", () => {
+  // test("Groups() in v mode: Case00000000000265", () => {
   //   let regex = /(?<=\u123)/v;
   //   const target = "u123";
   //   console.log("output: ", target.match(regex));
@@ -12931,7 +12931,7 @@ const testMain = () => {
   // });
 
   // 13. /(?<=\p{Letter}+)x/u
-  test("Groups() in v mode: Case00000000000469", () => {
+  test("Groups() in v mode: Case00000000000266", () => {
     let regex = /(?<=\p{Letter}+)x/v;
     const target = "rx";
     console.log("output: ", target.match(regex));
@@ -12939,7 +12939,7 @@ const testMain = () => {
   });
 
   // 14. /[ (?=a) ]/
-  // test("Groups() in v mode: Case00000000000471", () => {
+  // test("Groups() in v mode: Case00000000000267", () => {
   //   let regex = /[ (?=a) ]/v;
   //   const target = "abcd";
   //   console.log("output: ", target.match(regex));
@@ -12947,15 +12947,15 @@ const testMain = () => {
   // });
 
   // 15. /(?=a)+*/
-  // test("Groups() in v mode: Case00000000000473", () => {
-  //     let regex = /(?=a)+*/v;
-  //     const target = "abcd";
-  //     console.log("output: ", target.match(regex));
-  //     assert.strictEqual(regex.test(target), true);
-  // });
+  test("Groups() in v mode: Case00000000000268", () => {
+    let regex = /(?=a)+*/v;
+    const target = "abcd";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 
   // 16. /(?=[z-a])/
-  // test("Groups() in v mode: Case00000000000475", () => {
+  // test("Groups() in v mode: Case00000000000269", () => {
   //     let regex = /(?=[z-a])/v;
   //     const target = "abcd";
   //     console.log("output: ", target.match(regex));
@@ -12963,14 +12963,14 @@ const testMain = () => {
   // });
 
   // 17. /(?=abc
-  // test("Groups() in v mode: Case00000000000477", () => {
+  // test("Groups() in v mode: Case00000000000270", () => {
   //     let regex = /(?=abcv;
   //     const target = "abcd";
   //     console.log("output: ", target.match(regex));
   //     assert.strictEqual(regex.test(target), true);
   // });
 
-  // test("Groups() in v mode: Case00000000000478", () => {
+  // test("Groups() in v mode: Case00000000000271", () => {
   //     let regex = /(?=abcuv;
   //     const target = "abcd";
   //     console.log("output: ", target.match(regex));
@@ -12978,7 +12978,7 @@ const testMain = () => {
   // });
 
   // 18. /(?<=\1(a))b/
-  test("Groups() in v mode: Case00000000000479", () => {
+  test("Groups() in v mode: Case00000000000272", () => {
     let regex = /(?<=\1(a))b/v;
     const target = "1(a)b";
     console.log("output: ", target.match(regex));
@@ -12986,7 +12986,7 @@ const testMain = () => {
   });
 
   // 19. /(?<=>a)b/
-  test("Groups() in v mode: Case00000000000481", () => {
+  test("Groups() in v mode: Case00000000000273", () => {
     let regex = /(?<=>a)b/v;
     const target = ">ab";
     console.log("output: ", target.match(regex));
@@ -12994,7 +12994,7 @@ const testMain = () => {
   });
 
   // 20. /(?<=a{1,3})b/u
-  test("Groups() in v mode: Case00000000000483", () => {
+  test("Groups() in v mode: Case00000000000274", () => {
     let regex = /(?<=a{1,3})b/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13002,7 +13002,7 @@ const testMain = () => {
   });
 
   // 21. /(?=a)+/u
-  // test("Groups() in v mode: Case00000000000485", () => {
+  // test("Groups() in v mode: Case00000000000275", () => {
   //   let regex = /(?=a)+/v;
   //   const target = "abcd";
   //   console.log("output: ", target.match(regex));
@@ -13010,7 +13010,7 @@ const testMain = () => {
   // });
 
   // 22. /(?=(a)\2)/
-  // test("Groups() in v mode: Case00000000000487", () => {
+  // test("Groups() in v mode: Case00000000000276", () => {
   //   let regex = /(?=(a)\2)/v;
   //   const target = "a\x02";
   //   console.log("output: ", target.match(regex));
@@ -13018,7 +13018,7 @@ const testMain = () => {
   // });
 
   // 23. /(?<=\1)(a)/
-  test("Groups() in v mode: Case00000000000489", () => {
+  test("Groups() in v mode: Case00000000000277", () => {
     let regex = /(?<=\1)(a)/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13026,7 +13026,7 @@ const testMain = () => {
   });
 
   // 27. /(?<1>a)/
-  // test("Groups() in v mode: Case00000000000491", () => {
+  // test("Groups() in v mode: Case00000000000278", () => {
   //   let regex = /(?<1>a)/v;
   //   const target = "abcd";
   //   console.log("output: ", target.match(regex));
@@ -13034,7 +13034,7 @@ const testMain = () => {
   // });
 
   // 28. /(?=\p{FakeProperty})/u
-  // test("Groups() in v mode: Case00000000000493", () => {
+  // test("Groups() in v mode: Case00000000000279", () => {
   //   let regex = /(?=\p{FakeProperty})/v;
   //   const target = "p{FakeProperty}";
   //   console.log("output: ", target.match(regex));
@@ -13042,7 +13042,7 @@ const testMain = () => {
   // });
 
   // 7. /(?<=)a/
-  test("Groups() in v mode: Case00000000000495", () => {
+  test("Groups() in v mode: Case00000000000280", () => {
     let regex = /(?<=)a/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13050,7 +13050,7 @@ const testMain = () => {
   });
 
   // 8. /(?<=a)b/
-  test("Groups() in v mode: Case00000000000497", () => {
+  test("Groups() in v mode: Case00000000000281", () => {
     let regex = /(?<=a)b/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13058,7 +13058,7 @@ const testMain = () => {
   });
 
   // 21. /(?=a)+/
-  // test("Groups() in v mode: Case00000000000499", () => {
+  // test("Groups() in v mode: Case00000000000282", () => {
   //   let regex = /(?=a)+/v;
   //   const target = "abcd";
   //   console.log("output: ", target.match(regex));
@@ -13066,7 +13066,7 @@ const testMain = () => {
   // });
 
   // 24. /(?=(?=a))/
-  test("Groups() in v mode: Case00000000000501", () => {
+  test("Groups() in v mode: Case00000000000283", () => {
     let regex = /(?=(?=a))/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13074,7 +13074,7 @@ const testMain = () => {
   });
 
   // 25. /(?=(?=(?=a)))*/
-  // test("Groups() in v mode: Case00000000000503", () => {
+  // test("Groups() in v mode: Case00000000000284", () => {
   //   let regex = /(?=(?=(?=a)))*/v;
   //   const target = "abcd";
   //   console.log("output: ", target.match(regex));
@@ -13082,7 +13082,7 @@ const testMain = () => {
   // });
 
   // 26. /(?: (?<=a)b )+/
-  test("Groups() in v mode: Case00000000000505", () => {
+  test("Groups() in v mode: Case00000000000285", () => {
     let regex = /(?: (?<=a)b )+/v;
     const target = " ab ";
     console.log("output: ", target.match(regex));
@@ -13090,7 +13090,7 @@ const testMain = () => {
   });
 
   // 29. /(?<=^a)b/
-  test("Groups() in v mode: Case00000000000507", () => {
+  test("Groups() in v mode: Case00000000000286", () => {
     let regex = /(?<=^a)b/v;
     const target = "abcd";
     console.log("output: ", target.match(regex));
@@ -13098,7 +13098,7 @@ const testMain = () => {
   });
 
   // 30. /(?=a)(?!a)/
-  test("Groups() in v mode: Case00000000000509", () => {
+  test("Groups() in v mode: Case00000000000287", () => {
     let regex = /(?=a)(?!a)/v;
     const target = "aa";
     console.log("output: ", target.match(regex));

@@ -12245,14 +12245,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase9() public {
+    function testRegexGroupsCaseInVModeCase5() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(abcd!@#%=';:><.,~`\"&ghij)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase11() public {
+    function testRegexGroupsCaseInVModeCase6() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a)/v";
 
@@ -12261,7 +12261,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase13() public {
+    function testRegexGroupsCaseInVModeCase7() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a\\e\\j\\k\\l\\m\\o\\y\\z)/v";
 
@@ -12305,7 +12305,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase14() public {
+    function testRegexGroupsCaseInVModeCase8() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\k)/v";
 
@@ -12314,7 +12314,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase15() public {
+    function testRegexGroupsCaseInVModeCase9() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a\\-\\g\\h\\i\\j)/v";
 
@@ -12323,7 +12323,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase17() public {
+    function testRegexGroupsCaseInVModeCase10() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a\\g\\h\\i\\j)/v";
 
@@ -12332,7 +12332,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase19() public {
+    function testRegexGroupsCaseInVModeCase11() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a\\!\\@\\#\\%\\=\\'\\;\\:\\>\\<\\,\\~\\`\\\"\\&\\g\\h\\i\\j)/v";
 
@@ -12341,196 +12341,196 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase21() public {
+    function testRegexGroupsCaseInVModeCase12() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\n)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase23() public {
+    function testRegexGroupsCaseInVModeCase13() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\b)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase25() public {
+    function testRegexGroupsCaseInVModeCase14() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\f)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase27() public {
+    function testRegexGroupsCaseInVModeCase15() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\d)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase29() public {
+    function testRegexGroupsCaseInVModeCase16() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\r)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase31() public {
+    function testRegexGroupsCaseInVModeCase17() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\s)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase33() public {
+    function testRegexGroupsCaseInVModeCase18() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\t)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase35() public {
+    function testRegexGroupsCaseInVModeCase19() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\v)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase37() public {
+    function testRegexGroupsCaseInVModeCase20() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\w)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase39() public {
+    function testRegexGroupsCaseInVModeCase21() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\B)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase41() public {
+    function testRegexGroupsCaseInVModeCase22() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\D)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase43() public {
+    function testRegexGroupsCaseInVModeCase23() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\S)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase45() public {
+    function testRegexGroupsCaseInVModeCase24() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\W)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase47() public {
+    function testRegexGroupsCaseInVModeCase25() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\^)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase49() public {
+    function testRegexGroupsCaseInVModeCase26() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\$)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase51() public {
+    function testRegexGroupsCaseInVModeCase27() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\\\)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase53() public {
+    function testRegexGroupsCaseInVModeCase28() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\.)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase55() public {
+    function testRegexGroupsCaseInVModeCase29() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\*)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase57() public {
+    function testRegexGroupsCaseInVModeCase30() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\+)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase59() public {
+    function testRegexGroupsCaseInVModeCase31() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\?)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase61() public {
+    function testRegexGroupsCaseInVModeCase32() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\[)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase63() public {
+    function testRegexGroupsCaseInVModeCase33() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase65() public {
+    function testRegexGroupsCaseInVModeCase34() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\()/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase67() public {
+    function testRegexGroupsCaseInVModeCase35() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\))/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase69() public {
+    function testRegexGroupsCaseInVModeCase36() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\{)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase71() public {
+    function testRegexGroupsCaseInVModeCase37() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\|)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase73() public {
+    function testRegexGroupsCaseInVModeCase38() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\/)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase75() public {
+    function testRegexGroupsCaseInVModeCase39() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a)/v";
@@ -12558,7 +12558,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase76() public {
+    function testRegexGroupsCaseInVModeCase40() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(hello)/v";
@@ -12583,7 +12583,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase77() public {
+    function testRegexGroupsCaseInVModeCase41() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\^)/v";
@@ -12629,21 +12629,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase78() public {
+    function testRegexGroupsCaseInVModeCase42() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\x41)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase79() public {
+    function testRegexGroupsCaseInVModeCase43() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u0061)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase81() public {
+    function testRegexGroupsCaseInVModeCase44() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\n)/v";
@@ -12674,14 +12674,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase82() public {
+    function testRegexGroupsCaseInVModeCase45() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\/)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase83() public {
+    function testRegexGroupsCaseInVModeCase46() public {
         string memory target = "anything";
         string memory pattern = unicode"/(a/b)/v";
 
@@ -12690,7 +12690,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase84() public {
+    function testRegexGroupsCaseInVModeCase47() public {
         string memory target = "anything";
         string memory pattern = unicode"/(ab)/\\v";
 
@@ -12699,7 +12699,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase85() public {
+    function testRegexGroupsCaseInVModeCase48() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{110000})/v";
 
@@ -12708,7 +12708,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase86() public {
+    function testRegexGroupsCaseInVModeCase49() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\c1)/v";
 
@@ -12717,7 +12717,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase87() public {
+    function testRegexGroupsCaseInVModeCase50() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\ugg)/v";
 
@@ -12726,28 +12726,28 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase88() public {
+    function testRegexGroupsCaseInVModeCase51() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(.)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase89() public {
+    function testRegexGroupsCaseInVModeCase52() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\.)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase90() public {
+    function testRegexGroupsCaseInVModeCase53() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\r.)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase91() public {
+    function testRegexGroupsCaseInVModeCase54() public {
         string memory target = "anything";
         string memory pattern = unicode"/({)/v";
 
@@ -12756,7 +12756,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase92() public {
+    function testRegexGroupsCaseInVModeCase55() public {
         string memory target = "anything";
         string memory pattern = unicode"/(})/v";
 
@@ -12765,21 +12765,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase96() public {
+    function testRegexGroupsCaseInVModeCase56() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(1,2)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase97() public {
+    function testRegexGroupsCaseInVModeCase57() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(2,1)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase98() public {
+    function testRegexGroupsCaseInVModeCase58() public {
         string memory target = "anything";
         string memory pattern = unicode"/(()/v";
 
@@ -12788,7 +12788,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase99() public {
+    function testRegexGroupsCaseInVModeCase59() public {
         string memory target = "anything";
         string memory pattern = unicode"/())/v";
 
@@ -12797,7 +12797,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase101() public {
+    function testRegexGroupsCaseInVModeCase60() public {
         string memory target = "anything";
         string memory pattern = unicode"/(])/v";
 
@@ -12806,7 +12806,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase102() public {
+    function testRegexGroupsCaseInVModeCase61() public {
         string memory target = "anything";
         string memory pattern = unicode"/([])/v";
 
@@ -12815,7 +12815,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase103() public {
+    function testRegexGroupsCaseInVModeCase62() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?)/v";
 
@@ -12824,14 +12824,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase104() public {
+    function testRegexGroupsCaseInVModeCase63() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\?)/v";
 
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase105() public {
+    function testRegexGroupsCaseInVModeCase64() public {
         string memory target = "anything";
         string memory pattern = unicode"/(+)/v";
 
@@ -12840,14 +12840,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase106() public {
+    function testRegexGroupsCaseInVModeCase65() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\+)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase107() public {
+    function testRegexGroupsCaseInVModeCase66() public {
         string memory target = "anything";
         string memory pattern = unicode"/(*)/v";
 
@@ -12856,14 +12856,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase108() public {
+    function testRegexGroupsCaseInVModeCase67() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\*)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase109() public {
+    function testRegexGroupsCaseInVModeCase68() public {
         string memory target = "anything";
         string memory pattern = unicode"/(*)/v";
 
@@ -12872,14 +12872,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase110() public {
+    function testRegexGroupsCaseInVModeCase69() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\*)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase111() public {
+    function testRegexGroupsCaseInVModeCase70() public {
         string memory target = "anything";
         string memory pattern = unicode"/(a+??)/v";
 
@@ -12888,14 +12888,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase112() public {
+    function testRegexGroupsCaseInVModeCase71() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a+?)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase113() public {
+    function testRegexGroupsCaseInVModeCase72() public {
         string memory target = "anything";
         string memory pattern = unicode"/(a*??)/v";
 
@@ -12904,21 +12904,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase114() public {
+    function testRegexGroupsCaseInVModeCase73() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a*?)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase115() public {
+    function testRegexGroupsCaseInVModeCase74() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(asian)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase116() public {
+    function testRegexGroupsCaseInVModeCase75() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\08)/v";
 
@@ -12927,7 +12927,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase117() public {
+    function testRegexGroupsCaseInVModeCase76() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\107)/v";
 
@@ -12936,7 +12936,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase118() public {
+    function testRegexGroupsCaseInVModeCase77() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\377)/v";
 
@@ -12945,7 +12945,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase119() public {
+    function testRegexGroupsCaseInVModeCase78() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\400)/v";
 
@@ -12954,7 +12954,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase120() public {
+    function testRegexGroupsCaseInVModeCase79() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\777)/v";
 
@@ -12963,14 +12963,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase121() public {
+    function testRegexGroupsCaseInVModeCase80() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a^|$sian)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase122() public {
+    function testRegexGroupsCaseInVModeCase81() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\378)/v";
 
@@ -12979,7 +12979,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase123() public {
+    function testRegexGroupsCaseInVModeCase82() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\397)/v";
 
@@ -12988,7 +12988,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase124() public {
+    function testRegexGroupsCaseInVModeCase83() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\a)/v";
 
@@ -12997,14 +12997,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase125() public {
+    function testRegexGroupsCaseInVModeCase84() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\0)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase126() public {
+    function testRegexGroupsCaseInVModeCase85() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\00)/v";
 
@@ -13013,7 +13013,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase127() public {
+    function testRegexGroupsCaseInVModeCase86() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\000)/v";
 
@@ -13022,7 +13022,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase128() public {
+    function testRegexGroupsCaseInVModeCase87() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\08)/v";
 
@@ -13031,7 +13031,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase129() public {
+    function testRegexGroupsCaseInVModeCase88() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\008)/v";
 
@@ -13040,7 +13040,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase130() public {
+    function testRegexGroupsCaseInVModeCase89() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\000)/v";
 
@@ -13049,14 +13049,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase134() public {
+    function testRegexGroupsCaseInVModeCase90() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\\\a)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase135() public {
+    function testRegexGroupsCaseInVModeCase91() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\_)/v";
 
@@ -13065,7 +13065,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase137() public {
+    function testRegexGroupsCaseInVModeCase92() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\!)/v";
 
@@ -13074,14 +13074,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase139() public {
+    function testRegexGroupsCaseInVModeCase93() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u{1F600})/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase141() public {
+    function testRegexGroupsCaseInVModeCase94() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u)/v";
 
@@ -13090,7 +13090,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase143() public {
+    function testRegexGroupsCaseInVModeCase95() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\c)/v";
 
@@ -13099,21 +13099,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase145() public {
+    function testRegexGroupsCaseInVModeCase96() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\cA)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase147() public {
+    function testRegexGroupsCaseInVModeCase97() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\ca)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase149() public {
+    function testRegexGroupsCaseInVModeCase98() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\c1)/v";
 
@@ -13122,7 +13122,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase151() public {
+    function testRegexGroupsCaseInVModeCase99() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{23,20})/v";
 
@@ -13131,7 +13131,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase152() public {
+    function testRegexGroupsCaseInVModeCase100() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{230,240})/v";
 
@@ -13140,14 +13140,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase153() public {
+    function testRegexGroupsCaseInVModeCase101() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u{23335})/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase154() public {
+    function testRegexGroupsCaseInVModeCase102() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{23335,})/v";
 
@@ -13156,7 +13156,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase155() public {
+    function testRegexGroupsCaseInVModeCase103() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{,23335})/v";
 
@@ -13165,7 +13165,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase156() public {
+    function testRegexGroupsCaseInVModeCase104() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{,})/v";
 
@@ -13174,7 +13174,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase157() public {
+    function testRegexGroupsCaseInVModeCase105() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{})/v";
 
@@ -13183,14 +13183,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase158() public {
+    function testRegexGroupsCaseInVModeCase106() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u{1})/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase159() public {
+    function testRegexGroupsCaseInVModeCase107() public {
         string memory target = "anything";
         string memory pattern = unicode"/({1})/v";
 
@@ -13199,7 +13199,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase160() public {
+    function testRegexGroupsCaseInVModeCase108() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u{1:1})/v";
 
@@ -13208,14 +13208,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase161() public {
+    function testRegexGroupsCaseInVModeCase109() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u1234)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase162() public {
+    function testRegexGroupsCaseInVModeCase110() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u123)/v";
 
@@ -13224,14 +13224,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase165() public {
+    function testRegexGroupsCaseInVModeCase111() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\u12345)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase166() public {
+    function testRegexGroupsCaseInVModeCase112() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u1)/v";
 
@@ -13240,7 +13240,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase167() public {
+    function testRegexGroupsCaseInVModeCase113() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\u12)/v";
 
@@ -13249,7 +13249,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase170() public {
+    function testRegexGroupsCaseInVModeCase114() public {
         string memory target = "anything";
         string memory pattern = unicode"/([abc)/v";
 
@@ -13258,7 +13258,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase171() public {
+    function testRegexGroupsCaseInVModeCase115() public {
         string memory target = "anything";
         string memory pattern = unicode"/((abc)/v";
 
@@ -13267,7 +13267,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase172() public {
+    function testRegexGroupsCaseInVModeCase116() public {
         string memory target = "anything";
         string memory pattern = unicode"/((?<1>a))/v";
 
@@ -13276,7 +13276,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase173() public {
+    function testRegexGroupsCaseInVModeCase117() public {
         string memory target = "anything";
         string memory pattern = unicode"/((?<a-b>a))/v";
 
@@ -13285,7 +13285,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase174() public {
+    function testRegexGroupsCaseInVModeCase118() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\k<a>)/v";
 
@@ -13294,14 +13294,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase176() public {
+    function testRegexGroupsCaseInVModeCase119() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\p{L})/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase177() public {
+    function testRegexGroupsCaseInVModeCase120() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\p{XYZ})/v";
 
@@ -13310,7 +13310,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase180() public {
+    function testRegexGroupsCaseInVModeCase121() public {
         string memory target = "anything";
         string memory pattern = unicode"/({122222})/v";
 
@@ -13319,7 +13319,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase181() public {
+    function testRegexGroupsCaseInVModeCase122() public {
         string memory target = "anything";
         string memory pattern = unicode"/({})/v";
 
@@ -13328,7 +13328,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase183() public {
+    function testRegexGroupsCaseInVModeCase123() public {
         string memory target = "anything";
         string memory pattern = unicode"/({)/v";
 
@@ -13337,7 +13337,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase185() public {
+    function testRegexGroupsCaseInVModeCase124() public {
         string memory target = "anything";
         string memory pattern = unicode"/({,11})/v";
 
@@ -13346,7 +13346,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase187() public {
+    function testRegexGroupsCaseInVModeCase125() public {
         string memory target = "anything";
         string memory pattern = unicode"/(})/v";
 
@@ -13355,21 +13355,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase189() public {
+    function testRegexGroupsCaseInVModeCase126() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(1)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase191() public {
+    function testRegexGroupsCaseInVModeCase127() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(143242)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase193() public {
+    function testRegexGroupsCaseInVModeCase128() public {
         string memory target = "anything";
         string memory pattern = unicode"/(1})/v";
 
@@ -13378,7 +13378,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase195() public {
+    function testRegexGroupsCaseInVModeCase129() public {
         string memory target = "anything";
         string memory pattern = unicode"/(123424})/v";
 
@@ -13387,14 +13387,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase197() public {
+    function testRegexGroupsCaseInVModeCase130() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(1234,24)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase199() public {
+    function testRegexGroupsCaseInVModeCase131() public {
         string memory target = "anything";
         string memory pattern = unicode"/(1234,24})/v";
 
@@ -13403,7 +13403,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase201() public {
+    function testRegexGroupsCaseInVModeCase132() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\p{})/v";
 
@@ -13412,7 +13412,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase203() public {
+    function testRegexGroupsCaseInVModeCase133() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\p{=LETTER})/v";
 
@@ -13421,7 +13421,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase205() public {
+    function testRegexGroupsCaseInVModeCase134() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\p{g=LETTER})/v";
 
@@ -13430,14 +13430,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase207() public {
+    function testRegexGroupsCaseInVModeCase135() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(\\p{gc=Letter})/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase209() public {
+    function testRegexGroupsCaseInVModeCase136() public {
         string memory target = "anything";
         string memory pattern = unicode"/([])/v";
 
@@ -13446,14 +13446,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase211() public {
+    function testRegexGroupsCaseInVModeCase137() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([.])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase213() public {
+    function testRegexGroupsCaseInVModeCase138() public {
         string memory target = "anything";
         string memory pattern = unicode"/([abc123_,:;!@#%&(){}?*+$^/|\"'<>=`~ ])/v";
 
@@ -13462,7 +13462,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase215() public {
+    function testRegexGroupsCaseInVModeCase139() public {
         string memory target = "anything";
         string memory pattern = unicode"/([abc)/v";
 
@@ -13471,21 +13471,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase217() public {
+    function testRegexGroupsCaseInVModeCase140() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([^])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase219() public {
+    function testRegexGroupsCaseInVModeCase141() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([a-z])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase221() public {
+    function testRegexGroupsCaseInVModeCase142() public {
         string memory target = "anything";
         string memory pattern = unicode"/([z-a])/v";
 
@@ -13494,7 +13494,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase223() public {
+    function testRegexGroupsCaseInVModeCase143() public {
         string memory target = "anything";
         string memory pattern = unicode"/([a-\\d])/v";
 
@@ -13503,7 +13503,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase225() public {
+    function testRegexGroupsCaseInVModeCase144() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\d-a])/v";
 
@@ -13512,16 +13512,16 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase227() public {
+    function testRegexGroupsCaseInVModeCase145() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([a-\\w])/v";
+
         // @Error: SyntaxError: Invalid regular expression: /([a-\w])/v: Invalid character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase229() public {
+    function testRegexGroupsCaseInVModeCase146() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\w-a])/v";
 
@@ -13530,7 +13530,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase231() public {
+    function testRegexGroupsCaseInVModeCase147() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\w-\\d])/v";
 
@@ -13539,7 +13539,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase233() public {
+    function testRegexGroupsCaseInVModeCase148() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\d-\\w])/v";
 
@@ -13548,7 +13548,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase235() public {
+    function testRegexGroupsCaseInVModeCase149() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\d-\\d])/v";
 
@@ -13557,7 +13557,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase237() public {
+    function testRegexGroupsCaseInVModeCase150() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\w-\\w])/v";
 
@@ -13566,7 +13566,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase239() public {
+    function testRegexGroupsCaseInVModeCase151() public {
         string memory target = "anything";
         string memory pattern = unicode"/([a-c-h])/v";
 
@@ -13574,7 +13574,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase241() public {
+    function testRegexGroupsCaseInVModeCase152() public {
         string memory target = "anything";
         string memory pattern = unicode"/([-a])/v";
 
@@ -13583,7 +13583,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase243() public {
+    function testRegexGroupsCaseInVModeCase153() public {
         string memory target = "anything";
         string memory pattern = unicode"/([a-])/v";
 
@@ -13592,14 +13592,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase245() public {
+    function testRegexGroupsCaseInVModeCase154() public {
         string memory target = "anything";
         string memory pattern = unicode"/([a--z])/v";
 
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase247() public {
+    function testRegexGroupsCaseInVModeCase155() public {
         string memory target = "anything";
         string memory pattern = unicode"/([--a])/v";
 
@@ -13608,7 +13608,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase249() public {
+    function testRegexGroupsCaseInVModeCase156() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\8])/v";
 
@@ -13617,7 +13617,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase251() public {
+    function testRegexGroupsCaseInVModeCase157() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\u123])/v";
 
@@ -13626,14 +13626,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase253() public {
+    function testRegexGroupsCaseInVModeCase158() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\\u0123])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase255() public {
+    function testRegexGroupsCaseInVModeCase159() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\])/v";
 
@@ -13642,30 +13642,32 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase257() public {
+    function testRegexGroupsCaseInVModeCase160() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\\0])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase259() public {
+    function testRegexGroupsCaseInVModeCase161() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\00])/v";
+
         // @Error: SyntaxError: Invalid regular expression: /([\00])/v: Invalid decimal escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase261() public {
+    function testRegexGroupsCaseInVModeCase162() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\000])/v";
+
         // @Error: SyntaxError: Invalid regular expression: /([\000])/v: Invalid decimal escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase263() public {
+    function testRegexGroupsCaseInVModeCase163() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\377])/v";
 
@@ -13674,16 +13676,16 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase265() public {
+    function testRegexGroupsCaseInVModeCase164() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\1])/v";
+
         // @Error: SyntaxError: Invalid regular expression: /([\1])/v: Invalid decimal escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase267() public {
+    function testRegexGroupsCaseInVModeCase165() public {
         string memory target = "anything";
         string memory pattern = unicode"/((a)[\\1])/v";
 
@@ -13692,23 +13694,23 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase269() public {
+    function testRegexGroupsCaseInVModeCase166() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([(a)\\1])/v";
+
         // @Error: SyntaxError: Invalid regular expression: /([(a)\1])/v: Invalid character in character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase271() public {
+    function testRegexGroupsCaseInVModeCase167() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/([\\p{Letter}])/v";
+
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase273() public {
+    function testRegexGroupsCaseInVModeCase168() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\p{}])/v";
 
@@ -13717,7 +13719,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase275() public {
+    function testRegexGroupsCaseInVModeCase169() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\p{LETTER}])/v";
 
@@ -13726,14 +13728,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase277() public {
+    function testRegexGroupsCaseInVModeCase170() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\\x001])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase279() public {
+    function testRegexGroupsCaseInVModeCase171() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\xg1])/v";
 
@@ -13742,7 +13744,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase281() public {
+    function testRegexGroupsCaseInVModeCase172() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\k])/v";
 
@@ -13751,7 +13753,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase283() public {
+    function testRegexGroupsCaseInVModeCase173() public {
         string memory target = "anything";
         string memory pattern = unicode"/([(?<a>a)\\k<a>])/v";
 
@@ -13760,7 +13762,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase285() public {
+    function testRegexGroupsCaseInVModeCase174() public {
         string memory target = "anything";
         string memory pattern = unicode"/((?<a>a)[\\k<a>])/v";
 
@@ -13769,7 +13771,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase287() public {
+    function testRegexGroupsCaseInVModeCase175() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\k<a>])/v";
 
@@ -13778,7 +13780,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase289() public {
+    function testRegexGroupsCaseInVModeCase176() public {
         string memory target = "anything";
         string memory pattern = unicode"/((?<b>a)\\k<a>)/v";
 
@@ -13787,14 +13789,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase291() public {
+    function testRegexGroupsCaseInVModeCase177() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([✅-🧪])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase293() public {
+    function testRegexGroupsCaseInVModeCase178() public {
         string memory target = "anything";
         string memory pattern = unicode"/([🧪-✅])/v";
 
@@ -13803,7 +13805,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase295() public {
+    function testRegexGroupsCaseInVModeCase179() public {
         string memory target = "anything";
         string memory pattern = unicode"/([€-क])/v";
 
@@ -13812,21 +13814,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase297() public {
+    function testRegexGroupsCaseInVModeCase180() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([क-€])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase299() public {
+    function testRegexGroupsCaseInVModeCase181() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\\uc290-\\uc295])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase301() public {
+    function testRegexGroupsCaseInVModeCase182() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\uc295-\\uc290])/v";
 
@@ -13835,7 +13837,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase303() public {
+    function testRegexGroupsCaseInVModeCase183() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\^-\\$])/v";
 
@@ -13844,14 +13846,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase305() public {
+    function testRegexGroupsCaseInVModeCase184() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\\$-\\^])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase307() public {
+    function testRegexGroupsCaseInVModeCase185() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\c-b])/v";
 
@@ -13860,7 +13862,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase309() public {
+    function testRegexGroupsCaseInVModeCase186() public {
         string memory target = "anything";
         string memory pattern = unicode"/([b-\\c])/v";
 
@@ -13869,7 +13871,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase311() public {
+    function testRegexGroupsCaseInVModeCase187() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\c_)/v";
 
@@ -13878,7 +13880,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase313() public {
+    function testRegexGroupsCaseInVModeCase188() public {
         string memory target = "anything";
         string memory pattern = unicode"/([a\\c_z])/v";
 
@@ -13887,7 +13889,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase315() public {
+    function testRegexGroupsCaseInVModeCase189() public {
         string memory target = "anything";
         string memory pattern = unicode"/([_-,])/v";
 
@@ -13896,21 +13898,21 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase317() public {
+    function testRegexGroupsCaseInVModeCase190() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([,-_])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase319() public {
+    function testRegexGroupsCaseInVModeCase191() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([:-;])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase321() public {
+    function testRegexGroupsCaseInVModeCase192() public {
         string memory target = "anything";
         string memory pattern = unicode"/([;-:])/v";
 
@@ -13919,14 +13921,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase323() public {
+    function testRegexGroupsCaseInVModeCase193() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([!-@])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase325() public {
+    function testRegexGroupsCaseInVModeCase194() public {
         string memory target = "anything";
         string memory pattern = unicode"/([@-!])/v";
 
@@ -13935,14 +13937,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase327() public {
+    function testRegexGroupsCaseInVModeCase195() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([#-%])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase329() public {
+    function testRegexGroupsCaseInVModeCase196() public {
         string memory target = "anything";
         string memory pattern = unicode"/([%-#])/v";
 
@@ -13951,7 +13953,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase331() public {
+    function testRegexGroupsCaseInVModeCase197() public {
         string memory target = "anything";
         string memory pattern = unicode"/([&-(])/v";
 
@@ -13960,7 +13962,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase333() public {
+    function testRegexGroupsCaseInVModeCase198() public {
         string memory target = "anything";
         string memory pattern = unicode"/([(-&])/v";
 
@@ -13969,7 +13971,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase335() public {
+    function testRegexGroupsCaseInVModeCase199() public {
         string memory target = "anything";
         string memory pattern = unicode"/([)-$])/v";
 
@@ -13978,7 +13980,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase337() public {
+    function testRegexGroupsCaseInVModeCase200() public {
         string memory target = "anything";
         string memory pattern = unicode"/([$-)])/v";
 
@@ -13987,7 +13989,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase339() public {
+    function testRegexGroupsCaseInVModeCase201() public {
         string memory target = "anything";
         string memory pattern = unicode"/([^-{])/v";
 
@@ -13996,7 +13998,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase341() public {
+    function testRegexGroupsCaseInVModeCase202() public {
         string memory target = "anything";
         string memory pattern = unicode"/([{-^])/v";
 
@@ -14005,7 +14007,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase343() public {
+    function testRegexGroupsCaseInVModeCase203() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\^-{])/v";
 
@@ -14014,7 +14016,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase345() public {
+    function testRegexGroupsCaseInVModeCase204() public {
         string memory target = "anything";
         string memory pattern = unicode"/([{-\\^])/v";
 
@@ -14023,7 +14025,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase347() public {
+    function testRegexGroupsCaseInVModeCase205() public {
         string memory target = "anything";
         string memory pattern = unicode"/([}-?])/v";
 
@@ -14032,7 +14034,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase349() public {
+    function testRegexGroupsCaseInVModeCase206() public {
         string memory target = "anything";
         string memory pattern = unicode"/([?-}])/v";
 
@@ -14041,7 +14043,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase351() public {
+    function testRegexGroupsCaseInVModeCase207() public {
         string memory target = "anything";
         string memory pattern = unicode"/([+-*])/v";
 
@@ -14050,14 +14052,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase353() public {
+    function testRegexGroupsCaseInVModeCase208() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([*-+])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase355() public {
+    function testRegexGroupsCaseInVModeCase209() public {
         string memory target = "anything";
         string memory pattern = unicode"/([/-|])/v";
 
@@ -14066,7 +14068,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase357() public {
+    function testRegexGroupsCaseInVModeCase210() public {
         string memory target = "anything";
         string memory pattern = unicode"/([|-/])/v";
 
@@ -14075,14 +14077,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase359() public {
+    function testRegexGroupsCaseInVModeCase211() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([\"-'])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase361() public {
+    function testRegexGroupsCaseInVModeCase212() public {
         string memory target = "anything";
         string memory pattern = unicode"/(['-\"])/v";
 
@@ -14091,14 +14093,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase363() public {
+    function testRegexGroupsCaseInVModeCase213() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([<->])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase365() public {
+    function testRegexGroupsCaseInVModeCase214() public {
         string memory target = "anything";
         string memory pattern = unicode"/([>-<])/v";
 
@@ -14107,14 +14109,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase367() public {
+    function testRegexGroupsCaseInVModeCase215() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([=-`])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase369() public {
+    function testRegexGroupsCaseInVModeCase216() public {
         string memory target = "anything";
         string memory pattern = unicode"/([`-=])/v";
 
@@ -14123,14 +14125,14 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase371() public {
+    function testRegexGroupsCaseInVModeCase217() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/([`-~])/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase373() public {
+    function testRegexGroupsCaseInVModeCase218() public {
         string memory target = "anything";
         string memory pattern = unicode"/([~-`])/v";
 
@@ -14139,7 +14141,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase375() public {
+    function testRegexGroupsCaseInVModeCase219() public {
         string memory target = "anything";
         string memory pattern = unicode"/([[])/v";
 
@@ -14148,7 +14150,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase377() public {
+    function testRegexGroupsCaseInVModeCase220() public {
         string memory target = "anything";
         string memory pattern = unicode"/([[-b])/v";
 
@@ -14157,17 +14159,16 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase379() public {
+    function testRegexGroupsCaseInVModeCase221() public {
         string memory target = "anything";
         string memory pattern = unicode"/([b-[])/v";
 
-        // @info: different error msg required verification
         // // @Error: SyntaxError: Invalid regular expression: /([b-[])/v: Unterminated Character class
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase381() public {
+    function testRegexGroupsCaseInVModeCase222() public {
         string memory target = "anything";
         string memory pattern = unicode"/([ab]a])/v";
 
@@ -14176,20 +14177,20 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase383() public {
+    function testRegexGroupsCaseInVModeCase223() public {
         string memory target = "anything";
 
         string memory pattern = unicode"/(a(b(c)d(e)f)g(hi)j)klm/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase385() public {
+    function testRegexGroupsCaseInVModeCase224() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?:abc)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase387() public {
+    function testRegexGroupsCaseInVModeCase225() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?>abc)/v";
 
@@ -14198,13 +14199,13 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase389() public {
+    function testRegexGroupsCaseInVModeCase226() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc+)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase391() public {
+    function testRegexGroupsCaseInVModeCase227() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc++)/v";
 
@@ -14213,13 +14214,13 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase393() public {
+    function testRegexGroupsCaseInVModeCase228() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc*?)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase395() public {
+    function testRegexGroupsCaseInVModeCase229() public {
         string memory target = "anything";
         string memory pattern = unicode"/(abc*??)/v";
 
@@ -14228,7 +14229,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase397() public {
+    function testRegexGroupsCaseInVModeCase230() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/v";
 
@@ -14237,7 +14238,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase399() public {
+    function testRegexGroupsCaseInVModeCase231() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)*/v";
 
@@ -14246,7 +14247,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase401() public {
+    function testRegexGroupsCaseInVModeCase232() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)?/v";
 
@@ -14255,7 +14256,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase403() public {
+    function testRegexGroupsCaseInVModeCase233() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,}/v";
 
@@ -14264,7 +14265,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase405() public {
+    function testRegexGroupsCaseInVModeCase234() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,1}/v";
 
@@ -14273,7 +14274,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase407() public {
+    function testRegexGroupsCaseInVModeCase235() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){1,3}/v";
 
@@ -14282,7 +14283,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase409() public {
+    function testRegexGroupsCaseInVModeCase236() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab){3,1}/v";
 
@@ -14291,7 +14292,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase411() public {
+    function testRegexGroupsCaseInVModeCase237() public {
         string memory target = "anything";
         string memory pattern = unicode"/(ab(?<=ab)+)+/v";
 
@@ -14300,163 +14301,166 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase413() public {
+    function testRegexGroupsCaseInVModeCase238() public {
         string memory target = "anything";
         string memory pattern = unicode"/(ab(?=ab)+)+/v";
 
-        // @BUG: not throwing in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(ab(?=ab)+)+/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase415() public {
+    function testRegexGroupsCaseInVModeCase239() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=ab)+/v";
 
-        // @BUG: not throwing in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(?=ab)+/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase417() public {
+    function testRegexGroupsCaseInVModeCase240() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?!ab)*/v";
 
-        // @BUG: not throwing in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(?!ab)*/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase419() public {
+    function testRegexGroupsCaseInVModeCase241() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab)+/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/: Invalid quantifier
+        // @Error: SyntaxError: Invalid regular expression: /(?<=ab)+/v: Invalid quantifier
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase421() public {
+    function testRegexGroupsCaseInVModeCase242() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<!ab)?/v";
 
-        // @Error: SyntaxError: Invalid regular expression: /(?<!ab)?/: Invalid quantifier
+        // @Error: SyntaxError: Invalid regular expression: /(?<!ab)?/v: Invalid quantifier
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase423() public {
+    function testRegexGroupsCaseInVModeCase243() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a+)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase425() public {
+    function testRegexGroupsCaseInVModeCase244() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a*)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase427() public {
+    function testRegexGroupsCaseInVModeCase245() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a{1,3})b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase429() public {
+    function testRegexGroupsCaseInVModeCase246() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\w+)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase431() public {
+    function testRegexGroupsCaseInVModeCase247() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab|abc)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase433() public {
+    function testRegexGroupsCaseInVModeCase248() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=abc)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase435() public {
+    function testRegexGroupsCaseInVModeCase249() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\d{3})x/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase437() public {
+    function testRegexGroupsCaseInVModeCase250() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab|cd)x/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase439() public {
+    function testRegexGroupsCaseInVModeCase251() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?:(?=ab))+/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase441() public {
+    function testRegexGroupsCaseInVModeCase252() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a|bc|def)g/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase443() public {
+    function testRegexGroupsCaseInVModeCase253() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=ab|cd)g/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase445() public {
+    function testRegexGroupsCaseInVModeCase254() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a{2,4})b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase447() public {
+    function testRegexGroupsCaseInVModeCase255() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\d+)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase449() public {
+    function testRegexGroupsCaseInVModeCase256() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a*)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase451() public {
+    function testRegexGroupsCaseInVModeCase257() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a{3})b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase453() public {
+    function testRegexGroupsCaseInVModeCase258() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(a+))b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase455() public {
+    function testRegexGroupsCaseInVModeCase259() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=(abc))d/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase457() public {
+    function testRegexGroupsCaseInVModeCase260() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a(?<=b+))c/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase459() public {
+    function testRegexGroupsCaseInVModeCase261() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(\\1))/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase461() public {
+    function testRegexGroupsCaseInVModeCase262() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a)\\k<y>)/v";
 
@@ -14465,7 +14469,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase463() public {
+    function testRegexGroupsCaseInVModeCase263() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?<x>a))(?=(?<x>b))/v";
 
@@ -14474,15 +14478,16 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase465() public {
+    function testRegexGroupsCaseInVModeCase264() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=\\xZ)/v";
+
         // @Error: SyntaxError: Invalid regular expression: /(?=\xZ)/v: Invalid escape
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase467() public {
+    function testRegexGroupsCaseInVModeCase265() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\u123)/v";
         // @Error: SyntaxError: Invalid regular expression: /(?<=\u123)/v: Invalid Unicode escape
@@ -14490,13 +14495,13 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase469() public {
+    function testRegexGroupsCaseInVModeCase266() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\p{Letter}+)x/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase471() public {
+    function testRegexGroupsCaseInVModeCase267() public {
         string memory target = "anything";
         string memory pattern = unicode"/[ (?=a) ]/v";
 
@@ -14505,18 +14510,16 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase473() public {
+    function testRegexGroupsCaseInVModeCase268() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+*/v";
 
-        // @BUG: throws different error in v mode
-        // expected-error: SyntaxError: Invalid regular expression: /(?=a)+*/v: Invalid quantifier
-        // @Error: SyntaxError: Invalid regular expression: /(?=a)+*/v: Nothing to repeat
+        // @Error: SyntaxError: SyntaxError: Invalid regular expression: /(?=a)+*/v: Invalid quantifier
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase475() public {
+    function testRegexGroupsCaseInVModeCase269() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=[z-a])/v";
 
@@ -14525,7 +14528,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase477() public {
+    function testRegexGroupsCaseInVModeCase470() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=abcv";
 
@@ -14534,7 +14537,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase478() public {
+    function testRegexGroupsCaseInVModeCase271() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=abcuv";
 
@@ -14543,33 +14546,34 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase479() public {
+    function testRegexGroupsCaseInVModeCase272() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\1(a))b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase481() public {
+    function testRegexGroupsCaseInVModeCase273() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=>a)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase483() public {
+    function testRegexGroupsCaseInVModeCase274() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a{1,3})b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase485() public {
+    function testRegexGroupsCaseInVModeCase275() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+/v";
 
-        // @BUG: not throwing error in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase487() public {
+    function testRegexGroupsCaseInVModeCase276() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(a)\\2)/v";
 
@@ -14578,13 +14582,13 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase489() public {
+    function testRegexGroupsCaseInVModeCase277() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=\\1)(a)/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase491() public {
+    function testRegexGroupsCaseInVModeCase278() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<1>a)/v";
 
@@ -14593,7 +14597,7 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase493() public {
+    function testRegexGroupsCaseInVModeCase279() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=\\p{FakeProperty})/v";
 
@@ -14602,53 +14606,55 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase495() public {
+    function testRegexGroupsCaseInVModeCase280() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=)a/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase497() public {
+    function testRegexGroupsCaseInVModeCase281() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=a)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase499() public {
+    function testRegexGroupsCaseInVModeCase282() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)+/v";
 
-        // @BUG: not throwing in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(?=a)+/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase501() public {
+    function testRegexGroupsCaseInVModeCase283() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?=a))/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase503() public {
+    function testRegexGroupsCaseInVModeCase284() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=(?=(?=a)))*/v";
 
-        // @BUG: not throwing in v mode
+        // @Error: SyntaxError: Invalid regular expression: /(?=(?=(?=a)))*/v: Invalid quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase505() public {
+    function testRegexGroupsCaseInVModeCase285() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?: (?<=a)b )+/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase507() public {
+    function testRegexGroupsCaseInVModeCase286() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?<=^a)b/v";
         stringray.regex(target, pattern);
     }
 
-    function testRegexGroupsCaseInVModeCase509() public {
+    function testRegexGroupsCaseInVModeCase287() public {
         string memory target = "anything";
         string memory pattern = unicode"/(?=a)(?!a)/v";
         stringray.regex(target, pattern);
