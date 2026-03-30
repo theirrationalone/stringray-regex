@@ -12254,60 +12254,91 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase11() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase13() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\e\\j\\k\\l\\m\\o\\y\\z)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\e\j\k\l\m\o\y\z)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\e)/v";
+        pattern = unicode"/(\\e)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\e)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\j)/v";
+        pattern = unicode"/(\\j)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\j)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\k)/v";
+        pattern = unicode"/(\\l)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\l)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\l)/v";
+        pattern = unicode"/(\\m)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\m)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\m)/v";
+        pattern = unicode"/(\\o)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\o)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\o)/v";
+        pattern = unicode"/(\\y)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\y)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
 
-        string memory pattern = unicode"/(\\y)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\z)/v: Invalid escape
+        vm.expectRevert();
+        pattern = unicode"/(\\z)/v";
         stringray.regex(target, pattern);
+    }
 
-        string memory pattern = unicode"/(\\z)/v";
+    function testRegexGroupsCaseInVModeCase14() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/(\\k)/u";
+
+        // @exected-Error: SyntaxError: Invalid regular expression: /(\k)/v: Invalid named reference
+        // @actual-Error: SyntaxError: Invalid regular expression: /(\k)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase15() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\-\\g\\h\\i\\j)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\-\g\h\i\j)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase17() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a\\g\\h\\i\\j)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a\g\h\i\j)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase19() public {
         string memory target = "anything";
+        string memory pattern = unicode"/(\\a\\!\\@\\#\\%\\=\\'\\;\\:\\>\\<\\,\\~\\`\\\"\\&\\g\\h\\i\\j)/v";
 
-        string memory pattern = unicode"/(\\a\\!\\@\\#\\%\\=\\'\\;\\:\\>\\<\\.\\,\\~\\`\\\"\\&\\g\\h\\i\\j)/v";
+        // @Error: SyntaxError: Invalid regular expression: /(\a\!\@\#\%\=\'\;\:\>\<\,\~\`\"\&\g\h\i\j)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12671,22 +12702,28 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase85() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\u{110000})/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\u{110000})/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase86() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\c1)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\c1)/v: Invalid Unicode Escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase87() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\ugg)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\ugg)/v: Invalid Unicode escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12713,15 +12750,18 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase91() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/({)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /({)/v: Lone quantifier brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase92() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(})/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(})/v: Lone quantifier brackets
         stringray.regex(target, pattern);
     }
 
@@ -12759,8 +12799,10 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase101() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(])/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(])/v: Lone Character class brackets
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12816,8 +12858,9 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase109() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(*)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(*)/v: Nothing to repeat
         stringray.regex(target, pattern);
     }
 
@@ -12870,34 +12913,45 @@ contract PlayStringTest is Test {
     function testRegexGroupsCaseInVModeCase116() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\08)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\08)/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase117() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\107)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\107)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase118() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\377)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\377)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase119() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\400)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\400)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase120() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\777)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\777)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12910,22 +12964,28 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase122() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\378)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\378)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase123() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\397)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\397)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase124() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\a)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\a)/v: Invalid escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -12938,28 +12998,34 @@ contract PlayStringTest is Test {
 
     function testRegexGroupsCaseInVModeCase126() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\00)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\00)/v: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase127() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\000)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\000)/v: Invalid decimal escape
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase128() public {
         string memory target = "anything";
         string memory pattern = unicode"/(\\08)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\08)/v: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
     function testRegexGroupsCaseInVModeCase129() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/(\\008)/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /(\008)/v: Invalid decimal escape
         stringray.regex(target, pattern);
     }
 
