@@ -14755,4 +14755,136 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase13() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\/";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\/ , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase14() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\/u , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase15() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\/v , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase16() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\x01/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase17() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\x01/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase18() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\x01/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase19() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\x01/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase20() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\x01/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase21() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\x01/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase22() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\x01/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase23() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\x01/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase24() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\x01/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase25() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\x01/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase26() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\x01/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase27() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\x01/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase28() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\x01/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase29() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\x01/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase30() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\x01/v";
+
+        stringray.regex(target, pattern);
+    }
 }
