@@ -15109,4 +15109,121 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase61() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\k/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase62() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\k/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\k/u: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase63() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\k/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\k/v: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase64() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\k/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase65() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\k/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase66() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\k/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase67() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\k/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase68() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\k/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\k/u: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase69() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\k/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\k/v: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase70() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\k/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase71() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\k/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase72() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\k/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase73() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\k/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase74() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\k/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\k/u: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase75() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\k/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\k/v: Invalid named reference
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
 }
