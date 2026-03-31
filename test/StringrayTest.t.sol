@@ -14887,4 +14887,121 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase31() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\u12/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase32() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\u12/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u12/u: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase33() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\u12/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\u12/v: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase34() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\u12/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase35() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\u12/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase36() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\u12/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase37() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\u12/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase38() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\u12/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\u12/u: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase39() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\u12/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\u12/v: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase40() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\u12/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase41() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\u12/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase42() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\u12/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase43() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\u12/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase44() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\u12/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\u12/u: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase45() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\u12/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\u12/v: Invalid Unicode escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
 }
