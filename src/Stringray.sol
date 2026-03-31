@@ -1556,6 +1556,8 @@ contract Stringray {
                         errorRight = ": Invalid Unicode escape";
                     } else if (lastMatchedParticle == uint8(abi.encodePacked("k")[0])) {
                         errorRight = ": Invalid named reference";
+                    } else if (lastMatchedParticle == uint8(abi.encodePacked("p")[0])) {
+                        errorRight = ": Invalid property name";
                     }
 
                     throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlags);

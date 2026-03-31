@@ -15226,4 +15226,121 @@ contract PlayStringTest is Test {
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase76() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\p/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase77() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\p/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p/u: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase78() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\p/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\p/v: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase79() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\p/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase80() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\p/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase81() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\p/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase82() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\p/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase83() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\p/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\p/u: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase84() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\p/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\p/v: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase85() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\p/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase86() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\p/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase87() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\p/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase88() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\p/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase89() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\p/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\p/u: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase90() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\p/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\p/v: Invalid property name
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
 }
