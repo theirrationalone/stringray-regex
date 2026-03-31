@@ -1556,7 +1556,10 @@ contract Stringray {
                         errorRight = ": Invalid Unicode escape";
                     } else if (lastMatchedParticle == uint8(abi.encodePacked("k")[0])) {
                         errorRight = ": Invalid named reference";
-                    } else if (lastMatchedParticle == uint8(abi.encodePacked("p")[0])) {
+                    } else if (
+                        (lastMatchedParticle == uint8(abi.encodePacked("p")[0]))
+                            || (lastMatchedParticle == uint8(abi.encodePacked("P")[0]))
+                    ) {
                         errorRight = ": Invalid property name";
                     }
 
