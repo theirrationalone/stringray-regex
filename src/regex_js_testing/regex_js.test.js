@@ -15072,6 +15072,111 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("backslash or escape hell: Case000000000000286", () => {
+    let regex = /\W/;
+    const target = " ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000287", () => {
+    let regex = /\W/u;
+    const target = " ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000288", () => {
+    let regex = /\W/v;
+    const target = " ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000289", () => {
+    let regex = /\\W/;
+    const target = "\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000290", () => {
+    let regex = /\\W/u;
+    const target = "\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000291", () => {
+    let regex = /\\W/v;
+    const target = "\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000292", () => {
+    let regex = /\\\W/;
+    const target = "\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000293", () => {
+    let regex = /\\\W/u;
+    const target = "\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000294", () => {
+    let regex = /\\\W/v;
+    const target = "\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000295", () => {
+    let regex = /\\\\W/;
+    const target = "\\\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000296", () => {
+    let regex = /\\\\W/u;
+    const target = "\\\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000297", () => {
+    let regex = /\\\\W/v;
+    const target = "\\\\W";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000298", () => {
+    let regex = /\\\\\W/;
+    const target = "\\\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000299", () => {
+    let regex = /\\\\\W/u;
+    const target = "\\\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell: Case000000000000300", () => {
+    let regex = /\\\\\W/v;
+    const target = "\\\\ ";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 
 testMain();

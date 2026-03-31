@@ -16732,4 +16732,109 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase286() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\W/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase287() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\W/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase288() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\W/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase289() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\W/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase290() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\W/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase291() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\W/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase292() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\W/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase293() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\W/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase294() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\W/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase295() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\W/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase296() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\W/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase297() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\W/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase298() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\W/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase299() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\W/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase300() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\\\W/v";
+
+        stringray.regex(target, pattern);
+    }
 }
