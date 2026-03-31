@@ -18274,10 +18274,20 @@ contract Stringray {
 
         if (isValid) {
             if ((hasFlag(_patternFlags, "u") || hasFlag(_patternFlags, "v")) && !fromCharacterClass) {
+                if (lastMatchedIndex == _currentParticleIndex && uint8(_pattern[lastMatchedIndex]) == CLOSE_CURLY_BRACE)
+                {
+                    throwError(
+                        _orgPattern,
+                        "SyntaxError: Invalid regular expression: /",
+                        ": Lone quantifier brackets",
+                        _patternFlags
+                    );
+                }
+
                 throwError(
                     _orgPattern,
                     "SyntaxError: Invalid regular expression: /",
-                    ": Lone quantifier brackets",
+                    ": : Incomplete quantifier",
                     _patternFlags
                 );
             }

@@ -17059,6 +17059,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\u{1F600}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\u{1F600}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17066,6 +17068,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\u{1F600}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\u{1F600}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17101,6 +17105,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{L}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{L}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17108,6 +17114,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{L}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{L}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17122,6 +17130,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{XYZ}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{XYZ}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17129,6 +17139,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{XYZ}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{XYZ}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17143,6 +17155,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17150,6 +17164,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17164,6 +17180,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{=LETTER}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{=LETTER}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17171,6 +17189,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{=LETTER}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{=LETTER}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17185,6 +17205,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{g=LETTER}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{g=LETTER}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17192,6 +17214,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{g=LETTER}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{g=LETTER}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17206,6 +17230,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{gc=Letter}/u";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{gc=Letter}/u: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 
@@ -17213,6 +17239,8 @@ contract PlayStringTest is Test {
         string memory pattern = "/\\\\p{gc=Letter}/v";
         string memory target = "anything";
 
+        // @Error: SyntaxError: Invalid regular expression: /\\p{gc=Letter}/v: Incomplete quantifier
+        vm.expectRevert();
         stringray.regex(target, pattern);
     }
 }
