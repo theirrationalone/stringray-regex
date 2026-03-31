@@ -14659,4 +14659,100 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/(?=a)(?!a)/v";
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellCase1() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\/";
+
+        // @Error: SyntaxError: Invalid regular expression: /\/ , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase2() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\/u , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase3() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\/v , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase4() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase5() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase6() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase7() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\/";
+
+        // @Error:  SyntaxError: Invalid regular expression: /\\\/ , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase8() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\/u , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase9() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\/v , missing / , required: /valid_seq/
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase10() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase11() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellCase12() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/\\\\\\\\/v";
+
+        stringray.regex(target, pattern);
+    }
 }
