@@ -16837,4 +16837,382 @@ contract PlayStringTest is Test {
 
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellPart2_1() public {
+        string memory pattern = "/\\\\08/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_2() public {
+        string memory pattern = "/\\\\08/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_3() public {
+        string memory pattern = "/\\\\08/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_4() public {
+        string memory pattern = "/\\\\107/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_5() public {
+        string memory pattern = "/\\\\107/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_6() public {
+        string memory pattern = "/\\\\107/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_7() public {
+        string memory pattern = "/\\\\377/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_8() public {
+        string memory pattern = "/\\\\377/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_9() public {
+        string memory pattern = "/\\\\400/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_10() public {
+        string memory pattern = "/\\\\777/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_11() public {
+        string memory pattern = "/\\\\777/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_12() public {
+        string memory pattern = "/\\\\777/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_13() public {
+        string memory pattern = "/\\\\378/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_14() public {
+        string memory pattern = "/\\\\378/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_15() public {
+        string memory pattern = "/\\\\378/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_16() public {
+        string memory pattern = "/\\\\397/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_17() public {
+        string memory pattern = "/\\\\397/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_18() public {
+        string memory pattern = "/\\\\397/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_19() public {
+        string memory pattern = "/\\\\a/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_20() public {
+        string memory pattern = "/\\\\a/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_21() public {
+        string memory pattern = "/\\\\a/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_22() public {
+        string memory pattern = "/\\\\0/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_23() public {
+        string memory pattern = "/\\\\0/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_24() public {
+        string memory pattern = "/\\\\0/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_25() public {
+        string memory pattern = "/\\\\00/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_26() public {
+        string memory pattern = "/\\\\00/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_27() public {
+        string memory pattern = "/\\\\00/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_28() public {
+        string memory pattern = "/\\\\000/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_29() public {
+        string memory pattern = "/\\\\000/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_30() public {
+        string memory pattern = "/\\\\000/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_31() public {
+        string memory pattern = "/\\\\u{1F600}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_32() public {
+        string memory pattern = "/\\\\u{1F600}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_33() public {
+        string memory pattern = "/\\\\u{1F600}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_34() public {
+        string memory pattern = "/\\\\k<a>/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_35() public {
+        string memory pattern = "/\\\\k<a>/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_36() public {
+        string memory pattern = "/\\\\k<a>/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_37() public {
+        string memory pattern = "/\\\\p{L}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_38() public {
+        string memory pattern = "/\\\\p{L}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_39() public {
+        string memory pattern = "/\\\\p{L}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_40() public {
+        string memory pattern = "/\\\\p{XYZ}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_41() public {
+        string memory pattern = "/\\\\p{XYZ}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_42() public {
+        string memory pattern = "/\\\\p{XYZ}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_43() public {
+        string memory pattern = "/\\\\p{}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_44() public {
+        string memory pattern = "/\\\\p{}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_45() public {
+        string memory pattern = "/\\\\p{}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_46() public {
+        string memory pattern = "/\\\\p{=LETTER}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_47() public {
+        string memory pattern = "/\\\\p{=LETTER}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_48() public {
+        string memory pattern = "/\\\\p{=LETTER}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_49() public {
+        string memory pattern = "/\\\\p{g=LETTER}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_50() public {
+        string memory pattern = "/\\\\p{g=LETTER}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_51() public {
+        string memory pattern = "/\\\\p{g=LETTER}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_52() public {
+        string memory pattern = "/\\\\p{gc=Letter}/";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_53() public {
+        string memory pattern = "/\\\\p{gc=Letter}/u";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart2_54() public {
+        string memory pattern = "/\\\\p{gc=Letter}/v";
+        string memory target = "anything";
+
+        stringray.regex(target, pattern);
+    }
 }
