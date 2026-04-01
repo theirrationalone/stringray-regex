@@ -17243,4 +17243,592 @@ contract PlayStringTest is Test {
         vm.expectRevert();
         stringray.regex(target, pattern);
     }
+
+    function testRegexBackslashOrEscapeHellPart3_1() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_2() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[]/u: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_3() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[]/v: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_4() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[]/";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\[]/: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_5() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\[]/u: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_6() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\[]/v: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_7() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_8() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[]/u: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_9() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[]/v: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_10() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[]/";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\[]/: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_11() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\[]/u: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_12() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\[]/v: Empty Character class
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_13() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_14() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[]/u: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_15() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[]/v: Lone Character class brackets
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_16() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_17() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_18() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_19() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_20() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_21() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_22() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_23() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_24() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_25() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_26() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_27() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_28() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_29() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_30() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_31() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\.\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_32() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\.\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_33() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\.\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_34() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\.\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_35() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\.\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_36() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\.\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_37() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\.\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_38() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\.\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_39() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\.\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_40() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\.\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_41() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\.\\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_42() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\.\\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_43() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\.\\\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_44() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\.\\\\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_45() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\.\\\\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_46() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\[\\a\\b\\c\\1\\2\\3\\_\\,\\:\\;\\!\\@\\#\\%\\&\\$\\^\\?\\+\\*\\\"\\'\\<\\>\\=\\`\\~\\ \\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_47() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\[\\a\\b\\c\\1\\2\\3\\_\\,\\:\\;\\!\\@\\#\\%\\&\\$\\^\\?\\+\\*\\\"\\'\\<\\>\\=\\`\\~\\ \\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[\a\b\c\1\2\3\_\,\:\;\!\@\#\%\&\$\^\?\+\*\"\'\<\>\=\`\~\ \]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_48() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\[\\a\\b\\c\\1\\2\\3\\_\\,\\:\\;\\!\\@\\#\\%\\&\\$\\^\\?\\+\\*\\\"\\'\\<\\>\\=\\`\\~\\ \\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[\a\b\c\1\2\3\_\,\:\;\!\@\#\%\&\$\^\?\+\*\"\'\<\>\=\`\~\ \]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_49() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\[\\\\a\\\\b\\\\c\\\\1\\\\2\\\\3\\\\_\\\\,\\\\:\\\\;\\\\!\\\\@\\\\#\\\\%\\\\&\\\\$\\\\^\\\\?\\\\+\\\\*\\\\\"\\\\'\\\\<\\\\>\\\\=\\\\`\\\\~\\\\ \\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_50() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\[\\\\a\\\\b\\\\c\\\\1\\\\2\\\\3\\\\_\\\\,\\\\:\\\\;\\\\!\\\\@\\\\#\\\\%\\\\&\\\\$\\\\^\\\\?\\\\+\\\\*\\\\\"\\\\'\\\\<\\\\>\\\\=\\\\`\\\\~\\\\ \\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_51() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\[\\\\a\\\\b\\\\c\\\\1\\\\2\\\\3\\\\_\\\\,\\\\:\\\\;\\\\!\\\\@\\\\#\\\\%\\\\&\\\\$\\\\^\\\\?\\\\+\\\\*\\\\\"\\\\'\\\\<\\\\>\\\\=\\\\`\\\\~\\\\ \\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_52() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\[\\\\\\a\\\\\\b\\\\\\c\\\\\\1\\\\\\2\\\\\\3\\\\\\_\\\\\\,\\\\\\:\\\\\\;\\\\\\!\\\\\\@\\\\\\#\\\\\\%\\\\\\&\\\\\\$\\\\\\^\\\\\\?\\\\\\+\\\\\\*\\\\\\\"\\\\\\'\\\\\\<\\\\\\>\\\\\\=\\\\\\`\\\\\\~\\\\\\ \\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_53() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\[\\\\\\a\\\\\\b\\\\\\c\\\\\\1\\\\\\2\\\\\\3\\\\\\_\\\\\\,\\\\\\:\\\\\\;\\\\\\!\\\\\\@\\\\\\#\\\\\\%\\\\\\&\\\\\\$\\\\\\^\\\\\\?\\\\\\+\\\\\\*\\\\\\\"\\\\\\'\\\\\\<\\\\\\>\\\\\\=\\\\\\`\\\\\\~\\\\\\ \\\\\\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[\\\a\\\b\\\c\\\1\\\2\\\3\\\_\\\,\\\:\\\;\\\!\\\@\\\#\\\%\\\&\\\$\\\^\\\?\\\+\\\*\\\"\\\'\\\<\\\>\\\=\\\`\\\~\\\ \\\]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_54() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\[\\\\\\a\\\\\\b\\\\\\c\\\\\\1\\\\\\2\\\\\\3\\\\\\_\\\\\\,\\\\\\:\\\\\\;\\\\\\!\\\\\\@\\\\\\#\\\\\\%\\\\\\&\\\\\\$\\\\\\^\\\\\\?\\\\\\+\\\\\\*\\\\\\\"\\\\\\'\\\\\\<\\\\\\>\\\\\\=\\\\\\`\\\\\\~\\\\\\ \\\\\\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[\\\a\\\b\\\c\\\1\\\2\\\3\\\_\\\,\\\:\\\;\\\!\\\@\\\#\\\%\\\&\\\$\\\^\\\?\\\+\\\*\\\"\\\'\\\<\\\>\\\=\\\`\\\~\\\ \\\]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_55() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\[\\\\\\\\a\\\\\\\\b\\\\\\\\c\\\\\\\\1\\\\\\\\2\\\\\\\\3\\\\\\\\_\\\\\\\\,\\\\\\\\:\\\\\\\\;\\\\\\\\!\\\\\\\\@\\\\\\\\#\\\\\\\\%\\\\\\\\&\\\\\\\\$\\\\\\\\^\\\\\\\\?\\\\\\\\+\\\\\\\\*\\\\\\\\\"\\\\\\\\'\\\\\\\\<\\\\\\\\>\\\\\\\\=\\\\\\\\`\\\\\\\\~\\\\\\\\ \\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_56() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\[\\\\\\\\a\\\\\\\\b\\\\\\\\c\\\\\\\\1\\\\\\\\2\\\\\\\\3\\\\\\\\_\\\\\\\\,\\\\\\\\:\\\\\\\\;\\\\\\\\!\\\\\\\\@\\\\\\\\#\\\\\\\\%\\\\\\\\&\\\\\\\\$\\\\\\\\^\\\\\\\\?\\\\\\\\+\\\\\\\\*\\\\\\\\\"\\\\\\\\'\\\\\\\\<\\\\\\\\>\\\\\\\\=\\\\\\\\`\\\\\\\\~\\\\\\\\ \\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_57() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\[\\\\\\\\a\\\\\\\\b\\\\\\\\c\\\\\\\\1\\\\\\\\2\\\\\\\\3\\\\\\\\_\\\\\\\\,\\\\\\\\:\\\\\\\\;\\\\\\\\!\\\\\\\\@\\\\\\\\#\\\\\\\\%\\\\\\\\&\\\\\\\\$\\\\\\\\^\\\\\\\\?\\\\\\\\+\\\\\\\\*\\\\\\\\\"\\\\\\\\'\\\\\\\\<\\\\\\\\>\\\\\\\\=\\\\\\\\`\\\\\\\\~\\\\\\\\ \\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_58() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\b\\\\\\\\\\c\\\\\\\\\\1\\\\\\\\\\2\\\\\\\\\\3\\\\\\\\\\_\\\\\\\\\\,\\\\\\\\\\:\\\\\\\\\\;\\\\\\\\\\!\\\\\\\\\\@\\\\\\\\\\#\\\\\\\\\\%\\\\\\\\\\&\\\\\\\\\\$\\\\\\\\\\^\\\\\\\\\\?\\\\\\\\\\+\\\\\\\\\\*\\\\\\\\\\\"\\\\\\\\\\'\\\\\\\\\\<\\\\\\\\\\>\\\\\\\\\\=\\\\\\\\\\`\\\\\\\\\\~\\\\\\\\\\ \\\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_59() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\b\\\\\\\\\\c\\\\\\\\\\1\\\\\\\\\\2\\\\\\\\\\3\\\\\\\\\\_\\\\\\\\\\,\\\\\\\\\\:\\\\\\\\\\;\\\\\\\\\\!\\\\\\\\\\@\\\\\\\\\\#\\\\\\\\\\%\\\\\\\\\\&\\\\\\\\\\$\\\\\\\\\\^\\\\\\\\\\?\\\\\\\\\\+\\\\\\\\\\*\\\\\\\\\\\"\\\\\\\\\\'\\\\\\\\\\<\\\\\\\\\\>\\\\\\\\\\=\\\\\\\\\\`\\\\\\\\\\~\\\\\\\\\\ \\\\\\\\\\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[\\\\\a\\\\\b\\\\\c\\\\\1\\\\\2\\\\\3\\\\\_\\\\\,\\\\\:\\\\\;\\\\\!\\\\\@\\\\\#\\\\\%\\\\\&\\\\\$\\\\\^\\\\\?\\\\\+\\\\\*\\\\\"\\\\\'\\\\\<\\\\\>\\\\\=\\\\\`\\\\\~\\\\\ \\\\\]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_60() public {
+        string memory target = "anything";
+        string memory pattern =
+            "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\b\\\\\\\\\\c\\\\\\\\\\1\\\\\\\\\\2\\\\\\\\\\3\\\\\\\\\\_\\\\\\\\\\,\\\\\\\\\\:\\\\\\\\\\;\\\\\\\\\\!\\\\\\\\\\@\\\\\\\\\\#\\\\\\\\\\%\\\\\\\\\\&\\\\\\\\\\$\\\\\\\\\\^\\\\\\\\\\?\\\\\\\\\\+\\\\\\\\\\*\\\\\\\\\\\"\\\\\\\\\\'\\\\\\\\\\<\\\\\\\\\\>\\\\\\\\\\=\\\\\\\\\\`\\\\\\\\\\~\\\\\\\\\\ \\\\\\\\\\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[\\\\\a\\\\\b\\\\\c\\\\\1\\\\\2\\\\\3\\\\\_\\\\\,\\\\\:\\\\\;\\\\\!\\\\\@\\\\\#\\\\\%\\\\\&\\\\\$\\\\\^\\\\\?\\\\\+\\\\\*\\\\\"\\\\\'\\\\\<\\\\\>\\\\\=\\\\\`\\\\\~\\\\\ \\\\\]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_61() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\a\\-\\z\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_62() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\a\\-\\z\\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[\a\-\z\]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_63() public {
+        string memory target = "anything";
+        string memory pattern = "/\\[\\a\\-\\z\\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\[\a\-\z\]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_64() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\a\\\\-\\\\z\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_65() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\a\\\\-\\\\z\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_66() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\[\\\\a\\\\-\\\\z\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_67() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\a\\\\\\-\\\\\\z\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_68() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\a\\\\\\-\\\\\\z\\\\\\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[\\\a\\\-\\\z\\\]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_69() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\[\\\\\\a\\\\\\-\\\\\\z\\\\\\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\[\\\a\\\-\\\z\\\]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_70() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\a\\\\\\\\-\\\\\\\\z\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_71() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\a\\\\\\\\-\\\\\\\\z\\\\\\\\]/u";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_72() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\[\\\\\\\\a\\\\\\\\-\\\\\\\\z\\\\\\\\]/v";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_73() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\-\\\\\\\\\\z\\\\\\\\\\]/";
+
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_74() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\-\\\\\\\\\\z\\\\\\\\\\]/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[\\\\\a\\\\\-\\\\\z\\\\\]/u: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexBackslashOrEscapeHellPart3_75() public {
+        string memory target = "anything";
+        string memory pattern = "/\\\\\\\\\\[\\\\\\\\\\a\\\\\\\\\\-\\\\\\\\\\z\\\\\\\\\\]/v";
+
+        // @Error: SyntaxError: Invalid regular expression: /\\\\\[\\\\\a\\\\\-\\\\\z\\\\\]/v: Invalid escape
+        vm.expectRevert();
+        stringray.regex(target, pattern);
+    }
 }
