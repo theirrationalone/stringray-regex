@@ -18042,13 +18042,6 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
-    // unction testRegexGroupsCaseInVModeCase211() public {
-    //     string memory target = "anything";
-
-    //     string memory pattern = unicode"/([\"-'])/v";
-    //     stringray.regex(target, pattern);
-    // }
-
     function testRegexBackslashOrEscapeHellPart3_106() public {
         string memory target = "anything";
         string memory pattern = unicode"/([\\\"-'])/";
