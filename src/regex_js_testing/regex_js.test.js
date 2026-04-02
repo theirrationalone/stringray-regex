@@ -16500,5 +16500,26 @@ const testMain = () => {
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
+
+  test("backslash or escape hell part3: Case000000000000133", () => {
+    let regex = /(?<x>b)?\\\\\\\\\k<x>/;
+    const target = "b\\\\\\\\b";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell part3: Case000000000000134", () => {
+    let regex = /(?<x>b)?\\\\\\\\\k<x>/u;
+    const target = "b\\\\\\\\b";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("backslash or escape hell part3: Case000000000000135", () => {
+    let regex = /(?<x>b)?\\\\\\\\\k<x>/v;
+    const target = "b\\\\\\\\b";
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
