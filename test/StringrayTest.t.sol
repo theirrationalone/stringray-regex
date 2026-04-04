@@ -18254,4 +18254,22 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/(?<x>b)?\\\\\\\\\\\\\\\\\\k<x>/";
         stringray.regex(target, pattern);
     }
+
+    function testRegexPatternMatchCase1() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/thin/";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexPatternMatchCase2() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/thin/u";
+        stringray.regex(target, pattern);
+    }
+
+    function testRegexPatternMatchCase3() public {
+        string memory target = "anything";
+        string memory pattern = unicode"/thin/v";
+        stringray.regex(target, pattern);
+    }
 }

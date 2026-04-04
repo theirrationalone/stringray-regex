@@ -942,6 +942,22 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
+            matchPattern(stringInBytes, patternFlags);
+        }
+    }
+
+    function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private {
+        console2.log("---------pattern flag---------");
+        console2.log("Pattern Flags: ", string(patternFlags));
+        console2.log("------------------");
+
+        for (uint256 i; i < allAtoms.length; i++) {
+            console2.log("--------Atom--------");
+            console2.logBytes(allAtoms[i].atom);
+            console2.log(string(allAtoms[i].atom));
+            console2.log("------------------");
+
+            for (uint256 j; j < stringInBytes.length; j++) {}
         }
     }
 
@@ -961,10 +977,10 @@ contract Stringray {
                 allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
 
-            console2.log("---------------------ATOM_TYPE---------------------");
-            console2.log("Atom: ", string(atom));
-            printAtomType(atomType);
-            console2.log("---------------------");
+            // console2.log("---------------------ATOM_TYPE---------------------");
+            // console2.log("Atom: ", string(atom));
+            // printAtomType(atomType);
+            // console2.log("---------------------");
 
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
