@@ -947,40 +947,61 @@ contract Stringray {
     }
 
     function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private {
+        uint256 firstIndex;
         int256 matchStartIndex;
-        int256 matchEndIndex;
+        int256 matchEndIndex = -1;
         uint256 indexToStartMatch;
+        bool isFirstMatch = true;
         for (uint256 i; i < allAtoms.length; i++) {
-            indexToStartMatch = matchEndIndex;
+            if (matchEndIndex > -1) {
+                isFirstMatch = false;
+                indexToStartMatch = uint256(matchEndIndex) + 1;
+            } else {
+                indexToStartMatch = 0;
+            }
+
             if (allAtoms[i].atomType == LITERAL_ATOM) {
-                (matchStartIndex, matchEndIndex) = matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch);
+                (matchStartIndex, matchEndIndex) =
+                    matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             }
         }
+
+        console2.log("match end index: ", matchEndIndex);
     }
 
-    function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch)
+    function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
         private
         returns (int256, int256)
     {
-        int256 startFoundIndex = -1;
-        int256 endFoundIndex;
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex;
         uint256 indexIncrementRate = atom.length;
+        bytes memory stringChunk;
 
-        for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
-            endFoundIndex = int256(i + indexIncrementRate - 1);
-            bytes memory stringChunk = trimString(stringInBytes, i, endFoundIndex);
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+                matchEndIndex = int256(i + indexIncrementRate - 1);
+                stringChunk = trimString(stringInBytes, i, matchEndIndex);
 
-            if (atom == stringChunk) {
-                startFoundIndex = i;
-                break;
+                if (keccak256(atom) == keccak256(stringChunk)) {
+                    matchStartIndex = int256(i);
+                    break;
+                }
+                i += indexIncrementRate;
+            }
+        } else {
+            matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
+            stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            if (keccak256(atom) == keccak256(stringChunk)) {
+                matchStartIndex = int256(indexToStartMatch);
             }
         }
 
-        if (startFoundIndex == -1) {
-            endFoundIndex = -1;
+        if (matchStartIndex == -1) {
+            matchEndIndex = -1;
         }
 
-        return (startFoundIndex, endFoundIndex);
+        return (matchStartIndex, matchEndIndex);
     }
 
     function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes memory _patternFlags, bool fromGroup)
