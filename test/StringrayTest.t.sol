@@ -18255,6 +18255,10 @@ contract PlayStringTest is Test {
         stringray.regex(target, pattern);
     }
 
+    //////////////////////////////////////////////////////////////////
+    //////////////////////PATTERN MATCH CASES/////////////////////////
+    //////////////////////////////////////////////////////////////////
+
     function testRegexPatternMatchCase1() public {
         string memory target = "thithing";
         string memory pattern = unicode"/thin/";
