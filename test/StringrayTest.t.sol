@@ -18256,20 +18256,58 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCase1() public {
-        string memory target = "anything";
+        string memory target = "thithing";
         string memory pattern = unicode"/thin/";
-        stringray.regex(target, pattern);
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
     }
 
     function testRegexPatternMatchCase2() public {
-        string memory target = "anything";
-        string memory pattern = unicode"/thin/u";
-        stringray.regex(target, pattern);
+        string memory target = "thithin";
+        string memory pattern = unicode"/thin/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
     }
 
     function testRegexPatternMatchCase3() public {
+        string memory target = "anythiaa";
+        string memory pattern = unicode"/thin/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase4() public {
         string memory target = "anything";
         string memory pattern = unicode"/thin/v";
-        stringray.regex(target, pattern);
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
     }
 }

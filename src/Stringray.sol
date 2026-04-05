@@ -918,6 +918,14 @@ contract Stringray {
         int256 atomEndIdx;
     }
 
+    struct ReturnData {
+        string patternString;
+        string originalString;
+        string matchedString;
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+    }
+
     AtomTrait[] private allAtoms;
 
     function seeAllAtoms() public view {
@@ -931,42 +939,84 @@ contract Stringray {
         }
     }
 
-    function regex(string memory _proposedString, string memory _pattern) public {
+    function regex(string memory _proposedString, string memory _pattern) public returns (ReturnData memory) {
         int256 slashPairIndex = validateRegex(_pattern);
 
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+        string memory matchedString;
 
         if (slashPairIndex > -1) {
             bytes memory patternFlags = trimString(patternInBytes, uint256(slashPairIndex) + 1, -1);
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
-            matchPattern(stringInBytes, patternFlags);
+            (matchStartIndex, matchEndIndex) = matchPattern(stringInBytes, patternFlags);
+
+            if (matchStartIndex > -1 && matchEndIndex > -1) {
+                matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+            }
         }
+
+        return ReturnData({
+            patternString: _pattern,
+            originalString: _proposedString,
+            matchedString: matchedString,
+            matchStartIndex: matchStartIndex,
+            matchEndIndex: matchEndIndex
+        });
     }
 
-    function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private {
-        uint256 firstIndex;
+    function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private returns (int256, int256) {
+        int256 firstIndex = -1;
         int256 matchStartIndex;
         int256 matchEndIndex = -1;
+
         uint256 indexToStartMatch;
-        bool isFirstMatch = true;
-        for (uint256 i; i < allAtoms.length; i++) {
+        bool isFirstMatch;
+
+        for (uint256 i; i < allAtoms.length;) {
+            if (indexToStartMatch >= stringInBytes.length - 1) {
+                break;
+            }
+
             if (matchEndIndex > -1) {
-                isFirstMatch = false;
+                if (firstIndex == -1) {
+                    firstIndex = matchStartIndex;
+                }
+
+                if (isFirstMatch) {
+                    isFirstMatch = false;
+                }
+
                 indexToStartMatch = uint256(matchEndIndex) + 1;
             } else {
-                indexToStartMatch = 0;
+                if (!isFirstMatch) {
+                    isFirstMatch = true;
+                }
             }
 
             if (allAtoms[i].atomType == LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             }
+
+            if (matchStartIndex == -1) {
+                indexToStartMatch = uint256(matchEndIndex);
+                isFirstMatch = true;
+                firstIndex = -1;
+                matchStartIndex = 0;
+                matchEndIndex = -1;
+
+                i = 0;
+                continue;
+            }
+            i++;
         }
 
-        console2.log("match end index: ", matchEndIndex);
+        return (firstIndex, matchEndIndex);
     }
 
     function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -995,10 +1045,6 @@ contract Stringray {
             if (keccak256(atom) == keccak256(stringChunk)) {
                 matchStartIndex = int256(indexToStartMatch);
             }
-        }
-
-        if (matchStartIndex == -1) {
-            matchEndIndex = -1;
         }
 
         return (matchStartIndex, matchEndIndex);
