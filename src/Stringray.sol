@@ -947,18 +947,40 @@ contract Stringray {
     }
 
     function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private {
-        console2.log("---------pattern flag---------");
-        console2.log("Pattern Flags: ", string(patternFlags));
-        console2.log("------------------");
-
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+        uint256 indexToStartMatch;
         for (uint256 i; i < allAtoms.length; i++) {
-            console2.log("--------Atom--------");
-            console2.logBytes(allAtoms[i].atom);
-            console2.log(string(allAtoms[i].atom));
-            console2.log("------------------");
-
-            for (uint256 j; j < stringInBytes.length; j++) {}
+            indexToStartMatch = matchEndIndex;
+            if (allAtoms[i].atomType == LITERAL_ATOM) {
+                (matchStartIndex, matchEndIndex) = matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch);
+            }
         }
+    }
+
+    function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch)
+        private
+        returns (int256, int256)
+    {
+        int256 startFoundIndex = -1;
+        int256 endFoundIndex;
+        uint256 indexIncrementRate = atom.length;
+
+        for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+            endFoundIndex = int256(i + indexIncrementRate - 1);
+            bytes memory stringChunk = trimString(stringInBytes, i, endFoundIndex);
+
+            if (atom == stringChunk) {
+                startFoundIndex = i;
+                break;
+            }
+        }
+
+        if (startFoundIndex == -1) {
+            endFoundIndex = -1;
+        }
+
+        return (startFoundIndex, endFoundIndex);
     }
 
     function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes memory _patternFlags, bool fromGroup)
