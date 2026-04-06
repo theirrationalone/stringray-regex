@@ -1018,27 +1018,27 @@ contract Stringray {
                 (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
                 console2.log("matchStartIndex: ", matchStartIndex);
                 console2.log("matchEndIndex: ", matchEndIndex);
-                if (matchStartIndex > -1) {
-                    indexToStartMatch = uint256(matchStartIndex);
-                    if (i < allAtoms.length - 1) {
-                        if (matchEndIndex == 0) {
-                            matchEndIndex = -1;
-                        } else if (matchEndIndex > 0) {
-                            matchEndIndex = matchEndIndex - 1;
-                        }
-                    }
+                // if (matchStartIndex > -1) {
+                //     indexToStartMatch = uint256(matchStartIndex);
+                //     if (i < allAtoms.length - 1) {
+                //         if (matchEndIndex == 0) {
+                //             matchEndIndex = -1;
+                //         } else if (matchEndIndex > 0) {
+                //             matchEndIndex = matchEndIndex - 1;
+                //         }
+                //     }
 
-                    if (i == allAtoms.length - 1) {
-                        if (matchEndIndex == 0 || allAtoms.length == 1) {
-                            firstIndex = matchStartIndex;
-                            matchEndIndex = -1;
-                            break;
-                        }
-                    }
+                //     if (i == allAtoms.length - 1) {
+                //         if (matchEndIndex == 0 || allAtoms.length == 1) {
+                //             firstIndex = matchStartIndex;
+                //             matchEndIndex = -1;
+                //             break;
+                //         }
+                //     }
 
-                    i++;
-                    continue;
-                }
+                //     i++;
+                //     continue;
+                // }
             } else {
                 matchStartIndex = -1;
             }
@@ -1062,27 +1062,81 @@ contract Stringray {
     }
 
     function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch) private returns (int256, int256) {
-        bool isTrue;
-        int256 boundaryIndex = -1;
-        int256 lastIndex = -1;
-        for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-            if (
-                (i == 0 && isWord(stringInBytes[i], false))
-                    || (i > 0 && isWord(stringInBytes[i], false) && i != indexToStartMatch)
-            ) {
-                boundaryIndex = int256(i);
-                lastIndex = int256(i);
-                break;
-            } else if (i > 0 && !isWord(stringInBytes[i], false) && i == indexToStartMatch) {
-                boundaryIndex = int256(i - 1);
-                lastIndex = int256(i - 1);
+        int256 boundaryLeftIndex = -1;
+        int256 boundaryRightIndex = -1;
+        uint256 stringLength = stringInBytes.length;
+
+        for (uint256 i = indexToStartMatch; i < stringLength; i++) {
+            if (i == 0 && isWord(stringInBytes[i], false)) {
+                boundaryLeftIndex = 0;
+                boundaryRightIndex = 0;
                 break;
             }
 
-            lastIndex = int256(i);
+            if (i == stringLength - 1 && isWord(stringInBytes[i], false)) {
+                boundaryLeftIndex = i;
+                boundaryRightIndex = i;
+                break;
+            }
+
+            if (
+                i == 0 && !isWord(stringInBytes[i], false) && i + 1 < stringLength
+                    && isWord(stringInBytes[i + 1], false)
+            ) {
+                boundaryLeftIndex = i + 1;
+                boundaryRightIndex = i + 1;
+                break;
+            }
+
+            if (
+                i == stringLength - 1 && !isWord(stringInBytes[i], false) && i - 1 > 0
+                    && isWord(stringInBytes[i - 1], false)
+            ) {
+                boundaryLeftIndex = i - 1;
+                boundaryRightIndex = i - 1;
+                break;
+            }
+
+            if (
+                !isWord(stringInBytes[i], false) && i + 1 < stringLength && isWord(stringInBytes[i + 1], false)
+                    && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
+            ) {
+                boundaryLeftIndex = i - 1;
+                boundaryRightIndex = i + 1;
+                break;
+            }
+
+            if (
+                !isWord(stringInBytes[i], false) && i + 1 < stringLength && !isWord(stringInBytes[i + 1], false)
+                    && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
+            ) {
+                boundaryRightIndex = -1;
+                boundaryLeftIndex = i - 1;
+                break;
+            }
         }
 
-        return (boundaryIndex, lastIndex);
+        // bool isTrue;
+        // int256 boundaryIndex = -1;
+        // int256 lastIndex = -1;
+        // for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+        //     if (
+        //         (i == 0 && isWord(stringInBytes[i], false))
+        //             || (i > 0 && isWord(stringInBytes[i], false) && i != indexToStartMatch)
+        //     ) {
+        //         boundaryIndex = int256(i);
+        //         lastIndex = int256(i);
+        //         break;
+        //     } else if (i > 0 && !isWord(stringInBytes[i], false) && i == indexToStartMatch) {
+        //         boundaryIndex = int256(i - 1);
+        //         lastIndex = int256(i - 1);
+        //         break;
+        //     }
+
+        //     lastIndex = int256(i);
+        // }
+
+        // return (boundaryIndex, lastIndex);
     }
 
     function matchEscapeLiteral(
