@@ -16591,7 +16591,7 @@ const testMain = () => {
 
   test("Pattern match cases: Case0000000000000000000000010", () => {
     const target = "dev@anil!ak";
-    let regex = /\banil\bak\b/;
+    let regex = /\banil\b/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });

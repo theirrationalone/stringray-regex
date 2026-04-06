@@ -1013,8 +1013,13 @@ contract Stringray {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (atomType == WORD_BOUNDARY) {
-                (matchStartIndex, matchEndIndex) =
-                    matchWordBoundary(atom, stringInBytes, indexToStartMatch, isFirstMatch);
+                (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
+                if (matchStartIndex > -1) {
+                    indexToStartMatch = uint256(matchStartIndex);
+                    matchEndIndex = -1;
+                    i++;
+                    continue;
+                }
             } else {
                 matchStartIndex = -1;
             }
@@ -1035,18 +1040,22 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchWordBoundary(
-        bytes memory atom,
-        bytes memory stringInBytes,
-        uint256 indexToStartMatch,
-        bool isFirstMatch
-    ) private returns (int256, int256) {
-        for (uint256 i; i < stringInBytes.length; i++) {
-            bool isTrue = isWord(stringInBytes[i], false);
-            if (isTrue) break;
+    function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch) private returns (int256, int256) {
+        bool isTrue;
+        int256 boundaryIndex = -1;
+        int256 lastIndex = -1;
+        for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+            isTrue = isWord(stringInBytes[i], false);
+            if (isTrue) {
+                if (i == 0 || (i > 0 && !isWord(stringInBytes[i - 1], false))) {
+                    boundaryIndex = int256(i);
+                    break;
+                }
+            }
+            lastIndex = int256(i);
         }
 
-        return (-1, -1);
+        return (boundaryIndex, lastIndex);
     }
 
     function matchEscapeLiteral(
