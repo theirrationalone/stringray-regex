@@ -1012,6 +1012,9 @@ contract Stringray {
             } else if (atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atomType == WORD_BOUNDARY) {
+                (matchStartIndex, matchEndIndex) =
+                    matchWordBoundary(atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
                 matchStartIndex = -1;
             }
@@ -1030,6 +1033,20 @@ contract Stringray {
         }
 
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchWordBoundary(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        for (uint256 i; i < stringInBytes.length; i++) {
+            bool isTrue = isWord(stringInBytes[i], false);
+            if (isTrue) break;
+        }
+
+        return (-1, -1);
     }
 
     function matchEscapeLiteral(
