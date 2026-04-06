@@ -17114,7 +17114,7 @@ contract Stringray {
         return (false, 0);
     }
 
-    function unicodeHexToUtf8Hex(bytes memory _unicodeHex) internal pure returns (bytes memory) {
+    function unicodeHexToUtf8Hex(bytes memory _unicodeHex) public pure returns (bytes memory) {
         (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, _unicodeHex, 0, abi.encode(""), false);
 
         if (!isValid) {
@@ -17206,7 +17206,7 @@ contract Stringray {
         return utf8Hex;
     }
 
-    function utf8HexToUnicodeHex(bytes memory _utf8Hex) internal pure returns (bytes memory) {
+    function utf8HexToUnicodeHex(bytes memory _utf8Hex) public pure returns (bytes memory) {
         uint256 numBytes = _utf8Hex.length;
         bytes memory unicodeHex;
 

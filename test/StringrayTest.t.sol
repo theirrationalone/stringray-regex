@@ -18314,4 +18314,55 @@ contract PlayStringTest is Test {
         console2.log("Match end index  : ", returnedData.matchEndIndex);
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchCase5() public {
+        string memory smilingFace = unicode"😆";
+
+        bytes memory expectedSmilingFaceUtf8Hex = abi.encodePacked(smilingFace);
+        bytes memory expectedSmilingFaceUnicodeHex = hex"01f606";
+
+        bytes memory smilingFaceUnicodeHex = stringray.utf8HexToUnicodeHex(expectedSmilingFaceUtf8Hex);
+        bytes memory smilingFaceUtf8Hex = stringray.unicodeHexToUtf8Hex(unicode"\\u{01f606}");
+
+        console2.log("----------unicode to utf8 & vice versa----------");
+        console2.log(unicode"unicode of 😆: ");
+        console2.logBytes(smilingFaceUnicodeHex);
+
+        console2.log(unicode"utf8 of 😆: ");
+        console2.logBytes(smilingFaceUtf8Hex);
+
+        assertEq(keccak256(smilingFaceUnicodeHex), keccak256(expectedSmilingFaceUnicodeHex));
+        assertEq(keccak256(smilingFaceUtf8Hex), keccak256(expectedSmilingFaceUtf8Hex));
+        console2.log("--------------------");
+
+        int256 expectedMatchStartIndex = 8;
+        int256 expectedMatchEndIndex = expectedMatchStartIndex + int256(expectedSmilingFaceUtf8Hex.length + 3);
+        string memory expectedMatchString = unicode"F😆ces";
+
+        string memory target = unicode"matchTheF😆cesOfEmojis";
+        string memory pattern = unicode"/F😆ces/";
+
+        console2.log("----------Pattern & Target strings----------");
+        console2.log("Target in bytes: ");
+        console2.logBytes(bytes(target));
+        console2.log("Pattern in bytes: ");
+        console2.logBytes(bytes(pattern));
+        console2.log("--------------------");
+
+        // 😆: 1F606
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+
+        assertEq(expectedMatchStartIndex, returnedData.matchStartIndex);
+        assertEq(expectedMatchEndIndex, returnedData.matchEndIndex);
+        assertEq(
+            keccak256(abi.encodePacked(expectedMatchString)), keccak256(abi.encodePacked(returnedData.matchedString))
+        );
+    }
 }

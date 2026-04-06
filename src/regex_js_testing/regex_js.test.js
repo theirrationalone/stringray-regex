@@ -16553,5 +16553,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case000000000000000000000005", () => {
+    const target = "matchTheF😆cesOfEmojis";
+    let regex = /F😆ces/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
