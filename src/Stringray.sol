@@ -1020,11 +1020,22 @@ contract Stringray {
                 console2.log("matchEndIndex: ", matchEndIndex);
                 if (matchStartIndex > -1) {
                     indexToStartMatch = uint256(matchStartIndex);
-                    if (matchEndIndex == 0) {
-                        matchEndIndex = -1;
-                    } else if (matchEndIndex > 0 && i < allAtoms.length - 1) {
-                        matchEndIndex = matchEndIndex - 1;
+                    if (i < allAtoms.length - 1) {
+                        if (matchEndIndex == 0) {
+                            matchEndIndex = -1;
+                        } else if (matchEndIndex > 0) {
+                            matchEndIndex = matchEndIndex - 1;
+                        }
                     }
+
+                    if (i == allAtoms.length - 1) {
+                        if (matchEndIndex == 0 || allAtoms.length == 1) {
+                            firstIndex = matchStartIndex;
+                            matchEndIndex = -1;
+                            break;
+                        }
+                    }
+
                     i++;
                     continue;
                 }
@@ -1045,6 +1056,8 @@ contract Stringray {
             i++;
         }
 
+        console2.log("firstIndex just before return: ", firstIndex);
+        console2.log("matchEndIndex just before return: ", matchEndIndex);
         return (firstIndex, matchEndIndex);
     }
 

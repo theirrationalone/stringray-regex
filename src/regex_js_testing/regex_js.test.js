@@ -16602,5 +16602,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
+
+  test("Pattern match cases: Case0000000000000000000000012", () => {
+    const target = "dev@anil!ak";
+    let regex = /\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000013", () => {
+    const target = "##@anil!ak";
+    let regex = /\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000014", () => {
+    const target = "##@anil!ak";
+    let regex = /\b\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
