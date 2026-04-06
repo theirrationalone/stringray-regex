@@ -16560,5 +16560,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case000000000000000000000006", () => {
+    const target = "anilmatchTheF😆cesOfEmojis";
+    let regex = /m\atc\h/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

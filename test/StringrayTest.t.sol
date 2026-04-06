@@ -18365,4 +18365,18 @@ contract PlayStringTest is Test {
             keccak256(abi.encodePacked(expectedMatchString)), keccak256(abi.encodePacked(returnedData.matchedString))
         );
     }
+
+    function testRegexPatternMatchCase6() public {
+        string memory target = unicode"anilmatchTheF😆cesOfEmojis";
+        string memory pattern = unicode"/m\\atc\\h/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 }

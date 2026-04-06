@@ -331,6 +331,7 @@ contract Stringray {
 
     bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
+    bytes32 private constant ESCAPE_LITERAL_ATOM = "ESCAPE_LITERAL_ATOM";
     bytes32 private constant DOT_ATOM = "DOT_ATOM";
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
     bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
@@ -998,9 +999,16 @@ contract Stringray {
                 }
             }
 
+            printAtomType(allAtoms[i].atomType);
+
             if (allAtoms[i].atomType == LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
+                (matchStartIndex, matchEndIndex) =
+                    matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else {
+                matchStartIndex = -1;
             }
 
             if (matchStartIndex == -1) {
@@ -1017,6 +1025,22 @@ contract Stringray {
         }
 
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchEscapeLiteral(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        bytes memory extractedAtom = trimString(atom, 1, int256(atom.length - 1));
+
+        console2.log("extracted atom: ", string(extractedAtom));
+
+        (int256 matchStartIndex, int256 matchEndIndex) =
+            matchLiteral(extractedAtom, stringInBytes, indexToStartMatch, isFirstMatch);
+
+        return (matchStartIndex, matchEndIndex);
     }
 
     function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -1670,7 +1694,7 @@ contract Stringray {
 
                     throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", errorRight, _patternFlags);
                 }
-                atomType = LITERAL_ATOM;
+                atomType = ESCAPE_LITERAL_ATOM;
             }
         }
 
@@ -2591,6 +2615,8 @@ contract Stringray {
     function printAtomType(bytes32 atomType) private pure {
         if (atomType == LITERAL_ATOM) {
             console2.log("Atom Type: LITERAL_ATOM");
+        } else if (atomType == ESCAPE_LITERAL_ATOM) {
+            console2.log("Atom Type: ESCAPE_LITERAL_ATOM");
         } else if (atomType == DOT_ATOM) {
             console2.log("Atom Type: DOT_ATOM");
         } else if (atomType == CARET_ANCHOR) {
