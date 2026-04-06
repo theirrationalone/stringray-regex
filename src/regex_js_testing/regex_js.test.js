@@ -16581,5 +16581,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case000000000000000000000009", () => {
+    const target = "letstestabcdefghijklmnopqrstuvwxyzendshere";
+    let regex = /\abcd\ef\g\h\i\j\k\l\mn\o\p\qrst\uv\w\x\y\z/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
