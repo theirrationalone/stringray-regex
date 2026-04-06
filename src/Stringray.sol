@@ -999,14 +999,19 @@ contract Stringray {
                 }
             }
 
-            printAtomType(allAtoms[i].atomType);
+            bytes32 atomType = allAtoms[i].atomType;
+            bytes memory atom = allAtoms[i].atom;
 
-            if (allAtoms[i].atomType == LITERAL_ATOM) {
+            console2.log("----------atom info----------");
+            printAtomType(atomType);
+            console2.log("atom: ", string(atom));
+            console2.log("--------------------");
+
+            if (atomType == LITERAL_ATOM || atomType == TAB) {
+                (matchStartIndex, matchEndIndex) = matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
-                    matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
-                (matchStartIndex, matchEndIndex) =
-                    matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+                    matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
                 matchStartIndex = -1;
             }
@@ -1034,8 +1039,7 @@ contract Stringray {
         bool isFirstMatch
     ) private returns (int256, int256) {
         bytes memory extractedAtom = trimString(atom, 1, int256(atom.length - 1));
-
-        console2.log("extracted atom: ", string(extractedAtom));
+        console2.log("extractedAtom: ", string(extractedAtom));
 
         (int256 matchStartIndex, int256 matchEndIndex) =
             matchLiteral(extractedAtom, stringInBytes, indexToStartMatch, isFirstMatch);
