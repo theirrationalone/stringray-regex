@@ -1005,6 +1005,8 @@ contract Stringray {
             console2.log("----------atom info----------");
             printAtomType(atomType);
             console2.log("atom: ", string(atom));
+            console2.log("indexToStartMatch: ", indexToStartMatch);
+            console2.log("isFirstMatch: ", isFirstMatch);
             console2.log("--------------------");
 
             if (atomType == LITERAL_ATOM || atomType == TAB) {
@@ -1014,9 +1016,15 @@ contract Stringray {
                     matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (atomType == WORD_BOUNDARY) {
                 (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
+                console2.log("matchStartIndex: ", matchStartIndex);
+                console2.log("matchEndIndex: ", matchEndIndex);
                 if (matchStartIndex > -1) {
                     indexToStartMatch = uint256(matchStartIndex);
-                    matchEndIndex = -1;
+                    if (matchEndIndex == 0) {
+                        matchEndIndex = -1;
+                    } else if (matchEndIndex > 0 && i < allAtoms.length - 1) {
+                        matchEndIndex = matchEndIndex - 1;
+                    }
                     i++;
                     continue;
                 }
@@ -1045,13 +1053,19 @@ contract Stringray {
         int256 boundaryIndex = -1;
         int256 lastIndex = -1;
         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-            isTrue = isWord(stringInBytes[i], false);
-            if (isTrue) {
-                if (i == 0 || (i > 0 && !isWord(stringInBytes[i - 1], false))) {
-                    boundaryIndex = int256(i);
-                    break;
-                }
+            if (
+                (i == 0 && isWord(stringInBytes[i], false))
+                    || (i > 0 && isWord(stringInBytes[i], false) && i != indexToStartMatch)
+            ) {
+                boundaryIndex = int256(i);
+                lastIndex = int256(i);
+                break;
+            } else if (i > 0 && !isWord(stringInBytes[i], false) && i == indexToStartMatch) {
+                boundaryIndex = int256(i - 1);
+                lastIndex = int256(i - 1);
+                break;
             }
+
             lastIndex = int256(i);
         }
 

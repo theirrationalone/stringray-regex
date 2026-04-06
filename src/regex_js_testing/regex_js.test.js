@@ -16595,5 +16595,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000011", () => {
+    const target = "dev@anil!ak";
+    let regex = /\banil\bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();
