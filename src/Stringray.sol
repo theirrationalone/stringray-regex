@@ -1016,8 +1016,21 @@ contract Stringray {
                     matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (atomType == WORD_BOUNDARY) {
                 (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
-                console2.log("matchStartIndex: ", matchStartIndex);
-                console2.log("matchEndIndex: ", matchEndIndex);
+
+                if (i == 0) {
+                    if (matchEndIndex > 0) {
+                        matchEndIndex -= 1;
+                    } else {
+                        matchEndIndex = -1;
+                    }
+                } else {
+                    if (matchStartIndex > 0) {
+                        matchEndIndex = matchStartIndex;
+                    } else {
+                        matchEndIndex = -1;
+                    }
+                }
+
                 // if (matchStartIndex > -1) {
                 //     indexToStartMatch = uint256(matchStartIndex);
                 //     if (i < allAtoms.length - 1) {
@@ -1043,6 +1056,9 @@ contract Stringray {
                 matchStartIndex = -1;
             }
 
+            console2.log("matchStartIndex: ", matchStartIndex);
+            console2.log("matchEndIndex: ", matchEndIndex);
+
             if (matchStartIndex == -1) {
                 indexToStartMatch = uint256(matchEndIndex);
                 isFirstMatch = true;
@@ -1062,59 +1078,78 @@ contract Stringray {
     }
 
     function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch) private returns (int256, int256) {
-        int256 boundaryLeftIndex = -1;
-        int256 boundaryRightIndex = -1;
         uint256 stringLength = stringInBytes.length;
 
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
-            if (i == 0 && isWord(stringInBytes[i], false)) {
-                boundaryLeftIndex = 0;
-                boundaryRightIndex = 0;
-                break;
-            }
+            if (isWord(stringInBytes[i], false)) {
+                if (i == 0) {
+                    return (0, 0);
+                }
 
-            if (i == stringLength - 1 && isWord(stringInBytes[i], false)) {
-                boundaryLeftIndex = i;
-                boundaryRightIndex = i;
-                break;
-            }
+                if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
+                    for (uint256 j = i - 1; j >= 0; j--) {
+                        if (isWord(stringInBytes[j], false)) {
+                            return (int256(j), int256(i));
+                        }
+                        if (j == 0) break;
+                    }
 
-            if (
-                i == 0 && !isWord(stringInBytes[i], false) && i + 1 < stringLength
-                    && isWord(stringInBytes[i + 1], false)
-            ) {
-                boundaryLeftIndex = i + 1;
-                boundaryRightIndex = i + 1;
-                break;
-            }
-
-            if (
-                i == stringLength - 1 && !isWord(stringInBytes[i], false) && i - 1 > 0
-                    && isWord(stringInBytes[i - 1], false)
-            ) {
-                boundaryLeftIndex = i - 1;
-                boundaryRightIndex = i - 1;
-                break;
-            }
-
-            if (
-                !isWord(stringInBytes[i], false) && i + 1 < stringLength && isWord(stringInBytes[i + 1], false)
-                    && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
-            ) {
-                boundaryLeftIndex = i - 1;
-                boundaryRightIndex = i + 1;
-                break;
-            }
-
-            if (
-                !isWord(stringInBytes[i], false) && i + 1 < stringLength && !isWord(stringInBytes[i + 1], false)
-                    && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
-            ) {
-                boundaryRightIndex = -1;
-                boundaryLeftIndex = i - 1;
-                break;
+                    return (-1, int256(i));
+                }
             }
         }
+
+        return (-1, -1);
+
+        // for (uint256 i = indexToStartMatch; i < stringLength; i++) {
+        //     if (i == 0 && isWord(stringInBytes[i], false)) {
+        //         boundaryLeftIndex = 0;
+        //         boundaryRightIndex = 0;
+        //         break;
+        //     }
+
+        //     if (i == stringLength - 1 && isWord(stringInBytes[i], false)) {
+        //         boundaryLeftIndex = i;
+        //         boundaryRightIndex = i;
+        //         break;
+        //     }
+
+        //     if (
+        //         i == 0 && !isWord(stringInBytes[i], false) && i + 1 < stringLength
+        //             && isWord(stringInBytes[i + 1], false)
+        //     ) {
+        //         boundaryLeftIndex = i + 1;
+        //         boundaryRightIndex = i + 1;
+        //         break;
+        //     }
+
+        //     if (
+        //         i == stringLength - 1 && !isWord(stringInBytes[i], false) && i - 1 > 0
+        //             && isWord(stringInBytes[i - 1], false)
+        //     ) {
+        //         boundaryLeftIndex = i - 1;
+        //         boundaryRightIndex = i - 1;
+        //         break;
+        //     }
+
+        //     if (
+        //         !isWord(stringInBytes[i], false) && i + 1 < stringLength && isWord(stringInBytes[i + 1], false)
+        //             && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
+        //     ) {
+        //         boundaryLeftIndex = i - 1;
+        //         boundaryRightIndex = i + 1;
+        //         break;
+        //     }
+
+        //     if (
+        //         !isWord(stringInBytes[i], false) && i + 1 < stringLength && !isWord(stringInBytes[i + 1], false)
+        //             && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
+        //     ) {
+        //         boundaryRightIndex = -1;
+        //         boundaryLeftIndex = i - 1;
+        //         break;
+        //     }
+        // }
 
         // bool isTrue;
         // int256 boundaryIndex = -1;
