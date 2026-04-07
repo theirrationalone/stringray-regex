@@ -1010,16 +1010,26 @@ contract Stringray {
             } else if (allAtoms[i].atomType == WORD_BOUNDARY) {
                 (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
 
+                console2.log("before update matchEndIndex: ", matchEndIndex);
+                // ##@anil!ak
+                // \b\banil\bak
+
                 if (matchEndIndex > -1) {
-                    if (firstIndex == -1) {
-                        firstIndex = matchEndIndex;
+                    if (matchStartIndex > -1) {
+                        if (firstIndex == -1) {
+                            firstIndex = matchStartIndex;
+                        }
+                    } else {
+                        if (firstIndex == -1) {
+                            firstIndex = matchEndIndex;
+                        }
                     }
 
                     if (i > 0) {
                         matchEndIndex = matchStartIndex;
                     }
 
-                    indexToStartMatch = uint256(matchEndIndex);
+                    indexToStartMatch = matchEndIndex == -1 ? indexToStartMatch : uint256(matchEndIndex);
                     wordBoundary = true;
 
                     console2.log("matchStartIndex: ", matchStartIndex);

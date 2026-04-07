@@ -16623,5 +16623,33 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000015", () => {
+    const target = "##@anil!ak";
+    let regex = /\b\banil/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000016", () => {
+    const target = "##@anil!ak";
+    let regex = /\b\banil\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000017", () => {
+    const target = "##@anil!ak";
+    let regex = /\b\banil\bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000018", () => {
+    const target = "##@anil!ak";
+    let regex = /\b\banil\b\bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
