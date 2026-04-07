@@ -977,12 +977,9 @@ contract Stringray {
 
         uint256 indexToStartMatch;
         bool isFirstMatch;
+        bool wordBoundary;
 
         for (uint256 i; i < allAtoms.length;) {
-            if (indexToStartMatch >= stringInBytes.length - 1) {
-                break;
-            }
-
             if (matchEndIndex > -1) {
                 if (firstIndex == -1) {
                     firstIndex = matchStartIndex;
@@ -991,67 +988,51 @@ contract Stringray {
                 if (isFirstMatch) {
                     isFirstMatch = false;
                 }
-
-                indexToStartMatch = uint256(matchEndIndex) + 1;
             } else {
                 if (!isFirstMatch) {
                     isFirstMatch = true;
                 }
             }
 
-            bytes32 atomType = allAtoms[i].atomType;
-            bytes memory atom = allAtoms[i].atom;
-
             console2.log("----------atom info----------");
-            printAtomType(atomType);
-            console2.log("atom: ", string(atom));
+            printAtomType(allAtoms[i].atomType);
+            console2.log("atom: ", string(allAtoms[i].atom));
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("isFirstMatch: ", isFirstMatch);
             console2.log("--------------------");
 
-            if (atomType == LITERAL_ATOM || atomType == TAB) {
-                (matchStartIndex, matchEndIndex) = matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atomType == ESCAPE_LITERAL_ATOM) {
+            if (allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB) {
                 (matchStartIndex, matchEndIndex) =
-                    matchEscapeLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atomType == WORD_BOUNDARY) {
+                    matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
+                (matchStartIndex, matchEndIndex) =
+                    matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == WORD_BOUNDARY) {
                 (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
 
-                if (i == 0) {
-                    if (matchEndIndex > 0) {
-                        matchEndIndex -= 1;
-                    } else {
-                        matchEndIndex = -1;
+                if (matchEndIndex > -1) {
+                    if (firstIndex == -1) {
+                        firstIndex = matchEndIndex;
                     }
-                } else {
-                    if (matchStartIndex > 0) {
+
+                    if (i > 0) {
                         matchEndIndex = matchStartIndex;
-                    } else {
+                    }
+
+                    indexToStartMatch = uint256(matchEndIndex);
+                    wordBoundary = true;
+
+                    console2.log("matchStartIndex: ", matchStartIndex);
+                    console2.log("matchEndIndex: ", matchEndIndex);
+                    console2.log("firstIndex: ", firstIndex);
+                    console2.log("indexToStartMatch: ", indexToStartMatch);
+                    if (i == allAtoms.length - 1 && firstIndex > -1 && firstIndex == matchEndIndex) {
                         matchEndIndex = -1;
                     }
+
+                    i++;
+                    continue;
                 }
-
-                // if (matchStartIndex > -1) {
-                //     indexToStartMatch = uint256(matchStartIndex);
-                //     if (i < allAtoms.length - 1) {
-                //         if (matchEndIndex == 0) {
-                //             matchEndIndex = -1;
-                //         } else if (matchEndIndex > 0) {
-                //             matchEndIndex = matchEndIndex - 1;
-                //         }
-                //     }
-
-                //     if (i == allAtoms.length - 1) {
-                //         if (matchEndIndex == 0 || allAtoms.length == 1) {
-                //             firstIndex = matchStartIndex;
-                //             matchEndIndex = -1;
-                //             break;
-                //         }
-                //     }
-
-                //     i++;
-                //     continue;
-                // }
             } else {
                 matchStartIndex = -1;
             }
@@ -1059,8 +1040,21 @@ contract Stringray {
             console2.log("matchStartIndex: ", matchStartIndex);
             console2.log("matchEndIndex: ", matchEndIndex);
 
+            if (indexToStartMatch >= stringInBytes.length - 1) {
+                if (matchStartIndex == -1) {
+                    firstIndex = -1;
+                    matchEndIndex = -1;
+                }
+                break;
+            }
+
             if (matchStartIndex == -1) {
-                indexToStartMatch = uint256(matchEndIndex);
+                if (wordBoundary) {
+                    indexToStartMatch = uint256(matchEndIndex) + 1;
+                    wordBoundary = false;
+                } else {
+                    indexToStartMatch = uint256(matchEndIndex);
+                }
                 isFirstMatch = true;
                 firstIndex = -1;
                 matchStartIndex = 0;
@@ -1069,6 +1063,8 @@ contract Stringray {
                 i = 0;
                 continue;
             }
+
+            indexToStartMatch = uint256(matchEndIndex) + 1;
             i++;
         }
 
@@ -1096,82 +1092,17 @@ contract Stringray {
 
                     return (-1, int256(i));
                 }
+            } else if (i == stringLength - 1 && !isWord(stringInBytes[i], false)) {
+                for (uint256 j = i - 1; j >= 0; j--) {
+                    if (isWord(stringInBytes[j], false)) {
+                        return (int256(j), int256(j));
+                    }
+                    if (j == 0) break;
+                }
             }
         }
 
         return (-1, -1);
-
-        // for (uint256 i = indexToStartMatch; i < stringLength; i++) {
-        //     if (i == 0 && isWord(stringInBytes[i], false)) {
-        //         boundaryLeftIndex = 0;
-        //         boundaryRightIndex = 0;
-        //         break;
-        //     }
-
-        //     if (i == stringLength - 1 && isWord(stringInBytes[i], false)) {
-        //         boundaryLeftIndex = i;
-        //         boundaryRightIndex = i;
-        //         break;
-        //     }
-
-        //     if (
-        //         i == 0 && !isWord(stringInBytes[i], false) && i + 1 < stringLength
-        //             && isWord(stringInBytes[i + 1], false)
-        //     ) {
-        //         boundaryLeftIndex = i + 1;
-        //         boundaryRightIndex = i + 1;
-        //         break;
-        //     }
-
-        //     if (
-        //         i == stringLength - 1 && !isWord(stringInBytes[i], false) && i - 1 > 0
-        //             && isWord(stringInBytes[i - 1], false)
-        //     ) {
-        //         boundaryLeftIndex = i - 1;
-        //         boundaryRightIndex = i - 1;
-        //         break;
-        //     }
-
-        //     if (
-        //         !isWord(stringInBytes[i], false) && i + 1 < stringLength && isWord(stringInBytes[i + 1], false)
-        //             && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
-        //     ) {
-        //         boundaryLeftIndex = i - 1;
-        //         boundaryRightIndex = i + 1;
-        //         break;
-        //     }
-
-        //     if (
-        //         !isWord(stringInBytes[i], false) && i + 1 < stringLength && !isWord(stringInBytes[i + 1], false)
-        //             && i - 1 > 0 && isWord(stringInBytes[i - 1], false)
-        //     ) {
-        //         boundaryRightIndex = -1;
-        //         boundaryLeftIndex = i - 1;
-        //         break;
-        //     }
-        // }
-
-        // bool isTrue;
-        // int256 boundaryIndex = -1;
-        // int256 lastIndex = -1;
-        // for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-        //     if (
-        //         (i == 0 && isWord(stringInBytes[i], false))
-        //             || (i > 0 && isWord(stringInBytes[i], false) && i != indexToStartMatch)
-        //     ) {
-        //         boundaryIndex = int256(i);
-        //         lastIndex = int256(i);
-        //         break;
-        //     } else if (i > 0 && !isWord(stringInBytes[i], false) && i == indexToStartMatch) {
-        //         boundaryIndex = int256(i - 1);
-        //         lastIndex = int256(i - 1);
-        //         break;
-        //     }
-
-        //     lastIndex = int256(i);
-        // }
-
-        // return (boundaryIndex, lastIndex);
     }
 
     function matchEscapeLiteral(
