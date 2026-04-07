@@ -1012,15 +1012,35 @@ contract Stringray {
                 console2.log("matchStartIndex: ", matchStartIndex);
                 console2.log("matchEndIndex: ", matchEndIndex);
                 console2.log("word boundary: ", wordBoundary);
+                console2.log("indexToStartMatch: ", indexToStartMatch);
 
                 if (matchEndIndex > int256(indexToStartMatch)) {
-                    indexToStartMatch = uint256(matchEndIndex);
                     if (isFirstMatch) {
+                        indexToStartMatch = uint256(matchEndIndex);
                         firstIndex = matchEndIndex;
+                    } else {
+                        if (i == allAtoms.length - 1) {
+                            matchEndIndex = int256(indexToStartMatch - 1);
+                        } else {
+                            matchEndIndex = int256(indexToStartMatch);
+                        }
                     }
+                    wordBoundary = true;
                     i++;
                     continue;
+                } else if (matchEndIndex == int256(indexToStartMatch)) {
+                    if (isFirstMatch) {
+                        matchEndIndex = -1;
+                        i++;
+                        continue;
+                    }
+
+                    if (wordBoundary) {
+                        i++;
+                        continue;
+                    }
                 }
+                // wordBoundary = true;
             } else {
                 matchStartIndex = -1;
             }
