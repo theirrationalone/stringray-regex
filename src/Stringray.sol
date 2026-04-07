@@ -1012,20 +1012,12 @@ contract Stringray {
                 console2.log("matchStartIndex: ", matchStartIndex);
                 console2.log("matchEndIndex: ", matchEndIndex);
                 console2.log("word boundary: ", wordBoundary);
-                if (matchEndIndex > -1) {
-                    if (isFirstMatch) {
-                        indexToStartMatch = uint256(matchEndIndex);
-                        firstIndex = matchEndIndex;
-                    } else {
-                        if (wordBoundary) {
-                            indexToStartMatch = uint256(matchEndIndex);
-                        } else {
-                            indexToStartMatch = matchStartIndex > -1 ? uint256(matchStartIndex) : uint256(matchEndIndex);
-                        }
-                        matchEndIndex = matchStartIndex > -1 ? matchStartIndex : matchEndIndex;
-                    }
 
-                    wordBoundary = true;
+                if (matchEndIndex > int256(indexToStartMatch)) {
+                    indexToStartMatch = uint256(matchEndIndex);
+                    if (isFirstMatch) {
+                        firstIndex = matchEndIndex;
+                    }
                     i++;
                     continue;
                 }
@@ -1077,28 +1069,35 @@ contract Stringray {
 
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
             if (isWord(stringInBytes[i], false)) {
-                if (i == 0) {
-                    return (-1, 0);
+                if (i > 0) {
+                    return (int256(i - 1), int256(i));
                 }
-
-                if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
-                    for (uint256 j = i - 1; j >= 0; j--) {
-                        if (isWord(stringInBytes[j], false)) {
-                            return (int256(j), int256(i));
-                        }
-                        if (j == 0) break;
-                    }
-
-                    return (-1, int256(i));
-                }
-            } else if (i == stringLength - 1 && !isWord(stringInBytes[i], false)) {
-                for (uint256 j = i - 1; j >= 0; j--) {
-                    if (isWord(stringInBytes[j], false)) {
-                        return (int256(j), int256(j));
-                    }
-                    if (j == 0) break;
-                }
+                return (int256(i), int256(i));
             }
+
+            // if (isWord(stringInBytes[i], false)) {
+            //     if (i == 0) {
+            //         return (-1, 0);
+            //     }
+
+            //     if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
+            //         for (uint256 j = i - 1; j >= 0; j--) {
+            //             if (isWord(stringInBytes[j], false)) {
+            //                 return (int256(j), int256(i));
+            //             }
+            //             if (j == 0) break;
+            //         }
+
+            //         return (-1, int256(i));
+            //     }
+            // } else if (i == stringLength - 1 && !isWord(stringInBytes[i], false)) {
+            //     for (uint256 j = i - 1; j >= 0; j--) {
+            //         if (isWord(stringInBytes[j], false)) {
+            //             return (int256(j), int256(j));
+            //         }
+            //         if (j == 0) break;
+            //     }
+            // }
         }
 
         return (-1, -1);
