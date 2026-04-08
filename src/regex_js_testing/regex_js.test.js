@@ -16672,5 +16672,89 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000022", () => {
+    const target = "dev@anil!ak";
+    let regex = /\Banil\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000023", () => {
+    const target = "dev@anil!ak";
+    let regex = /\Banil\Bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000024", () => {
+    const target = "dev@anil!ak";
+    let regex = /\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000025", () => {
+    const target = "##@anil!ak";
+    let regex = /\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000026", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000027", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\Banil/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000028", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\Banil\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000029", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\Banil\Bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000030", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\Banil\B\Bak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000031", () => {
+    const target = "##a@anil!ak";
+    let regex = /\Bn\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000032", () => {
+    const target = "##@anil!ak";
+    let regex = /\B\Banil\B!ak/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000033", () => {
+    const target = "##@anil!ak";
+    let regex = /\Banil/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

@@ -1007,8 +1007,12 @@ contract Stringray {
             } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == WORD_BOUNDARY) {
-                (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch);
+            } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
+                if (allAtoms[i].atomType == WORD_BOUNDARY) {
+                    (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
+                } else {
+                    (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, true);
+                }
                 console2.log("matchStartIndex: ", matchStartIndex);
                 console2.log("matchEndIndex: ", matchEndIndex);
                 console2.log("word boundary: ", wordBoundary);
@@ -1094,6 +1098,16 @@ contract Stringray {
             }
         }
 
+        if (!allBoundaries) {
+            allBoundaries = true;
+            for (uint256 i = 0; i < allAtoms.length; i++) {
+                if (allAtoms[i].atomType != NOT_WORD_BOUNDARY) {
+                    allBoundaries = false;
+                    break;
+                }
+            }
+        }
+
         if (allBoundaries) {
             firstIndex = matchEndIndex > -1 ? matchEndIndex : int256(0);
             matchEndIndex = -1;
@@ -1102,12 +1116,15 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch) private returns (int256, int256) {
+    function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch, bool isNegation)
+        private
+        returns (int256, int256)
+    {
         uint256 stringLength = stringInBytes.length;
 
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
-            if (isWord(stringInBytes[i], false)) {
-                if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
+            if (isWord(stringInBytes[i], isNegation)) {
+                if (i > 0 && !isWord(stringInBytes[i - 1], isNegation)) {
                     return (int256(i - 1), int256(i));
                 } else if (i == 0) {
                     return (int256(i), int256(i));
