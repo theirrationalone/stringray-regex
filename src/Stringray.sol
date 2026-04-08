@@ -1047,6 +1047,17 @@ contract Stringray {
                         i++;
                         continue;
                     }
+                } else if (matchEndIndex == -1) {
+                    isFirstMatch = true;
+                    firstIndex = -1;
+                    matchStartIndex = 0;
+                    matchEndIndex = -1;
+                    indexToStartMatch += 1;
+                    console2.log("matchStartIndex: ", matchStartIndex);
+                    console2.log("matchEndIndex: ", matchEndIndex);
+                    console2.log("indexToStartMatch: ", indexToStartMatch);
+                    i = 0;
+                    continue;
                 }
             } else {
                 matchStartIndex = -1;
@@ -1090,7 +1101,7 @@ contract Stringray {
 
         console2.log("firstIndex just before return: ", firstIndex);
         console2.log("matchEndIndex just before return: ", matchEndIndex);
-        if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length - 1) {
+        if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
         return (firstIndex, matchEndIndex);
@@ -1131,25 +1142,52 @@ contract Stringray {
 
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
             if (isNegation) {
-                if (i == 0 && !isWord(stringInBytes[i], false)) {
-                    return (int256(i), int256(i));
+                if (i == 0) {
+                    if (!isWord(stringInBytes[i], false)) {
+                        return (int256(i), int256(i));
+                    }
+
+                    if (isWord(stringInBytes[i], false)) {
+                        return (-1, -1);
+                    }
                 }
 
                 if (i > 0) {
+                    if (
+                        i == stringLength - 1 && isWord(stringInBytes[i - 1], false) && !isWord(stringInBytes[i], false)
+                    ) {
+                        return (int256(i), int256(i));
+                    }
+
                     if (isWord(stringInBytes[i], false) && isWord(stringInBytes[i - 1], false)) {
-                        if (i < StringLength && isWord(stringInBytes[i + 1], false)) {
-                            return (int256(i - 1), int256(i));
-                        }
+                        return (int256(i - 1), int256(i));
+                    }
+
+                    if (!isWord(stringInBytes[i], false) && !isWord(stringInBytes[i - 1], false)) {
+                        return (int256(i - 1), int256(i));
                     }
                 }
             }
 
             if (!isNegation) {
-                if (isWord(stringInBytes[i], false)) {
-                    if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
-                        return (int256(i - 1), int256(i));
-                    } else if (i == 0) {
+                if (i == 0) {
+                    if (isWord(stringInBytes[i], false)) {
                         return (int256(i), int256(i));
+                    }
+
+                    if (!isWord(stringInBytes[i], false)) {
+                        return (-1, -1);
+                    }
+                }
+
+                if (i > 0) {
+                    if (i == stringLength - 1 && isWord(stringInBytes[i - 1], false) && isWord(stringInBytes[i], false))
+                    {
+                        return (int256(i), int256(i));
+                    }
+
+                    if (isWord(stringInBytes[i], false) && !isWord(stringInBytes[i - 1], false)) {
+                        return (int256(i - 1), int256(i));
                     }
                 }
             }
