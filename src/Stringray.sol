@@ -1040,7 +1040,6 @@ contract Stringray {
                         continue;
                     }
                 }
-                // wordBoundary = true;
             } else {
                 matchStartIndex = -1;
             }
@@ -1079,8 +1078,27 @@ contract Stringray {
             i++;
         }
 
+        (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
+
         console2.log("firstIndex just before return: ", firstIndex);
         console2.log("matchEndIndex just before return: ", matchEndIndex);
+        return (firstIndex, matchEndIndex);
+    }
+
+    function boundaryCheck(int256 firstIndex, int256 matchEndIndex) private returns (int256, int256) {
+        bool allBoundaries = true;
+        for (uint256 i; i < allAtoms.length; i++) {
+            if (allAtoms[i].atomType != WORD_BOUNDARY) {
+                allBoundaries = false;
+                break;
+            }
+        }
+
+        if (allBoundaries) {
+            firstIndex = matchEndIndex > -1 ? matchEndIndex : int256(0);
+            matchEndIndex = -1;
+        }
+
         return (firstIndex, matchEndIndex);
     }
 
@@ -1095,30 +1113,6 @@ contract Stringray {
                     return (int256(i), int256(i));
                 }
             }
-
-            // if (isWord(stringInBytes[i], false)) {
-            //     if (i == 0) {
-            //         return (-1, 0);
-            //     }
-
-            //     if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
-            //         for (uint256 j = i - 1; j >= 0; j--) {
-            //             if (isWord(stringInBytes[j], false)) {
-            //                 return (int256(j), int256(i));
-            //             }
-            //             if (j == 0) break;
-            //         }
-
-            //         return (-1, int256(i));
-            //     }
-            // } else if (i == stringLength - 1 && !isWord(stringInBytes[i], false)) {
-            //     for (uint256 j = i - 1; j >= 0; j--) {
-            //         if (isWord(stringInBytes[j], false)) {
-            //             return (int256(j), int256(j));
-            //         }
-            //         if (j == 0) break;
-            //     }
-            // }
         }
 
         return (-1, -1);
