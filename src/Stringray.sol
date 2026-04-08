@@ -1147,9 +1147,7 @@ contract Stringray {
                         return (int256(i), int256(i));
                     }
 
-                    if (isWord(stringInBytes[i], false)) {
-                        return (-1, -1);
-                    }
+                    return (-1, -1);
                 }
 
                 if (i > 0) {
@@ -1166,6 +1164,8 @@ contract Stringray {
                     if (!isWord(stringInBytes[i], false) && !isWord(stringInBytes[i - 1], false)) {
                         return (int256(i - 1), int256(i));
                     }
+
+                    return (-1, -1);
                 }
             }
 
@@ -1175,9 +1175,7 @@ contract Stringray {
                         return (int256(i), int256(i));
                     }
 
-                    if (!isWord(stringInBytes[i], false)) {
-                        return (-1, -1);
-                    }
+                    return (-1, -1);
                 }
 
                 if (i > 0) {
@@ -1189,13 +1187,12 @@ contract Stringray {
                     if (isWord(stringInBytes[i], false) && !isWord(stringInBytes[i - 1], false)) {
                         return (int256(i - 1), int256(i));
                     }
+
+                    return (-1, -1);
                 }
             }
         }
 
-        if (isNegation) {
-            return (-1, int256(stringInBytes.length));
-        }
         return (-1, -1);
     }
 
