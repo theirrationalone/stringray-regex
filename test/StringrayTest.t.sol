@@ -18717,7 +18717,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCase31() public {
-        string memory target = unicode"##@anil!ak";
+        string memory target = unicode"##a@anil!ak";
         string memory pattern = unicode"/\\Bn\\B/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
