@@ -1089,10 +1089,11 @@ contract Stringray {
 
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
             if (isWord(stringInBytes[i], false)) {
-                if (i > 0) {
+                if (i > 0 && !isWord(stringInBytes[i - 1], false)) {
                     return (int256(i - 1), int256(i));
+                } else if (i == 0) {
+                    return (int256(i), int256(i));
                 }
-                return (int256(i), int256(i));
             }
 
             // if (isWord(stringInBytes[i], false)) {
