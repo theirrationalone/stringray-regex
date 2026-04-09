@@ -1100,8 +1100,11 @@ contract Stringray {
         }
         if (matchEndIndex > -1) {
             if (
-                allAtoms[allAtoms.length - 1].atomType == WORD_BOUNDARY
-                    && !isWord(stringInBytes[stringInBytes.length - 1], false)
+                matchEndIndex == int256(stringInBytes.length - 1)
+                    && ((allAtoms[allAtoms.length - 1].atomType == WORD_BOUNDARY
+                            && !isWord(stringInBytes[stringInBytes.length - 1], false))
+                        || (allAtoms[allAtoms.length - 1].atomType == NOT_WORD_BOUNDARY
+                            && !isWord(stringInBytes[stringInBytes.length - 1], false)))
             ) {
                 firstIndex = -1;
                 matchEndIndex = -1;
