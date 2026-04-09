@@ -16861,5 +16861,110 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000049", () => {
+    const target = "admin123";
+    let regex = /\badmin\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000050", () => {
+    const target = "नमस्ते दुनिया";
+    let regex = /\bनमस्ते\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000051", () => {
+    const target = "!!!";
+    let regex = /\b!\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000052", () => {
+    const target = "education";
+    let regex = /\Bcat\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000053", () => {
+    const target = "cat";
+    let regex = /\Bcat/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000054", () => {
+    const target = "!!hello!!";
+    let regex = /\Bhello\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000055", () => {
+    const target = "foo.bar";
+    let regex = /\bbar\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000056", () => {
+    const target = "🔥fire🔥";
+    let regex = /\bfire\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000057", () => {
+    const target = "abcनमस्तेxyz";
+    let regex = /\bनमस्ते\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000058", () => {
+    const target = "hi‍there";
+    let regex = /\bthere\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000059", () => {
+    const target = "foo_bar-baz123🔥test";
+    let regex = /\btest\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000060", () => {
+    const target = "123abc456";
+    let regex = /\Babc\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000061", () => {
+    const target = " café ";
+    let regex = /\bcafé\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000062", () => {
+    const target = " café ";
+    let regex = /\Bcafé\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000063", () => {
+    const target = " café ";
+    let regex = /\bcafé\B/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

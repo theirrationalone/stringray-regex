@@ -18967,4 +18967,214 @@ contract PlayStringTest is Test {
         console2.log("Match end index  : ", returnedData.matchEndIndex);
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchCase49() public {
+        string memory target = unicode"admin123";
+        string memory pattern = unicode"/\\badmin\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase50() public {
+        string memory target = unicode"नमस्ते दुनिया";
+        string memory pattern = unicode"/\\bनमस्ते\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase51() public {
+        string memory target = unicode"!!!";
+        string memory pattern = unicode"/\\b!\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase52() public {
+        string memory target = unicode"education";
+        string memory pattern = unicode"/\\Bcat\\B/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase53() public {
+        string memory target = unicode"cat";
+        string memory pattern = unicode"/\\Bcat/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase54() public {
+        string memory target = unicode"!!hello!!";
+        string memory pattern = unicode"/\\Bhello\\B/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase55() public {
+        string memory target = unicode"foo.bar";
+        string memory pattern = unicode"/\\bbar\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase56() public {
+        string memory target = unicode"🔥fire🔥";
+        string memory pattern = unicode"/\\bfire\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase57() public {
+        string memory target = unicode"abcनमस्तेxyz";
+        string memory pattern = unicode"/\\bनमस्ते\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase58() public {
+        string memory target = unicode"hi‍there";
+        string memory pattern = unicode"/\\bthere\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase59() public {
+        string memory target = unicode"foo_bar-baz123🔥test";
+        string memory pattern = unicode"/\\btest\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase60() public {
+        string memory target = unicode"123abc456";
+        string memory pattern = unicode"/\\Babc\\B/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase61() public {
+        string memory target = unicode" café ";
+        string memory pattern = unicode"/\\bcafé\\b/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase62() public {
+        string memory target = unicode" café ";
+        string memory pattern = unicode"/\\Bcafé\\B/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase63() public {
+        string memory target = unicode" café ";
+        string memory pattern = unicode"/\\bcafé\\B/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 }
