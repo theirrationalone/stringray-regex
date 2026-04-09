@@ -1098,6 +1098,15 @@ contract Stringray {
         if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
+        if (matchEndIndex > -1) {
+            if (
+                allAtoms[allAtoms.length - 1].atomType == WORD_BOUNDARY
+                    && !isWord(stringInBytes[stringInBytes.length - 1], false)
+            ) {
+                firstIndex = -1;
+                matchEndIndex = -1;
+            }
+        }
         return (firstIndex, matchEndIndex);
     }
 
