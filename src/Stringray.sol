@@ -1022,13 +1022,17 @@ contract Stringray {
                 console2.log("word boundary: ", wordBoundary);
                 console2.log("indexToStartMatch: ", indexToStartMatch);
 
-                if (matchEndIndex > int256(indexToStartMatch)) {
+                if (matchEndIndex >= int256(indexToStartMatch)) {
                     if (isFirstMatch) {
                         indexToStartMatch = uint256(matchEndIndex);
                         firstIndex = matchEndIndex;
                     } else {
                         if (i == allAtoms.length - 1) {
-                            matchEndIndex = int256(indexToStartMatch - 1);
+                            if (!wordBoundary) {
+                                matchEndIndex = int256(indexToStartMatch - 1);
+                            } else {
+                                matchEndIndex = int256(indexToStartMatch);
+                            }
                         } else {
                             matchEndIndex = int256(indexToStartMatch);
                         }
@@ -1036,17 +1040,17 @@ contract Stringray {
                     wordBoundary = true;
                     i++;
                     continue;
-                } else if (matchEndIndex == int256(indexToStartMatch)) {
-                    if (isFirstMatch && allAtoms[i].atomType == WORD_BOUNDARY) {
-                        matchEndIndex = -1;
-                        i++;
-                        continue;
-                    }
+                    // } else if (matchEndIndex == int256(indexToStartMatch)) {
+                    //     if (isFirstMatch && allAtoms[i].atomType == WORD_BOUNDARY) {
+                    //         matchEndIndex = -1;
+                    //         i++;
+                    //         continue;
+                    //     }
 
-                    if (wordBoundary) {
-                        i++;
-                        continue;
-                    }
+                    //     if (wordBoundary) {
+                    //         i++;
+                    //         continue;
+                    //     }
                 } else if (matchEndIndex == -1) {
                     isFirstMatch = true;
                     firstIndex = -1;
@@ -1093,6 +1097,7 @@ contract Stringray {
                 continue;
             }
 
+            wordBoundary = false;
             indexToStartMatch = uint256(matchEndIndex) + 1;
             i++;
         }
@@ -1185,6 +1190,10 @@ contract Stringray {
                     }
 
                     if (isWord(stringInBytes[i], false) && !isWord(stringInBytes[i - 1], false)) {
+                        return (int256(i - 1), int256(i));
+                    }
+
+                    if (!isWord(stringInBytes[i], false) && isWord(stringInBytes[i - 1], false)) {
                         return (int256(i - 1), int256(i));
                     }
 
