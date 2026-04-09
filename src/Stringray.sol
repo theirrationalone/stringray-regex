@@ -1040,17 +1040,6 @@ contract Stringray {
                     wordBoundary = true;
                     i++;
                     continue;
-                    // } else if (matchEndIndex == int256(indexToStartMatch)) {
-                    //     if (isFirstMatch && allAtoms[i].atomType == WORD_BOUNDARY) {
-                    //         matchEndIndex = -1;
-                    //         i++;
-                    //         continue;
-                    //     }
-
-                    //     if (wordBoundary) {
-                    //         i++;
-                    //         continue;
-                    //     }
                 } else if (matchEndIndex == -1) {
                     isFirstMatch = true;
                     firstIndex = -1;
