@@ -16677,14 +16677,14 @@ const testMain = () => {
     const target = "dev@anil!ak";
     let regex = /\Banil\B/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000023", () => {
     const target = "dev@anil!ak";
     let regex = /\Banil\Bak/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000024", () => {
@@ -16712,28 +16712,28 @@ const testMain = () => {
     const target = "##@anil!ak";
     let regex = /\B\Banil/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000028", () => {
     const target = "##@anil!ak";
     let regex = /\B\Banil\B/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000029", () => {
     const target = "##@anil!ak";
     let regex = /\B\Banil\Bak/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000030", () => {
     const target = "##@anil!ak";
     let regex = /\B\Banil\B\Bak/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000031", () => {
@@ -16747,14 +16747,77 @@ const testMain = () => {
     const target = "##@anil!ak";
     let regex = /\B\Banil\B!ak/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
+    assert.strictEqual(regex.test(target), false);
   });
 
   test("Pattern match cases: Case0000000000000000000000033", () => {
     const target = "##@anil!ak";
     let regex = /\Banil/;
     console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000034", () => {
+    const target = "hello world";
+    let regex = /\bworld\b/;
+    console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000035", () => {
+    const target = "hello";
+    let regex = /\Bell/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000036", () => {
+    const target = "hello";
+    let regex = /\bhello/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000037", () => {
+    const target = "_hello";
+    let regex = /\bhello/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000038", () => {
+    const target = "123abc";
+    let regex = /\babc/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000039", () => {
+    const target = "नमस्ते";
+    let regex = /\bनम/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000040", () => {
+    const target = "नमस्ते";
+    let regex = /\bनम/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000041", () => {
+    const target = "hello-world";
+    let regex = /\bworld\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000042", () => {
+    const target = "café";
+    let regex = /\bcafé\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
   });
 };
 testMain();
