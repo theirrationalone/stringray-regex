@@ -998,13 +998,6 @@ contract Stringray {
                 }
             }
 
-            console2.log("----------atom info----------");
-            printAtomType(allAtoms[i].atomType);
-            console2.log("atom: ", string(allAtoms[i].atom));
-            console2.log("indexToStartMatch: ", indexToStartMatch);
-            console2.log("isFirstMatch: ", isFirstMatch);
-            console2.log("--------------------");
-
             if (allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
@@ -1017,10 +1010,6 @@ contract Stringray {
                 } else {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, true);
                 }
-                console2.log("matchStartIndex: ", matchStartIndex);
-                console2.log("matchEndIndex: ", matchEndIndex);
-                console2.log("word boundary: ", wordBoundary);
-                console2.log("indexToStartMatch: ", indexToStartMatch);
 
                 if (matchEndIndex >= int256(indexToStartMatch)) {
                     if (isFirstMatch) {
@@ -1046,18 +1035,13 @@ contract Stringray {
                     matchStartIndex = 0;
                     matchEndIndex = -1;
                     indexToStartMatch += 1;
-                    console2.log("matchStartIndex: ", matchStartIndex);
-                    console2.log("matchEndIndex: ", matchEndIndex);
-                    console2.log("indexToStartMatch: ", indexToStartMatch);
+
                     i = 0;
                     continue;
                 }
             } else {
                 matchStartIndex = -1;
             }
-
-            console2.log("outside boundary matchStartIndex: ", matchStartIndex);
-            console2.log("outside boundary matchEndIndex: ", matchEndIndex);
 
             if (indexToStartMatch >= stringInBytes.length - 1) {
                 if (matchStartIndex == -1) {
@@ -1079,9 +1063,6 @@ contract Stringray {
                 matchStartIndex = 0;
                 matchEndIndex = -1;
 
-                console2.log("matchStartIndex: ", matchStartIndex);
-                console2.log("matchEndIndex: ", matchEndIndex);
-                console2.log("indexToStartMatch: ", indexToStartMatch);
                 i = 0;
                 continue;
             }
@@ -1093,8 +1074,6 @@ contract Stringray {
 
         (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
 
-        console2.log("firstIndex just before return: ", firstIndex);
-        console2.log("matchEndIndex just before return: ", matchEndIndex);
         if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
@@ -1213,7 +1192,6 @@ contract Stringray {
         bool isFirstMatch
     ) private returns (int256, int256) {
         bytes memory extractedAtom = trimString(atom, 1, int256(atom.length - 1));
-        console2.log("extractedAtom: ", string(extractedAtom));
 
         (int256 matchStartIndex, int256 matchEndIndex) =
             matchLiteral(extractedAtom, stringInBytes, indexToStartMatch, isFirstMatch);
