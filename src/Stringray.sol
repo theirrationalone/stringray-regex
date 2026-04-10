@@ -998,12 +998,23 @@ contract Stringray {
                 }
             }
 
+            console2.log("------------first log------------");
+            printAtomType(allAtoms[i].atomType);
+            console2.log("atom: ", string(allAtoms[i].atom));
+            console2.log("firstIndex: ", firstIndex);
+            console2.log("matchStartIndex: ", matchStartIndex);
+            console2.log("matchEndIndex: ", matchEndIndex);
+            console2.log("------------");
+
             if (allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == CONTROL_PREFIX) {
+                (matchStartIndex, matchEndIndex) =
+                    matchControlPrefix(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1043,6 +1054,12 @@ contract Stringray {
                 matchStartIndex = -1;
             }
 
+            console2.log("--------------in transit log--------------");
+            console2.log("firstIndex: ", firstIndex);
+            console2.log("matchStartIndex: ", matchStartIndex);
+            console2.log("matchEndIndex: ", matchEndIndex);
+            console2.log("----------------------------");
+
             if (indexToStartMatch >= stringInBytes.length - 1) {
                 if (matchStartIndex == -1) {
                     firstIndex = -1;
@@ -1072,11 +1089,22 @@ contract Stringray {
             i++;
         }
 
+        if (isFirstMatch && firstIndex == -1) {
+            firstIndex = matchEndIndex;
+        }
+
+        console2.log("--------------final log--------------");
+        console2.log("firstIndex: ", firstIndex);
+        console2.log("matchStartIndex: ", matchStartIndex);
+        console2.log("matchEndIndex: ", matchEndIndex);
+        console2.log("----------------------------");
+
         (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
 
         if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
+
         if (matchEndIndex > -1) {
             if (
                 matchEndIndex == int256(stringInBytes.length - 1)
@@ -1090,6 +1118,18 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchControlPrefix(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        bytes memory targetHex = trimString(atom, 2, -1);
+        bytes memory extractedAtom = abi.encodePacked(uint8(targetHex[0]) % 32);
+
+        return matchLiteral(extractedAtom, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
     function boundaryCheck(int256 firstIndex, int256 matchEndIndex) private returns (int256, int256) {
@@ -1125,6 +1165,7 @@ contract Stringray {
     {
         uint256 stringLength = stringInBytes.length;
 
+        // @question: is this for loop redundant or useless????
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
             if (isNegation) {
                 if (i == 0) {
