@@ -19197,4 +19197,224 @@ contract PlayStringTest is Test {
         console2.log("Match end index  : ", returnedData.matchEndIndex);
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchCase65() public {
+        string memory target = "anil\nkushwaha";
+        string memory pattern = unicode"/\\cj/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase66() public {
+        string memory target = "anil\nkush\twaha";
+        string memory pattern = unicode"/\\ci/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase67() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0B", "ha"));
+        string memory pattern = unicode"/\\ck/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase68() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0B", "h", hex"0D", "a"));
+        string memory pattern = unicode"/\\cm/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase69() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0B", "h", hex"0D", "a"));
+        string memory pattern = unicode"/anil\\cjkush\\ciwa\\ckh\\cma/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase70() public {
+        string memory target = string(abi.encodePacked("anil", hex"01", "kush"));
+        string memory pattern = unicode"/\\cA/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase71() public {
+        string memory target = "anil\nkushwaha";
+        string memory pattern = unicode"/\\cJ/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase72() public {
+        string memory target = "anil\nkush\twaha";
+        string memory pattern = unicode"/\\cI/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase73() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0b", "ha"));
+        string memory pattern = unicode"/\\cK/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase74() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0b", "h", hex"0d", "a"));
+        string memory pattern = unicode"/\\cM/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase75() public {
+        string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0b", "h", hex"0d", "a"));
+        string memory pattern = unicode"/anil\\cJkush\\cIwa\\cKh\\cMa/";
+
+        console2.log("----------------------");
+        console2.log("target: ");
+        console2.logBytes(bytes(target));
+        console2.log(target);
+        console2.log("----------------------");
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 }

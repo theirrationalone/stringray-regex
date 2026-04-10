@@ -16973,5 +16973,82 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000065", () => {
+    const target = "anil\nkushwaha";
+    let regex = /\cj/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000066", () => {
+    const target = "anil\nkush\twaha";
+    let regex = /\ci/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000067", () => {
+    const target = "anil\nkush\twa\vha";
+    let regex = /\ck/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000068", () => {
+    const target = "anil\nkush\twa\vh\ra";
+    let regex = /\cm/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000069", () => {
+    const target = "anil\nkush\twa\vh\ra";
+    let regex = /anil\cjkush\ciwa\ckh\cma/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000070", () => {
+    const target = "\x01";
+    let regex = /\cA/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000071", () => {
+    const target = "anil\nkushwaha";
+    let regex = /\cJ/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000072", () => {
+    const target = "anil\nkush\twaha";
+    let regex = /\cI/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000073", () => {
+    const target = "anil\nkush\twa\vha";
+    let regex = /\cK/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000074", () => {
+    const target = "anil\nkush\twa\vh\ra";
+    let regex = /\cM/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000075", () => {
+    const target = "anil\nkush\twa\vh\ra";
+    let regex = /anil\cJkush\cIwa\cKh\cMa/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
