@@ -19419,22 +19419,72 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCase76() public {
-        // string memory target = string(abi.encodePacked("anil\nkush\twa", hex"0b", "h", hex"0d", "a"));
-        // string memory pattern = unicode"/anil\\cJkush\\cIwa\\cKh\\cMa/";
+        string memory target = "1";
+        string memory pattern = unicode"/\\d/";
 
-        console2.log("----------------------");
-        uint8 num = 48;
-        console2.log("num in bytes: ");
-        console2.logBytes1(abi.encodePacked(num)[0]);
-        console2.log("----------------------");
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 
-        // Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
-        // console2.log("------------------returnedData------------------");
-        // console2.log("Pattern string   : ", returnedData.patternString);
-        // console2.log("Original string  : ", returnedData.originalString);
-        // console2.log("Matched string   : ", returnedData.matchedString);
-        // console2.log("Match start index: ", returnedData.matchStartIndex);
-        // console2.log("Match end index  : ", returnedData.matchEndIndex);
-        // console2.log("------------------------------------");
+    function testRegexPatternMatchCase77() public {
+        string memory target = "anilkushwaha289@gmail.com";
+        string memory pattern = unicode"/\\d\\d\\d@/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase78() public {
+        string memory target = "anilkushwaha289@gmail.com";
+        string memory pattern = unicode"/\\d89@/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase79() public {
+        string memory target = "anilkushwaha289@gmail.com";
+        string memory pattern = unicode"/2\\d9@/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase80() public {
+        string memory target = "anilkushwaha289@gmail.com";
+        string memory pattern = unicode"/28\\d@/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
     }
 }

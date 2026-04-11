@@ -1017,11 +1017,9 @@ contract Stringray {
                     matchControlPrefix(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == DIGIT || allAtoms[i].atomType == DIGIT) {
                 if (allAtoms[i].atomType == DIGIT) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, true);
+                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
+                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
@@ -1128,13 +1126,10 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchDigit(
-        bytes memory atom,
-        bytes memory stringInBytes,
-        uint256 indexToStartMatch,
-        bool isFirstMatch,
-        bool isNotDigit
-    ) private returns (int256, int256) {
+    function matchDigit(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotDigit)
+        private
+        returns (int256, int256)
+    {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         uint256 indexIncrementRate = 1;
@@ -1144,6 +1139,9 @@ contract Stringray {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
                 matchEndIndex = int256(i);
                 stringChunk = trimString(stringInBytes, i, matchEndIndex);
+
+                console2.log("stringChunk: ");
+                console2.logBytes(stringChunk);
 
                 if (!isNotDigit) {
                     if (stringChunk[0] >= 0x30 && stringChunk[0] <= 0x39) {
@@ -1163,11 +1161,11 @@ contract Stringray {
             stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
             if (!isNotDigit) {
                 if (stringChunk[0] >= 0x30 && stringChunk[0] <= 0x39) {
-                    matchStartIndex = int256(i);
+                    matchStartIndex = int256(indexToStartMatch);
                 }
             } else {
                 if (stringChunk[0] < 0x30 || stringChunk[0] > 0x39) {
-                    matchStartIndex = int256(i);
+                    matchStartIndex = int256(indexToStartMatch);
                 }
             }
         }

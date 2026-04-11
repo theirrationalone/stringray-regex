@@ -17050,5 +17050,40 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000076", () => {
+    const target = "1";
+    let regex = /\d/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000077", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /\d\d\d@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000078", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /\d89@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000079", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /2\d9@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000080", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /28\d@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
