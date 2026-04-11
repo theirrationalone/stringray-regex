@@ -1015,7 +1015,7 @@ contract Stringray {
             } else if (allAtoms[i].atomType == CONTROL_PREFIX) {
                 (matchStartIndex, matchEndIndex) =
                     matchControlPrefix(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == DIGIT || allAtoms[i].atomType == DIGIT) {
+            } else if (allAtoms[i].atomType == DIGIT || allAtoms[i].atomType == NOT_DIGIT) {
                 if (allAtoms[i].atomType == DIGIT) {
                     (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {

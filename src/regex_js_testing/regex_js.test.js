@@ -17085,5 +17085,54 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000081", () => {
+    const target = "129J11";
+    let regex = /\D/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000082", () => {
+    const target = "z12911";
+    let regex = /\D/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000083", () => {
+    const target = "12911q";
+    let regex = /\D/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000084", () => {
+    const target = "1!2911";
+    let regex = /\D/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000085", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /\D289\D/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000086", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /\D\D\d89\Dgmail/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000087", () => {
+    const target = "anilkushwaha289@gmail.com";
+    let regex = /9\Dgmail\Dcom/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
