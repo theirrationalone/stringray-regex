@@ -1021,6 +1021,14 @@ contract Stringray {
                 } else {
                     (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
+            } else if (allAtoms[i].atomType == WHITESPACE || allAtoms[i].atomType == NOT_WHITESPACE) {
+                if (allAtoms[i].atomType == WHITESPACE) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false);
+                } else {
+                    (matchStartIndex, matchEndIndex) =
+                        matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true);
+                }
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1124,6 +1132,40 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchWhitespace(
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool isNotWhitespace
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        uint256 indexIncrementRate = 1;
+        bytes memory stringChunk;
+        bool flag;
+        uint256 lastIndex;
+
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+                (flag, lastIndex) = isWhitespace(stringInBytes, i, isNotWhitespace);
+                if (flag) {
+                    matchEndIndex = int256(lastIndex);
+                    matchStartIndex = int256(i);
+                    break;
+                }
+                i += 1;
+            }
+        } else {
+            (flag, lastIndex) = isWhitespace(stringInBytes, indexToStartMatch, isNotWhitespace);
+            if (flag) {
+                matchEndIndex = int256(lastIndex);
+                matchStartIndex = int256(indexToStartMatch);
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
     }
 
     function matchDigit(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotDigit)
