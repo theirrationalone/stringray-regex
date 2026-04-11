@@ -1139,7 +1139,7 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bool isNotWhitespace
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         uint256 indexIncrementRate = 1;
@@ -1150,10 +1150,6 @@ contract Stringray {
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
                 (flag, lastIndex) = isWhitespace(stringInBytes, i, isNotWhitespace);
-                console2.log("flag: ", flag);
-                console2.log("lastIndex: ", lastIndex);
-                console2.log("indexToStartMatch: ", indexToStartMatch);
-                console2.log("matchStartIndex: ", matchStartIndex);
                 if (flag) {
                     matchEndIndex = int256(lastIndex);
                     matchStartIndex = int256(i);
@@ -1174,6 +1170,7 @@ contract Stringray {
 
     function matchDigit(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotDigit)
         private
+        pure
         returns (int256, int256)
     {
         int256 matchStartIndex = -1;
@@ -17288,11 +17285,7 @@ contract Stringray {
         bool flag;
         uint256 lastIndex;
 
-        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, false);
-
-        if (!flag) {
-            (flag, lastIndex) = propertyExcWhiteSpace(_pattern, _currentParticleIndex);
-        }
+        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, false, false);
 
         return (flag, lastIndex);
     }
@@ -17304,59 +17297,90 @@ contract Stringray {
     {
         bool flag;
         uint256 lastIndex;
-        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, _negation);
-
-        if (!flag) {
-            (flag, lastIndex) = legacyWhiteSpace(_pattern, _currentParticleIndex, _negation);
-        }
+        (flag, lastIndex) = commonWhiteSpaces(_pattern, _currentParticleIndex, _negation, true);
 
         return (flag, lastIndex);
     }
 
-    function propertyExcWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        if (
-            _pattern[_currentParticleIndex] == 0xc2
-                && (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x85)
-        ) {
-            return (true, _currentParticleIndex + 1);
-        }
-        return (false, 0);
-    }
-
-    function commonWhiteSpaces(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
+    function commonWhiteSpaces(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation, bool isLegacy)
         private
         pure
         returns (bool, uint256)
     {
         uint8 lowerBoundUnicode = 9;
         uint8 upperBoundUnicode = 13;
-        uint256 lastIndex = _currentParticleIndex;
-        bytes1 _targetChar = _pattern[lastIndex];
+        bytes1 _targetChar = _pattern[_currentParticleIndex];
 
-        // @BUG: can't detect other not whitespaces in negation mode
-        // @Status: not resolved!
-        bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
-        console2.log("flllllalaalalalag: ", flag);
-        if (!flag) {
-            if (_targetChar == abi.encodePacked(" ")[0]) {
-                flag = true;
-            }
-        }
-
-        if (!flag) {
-            if (_targetChar == 0xc2) {
-                if (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xa0) {
-                    flag = true;
-                    lastIndex = _currentParticleIndex + 1;
+        if (_negation) {
+            if (uint8(_targetChar) < lowerBoundUnicode || uint8(_targetChar) > upperBoundUnicode) {
+                if (_targetChar != abi.encodePacked(" ")[0]) {
+                    if (
+                        _targetChar != 0xc2
+                            || (_currentParticleIndex + 1 >= _pattern.length
+                                || _pattern[_currentParticleIndex + 1] != 0xa0)
+                    ) {
+                        if (
+                            _targetChar != 0xe2 || _currentParticleIndex + 2 >= _pattern.length
+                                || (_pattern[_currentParticleIndex + 1] != 0x80
+                                    || (_pattern[_currentParticleIndex + 2] != 0xa8
+                                        && _pattern[_currentParticleIndex + 2] != 0xa9
+                                        && _pattern[_currentParticleIndex + 2] != 0xaf
+                                        && (_pattern[_currentParticleIndex + 2] < 0x80
+                                            || _pattern[_currentParticleIndex + 2] > 0x8a)))
+                                || (_pattern[_currentParticleIndex + 1] != 0x81
+                                    || _pattern[_currentParticleIndex + 2] != 0x9f)
+                        ) {
+                            if (
+                                _targetChar != 0xe1 || _currentParticleIndex + 2 >= _pattern.length
+                                    || _pattern[_currentParticleIndex + 1] != 0x9a
+                                    || _pattern[_currentParticleIndex + 2] != 0x80
+                            ) {
+                                if (_targetChar != 0xe3) {
+                                    if (
+                                        _currentParticleIndex + 2 >= _pattern.length
+                                            || _pattern[_currentParticleIndex + 1] != 0x80
+                                            || _pattern[_currentParticleIndex + 2] != 0x80
+                                    ) {
+                                        if (isLegacy) {
+                                            if (_targetChar != 0xef) {
+                                                if (
+                                                    _currentParticleIndex + 2 >= _pattern.length
+                                                        || _pattern[_currentParticleIndex + 1] != 0xbb
+                                                        || _pattern[_currentParticleIndex + 2] != 0xbf
+                                                ) {
+                                                    return (true, _currentParticleIndex);
+                                                }
+                                            }
+                                        } else {
+                                            if (
+                                                _targetChar != 0xc2 || _currentParticleIndex + 1 >= _pattern.length
+                                                    || _pattern[_currentParticleIndex + 1] != 0x85
+                                            ) {
+                                                return (true, _currentParticleIndex);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        }
+        } else {
+            if (uint8(_targetChar) >= lowerBoundUnicode && uint8(_targetChar) <= upperBoundUnicode) {
+                return (true, _currentParticleIndex);
+            }
 
-        if (!flag) {
+            if (_targetChar == abi.encodePacked(" ")[0]) {
+                return (true, _currentParticleIndex);
+            }
+
+            if (_targetChar == 0xc2) {
+                if (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xa0) {
+                    return (true, _currentParticleIndex + 1);
+                }
+            }
+
             if (_targetChar == 0xe2) {
                 if (
                     _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x80
@@ -17366,16 +17390,14 @@ contract Stringray {
                             || (_pattern[_currentParticleIndex + 2] >= 0x80
                                 && _pattern[_currentParticleIndex + 2] <= 0x8a))
                 ) {
-                    flag = true;
-                    lastIndex = _currentParticleIndex + 2;
+                    return (true, _currentParticleIndex + 2);
                 }
 
                 if (
                     _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x81
                         && (_pattern[_currentParticleIndex + 2] == 0x9f)
                 ) {
-                    flag = true;
-                    lastIndex = _currentParticleIndex + 2;
+                    return (true, _currentParticleIndex + 2);
                 }
             }
 
@@ -17384,8 +17406,7 @@ contract Stringray {
                     _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x9a
                         && (_pattern[_currentParticleIndex + 2] == 0x80)
                 ) {
-                    flag = true;
-                    lastIndex = _currentParticleIndex + 2;
+                    return (true, _currentParticleIndex + 2);
                 }
             }
 
@@ -17394,54 +17415,29 @@ contract Stringray {
                     _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x80
                         && (_pattern[_currentParticleIndex + 2] == 0x80)
                 ) {
-                    flag = true;
-                    lastIndex = _currentParticleIndex + 2;
+                    return (true, _currentParticleIndex + 2);
+                }
+            }
+
+            if (isLegacy) {
+                if (_targetChar == 0xef) {
+                    if (
+                        _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xbb
+                            && (_pattern[_currentParticleIndex + 2] == 0xbf)
+                    ) {
+                        return (true, _currentParticleIndex + 2);
+                    }
+                }
+            } else {
+                if (
+                    _targetChar == 0xc2
+                        && (_currentParticleIndex + 1 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0x85)
+                ) {
+                    return (true, _currentParticleIndex + 1);
                 }
             }
         }
 
-        console2.log("--------------commonWhitespace-----------------");
-        console2.log("negation: ", _negation);
-        console2.log("flag: ", flag);
-        console2.log("_currentParticleIndex: ", _currentParticleIndex);
-        console2.log("-------------------------------");
-
-        if (_negation && !flag) {
-            return (true, _currentParticleIndex);
-        }
-
-        if (!_negation && flag) {
-            return (true, lastIndex);
-        }
-
-        return (false, 0);
-    }
-
-    function legacyWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
-        private
-        pure
-        returns (bool, uint256)
-    {
-        bool flag;
-        uint256 lastIndex;
-
-        if (_pattern[_currentParticleIndex] == 0xef) {
-            if (
-                _currentParticleIndex + 2 < _pattern.length && _pattern[_currentParticleIndex + 1] == 0xbb
-                    && (_pattern[_currentParticleIndex + 2] == 0xbf)
-            ) {
-                flag = true;
-                lastIndex = _currentParticleIndex + 2;
-            }
-        }
-
-        if (_negation && !flag) {
-            return (true, _currentParticleIndex);
-        }
-
-        if (!_negation && flag) {
-            return (true, lastIndex);
-        }
         return (false, 0);
     }
 
