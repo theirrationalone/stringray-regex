@@ -1150,6 +1150,10 @@ contract Stringray {
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
                 (flag, lastIndex) = isWhitespace(stringInBytes, i, isNotWhitespace);
+                console2.log("flag: ", flag);
+                console2.log("lastIndex: ", lastIndex);
+                console2.log("indexToStartMatch: ", indexToStartMatch);
+                console2.log("matchStartIndex: ", matchStartIndex);
                 if (flag) {
                     matchEndIndex = int256(lastIndex);
                     matchStartIndex = int256(i);
@@ -17332,8 +17336,11 @@ contract Stringray {
         uint8 upperBoundUnicode = 13;
         uint256 lastIndex = _currentParticleIndex;
         bytes1 _targetChar = _pattern[lastIndex];
-        bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
 
+        // @BUG: can't detect other not whitespaces in negation mode
+        // @Status: not resolved!
+        bool flag = findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
+        console2.log("flllllalaalalalag: ", flag);
         if (!flag) {
             if (_targetChar == abi.encodePacked(" ")[0]) {
                 flag = true;
@@ -17392,6 +17399,12 @@ contract Stringray {
                 }
             }
         }
+
+        console2.log("--------------commonWhitespace-----------------");
+        console2.log("negation: ", _negation);
+        console2.log("flag: ", flag);
+        console2.log("_currentParticleIndex: ", _currentParticleIndex);
+        console2.log("-------------------------------");
 
         if (_negation && !flag) {
             return (true, _currentParticleIndex);
@@ -19775,6 +19788,7 @@ contract Stringray {
         bytes1 _targetChar,
         bool _negation
     ) private pure returns (bool) {
+        console2.log("_negation: ", _negation);
         if (_negation) {
             if (uint8(_targetChar) < lowerBoundUnicode || uint8(_targetChar) > upperBoundUnicode) {
                 return true;
