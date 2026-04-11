@@ -1015,6 +1015,14 @@ contract Stringray {
             } else if (allAtoms[i].atomType == CONTROL_PREFIX) {
                 (matchStartIndex, matchEndIndex) =
                     matchControlPrefix(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == DIGIT || allAtoms[i].atomType == DIGIT) {
+                if (allAtoms[i].atomType == DIGIT) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, true);
+                } else {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
+                }
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1120,6 +1128,53 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
+    function matchDigit(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool isNotDigit
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        uint256 indexIncrementRate = 1;
+        bytes memory stringChunk;
+
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+                matchEndIndex = int256(i);
+                stringChunk = trimString(stringInBytes, i, matchEndIndex);
+
+                if (!isNotDigit) {
+                    if (stringChunk[0] >= 0x30 && stringChunk[0] <= 0x39) {
+                        matchStartIndex = int256(i);
+                        break;
+                    }
+                } else {
+                    if (stringChunk[0] < 0x30 || stringChunk[0] > 0x39) {
+                        matchStartIndex = int256(i);
+                        break;
+                    }
+                }
+                i += 1;
+            }
+        } else {
+            matchEndIndex = int256(indexToStartMatch);
+            stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            if (!isNotDigit) {
+                if (stringChunk[0] >= 0x30 && stringChunk[0] <= 0x39) {
+                    matchStartIndex = int256(i);
+                }
+            } else {
+                if (stringChunk[0] < 0x30 || stringChunk[0] > 0x39) {
+                    matchStartIndex = int256(i);
+                }
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
     function matchControlPrefix(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -1159,7 +1214,7 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch, bool isNegation)
+    function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch, bool isNotBoundary)
         private
         returns (int256, int256)
     {
@@ -1167,7 +1222,7 @@ contract Stringray {
 
         // @question: is this for loop redundant or useless????
         for (uint256 i = indexToStartMatch; i < stringLength; i++) {
-            if (isNegation) {
+            if (isNotBoundary) {
                 if (i == 0) {
                     if (!isWord(stringInBytes[i], false)) {
                         return (int256(i), int256(i));
@@ -1195,7 +1250,7 @@ contract Stringray {
                 }
             }
 
-            if (!isNegation) {
+            if (!isNotBoundary) {
                 if (i == 0) {
                     if (isWord(stringInBytes[i], false)) {
                         return (int256(i), int256(i));
@@ -1245,7 +1300,7 @@ contract Stringray {
         returns (int256, int256)
     {
         int256 matchStartIndex = -1;
-        int256 matchEndIndex;
+        int256 matchEndIndex = -1;
         uint256 indexIncrementRate = atom.length;
         bytes memory stringChunk;
 
