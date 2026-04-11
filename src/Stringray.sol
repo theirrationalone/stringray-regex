@@ -1104,7 +1104,7 @@ contract Stringray {
         }
 
         if (isFirstMatch && firstIndex == -1) {
-            firstIndex = matchEndIndex;
+            firstIndex = matchStartIndex > -1 ? matchStartIndex : matchEndIndex;
         }
 
         console2.log("--------------final log--------------");

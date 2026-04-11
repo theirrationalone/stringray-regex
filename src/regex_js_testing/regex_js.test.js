@@ -17134,5 +17134,220 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case0000000000000000000000088", () => {
+    const target = "anil kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000089", () => {
+    const target = "anilkush waha289@gmail.com";
+    let regex = /kush\swaha/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000090", () => {
+    const target = "    anilkushwaha289@gmail.com";
+    let regex = /\S/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000091", () => {
+    const target = "anil\tkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000092", () => {
+    const target = "anil\nkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000093", () => {
+    const target = "anil\vkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000094", () => {
+    const target = "anil\fkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000095", () => {
+    const target = "anil\rkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000096", () => {
+    const target = "anil\u00a0kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000097", () => {
+    // e280a8: 2028
+    const target = "anil\u2028kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000098", () => {
+    // e280a9: 2029
+    const target = "anil\u2029kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case0000000000000000000000099", () => {
+    // e280af: 202f
+    const target = "anil\u202fkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000100", () => {
+    // e28080: 2000
+    const target = "anil\u2000kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000101", () => {
+    // e28081: 2001
+    const target = "anil\u2001kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000102", () => {
+    // e28082: 2002
+    const target = "anil\u2002kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000103", () => {
+    // e28083: 2003
+    const target = "anil\u2003kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000104", () => {
+    // e28084: 2004
+    const target = "anil\u2004kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000105", () => {
+    // e28085: 2005
+    const target = "anil\u2005kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000106", () => {
+    // e28086: 2006
+    const target = "anil\u2006kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000107", () => {
+    // e28087: 2007
+    const target = "anil\u2007kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000108", () => {
+    // e28088: 2008
+    const target = "anil\u2008kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000109", () => {
+    // e28089: 2009
+    const target = "anil\u2009kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000110", () => {
+    // e2808a: 200a
+    const target = "anil\u200akushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000111", () => {
+    // e2819f: 205f
+    const target = "anil\u205fkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000112", () => {
+    // e19a80: 1680
+    const target = "anil\u1680kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000113", () => {
+    // e38080: 3000
+    const target = "anil\u3000kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000114", () => {
+    // efbbbf: feff
+    const target = "anil\ufeffkushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000115", () => {
+    // c285: 0085
+    const target = "anil\u0085kushwaha289@gmail.com";
+    let regex = /\s/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();
