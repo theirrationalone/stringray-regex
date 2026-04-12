@@ -1117,6 +1117,7 @@ contract Stringray {
                     firstIndex = -1;
                     matchEndIndex = -1;
                 }
+                i++;
                 break;
             }
 
