@@ -20653,13 +20653,6 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCase164() public {
-        // testRegexLiteralsCase40 -buggy
-        // string memory target = "anything";
-        // string memory pattern = unicode"/a^|$sian/";
-
-        // string memory target = "thithing";
-        // string memory pattern = unicode"/thin/";
-
         string memory target = "secRes3@ACyfr!n";
         string memory pattern = unicode"/\\x41/";
 

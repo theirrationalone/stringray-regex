@@ -1107,13 +1107,14 @@ contract Stringray {
                 }
             } else {
                 matchStartIndex = -1;
-                matchEndIndex = int256(indexToStartMatch);
+                matchEndIndex = -1;
             }
 
             console2.log("--------------in transit log--------------");
             console2.log("firstIndex: ", firstIndex);
             console2.log("matchStartIndex: ", matchStartIndex);
             console2.log("matchEndIndex: ", matchEndIndex);
+            console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("----------------------------");
 
             if (indexToStartMatch >= stringInBytes.length - 1) {
