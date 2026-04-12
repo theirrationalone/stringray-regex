@@ -1187,23 +1187,22 @@ contract Stringray {
         uint256 indexIncrementRate = 1;
         bytes memory stringChunk;
         bool flag;
-        uint256 lastIndex;
 
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
-                (flag, lastIndex) = isWord(stringInBytes[i], isNotWord);
+                flag = isWord(stringInBytes[i], isNotWord);
                 if (flag) {
-                    matchEndIndex = int256(lastIndex);
-                    matchStartIndex = int256(i);
+                    matchEndIndex = int256(i);
+                    matchStartIndex = matchEndIndex;
                     break;
                 }
                 i += 1;
             }
         } else {
-            (flag, lastIndex) = isWord(stringInBytes[indexToStartMatch], isNotWord);
+            flag = isWord(stringInBytes[indexToStartMatch], isNotWord);
             if (flag) {
-                matchEndIndex = int256(lastIndex);
-                matchStartIndex = int256(indexToStartMatch);
+                matchEndIndex = int256(indexToStartMatch);
+                matchStartIndex = matchEndIndex;
             }
         }
 
