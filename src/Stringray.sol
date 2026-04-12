@@ -1063,9 +1063,9 @@ contract Stringray {
                 }
             } else if (allAtoms[i].atomType == WORD_CHARACTER || allAtoms[i].atomType == NOT_WORD_CHARACTER) {
                 if (allAtoms[i].atomType == WORD_CHARACTER) {
-                    // TODO: complete this block
+                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
-                    // TODO: complete this block
+                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
@@ -1175,6 +1175,39 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchWord(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotWord)
+        private
+        pure
+        returns (int256, int256)
+    {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        uint256 indexIncrementRate = 1;
+        bytes memory stringChunk;
+        bool flag;
+        uint256 lastIndex;
+
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+                (flag, lastIndex) = isWord(stringInBytes[i], isNotWord);
+                if (flag) {
+                    matchEndIndex = int256(lastIndex);
+                    matchStartIndex = int256(i);
+                    break;
+                }
+                i += 1;
+            }
+        } else {
+            (flag, lastIndex) = isWord(stringInBytes[indexToStartMatch], isNotWord);
+            if (flag) {
+                matchEndIndex = int256(lastIndex);
+                matchStartIndex = int256(indexToStartMatch);
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
     }
 
     function matchWhitespace(
