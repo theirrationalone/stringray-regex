@@ -1015,29 +1015,31 @@ contract Stringray {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
-                if (allAtoms[i].atomType == TAB) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchLiteral(hex"09", stringInBytes, indexToStartMatch, isFirstMatch);
-                }
+                if (matchStartIndex == -1) {
+                    if (allAtoms[i].atomType == TAB) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchLiteral(hex"09", stringInBytes, indexToStartMatch, isFirstMatch);
+                    }
 
-                if (allAtoms[i].atomType == NEWLINE) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchLiteral(hex"0a", stringInBytes, indexToStartMatch, isFirstMatch);
-                }
+                    if (allAtoms[i].atomType == NEWLINE) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchLiteral(hex"0a", stringInBytes, indexToStartMatch, isFirstMatch);
+                    }
 
-                if (allAtoms[i].atomType == VERTICAL_TAB) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchLiteral(hex"0b", stringInBytes, indexToStartMatch, isFirstMatch);
-                }
+                    if (allAtoms[i].atomType == VERTICAL_TAB) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchLiteral(hex"0b", stringInBytes, indexToStartMatch, isFirstMatch);
+                    }
 
-                if (allAtoms[i].atomType == FORMFEED) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchLiteral(hex"0C", stringInBytes, indexToStartMatch, isFirstMatch);
-                }
+                    if (allAtoms[i].atomType == FORMFEED) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchLiteral(hex"0C", stringInBytes, indexToStartMatch, isFirstMatch);
+                    }
 
-                if (allAtoms[i].atomType == CARRIAGE_RETURN) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
+                    if (allAtoms[i].atomType == CARRIAGE_RETURN) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
+                    }
                 }
             } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =

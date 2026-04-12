@@ -17592,5 +17592,40 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000148", () => {
+    const target = "anil\tkushwaha";
+    let regex = /anil\tkush/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000149", () => {
+    const target = "anil\nkushwaha";
+    let regex = /anil\nkush/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000150", () => {
+    const target = "anil\vkushwaha";
+    let regex = /anil\vkush/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000151", () => {
+    const target = "anil\fkushwaha";
+    let regex = /anil\fkush/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000152", () => {
+    const target = "anil\rkushwaha";
+    let regex = /anil\rkush/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
