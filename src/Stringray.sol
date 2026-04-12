@@ -1189,9 +1189,10 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch
     ) private returns (int256, int256) {
-        // @TODO: complete this function, still remains to be finished
-        bytes memory targetHex = trimString(atom, 2, -1);
-        return matchLiteral(targetHex, stringInBytes, indexToStartMatch, isFirstMatch);
+        bytes memory extractedInterpolatedHex = trimString(atom, 2, -1);
+        bytes memory actualHex = abi.encodePacked(uint8(hexToDec(extractedInterpolatedHex, 4, true)));
+
+        return matchLiteral(actualHex, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
     function matchWord(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotWord)
