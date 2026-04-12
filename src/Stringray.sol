@@ -978,12 +978,9 @@ contract Stringray {
         uint256 indexToStartMatch;
         bool isFirstMatch;
         bool wordBoundary;
+        uint256 i;
 
-        for (uint256 i; i < allAtoms.length;) {
-            if (indexToStartMatch >= stringInBytes.length) {
-                break;
-            }
-
+        for (; i < allAtoms.length;) {
             if (matchEndIndex > -1) {
                 if (firstIndex == -1) {
                     firstIndex = matchStartIndex;
@@ -998,6 +995,10 @@ contract Stringray {
                 }
             }
 
+            if (indexToStartMatch >= stringInBytes.length) {
+                break;
+            }
+
             console2.log("------------first log------------");
             printAtomType(allAtoms[i].atomType);
             console2.log("atom: ", string(allAtoms[i].atom));
@@ -1006,9 +1007,38 @@ contract Stringray {
             console2.log("matchEndIndex: ", matchEndIndex);
             console2.log("------------");
 
-            if (allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB) {
+            if (
+                allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB || allAtoms[i].atomType == NEWLINE
+                    || allAtoms[i].atomType == VERTICAL_TAB || allAtoms[i].atomType == CARRIAGE_RETURN
+                    || allAtoms[i].atomType == FORMFEED
+            ) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+
+                if (allAtoms[i].atomType == TAB) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchLiteral(hex"09", stringInBytes, indexToStartMatch, isFirstMatch);
+                }
+
+                if (allAtoms[i].atomType == NEWLINE) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchLiteral(hex"0a", stringInBytes, indexToStartMatch, isFirstMatch);
+                }
+
+                if (allAtoms[i].atomType == VERTICAL_TAB) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchLiteral(hex"0b", stringInBytes, indexToStartMatch, isFirstMatch);
+                }
+
+                if (allAtoms[i].atomType == FORMFEED) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchLiteral(hex"0C", stringInBytes, indexToStartMatch, isFirstMatch);
+                }
+
+                if (allAtoms[i].atomType == CARRIAGE_RETURN) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
+                }
             } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
@@ -1029,6 +1059,8 @@ contract Stringray {
                     (matchStartIndex, matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
+            } else if (allAtoms[i].atomType == FORMFEED) {
+                // TODO: complete this block
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1103,6 +1135,10 @@ contract Stringray {
             i++;
         }
 
+        if (i < allAtoms.length) {
+            return (-1, -1);
+        }
+
         if (isFirstMatch && firstIndex == -1) {
             firstIndex = matchStartIndex > -1 ? matchStartIndex : matchEndIndex;
         }
@@ -1111,6 +1147,7 @@ contract Stringray {
         console2.log("firstIndex: ", firstIndex);
         console2.log("matchStartIndex: ", matchStartIndex);
         console2.log("matchEndIndex: ", matchEndIndex);
+        console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("----------------------------");
 
         (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
@@ -1345,6 +1382,11 @@ contract Stringray {
         uint256 indexIncrementRate = atom.length;
         bytes memory stringChunk;
 
+        console2.log("-----macthLiteral------");
+        console2.log("atom: ", string(atom));
+        console2.log("atom length: ", atom.length);
+        console2.log("-----------");
+
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
                 matchEndIndex = int256(i + indexIncrementRate - 1);
@@ -1359,10 +1401,16 @@ contract Stringray {
         } else {
             matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
             stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            console2.log("stingChunk: ", string(stringChunk));
             if (keccak256(atom) == keccak256(stringChunk)) {
+                console2.log("yes matches");
                 matchStartIndex = int256(indexToStartMatch);
             }
         }
+
+        console2.log("matchStartIndex: ", matchStartIndex);
+        console2.log("matchEndIndex: ", matchEndIndex);
+        console2.log("-----------");
 
         return (matchStartIndex, matchEndIndex);
     }
