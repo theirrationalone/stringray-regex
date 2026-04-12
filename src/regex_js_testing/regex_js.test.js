@@ -17704,5 +17704,61 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000164", () => {
+    const target = "secRes3@ACyfr!n";
+    let regex = /\x41/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000165", () => {
+    const target = "secRes3@ACyfr!n";
+    let regex = /\x41\x43/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000166", () => {
+    const target = "secResearch3@ACyfr!n";
+    let regex = /Rese\x61rch3/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000167", () => {
+    const target = "secResearch0@ACyfr!n";
+    let regex = /arch\x30@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000168", () => {
+    const target = "sec Research0@ACyfr!n";
+    let regex = /sec\x20Research\x30@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000169", () => {
+    const target = "sec Research0@ACyfr!n";
+    let regex = /\x20Researc\x68\x30@/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000170", () => {
+    const target = "sec Research0@Cyfrin";
+    let regex = /\x68\x30@Cyfr\x69n/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000171", () => {
+    const target = "@cyfrin says Hello to sec pros";
+    let regex = /\x48\x65\x6C\x6C\x6F/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
