@@ -1010,7 +1010,7 @@ contract Stringray {
             if (
                 allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB || allAtoms[i].atomType == NEWLINE
                     || allAtoms[i].atomType == VERTICAL_TAB || allAtoms[i].atomType == CARRIAGE_RETURN
-                    || allAtoms[i].atomType == FORMFEED
+                    || allAtoms[i].atomType == FORMFEED || allAtoms[i].atomType == ESCAPE_LITERAL_ATOM
             ) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
@@ -1070,6 +1070,9 @@ contract Stringray {
             } else if (allAtoms[i].atomType == HEX_ESCAPE) {
                 (matchStartIndex, matchEndIndex) =
                     matchBackslashXHexEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (allAtoms[i].atomType == UNICODE_ESCAPE) {
+                (matchStartIndex, matchEndIndex) =
+                    matchBackslashUUnicodeEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1181,6 +1184,31 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchBackslashUUnicodeEscape(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        bytes memory extractedInterpolatedHex;
+        bytes memory actualHex;
+        if (uint8(atom[2]) != OPEN_CURLY_BRACE) {
+            extractedInterpolatedHex = trimString(atom, 2, -1);
+            actualHex = abi.encodePacked(uint16(hexToDec(extractedInterpolatedHex, 4, true)));
+        } else {
+            extractedInterpolatedHex = trimString(atom, 3, int256(atom.length - 2));
+            if (extractedInterpolatedHex.length < 3) {
+                actualHex = abi.encodePacked(uint8(hexToDec(extractedInterpolatedHex, 4, true)));
+            } else if (extractedInterpolatedHex.length < 5) {
+                actualHex = abi.encodePacked(uint16(hexToDec(extractedInterpolatedHex, 4, true)));
+            } else {
+                actualHex = abi.encodePacked(uint24(hexToDec(extractedInterpolatedHex, 4, true)));
+            }
+        }
+
+        return matchLiteral(actualHex, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
     function matchBackslashXHexEscape(
