@@ -499,8 +499,8 @@ contract PlayStringTest is Test {
 
     function testRegexLiteralsCase40() public {
         string memory target = "anything";
-
         string memory pattern = unicode"/a^|$sian/";
+
         stringray.regex(target, pattern);
     }
 
@@ -20641,6 +20641,27 @@ contract PlayStringTest is Test {
     function testRegexPatternMatchCase163() public {
         string memory target = "secRes3@Cyfr!n";
         string memory pattern = unicode"/\\w@\\wyfr\\Wn/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase164() public {
+        // testRegexLiteralsCase40 -buggy
+        // string memory target = "anything";
+        // string memory pattern = unicode"/a^|$sian/";
+
+        // string memory target = "thithing";
+        // string memory pattern = unicode"/thin/";
+
+        string memory target = "secRes3@ACyfr!n";
+        string memory pattern = unicode"/\\x41/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");

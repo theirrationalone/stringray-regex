@@ -1067,6 +1067,9 @@ contract Stringray {
                 } else {
                     (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
+            } else if (allAtoms[i].atomType == HEX_ESCAPE) {
+                (matchStartIndex, matchEndIndex) =
+                    matchBackslashXHexEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
@@ -1104,6 +1107,7 @@ contract Stringray {
                 }
             } else {
                 matchStartIndex = -1;
+                matchEndIndex = int256(indexToStartMatch);
             }
 
             console2.log("--------------in transit log--------------");
@@ -1176,6 +1180,17 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchBackslashXHexEscape(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        // @TODO: complete this function, still remains to be finished
+        bytes memory targetHex = trimString(atom, 2, -1);
+        return matchLiteral(targetHex, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
     function matchWord(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch, bool isNotWord)
@@ -1429,7 +1444,9 @@ contract Stringray {
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
                 matchEndIndex = int256(i + indexIncrementRate - 1);
-                stringChunk = trimString(stringInBytes, i, matchEndIndex);
+                if (matchEndIndex < int256(stringInBytes.length)) {
+                    stringChunk = trimString(stringInBytes, i, matchEndIndex);
+                }
 
                 if (keccak256(atom) == keccak256(stringChunk)) {
                     matchStartIndex = int256(i);
