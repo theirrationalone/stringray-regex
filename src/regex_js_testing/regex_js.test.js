@@ -17660,6 +17660,48 @@ const testMain = () => {
     const target = "!@#$%;";
     let regex = /\w/;
     console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000158", () => {
+    const target = "!";
+    let regex = /\W/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000159", () => {
+    const target = "anil!";
+    let regex = /\W/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000160", () => {
+    const target = "secRes@Cyfrin";
+    let regex = /\WCyfrin/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000161", () => {
+    const target = "secRes@Cyfrin";
+    let regex = /Re\w\WC/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000162", () => {
+    const target = "secRes3@Cyfr!n";
+    let regex = /sec\wes\w\WCyfr\W\w/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000163", () => {
+    const target = "secRes3@Cyfr!n";
+    let regex = /\w@\wyfr\Wn/;
+    console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 };
