@@ -1061,8 +1061,12 @@ contract Stringray {
                     (matchStartIndex, matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (allAtoms[i].atomType == FORMFEED) {
-                // TODO: complete this block
+            } else if (allAtoms[i].atomType == WORD_CHARACTER || allAtoms[i].atomType == NOT_WORD_CHARACTER) {
+                if (allAtoms[i].atomType == WORD_CHARACTER) {
+                    // TODO: complete this block
+                } else {
+                    // TODO: complete this block
+                }
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
