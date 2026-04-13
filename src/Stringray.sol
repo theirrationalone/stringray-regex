@@ -1208,6 +1208,8 @@ contract Stringray {
             }
         }
 
+        // @BUG: padded actual atom length
+        // @status: not resolved
         return matchLiteral(actualHex, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
