@@ -1458,7 +1458,7 @@ contract Stringray {
         console2.log("-----------");
 
         if (isFirstMatch) {
-            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
                 matchEndIndex = int256(i + indexIncrementRate - 1);
                 if (matchEndIndex < int256(stringInBytes.length)) {
                     stringChunk = trimString(stringInBytes, i, matchEndIndex);
@@ -1468,7 +1468,6 @@ contract Stringray {
                     matchStartIndex = int256(i);
                     break;
                 }
-                i += indexIncrementRate;
             }
         } else {
             matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
