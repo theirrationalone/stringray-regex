@@ -18068,5 +18068,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000216", () => {
+    const target = "secResearch\u{123}0@Cyfrin";
+    let regex = /\u{123}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

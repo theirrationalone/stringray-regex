@@ -1192,33 +1192,35 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch
     ) private returns (int256, int256) {
-        bytes memory extractedInterpolatedHex;
-        bytes3 actualHex;
+        // bytes memory extractedInterpolatedHex;
+        // bytes3 actualHex;
 
-        if (uint8(atom[2]) != OPEN_CURLY_BRACE) {
-            extractedInterpolatedHex = trimString(atom, 2, -1);
-        } else {
-            extractedInterpolatedHex = trimString(atom, 3, int256(atom.length - 2));
-        }
+        // if (uint8(atom[2]) != OPEN_CURLY_BRACE) {
+        //     extractedInterpolatedHex = trimString(atom, 2, -1);
+        // } else {
+        //     extractedInterpolatedHex = trimString(atom, 3, int256(atom.length - 2));
+        // }
 
-        actualHex = bytes3(uint24(hexToDec(extractedInterpolatedHex, 4, true)));
+        // actualHex = bytes3(uint24(hexToDec(extractedInterpolatedHex, 4, true)));
 
-        uint256 count;
-        for (uint256 i; i < 3; i++) {
-            if (actualHex[i] == 0x00) {
-                count++;
-            }
-        }
+        // uint256 count;
+        // for (uint256 i; i < 3; i++) {
+        //     if (actualHex[i] == 0x00) {
+        //         count++;
+        //     }
+        // }
 
-        bytes memory atom;
+        // bytes memory atom;
 
-        if (count == 0) {
-            atom = abi.encodePacked(actualHex);
-        } else if (count == 1) {
-            atom = abi.encodePacked(actualHex[1], actualHex[2]);
-        } else {
-            atom = abi.encodePacked(actualHex[2]);
-        }
+        // if (count == 0) {
+        //     atom = abi.encodePacked(actualHex);
+        // } else if (count == 1) {
+        //     atom = abi.encodePacked(actualHex[1], actualHex[2]);
+        // } else {
+        //     atom = abi.encodePacked(actualHex[2]);
+        // }
+
+        atom = unicodeHexToUtf8Hex(atom);
 
         return matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
     }
@@ -1479,6 +1481,7 @@ contract Stringray {
         bytes memory stringChunk;
 
         console2.log("-----macthLiteral------");
+        console2.logBytes(atom);
         console2.log("atom: ", string(atom));
         console2.log("atom length: ", atom.length);
         console2.log("-----------");
@@ -17599,6 +17602,8 @@ contract Stringray {
         }
 
         bytes memory binary;
+        // @BUG🐍: inconsistent last index pickup logic
+        // @info: could be \uHHHH instead of \u{HHHHHH}
         for (uint256 i = 3; i < _unicodeHex.length - 1; i++) {
             bytes memory bin = hexToBinary(_unicodeHex[i], 4, true);
             binary = abi.encodePacked(binary, bin);
@@ -17612,6 +17617,14 @@ contract Stringray {
                 break;
             }
         }
+
+        console2.log("-------------------------unicodeHexToUtf8Hex-------------------------");
+        console2.log("unicode hex: ");
+        console2.logBytes(_unicodeHex);
+        console2.log("Binary: ");
+        console2.logBytes(binary);
+        console2.log("binary length: ", binary.length);
+        console2.log("--------------------------------------------------");
 
         if (binary.length <= 7) {
             return binToHex(binary);
