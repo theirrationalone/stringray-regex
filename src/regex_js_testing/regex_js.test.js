@@ -18495,5 +18495,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000277", () => {
+    const target = "secResearch\u{0000A9}0@Cyfrin";
+    let regex = /\u{0000A9}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000278", () => {
+    const target = "secResearch\u{01F680}0@Cyfrin";
+    let regex = /\u{01F680}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000279", () => {
+    const target = "secResearch\u{10FFFF}0@Cyfrin";
+    let regex = /\u{10FFFF}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
