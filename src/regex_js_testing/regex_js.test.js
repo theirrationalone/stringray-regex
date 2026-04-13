@@ -17816,5 +17816,61 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000180", () => {
+    const target = "secRes3@ACyfr!n";
+    let regex = /\u{0041}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000181", () => {
+    const target = "secRes3@ACyfr!n";
+    let regex = /\u{0041}\u{0043}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000182", () => {
+    const target = "secResearch3@ACyfr!n";
+    let regex = /Rese\u{0061}rch3/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000183", () => {
+    const target = "secResearch0@ACyfr!n";
+    let regex = /arch\u{0030}@/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000184", () => {
+    const target = "sec Research0@ACyfr!n";
+    let regex = /sec\u{0020}Research\u{0030}@/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000185", () => {
+    const target = "sec Research0@ACyfr!n";
+    let regex = /\u{0020}Researc\u{0068}\u{0030}@/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000186", () => {
+    const target = "sec Research0@Cyfrin";
+    let regex = /\u{0068}\u{0030}@Cyfr\u{0069}n/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000187", () => {
+    const target = "@cyfrin says Hello to sec pros";
+    let regex = /\u{0048}\u{0065}\u{006C}\u{006C}\u{006F}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
