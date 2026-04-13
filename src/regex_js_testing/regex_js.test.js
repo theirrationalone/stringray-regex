@@ -18208,5 +18208,68 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match cases: Case00000000000000000000000236", () => {
+    const target = "secResearch\u{1000}0@Cyfrin";
+    let regex = /\u{1000}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000237", () => {
+    const target = "secResearch\u{10A0}0@Cyfrin";
+    let regex = /\u{10A0}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000238", () => {
+    const target = "secResearch\u{1234}0@Cyfrin";
+    let regex = /\u{1234}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000239", () => {
+    const target = "secResearch\u{20AC}0@Cyfrin";
+    let regex = /\u{20AC}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000240", () => {
+    const target = "secResearch\u{2192}0@Cyfrin";
+    let regex = /\u{2192}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000241", () => {
+    const target = "secResearch\u{2603}0@Cyfrin";
+    let regex = /\u{2603}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000242", () => {
+    const target = "secResearch\u{2764}0@Cyfrin";
+    let regex = /\u{2764}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000243", () => {
+    const target = "secResearch\u{2B50}0@Cyfrin";
+    let regex = /\u{2B50}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match cases: Case00000000000000000000000244", () => {
+    const target = "secResearch\u{4E2D}0@Cyfrin";
+    let regex = /\u{4E2D}/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
