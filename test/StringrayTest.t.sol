@@ -22159,4 +22159,139 @@ contract PlayStringTest is Test {
         console2.log("Match end index  : ", returnedData.matchEndIndex);
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchCase268() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10000}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010000}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase269() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10142}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010142}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase270() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10348}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010348}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase271() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10437}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010437}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase272() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10597}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010597}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase273() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{106A0}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{0106A0}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase274() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10A10}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010A10}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase275() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10B80}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010B80}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchCase276() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10C00}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
+        string memory pattern = unicode"/\\u{010C00}/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 }
