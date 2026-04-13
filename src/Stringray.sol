@@ -1193,24 +1193,34 @@ contract Stringray {
         bool isFirstMatch
     ) private returns (int256, int256) {
         bytes memory extractedInterpolatedHex;
-        bytes memory actualHex;
+        bytes3 actualHex;
+
         if (uint8(atom[2]) != OPEN_CURLY_BRACE) {
             extractedInterpolatedHex = trimString(atom, 2, -1);
-            actualHex = abi.encodePacked(uint16(hexToDec(extractedInterpolatedHex, 4, true)));
         } else {
             extractedInterpolatedHex = trimString(atom, 3, int256(atom.length - 2));
-            if (extractedInterpolatedHex.length < 3) {
-                actualHex = abi.encodePacked(uint8(hexToDec(extractedInterpolatedHex, 4, true)));
-            } else if (extractedInterpolatedHex.length < 5) {
-                actualHex = abi.encodePacked(uint16(hexToDec(extractedInterpolatedHex, 4, true)));
-            } else {
-                actualHex = abi.encodePacked(uint24(hexToDec(extractedInterpolatedHex, 4, true)));
+        }
+
+        actualHex = bytes3(uint24(hexToDec(extractedInterpolatedHex, 4, true)));
+
+        uint256 count;
+        for (uint256 i; i < 3; i++) {
+            if (actualHex[i] == 0x00) {
+                count++;
             }
         }
 
-        // @BUG: padded actual atom length
-        // @status: not resolved
-        return matchLiteral(actualHex, stringInBytes, indexToStartMatch, isFirstMatch);
+        bytes memory atom;
+
+        if (count == 0) {
+            atom = abi.encodePacked(actualHex);
+        } else if (count == 1) {
+            atom = abi.encodePacked(actualHex[1], actualHex[2]);
+        } else {
+            atom = abi.encodePacked(actualHex[2]);
+        }
+
+        return matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
     function matchBackslashXHexEscape(
