@@ -1452,8 +1452,8 @@ contract Stringray {
         bytes memory stringChunk;
 
         console2.log("-----macthLiteral------");
-        console2.logBytes(atom);
         console2.log("atom: ", string(atom));
+        console2.logBytes(atom);
         console2.log("atom length: ", atom.length);
         console2.log("-----------");
 
@@ -1473,9 +1473,7 @@ contract Stringray {
         } else {
             matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
             stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
-            console2.log("stingChunk: ", string(stringChunk));
             if (keccak256(atom) == keccak256(stringChunk)) {
-                console2.log("yes matches");
                 matchStartIndex = int256(indexToStartMatch);
             }
         }
@@ -17581,6 +17579,10 @@ contract Stringray {
 
         uint256 i;
         while (true) {
+            if (binary.length == 0) {
+                return hex"00";
+            }
+
             if (binary[i] == 0x30) {
                 binary = trimString(binary, i + 1, -1);
             } else {

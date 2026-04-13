@@ -21381,7 +21381,8 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCase216() public {
-        string memory target = string(abi.encodePacked("secResearch", hex"0123", "0@Cyfrin"));
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{123}"));
+        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
         string memory pattern = unicode"/\\u{123}/u";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
