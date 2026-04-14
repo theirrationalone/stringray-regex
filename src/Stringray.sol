@@ -360,6 +360,7 @@ contract Stringray {
     bytes32 private constant NOT_WORD_CHARACTER = "NOT_WORD_CHARACTER";
     bytes32 private constant NULL_CHARACTER = "NULL_CHARACTER";
     bytes32 private constant OCTAL = "OCTAL";
+    bytes32 private constant CC_RANGE = "CC_RANGE";
     bytes32 private constant ASTERISK_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
     // @info: BUG: bytes32 private constant PLUS_GREEDY_QUANTIFIER_ATOM = "*_GREEDY_QUANTIFIER_ATOM";
     // @status: resolved!
@@ -928,6 +929,7 @@ contract Stringray {
     }
 
     AtomTrait[] private allAtoms;
+    AtomTrait[] private allCCSubAtoms;
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
@@ -1104,6 +1106,9 @@ contract Stringray {
                     i = 0;
                     continue;
                 }
+            } else if (allAtoms[i].atomType == CHARACTER_CLASS_ATOM) {
+                (matchStartIndex, matchEndIndex) =
+                    matchCharacterClass(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1177,6 +1182,90 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchCharacterClass(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
+        bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
+        uint256 i;
+
+        for (; i < pattern.length;) {
+            (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
+
+            if (lAtomType == INVALID_ATOM) break;
+
+            if (lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN) {
+                (bytes32 rAtomType, uint256 rLastParticleIndex) =
+                    ccSubAtoms(pattern, lLastParticleIndex + 2, patternFlags, true, false, false);
+
+                if (rAtomType == INVALID_ATOM) break;
+
+                allCCSubAtoms.push(
+                    AtomTrait({
+                        atomType: CC_RANGE,
+                        atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                        atomEndIdx: int256(rLastParticleIndex)
+                    })
+                );
+                lLastParticleIndex = rLastParticleIndex;
+            } else {
+                allCCSubAtoms.push(
+                    AtomTrait({
+                        atomType: lAtomType,
+                        atom: trimString(pattern, i, int256(lLastParticleIndex)),
+                        atomEndIdx: int256(lLastParticleIndex)
+                    })
+                );
+            }
+
+            matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch);
+
+            i = lLastParticleIndex + 1;
+        }
+
+        return (-1, -1);
+    }
+
+    function matchCharacterClassSubAtomsPattern(
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        // @TODO: sub atoms organised, now build logic to match patterns...
+    }
+
+    function ccSubAtoms(
+        bytes memory pattern,
+        uint256 indexToStartWith,
+        bytes memory patternFlags,
+        bool fromCharacterClass,
+        bool fromGroup,
+        bool isNestedCC
+    ) private returns (bytes32, uint256) {
+        (, bytes32 atomType, uint256 lastParticleIndex) = isLiteralAtom(
+            pattern, pattern, indexToStartWith, patternFlags, fromCharacterClass, fromGroup, isNestedCC
+        );
+
+        if (
+            atomType == INVALID_ATOM
+                && (uint8(pattern[indexToStartWith]) == OPEN_PARANTHESIS
+                    || uint8(pattern[indexToStartWith]) == CLOSE_PARANTHESIS
+                    || (uint8(pattern[indexToStartWith]) == OPEN_SQUARE_BRACKET && !hasFlag(patternFlags, "v"))
+                    || uint8(pattern[indexToStartWith]) == QUESTION_MARK
+                    || uint8(pattern[indexToStartWith]) == PLUS_SIGN
+                    || uint8(pattern[indexToStartWith]) == FORWARD_SLASH
+                    || uint8(pattern[indexToStartWith]) == ASTERISK)
+        ) {
+            atomType = LITERAL_ATOM;
+            lastParticleIndex = indexToStartWith;
+        }
+
+        return (atomType, lastParticleIndex);
     }
 
     function matchBackslashUUnicodeEscape(
@@ -3024,6 +3113,8 @@ contract Stringray {
     function printAtomType(bytes32 atomType) private pure {
         if (atomType == LITERAL_ATOM) {
             console2.log("Atom Type: LITERAL_ATOM");
+        } else if (atomType == CC_RANGE) {
+            console2.log("Atom Type: CC_RANGE");
         } else if (atomType == ESCAPE_LITERAL_ATOM) {
             console2.log("Atom Type: ESCAPE_LITERAL_ATOM");
         } else if (atomType == DOT_ATOM) {
