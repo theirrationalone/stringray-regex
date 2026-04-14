@@ -1095,7 +1095,11 @@ contract Stringray {
                     } else {
                         if (i == allAtoms.length - 1) {
                             if (!wordBoundary) {
-                                matchEndIndex = int256(indexToStartMatch - 1);
+                                if (indexToStartMatch == stringInBytes.length - 1) {
+                                    matchEndIndex = int256(indexToStartMatch);
+                                } else {
+                                    matchEndIndex = int256(indexToStartMatch - 1);
+                                }
                             } else {
                                 matchEndIndex = int256(indexToStartMatch);
                             }
@@ -1124,6 +1128,15 @@ contract Stringray {
 
             if (indexToStartMatch >= stringInBytes.length - 1) {
                 console2.log("i: ", i);
+                if (
+                    matchEndIndex == int256(indexToStartMatch) && indexToStartMatch == stringInBytes.length - 1
+                        && i + 1 == allAtoms.length - 1
+                        && (allAtoms[i + 1].atomType == WORD_BOUNDARY || allAtoms[i + 1].atomType == NOT_WORD_BOUNDARY)
+                ) {
+                    i++;
+                    continue;
+                }
+
                 if (matchStartIndex == -1) {
                     firstIndex = -1;
                     matchEndIndex = -1;
@@ -1157,6 +1170,7 @@ contract Stringray {
 
         console2.log("came here");
         if (i < allAtoms.length) {
+            console2.log("triggered this");
             return (-1, -1);
         }
 
@@ -1496,7 +1510,9 @@ contract Stringray {
             }
         } else {
             matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
-            stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            if (matchEndIndex < int256(stringInBytes.length)) {
+                stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            }
             if (keccak256(atom) == keccak256(stringChunk)) {
                 matchStartIndex = int256(indexToStartMatch);
             }
