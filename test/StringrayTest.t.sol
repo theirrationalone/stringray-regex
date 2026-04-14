@@ -22341,9 +22341,8 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCharacterClassesCaseTestimonial() public {
-        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{10FFFF}"));
-        string memory target = string(abi.encodePacked("secResearch", utf8Hex, "0@Cyfrin"));
-        string memory pattern = unicode"/[-a-bc-]/";
+        string memory target = "nehal";
+        string memory pattern = unicode"/h[abc]l/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");

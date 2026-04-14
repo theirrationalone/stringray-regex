@@ -1116,6 +1116,9 @@ contract Stringray {
             } else if (!fromCharacterClass && atoms[i].atomType == CHARACTER_CLASS_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+            } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
+                (matchStartIndex, matchEndIndex) =
+                    matchCCRange(atoms[i].atom, stringInBytes, indexToSTartMatch, isFirstMatch, patternFlags);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1189,6 +1192,31 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchCCRange(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
+        int256 minusSignIndex = -1;
+        for (uint256 i; i < atom.length; i++) {
+            if (uint8(atom[i]) == MINUS_SIGN) {
+                minusSignIndex = int256(i);
+                break;
+            }
+        }
+
+        if (minusSignIndex <= 0 || minusSignIndex >= atom.length) return (-1, -1);
+
+        bytes memory atomLeft = trimString(atom, 0, minusSignIndex - 1);
+        bytes memory atomRight = trimString(atom, uint256(minusSigIndex) + 1, -1);
+
+        // @TODO: Implement a logic which can determine the valid escapes unicode decimal value and literals values as well.
+        // Then, match with all target chars until any get found or indicate nonexistence of such character class chars.
+        // if (atomLeft.length > 1) {}
     }
 
     function matchCharacterClass(
