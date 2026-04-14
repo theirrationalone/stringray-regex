@@ -995,18 +995,6 @@ contract Stringray {
                 }
             }
 
-            console2.log("------------first log------------");
-            printAtomType(allAtoms[i].atomType);
-            console2.log("atom: ", string(allAtoms[i].atom));
-            console2.log("firstIndex: ", firstIndex);
-            console2.log("matchStartIndex: ", matchStartIndex);
-            console2.log("matchEndIndex: ", matchEndIndex);
-            console2.log("indexToStartMatch: ", indexToStartMatch);
-            console2.log("string length: ", stringInBytes.length);
-            console2.log("atoms length: ", allAtoms.length);
-            console2.log("i: ", i);
-            console2.log("------------");
-
             if (indexToStartMatch >= stringInBytes.length) {
                 break;
             }
@@ -1079,11 +1067,7 @@ contract Stringray {
                     matchBackslashUUnicodeEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
                 if (allAtoms[i].atomType == WORD_BOUNDARY) {
-                    console2.log("matchWordBoundary init");
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
-                    console2.log("matchStartIndex: ", matchStartIndex);
-                    console2.log("matchEndIndex: ", matchEndIndex);
-                    console2.log("matchWordBoundary end");
                 } else {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, true);
                 }
@@ -1111,7 +1095,6 @@ contract Stringray {
                     i++;
                     continue;
                 } else if (matchEndIndex == -1) {
-                    console2.log("here...............");
                     isFirstMatch = true;
                     firstIndex = -1;
                     matchStartIndex = 0;
@@ -1127,7 +1110,6 @@ contract Stringray {
             }
 
             if (indexToStartMatch >= stringInBytes.length - 1) {
-                console2.log("i: ", i);
                 if (
                     matchStartIndex != -1 && matchEndIndex == int256(indexToStartMatch)
                         && indexToStartMatch == stringInBytes.length - 1 && i + 1 == allAtoms.length - 1
@@ -1168,22 +1150,13 @@ contract Stringray {
             i++;
         }
 
-        console2.log("came here");
         if (i < allAtoms.length) {
-            console2.log("triggered this");
             return (-1, -1);
         }
 
         if (isFirstMatch && firstIndex == -1) {
             firstIndex = matchStartIndex > -1 ? matchStartIndex : matchEndIndex;
         }
-
-        console2.log("--------------final log--------------");
-        console2.log("firstIndex: ", firstIndex);
-        console2.log("matchStartIndex: ", matchStartIndex);
-        console2.log("matchEndIndex: ", matchEndIndex);
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("----------------------------");
 
         (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
 
@@ -1211,7 +1184,7 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         atom = unicodeHexToUtf8Hex(atom);
         return matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
     }
@@ -1221,7 +1194,7 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         bytes memory extractedInterpolatedHex = trimString(atom, 2, -1);
         bytes memory actualHex = abi.encodePacked(uint8(hexToDec(extractedInterpolatedHex, 4, true)));
 
@@ -1235,8 +1208,6 @@ contract Stringray {
     {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
-        uint256 indexIncrementRate = 1;
-        bytes memory stringChunk;
         bool flag;
 
         if (isFirstMatch) {
@@ -1268,8 +1239,6 @@ contract Stringray {
     ) private pure returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
-        uint256 indexIncrementRate = 1;
-        bytes memory stringChunk;
         bool flag;
         uint256 lastIndex;
 
@@ -1301,7 +1270,6 @@ contract Stringray {
     {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
-        uint256 indexIncrementRate = 1;
         bytes memory stringChunk;
 
         if (isFirstMatch) {
@@ -1344,7 +1312,7 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         bytes memory targetHex = trimString(atom, 2, -1);
         bytes memory extractedAtom = abi.encodePacked(uint8(targetHex[0]) % 32);
 
@@ -1380,6 +1348,7 @@ contract Stringray {
 
     function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch, bool isNotBoundary)
         private
+        pure
         returns (int256, int256)
     {
         uint256 stringLength = stringInBytes.length;
@@ -1433,9 +1402,7 @@ contract Stringray {
             }
 
             if (indexToStartMatch > 0) {
-                console2.log("indexToStartMatch inside boundary fn: ", indexToStartMatch);
                 if (indexToStartMatch == stringLength && isWord(stringInBytes[indexToStartMatch - 1], false)) {
-                    console2.log("first check is true");
                     return (int256(indexToStartMatch - 1), int256(indexToStartMatch - 1));
                 }
 
@@ -1472,7 +1439,7 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         bytes memory extractedAtom = trimString(atom, 1, int256(atom.length - 1));
 
         (int256 matchStartIndex, int256 matchEndIndex) =
@@ -1490,11 +1457,6 @@ contract Stringray {
         int256 matchEndIndex = -1;
         uint256 indexIncrementRate = atom.length;
         bytes memory stringChunk;
-
-        console2.log("----------matchLiteral----------");
-        console2.log("atom: ", string(atom));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
 
         if (isFirstMatch) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
@@ -1517,10 +1479,6 @@ contract Stringray {
                 matchStartIndex = int256(indexToStartMatch);
             }
         }
-
-        console2.log("matchStartIndex: ", matchStartIndex);
-        console2.log("matchEndIndex: ", matchEndIndex);
-        console2.log("--------------------");
 
         return (matchStartIndex, matchEndIndex);
     }
