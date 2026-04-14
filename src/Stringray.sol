@@ -1129,8 +1129,8 @@ contract Stringray {
             if (indexToStartMatch >= stringInBytes.length - 1) {
                 console2.log("i: ", i);
                 if (
-                    matchEndIndex == int256(indexToStartMatch) && indexToStartMatch == stringInBytes.length - 1
-                        && i + 1 == allAtoms.length - 1
+                    matchStartIndex != -1 && matchEndIndex == int256(indexToStartMatch)
+                        && indexToStartMatch == stringInBytes.length - 1 && i + 1 == allAtoms.length - 1
                         && (allAtoms[i + 1].atomType == WORD_BOUNDARY || allAtoms[i + 1].atomType == NOT_WORD_BOUNDARY)
                 ) {
                     i++;
