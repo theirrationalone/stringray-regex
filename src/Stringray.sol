@@ -956,7 +956,7 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
-            (matchStartIndex, matchEndIndex) = matchPattern(stringInBytes, patternFlags);
+            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, false);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
                 matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -972,7 +972,12 @@ contract Stringray {
         });
     }
 
-    function matchPattern(bytes memory stringInBytes, bytes memory patternFlags) private returns (int256, int256) {
+    function matchPattern(
+        AtomTrait[] memory atoms,
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        bool fromCharacterClass
+    ) private returns (int256, int256) {
         int256 firstIndex = -1;
         int256 matchStartIndex;
         int256 matchEndIndex = -1;
@@ -982,7 +987,7 @@ contract Stringray {
         bool wordBoundary;
         uint256 i;
 
-        for (; i < allAtoms.length;) {
+        for (; i < atoms.length;) {
             if (matchEndIndex > -1) {
                 if (firstIndex == -1) {
                     firstIndex = matchStartIndex;
@@ -1002,73 +1007,75 @@ contract Stringray {
             }
 
             if (
-                allAtoms[i].atomType == LITERAL_ATOM || allAtoms[i].atomType == TAB || allAtoms[i].atomType == NEWLINE
-                    || allAtoms[i].atomType == VERTICAL_TAB || allAtoms[i].atomType == CARRIAGE_RETURN
-                    || allAtoms[i].atomType == FORMFEED
+                atoms[i].atomType == LITERAL_ATOM || atoms[i].atomType == TAB || atoms[i].atomType == NEWLINE
+                    || atoms[i].atomType == VERTICAL_TAB || atoms[i].atomType == CARRIAGE_RETURN
+                    || atoms[i].atomType == FORMFEED
             ) {
                 (matchStartIndex, matchEndIndex) =
-                    matchLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+                    matchLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
                 if (matchStartIndex == -1) {
-                    if (allAtoms[i].atomType == TAB) {
+                    if (atoms[i].atomType == TAB) {
                         (matchStartIndex, matchEndIndex) =
                             matchLiteral(hex"09", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (allAtoms[i].atomType == NEWLINE) {
+                    if (atoms[i].atomType == NEWLINE) {
                         (matchStartIndex, matchEndIndex) =
                             matchLiteral(hex"0a", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (allAtoms[i].atomType == VERTICAL_TAB) {
+                    if (atoms[i].atomType == VERTICAL_TAB) {
                         (matchStartIndex, matchEndIndex) =
                             matchLiteral(hex"0b", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (allAtoms[i].atomType == FORMFEED) {
+                    if (atoms[i].atomType == FORMFEED) {
                         (matchStartIndex, matchEndIndex) =
                             matchLiteral(hex"0C", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (allAtoms[i].atomType == CARRIAGE_RETURN) {
+                    if (atoms[i].atomType == CARRIAGE_RETURN) {
                         (matchStartIndex, matchEndIndex) =
                             matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
                 }
-            } else if (allAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
+            } else if (atoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
-                    matchEscapeLiteral(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == CONTROL_PREFIX) {
+                    matchEscapeLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[i].atomType == CONTROL_PREFIX) {
                 (matchStartIndex, matchEndIndex) =
-                    matchControlPrefix(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == DIGIT || allAtoms[i].atomType == NOT_DIGIT) {
-                if (allAtoms[i].atomType == DIGIT) {
+                    matchControlPrefix(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[i].atomType == DIGIT || atoms[i].atomType == NOT_DIGIT) {
+                if (atoms[i].atomType == DIGIT) {
                     (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
                     (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (allAtoms[i].atomType == WHITESPACE || allAtoms[i].atomType == NOT_WHITESPACE) {
-                if (allAtoms[i].atomType == WHITESPACE) {
+            } else if (atoms[i].atomType == WHITESPACE || atoms[i].atomType == NOT_WHITESPACE) {
+                if (atoms[i].atomType == WHITESPACE) {
                     (matchStartIndex, matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
                     (matchStartIndex, matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (allAtoms[i].atomType == WORD_CHARACTER || allAtoms[i].atomType == NOT_WORD_CHARACTER) {
-                if (allAtoms[i].atomType == WORD_CHARACTER) {
+            } else if (atoms[i].atomType == WORD_CHARACTER || atoms[i].atomType == NOT_WORD_CHARACTER) {
+                if (atoms[i].atomType == WORD_CHARACTER) {
                     (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
                     (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (allAtoms[i].atomType == HEX_ESCAPE) {
+            } else if (atoms[i].atomType == HEX_ESCAPE) {
                 (matchStartIndex, matchEndIndex) =
-                    matchBackslashXHexEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == UNICODE_ESCAPE) {
+                    matchBackslashXHexEscape(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[i].atomType == UNICODE_ESCAPE) {
                 (matchStartIndex, matchEndIndex) =
-                    matchBackslashUUnicodeEscape(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (allAtoms[i].atomType == WORD_BOUNDARY || allAtoms[i].atomType == NOT_WORD_BOUNDARY) {
-                if (allAtoms[i].atomType == WORD_BOUNDARY) {
+                    matchBackslashUUnicodeEscape(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (
+                !fromCharacterClass && (atoms[i].atomType == WORD_BOUNDARY || atoms[i].atomType == NOT_WORD_BOUNDARY)
+            ) {
+                if (atoms[i].atomType == WORD_BOUNDARY) {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
                 } else {
                     (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, true);
@@ -1079,7 +1086,7 @@ contract Stringray {
                         indexToStartMatch = uint256(matchEndIndex);
                         firstIndex = matchEndIndex;
                     } else {
-                        if (i == allAtoms.length - 1) {
+                        if (i == atoms.length - 1) {
                             if (!wordBoundary) {
                                 if (indexToStartMatch == stringInBytes.length - 1) {
                                     matchEndIndex = int256(indexToStartMatch);
@@ -1106,9 +1113,9 @@ contract Stringray {
                     i = 0;
                     continue;
                 }
-            } else if (allAtoms[i].atomType == CHARACTER_CLASS_ATOM) {
+            } else if (!fromCharacterClass && atoms[i].atomType == CHARACTER_CLASS_ATOM) {
                 (matchStartIndex, matchEndIndex) =
-                    matchCharacterClass(allAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+                    matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1117,8 +1124,8 @@ contract Stringray {
             if (indexToStartMatch >= stringInBytes.length - 1) {
                 if (
                     matchStartIndex != -1 && matchEndIndex == int256(indexToStartMatch)
-                        && indexToStartMatch == stringInBytes.length - 1 && i + 1 == allAtoms.length - 1
-                        && (allAtoms[i + 1].atomType == WORD_BOUNDARY || allAtoms[i + 1].atomType == NOT_WORD_BOUNDARY)
+                        && indexToStartMatch == stringInBytes.length - 1 && i + 1 == atoms.length - 1
+                        && (atoms[i + 1].atomType == WORD_BOUNDARY || atoms[i + 1].atomType == NOT_WORD_BOUNDARY)
                 ) {
                     i++;
                     continue;
@@ -1155,7 +1162,7 @@ contract Stringray {
             i++;
         }
 
-        if (i < allAtoms.length) {
+        if (i < atoms.length) {
             return (-1, -1);
         }
 
@@ -1172,9 +1179,9 @@ contract Stringray {
         if (matchEndIndex > -1) {
             if (
                 matchEndIndex == int256(stringInBytes.length - 1)
-                    && ((allAtoms[allAtoms.length - 1].atomType == WORD_BOUNDARY
+                    && ((atoms[atoms.length - 1].atomType == WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false))
-                        || (allAtoms[allAtoms.length - 1].atomType == NOT_WORD_BOUNDARY
+                        || (atoms[atoms.length - 1].atomType == NOT_WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false)))
             ) {
                 firstIndex = -1;
@@ -1223,20 +1230,31 @@ contract Stringray {
                 );
             }
 
-            matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch);
-
             i = lLastParticleIndex + 1;
         }
 
-        return (-1, -1);
+        return matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
     }
 
     function matchCharacterClassSubAtomsPattern(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
-        bool isFirstMatch
+        bool isFirstMatch,
+        bytes memory patternFlags
     ) private returns (int256, int256) {
-        // @TODO: sub atoms organised, now build logic to match patterns...
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        for (uint256 i; i < allCCSubAtoms.length; i++) {
+            AtomTrait[] memory subAtom = new AtomTrait[](1);
+            subAtom[0] = allCCSubAtoms[i];
+            (matchStartIndex, matchEndIndex) = matchPattern(subAtom, stringInBytes, patternFlags, true);
+
+            if (matchStartIndex > -1 && matchEndIndex > -1) {
+                return (matchStartIndex, matchEndIndex);
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
     }
 
     function ccSubAtoms(
