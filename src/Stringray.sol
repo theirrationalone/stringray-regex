@@ -1118,7 +1118,7 @@ contract Stringray {
                     matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
                 (matchStartIndex, matchEndIndex) =
-                    matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+                    matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1194,13 +1194,10 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchCCRange(
-        bytes memory atom,
-        bytes memory stringInBytes,
-        uint256 indexToStartMatch,
-        bool isFirstMatch,
-        bytes memory patternFlags
-    ) private returns (int256, int256) {
+    function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
+        private
+        returns (int256, int256)
+    {
         int256 minusSignIndex = -1;
         for (uint256 i; i < atom.length; i++) {
             if (uint8(atom[i]) == MINUS_SIGN) {
@@ -1211,37 +1208,80 @@ contract Stringray {
 
         if (minusSignIndex <= 0 || minusSignIndex >= int256(atom.length)) return (-1, -1);
 
-        bytes memory atomLeft = trimString(atom, 0, minusSignIndex - 1);
-        bytes memory atomRight = trimString(atom, uint256(minusSignIndex) + 1, -1);
+        (bytes memory leftAtom, uint256 leftAtomDec) = evaluateAtomDecValue(trimString(atom, 0, minusSignIndex - 1));
+        (bytes memory rightAtom, uint256 rightAtomDec) =
+            evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
 
-        // @TODO: Implement a logic which can determine the valid escapes unicode decimal value and literals values as well.
-        // Then, match with all target chars until any get found or indicate nonexistence of such character class chars.
-        uint256 leftAtomDec = evaluateAtomDecValue(atomLeft);
-        uint256 rightAtomDec = evaluateAtomDecValue(atomRight);
-
-        console2.log("-----------------atomdata-----------------");
-        console2.log("atom: ", string(atom));
-        console2.log("atom left: ", string(atomLeft));
-        console2.log("atom right: ", string(atomRight));
-        console2.log("atom left first index: ", string(abi.encodePacked(atomLeft[0])));
-        console2.log("atom right first index: ", string(abi.encodePacked(atomRight[0])));
-        console2.log("leftAtomDec: ", leftAtomDec);
-        console2.log("rightAtomDec: ", rightAtomDec);
-        console2.log("----------------------------------");
-
-        return (-1, -1);
+        return
+            matchRawCCRange(
+                stringInBytes, indexToStartMatch, isFirstMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec
+            );
     }
 
-    function evaluateAtomDecValue(bytes memory atom) private pure returns (uint256) {
+    function matchRawCCRange(
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory leftAtom,
+        bytes memory rightAtom,
+        uint256 leftAtomDec,
+        uint256 rightAtomDec
+    ) private returns (int256, int256) {
+        // int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        uint256 indexIncrementRate1 = leftAtom.length;
+        // uint256 indexIncrementRate12 = rightAtom.length;
+
+        console2.log("------------------------------");
+        console2.log("indexIncrementRate1: ", indexIncrementRate1);
+        console2.log("leftAtom: ");
+        console2.logBytes(leftAtom);
+        console2.log("------------------------------");
+
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+                matchEndIndex = int256(i + indexIncrementRate1 - 1);
+                if (matchEndIndex < int256(stringInBytes.length)) {
+                    // trimString(stringInBytes, i, matchEndIndex)
+                    console2.log("------------------------");
+                    console2.log("stringChunk utf8: ", string(trimString(stringInBytes, i, matchEndIndex)));
+                    console2.log("stringChunk in utf8 hex: ");
+                    console2.logBytes(trimString(stringInBytes, i, matchEndIndex));
+                    console2.log(
+                        "stringChunk unicode: ",
+                        string(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)))
+                    );
+                    console2.log("stringChunk in unicode hex: ");
+                    console2.logBytes(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)));
+                    console2.log("------------------------");
+                }
+
+                if (keccak256(leftAtom) == keccak256(trimString(stringInBytes, i, matchEndIndex))) {
+                    // matchStartIndex = int256(i);
+                    break;
+                }
+            }
+        } else {
+            matchEndIndex = int256(indexToStartMatch + indexIncrementRate1 - 1);
+            if (matchEndIndex < int256(stringInBytes.length)) {}
+            if (keccak256(leftAtom) == keccak256(trimString(stringInBytes, indexToStartMatch, matchEndIndex))) {
+                // matchStartIndex = int256(indexToStartMatch);
+            }
+        }
+
+        return (-1, matchEndIndex);
+    }
+
+    function evaluateAtomDecValue(bytes memory atom) private pure returns (bytes memory, uint256) {
         uint256 atomLength = atom.length;
 
         if (atomLength == 1) {
-            return uint256(uint8(atom[0]));
+            return (atom, uint256(uint8(atom[0])));
         }
 
         if (atomLength > 1 && uint8(atom[0]) == BACK_SLASH) {
             if (atomLength == 2) {
-                return uint256(uint8(atom[1]));
+                return (atom, uint256(uint8(atom[1])));
             }
 
             bytes memory hexString;
@@ -1258,11 +1298,11 @@ contract Stringray {
                     }
                 }
 
-                return hexToDec(hexString, 4, true);
+                return (hexString, hexToDec(hexString, 4, true));
             }
         }
 
-        return 1114112;
+        return ("", 1114112);
     }
 
     function matchCharacterClass(
