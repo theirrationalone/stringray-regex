@@ -1214,30 +1214,34 @@ contract Stringray {
         bytes memory atomLeft = trimString(atom, 0, minusSignIndex - 1);
         bytes memory atomRight = trimString(atom, uint256(minusSignIndex) + 1, -1);
 
+        // @TODO: Implement a logic which can determine the valid escapes unicode decimal value and literals values as well.
+        // Then, match with all target chars until any get found or indicate nonexistence of such character class chars.
+        uint256 leftAtomDec = evaluateAtomDecValue(atomLeft);
+        uint256 rightAtomDec = evaluateAtomDecValue(atomRight);
+
         console2.log("-----------------atomdata-----------------");
         console2.log("atom: ", string(atom));
         console2.log("atom left: ", string(atomLeft));
         console2.log("atom right: ", string(atomRight));
         console2.log("atom left first index: ", string(abi.encodePacked(atomLeft[0])));
         console2.log("atom right first index: ", string(abi.encodePacked(atomRight[0])));
-
+        console2.log("leftAtomDec: ", leftAtomDec);
+        console2.log("rightAtomDec: ", rightAtomDec);
         console2.log("----------------------------------");
-
-        // @TODO: Implement a logic which can determine the valid escapes unicode decimal value and literals values as well.
-        // Then, match with all target chars until any get found or indicate nonexistence of such character class chars.
-        uint256 leftAtomDec = evaluateAtomDecValue(atomLeft);
-        uint256 rightAtomDec = evaluateAtomDecValue(atomRight);
 
         return (-1, -1);
     }
 
-    function evaluateAtomDecValue(bytes memory atom) private returns (uint256) {
+    function evaluateAtomDecValue(bytes memory atom) private pure returns (uint256) {
         uint256 atomLength = atom.length;
-        uint256 atomDec;
+
+        if (atomLength == 1) {
+            return uint256(uint8(atom[0]));
+        }
 
         if (atomLength > 1 && uint8(atom[0]) == BACK_SLASH) {
             if (atomLength == 2) {
-                atomDec = uint256(uint8(atom[1]));
+                return uint256(uint8(atom[1]));
             }
 
             bytes memory hexString;
@@ -1254,9 +1258,11 @@ contract Stringray {
                     }
                 }
 
-                atomDec = hexToDec(hexString, 4, true);
+                return hexToDec(hexString, 4, true);
             }
         }
+
+        return 1114112;
     }
 
     function matchCharacterClass(

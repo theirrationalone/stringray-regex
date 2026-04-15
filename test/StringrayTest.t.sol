@@ -22342,7 +22342,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchCharacterClassesCaseTestimonial() public {
         string memory target = "nehal";
-        string memory pattern = unicode"/[\\x21-\\u1234]/";
+        string memory pattern = unicode"/[\\x0f-\\u{00000f}]/u";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
