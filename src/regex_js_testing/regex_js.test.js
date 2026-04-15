@@ -18521,5 +18521,89 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match character classes cases: Case0000000000000000000000001", () => {
+    const target = "nehal";
+    let regex = /ne[jklshmnp]al/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000002", () => {
+    const target = "nehal";
+    let regex = /ne[jklshmnp]al/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000003", () => {
+    const target = "nehal";
+    let regex = /[jklshmnp]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000004", () => {
+    const target = "nehal";
+    let regex = /[jklshmnp]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000005", () => {
+    const target = "neuhal";
+    let regex = /ne[\x0f-\u{00000f}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000006", () => {
+    const target = "ne{hal";
+    let regex = /ne[\x0f-\u{00000f}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000007", () => {
+    const target = "ne0hal";
+    let regex = /ne[\x0f-\u{00000f}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000008", () => {
+    const target = "nefhal";
+    let regex = /ne[\x0f-\u{00000f}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case0000000000000000000000009", () => {
+    const target = "ne}hal";
+    let regex = /ne[\x0f-\u{00000f}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000010", () => {
+    const target = "ne\x0fhal";
+    let regex = /ne[\x0f-\u{00000f}]hal/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000011", () => {
+    const target = "ne\x0fhal";
+    let regex = /ne[\x0f-\u{000006c}]hal/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000012", () => {
+    const target = "ne\x0fhal";
+    let regex = /ne[\x0f-\u{000006c}]hal/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
