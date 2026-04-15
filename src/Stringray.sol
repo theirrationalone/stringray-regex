@@ -1212,8 +1212,6 @@ contract Stringray {
         (bytes memory rightAtom, uint256 rightAtomDec) =
             evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
 
-        console2.log("leftAtomDec: ", leftAtomDec);
-
         return
             matchRawCCRange(
                 stringInBytes, indexToStartMatch, isFirstMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec
@@ -1231,11 +1229,6 @@ contract Stringray {
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
-
-        // (matchEndIndex, matchStartIndex) = actualMatchCCRange(
-        //     stringInBytes, leftAtom.length, rightAtom.length, indexToStartMatch, leftAtomDec, rightAtomDec, isFirstMatch
-        // );
-
         uint256 leftAtomLength = leftAtom.length;
 
         while (leftAtomLength <= rightAtom.length) {
@@ -1244,7 +1237,6 @@ contract Stringray {
                 if (matchEndIndex < int256(stringInBytes.length)) {
                     if (validateCCRange(stringInBytes, i, matchEndIndex, leftAtomDec, rightAtomDec)) {
                         matchStartIndex = int256(i);
-                        console2.log("yeah matched...");
                         return (matchStartIndex, matchEndIndex);
                     }
                 }
@@ -1259,38 +1251,6 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
-    // function actualMatchCCRange(
-    //     bytes memory stringInBytes,
-    //     uint256 leftAtomLength,
-    //     uint256 rightAtomLength,
-    //     uint256 indexToStartMatch,
-    //     uint256 leftAtomDec,
-    //     uint256 rightAtomDec,
-    //     bool isFirstMatch
-    // ) private returns (int256, int256) {
-    //     int256 matchStartIndex = -1;
-    //     int256 matchEndIndex = -1;
-
-    //     while (leftAtomLength <= rightAtomLength) {
-    //         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-    //             matchEndIndex = int256(i + leftAtomLength - 1);
-    //             if (matchEndIndex < int256(stringInBytes.length)) {
-    //                 if (validateCCRange(stringInBytes, i, matchEndIndex, leftAtomDec, rightAtomDec)) {
-    //                     matchStartIndex = int256(i);
-    //                     break;
-    //                 }
-    //             }
-
-    //             if (!isFirstMatch) {
-    //                 break;
-    //             }
-    //         }
-    //         leftAtomLength++;
-    //     }
-
-    //     return (matchStartIndex, matchEndIndex);
-    // }
-
     function validateCCRange(
         bytes memory stringInBytes,
         uint256 i,
@@ -1300,11 +1260,7 @@ contract Stringray {
     ) private returns (bool) {
         (, uint256 currentCharDec) =
             evaluateAtomDecValue(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)));
-        console2.log("currentCharDec: ", currentCharDec);
-        console2.log("leftAtomDec: ", leftAtomDec);
-        console2.log("rightAtomDec: ", rightAtomDec);
         if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
-            console2.log("yes found one");
             return true;
         }
         return false;
@@ -1327,6 +1283,8 @@ contract Stringray {
             if (atomLength > 2) {
                 if (uint8(atom[1]) == uint8(abi.encodePacked("x")[0])) {
                     hexString = trimString(atom, 2, -1);
+                    // @note: took modAtom as a new copy of atom variable
+                    // because atom here is ref type, assigning back to itself may ruin the output
                     modAtom = abi.encodePacked("\\u{", hexString, "}");
                 }
 
@@ -1337,9 +1295,6 @@ contract Stringray {
                         hexString = trimString(atom, 2, -1);
                     }
                 }
-
-                console2.log("string: ", string(hexString));
-                console2.log("modAtom: ", string(modAtom));
 
                 return (utf8HexToUnicodeHex(unicodeHexToUtf8Hex(modAtom)), hexToDec(hexString, 4, true));
             }

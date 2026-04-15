@@ -22340,11 +22340,9 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchCharacterClassesCaseTestimonial() public {
-        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{f}"));
-        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
-        // string memory target = "nehal";
-        string memory pattern = unicode"/ne[\\x0f-\\u{00000f}]hal/u";
+    function testRegexPatternMatchCharacterClassesCase1() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/ne[jklshmnp]al/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
