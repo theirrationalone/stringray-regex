@@ -1212,6 +1212,8 @@ contract Stringray {
         (bytes memory rightAtom, uint256 rightAtomDec) =
             evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
 
+        console2.log("leftAtomDec: ", leftAtomDec);
+
         return
             matchRawCCRange(
                 stringInBytes, indexToStartMatch, isFirstMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec
@@ -1227,49 +1229,85 @@ contract Stringray {
         uint256 leftAtomDec,
         uint256 rightAtomDec
     ) private returns (int256, int256) {
-        // int256 matchStartIndex = -1;
+        int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
-        uint256 indexIncrementRate1 = leftAtom.length;
-        // uint256 indexIncrementRate12 = rightAtom.length;
 
-        console2.log("------------------------------");
-        console2.log("indexIncrementRate1: ", indexIncrementRate1);
-        console2.log("leftAtom: ");
-        console2.logBytes(leftAtom);
-        console2.log("------------------------------");
+        // (matchEndIndex, matchStartIndex) = actualMatchCCRange(
+        //     stringInBytes, leftAtom.length, rightAtom.length, indexToStartMatch, leftAtomDec, rightAtomDec, isFirstMatch
+        // );
 
-        if (isFirstMatch) {
+        uint256 leftAtomLength = leftAtom.length;
+
+        while (leftAtomLength <= rightAtom.length) {
             for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-                matchEndIndex = int256(i + indexIncrementRate1 - 1);
+                matchEndIndex = int256(i + leftAtomLength - 1);
                 if (matchEndIndex < int256(stringInBytes.length)) {
-                    // trimString(stringInBytes, i, matchEndIndex)
-                    console2.log("------------------------");
-                    console2.log("stringChunk utf8: ", string(trimString(stringInBytes, i, matchEndIndex)));
-                    console2.log("stringChunk in utf8 hex: ");
-                    console2.logBytes(trimString(stringInBytes, i, matchEndIndex));
-                    console2.log(
-                        "stringChunk unicode: ",
-                        string(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)))
-                    );
-                    console2.log("stringChunk in unicode hex: ");
-                    console2.logBytes(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)));
-                    console2.log("------------------------");
+                    if (validateCCRange(stringInBytes, i, matchEndIndex, leftAtomDec, rightAtomDec)) {
+                        matchStartIndex = int256(i);
+                        console2.log("yeah matched...");
+                        return (matchStartIndex, matchEndIndex);
+                    }
                 }
 
-                if (keccak256(leftAtom) == keccak256(trimString(stringInBytes, i, matchEndIndex))) {
-                    // matchStartIndex = int256(i);
+                if (!isFirstMatch) {
                     break;
                 }
             }
-        } else {
-            matchEndIndex = int256(indexToStartMatch + indexIncrementRate1 - 1);
-            if (matchEndIndex < int256(stringInBytes.length)) {}
-            if (keccak256(leftAtom) == keccak256(trimString(stringInBytes, indexToStartMatch, matchEndIndex))) {
-                // matchStartIndex = int256(indexToStartMatch);
-            }
+            leftAtomLength++;
         }
 
-        return (-1, matchEndIndex);
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    // function actualMatchCCRange(
+    //     bytes memory stringInBytes,
+    //     uint256 leftAtomLength,
+    //     uint256 rightAtomLength,
+    //     uint256 indexToStartMatch,
+    //     uint256 leftAtomDec,
+    //     uint256 rightAtomDec,
+    //     bool isFirstMatch
+    // ) private returns (int256, int256) {
+    //     int256 matchStartIndex = -1;
+    //     int256 matchEndIndex = -1;
+
+    //     while (leftAtomLength <= rightAtomLength) {
+    //         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+    //             matchEndIndex = int256(i + leftAtomLength - 1);
+    //             if (matchEndIndex < int256(stringInBytes.length)) {
+    //                 if (validateCCRange(stringInBytes, i, matchEndIndex, leftAtomDec, rightAtomDec)) {
+    //                     matchStartIndex = int256(i);
+    //                     break;
+    //                 }
+    //             }
+
+    //             if (!isFirstMatch) {
+    //                 break;
+    //             }
+    //         }
+    //         leftAtomLength++;
+    //     }
+
+    //     return (matchStartIndex, matchEndIndex);
+    // }
+
+    function validateCCRange(
+        bytes memory stringInBytes,
+        uint256 i,
+        int256 matchEndIndex,
+        uint256 leftAtomDec,
+        uint256 rightAtomDec
+    ) private returns (bool) {
+        (, uint256 currentCharDec) =
+            evaluateAtomDecValue(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)));
+        console2.log("currentCharDec: ", currentCharDec);
+        console2.log("leftAtomDec: ", leftAtomDec);
+        console2.log("rightAtomDec: ", rightAtomDec);
+        if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
+            console2.log("yes found one");
+            return true;
+        }
+        return false;
     }
 
     function evaluateAtomDecValue(bytes memory atom) private pure returns (bytes memory, uint256) {
@@ -1281,13 +1319,15 @@ contract Stringray {
 
         if (atomLength > 1 && uint8(atom[0]) == BACK_SLASH) {
             if (atomLength == 2) {
-                return (atom, uint256(uint8(atom[1])));
+                return (trimString(atom, 1, -1), uint256(uint8(atom[1])));
             }
 
             bytes memory hexString;
+            bytes memory modAtom = atom;
             if (atomLength > 2) {
                 if (uint8(atom[1]) == uint8(abi.encodePacked("x")[0])) {
                     hexString = trimString(atom, 2, -1);
+                    modAtom = abi.encodePacked("\\u{", hexString, "}");
                 }
 
                 if (uint8(atom[1]) == uint8(abi.encodePacked("u")[0])) {
@@ -1298,7 +1338,10 @@ contract Stringray {
                     }
                 }
 
-                return (hexString, hexToDec(hexString, 4, true));
+                console2.log("string: ", string(hexString));
+                console2.log("modAtom: ", string(modAtom));
+
+                return (utf8HexToUnicodeHex(unicodeHexToUtf8Hex(modAtom)), hexToDec(hexString, 4, true));
             }
         }
 
