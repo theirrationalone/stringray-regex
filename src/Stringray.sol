@@ -1359,7 +1359,6 @@ contract Stringray {
         } else {
             console2.log("unicode form: ");
             console2.logBytes(utf8HexToUnicodeHex(atom));
-            console2.log("dec: ", hexToDec(utf8HexToUnicodeHex(atom), 8, false));
             return hexToDec(utf8HexToUnicodeHex(atom), 8, false);
         }
 
@@ -20049,7 +20048,12 @@ contract Stringray {
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
 
+        console2.log("_hexString: ");
+        console2.logBytes(_hexString);
+
         for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
+            console2.log("current hex char: ");
+            console2.logBytes1(_hexString[hi]);
             bytes memory binary = hexToBinary(_hexString[hi], numBits, isInterpolated);
             hexFullBinary = abi.encodePacked(binary, hexFullBinary);
             if (hi == 0) break;
@@ -20080,7 +20084,10 @@ contract Stringray {
             decimal = uint8(_hex);
         }
 
+        console2.log("decimal: ", decimal);
+
         bytes memory binary = decimalToBinaryAscii(decimal, numBits, isInterpolated);
+        console2.log("binary: ", string(binary));
         return binary;
     }
 
@@ -20090,6 +20097,8 @@ contract Stringray {
         returns (bytes memory)
     {
         bytes memory binary;
+        // @BUG🐍-root_cause: decimal == 0 && isInterpolated
+        // isInterpolated is verbose extra restrictive and causing ambiguity
         if (decimal == 0 && isInterpolated) {
             binary = abi.encodePacked("0");
         }
