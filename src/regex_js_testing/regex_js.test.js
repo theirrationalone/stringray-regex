@@ -18605,5 +18605,68 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match character classes cases: Case00000000000000000000000013", () => {
+    const target = "nehal";
+    let regex = /[abc]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000014", () => {
+    const target = "nehal";
+    let regex = /[xyz]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000015", () => {
+    const target = "neha1";
+    let regex = /[0123456789]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000016", () => {
+    const target = "nehal";
+    let regex = /[aeiou]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000017", () => {
+    const target = "NehAl";
+    let regex = /[AEIOU]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000018", () => {
+    const target = "NehAl";
+    let regex = /[a-z]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000019", () => {
+    const target = "111NehAl";
+    let regex = /N[a-zA-Z]hAl/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000020", () => {
+    const target = "111NehAl";
+    let regex = /N[a-zA-Z]hAl/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000021", () => {
+    const target = "111NehAl";
+    let regex = /[0-9a-f]N/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
