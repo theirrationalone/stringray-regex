@@ -1283,7 +1283,7 @@ contract Stringray {
                 if (matchEndIndex < int256(stringInBytes.length)) {
                     if (validateCCRange(stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec))
                     {
-                        return (int256(indexToStartMatch), matchEndIndex);
+                        return (int256(indexToStartMatch + i), matchEndIndex);
                     }
                 }
             }
@@ -2397,6 +2397,8 @@ contract Stringray {
         uint256 lastMatchedParticleIndex;
         bool flag;
 
+        console2.log("into isCharacterClass");
+
         if (uint8(_pattern[_currentParticleIndex]) == OPEN_SQUARE_BRACKET) {
             if (_currentParticleIndex + 1 < _pattern.length) {
                 if (uint8(_pattern[_currentParticleIndex + 1]) == CLOSE_SQUARE_BRACKET) {
@@ -2462,11 +2464,15 @@ contract Stringray {
             }
         }
 
+        console2.log("validated general cc syntaxes");
+
         if (flag && lastMatchedParticleIndex > _currentParticleIndex) {
             _pattern = trimString(_pattern, _currentParticleIndex + 1, int256(lastMatchedParticleIndex - 1));
+            console2.log("triming passed");
             flag = isValidCharacterClassLiteral(
                 _pattern, _orgPattern, _patternFlags, fromGroup, hasFlag(_patternFlags, "v")
             );
+            console2.log("validated character class at all");
             if (flag) {
                 if (hasFlag(_patternFlags, "v")) {
                     setExpressionValidationInsideCC(_pattern, _orgPattern, _patternFlags, fromGroup);
@@ -2485,7 +2491,7 @@ contract Stringray {
         uint256 _currentParticleIndex,
         bytes memory _patternFlags,
         bool fromGroup
-    ) private returns (bool, uint256) {
+    ) private pure returns (bool, uint256) {
         uint256 lastMatchedParticleIndex;
         bool flag;
         uint256 numOpenSquareBrackets = 1;
@@ -2806,6 +2812,8 @@ contract Stringray {
                 continue;
             }
 
+            console2.log("passed first if check inside isValidCCLiteral");
+
             if (uint8(_pattern[i]) == CLOSE_SQUARE_BRACKET && hasFlag(_patternFlags, "v") && isNestedCC) {
                 i += 1;
                 continue;
@@ -2828,7 +2836,10 @@ contract Stringray {
                 lastParticleIndex = i;
             }
 
+            console2.log("literal check passed");
+
             if (atomType != INVALID_ATOM) {
+                console2.log("atom is not literal");
                 if (lastParticleIndex + 1 < _pattern.length && uint8(_pattern[lastParticleIndex + 1]) == MINUS_SIGN) {
                     if (
                         hasFlag(_patternFlags, "v") && lastParticleIndex + 2 < _pattern.length
@@ -2839,6 +2850,7 @@ contract Stringray {
                     }
 
                     validateCharacterClassRangeLeftRightAtoms(_orgPattern, atomType, _patternFlags);
+                    console2.log("range left validation check passed");
 
                     if (lastParticleIndex + 2 < _pattern.length) {
                         (, bytes32 rightAtomType, uint256 rightLastParticleIndex) = isLiteralAtom(
@@ -2846,6 +2858,7 @@ contract Stringray {
                         );
 
                         validateCharacterClassRangeLeftRightAtoms(_orgPattern, rightAtomType, _patternFlags);
+                        console2.log("range right validation check passed");
 
                         if (
                             rightAtomType == INVALID_ATOM
@@ -2861,6 +2874,8 @@ contract Stringray {
                             rightLastParticleIndex = lastParticleIndex + 2;
                         }
 
+                        console2.log("range right atom check passed");
+
                         validateCharacterClassRangeOrder(
                             _pattern,
                             _orgPattern,
@@ -2870,6 +2885,8 @@ contract Stringray {
                             rightLastParticleIndex,
                             _patternFlags
                         );
+
+                        console2.log("valid range order passed");
 
                         if (
                             uint8(_pattern[lastParticleIndex + 2]) == BACK_SLASH
@@ -2885,11 +2902,13 @@ contract Stringray {
                         }
 
                         i = rightLastParticleIndex + 1;
+                        console2.log("range order under specific conditions passed");
                         continue;
                     }
                 }
                 i = lastParticleIndex + 1;
             } else {
+                console2.log("found invalid atom");
                 if (
                     uint8(_pattern[i]) == BACK_SLASH && uint8(_pattern[i + 1]) == uint8(abi.encodePacked("c")[0])
                         && !hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v")
@@ -2938,6 +2957,7 @@ contract Stringray {
         uint256 rightLastParticleIndex,
         bytes memory _patternFlags
     ) private pure {
+        console2.log("inside validateCharacterClassRangeOrder");
         if (
             (rightAtomType != DIGIT
                     && rightAtomType != WHITESPACE
@@ -2956,8 +2976,11 @@ contract Stringray {
                     && atomType != UNICODE_PROPERTY
                     && atomType != UNICODE_PROPERTY_NEGATION) && atomType != INVALID_ATOM
         ) {
+            console2.log("just came inside first and only if check");
             uint256 leftLiteralDecimalValue = atomsDecimalValues(atomType, _pattern, lastParticleIndex);
+            console2.log("left atom decimal values eval passed");
             uint256 rightLiteralDecimalValue = atomsDecimalValues(rightAtomType, _pattern, rightLastParticleIndex);
+            console2.log("right atom decimal values eval passed");
 
             if (leftLiteralDecimalValue > rightLiteralDecimalValue) {
                 throwError(
@@ -2968,6 +2991,8 @@ contract Stringray {
                 );
             }
         }
+
+        console2.log("passed");
     }
 
     function validateCharacterClassRangeLeftRightAtoms(
@@ -2999,6 +3024,10 @@ contract Stringray {
     {
         uint256 decimal;
 
+        console2.log("inside atomsDecimalValue");
+        console2.log("pattern: ", string(_pattern));
+        console2.log("lastParticleIndex: ", lastParticleIndex);
+
         if (atomType == WORD_BOUNDARY) {
             decimal = 8;
         } else if (atomType == TAB) {
@@ -3027,6 +3056,7 @@ contract Stringray {
     function unicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
         bytes memory unicodeHex;
         if (uint8(_pattern[lastIndex]) == CLOSE_CURLY_BRACE) {
+            // @BUG: invalid triming of cc range LR atoms
             unicodeHex = trimString(_pattern, lastIndex - 6, int256(lastIndex - 1));
         } else {
             unicodeHex = trimString(_pattern, lastIndex - 3, int256(lastIndex));
