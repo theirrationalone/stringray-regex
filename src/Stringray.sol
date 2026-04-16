@@ -1261,11 +1261,26 @@ contract Stringray {
         int256 matchEndIndex = -1;
         uint256 leftAtomLength = leftAtom.length;
 
+        console2.log("error after here");
+        console2.log("leftAtom: ", string(leftAtom));
+        console2.log("rightAtom: ", string(rightAtom));
+        console2.log("string: ", string(stringInBytes));
+        console2.log("stringInBytes: ");
+        console2.logBytes(stringInBytes);
+
+        console2.log("leftAtomLength: ", leftAtomLength);
+        console2.log("rightAtomLength: ", rightAtom.length);
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("------------");
+
         while (leftAtomLength <= rightAtom.length) {
-            matchEndIndex = int256(indexToStartMatch + leftAtomLength - 1);
-            if (matchEndIndex < int256(stringInBytes.length)) {
-                if (validateCCRange(stringInBytes, indexToStartMatch, matchEndIndex, leftAtomDec, rightAtomDec)) {
-                    return (int256(indexToStartMatch), matchEndIndex);
+            for (uint256 i; i < stringInBytes.length; i++) {
+                matchEndIndex = int256(indexToStartMatch + i + leftAtomLength - 1);
+                if (matchEndIndex < int256(stringInBytes.length)) {
+                    if (validateCCRange(stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec))
+                    {
+                        return (int256(indexToStartMatch), matchEndIndex);
+                    }
                 }
             }
             leftAtomLength++;
@@ -1281,11 +1296,20 @@ contract Stringray {
         uint256 leftAtomDec,
         uint256 rightAtomDec
     ) private returns (bool) {
+        console2.log("---------------validateCCRange---------------");
         console2.log(
             "current string char target: ", string(trimString(stringInBytes, indexToStartMatch, matchEndIndex))
         );
-        (, uint256 currentCharDec) =
-            evaluateAtomDecValue(utf8HexToUnicodeHex(trimString(stringInBytes, indexToStartMatch, matchEndIndex)));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("matchEndIndex: ", matchEndIndex);
+        console2.log("leftAtomDec: ", leftAtomDec);
+        console2.log("rightAtomDec: ", rightAtomDec);
+
+        (, uint256 currentCharDec) = evaluateAtomDecValue(trimString(stringInBytes, indexToStartMatch, matchEndIndex));
+
+        console2.log("currentCharDec: ", currentCharDec);
+        console2.log("------------------------------");
+
         if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
             return true;
         }
@@ -1324,6 +1348,9 @@ contract Stringray {
 
                 return (utf8HexToUnicodeHex(unicodeHexToUtf8Hex(modAtom)), hexToDec(hexString, 4, true));
             }
+        } else {
+            return
+                (utf8HexToUnicodeHex(atom), hexToDec(abi.encodePacked("\\u{", utf8HexToUnicodeHex(atom), "}"), 4, true));
         }
 
         return ("", 1114112);
