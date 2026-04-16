@@ -1262,7 +1262,7 @@ contract Stringray {
         int256 matchEndIndex = -1;
         uint256 leftAtomLength = leftAtom.length;
 
-        console2.log("error after here");
+        console2.log("---------------matchRawCCRange---------------");
         console2.log("leftAtom: ", string(leftAtom));
         console2.logBytes(leftAtom);
         console2.log("rightAtom: ", string(rightAtom));
@@ -1270,14 +1270,12 @@ contract Stringray {
         console2.log("string: ", string(stringInBytes));
         console2.log("stringInBytes: ");
         console2.logBytes(stringInBytes);
-
         console2.log("leftAtomLength: ", leftAtomLength);
         console2.log("rightAtomLength: ", rightAtom.length);
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("leftAtomDec: ", leftAtomDec);
         console2.log("rightAtomDec: ", rightAtomDec);
-
-        console2.log("------------");
+        console2.log("------------------------------");
 
         while (leftAtomLength <= rightAtom.length) {
             for (uint256 i; i < stringInBytes.length; i++) {
@@ -1306,10 +1304,7 @@ contract Stringray {
         console2.log(
             "current string char target: ", string(trimString(stringInBytes, indexToStartMatch, matchEndIndex))
         );
-        console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("matchEndIndex: ", matchEndIndex);
-        console2.log("leftAtomDec: ", leftAtomDec);
-        console2.log("rightAtomDec: ", rightAtomDec);
 
         uint256 currentCharDec = evaluateAtomDecValue(trimString(stringInBytes, indexToStartMatch, matchEndIndex));
 
@@ -1324,12 +1319,6 @@ contract Stringray {
 
     function evaluateAtomDecValue(bytes memory atom) private pure returns (uint256) {
         uint256 atomLength = atom.length;
-
-        console2.log("----------------evaluateAtomDecValue----------------");
-        console2.log("atom: ", string(atom));
-        console2.log("atom in bytes: ");
-        console2.logBytes(atom);
-        console2.log("--------------------------------");
 
         if (atomLength == 1) {
             return uint256(uint8(atom[0]));
@@ -1357,8 +1346,6 @@ contract Stringray {
                 return hexToDec(hexString, 4, true);
             }
         } else {
-            console2.log("unicode form: ");
-            console2.logBytes(utf8HexToUnicodeHex(atom));
             return hexToDec(utf8HexToUnicodeHex(atom), 8, false);
         }
 
@@ -20048,12 +20035,7 @@ contract Stringray {
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
 
-        console2.log("_hexString: ");
-        console2.logBytes(_hexString);
-
         for (uint256 hi = hexStringLastIndex; hi >= 0; hi--) {
-            console2.log("current hex char: ");
-            console2.logBytes1(_hexString[hi]);
             bytes memory binary = hexToBinary(_hexString[hi], numBits, isInterpolated);
             hexFullBinary = abi.encodePacked(binary, hexFullBinary);
             if (hi == 0) break;
@@ -20084,10 +20066,7 @@ contract Stringray {
             decimal = uint8(_hex);
         }
 
-        console2.log("decimal: ", decimal);
-
         bytes memory binary = decimalToBinaryAscii(decimal, numBits, isInterpolated);
-        console2.log("binary: ", string(binary));
         return binary;
     }
 
@@ -20097,9 +20076,7 @@ contract Stringray {
         returns (bytes memory)
     {
         bytes memory binary;
-        // @BUG🐍-root_cause: decimal == 0 && isInterpolated
-        // isInterpolated is verbose extra restrictive and causing ambiguity
-        if (decimal == 0 && isInterpolated) {
+        if (decimal == 0) {
             binary = abi.encodePacked("0");
         }
 
