@@ -956,7 +956,7 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
-            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, 0, false);
+            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
                 matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -977,31 +977,39 @@ contract Stringray {
         bytes memory stringInBytes,
         bytes memory patternFlags,
         uint256 indexToStartMatch,
+        bool isFirstMatch,
         bool fromCharacterClass
     ) private returns (int256, int256) {
         int256 firstIndex = -1;
         int256 matchStartIndex;
         int256 matchEndIndex = -1;
-        bool isFirstMatch;
         bool wordBoundary;
         uint256 i;
 
         for (; i < atoms.length;) {
+            console2.log("-----------------------matchPattern-----------------------");
+            console2.log("cycle starts...");
+            console2.log("i: ", i);
+            console2.log("indexToStartMatch: ", indexToStartMatch);
+            console2.log("atom: ", string(atoms[i].atom));
+            printAtomType(atoms[i].atomType);
+            console2.log("----------------------------------------------");
             if (matchEndIndex > -1) {
-                if (firstIndex == -1) {
+                if (firstIndex == -1 && !fromCharacterClass) {
                     firstIndex = matchStartIndex;
                 }
 
-                if (isFirstMatch) {
+                if (isFirstMatch && !fromCharacterClass) {
                     isFirstMatch = false;
                 }
             } else {
-                if (!isFirstMatch) {
+                if (!isFirstMatch && !fromCharacterClass) {
                     isFirstMatch = true;
                 }
             }
 
             if (indexToStartMatch >= stringInBytes.length) {
+                console2.log("string exhausted");
                 break;
             }
 
@@ -1012,11 +1020,6 @@ contract Stringray {
             ) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-
-                console2.log("---------------------matchPattern---------------------");
-                console2.log("matchPattern: ", matchStartIndex);
-                console2.log("matchPattern: ", matchStartIndex);
-                console2.log("------------------------------------------");
 
                 if (matchStartIndex == -1) {
                     if (atoms[i].atomType == TAB) {
@@ -1044,6 +1047,11 @@ contract Stringray {
                             matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
                 }
+
+                console2.log("---------------------matchPattern---------------------");
+                console2.log("matchStartIndex: ", matchStartIndex);
+                console2.log("matchEndIndex: ", matchEndIndex);
+                console2.log("------------------------------------------");
             } else if (atoms[i].atomType == ESCAPE_LITERAL_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchEscapeLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
@@ -1126,13 +1134,19 @@ contract Stringray {
                 console2.log("firstIndex: ", firstIndex);
                 console2.log("-------------------------------------");
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
+                console2.log("came to cc range");
                 (matchStartIndex, matchEndIndex) = matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch);
+                console2.log("------------------matchCCRange------------------");
+                console2.log("matchStartIndex: ", matchStartIndex);
+                console2.log("matchEndIndex: ", matchEndIndex);
+                console2.log("firstIndex: ", firstIndex);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
             }
 
-            if (fromCharacterClass) {
+            if (fromCharacterClass && !isFirstMatch) {
+                console2.log("return to last caller");
                 return (matchStartIndex, matchEndIndex);
             }
 
@@ -1157,18 +1171,27 @@ contract Stringray {
             }
 
             if (matchStartIndex == -1) {
+                console2.log("reseting pattern match");
                 if (wordBoundary) {
                     indexToStartMatch = uint256(matchEndIndex + 1);
                     wordBoundary = false;
                 } else {
-                    indexToStartMatch = uint256(matchEndIndex);
+                    if (fromCharacterClass) {
+                        indexToStartMatch = uint256(matchEndIndex) + 1;
+                    } else {
+                        indexToStartMatch = uint256(matchEndIndex);
+                    }
                 }
-                isFirstMatch = true;
+
+                if (!fromCharacterClass) {
+                    isFirstMatch = true;
+                    matchStartIndex = 0;
+                }
                 firstIndex = -1;
-                matchStartIndex = 0;
                 matchEndIndex = -1;
 
                 i = 0;
+                console2.log("i is zero now: ", i);
                 continue;
             }
 
@@ -1248,7 +1271,7 @@ contract Stringray {
             leftAtomLength++;
         }
 
-        return (-1, -1);
+        return (-1, matchEndIndex);
     }
 
     function validateCCRange(
@@ -1258,9 +1281,11 @@ contract Stringray {
         uint256 leftAtomDec,
         uint256 rightAtomDec
     ) private returns (bool) {
-        (, uint256 currentCharDec) = evaluateAtomDecValue(
-            utf8HexToUnicodeHex(trimString(stringInBytes, indexToStartMatch, matchEndIndex))
+        console2.log(
+            "current string char target: ", string(trimString(stringInBytes, indexToStartMatch, matchEndIndex))
         );
+        (, uint256 currentCharDec) =
+            evaluateAtomDecValue(utf8HexToUnicodeHex(trimString(stringInBytes, indexToStartMatch, matchEndIndex)));
         if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
             return true;
         }
@@ -1360,28 +1385,19 @@ contract Stringray {
         for (uint256 i; i < allCCSubAtoms.length; i++) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
             subAtom[0] = allCCSubAtoms[i];
-            bytes memory stringToMatchWith;
 
-            if (!isFirstMatch) {
-                stringToMatchWith = trimString(
-                    stringInBytes, indexToStartMatch, int256(indexToStartMatch + subAtom[0].atom.length - 1)
-                );
-                (matchStartIndex, matchEndIndex) = matchPattern(subAtom, stringToMatchWith, patternFlags, 0, true);
-            } else {
-                stringToMatchWith = stringInBytes;
-                (matchStartIndex, matchEndIndex) =
-                    matchPattern(subAtom, stringToMatchWith, patternFlags, indexToStartMatch, true);
-            }
+            (matchStartIndex, matchEndIndex) =
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
 
             console2.log("---------matchCharacterClassSubAtomsPattern---------");
             console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
             console2.log("matchStartIndex: ", matchStartIndex);
             console2.log("matchEndIndex: ", matchEndIndex);
-            console2.log("stringToMatchWith: ", string(stringToMatchWith));
+            console2.log("stringInBytes: ", string(stringInBytes));
             console2.log("------------------");
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
-                return (matchStartIndex, int256(indexToStartMatch) + matchEndIndex);
+                return (matchStartIndex, matchEndIndex);
             }
         }
 
