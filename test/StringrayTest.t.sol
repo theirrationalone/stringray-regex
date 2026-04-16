@@ -22372,6 +22372,26 @@ contract PlayStringTest is Test {
         string memory target = "nehal";
         string memory pattern = unicode"/[jklshmnp]/";
 
+        // @note: exclusive to solidity, unlike Js, where the targeted string's each character
+        // finds itself in the given cc pattern, In solidity each cc atom or sub atom tries to find itself
+        // in the targeted string, instead.
+        // @Example: target: nehal, pattern: /[jklshmnp]/
+        // Js: First Js picks 'n' and tries to find itself into the given pattern: /[jklshmnp]/
+        // Let's try dry: n -> j ❌, n -> k ❌, n -> l ❌, n -> s ❌, n -> h ❌, n -> m ❌, n -> n ✅
+        // return the index of 'n' and that's 0.
+        // Solidity: First Solidity picks 'j' and tries to find itself into the target: nehal
+        // Let's try dry: j -> n ❌, j -> e ❌, j -> h ❌, j -> a ❌, j -> l ❌
+        // k -> n ❌, k -> e ❌, k -> h ❌, k -> a ❌, k -> l ❌
+        // l -> n ❌, l -> e ❌, l -> h ❌, l -> a ❌, l -> l ✅
+        // return the index of 'l' and that's 4.
+        // @question: Which apporach is better?
+        // @ans: Well, At first glance Js approach might seem more efficient in terms of both time & space aspects,
+        // complexity might be: O(log_n(p)) or Omega Log base n by p, where n: is number of chars in target,
+        // p: is number of chars in pattern, however, in best case only.
+        // In the worst case scenario, Let's assume  pattern doesn't contain
+        // any char of the target, in that case, the complexity might raise to O(n*p)
+        // And same story from solidity point of view too although from vertical, opposite, flip, or up side down, way.
+
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string   : ", returnedData.patternString);

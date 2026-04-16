@@ -18594,14 +18594,14 @@ const testMain = () => {
 
   test("Pattern match character classes cases: Case00000000000000000000000011", () => {
     const target = "ne\x0fhal";
-    let regex = /ne[\x0f-\u{000006c}]hal/u;
+    let regex = /[\x0f-\u{00006c}]/u;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
   test("Pattern match character classes cases: Case00000000000000000000000012", () => {
     const target = "ne\x0fhal";
-    let regex = /ne[\x0f-\u{000006c}]hal/;
+    let regex = /\x0f[\x0f-\u{00006c}]al/u;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
