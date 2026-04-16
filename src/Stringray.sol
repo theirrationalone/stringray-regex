@@ -2977,9 +2977,11 @@ contract Stringray {
                     && atomType != UNICODE_PROPERTY_NEGATION) && atomType != INVALID_ATOM
         ) {
             console2.log("just came inside first and only if check");
-            uint256 leftLiteralDecimalValue = atomsDecimalValues(atomType, _pattern, lastParticleIndex);
+            uint256 leftLiteralDecimalValue =
+                atomsDecimalValues(atomType, _orgPattern, _pattern, lastParticleIndex, _patternFlags);
             console2.log("left atom decimal values eval passed");
-            uint256 rightLiteralDecimalValue = atomsDecimalValues(rightAtomType, _pattern, rightLastParticleIndex);
+            uint256 rightLiteralDecimalValue =
+                atomsDecimalValues(rightAtomType, _orgPattern, _pattern, rightLastParticleIndex, _patternFlags);
             console2.log("right atom decimal values eval passed");
 
             if (leftLiteralDecimalValue > rightLiteralDecimalValue) {
@@ -3017,11 +3019,13 @@ contract Stringray {
         }
     }
 
-    function atomsDecimalValues(bytes32 atomType, bytes memory _pattern, uint256 lastParticleIndex)
-        private
-        pure
-        returns (uint256)
-    {
+    function atomsDecimalValues(
+        bytes32 atomType,
+        bytes memory _orgPattern,
+        bytes memory _pattern,
+        uint256 lastParticleIndex,
+        bytes memory _patternFlags
+    ) private pure returns (uint256) {
         uint256 decimal;
 
         console2.log("inside atomsDecimalValue");
@@ -3043,7 +3047,7 @@ contract Stringray {
         } else if (atomType == CONTROL_PREFIX) {
             decimal = controlPrefixEquivalentDecimal(uint8(_pattern[lastParticleIndex]));
         } else if (atomType == UNICODE_ESCAPE) {
-            decimal = unicodeEquivalentDecimal(_pattern, lastParticleIndex);
+            decimal = unicodeEquivalentDecimal(_orgPattern, _pattern, lastParticleIndex, _patternFlags);
         } else if (atomType == HEX_ESCAPE) {
             decimal = hexUnicodeEquivalentDecimal(_pattern, lastParticleIndex);
         } else {
@@ -3053,11 +3057,26 @@ contract Stringray {
         return decimal;
     }
 
-    function unicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
+    function unicodeEquivalentDecimal(
+        bytes memory _orgPattern,
+        bytes memory _pattern,
+        uint256 lastIndex,
+        bytes memory _patternFlags
+    ) private pure returns (uint256) {
         bytes memory unicodeHex;
         if (uint8(_pattern[lastIndex]) == CLOSE_CURLY_BRACE) {
-            // @BUG: invalid triming of cc range LR atoms
-            unicodeHex = trimString(_pattern, lastIndex - 6, int256(lastIndex - 1));
+            if (lastIndex < 4) {
+                throwError(
+                    _orgPattern,
+                    "SyntaxError: Invalid regular expression: /",
+                    ": Invalid unicode escape in character class",
+                    _patternFlags
+                );
+            }
+
+            uint256 numHexes = (lastIndex - 4) + 1;
+
+            unicodeHex = trimString(_pattern, lastIndex - numHexes, int256(lastIndex - 1));
         } else {
             unicodeHex = trimString(_pattern, lastIndex - 3, int256(lastIndex));
         }
