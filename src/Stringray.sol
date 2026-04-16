@@ -1242,10 +1242,11 @@ contract Stringray {
         }
 
         if (minusSignIndex <= 0 || minusSignIndex >= int256(atom.length)) return (-1, -1);
+        bytes memory leftAtom = trimString(atom, 0, minusSignIndex - 1);
+        bytes memory rightAtom = trimString(atom, uint256(minusSignIndex) + 1, -1);
 
-        (bytes memory leftAtom, uint256 leftAtomDec) = evaluateAtomDecValue(trimString(atom, 0, minusSignIndex - 1));
-        (bytes memory rightAtom, uint256 rightAtomDec) =
-            evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
+        uint256 leftAtomDec = evaluateAtomDecValue(leftAtom);
+        uint256 rightAtomDec = evaluateAtomDecValue(rightAtom);
 
         return matchRawCCRange(stringInBytes, indexToStartMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec);
     }
@@ -1263,7 +1264,9 @@ contract Stringray {
 
         console2.log("error after here");
         console2.log("leftAtom: ", string(leftAtom));
+        console2.logBytes(leftAtom);
         console2.log("rightAtom: ", string(rightAtom));
+        console2.logBytes(rightAtom);
         console2.log("string: ", string(stringInBytes));
         console2.log("stringInBytes: ");
         console2.logBytes(stringInBytes);
@@ -1271,6 +1274,9 @@ contract Stringray {
         console2.log("leftAtomLength: ", leftAtomLength);
         console2.log("rightAtomLength: ", rightAtom.length);
         console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("leftAtomDec: ", leftAtomDec);
+        console2.log("rightAtomDec: ", rightAtomDec);
+
         console2.log("------------");
 
         while (leftAtomLength <= rightAtom.length) {
@@ -1305,7 +1311,7 @@ contract Stringray {
         console2.log("leftAtomDec: ", leftAtomDec);
         console2.log("rightAtomDec: ", rightAtomDec);
 
-        (, uint256 currentCharDec) = evaluateAtomDecValue(trimString(stringInBytes, indexToStartMatch, matchEndIndex));
+        uint256 currentCharDec = evaluateAtomDecValue(trimString(stringInBytes, indexToStartMatch, matchEndIndex));
 
         console2.log("currentCharDec: ", currentCharDec);
         console2.log("------------------------------");
@@ -1316,26 +1322,28 @@ contract Stringray {
         return false;
     }
 
-    function evaluateAtomDecValue(bytes memory atom) private pure returns (bytes memory, uint256) {
+    function evaluateAtomDecValue(bytes memory atom) private pure returns (uint256) {
         uint256 atomLength = atom.length;
 
+        console2.log("----------------evaluateAtomDecValue----------------");
+        console2.log("atom: ", string(atom));
+        console2.log("atom in bytes: ");
+        console2.logBytes(atom);
+        console2.log("--------------------------------");
+
         if (atomLength == 1) {
-            return (atom, uint256(uint8(atom[0])));
+            return uint256(uint8(atom[0]));
         }
 
         if (atomLength > 1 && uint8(atom[0]) == BACK_SLASH) {
             if (atomLength == 2) {
-                return (trimString(atom, 1, -1), uint256(uint8(atom[1])));
+                return uint256(uint8(atom[1]));
             }
 
             bytes memory hexString;
-            bytes memory modAtom = atom;
             if (atomLength > 2) {
                 if (uint8(atom[1]) == uint8(abi.encodePacked("x")[0])) {
                     hexString = trimString(atom, 2, -1);
-                    // @note: took modAtom as a new copy of atom variable
-                    // because atom here is ref type, assigning back to itself may ruin the output
-                    modAtom = abi.encodePacked("\\u{", hexString, "}");
                 }
 
                 if (uint8(atom[1]) == uint8(abi.encodePacked("u")[0])) {
@@ -1346,14 +1354,16 @@ contract Stringray {
                     }
                 }
 
-                return (utf8HexToUnicodeHex(unicodeHexToUtf8Hex(modAtom)), hexToDec(hexString, 4, true));
+                return hexToDec(hexString, 4, true);
             }
         } else {
-            return
-                (utf8HexToUnicodeHex(atom), hexToDec(abi.encodePacked("\\u{", utf8HexToUnicodeHex(atom), "}"), 4, true));
+            console2.log("unicode form: ");
+            console2.logBytes(utf8HexToUnicodeHex(atom));
+            console2.log("dec: ", hexToDec(utf8HexToUnicodeHex(atom), 8, false));
+            return hexToDec(utf8HexToUnicodeHex(atom), 8, false);
         }
 
-        return ("", 1114112);
+        return 1114112;
     }
 
     function matchCharacterClass(

@@ -22780,7 +22780,6 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchCharacterClassesCase30() public {
         // under-overflow
-        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{69}"));
         string memory target = unicode"ne😍hal";
         string memory pattern = unicode"/[😀-🙏]/u";
 
