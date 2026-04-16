@@ -1245,7 +1245,7 @@ contract Stringray {
         bool isFirstMatch
     ) private returns (int256, int256) {
         int256 matchEndIndex = -1;
-        uint256 leftAtomLength = leftAtom.length;
+        uint256 atomLength = leftAtom.length;
 
         console2.log("---------------matchRawCCRange---------------");
         console2.log("leftAtom: ", string(leftAtom));
@@ -1255,28 +1255,52 @@ contract Stringray {
         console2.log("string: ", string(stringInBytes));
         console2.log("stringInBytes: ");
         console2.logBytes(stringInBytes);
-        console2.log("leftAtomLength: ", leftAtomLength);
+        console2.log("leftAtomLength: ", atomLength);
         console2.log("rightAtomLength: ", rightAtom.length);
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("leftAtomDec: ", leftAtomDec);
         console2.log("rightAtomDec: ", rightAtomDec);
         console2.log("------------------------------");
 
-        while (leftAtomLength <= rightAtom.length) {
-            for (uint256 i; i < stringInBytes.length; i++) {
-                matchEndIndex = int256(indexToStartMatch + i + leftAtomLength - 1);
-                console2.log("matchEndIndex: ", matchEndIndex);
-                console2.log("i: ", i);
-                if (matchEndIndex < int256(stringInBytes.length)) {
-                    console2.log("here");
-                    if (validateCCRange(stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec))
-                    {
-                        return (int256(indexToStartMatch + i), matchEndIndex);
+        if (rightAtom.length <= 0 || atomLength <= 0) return (-1, matchEndIndex);
+
+        if (rightAtom.length <= atomLength) {
+            while (rightAtom.length <= atomLength) {
+                for (uint256 i; i < stringInBytes.length; i++) {
+                    matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
+                    console2.log("matchEndIndex: ", matchEndIndex);
+                    console2.log("i: ", i);
+                    if (matchEndIndex < int256(stringInBytes.length)) {
+                        console2.log("here");
+                        if (validateCCRange(
+                                stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
+                            )) {
+                            return (int256(indexToStartMatch + i), matchEndIndex);
+                        }
                     }
+                    if (!isFirstMatch) return (-1, matchEndIndex);
                 }
-                if (!isFirstMatch) return (-1, matchEndIndex);
+                atomLength--;
             }
-            leftAtomLength++;
+        } else {
+            atomLength = rightAtom.length;
+            while (leftAtom.length <= atomLength) {
+                for (uint256 i; i < stringInBytes.length; i++) {
+                    matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
+                    console2.log("matchEndIndex: ", matchEndIndex);
+                    console2.log("i: ", i);
+                    if (matchEndIndex < int256(stringInBytes.length)) {
+                        console2.log("here");
+                        if (validateCCRange(
+                                stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
+                            )) {
+                            return (int256(indexToStartMatch + i), matchEndIndex);
+                        }
+                    }
+                    if (!isFirstMatch) return (-1, matchEndIndex);
+                }
+                atomLength--;
+            }
         }
 
         return (-1, matchEndIndex);
