@@ -956,7 +956,7 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
-            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, false);
+            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, 0, false);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
                 matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -976,13 +976,12 @@ contract Stringray {
         AtomTrait[] memory atoms,
         bytes memory stringInBytes,
         bytes memory patternFlags,
+        uint256 indexToStartMatch,
         bool fromCharacterClass
     ) private returns (int256, int256) {
         int256 firstIndex = -1;
         int256 matchStartIndex;
         int256 matchEndIndex = -1;
-
-        uint256 indexToStartMatch;
         bool isFirstMatch;
         bool wordBoundary;
         uint256 i;
@@ -1013,6 +1012,11 @@ contract Stringray {
             ) {
                 (matchStartIndex, matchEndIndex) =
                     matchLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+
+                console2.log("---------------------matchPattern---------------------");
+                console2.log("matchPattern: ", matchStartIndex);
+                console2.log("matchPattern: ", matchStartIndex);
+                console2.log("------------------------------------------");
 
                 if (matchStartIndex == -1) {
                     if (atoms[i].atomType == TAB) {
@@ -1116,12 +1120,20 @@ contract Stringray {
             } else if (!fromCharacterClass && atoms[i].atomType == CHARACTER_CLASS_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+                console2.log("------------------matchCharacterClass------------------");
+                console2.log("matchStartIndex: ", matchStartIndex);
+                console2.log("matchEndIndex: ", matchEndIndex);
+                console2.log("firstIndex: ", firstIndex);
+                console2.log("-------------------------------------");
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
-                (matchStartIndex, matchEndIndex) =
-                    matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+                (matchStartIndex, matchEndIndex) = matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
+            }
+
+            if (fromCharacterClass) {
+                return (matchStartIndex, matchEndIndex);
             }
 
             if (indexToStartMatch >= stringInBytes.length - 1) {
@@ -1194,7 +1206,7 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
-    function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
+    function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch)
         private
         returns (int256, int256)
     {
@@ -1212,54 +1224,43 @@ contract Stringray {
         (bytes memory rightAtom, uint256 rightAtomDec) =
             evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
 
-        return
-            matchRawCCRange(
-                stringInBytes, indexToStartMatch, isFirstMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec
-            );
+        return matchRawCCRange(stringInBytes, indexToStartMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec);
     }
 
     function matchRawCCRange(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
-        bool isFirstMatch,
         bytes memory leftAtom,
         bytes memory rightAtom,
         uint256 leftAtomDec,
         uint256 rightAtomDec
     ) private returns (int256, int256) {
-        int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         uint256 leftAtomLength = leftAtom.length;
 
         while (leftAtomLength <= rightAtom.length) {
-            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-                matchEndIndex = int256(i + leftAtomLength - 1);
-                if (matchEndIndex < int256(stringInBytes.length)) {
-                    if (validateCCRange(stringInBytes, i, matchEndIndex, leftAtomDec, rightAtomDec)) {
-                        matchStartIndex = int256(i);
-                        return (matchStartIndex, matchEndIndex);
-                    }
-                }
-
-                if (!isFirstMatch) {
-                    break;
+            matchEndIndex = int256(indexToStartMatch + leftAtomLength - 1);
+            if (matchEndIndex < int256(stringInBytes.length)) {
+                if (validateCCRange(stringInBytes, indexToStartMatch, matchEndIndex, leftAtomDec, rightAtomDec)) {
+                    return (int256(indexToStartMatch), matchEndIndex);
                 }
             }
             leftAtomLength++;
         }
 
-        return (matchStartIndex, matchEndIndex);
+        return (-1, -1);
     }
 
     function validateCCRange(
         bytes memory stringInBytes,
-        uint256 i,
+        uint256 indexToStartMatch,
         int256 matchEndIndex,
         uint256 leftAtomDec,
         uint256 rightAtomDec
     ) private returns (bool) {
-        (, uint256 currentCharDec) =
-            evaluateAtomDecValue(utf8HexToUnicodeHex(trimString(stringInBytes, i, matchEndIndex)));
+        (, uint256 currentCharDec) = evaluateAtomDecValue(
+            utf8HexToUnicodeHex(trimString(stringInBytes, indexToStartMatch, matchEndIndex))
+        );
         if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
             return true;
         }
@@ -1359,10 +1360,28 @@ contract Stringray {
         for (uint256 i; i < allCCSubAtoms.length; i++) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
             subAtom[0] = allCCSubAtoms[i];
-            (matchStartIndex, matchEndIndex) = matchPattern(subAtom, stringInBytes, patternFlags, true);
+            bytes memory stringToMatchWith;
+
+            if (!isFirstMatch) {
+                stringToMatchWith = trimString(
+                    stringInBytes, indexToStartMatch, int256(indexToStartMatch + subAtom[0].atom.length - 1)
+                );
+                (matchStartIndex, matchEndIndex) = matchPattern(subAtom, stringToMatchWith, patternFlags, 0, true);
+            } else {
+                stringToMatchWith = stringInBytes;
+                (matchStartIndex, matchEndIndex) =
+                    matchPattern(subAtom, stringToMatchWith, patternFlags, indexToStartMatch, true);
+            }
+
+            console2.log("---------matchCharacterClassSubAtomsPattern---------");
+            console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
+            console2.log("matchStartIndex: ", matchStartIndex);
+            console2.log("matchEndIndex: ", matchEndIndex);
+            console2.log("stringToMatchWith: ", string(stringToMatchWith));
+            console2.log("------------------");
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
-                return (matchStartIndex, matchEndIndex);
+                return (matchStartIndex, int256(indexToStartMatch) + matchEndIndex);
             }
         }
 
