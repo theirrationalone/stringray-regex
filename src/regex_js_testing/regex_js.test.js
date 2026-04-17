@@ -18731,5 +18731,19 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  // test("Pattern match character classes cases: Case00000000000000000000000031", () => {
+  //   const target = "nehal";
+  //   let regex = /[a-z&&[aeiou]]/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  test("Pattern match character classes cases: Case00000000000000000000000032", () => {
+    const target = "nehal";
+    let regex = /[[a-z]&&[aeiou]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
