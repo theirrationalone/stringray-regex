@@ -22719,7 +22719,6 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCharacterClassesCase26() public {
-        // buggy pass
         bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F600}"));
         string memory target = string(abi.encodePacked(utf8Hex, "hal"));
         string memory pattern = unicode"/[a-\\u{1F601}]/u";
@@ -22763,7 +22762,6 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCharacterClassesCase29() public {
-        // under-overflow
         bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{69}"));
         string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
         string memory pattern = unicode"/[\\u{61}-\\u{7A}]/u";
@@ -22779,7 +22777,6 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCharacterClassesCase30() public {
-        // under-overflow
         string memory target = unicode"ne😍hal";
         string memory pattern = unicode"/[😀-🙏]/u";
 

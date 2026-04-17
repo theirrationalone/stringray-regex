@@ -18668,5 +18668,68 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match character classes cases: Case00000000000000000000000022", () => {
+    const target = "ne\u{1F600}hal";
+    let regex = /[\u{1F600}]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000023", () => {
+    const target = "ne\u{1F64F}hal";
+    let regex = /[\u{1F600}-\u{1F64F}]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000024", () => {
+    const target = "ne😀hal";
+    let regex = /[😀ab]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000025", () => {
+    const target = "ne\u0061hal";
+    let regex = /[\u0061\u{62}]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000026", () => {
+    const target = "\u{1F600}hal";
+    let regex = /[a-\u{1F601}]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000027", () => {
+    const target = "neßhal";
+    let regex = /[ß]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000028", () => {
+    const target = "néhal";
+    let regex = /[é]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000029", () => {
+    const target = "ne\u{69}hal";
+    let regex = /[\u{61}-\u{7A}]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000030", () => {
+    const target = "ne😍hal";
+    let regex = /[😀-🙏]/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

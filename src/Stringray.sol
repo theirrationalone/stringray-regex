@@ -992,6 +992,7 @@ contract Stringray {
             console2.log("i: ", i);
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("atom: ", string(atoms[i].atom));
+            console2.logBytes(atoms[i].atom);
             printAtomType(atoms[i].atomType);
             console2.log("----------------------------------------------");
             if (matchEndIndex > -1) {
