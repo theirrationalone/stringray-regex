@@ -1380,39 +1380,71 @@ contract Stringray {
         bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
         uint256 i;
 
+        console2.log("i: ", i);
+        console2.log("pattern length: ", pattern.length);
+
         for (; i < pattern.length;) {
+            int256 matchStartIndex = -1;
+            int256 matchEndIndex = -1;
+            AtomTrait[] memory tempAtom = new AtomTrait[](1);
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
 
             if (lAtomType == INVALID_ATOM) break;
 
+            console2.log("yeah not invalid found");
+
             if (lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN) {
+                console2.log("minus found");
                 (bytes32 rAtomType, uint256 rLastParticleIndex) =
                     ccSubAtoms(pattern, lLastParticleIndex + 2, patternFlags, true, false, false);
 
                 if (rAtomType == INVALID_ATOM) break;
+                console2.log("yeah not invalid found right");
 
-                allCCSubAtoms.push(
-                    AtomTrait({
-                        atomType: CC_RANGE,
-                        atom: trimString(pattern, i, int256(rLastParticleIndex)),
-                        atomEndIdx: int256(rLastParticleIndex)
-                    })
-                );
+                // allCCSubAtoms.push(
+                //     AtomTrait({
+                //         atomType: CC_RANGE,
+                //         atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                //         atomEndIdx: int256(rLastParticleIndex)
+                //     })
+                // );
+
+                tempAtom[0] = AtomTrait({
+                    atomType: CC_RANGE,
+                    atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                    atomEndIdx: int256(rLastParticleIndex)
+                });
+
                 lLastParticleIndex = rLastParticleIndex;
             } else {
-                allCCSubAtoms.push(
-                    AtomTrait({
-                        atomType: lAtomType,
-                        atom: trimString(pattern, i, int256(lLastParticleIndex)),
-                        atomEndIdx: int256(lLastParticleIndex)
-                    })
-                );
+                tempAtom[0] = AtomTrait({
+                    atomType: lAtomType,
+                    atom: trimString(pattern, i, int256(lLastParticleIndex)),
+                    atomEndIdx: int256(lLastParticleIndex)
+                });
+
+                // allCCSubAtoms.push(
+                //     AtomTrait({
+                //         atomType: lAtomType,
+                //         atom: trimString(pattern, i, int256(lLastParticleIndex)),
+                //         atomEndIdx: int256(lLastParticleIndex)
+                //     })
+                // );
+            }
+
+            (matchStartIndex, matchEndIndex) =
+                matchPattern(tempAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
+
+            if (matchStartIndex > -1 && matchEndIndex > -1) {
+                return (matchStartIndex, matchEndIndex);
             }
 
             i = lLastParticleIndex + 1;
         }
 
-        return matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+        console2.log("yeah passedddddddddd");
+        return (-1, -1);
+        // return matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
     }
 
     function matchCharacterClassSubAtomsPattern(
@@ -1473,6 +1505,7 @@ contract Stringray {
         }
 
         if (atomType == INVALID_ATOM) {
+            console2.log("nested cc");
             (, atomType, lastParticleIndex) =
                 isCharacterClass(pattern, pattern, indexToStartWith, patternFlags, fromGroup);
         }
