@@ -1013,6 +1013,8 @@ contract Stringray {
                 break;
             }
 
+            console2.log("passed first validationsss......");
+
             if (
                 atoms[i].atomType == LITERAL_ATOM || atoms[i].atomType == TAB || atoms[i].atomType == NEWLINE
                     || atoms[i].atomType == VERTICAL_TAB || atoms[i].atomType == CARRIAGE_RETURN
@@ -1121,6 +1123,8 @@ contract Stringray {
                     continue;
                 }
             } else if (!fromCharacterClass && atoms[i].atomType == CHARACTER_CLASS_ATOM) {
+                // @BUG: not reaching here somewhere above an under or overflow is happening....
+                console2.log("here we gooo....");
                 (matchStartIndex, matchEndIndex) =
                     matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
@@ -1464,6 +1468,11 @@ contract Stringray {
         ) {
             atomType = LITERAL_ATOM;
             lastParticleIndex = indexToStartWith;
+        }
+
+        if (atomType == INVALID_ATOM) {
+            (, atomType, lastParticleIndex) =
+                isCharacterClass(pattern, pattern, indexToStartWith, patternFlags, fromGroup);
         }
 
         return (atomType, lastParticleIndex);
