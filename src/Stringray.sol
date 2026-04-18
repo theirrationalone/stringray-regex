@@ -1128,6 +1128,9 @@ contract Stringray {
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
                 (matchStartIndex, matchEndIndex) =
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
+                (matchStartIndex, matchEndIndex) =
+                    matchCCSetAtoms(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1218,6 +1221,15 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
+    function matchCCSetAtoms(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch
+    ) private returns (int256, int256) {
+        // TODO: complete the character class in v flag mode, set operation logic
+    }
+
     function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
         private
         returns (int256, int256)
@@ -1275,10 +1287,7 @@ contract Stringray {
             while (rightAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
-                    console2.log("matchEndIndex: ", matchEndIndex);
-                    console2.log("i: ", i);
                     if (matchEndIndex < int256(stringInBytes.length)) {
-                        console2.log("here");
                         if (validateCCRange(
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
@@ -1294,10 +1303,7 @@ contract Stringray {
             while (leftAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
-                    console2.log("matchEndIndex: ", matchEndIndex);
-                    console2.log("i: ", i);
                     if (matchEndIndex < int256(stringInBytes.length)) {
-                        console2.log("here");
                         if (validateCCRange(
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
@@ -1319,12 +1325,10 @@ contract Stringray {
         int256 matchEndIndex,
         uint256 leftAtomDec,
         uint256 rightAtomDec
-    ) private returns (bool) {
+    ) private pure returns (bool) {
         if (int256(indexToStartMatch) <= matchEndIndex) {
             (, uint256 currentCharDec) =
                 evaluateAtomDecValue(trimString(stringInBytes, indexToStartMatch, matchEndIndex));
-
-            console2.log("currentCharDec: ", currentCharDec);
 
             if (currentCharDec >= leftAtomDec && currentCharDec <= rightAtomDec) {
                 return true;
@@ -1381,9 +1385,6 @@ contract Stringray {
         bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
         uint256 i = 0;
 
-        console2.log("i: ", i);
-        console2.log("pattern length: ", pattern.length);
-
         for (; i < pattern.length;) {
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
 
@@ -1406,7 +1407,8 @@ contract Stringray {
                 lLastParticleIndex = rLastParticleIndex;
             } else {
                 if (
-                    lLastParticleIndex + 3 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                    hasFlag(patternFlags, "v") && lLastParticleIndex + 3 < pattern.length
+                        && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
                         && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN
                 ) {
                     uint256 lLastParticleIndexCpy = lLastParticleIndex;
@@ -1441,6 +1443,8 @@ contract Stringray {
                             atomEndIdx: int256(rLastParticleIndex)
                         })
                     );
+
+                    lLastParticleIndex = rLastParticleIndex;
                 } else {
                     allCCSubAtoms.push(
                         AtomTrait({
@@ -1455,7 +1459,6 @@ contract Stringray {
             i = lLastParticleIndex + 1;
         }
 
-        console2.log("yeah passedddddddddd");
         return matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
     }
 
@@ -1467,6 +1470,8 @@ contract Stringray {
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
+        console2.log("---------matchCharacterClassSubAtomsPattern---------");
+        console2.log("cc sub atoms length: ", allCCSubAtoms.length);
         for (uint256 i; i < allCCSubAtoms.length; i++) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
             subAtom[0] = allCCSubAtoms[i];
@@ -1474,7 +1479,6 @@ contract Stringray {
             (matchStartIndex, matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
 
-            console2.log("---------matchCharacterClassSubAtomsPattern---------");
             console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
             console2.log("matchStartIndex: ", matchStartIndex);
             console2.log("matchEndIndex: ", matchEndIndex);
@@ -1486,7 +1490,6 @@ contract Stringray {
             }
         }
 
-        console2.log("passing from the edge");
         return (matchStartIndex, matchEndIndex);
     }
 
