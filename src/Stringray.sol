@@ -991,6 +991,7 @@ contract Stringray {
             console2.log("cycle starts...");
             console2.log("i: ", i);
             console2.log("indexToStartMatch: ", indexToStartMatch);
+            console2.log("fromCharacterClass: ", fromCharacterClass);
             console2.log("atom: ", string(atoms[i].atom));
             console2.logBytes(atoms[i].atom);
             printAtomType(atoms[i].atomType);
@@ -1012,8 +1013,6 @@ contract Stringray {
             if (indexToStartMatch >= stringInBytes.length) {
                 break;
             }
-
-            console2.log("passed first validationsss......");
 
             if (
                 atoms[i].atomType == LITERAL_ATOM || atoms[i].atomType == TAB || atoms[i].atomType == NEWLINE
@@ -1122,9 +1121,7 @@ contract Stringray {
                     i = 0;
                     continue;
                 }
-            } else if (!fromCharacterClass && atoms[i].atomType == CHARACTER_CLASS_ATOM) {
-                // @BUG: not reaching here somewhere above an under or overflow is happening....
-                console2.log("here we gooo....");
+            } else if (atoms[i].atomType == CHARACTER_CLASS_ATOM) {
                 (matchStartIndex, matchEndIndex) =
                     matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
@@ -1165,7 +1162,11 @@ contract Stringray {
                     wordBoundary = false;
                 } else {
                     if (fromCharacterClass) {
-                        indexToStartMatch = uint256(matchEndIndex) + 1;
+                        if (matchEndIndex == -1) {
+                            indexToStartMatch = uint256(matchEndIndex);
+                        } else {
+                            indexToStartMatch = uint256(matchEndIndex) + 1;
+                        }
                     } else {
                         indexToStartMatch = uint256(matchEndIndex);
                     }
@@ -1441,6 +1442,7 @@ contract Stringray {
             }
         }
 
+        console2.log("passing from the edge");
         return (matchStartIndex, matchEndIndex);
     }
 
