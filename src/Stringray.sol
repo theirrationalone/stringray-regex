@@ -334,6 +334,7 @@ contract Stringray {
     bytes32 private constant ESCAPE_LITERAL_ATOM = "ESCAPE_LITERAL_ATOM";
     bytes32 private constant DOT_ATOM = "DOT_ATOM";
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
+    bytes32 private constant CC_SET_ATOM = "CC_SET_ATOM";
     bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
     bytes32 private constant DOLLAR_ANCHOR = "DOLLAR_ANCHOR";
     bytes32 private constant CARET_ANCHOR = "CARET_ANCHOR";
@@ -1380,15 +1381,13 @@ contract Stringray {
         bool fromCharacterClass
     ) private returns (int256, int256) {
         bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
-        uint256 i = indexToStartMatch;
+        uint256 i = 0;
 
         console2.log("i: ", i);
         console2.log("pattern length: ", pattern.length);
 
-        if (fromCharacterClass) {}
+        // if (fromCharacterClass) {}
         for (; i < pattern.length;) {
-            int256 matchStartIndex = -1;
-            int256 matchEndIndex = -1;
             AtomTrait[] memory tempAtom = new AtomTrait[](1);
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
 
@@ -1417,33 +1416,35 @@ contract Stringray {
                 lLastParticleIndex = rLastParticleIndex;
             } else {
                 if (
-                    lLastParticleIndex + 2 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                    lLastParticleIndex + 3 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
                         && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN
                 ) {
-                    (bytes32 rAtomType, uint256 rLastParticleIndex) =
-                        ccSubAtoms(pattern, lLastParticleIndex + 3, patternFlags, true, false, false);
-
-                    if (rAtomType == INVALID_ATOM) break;
-
                     uint256 lLastParticleIndexCpy = lLastParticleIndex;
-                    uint256 rLastParticleIndex;
                     bytes32 rAtomType;
+                    uint256 rLastParticleIndex;
                     while (true) {
                         (rAtomType, rLastParticleIndex) =
-                            ccSubAtoms(pattern, lLastParticleIndexCpy, patternFlags, true, false, false);
+                            ccSubAtoms(pattern, lLastParticleIndexCpy + 3, patternFlags, true, false, false);
+
+                        if (rAtomType == INVALID_ATOM) break;
+
                         if (
-                            rLastParticleIndex + 2 < pattern.length
+                            rLastParticleIndex + 3 < pattern.length
                                 && uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
                                 && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN
                         ) {
                             lLastParticleIndexCpy = rLastParticleIndex;
                         } else {
-                            false;
+                            if (lLastParticleIndexCpy != lLastParticleIndex) {
+                                rLastParticleIndex += 2;
+                            }
+                            break;
                         }
                     }
 
+                    if (rLastParticleIndex == 0) break;
                     tempAtom[0] = AtomTrait({
-                        atomType: CC_INTERSECTION_ATOM,
+                        atomType: CC_SET_ATOM,
                         atom: trimString(pattern, i, int256(rLastParticleIndex)),
                         atomEndIdx: int256(rLastParticleIndex)
                     });
@@ -1464,7 +1465,7 @@ contract Stringray {
                 // );
             }
 
-            (matchStartIndex, matchEndIndex) =
+            (int256 matchStartIndex, int256 matchEndIndex) =
                 matchPattern(tempAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
