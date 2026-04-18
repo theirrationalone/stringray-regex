@@ -1227,7 +1227,13 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch
     ) private returns (int256, int256) {
-        // TODO: complete the character class in v flag mode, set operation logic
+        console2.log("----------------------------matchCCSetAtoms----------------------------");
+        console2.log("atom: ", string(atom));
+        console2.log("string: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("--------------------------------------------------------");
+        return (-1, -1);
     }
 
     function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -1520,7 +1526,6 @@ contract Stringray {
         }
 
         if (atomType == INVALID_ATOM) {
-            console2.log("nested cc");
             (, atomType, lastParticleIndex) =
                 isCharacterClass(pattern, pattern, indexToStartWith, patternFlags, fromGroup);
         }
