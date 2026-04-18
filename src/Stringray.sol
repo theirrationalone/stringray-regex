@@ -1122,8 +1122,9 @@ contract Stringray {
                     continue;
                 }
             } else if (atoms[i].atomType == CHARACTER_CLASS_ATOM) {
-                (matchStartIndex, matchEndIndex) =
-                    matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+                (matchStartIndex, matchEndIndex) = matchCharacterClass(
+                    atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass
+                );
             } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
                 (matchStartIndex, matchEndIndex) =
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
@@ -1375,14 +1376,16 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
-        bytes memory patternFlags
+        bytes memory patternFlags,
+        bool fromCharacterClass
     ) private returns (int256, int256) {
         bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
-        uint256 i;
+        uint256 i = indexToStartMatch;
 
         console2.log("i: ", i);
         console2.log("pattern length: ", pattern.length);
 
+        if (fromCharacterClass) {}
         for (; i < pattern.length;) {
             int256 matchStartIndex = -1;
             int256 matchEndIndex = -1;
@@ -1391,15 +1394,11 @@ contract Stringray {
 
             if (lAtomType == INVALID_ATOM) break;
 
-            console2.log("yeah not invalid found");
-
             if (lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN) {
-                console2.log("minus found");
                 (bytes32 rAtomType, uint256 rLastParticleIndex) =
                     ccSubAtoms(pattern, lLastParticleIndex + 2, patternFlags, true, false, false);
 
                 if (rAtomType == INVALID_ATOM) break;
-                console2.log("yeah not invalid found right");
 
                 // allCCSubAtoms.push(
                 //     AtomTrait({
@@ -1417,11 +1416,44 @@ contract Stringray {
 
                 lLastParticleIndex = rLastParticleIndex;
             } else {
-                tempAtom[0] = AtomTrait({
-                    atomType: lAtomType,
-                    atom: trimString(pattern, i, int256(lLastParticleIndex)),
-                    atomEndIdx: int256(lLastParticleIndex)
-                });
+                if (
+                    lLastParticleIndex + 2 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                        && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN
+                ) {
+                    (bytes32 rAtomType, uint256 rLastParticleIndex) =
+                        ccSubAtoms(pattern, lLastParticleIndex + 3, patternFlags, true, false, false);
+
+                    if (rAtomType == INVALID_ATOM) break;
+
+                    uint256 lLastParticleIndexCpy = lLastParticleIndex;
+                    uint256 rLastParticleIndex;
+                    bytes32 rAtomType;
+                    while (true) {
+                        (rAtomType, rLastParticleIndex) =
+                            ccSubAtoms(pattern, lLastParticleIndexCpy, patternFlags, true, false, false);
+                        if (
+                            rLastParticleIndex + 2 < pattern.length
+                                && uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
+                                && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN
+                        ) {
+                            lLastParticleIndexCpy = rLastParticleIndex;
+                        } else {
+                            false;
+                        }
+                    }
+
+                    tempAtom[0] = AtomTrait({
+                        atomType: CC_INTERSECTION_ATOM,
+                        atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                        atomEndIdx: int256(rLastParticleIndex)
+                    });
+                } else {
+                    tempAtom[0] = AtomTrait({
+                        atomType: lAtomType,
+                        atom: trimString(pattern, i, int256(lLastParticleIndex)),
+                        atomEndIdx: int256(lLastParticleIndex)
+                    });
+                }
 
                 // allCCSubAtoms.push(
                 //     AtomTrait({
