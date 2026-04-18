@@ -1233,6 +1233,12 @@ contract Stringray {
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("--------------------------------------------------------");
+
+        (bytes32 atomType, uint256 lastParticleIndex) =
+            ccSubAtoms(pattern, indexToStartWith, patternFlags, fromCharacterClass, fromGroup, isNestedCC);
+
+        if (atomType == CHARACTER_CLASS_ATOM) {}
+
         return (-1, -1);
     }
 
