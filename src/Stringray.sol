@@ -1222,6 +1222,10 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
+    uint256[] private leftSet;
+    uint256[] private rightSet;
+    uint256[] private intersectionSet;
+
     function matchCCSetAtoms(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -1230,13 +1234,14 @@ contract Stringray {
         bytes memory patternFlags,
         bool fromCharacterClass
     ) private returns (int256, int256) {
+        // [[[anil]&&[nehal]]&&[aeiou]]
         console2.log("----------------------------matchCCSetAtoms----------------------------");
         console2.log("atom: ", string(atom));
         console2.log("string: ", string(stringInBytes));
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("--------------------------------------------------------");
-
+        uint256 dec;
         for (uint256 i; i < atom.length; i++) {
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
 
@@ -1246,10 +1251,6 @@ contract Stringray {
                 lLastParticleIndex + 3 < atom.length && uint8(atom[lLastParticleIndex + 1]) == AMPERSAND_SIGN
                     && uint8(atom[lLastParticleIndex + 2]) == AMPERSAND_SIGN
             ) {
-                if (lAtomType == LITERAL_ATOM) {
-                    // find the decimal equivalent
-                }
-
                 if (lAtomType == CHARACTER_CLASS_ATOM) {
                     matchCCSetAtoms(
                         trimString(atom, i + 1, int256(lLastParticleIndex - 1)),
@@ -1259,36 +1260,32 @@ contract Stringray {
                         patternFlags,
                         fromCharacterClass
                     );
+
+                    console2.log("left set dec: ", leftSet[0]);
+                    console2.log("right set dec: ", rightSet[0]);
                 }
 
-                // uint256 lLastParticleIndexCpy = lLastParticleIndex;
-                // bytes32 rAtomType;
-                // uint256 rLastParticleIndex;
-                // (rAtomType, rLastParticleIndex) =
-                //     ccSubAtoms(pattern, lLastParticleIndexCpy + 3, patternFlags, true, false, false);
+                if (lAtomType == LITERAL_ATOM) {
+                    (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
+                    leftSet.push(dec);
+                    (lAtomType, lLastParticleIndex) = ccSubAtoms(atom, i + 3, patternFlags, true, false, false);
+                    if (lAtomType == INVALID_ATOM) break;
 
-                // while (true) {
+                    if (lAtomType == LITERAL_ATOM) {
+                        (, dec) = evaluateAtomDecValue(trimString(atom, i + 3, int256(lLastParticleIndex)));
+                        rightSet.push(dec);
+                    }
 
-                //     if (rAtomType == INVALID_ATOM) break;
-
-                //     if (
-                //         rLastParticleIndex + 3 < pattern.length
-                //             && uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
-                //             && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN
-                //     ) {
-                //         lLastParticleIndexCpy = rLastParticleIndex;
-                //     } else {
-                //         if (lLastParticleIndexCpy != lLastParticleIndex) {
-                //             rLastParticleIndex += 2;
-                //         }
-                //         break;
-                //     }
-                // }
-
-                // if (rLastParticleIndex == 0) break;
-                lLastParticleIndex = rLastParticleIndex;
+                    return (-1, -1);
+                }
             } else {
-                // so
+                if (lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN) {
+                    (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
+                    while (dec <= evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)))) {}
+                }
+
+                leftSet.push(dec);
+                return (-1, -1);
             }
         }
         return (-1, -1);
