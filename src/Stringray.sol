@@ -1357,7 +1357,72 @@ contract Stringray {
         for (uint256 i; i < leftSet.length; i++) {
             console2.log("common atom uint form: ", leftSet[i]);
         }
+
+        return evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
+        // return (-1, -1);
+    }
+
+    function evaluateSetOperationMatch(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
+        private
+        returns (int256, int256)
+    {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+
+        for (uint256 i; i < leftSet.length; i++) {
+            bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
+
+            (matchStartIndex, matchEndIndex) = matchSetOperationLiterals(atom);
+
+            if (matchStartIndex > -1 && matchEndIndex > -1) {
+                return (matchStartIndex, matchEndIndex);
+            }
+        }
+
+        delete leftSet;
+        delete rightSet;
+        delete intersectionSet;
         return (-1, -1);
+    }
+
+    function matchSetOperationLiterals(bytes memory atom) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        uint256 indexIncrementRate = atom.length;
+        bytes memory stringChunk;
+
+        if (isFirstMatch) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+                matchEndIndex = int256(i + indexIncrementRate - 1);
+                if (matchEndIndex < int256(stringInBytes.length)) {
+                    stringChunk = trimString(stringInBytes, i, matchEndIndex);
+                }
+
+                if (keccak256(atom) == keccak256(stringChunk)) {
+                    matchStartIndex = int256(i);
+                    break;
+                }
+            }
+        } else {
+            matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
+            if (matchEndIndex < int256(stringInBytes.length)) {
+                stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+            }
+            if (keccak256(atom) == keccak256(stringChunk)) {
+                matchStartIndex = int256(indexToStartMatch);
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function trimAccessZerosFromByte(bytes memory _bytesData) private pure returns (bytes memory) {
+        for (uint256 i = _bytesData.length - 1; i >= 0; i--) {
+            if (_bytesData[i] == 0x00) {
+                return trimString(_bytesData, i + 1, -1);
+            }
+            if (i == 0) break;
+        }
     }
 
     function updateSets() private {
