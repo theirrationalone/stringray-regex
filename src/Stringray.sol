@@ -1130,7 +1130,13 @@ contract Stringray {
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
                 (matchStartIndex, matchEndIndex) = matchCCSetAtoms(
-                    atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass
+                    atoms[i].atom,
+                    stringInBytes,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    patternFlags,
+                    fromCharacterClass,
+                    false
                 );
             } else {
                 matchStartIndex = -1;
@@ -1232,7 +1238,8 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool isLeftAtomComputed
     ) private returns (int256, int256) {
         // [[[anil]&&[nehal]]&&[aeiou]]
         console2.log("----------------------------matchCCSetAtoms----------------------------");
@@ -1242,7 +1249,7 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("--------------------------------------------------------");
         uint256 dec;
-        for (uint256 i; i < atom.length; i++) {
+        for (uint256 i; i < atom.length;) {
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
 
             if (lAtomType == INVALID_ATOM) break;
@@ -1258,13 +1265,40 @@ contract Stringray {
                         0,
                         isFirstMatch,
                         patternFlags,
-                        fromCharacterClass
+                        fromCharacterClass,
+                        isLeftAtomComputed
                     );
 
                     console2.log("left set length: ", leftSet.length);
                     console2.log("left set dec: ", leftSet[0]);
                     console2.log("left set dec: ", leftSet[leftSet.length - 1]);
-                    // console2.log("right set dec: ", rightSet[0]);
+                    console2.log("atom: ", string(atom));
+                    console2.log("lLastParticleIndex: ", lLastParticleIndex);
+                    isLeftAtomComputed = true;
+
+                    bytes memory rightAtom = trimString(atom, lLastParticleIndex + 3, -1);
+                    console2.log("rightAtom: ", string(rightAtom));
+                    (lAtomType, lLastParticleIndex) =
+                        ccSubAtoms(atom, lLastParticleIndex + 3, patternFlags, true, false, false);
+
+                    if (lAtomType == INVALID_ATOM) break;
+
+                    if (lAtomType == CHARACTER_CLASS_ATOM) {
+                        matchCCSetAtoms(
+                            rightAtom,
+                            stringInBytes,
+                            0,
+                            isFirstMatch,
+                            patternFlags,
+                            fromCharacterClass,
+                            isLeftAtomComputed
+                        );
+                    }
+                    console2.log("right set length: ", rightSet.length);
+                    console2.log("right set first dec: ", rightSet[0]);
+                    console2.log("right set last dec: ", rightSet[rightSet.length - 1]);
+                    console2.log("atom: ", string(rightAtom));
+                    console2.log("lLastParticleIndex: ", lLastParticleIndex);
                 }
 
                 if (lAtomType == LITERAL_ATOM) {
@@ -1288,25 +1322,39 @@ contract Stringray {
                         0,
                         isFirstMatch,
                         patternFlags,
-                        fromCharacterClass
+                        fromCharacterClass,
+                        isLeftAtomComputed
                     );
-                }
-
-                if (lLastParticleIndex < atom.length - 2 && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN) {
+                } else if (lLastParticleIndex < atom.length - 2 && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN) {
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
 
                     (lAtomType, lLastParticleIndex) = ccSubAtoms(atom, i + 2, patternFlags, true, false, false);
                     (, uint256 dec2) = evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)));
 
                     while (dec <= dec2) {
-                        leftSet.push(dec);
+                        if (isLeftAtomComputed) {
+                            rightSet.push(dec);
+                        } else {
+                            leftSet.push(dec);
+                        }
                         dec++;
                     }
                 } else {
+                    console2.log("------------last------------");
+                    console2.log("reaching here with...");
+                    console2.log("i: ", i);
+                    console2.log("lLastParticleIndex: ", lLastParticleIndex);
+                    console2.log("atom: ", string(atom));
+                    console2.log("------------------------");
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
-                    leftSet.push(dec);
+                    if (isLeftAtomComputed) {
+                        rightSet.push(dec);
+                    } else {
+                        leftSet.push(dec);
+                    }
                 }
             }
+            i = lLastParticleIndex + 1;
         }
         return (-1, -1);
     }
