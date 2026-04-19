@@ -1237,35 +1237,60 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("--------------------------------------------------------");
 
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
-        int256 i = -1;
-        for (i = 0; uint256(i) < atom.length; i++) {
+        for (uint256 i; i < atom.length; i++) {
+            (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
+
+            if (lAtomType == INVALID_ATOM) break;
+
             if (
-                uint8(atom[uint256(i)]) == AMPERSAND_SIGN && uint256(i + 1) < atom.length - 1
-                    && uint8(atom[uint256(i + 1)]) == AMPERSAND_SIGN
+                lLastParticleIndex + 3 < atom.length && uint8(atom[lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                    && uint8(atom[lLastParticleIndex + 2]) == AMPERSAND_SIGN
             ) {
-                break;
+                if (lAtomType == LITERAL_ATOM) {
+                    // find the decimal equivalent
+                }
+
+                if (lAtomType == CHARACTER_CLASS_ATOM) {
+                    matchCCSetAtoms(
+                        trimString(atom, i + 1, int256(lLastParticleIndex - 1)),
+                        stringInBytes,
+                        0,
+                        isFirstMatch,
+                        patternFlags,
+                        fromCharacterClass
+                    );
+                }
+
+                // uint256 lLastParticleIndexCpy = lLastParticleIndex;
+                // bytes32 rAtomType;
+                // uint256 rLastParticleIndex;
+                // (rAtomType, rLastParticleIndex) =
+                //     ccSubAtoms(pattern, lLastParticleIndexCpy + 3, patternFlags, true, false, false);
+
+                // while (true) {
+
+                //     if (rAtomType == INVALID_ATOM) break;
+
+                //     if (
+                //         rLastParticleIndex + 3 < pattern.length
+                //             && uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
+                //             && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN
+                //     ) {
+                //         lLastParticleIndexCpy = rLastParticleIndex;
+                //     } else {
+                //         if (lLastParticleIndexCpy != lLastParticleIndex) {
+                //             rLastParticleIndex += 2;
+                //         }
+                //         break;
+                //     }
+                // }
+
+                // if (rLastParticleIndex == 0) break;
+                lLastParticleIndex = rLastParticleIndex;
+            } else {
+                // so
             }
         }
-
-        if (i <= 0 || (i > 0 && uint256(i) >= atom.length)) return (-1, -1);
-
-        // bytes memory atomLeft = trimString(atom, 0, i - 1);
-        // bytes memory atomRight = trimString(atom, i + 2, -1);
-
-        (bytes32 lAtomType,) = ccSubAtoms(trimString(atom, 0, i - 1), 0, patternFlags, fromCharacterClass, false, true);
-
-        if (lAtomType == INVALID_ATOM) return (-1, -1);
-
-        // [a-z]&&[aeiou]
-        (matchStartIndex, matchEndIndex) =
-            matchCCSetAtoms(trimString(atom, 0, i - 1), stringInBytes, 0, isFirstMatch, patternFlags, true);
-
-        if (matchStartIndex == -1 && matchEndIndex == -1) {
-            console2.log("found without set operation...");
-        }
-
         return (-1, -1);
     }
 
