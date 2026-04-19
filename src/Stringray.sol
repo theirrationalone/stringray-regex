@@ -1281,6 +1281,17 @@ contract Stringray {
                     return (-1, -1);
                 }
             } else {
+                if (lAtomType == CHARACTER_CLASS_ATOM) {
+                    matchCCSetAtoms(
+                        trimString(atom, i + 1, int256(lLastParticleIndex - 1)),
+                        stringInBytes,
+                        0,
+                        isFirstMatch,
+                        patternFlags,
+                        fromCharacterClass
+                    );
+                }
+
                 if (lLastParticleIndex < atom.length - 2 && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN) {
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
 
@@ -1291,9 +1302,10 @@ contract Stringray {
                         leftSet.push(dec);
                         dec++;
                     }
+                } else {
+                    (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
+                    leftSet.push(dec);
                 }
-
-                return (-1, -1);
             }
         }
         return (-1, -1);
