@@ -1130,13 +1130,7 @@ contract Stringray {
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
                 (matchStartIndex, matchEndIndex) = matchCCSetAtoms(
-                    atoms[i].atom,
-                    stringInBytes,
-                    indexToStartMatch,
-                    isFirstMatch,
-                    patternFlags,
-                    fromCharacterClass,
-                    fromGroup
+                    atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass
                 );
             } else {
                 matchStartIndex = -1;
@@ -1234,8 +1228,7 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
-        bool fromCharacterClass,
-        bool fromGroup
+        bool fromCharacterClass
     ) private returns (int256, int256) {
         console2.log("----------------------------matchCCSetAtoms----------------------------");
         console2.log("atom: ", string(atom));
@@ -1244,9 +1237,14 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("--------------------------------------------------------");
 
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
         int256 i = -1;
         for (i = 0; uint256(i) < atom.length; i++) {
-            if (uint8(atom[uint256(i)]) == AMPERSAND_SIGN) {
+            if (
+                uint8(atom[uint256(i)]) == AMPERSAND_SIGN && uint256(i + 1) < atom.length - 1
+                    && uint8(atom[uint256(i + 1)]) == AMPERSAND_SIGN
+            ) {
                 break;
             }
         }
@@ -1256,12 +1254,17 @@ contract Stringray {
         // bytes memory atomLeft = trimString(atom, 0, i - 1);
         // bytes memory atomRight = trimString(atom, i + 2, -1);
 
-        (bytes32 lAtomType,) =
-            ccSubAtoms(trimString(atom, 0, i - 1), 0, patternFlags, fromCharacterClass, fromGroup, true);
+        (bytes32 lAtomType,) = ccSubAtoms(trimString(atom, 0, i - 1), 0, patternFlags, fromCharacterClass, false, true);
 
         if (lAtomType == INVALID_ATOM) return (-1, -1);
 
-        if (lAtomType == CHARACTER_CLASS_ATOM) {}
+        // [a-z]&&[aeiou]
+        (matchStartIndex, matchEndIndex) =
+            matchCCSetAtoms(trimString(atom, 0, i - 1), stringInBytes, 0, isFirstMatch, patternFlags, true);
+
+        if (matchStartIndex == -1 && matchEndIndex == -1) {
+            console2.log("found without set operation...");
+        }
 
         return (-1, -1);
     }
