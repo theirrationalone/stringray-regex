@@ -1261,8 +1261,10 @@ contract Stringray {
                         fromCharacterClass
                     );
 
+                    console2.log("left set length: ", leftSet.length);
                     console2.log("left set dec: ", leftSet[0]);
-                    console2.log("right set dec: ", rightSet[0]);
+                    console2.log("left set dec: ", leftSet[leftSet.length - 1]);
+                    // console2.log("right set dec: ", rightSet[0]);
                 }
 
                 if (lAtomType == LITERAL_ATOM) {
@@ -1279,12 +1281,18 @@ contract Stringray {
                     return (-1, -1);
                 }
             } else {
-                if (lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN) {
+                if (lLastParticleIndex < atom.length - 2 && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN) {
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
-                    while (dec <= evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)))) {}
+
+                    (lAtomType, lLastParticleIndex) = ccSubAtoms(atom, i + 2, patternFlags, true, false, false);
+                    (, uint256 dec2) = evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)));
+
+                    while (dec <= dec2) {
+                        leftSet.push(dec);
+                        dec++;
+                    }
                 }
 
-                leftSet.push(dec);
                 return (-1, -1);
             }
         }
