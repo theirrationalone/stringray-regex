@@ -1512,37 +1512,6 @@ contract Stringray {
         return "";
     }
 
-    // function matchSetOperationLiterals(bytes memory atom) private returns (int256, int256) {
-    //     int256 matchStartIndex = -1;
-    //     int256 matchEndIndex = -1;
-    //     uint256 indexIncrementRate = atom.length;
-    //     bytes memory stringChunk;
-
-    //     if (isFirstMatch) {
-    //         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-    //             matchEndIndex = int256(i + indexIncrementRate - 1);
-    //             if (matchEndIndex < int256(stringInBytes.length)) {
-    //                 stringChunk = trimString(stringInBytes, i, matchEndIndex);
-    //             }
-
-    //             if (keccak256(atom) == keccak256(stringChunk)) {
-    //                 matchStartIndex = int256(i);
-    //                 break;
-    //             }
-    //         }
-    //     } else {
-    //         matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
-    //         if (matchEndIndex < int256(stringInBytes.length)) {
-    //             stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
-    //         }
-    //         if (keccak256(atom) == keccak256(stringChunk)) {
-    //             matchStartIndex = int256(indexToStartMatch);
-    //         }
-    //     }
-
-    //     return (matchStartIndex, matchEndIndex);
-    // }
-
     function trimAccessZerosFromByte(bytes memory _bytesData) private pure returns (bytes memory) {
         for (uint256 i = _bytesData.length - 1; i >= 0; i--) {
             if (_bytesData[i] == 0x00) {
@@ -1761,8 +1730,10 @@ contract Stringray {
             } else {
                 if (
                     hasFlag(patternFlags, "v") && lLastParticleIndex + 3 < pattern.length
-                        && uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
-                        && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN
+                        && ((uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                                && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN)
+                            || (uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN
+                                && uint8(pattern[lLastParticleIndex + 2]) == MINUS_SIGN))
                 ) {
                     uint256 lLastParticleIndexCpy = lLastParticleIndex;
                     bytes32 rAtomType;

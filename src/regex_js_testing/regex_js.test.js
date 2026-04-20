@@ -18748,9 +18748,37 @@ const testMain = () => {
 
   test("Pattern match character classes cases: Case00000000000000000000000033", () => {
     const target = "nehal";
-    let regex = /[[a-z]&&[aeiou]]/u;
+    let regex = /[[a&&b]&&[aeiou]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000034", () => {
+    const target = "nehal";
+    let regex = /[[bcdefghijkup]&&[aeiou]]/v;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match character classes cases: Case00000000000000000000000035", () => {
+    const target = "nehal";
+    let regex = /[[[anil]&&[nehal]]&&[aeiou]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000036", () => {
+    const target = "nehal";
+    let regex = /[[a-z]--[aeiou]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  // test("Pattern match character classes cases: Case00000000000000000000000037", () => {
+  //   const target = "nehal";
+  //   let regex = /[[a-z]&&[aeiou]]/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 };
 testMain();
