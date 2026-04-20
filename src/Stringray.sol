@@ -1129,7 +1129,7 @@ contract Stringray {
                 (matchStartIndex, matchEndIndex) =
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
-                (matchStartIndex, matchEndIndex) = matchCCSetAtoms(
+                matchCCSetAtoms(
                     atoms[i].atom,
                     stringInBytes,
                     indexToStartMatch,
@@ -1138,6 +1138,9 @@ contract Stringray {
                     fromCharacterClass,
                     false
                 );
+
+                (matchStartIndex, matchEndIndex) =
+                    evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1240,7 +1243,7 @@ contract Stringray {
         bytes memory patternFlags,
         bool fromCharacterClass,
         bool isLeftAtomComputed
-    ) private returns (int256, int256) {
+    ) private {
         // [[[anil]&&[nehal]]&&[aeiou]]
         console2.log("----------------------------matchCCSetAtoms----------------------------");
         console2.log("atom: ", string(atom));
@@ -1357,9 +1360,6 @@ contract Stringray {
         for (uint256 i; i < leftSet.length; i++) {
             console2.log("common atom uint form: ", leftSet[i]);
         }
-
-        return evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
-        // return (-1, -1);
     }
 
     function evaluateSetOperationMatch(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -1371,10 +1371,14 @@ contract Stringray {
 
         for (uint256 i; i < leftSet.length; i++) {
             bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
+            bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
-            (matchStartIndex, matchEndIndex) = matchSetOperationLiterals(atom);
+            (matchStartIndex, matchEndIndex) = matchLiteral(utf8Atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
+                delete leftSet;
+                delete rightSet;
+                delete intersectionSet;
                 return (matchStartIndex, matchEndIndex);
             }
         }
@@ -1385,36 +1389,159 @@ contract Stringray {
         return (-1, -1);
     }
 
-    function matchSetOperationLiterals(bytes memory atom) private returns (int256, int256) {
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
-        uint256 indexIncrementRate = atom.length;
-        bytes memory stringChunk;
+    function convertUnicodeHexToUtf8Hex(bytes memory unicodeHex) private returns (bytes memory) {
+        uint256 unicodeHexLength = unicodeHex.length;
+        bytes memory unicodeString;
 
-        if (isFirstMatch) {
-            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-                matchEndIndex = int256(i + indexIncrementRate - 1);
-                if (matchEndIndex < int256(stringInBytes.length)) {
-                    stringChunk = trimString(stringInBytes, i, matchEndIndex);
-                }
-
-                if (keccak256(atom) == keccak256(stringChunk)) {
-                    matchStartIndex = int256(i);
-                    break;
-                }
-            }
-        } else {
-            matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
-            if (matchEndIndex < int256(stringInBytes.length)) {
-                stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
-            }
-            if (keccak256(atom) == keccak256(stringChunk)) {
-                matchStartIndex = int256(indexToStartMatch);
-            }
+        if (unicodeHexLength == 1) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
         }
 
-        return (matchStartIndex, matchEndIndex);
+        if (unicodeHexLength == 2) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[1]));
+        }
+
+        if (unicodeHexLength == 3) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[1]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[2]));
+        }
+
+        if (unicodeHexLength == 4) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[1]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[2]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[3]));
+        }
+
+        if (unicodeHexLength == 5) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[1]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[2]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[3]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[4]));
+        }
+
+        if (unicodeHexLength == 6) {
+            unicodeString = convertUnicodeHexToUnicodeString(unicodeHex[0]);
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[1]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[2]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[3]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[4]));
+            unicodeString = abi.encodePacked(unicodeString, convertUnicodeHexToUnicodeString(unicodeHex[5]));
+        }
+
+        return unicodeHexToUtf8Hex(abi.encodePacked("\\u{", unicodeString, "}"));
     }
+
+    function convertUnicodeHexToUnicodeString(bytes1 unicodeHex) private returns (bytes memory) {
+        bytes memory unicodeString;
+
+        unicodeString = abi.encodePacked(singlNibbleToString(bytes1(unicodeHex) << 4 * 1), unicodeString);
+        unicodeString = abi.encodePacked(singlNibbleToString(bytes1(unicodeHex) >> 4 * 1), unicodeString);
+
+        return unicodeString;
+    }
+
+    function singlNibbleToString(bytes1 singleNibble) private returns (string memory) {
+        if (singleNibble == 0x00) {
+            return "0";
+        }
+
+        if (singleNibble == 0x01 || singleNibble == 0x10) {
+            return "1";
+        }
+
+        if (singleNibble == 0x02 || singleNibble == 0x20) {
+            return "2";
+        }
+
+        if (singleNibble == 0x03 || singleNibble == 0x30) {
+            return "3";
+        }
+
+        if (singleNibble == 0x04 || singleNibble == 0x40) {
+            return "4";
+        }
+
+        if (singleNibble == 0x05 || singleNibble == 0x50) {
+            return "5";
+        }
+
+        if (singleNibble == 0x06 || singleNibble == 0x60) {
+            return "6";
+        }
+
+        if (singleNibble == 0x07 || singleNibble == 0x70) {
+            return "7";
+        }
+
+        if (singleNibble == 0x08 || singleNibble == 0x80) {
+            return "8";
+        }
+
+        if (singleNibble == 0x09 || singleNibble == 0x90) {
+            return "9";
+        }
+
+        if (singleNibble == 0x0a || singleNibble == 0xa0 || singleNibble == 0x0A || singleNibble == 0xA0) {
+            return "A";
+        }
+
+        if (singleNibble == 0x0b || singleNibble == 0xb0 || singleNibble == 0x0B || singleNibble == 0xB0) {
+            return "B";
+        }
+
+        if (singleNibble == 0x0c || singleNibble == 0xc0 || singleNibble == 0x0C || singleNibble == 0xC0) {
+            return "C";
+        }
+
+        if (singleNibble == 0x0d || singleNibble == 0xd0 || singleNibble == 0x0D || singleNibble == 0xD0) {
+            return "D";
+        }
+
+        if (singleNibble == 0x0e || singleNibble == 0xe0 || singleNibble == 0x0E || singleNibble == 0xE0) {
+            return "E";
+        }
+
+        if (singleNibble == 0x0f || singleNibble == 0x0F || singleNibble == 0xf0 || singleNibble == 0xF0) {
+            return "F";
+        }
+
+        return "";
+    }
+
+    // function matchSetOperationLiterals(bytes memory atom) private returns (int256, int256) {
+    //     int256 matchStartIndex = -1;
+    //     int256 matchEndIndex = -1;
+    //     uint256 indexIncrementRate = atom.length;
+    //     bytes memory stringChunk;
+
+    //     if (isFirstMatch) {
+    //         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+    //             matchEndIndex = int256(i + indexIncrementRate - 1);
+    //             if (matchEndIndex < int256(stringInBytes.length)) {
+    //                 stringChunk = trimString(stringInBytes, i, matchEndIndex);
+    //             }
+
+    //             if (keccak256(atom) == keccak256(stringChunk)) {
+    //                 matchStartIndex = int256(i);
+    //                 break;
+    //             }
+    //         }
+    //     } else {
+    //         matchEndIndex = int256(indexToStartMatch + indexIncrementRate - 1);
+    //         if (matchEndIndex < int256(stringInBytes.length)) {
+    //             stringChunk = trimString(stringInBytes, indexToStartMatch, matchEndIndex);
+    //         }
+    //         if (keccak256(atom) == keccak256(stringChunk)) {
+    //             matchStartIndex = int256(indexToStartMatch);
+    //         }
+    //     }
+
+    //     return (matchStartIndex, matchEndIndex);
+    // }
 
     function trimAccessZerosFromByte(bytes memory _bytesData) private pure returns (bytes memory) {
         for (uint256 i = _bytesData.length - 1; i >= 0; i--) {
