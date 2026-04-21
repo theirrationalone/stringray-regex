@@ -3039,8 +3039,7 @@ contract Stringray {
                                 && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
                             || (uint8(_pattern[i]) == MINUS_SIGN
                                 && i + 1 < _pattern.length
-                                && uint8(_pattern[i + 1]) == MINUS_SIGN
-                                && leftAtomsCount == 0)) && leftAtomsCount == 0
+                                && uint8(_pattern[i + 1]) == MINUS_SIGN)) && leftAtomsCount == 0
                 ) {
                     console2.log("throwing from here...2");
                     throwError(
@@ -3091,8 +3090,23 @@ contract Stringray {
                                         atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
                                             || atomType == CHARACTER_CLASS_ATOM
                                     ) {
-                                        // @BUG: doesn't skip adjactent atoms with set operations
-                                        rightAtomsCount++;
+                                        if (
+                                            lastMatchedIndex + 3 < _pattern.length
+                                                && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
+                                                        && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
+                                                    || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
+                                                        && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN))
+                                        ) {
+                                            rightAtomsCount++;
+                                        } else {
+                                            console2.log("throwing from here...4sub");
+                                            throwError(
+                                                _orgPattern,
+                                                "SyntaxError: Invalid regular expression: /",
+                                                ": Invalid set operation in character class",
+                                                _patternFlags
+                                            );
+                                        }
                                     } else {
                                         console2.log("throwing from here...4");
                                         throwError(
