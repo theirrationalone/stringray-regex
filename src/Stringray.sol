@@ -2992,6 +2992,7 @@ contract Stringray {
         bool fromGroup
     ) private {
         console2.log("init set operations validation...");
+        console2.log("pattern: ", string(_pattern));
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
@@ -3051,14 +3052,11 @@ contract Stringray {
                 }
 
                 if (
-                    (lastMatchedIndex + 1 < _pattern.length
-                            && uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
-                            && lastMatchedIndex + 2 < _pattern.length
-                            && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
-                        || (lastMatchedIndex + 1 < _pattern.length
-                            && uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
-                            && lastMatchedIndex + 2 < _pattern.length
-                            && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)
+                    lastMatchedIndex + 3 < _pattern.length
+                        && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
+                                && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
+                            || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
+                                && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN))
                 ) {
                     leftAtomsCount++;
 
@@ -3086,20 +3084,25 @@ contract Stringray {
                                 }
 
                                 if (flag) {
+                                    console2.log("lastMatchedIndex0: ", lastMatchedIndex);
                                     if (
                                         atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
                                             || atomType == CHARACTER_CLASS_ATOM
                                     ) {
                                         if (
-                                            lastMatchedIndex + 3 < _pattern.length
-                                                && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
-                                                        && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
-                                                    || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
-                                                        && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN))
+                                            (lastMatchedIndex + 3 < _pattern.length
+                                                    && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
+                                                            && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
+                                                        || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
+                                                            && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)))
+                                                || lastMatchedIndex == _pattern.length - 1
                                         ) {
+                                            lastMatchedIndex += 2;
                                             rightAtomsCount++;
                                         } else {
                                             console2.log("throwing from here...4sub");
+                                            console2.log("pattern: ", string(_pattern));
+                                            console2.log("lastMatchedIndex2: ", lastMatchedIndex);
                                             throwError(
                                                 _orgPattern,
                                                 "SyntaxError: Invalid regular expression: /",
