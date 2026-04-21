@@ -1406,7 +1406,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool isLeftAtomComputed
     ) private {
-        // [[[anil]&&[nehal]]&&[aeiou]]
         console2.log("----------------------------matchCCSetAtoms----------------------------");
         console2.log("atom: ", string(atom));
         console2.log("string: ", string(stringInBytes));
@@ -1444,6 +1443,10 @@ contract Stringray {
                 console2.log("lLastParticleIndex: ", lLastParticleIndex);
                 isLeftAtomComputed = true;
 
+                if (rightSet.length > 0) {
+                    updateSets(operationType);
+                }
+
                 bytes memory rightAtom = trimString(atom, lLastParticleIndex + 3, -1);
                 console2.log("rightAtom: ", string(rightAtom));
                 (lAtomType, lLastParticleIndex) =
@@ -1451,35 +1454,19 @@ contract Stringray {
 
                 if (lAtomType == INVALID_ATOM) break;
 
-                // if (lAtomType == CHARACTER_CLASS_ATOM) {
                 matchCCSetAtoms(
                     rightAtom, stringInBytes, 0, isFirstMatch, patternFlags, fromCharacterClass, isLeftAtomComputed
                 );
-                // }
                 console2.log("right set length: ", rightSet.length);
-                console2.log("right set first dec: ", rightSet[0]);
-                console2.log("right set last dec: ", rightSet[rightSet.length - 1]);
+                console2.log("right set first dec: ", rightSet.length > 0 ? rightSet[0] : 0);
+                console2.log("right set last dec: ", rightSet.length > 0 ? rightSet[rightSet.length - 1] : 0);
                 console2.log("atom: ", string(rightAtom));
                 console2.log("lLastParticleIndex: ", lLastParticleIndex);
 
-                updateSets(operationType);
+                if (rightSet.length > 0) {
+                    updateSets(operationType);
+                }
                 console2.log("passing...");
-                // } else {
-                // (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
-                // leftSet.push(dec);
-                // isLeftAtomComputed = true;
-
-                // (lAtomType, lLastParticleIndex) =
-                //     ccSubAtoms(atom, lLastParticleIndex + 3, patternFlags, true, false, false);
-                // if (lAtomType == INVALID_ATOM) break;
-
-                // if (lAtomType == LITERAL_ATOM) {
-                //     (, dec) = evaluateAtomDecValue(trimString(atom, i + 3, int256(lLastParticleIndex)));
-                //     rightSet.push(dec);
-                // }
-
-                // return (-1, -1);
-                // }
             } else {
                 if (lAtomType == CHARACTER_CLASS_ATOM) {
                     matchCCSetAtoms(
@@ -1514,6 +1501,8 @@ contract Stringray {
                     console2.log("i: ", i);
                     console2.log("lLastParticleIndex: ", lLastParticleIndex);
                     console2.log("atom: ", string(atom));
+                    console2.log("atom s: ", string(abi.encodePacked(atom[lLastParticleIndex])));
+                    console2.log("isLeftAtomComputed: ", isLeftAtomComputed);
                     console2.log("------------------------");
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
                     if (isLeftAtomComputed) {
@@ -1526,18 +1515,36 @@ contract Stringray {
             i = lLastParticleIndex + 1;
         }
 
+        console2.log("--------------------------left atoms--------------------------");
         for (uint256 i; i < leftSet.length; i++) {
-            console2.log("common atom uint form: ", leftSet[i]);
+            console2.log("common left atom uint form: ", leftSet[i]);
         }
+        console2.log("----------------------------------------------------");
+        console2.log("--------------------------right atoms--------------------------");
+        for (uint256 i; i < rightSet.length; i++) {
+            console2.log("common left atom uint form: ", rightSet[i]);
+        }
+        console2.log("----------------------------------------------------");
     }
 
     function updateSets(uint8 operationTypeSymbol) private {
+        console2.log("updating sets...");
         if (operationTypeSymbol == AMPERSAND_SIGN) {
             for (uint256 i = 0; i < leftSet.length; i++) {
                 for (uint256 j = 0; j < rightSet.length; j++) {
                     if (leftSet[i] == rightSet[j]) {
-                        intersectionSet.push(leftSet[i]);
-                        break;
+                        bool exist;
+                        for (uint256 k; k < intersectionSet.length; k++) {
+                            if (leftSet[i] == intersectionSet[k]) {
+                                exist = true;
+                                break;
+                            }
+                        }
+
+                        if (!exist) {
+                            intersectionSet.push(leftSet[i]);
+                            break;
+                        }
                     }
                 }
             }
@@ -1551,7 +1558,16 @@ contract Stringray {
                     }
                 }
                 if (!found) {
-                    differenceSet.push(leftSet[i]);
+                    bool exist;
+                    for (uint256 k; k < differenceSet.length; k++) {
+                        if (leftSet[i] == differenceSet[k]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if (!exist) {
+                        differenceSet.push(leftSet[i]);
+                    }
                 }
             }
         }
@@ -1566,14 +1582,19 @@ contract Stringray {
             leftSet.push(differenceSet[i]);
         }
 
-        console2.log("left set length before update: ", leftSet.length);
+        console2.log("left set length before : ", leftSet.length);
+        console2.log("right set length before: ", rightSet.length);
+        console2.log("intersection set length before: ", intersectionSet.length);
+        console2.log("difference set length before: ", differenceSet.length);
+
         delete intersectionSet;
         delete differenceSet;
         delete rightSet;
 
-        console2.log("left set length: ", leftSet.length);
-        console2.log("right set length: ", rightSet.length);
-        console2.log("intersection set length: ", intersectionSet.length);
+        console2.log("left set length after : ", leftSet.length);
+        console2.log("right set length after: ", rightSet.length);
+        console2.log("intersection set length after: ", intersectionSet.length);
+        console2.log("difference set length before: ", differenceSet.length);
     }
 
     function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -1731,10 +1752,20 @@ contract Stringray {
         bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
         uint256 i = 0;
 
+        console2.log("--------------------matchCharacterClass--------------------");
+        console2.log("atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("----------------------------------------");
+
         for (; i < pattern.length;) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
+
+            console2.log("back to match cc");
 
             if (lAtomType == INVALID_ATOM) break;
 
@@ -1780,13 +1811,15 @@ contract Stringray {
 
                         if (
                             rLastParticleIndex + 3 < pattern.length
-                                && uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
-                                && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN
+                                && ((uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
+                                        && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN)
+                                    || (uint8(pattern[rLastParticleIndex + 1]) == MINUS_SIGN
+                                        && uint8(pattern[rLastParticleIndex + 2]) == MINUS_SIGN))
                         ) {
                             lLastParticleIndexCpy = rLastParticleIndex;
                         } else {
                             if (lLastParticleIndexCpy != lLastParticleIndex) {
-                                rLastParticleIndex += 2;
+                                lLastParticleIndex = lLastParticleIndexCpy;
                             }
                             break;
                         }
@@ -3071,58 +3104,40 @@ contract Stringray {
                     }
 
                     if (leftAtomsCount == 1) {
-                        if (
-                            atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY || atomType == CHARACTER_CLASS_ATOM
-                        ) {
-                            for (uint256 j = lastMatchedIndex + 3; j < _pattern.length; j++) {
+                        // if (
+                        //     atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY || atomType == CHARACTER_CLASS_ATOM
+                        // ) {
+                        for (uint256 j = lastMatchedIndex + 3; j < _pattern.length; j++) {
+                            (flag, atomType, lastMatchedIndex) =
+                                isLiteralAtom(_pattern, _orgPattern, j, _patternFlags, true, fromGroup, true);
+
+                            if (!flag) {
                                 (flag, atomType, lastMatchedIndex) =
-                                    isLiteralAtom(_pattern, _orgPattern, j, _patternFlags, true, fromGroup, true);
+                                    isCharacterClass(_pattern, _orgPattern, j, _patternFlags, fromGroup);
+                            }
 
-                                if (!flag) {
-                                    (flag, atomType, lastMatchedIndex) =
-                                        isCharacterClass(_pattern, _orgPattern, j, _patternFlags, fromGroup);
-                                }
-
-                                if (flag) {
-                                    console2.log("lastMatchedIndex0: ", lastMatchedIndex);
-                                    if (
-                                        atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
-                                            || atomType == CHARACTER_CLASS_ATOM
-                                    ) {
-                                        if (
-                                            (lastMatchedIndex + 3 < _pattern.length
-                                                    && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
-                                                            && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
-                                                        || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
-                                                            && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)))
-                                                || lastMatchedIndex == _pattern.length - 1
-                                        ) {
-                                            lastMatchedIndex += 2;
-                                            rightAtomsCount++;
-                                        } else {
-                                            console2.log("throwing from here...4sub");
-                                            console2.log("pattern: ", string(_pattern));
-                                            console2.log("lastMatchedIndex2: ", lastMatchedIndex);
-                                            throwError(
-                                                _orgPattern,
-                                                "SyntaxError: Invalid regular expression: /",
-                                                ": Invalid set operation in character class",
-                                                _patternFlags
-                                            );
-                                        }
-                                    } else {
-                                        console2.log("throwing from here...4");
-                                        throwError(
-                                            _orgPattern,
-                                            "SyntaxError: Invalid regular expression: /",
-                                            ": Invalid set operation in character class",
-                                            _patternFlags
-                                        );
+                            if (flag) {
+                                console2.log("lastMatchedIndex0: ", lastMatchedIndex);
+                                // if (
+                                //     atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
+                                //         || atomType == CHARACTER_CLASS_ATOM
+                                // ) {
+                                if (
+                                    (lastMatchedIndex + 3 < _pattern.length
+                                            && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
+                                                    && uint8(_pattern[lastMatchedIndex + 2]) == AMPERSAND_SIGN)
+                                                || (uint8(_pattern[lastMatchedIndex + 1]) == MINUS_SIGN
+                                                    && uint8(_pattern[lastMatchedIndex + 2]) == MINUS_SIGN)))
+                                        || lastMatchedIndex == _pattern.length - 1
+                                ) {
+                                    if (lastMatchedIndex != _pattern.length - 1) {
+                                        lastMatchedIndex += 2;
                                     }
-                                    j = lastMatchedIndex;
-                                    i = lastMatchedIndex;
+                                    rightAtomsCount++;
                                 } else {
-                                    console2.log("throwing from here...5");
+                                    console2.log("throwing from here...4sub");
+                                    console2.log("pattern: ", string(_pattern));
+                                    console2.log("lastMatchedIndex2: ", lastMatchedIndex);
                                     throwError(
                                         _orgPattern,
                                         "SyntaxError: Invalid regular expression: /",
@@ -3130,10 +3145,19 @@ contract Stringray {
                                         _patternFlags
                                     );
                                 }
-                            }
-
-                            if (rightAtomsCount == 0 || rightAtomsCount > 1) {
-                                console2.log("throwing from here...6");
+                                // } else {
+                                //     console2.log("throwing from here...4");
+                                //     throwError(
+                                //         _orgPattern,
+                                //         "SyntaxError: Invalid regular expression: /",
+                                //         ": Invalid set operation in character class",
+                                //         _patternFlags
+                                //     );
+                                // }
+                                j = lastMatchedIndex;
+                                i = lastMatchedIndex;
+                            } else {
+                                console2.log("throwing from here...5");
                                 throwError(
                                     _orgPattern,
                                     "SyntaxError: Invalid regular expression: /",
@@ -3141,8 +3165,10 @@ contract Stringray {
                                     _patternFlags
                                 );
                             }
-                        } else {
-                            console2.log("throwing from here...7");
+                        }
+
+                        if (rightAtomsCount == 0) {
+                            console2.log("throwing from here...6");
                             throwError(
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
@@ -3150,6 +3176,15 @@ contract Stringray {
                                 _patternFlags
                             );
                         }
+                        // } else {
+                        //     console2.log("throwing from here...7");
+                        //     throwError(
+                        //         _orgPattern,
+                        //         "SyntaxError: Invalid regular expression: /",
+                        //         ": Invalid set operation in character class",
+                        //         _patternFlags
+                        //     );
+                        // }
                     }
                 } else {
                     i = lastMatchedIndex;
