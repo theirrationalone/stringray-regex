@@ -1139,6 +1139,8 @@ contract Stringray {
                     false
                 );
 
+                console2.log("set expressions evaluated succesfully");
+
                 (matchStartIndex, matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
             } else {
@@ -1406,6 +1408,15 @@ contract Stringray {
         bool fromCharacterClass,
         bool isLeftAtomComputed
     ) private {
+        console2.log("-------------------------matchCCSetAtoms-------------------------");
+        console2.log("atom: ", string(atom));
+        console2.log("string: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("isleftAtomComputed: ", isLeftAtomComputed);
+        console2.log("--------------------------------------------------");
         uint256 dec;
         for (uint256 i; i < atom.length;) {
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
@@ -1435,6 +1446,8 @@ contract Stringray {
                     updateSets(operationType);
                 }
 
+                console2.log("yeah turning to right atom...");
+
                 bytes memory rightAtom = trimString(atom, lLastParticleIndex + 3, -1);
                 (lAtomType, lLastParticleIndex) =
                     ccSubAtoms(atom, lLastParticleIndex + 3, patternFlags, true, false, false);
@@ -1448,6 +1461,8 @@ contract Stringray {
                 if (rightSet.length > 0) {
                     updateSets(operationType);
                 }
+
+                console2.log("yeah truning to end...");
             } else {
                 if (lAtomType == CHARACTER_CLASS_ATOM) {
                     matchCCSetAtoms(
@@ -1486,7 +1501,9 @@ contract Stringray {
                 }
             }
             i = lLastParticleIndex + 1;
+            console2.log("going for next cycle...");
         }
+        console2.log("-------------------------end-------------------------");
     }
 
     function updateSets(uint8 operationTypeSymbol) private {
