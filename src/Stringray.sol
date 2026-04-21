@@ -2991,6 +2991,7 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
+        console2.log("init set operations validation...");
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
@@ -3023,6 +3024,7 @@ contract Stringray {
                             || uint8(_pattern[i]) == FORWARD_SLASH
                             || uint8(_pattern[i]) == VERTICAL_BAR) && lastMatchedIndex == i
                 ) {
+                    console2.log("throwing from here...1");
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -3040,6 +3042,7 @@ contract Stringray {
                                 && uint8(_pattern[i + 1]) == MINUS_SIGN
                                 && leftAtomsCount == 0)) && leftAtomsCount == 0
                 ) {
+                    console2.log("throwing from here...2");
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
@@ -3061,6 +3064,7 @@ contract Stringray {
                     leftAtomsCount++;
 
                     if (leftAtomsCount > 1 || rightAtomsCount > 1) {
+                        console2.log("throwing from here...3");
                         throwError(
                             _orgPattern,
                             "SyntaxError: Invalid regular expression: /",
@@ -3087,8 +3091,10 @@ contract Stringray {
                                         atomType == LITERAL_ATOM || atomType == UNICODE_PROPERTY
                                             || atomType == CHARACTER_CLASS_ATOM
                                     ) {
+                                        // @BUG: doesn't skip adjactent atoms with set operations
                                         rightAtomsCount++;
                                     } else {
+                                        console2.log("throwing from here...4");
                                         throwError(
                                             _orgPattern,
                                             "SyntaxError: Invalid regular expression: /",
@@ -3099,6 +3105,7 @@ contract Stringray {
                                     j = lastMatchedIndex;
                                     i = lastMatchedIndex;
                                 } else {
+                                    console2.log("throwing from here...5");
                                     throwError(
                                         _orgPattern,
                                         "SyntaxError: Invalid regular expression: /",
@@ -3109,6 +3116,7 @@ contract Stringray {
                             }
 
                             if (rightAtomsCount == 0 || rightAtomsCount > 1) {
+                                console2.log("throwing from here...6");
                                 throwError(
                                     _orgPattern,
                                     "SyntaxError: Invalid regular expression: /",
@@ -3117,6 +3125,7 @@ contract Stringray {
                                 );
                             }
                         } else {
+                            console2.log("throwing from here...7");
                             throwError(
                                 _orgPattern,
                                 "SyntaxError: Invalid regular expression: /",
@@ -3138,6 +3147,7 @@ contract Stringray {
                 );
             }
         }
+        console2.log("passed set operations validation...");
     }
 
     function isValidCharacterClassLiteral(
