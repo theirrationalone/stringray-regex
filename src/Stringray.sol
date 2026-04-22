@@ -1795,23 +1795,31 @@ contract Stringray {
 
         console2.log("--------------------matchCharacterClass--------------------");
         console2.log("atom: ", string(atom));
+        console2.logBytes(pattern);
+        console2.logBytes1(pattern[0]);
+        console2.logBytes1(pattern[pattern.length - 1]);
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
+        console2.log("pattern length: ", pattern.length);
+        console2.log("caret sign: ", CARET_SIGN);
+        console2.log("caret sign from pattern: ", uint8(pattern[0]));
         console2.log("----------------------------------------");
+
+        if (pattern.length == 1 && uint8(pattern[0]) == CARET_SIGN) {
+            return (int256(indexToStartMatch), int256(indexToStartMatch));
+        }
 
         for (; i < pattern.length;) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
 
-            console2.log("back to match cc");
-
             if (lAtomType == INVALID_ATOM) break;
 
             if (
-                lLastParticleIndex < pattern.length - 2 && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN
+                lLastParticleIndex + 2 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN
                     && (!hasFlag(patternFlags, "v") || (uint8(pattern[lLastParticleIndex + 2]) != MINUS_SIGN))
             ) {
                 (bytes32 rAtomType, uint256 rLastParticleIndex) =
@@ -3065,14 +3073,21 @@ contract Stringray {
         bytes memory _patternFlags,
         bool fromGroup
     ) private {
+        console2.log("---------------------setExpressionValidationInsideCC---------------------");
+        console2.log("_pattern: ", string(_pattern));
         uint256 leftAtomsCount;
         uint256 rightAtomsCount;
         for (uint256 i; i < _pattern.length; i++) {
+            console2.log("i: ", i);
             bool flag;
             bytes32 atomType;
             uint256 lastMatchedIndex;
             (flag, atomType, lastMatchedIndex) =
                 isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup, true);
+
+            console2.log("flag: ", flag);
+            printAtomType(atomType);
+            console2.log("lastMatchedIndex: ", lastMatchedIndex);
 
             if (!flag) {
                 if (
@@ -3111,12 +3126,12 @@ contract Stringray {
                                 && uint8(_pattern[i + 1]) == AMPERSAND_SIGN)
                             || (uint8(_pattern[i]) == MINUS_SIGN
                                 && i + 1 < _pattern.length
-                                && uint8(_pattern[i + 1]) == MINUS_SIGN)) && leftAtomsCount == 0
+                                && uint8(_pattern[i + 1]) == MINUS_SIGN)) && (i + 2 >= _pattern.length || i == 0)
                 ) {
                     throwError(
                         _orgPattern,
                         "SyntaxError: Invalid regular expression: /",
-                        ": Invalid set operation in character class",
+                        ": Invalid character in character class",
                         _patternFlags
                     );
                 }

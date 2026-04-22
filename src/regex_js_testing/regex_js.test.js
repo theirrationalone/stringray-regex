@@ -18859,8 +18859,64 @@ const testMain = () => {
   });
 
   test("Pattern match character classes cases: Case00000000000000000000000049", () => {
-    const target = "n\nehal";
+    const target = "ne\nhal";
     let regex = /[[\cJ]&&[\n-\r]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000050", () => {
+    const target = "ne\x01hal";
+    let regex = /[[\cA]&&[\cB]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000051", () => {
+    const target = "nehAl";
+    let regex = /[[\x41]&&[A-Z]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000052", () => {
+    const target = "nehAl";
+    let regex = /[[\u0041]&&[\x41]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000053", () => {
+    const target = "neh\u{1F606}al";
+    let regex = /[[\u{1F600}-\u{1F607}]&&[\u{1F604}-\u{1F60A}]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000054", () => {
+    const target = "neh\x03al";
+    let regex = /[[\cA\cB\cC]--[\cB]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000055", () => {
+    const target = "laheNehal";
+    let regex = /[[\x41-\x5A]&&[\u004D-\u005A]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000056", () => {
+    const target = "neh\u{1234}al";
+    let regex = /[[\u{1230}-\u{123A}]--[\u{1233}]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match character classes cases: Case00000000000000000000000057", () => {
+    const target = "neh\x03al";
+    let regex = /[[\ca\cb\cc]--[\cb]]/v;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
