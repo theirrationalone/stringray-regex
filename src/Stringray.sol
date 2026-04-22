@@ -1238,6 +1238,12 @@ contract Stringray {
             bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
             bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
+            console2.log("--------------------evaluateSetOperationMatch--------------------");
+            console2.log("set length: ", leftSet.length);
+            console2.log("utf8Atom: ");
+            console2.logBytes(utf8Atom);
+            console2.log("----------------------------------------");
+
             (matchStartIndex, matchEndIndex) = matchLiteral(utf8Atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
@@ -1481,15 +1487,47 @@ contract Stringray {
                         && (!hasFlag(patternFlags, "v") || (uint8(atom[lLastParticleIndex + 2]) != MINUS_SIGN))
                 ) {
                     console2.log("coming to range...");
-                    (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
-                    console2.log("dec evaluated...");
+                    if (lAtomType == NEWLINE) {
+                        dec = 10;
+                    } else if (lAtomType == FORMFEED) {
+                        dec = 12;
+                    } else if (lAtomType == CARRIAGE_RETURN) {
+                        dec = 13;
+                    } else if (lAtomType == TAB) {
+                        dec = 9;
+                    } else if (lAtomType == VERTICAL_TAB) {
+                        dec = 11;
+                    } else if (lAtomType == NULL_CHARACTER) {
+                        dec = 0;
+                    } else {
+                        (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
+                    }
 
-                    (lAtomType, lLastParticleIndex) = ccSubAtoms(atom, i + 2, patternFlags, true, false, false);
+                    console2.log("dec evaluated...");
+                    uint256 lLastParticleIndexCpy = lLastParticleIndex;
+                    (lAtomType, lLastParticleIndex) =
+                        ccSubAtoms(atom, lLastParticleIndex + 2, patternFlags, true, false, false);
                     console2.log("subAtom evaluated...");
                     uint256 dec2;
                     if (lLastParticleIndex < atom.length) {
                         console2.log("secondd dec evaluation...");
-                        (, dec2) = evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)));
+                        if (lAtomType == NEWLINE) {
+                            dec2 = 10;
+                        } else if (lAtomType == FORMFEED) {
+                            dec2 = 12;
+                        } else if (lAtomType == CARRIAGE_RETURN) {
+                            dec2 = 13;
+                        } else if (lAtomType == TAB) {
+                            dec2 = 9;
+                        } else if (lAtomType == VERTICAL_TAB) {
+                            dec2 = 11;
+                        } else if (lAtomType == NULL_CHARACTER) {
+                            dec2 = 0;
+                        } else {
+                            (, dec2) = evaluateAtomDecValue(
+                                trimString(atom, lLastParticleIndexCpy + 2, int256(lLastParticleIndex))
+                            );
+                        }
                     }
                     console2.log("range: lLastParticleIndex: ", lLastParticleIndex);
 
@@ -1719,6 +1757,12 @@ contract Stringray {
                 if (uint8(atom[1]) == uint8(abi.encodePacked("x")[0])) {
                     hexString = trimString(atom, 2, -1);
                     modAtom = abi.encodePacked("\\u{", hexString, "}");
+                }
+
+                if (uint8(atom[1]) == uint8(abi.encodePacked("c")[0])) {
+                    uint8 unicodeDec = uint8(trimString(atom, 2, -1)[0]) % 32;
+                    hexString = abi.encodePacked(unicodeDec);
+                    return (hexString, unicodeDec);
                 }
 
                 if (uint8(atom[1]) == uint8(abi.encodePacked("u")[0])) {

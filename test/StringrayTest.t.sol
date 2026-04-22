@@ -23041,4 +23041,20 @@ contract PlayStringTest is Test {
         console2.log("Match end index  : ", returnedData.matchEndIndex);
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchCharacterClassesCase49() public {
+        // bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{a}"));
+        // string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory target = unicode"ne\nhal";
+        string memory pattern = unicode"/[[\\cJ]&&[\\n-\\r]]/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string   : ", returnedData.patternString);
+        console2.log("Original string  : ", returnedData.originalString);
+        console2.log("Matched string   : ", returnedData.matchedString);
+        console2.log("Match start index: ", returnedData.matchStartIndex);
+        console2.log("Match end index  : ", returnedData.matchEndIndex);
+        console2.log("------------------------------------");
+    }
 }

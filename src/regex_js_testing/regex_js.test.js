@@ -18857,5 +18857,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match character classes cases: Case00000000000000000000000049", () => {
+    const target = "n\nehal";
+    let regex = /[[\cJ]&&[\n-\r]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
