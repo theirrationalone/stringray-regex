@@ -3087,6 +3087,8 @@ contract Stringray {
                         );
                     }
 
+                    uint8 lastSetOperationType = uint8(_pattern[lastMatchedIndex + 1]);
+
                     if (leftAtomsCount == 1) {
                         for (uint256 j = lastMatchedIndex + 3; j < _pattern.length; j++) {
                             (flag, atomType, lastMatchedIndex) =
@@ -3098,6 +3100,18 @@ contract Stringray {
                             }
 
                             if (flag) {
+                                if (
+                                    lastMatchedIndex + 1 < _pattern.length
+                                        && uint8(_pattern[lastMatchedIndex + 1]) != lastSetOperationType
+                                ) {
+                                    throwError(
+                                        _orgPattern,
+                                        "SyntaxError: Invalid regular expression: /",
+                                        ": Invalid set operation in character class",
+                                        _patternFlags
+                                    );
+                                }
+
                                 if (
                                     (lastMatchedIndex + 3 < _pattern.length
                                             && ((uint8(_pattern[lastMatchedIndex + 1]) == AMPERSAND_SIGN
