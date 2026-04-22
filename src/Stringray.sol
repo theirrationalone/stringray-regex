@@ -1419,7 +1419,11 @@ contract Stringray {
         console2.log("--------------------------------------------------");
         uint256 dec;
         for (uint256 i; i < atom.length;) {
+            console2.log("loop start atom: ", string(atom));
+            console2.log("i: ", i);
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
+            console2.log("lLastParticleIndex: ", lLastParticleIndex);
+            printAtomType(lAtomType);
 
             if (lAtomType == INVALID_ATOM) break;
 
@@ -1447,10 +1451,12 @@ contract Stringray {
                 }
 
                 console2.log("yeah turning to right atom...");
+                console2.log("lLastParticleIndex before: ", lLastParticleIndex);
 
                 bytes memory rightAtom = trimString(atom, lLastParticleIndex + 3, -1);
                 (lAtomType, lLastParticleIndex) =
                     ccSubAtoms(atom, lLastParticleIndex + 3, patternFlags, true, false, false);
+                console2.log("lLastParticleIndex of right: ", lLastParticleIndex);
 
                 if (lAtomType == INVALID_ATOM) break;
 
@@ -1462,6 +1468,7 @@ contract Stringray {
                     updateSets(operationType);
                 }
 
+                lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
             } else {
                 if (lAtomType == CHARACTER_CLASS_ATOM) {
@@ -1478,19 +1485,30 @@ contract Stringray {
                     lLastParticleIndex + 2 < atom.length && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN
                         && (!hasFlag(patternFlags, "v") || (uint8(atom[lLastParticleIndex + 2]) != MINUS_SIGN))
                 ) {
+                    console2.log("coming to range...");
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
+                    console2.log("dec evaluated...");
 
                     (lAtomType, lLastParticleIndex) = ccSubAtoms(atom, i + 2, patternFlags, true, false, false);
-                    (, uint256 dec2) = evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)));
+                    console2.log("subAtom evaluated...");
+                    uint256 dec2;
+                    if (lLastParticleIndex < atom.length) {
+                        console2.log("secondd dec evaluation...");
+                        (, dec2) = evaluateAtomDecValue(trimString(atom, i + 2, int256(lLastParticleIndex)));
+                    }
+                    console2.log("range: lLastParticleIndex: ", lLastParticleIndex);
 
                     while (dec <= dec2) {
                         if (isLeftAtomComputed) {
                             rightSet.push(dec);
                         } else {
+                            console2.log("here");
                             leftSet.push(dec);
+                            console2.log("pushed..");
                         }
                         dec++;
                     }
+                    console2.log("pushed to sets...");
                 } else {
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
                     if (isLeftAtomComputed) {
@@ -1500,8 +1518,9 @@ contract Stringray {
                     }
                 }
             }
+            console2.log("bottom: lLastParticleIndex: ", lLastParticleIndex);
             i = lLastParticleIndex + 1;
-            console2.log("going for next cycle...");
+            console2.log("going for next cycle... i: ", i);
         }
         console2.log("-------------------------end-------------------------");
     }
@@ -1675,6 +1694,7 @@ contract Stringray {
 
     function evaluateAtomDecValue(bytes memory atom) private pure returns (bytes memory, uint256) {
         uint256 atomLength = atom.length;
+        console2.log("atom length: ", atomLength);
 
         if (atomLength == 1) {
             return (atom, uint256(uint8(atom[0])));
@@ -1704,6 +1724,7 @@ contract Stringray {
                 return (unicodeHexToUtf8Hex(modAtom), hexToDec(hexString, 4, true));
             }
         } else {
+            console2.log("plain atom");
             return (atom, hexToDec(utf8HexToUnicodeHex(atom), 8, false));
         }
 
@@ -18397,6 +18418,7 @@ contract Stringray {
     }
 
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) public pure returns (bytes memory) {
+        console2.log("unicode conv init");
         uint256 numBytes = _utf8Hex.length;
         bytes memory unicodeHex;
 
@@ -18415,6 +18437,7 @@ contract Stringray {
         if (numBytes == 4) {
             unicodeHex = fourBytesUtf8HexDecode(_utf8Hex);
         }
+        console2.log("unicode conv end");
         return unicodeHex;
     }
 
@@ -20495,6 +20518,9 @@ contract Stringray {
     }
 
     function hexToDec(bytes memory _hexString, uint8 numBits, bool isInterpolated) internal pure returns (uint256) {
+        console2.log("hex to dec init");
+        console2.log("_hexStringLength: ", _hexString.length);
+        if (_hexString.length == 0) return 0;
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
 
@@ -20504,10 +20530,12 @@ contract Stringray {
             if (hi == 0) break;
         }
 
+        console2.log("hex to dec end");
         return binToDec(hexFullBinary);
     }
 
     function binToDec(bytes memory binary) private pure returns (uint256) {
+        console2.log("converted decimal init");
         uint256 exp;
         uint256 base = 2;
         uint256 decimal;
@@ -20518,6 +20546,7 @@ contract Stringray {
             exp++;
         }
 
+        console2.log("converted decimal end");
         return decimal;
     }
 
