@@ -1130,13 +1130,7 @@ contract Stringray {
                     matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
                 matchCCSetAtoms(
-                    atoms[i].atom,
-                    stringInBytes,
-                    indexToStartMatch,
-                    isFirstMatch,
-                    patternFlags,
-                    fromCharacterClass,
-                    false
+                    atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass
                 );
 
                 console2.log("set expressions evaluated succesfully");
@@ -1405,8 +1399,7 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
-        bool fromCharacterClass,
-        bool isLeftAtomComputed
+        bool fromCharacterClass
     ) private {
         console2.log("-------------------------matchCCSetAtoms-------------------------");
         console2.log("atom: ", string(atom));
@@ -1415,7 +1408,6 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("isleftAtomComputed: ", isLeftAtomComputed);
         console2.log("--------------------------------------------------");
         uint256 dec;
         for (uint256 i; i < atom.length;) {
@@ -1441,14 +1433,15 @@ contract Stringray {
                     0,
                     isFirstMatch,
                     patternFlags,
-                    fromCharacterClass,
-                    isLeftAtomComputed
+                    fromCharacterClass
                 );
-                isLeftAtomComputed = true;
 
-                if (rightSet.length > 0) {
-                    updateSets(operationType);
+                uint256[] memory localLeftSet = new uint256[](leftSet.length);
+                for (uint256 s = 0; s < leftSet.length; s++) {
+                    console2.log("current left element ", s, ": ", leftSet[s]);
+                    localLeftSet[s] = leftSet[s];
                 }
+                delete leftSet;
 
                 console2.log("yeah turning to right atom...");
                 console2.log("lLastParticleIndex before: ", lLastParticleIndex);
@@ -1460,13 +1453,16 @@ contract Stringray {
 
                 if (lAtomType == INVALID_ATOM) break;
 
-                matchCCSetAtoms(
-                    rightAtom, stringInBytes, 0, isFirstMatch, patternFlags, fromCharacterClass, isLeftAtomComputed
-                );
+                matchCCSetAtoms(rightAtom, stringInBytes, 0, isFirstMatch, patternFlags, fromCharacterClass);
 
-                if (rightSet.length > 0) {
-                    updateSets(operationType);
+                uint256[] memory localRightSet = new uint256[](leftSet.length);
+                for (uint256 s = 0; s < leftSet.length; s++) {
+                    console2.log("current right element ", s, ": ", leftSet[s]);
+                    localRightSet[s] = leftSet[s];
                 }
+                delete leftSet;
+
+                updateSets(operationType, localLeftSet, localRightSet);
 
                 lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
@@ -1478,8 +1474,7 @@ contract Stringray {
                         0,
                         isFirstMatch,
                         patternFlags,
-                        fromCharacterClass,
-                        isLeftAtomComputed
+                        fromCharacterClass
                     );
                 } else if (
                     lLastParticleIndex + 2 < atom.length && uint8(atom[lLastParticleIndex + 1]) == MINUS_SIGN
@@ -1499,23 +1494,23 @@ contract Stringray {
                     console2.log("range: lLastParticleIndex: ", lLastParticleIndex);
 
                     while (dec <= dec2) {
-                        if (isLeftAtomComputed) {
-                            rightSet.push(dec);
-                        } else {
-                            console2.log("here");
-                            leftSet.push(dec);
-                            console2.log("pushed..");
-                        }
+                        // if (isLeftAtomComputed) {
+                        //     rightSet.push(dec);
+                        // } else {
+                        //     console2.log("here");
+                        //     console2.log("pushed..");
+                        // }
+                        leftSet.push(dec);
                         dec++;
                     }
                     console2.log("pushed to sets...");
                 } else {
                     (, dec) = evaluateAtomDecValue(trimString(atom, i, int256(lLastParticleIndex)));
-                    if (isLeftAtomComputed) {
-                        rightSet.push(dec);
-                    } else {
-                        leftSet.push(dec);
-                    }
+                    // if (isLeftAtomComputed) {
+                    //     rightSet.push(dec);
+                    // } else {
+                    // }
+                    leftSet.push(dec);
                 }
             }
             console2.log("bottom: lLastParticleIndex: ", lLastParticleIndex);
@@ -1525,31 +1520,35 @@ contract Stringray {
         console2.log("-------------------------end-------------------------");
     }
 
-    function updateSets(uint8 operationTypeSymbol) private {
+    function updateSets(uint8 operationTypeSymbol, uint256[] memory localLeftSet, uint256[] memory localRightSet)
+        private
+    {
         if (operationTypeSymbol == AMPERSAND_SIGN) {
-            for (uint256 i = 0; i < leftSet.length; i++) {
-                for (uint256 j = 0; j < rightSet.length; j++) {
-                    if (leftSet[i] == rightSet[j]) {
+            console2.log("intersection operation");
+            for (uint256 i = 0; i < localLeftSet.length; i++) {
+                for (uint256 j = 0; j < localRightSet.length; j++) {
+                    if (localLeftSet[i] == localRightSet[j]) {
                         bool exist;
                         for (uint256 k; k < intersectionSet.length; k++) {
-                            if (leftSet[i] == intersectionSet[k]) {
+                            if (localLeftSet[i] == intersectionSet[k]) {
                                 exist = true;
                                 break;
                             }
                         }
 
                         if (!exist) {
-                            intersectionSet.push(leftSet[i]);
+                            intersectionSet.push(localLeftSet[i]);
                             break;
                         }
                     }
                 }
             }
         } else if (operationTypeSymbol == MINUS_SIGN) {
-            for (uint256 i = 0; i < leftSet.length; i++) {
+            console2.log("difference operation");
+            for (uint256 i = 0; i < localLeftSet.length; i++) {
                 bool found;
-                for (uint256 j = 0; j < rightSet.length; j++) {
-                    if (leftSet[i] == rightSet[j]) {
+                for (uint256 j = 0; j < localRightSet.length; j++) {
+                    if (localLeftSet[i] == localRightSet[j]) {
                         found = true;
                         break;
                     }
@@ -1557,19 +1556,17 @@ contract Stringray {
                 if (!found) {
                     bool exist;
                     for (uint256 k; k < differenceSet.length; k++) {
-                        if (leftSet[i] == differenceSet[k]) {
+                        if (localLeftSet[i] == differenceSet[k]) {
                             exist = true;
                             break;
                         }
                     }
                     if (!exist) {
-                        differenceSet.push(leftSet[i]);
+                        differenceSet.push(localLeftSet[i]);
                     }
                 }
             }
         }
-
-        delete leftSet;
 
         for (uint256 i = 0; i < intersectionSet.length; i++) {
             leftSet.push(intersectionSet[i]);
@@ -1579,9 +1576,20 @@ contract Stringray {
             leftSet.push(differenceSet[i]);
         }
 
+        console2.log("--------------------------updateSets--------------------------");
+        console2.log("---leftElements---");
+        for (uint256 i = 0; i < leftSet.length; i++) {
+            console2.log("left set element ", i + 1, ": ", leftSet[i]);
+        }
+        console2.log("---rightElements---");
+        for (uint256 i = 0; i < rightSet.length; i++) {
+            console2.log("right set element ", i + 1, ": ", rightSet[i]);
+        }
+        console2.log("----------------------------------------------------");
+
         delete intersectionSet;
         delete differenceSet;
-        delete rightSet;
+        // delete rightSet;
     }
 
     function matchCCRange(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
