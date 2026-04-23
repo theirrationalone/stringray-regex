@@ -1137,6 +1137,9 @@ contract Stringray {
 
                 (matchStartIndex, matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[i].atomType == GROUP_ATOM) {
+                (matchStartIndex, matchEndIndex) =
+                    matchGroup(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
@@ -1225,6 +1228,24 @@ contract Stringray {
             }
         }
         return (firstIndex, matchEndIndex);
+    }
+
+    function matchGroup(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
+        console2.log("--------------------matchGroup--------------------");
+        console2.log("Atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("----------------------------------------");
+
+        return (-1, -1);
     }
 
     function evaluateSetOperationMatch(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
