@@ -973,6 +973,14 @@ contract Stringray {
         });
     }
 
+    struct MatchData {
+        int256 firstIndex;
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+        bool wordBoundary;
+        uint256 i;
+    }
+
     function matchPattern(
         AtomTrait[] memory atoms,
         bytes memory stringInBytes,
@@ -981,25 +989,23 @@ contract Stringray {
         bool isFirstMatch,
         bool fromCharacterClass
     ) private returns (int256, int256) {
-        int256 firstIndex = -1;
-        int256 matchStartIndex;
-        int256 matchEndIndex = -1;
-        bool wordBoundary;
-        uint256 i;
+        MatchData memory matchData;
+        matchData.firstIndex = -1;
+        matchData.matchEndIndex = -1;
 
-        for (; i < atoms.length;) {
+        for (; matchData.i < atoms.length;) {
             console2.log("-----------------------matchPattern-----------------------");
             console2.log("cycle starts...");
-            console2.log("i: ", i);
+            console2.log("i: ", matchData.i);
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("fromCharacterClass: ", fromCharacterClass);
-            console2.log("atom: ", string(atoms[i].atom));
-            console2.logBytes(atoms[i].atom);
-            printAtomType(atoms[i].atomType);
+            console2.log("atom: ", string(atoms[matchData.i].atom));
+            console2.logBytes(atoms[matchData.i].atom);
+            printAtomType(atoms[matchData.i].atomType);
             console2.log("----------------------------------------------");
-            if (matchEndIndex > -1) {
-                if (firstIndex == -1 && !fromCharacterClass) {
-                    firstIndex = matchStartIndex;
+            if (matchData.matchEndIndex > -1) {
+                if (matchData.firstIndex == -1 && !fromCharacterClass) {
+                    matchData.firstIndex = matchData.matchStartIndex;
                 }
 
                 if (isFirstMatch && !fromCharacterClass) {
@@ -1016,218 +1022,238 @@ contract Stringray {
             }
 
             if (
-                atoms[i].atomType == LITERAL_ATOM || atoms[i].atomType == TAB || atoms[i].atomType == NEWLINE
-                    || atoms[i].atomType == VERTICAL_TAB || atoms[i].atomType == CARRIAGE_RETURN
-                    || atoms[i].atomType == FORMFEED
+                atoms[matchData.i].atomType == LITERAL_ATOM || atoms[matchData.i].atomType == TAB
+                    || atoms[matchData.i].atomType == NEWLINE || atoms[matchData.i].atomType == VERTICAL_TAB
+                    || atoms[matchData.i].atomType == CARRIAGE_RETURN || atoms[matchData.i].atomType == FORMFEED
             ) {
-                (matchStartIndex, matchEndIndex) =
-                    matchLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchLiteral(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
-                if (matchStartIndex == -1) {
-                    if (atoms[i].atomType == TAB) {
-                        (matchStartIndex, matchEndIndex) =
+                if (matchData.matchStartIndex == -1) {
+                    if (atoms[matchData.i].atomType == TAB) {
+                        (matchData.matchStartIndex, matchData.matchEndIndex) =
                             matchLiteral(hex"09", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (atoms[i].atomType == NEWLINE) {
-                        (matchStartIndex, matchEndIndex) =
+                    if (atoms[matchData.i].atomType == NEWLINE) {
+                        (matchData.matchStartIndex, matchData.matchEndIndex) =
                             matchLiteral(hex"0a", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (atoms[i].atomType == VERTICAL_TAB) {
-                        (matchStartIndex, matchEndIndex) =
+                    if (atoms[matchData.i].atomType == VERTICAL_TAB) {
+                        (matchData.matchStartIndex, matchData.matchEndIndex) =
                             matchLiteral(hex"0b", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (atoms[i].atomType == FORMFEED) {
-                        (matchStartIndex, matchEndIndex) =
+                    if (atoms[matchData.i].atomType == FORMFEED) {
+                        (matchData.matchStartIndex, matchData.matchEndIndex) =
                             matchLiteral(hex"0C", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
 
-                    if (atoms[i].atomType == CARRIAGE_RETURN) {
-                        (matchStartIndex, matchEndIndex) =
+                    if (atoms[matchData.i].atomType == CARRIAGE_RETURN) {
+                        (matchData.matchStartIndex, matchData.matchEndIndex) =
                             matchLiteral(hex"0d", stringInBytes, indexToStartMatch, isFirstMatch);
                     }
                 }
-            } else if (atoms[i].atomType == ESCAPE_LITERAL_ATOM) {
-                (matchStartIndex, matchEndIndex) =
-                    matchEscapeLiteral(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atoms[i].atomType == CONTROL_PREFIX) {
-                (matchStartIndex, matchEndIndex) =
-                    matchControlPrefix(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atoms[i].atomType == DIGIT || atoms[i].atomType == NOT_DIGIT) {
-                if (atoms[i].atomType == DIGIT) {
-                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false);
+            } else if (atoms[matchData.i].atomType == ESCAPE_LITERAL_ATOM) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchEscapeLiteral(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[matchData.i].atomType == CONTROL_PREFIX) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchControlPrefix(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[matchData.i].atomType == DIGIT || atoms[matchData.i].atomType == NOT_DIGIT) {
+                if (atoms[matchData.i].atomType == DIGIT) {
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
-                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true);
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (atoms[i].atomType == WHITESPACE || atoms[i].atomType == NOT_WHITESPACE) {
-                if (atoms[i].atomType == WHITESPACE) {
-                    (matchStartIndex, matchEndIndex) =
+            } else if (atoms[matchData.i].atomType == WHITESPACE || atoms[matchData.i].atomType == NOT_WHITESPACE) {
+                if (atoms[matchData.i].atomType == WHITESPACE) {
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
-                    (matchStartIndex, matchEndIndex) =
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
                         matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true);
                 }
-            } else if (atoms[i].atomType == WORD_CHARACTER || atoms[i].atomType == NOT_WORD_CHARACTER) {
-                if (atoms[i].atomType == WORD_CHARACTER) {
-                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false);
-                } else {
-                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true);
-                }
-            } else if (atoms[i].atomType == HEX_ESCAPE) {
-                (matchStartIndex, matchEndIndex) =
-                    matchBackslashXHexEscape(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atoms[i].atomType == UNICODE_ESCAPE) {
-                (matchStartIndex, matchEndIndex) =
-                    matchBackslashUUnicodeEscape(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (
-                !fromCharacterClass && (atoms[i].atomType == WORD_BOUNDARY || atoms[i].atomType == NOT_WORD_BOUNDARY)
+                atoms[matchData.i].atomType == WORD_CHARACTER || atoms[matchData.i].atomType == NOT_WORD_CHARACTER
             ) {
-                if (atoms[i].atomType == WORD_BOUNDARY) {
-                    (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, false);
+                if (atoms[matchData.i].atomType == WORD_CHARACTER) {
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 } else {
-                    (matchStartIndex, matchEndIndex) = matchWordBoundary(stringInBytes, indexToStartMatch, true);
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true);
+                }
+            } else if (atoms[matchData.i].atomType == HEX_ESCAPE) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchBackslashXHexEscape(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (atoms[matchData.i].atomType == UNICODE_ESCAPE) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchBackslashUUnicodeEscape(
+                    atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch
+                );
+            } else if (
+                !fromCharacterClass
+                    && (atoms[matchData.i].atomType == WORD_BOUNDARY
+                        || atoms[matchData.i].atomType == NOT_WORD_BOUNDARY)
+            ) {
+                if (atoms[matchData.i].atomType == WORD_BOUNDARY) {
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchWordBoundary(stringInBytes, indexToStartMatch, false);
+                } else {
+                    (matchData.matchStartIndex, matchData.matchEndIndex) =
+                        matchWordBoundary(stringInBytes, indexToStartMatch, true);
                 }
 
-                if (matchEndIndex >= int256(indexToStartMatch)) {
+                if (matchData.matchEndIndex >= int256(indexToStartMatch)) {
                     if (isFirstMatch) {
-                        indexToStartMatch = uint256(matchEndIndex);
-                        firstIndex = matchEndIndex;
+                        indexToStartMatch = uint256(matchData.matchEndIndex);
+                        matchData.firstIndex = matchData.matchEndIndex;
                     } else {
-                        if (i == atoms.length - 1) {
-                            if (!wordBoundary) {
-                                if (indexToStartMatch == stringInBytes.length - 1) {
-                                    matchEndIndex = int256(indexToStartMatch);
+                        if (matchData.i + 1 == atoms.length) {
+                            if (!matchData.wordBoundary) {
+                                if (indexToStartMatch + 1 == stringInBytes.length) {
+                                    matchData.matchEndIndex = int256(indexToStartMatch);
                                 } else {
-                                    matchEndIndex = int256(indexToStartMatch - 1);
+                                    matchData.matchEndIndex = int256(indexToStartMatch - 1);
                                 }
                             } else {
-                                matchEndIndex = int256(indexToStartMatch);
+                                matchData.matchEndIndex = int256(indexToStartMatch);
                             }
                         } else {
-                            matchEndIndex = int256(indexToStartMatch);
+                            matchData.matchEndIndex = int256(indexToStartMatch);
                         }
                     }
-                    wordBoundary = true;
-                    i++;
+                    matchData.wordBoundary = true;
+                    matchData.i++;
                     continue;
-                } else if (matchEndIndex == -1) {
+                } else if (matchData.matchEndIndex == -1) {
                     isFirstMatch = true;
-                    firstIndex = -1;
-                    matchStartIndex = 0;
-                    matchEndIndex = -1;
+                    matchData.firstIndex = -1;
+                    matchData.matchStartIndex = 0;
+                    matchData.matchEndIndex = -1;
                     indexToStartMatch += 1;
 
-                    i = 0;
+                    matchData.i = 0;
                     continue;
                 }
-            } else if (atoms[i].atomType == CHARACTER_CLASS_ATOM) {
-                (matchStartIndex, matchEndIndex) =
-                    matchCharacterClass(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
-            } else if (fromCharacterClass && atoms[i].atomType == CC_RANGE) {
-                (matchStartIndex, matchEndIndex) =
-                    matchCCRange(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (fromCharacterClass && atoms[i].atomType == CC_SET_ATOM) {
+            } else if (atoms[matchData.i].atomType == CHARACTER_CLASS_ATOM) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchCharacterClass(
+                    atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags
+                );
+            } else if (fromCharacterClass && atoms[matchData.i].atomType == CC_RANGE) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchCCRange(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch);
+            } else if (fromCharacterClass && atoms[matchData.i].atomType == CC_SET_ATOM) {
                 matchCCSetAtoms(
-                    atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    patternFlags,
+                    fromCharacterClass
                 );
 
                 console2.log("set expressions evaluated succesfully");
 
-                (matchStartIndex, matchEndIndex) =
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atoms[i].atomType == GROUP_ATOM) {
-                (matchStartIndex, matchEndIndex) =
-                    matchGroup(atoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+            } else if (atoms[matchData.i].atomType == GROUP_ATOM) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else {
-                matchStartIndex = -1;
-                matchEndIndex = -1;
+                matchData.matchStartIndex = -1;
+                matchData.matchEndIndex = -1;
             }
 
             if (fromCharacterClass && !isFirstMatch) {
-                return (matchStartIndex, matchEndIndex);
+                return (matchData.matchStartIndex, matchData.matchEndIndex);
             }
 
-            if (indexToStartMatch >= stringInBytes.length - 1) {
+            if (indexToStartMatch + 1 >= stringInBytes.length) {
                 if (
-                    matchStartIndex != -1 && matchEndIndex == int256(indexToStartMatch)
-                        && indexToStartMatch == stringInBytes.length - 1 && i + 1 == atoms.length - 1
-                        && (atoms[i + 1].atomType == WORD_BOUNDARY || atoms[i + 1].atomType == NOT_WORD_BOUNDARY)
+                    matchData.matchStartIndex != -1 && matchData.matchEndIndex == int256(indexToStartMatch)
+                        && indexToStartMatch + 1 == stringInBytes.length && matchData.i + 2 == atoms.length
+                        && (atoms[matchData.i + 1].atomType == WORD_BOUNDARY
+                            || atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY)
                 ) {
-                    i++;
+                    matchData.i++;
                     continue;
                 }
 
-                if (matchStartIndex == -1) {
-                    firstIndex = -1;
-                    matchEndIndex = -1;
+                if (matchData.matchStartIndex == -1) {
+                    matchData.firstIndex = -1;
+                    matchData.matchEndIndex = -1;
                 }
-                wordBoundary = false;
-                indexToStartMatch = matchEndIndex > -1 ? uint256(matchEndIndex) + 1 : uint256(matchEndIndex);
-                i++;
+                matchData.wordBoundary = false;
+                indexToStartMatch = matchData.matchEndIndex > -1
+                    ? uint256(matchData.matchEndIndex) + 1
+                    : uint256(matchData.matchEndIndex);
+                matchData.i++;
                 break;
             }
 
-            if (matchStartIndex == -1) {
-                if (wordBoundary) {
-                    indexToStartMatch = uint256(matchEndIndex + 1);
-                    wordBoundary = false;
+            if (matchData.matchStartIndex == -1) {
+                if (matchData.wordBoundary) {
+                    indexToStartMatch = uint256(matchData.matchEndIndex + 1);
+                    matchData.wordBoundary = false;
                 } else {
                     if (fromCharacterClass) {
-                        if (matchEndIndex == -1) {
-                            indexToStartMatch = uint256(matchEndIndex);
+                        if (matchData.matchEndIndex == -1) {
+                            indexToStartMatch = uint256(matchData.matchEndIndex);
                         } else {
-                            indexToStartMatch = uint256(matchEndIndex) + 1;
+                            indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
                         }
                     } else {
-                        indexToStartMatch = uint256(matchEndIndex);
+                        indexToStartMatch = uint256(matchData.matchEndIndex);
                     }
                 }
 
                 if (!fromCharacterClass) {
                     isFirstMatch = true;
-                    matchStartIndex = 0;
+                    matchData.matchStartIndex = 0;
                 }
-                firstIndex = -1;
-                matchEndIndex = -1;
+                matchData.firstIndex = -1;
+                matchData.matchEndIndex = -1;
 
-                i = 0;
+                matchData.i = 0;
                 continue;
             }
 
-            wordBoundary = false;
-            indexToStartMatch = uint256(matchEndIndex) + 1;
-            i++;
+            matchData.wordBoundary = false;
+            indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+            matchData.i++;
         }
 
-        if (i < atoms.length) {
+        if (matchData.i < atoms.length) {
             return (-1, -1);
         }
 
-        if (isFirstMatch && firstIndex == -1) {
-            firstIndex = matchStartIndex > -1 ? matchStartIndex : matchEndIndex;
+        if (isFirstMatch && matchData.firstIndex == -1) {
+            matchData.firstIndex = matchData.matchStartIndex > -1 ? matchData.matchStartIndex : matchData.matchEndIndex;
         }
 
-        (firstIndex, matchEndIndex) = boundaryCheck(firstIndex, matchEndIndex);
+        (matchData.firstIndex, matchData.matchEndIndex) = boundaryCheck(matchData.firstIndex, matchData.matchEndIndex);
 
-        if (matchEndIndex > -1 && uint256(matchEndIndex) >= stringInBytes.length) {
+        if (matchData.matchEndIndex > -1 && uint256(matchData.matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
 
-        if (matchEndIndex > -1) {
+        if (matchData.matchEndIndex > -1) {
             if (
-                matchEndIndex == int256(stringInBytes.length - 1)
+                matchData.matchEndIndex + 1 == int256(stringInBytes.length)
                     && ((atoms[atoms.length - 1].atomType == WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false))
                         || (atoms[atoms.length - 1].atomType == NOT_WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false)))
             ) {
-                firstIndex = -1;
-                matchEndIndex = -1;
+                matchData.firstIndex = -1;
+                matchData.matchEndIndex = -1;
             }
         }
-        return (firstIndex, matchEndIndex);
+        return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
     function matchGroup(
@@ -1244,6 +1270,10 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("----------------------------------------");
+
+        // bytes memory subAtom = trimString(atom, 1, atom.length - 2);
+
+        // matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass);
 
         return (-1, -1);
     }
