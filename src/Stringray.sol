@@ -957,7 +957,8 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
-            (matchStartIndex, matchEndIndex) = matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false);
+            (matchStartIndex, matchEndIndex) =
+                matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
                 matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -987,7 +988,8 @@ contract Stringray {
         bytes memory patternFlags,
         uint256 indexToStartMatch,
         bool isFirstMatch,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool fromGroup
     ) private returns (int256, int256) {
         MatchData memory matchData;
         matchData.firstIndex = -1;
@@ -1271,11 +1273,48 @@ contract Stringray {
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("----------------------------------------");
 
-        // bytes memory subAtom = trimString(atom, 1, atom.length - 2);
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
 
-        // matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass);
+        if (atom.length == 0) return (matchStartIndex, matchEndIndex);
 
-        return (-1, -1);
+        bytes memory subAtoms = trimString(atom, 1, int256(atom.length - 2));
+        int256 firstIndex = -1;
+
+        for (uint256 i; i < subAtoms.length; i++) {
+            AtomTrait[] memory subAtom = new AtomTrait[](1);
+
+            (subAtom[0].atomType, subAtom[0].atomEndIdx) = collectGroupSubAtom(subAtoms, i, patternFlags);
+
+            if (subAtom[0].atomType == INVALID_ATOM) return (-1, -1);
+
+            subAtom[0].atom = trimString(subAtoms, i, subAtom[0].atomEndIdx);
+
+            (matchStartIndex, matchEndIndex) =
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true);
+
+            if (matchStartIndex == -1 && matchEndIndex == -1) return (matchStartIndex, matchEndIndex);
+
+            if (firstIndex == -1) {
+                firstIndex = matchStartIndex;
+            }
+
+            indexToStartMatch = uint256(matchEndIndex) + 1;
+        }
+
+        return (firstIndex, matchEndIndex);
+    }
+
+    function collectGroupSubAtom(bytes memory subAtoms, uint256 currentIdx, bytes memory patternFlags)
+        private
+        returns (bytes32, int256)
+    {
+        (, bytes32 atomType, uint256 atomEndIdx) =
+            isLiteralAtom(subAtoms, subAtoms, currentIdx, patternFlags, false, true, false);
+
+        if (atomType != INVALID_ATOM) return (atomType, int256(atomEndIdx));
+
+        return (INVALID_ATOM, -1);
     }
 
     function evaluateSetOperationMatch(bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
@@ -1958,7 +1997,7 @@ contract Stringray {
             }
 
             (int256 matchStartIndex, int256 matchEndIndex) =
-                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
                 return (matchStartIndex, matchEndIndex);
@@ -1986,7 +2025,7 @@ contract Stringray {
             subAtom[0] = allCCSubAtoms[i];
 
             (matchStartIndex, matchEndIndex) =
-                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true);
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
 
             console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
             console2.log("matchStartIndex: ", matchStartIndex);
