@@ -23224,10 +23224,12 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchGroupsCase3() public {
-        string memory target = "ms_nehal";
-        string memory pattern = unicode"/ms_(n((e(h))a)l)/";
+        string memory target = "ms_nehalk";
+        string memory pattern = unicode"/ms_(n((e(h))a)l)k/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        stringray.seeAllAtoms();
+
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
         console2.log("Original string        : ", returnedData.originalString);

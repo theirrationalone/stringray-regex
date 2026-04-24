@@ -918,6 +918,7 @@ contract Stringray {
     struct AtomTrait {
         bytes32 atomType;
         bytes atom;
+        int256 atomStartIdx;
         int256 atomEndIdx;
     }
 
@@ -943,10 +944,12 @@ contract Stringray {
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
+        console2.log("------------------------seeAllAtoms------------------------");
+        console2.log("atoms length: ", atoms.length);
         for (uint256 i; i < atoms.length; i++) {
-            console2.log("------------------------seeAllAtoms------------------------");
             printAtomType(atoms[i].atomType);
             console2.log("Atom: ", string(atoms[i].atom));
+            console2.log("Atom start index: ", atoms[i].atomStartIdx);
             console2.log("Atom end index: ", atoms[i].atomEndIdx);
             console2.log("------------------------------------------------");
         }
@@ -965,7 +968,7 @@ contract Stringray {
             bytes memory patternFlags = trimString(patternInBytes, uint256(slashPairIndex) + 1, -1);
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
-            nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false);
+            nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false, false, -1, -1);
             (matchStartIndex, matchEndIndex) =
                 matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
 
@@ -1332,7 +1335,7 @@ contract Stringray {
             isLiteralAtom(subAtoms, subAtoms, currentIdx, patternFlags, false, true, false);
 
         if (atomType != LITERAL_ATOM) {
-            (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true);
+            (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true, true);
         }
 
         if (atomType != INVALID_ATOM) return (atomType, int256(atomEndIdx));
@@ -1943,6 +1946,7 @@ contract Stringray {
                 subAtom[0] = AtomTrait({
                     atomType: CC_RANGE,
                     atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                    atomStartIdx: int256(i),
                     atomEndIdx: int256(rLastParticleIndex)
                 });
                 // allCCSubAtoms.push(
@@ -1992,6 +1996,7 @@ contract Stringray {
                     subAtom[0] = AtomTrait({
                         atomType: CC_SET_ATOM,
                         atom: trimString(pattern, i, int256(rLastParticleIndex)),
+                        atomStartIdx: int256(i),
                         atomEndIdx: int256(rLastParticleIndex)
                     });
                     // allCCSubAtoms.push(
@@ -2007,6 +2012,7 @@ contract Stringray {
                     subAtom[0] = AtomTrait({
                         atomType: lAtomType,
                         atom: trimString(pattern, i, int256(lLastParticleIndex)),
+                        atomStartIdx: int256(i),
                         atomEndIdx: int256(lLastParticleIndex)
                     });
                     // allCCSubAtoms.push(
@@ -2402,30 +2408,49 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
-    function nuclearFission(bytes memory _pattern, bytes memory _orgPattern, bytes memory _patternFlags, bool fromGroup)
-        private
-    {
+    function nuclearFission(
+        bytes memory _pattern,
+        bytes memory _orgPattern,
+        bytes memory _patternFlags,
+        bool isMatching,
+        bool fromGroup,
+        int256 atomStartIndex,
+        int256 atomEndIndex
+    ) private {
         int256 patternLength = int256(_pattern.length);
+
+        if (fromGroup && !isMatching) {
+            if (allAtoms.length > 0) {
+                if (allAtoms[allAtoms.length - 1].atomType == GROUP_ATOM) {
+                    atomStartIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
+                    atomEndIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
+                }
+            }
+            allAtoms.push(AtomTrait(GROUP_ATOM, abi.encodePacked("(", _pattern, ")"), atomStartIndex, atomEndIndex));
+        }
 
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
-                classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlags, fromGroup);
+                classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlags, fromGroup, isMatching);
 
-            if (!fromGroup || atomType == GROUP_ATOM) {
+            if ((!fromGroup || atomType == GROUP_ATOM) && !isMatching) {
                 if (atomType == GROUP_ATOM) {
                     isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlags, false, false);
+                } else {
+                    console2.log("pushed to all atoms");
+                    allAtoms.push(AtomTrait(atomType, atom, particleIdx, atomEndIdx));
                 }
-                allAtoms.push(AtomTrait(atomType, atom, atomEndIdx));
             }
 
-            // console2.log("---------------------ATOM_TYPE---------------------");
-            // console2.log("Atom: ", string(atom));
-            // printAtomType(atomType);
-            // console2.log("---------------------");
+            console2.log("---------------------ATOM_TYPE---------------------");
+            console2.log("Atom: ", string(atom));
+            printAtomType(atomType);
+            console2.log("---------------------");
 
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
         }
+        console2.log("nuclear fission cycle ends");
     }
 
     function classifyAtom(
@@ -2433,7 +2458,8 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         bytes memory _patternFlags,
-        bool fromGroup
+        bool fromGroup,
+        bool isMatching
     ) private returns (bytes memory, bytes32, int256) {
         bytes memory atom;
         bool isTrue;
@@ -2441,7 +2467,7 @@ contract Stringray {
         bytes32 atomType;
 
         (isTrue, atomType, atomLastIdx) =
-            atomIdClassifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
+            atomIdClassifier(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup, isMatching);
 
         if (isTrue) {
             atom = trimString(_pattern, _currentParticleIdx, int256(atomLastIdx));
@@ -2456,7 +2482,8 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIdx,
         bytes memory _patternFlags,
-        bool fromGroup
+        bool fromGroup,
+        bool isMatching
     ) private returns (bool, bytes32, uint256) {
         (bool flag, bytes32 atomType, uint256 lastMatchedParticleIndex) = isLiteralAtom(
             _pattern, _orgPattern, _currentParticleIdx, _patternFlags, false, fromGroup, false
@@ -2469,7 +2496,7 @@ contract Stringray {
 
         if (!flag) {
             (flag, atomType, lastMatchedParticleIndex) =
-                isGroup(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup);
+                isGroup(_pattern, _orgPattern, _currentParticleIdx, _patternFlags, fromGroup, isMatching);
         }
 
         if (flag && _pattern.length - 1 >= lastMatchedParticleIndex + 1) {
@@ -3738,7 +3765,8 @@ contract Stringray {
         bytes memory _orgPattern,
         uint256 _currentParticleIndex,
         bytes memory _patternFlags,
-        bool fromGroup
+        bool fromGroup,
+        bool isMatching
     ) private returns (bool, bytes32, uint256) {
         bool flag;
         uint256 lastMatchedParticleIndex;
@@ -3777,7 +3805,16 @@ contract Stringray {
                 validateGroup(_pattern, _orgPattern, _currentParticleIndex + 1, _patternFlags, fromGroup);
             if (lastMatchedParticleIndex > stripFromIndex) {
                 bytes memory subPattern = trimString(_pattern, stripFromIndex, int256(lastMatchedParticleIndex - 1));
-                nuclearFission(subPattern, _orgPattern, _patternFlags, true);
+                nuclearFission(
+                    subPattern,
+                    _orgPattern,
+                    _patternFlags,
+                    isMatching,
+                    true,
+                    int256(stripFromIndex),
+                    int256(lastMatchedParticleIndex)
+                );
+                console2.log("back after managing nested groups");
             }
         }
 
