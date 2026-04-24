@@ -18934,5 +18934,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case00000000000000000000000003", () => {
+    const target = "ms_nehal";
+    let regex = /ms_(n((e(h))a)l)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

@@ -1331,6 +1331,10 @@ contract Stringray {
         (, bytes32 atomType, uint256 atomEndIdx) =
             isLiteralAtom(subAtoms, subAtoms, currentIdx, patternFlags, false, true, false);
 
+        if (atomType != LITERAL_ATOM) {
+            (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true);
+        }
+
         if (atomType != INVALID_ATOM) return (atomType, int256(atomEndIdx));
 
         return (INVALID_ATOM, -1);
