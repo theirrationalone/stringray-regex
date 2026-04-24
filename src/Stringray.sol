@@ -336,6 +336,7 @@ contract Stringray {
     bytes32 private constant CHARACTER_CLASS_ATOM = "CHARACTER_CLASS_ATOM";
     bytes32 private constant CC_SET_ATOM = "CC_SET_ATOM";
     bytes32 private constant GROUP_ATOM = "GROUP_ATOM";
+    bytes32 private constant GROUP_SUB_ATOM = "GROUP_SUB_ATOM";
     bytes32 private constant DOLLAR_ANCHOR = "DOLLAR_ANCHOR";
     bytes32 private constant CARET_ANCHOR = "CARET_ANCHOR";
     bytes32 private constant WORD_BOUNDARY = "WORD_BOUNDARY";
@@ -1036,7 +1037,10 @@ contract Stringray {
                 break;
             }
 
-            if (
+            if (atoms[matchData.i].atomType == GROUP_SUB_ATOM) {
+                matchData.i += 1;
+                continue;
+            } else if (
                 atoms[matchData.i].atomType == LITERAL_ATOM || atoms[matchData.i].atomType == TAB
                     || atoms[matchData.i].atomType == NEWLINE || atoms[matchData.i].atomType == VERTICAL_TAB
                     || atoms[matchData.i].atomType == CARRIAGE_RETURN || atoms[matchData.i].atomType == FORMFEED
@@ -1350,6 +1354,10 @@ contract Stringray {
         printAtomType(atomType);
         console2.log("atomEndIdx: ", atomEndIdx);
         console2.log("--------------------------------------------------------------------");
+
+        if (atomType == GROUP_SUB_ATOM) {
+            atomType = GROUP_ATOM;
+        }
 
         if (atomType != INVALID_ATOM) return (atomType, int256(atomEndIdx));
 
@@ -2432,26 +2440,25 @@ contract Stringray {
     ) private {
         int256 patternLength = int256(_pattern.length);
 
-        if (fromGroup && !isMatching) {
-            if (allAtoms.length > 0) {
-                if (allAtoms[allAtoms.length - 1].atomType == GROUP_ATOM) {
-                    atomStartIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
-                    atomEndIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
-                }
-            }
-            allAtoms.push(AtomTrait(GROUP_ATOM, abi.encodePacked("(", _pattern, ")"), atomStartIndex, atomEndIndex));
-        }
+        // if (fromGroup && !isMatching) {
+        //     if (allAtoms.length > 0) {
+        //         if (allAtoms[allAtoms.length - 1].atomType == GROUP_ATOM) {
+        //             atomStartIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
+        //             atomEndIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
+        //         }
+        //     }
+        //     allAtoms.push(AtomTrait(GROUP_ATOM, abi.encodePacked("(", _pattern, ")"), atomStartIndex, atomEndIndex));
+        // }
 
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
                 classifyAtom(_pattern, _orgPattern, uint256(particleIdx), _patternFlags, fromGroup, isMatching);
 
-            if ((!fromGroup || atomType == GROUP_ATOM) && !isMatching) {
-                if (atomType == GROUP_ATOM) {
+            if ((!fromGroup || atomType == GROUP_ATOM || atomType == GROUP_SUB_ATOM) && !isMatching) {
+                if (atomType == GROUP_ATOM || atomType == GROUP_SUB_ATOM) {
                     isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlags, false, false);
-                } else {
-                    allAtoms.push(AtomTrait(atomType, atom, particleIdx, atomEndIdx));
                 }
+                allAtoms.push(AtomTrait(atomType, atom, particleIdx, atomEndIdx));
             }
 
             // console2.log("---------------------ATOM_TYPE---------------------");
@@ -2842,7 +2849,7 @@ contract Stringray {
             uint256 numCaptureName;
 
             for (uint256 i; i < atoms.length; i++) {
-                if (atoms[i].atomType == GROUP_ATOM) {
+                if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) {
                     bytes memory existingCaptureName = getCaptureGroupName(atoms[i].atom);
 
                     if (existingCaptureName.length > 0) {
@@ -3829,6 +3836,9 @@ contract Stringray {
         }
 
         if (flag) {
+            if (fromGroup) {
+                return (true, GROUP_SUB_ATOM, lastMatchedParticleIndex);
+            }
             return (true, GROUP_ATOM, lastMatchedParticleIndex);
         }
         return (false, INVALID_ATOM, 0);
@@ -4110,6 +4120,8 @@ contract Stringray {
             console2.log("Atom Type: CHARACTER_CLASS_ATOM");
         } else if (atomType == GROUP_ATOM) {
             console2.log("Atom Type: GROUP_ATOM");
+        } else if (atomType == GROUP_SUB_ATOM) {
+            console2.log("Atom Type: GROUP_SUB_ATOM");
         } else {
             console2.log("Atom Type: INVALID_ATOM");
         }

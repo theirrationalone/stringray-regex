@@ -23228,6 +23228,11 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/ms_(n((e(h))a)l)k/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log(
+            "------------------------------------------------specific-log------------------------------------------------"
+        );
+        stringray.seeAllAtoms();
+        console2.log("------------------------------------------------------------------------------------------------");
 
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
