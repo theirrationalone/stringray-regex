@@ -1295,6 +1295,9 @@ contract Stringray {
         int256 firstIndex = -1;
 
         for (uint256 i; i < subAtoms.length; i++) {
+            console2.log("subAtoms: ", string(subAtoms));
+            console2.log("current i: ", i);
+            // e(h)
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
             (subAtom[0].atomType, subAtom[0].atomEndIdx) = collectGroupSubAtom(subAtoms, i, patternFlags);
@@ -1306,6 +1309,10 @@ contract Stringray {
             (matchStartIndex, matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true);
 
+            console2.log("came back from matchPattern");
+            console2.log("matchStartIndex: ", matchStartIndex);
+            console2.log("matchEndIndex: ", matchEndIndex);
+
             if (matchStartIndex == -1 && matchEndIndex == -1) return (matchStartIndex, matchEndIndex);
 
             if (firstIndex == -1) {
@@ -1313,6 +1320,7 @@ contract Stringray {
             }
 
             indexToStartMatch = uint256(matchEndIndex) + 1;
+            i = uint256(subAtom[0].atomEndIdx);
         }
 
         grpMatchedData.push(
@@ -1337,6 +1345,11 @@ contract Stringray {
         if (atomType != LITERAL_ATOM) {
             (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true, true);
         }
+
+        console2.log("----------------------------------collectGroupSubAtom----------------------------------");
+        printAtomType(atomType);
+        console2.log("atomEndIdx: ", atomEndIdx);
+        console2.log("--------------------------------------------------------------------");
 
         if (atomType != INVALID_ATOM) return (atomType, int256(atomEndIdx));
 
@@ -2437,20 +2450,18 @@ contract Stringray {
                 if (atomType == GROUP_ATOM) {
                     isDuplicateOrExistingCaptureGroupName(atom, _orgPattern, _patternFlags, false, false);
                 } else {
-                    console2.log("pushed to all atoms");
                     allAtoms.push(AtomTrait(atomType, atom, particleIdx, atomEndIdx));
                 }
             }
 
-            console2.log("---------------------ATOM_TYPE---------------------");
-            console2.log("Atom: ", string(atom));
-            printAtomType(atomType);
-            console2.log("---------------------");
+            // console2.log("---------------------ATOM_TYPE---------------------");
+            // console2.log("Atom: ", string(atom));
+            // printAtomType(atomType);
+            // console2.log("---------------------");
 
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
         }
-        console2.log("nuclear fission cycle ends");
     }
 
     function classifyAtom(
@@ -3814,7 +3825,6 @@ contract Stringray {
                     int256(stripFromIndex),
                     int256(lastMatchedParticleIndex)
                 );
-                console2.log("back after managing nested groups");
             }
         }
 
