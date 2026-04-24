@@ -921,16 +921,25 @@ contract Stringray {
         int256 atomEndIdx;
     }
 
+    struct GroupMatchedData {
+        string groupPatternString;
+        string groupMatchedString;
+        int256 groupMatchStartIndex;
+        int256 groupMatchEndIndex;
+    }
+
     struct ReturnData {
         string patternString;
         string originalString;
         string matchedString;
         int256 matchStartIndex;
         int256 matchEndIndex;
+        GroupMatchedData[] groupMatchedData;
     }
 
     AtomTrait[] private allAtoms;
     AtomTrait[] private allCCSubAtoms;
+    GroupMatchedData[] private grpMatchedData;
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
@@ -970,7 +979,8 @@ contract Stringray {
             originalString: _proposedString,
             matchedString: matchedString,
             matchStartIndex: matchStartIndex,
-            matchEndIndex: matchEndIndex
+            matchEndIndex: matchEndIndex,
+            groupMatchedData: grpMatchedData
         });
     }
 
@@ -1301,6 +1311,15 @@ contract Stringray {
 
             indexToStartMatch = uint256(matchEndIndex) + 1;
         }
+
+        grpMatchedData.push(
+            GroupMatchedData({
+                groupPatternString: string(atom),
+                groupMatchedString: string(subAtoms),
+                groupMatchStartIndex: firstIndex,
+                groupMatchEndIndex: matchEndIndex
+            })
+        );
 
         return (firstIndex, matchEndIndex);
     }
