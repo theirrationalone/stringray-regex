@@ -23360,12 +23360,1164 @@ contract PlayStringTest is Test {
         string memory pattern = unicode"/ms_(n((e(h))a)l)A/v";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
-        console2.log(
-            "------------------------------------------------specific-log------------------------------------------------"
-        );
-        stringray.seeAllAtoms();
-        console2.log("------------------------------------------------------------------------------------------------");
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
 
+    function testRegexPatternMatchGroupsCase10() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/(ne[jklshmnp]al)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase11() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/(ne[jklshmnp]al)/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase12() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/([jklshmnp])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase13() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/([jklshmnp])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase14() public {
+        string memory target = "neuhal";
+        // @note: 0x0f - asciiOf(u)
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase15() public {
+        string memory target = "ne{hal";
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase16() public {
+        string memory target = "ne0hal";
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase17() public {
+        string memory target = "nefhal";
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase18() public {
+        string memory target = "ne}hal";
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase19() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{f}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/(ne[\\x0f-\\u{00000f}]hal)/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase20() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{f}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([\\x0f-\\u{00006c}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase21() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{f}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/(\\x0f[\\x0f-\\u{00006c}]al)/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase22() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/([abc])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase23() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/([xyz])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase24() public {
+        string memory target = "neha1";
+        string memory pattern = unicode"/([0123456789])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase25() public {
+        string memory target = "nehal";
+        string memory pattern = unicode"/([aeiou])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase26() public {
+        string memory target = "NehAl";
+        string memory pattern = unicode"/([AEIOU])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase27() public {
+        string memory target = "NehAl";
+        string memory pattern = unicode"/([a-z])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase28() public {
+        string memory target = "NehAl";
+        string memory pattern = unicode"/([A-Z])/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase29() public {
+        string memory target = "111NehAl";
+        string memory pattern = unicode"/(N[a-zA-Z]hAl)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase30() public {
+        string memory target = "111NehAl";
+        string memory pattern = unicode"/([0-9a-f]N)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase31() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F600}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([\\u{1F600}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase32() public {
+        // failed
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F64F}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([\\u{1F600}-\\u{1F64F}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase33() public {
+        string memory target = unicode"ne😀hal";
+        string memory pattern = unicode"/([😀ab])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase34() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u0061"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([\\u0061\\u{62}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase35() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F600}"));
+        string memory target = string(abi.encodePacked(utf8Hex, "hal"));
+        string memory pattern = unicode"/([a-\\u{1F601}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase36() public {
+        string memory target = unicode"neßhal";
+        string memory pattern = unicode"/([ß])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase37() public {
+        string memory target = unicode"néhal";
+        string memory pattern = unicode"/([é])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase38() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{69}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([\\u{61}-\\u{7A}])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase39() public {
+        string memory target = unicode"ne😍hal";
+        string memory pattern = unicode"/([😀-🙏])/u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase40() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([a-z&&[aeiou]])/v";
+
+        vm.expectRevert();
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase41() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[aeiou]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase42() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a&&b]&&[aeiou]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase43() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[bcdefghijkup]&&[aeiou]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase44() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[[anil]&&[nehal]]&&[aeiou]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase45() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]--[aeiou]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase46() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[adsadasdz]&&[dasdasdz]&&[masdasdz]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase47() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[d-z]&&[m-z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase48() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[a-m]--[d-f]])/v";
+
+        vm.expectRevert();
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase49() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[[a-z]&&[b-m]]--[d-f]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase50() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[x-z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase51() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[[a-m]--[h-k]]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase52() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]--[m-z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase53() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]--[d-m]--[x-z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase54() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]&&[a-m]--[g-k]])/v";
+
+        vm.expectRevert();
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase55() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[[a-z]&&[a-m]]&&[f-z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase56() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[a-z]--[[d-z]&&[m-z]]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase57() public {
+        string memory target = unicode"nehal";
+        string memory pattern = unicode"/([[[[a-f]&&[c-z]]--[d]]&&[b-e]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase58() public {
+        string memory target = unicode"ne\nhal";
+        string memory pattern = unicode"/([[\\cJ]&&[\\n-\\r]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase59() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1}"));
+        string memory target = string(abi.encodePacked("ne", utf8Hex, "hal"));
+        string memory pattern = unicode"/([[\\cA]&&[\\cB]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase60() public {
+        string memory target = "nehAl";
+        string memory pattern = unicode"/([[\\x41]&&[A-Z]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase61() public {
+        string memory target = "nehAl";
+        string memory pattern = unicode"/([[\\u0041]&&[\\x41]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase62() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F606}"));
+        string memory target = string(abi.encodePacked("neh", utf8Hex, "al"));
+        string memory pattern = unicode"/([[\\u{1F600}-\\u{1F607}]&&[\\u{1F604}-\\u{1F60A}]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase63() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{3}"));
+        string memory target = string(abi.encodePacked("neh", utf8Hex, "al"));
+        string memory pattern = unicode"/([[\\cA\\cB\\cC]--[\\cB]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase64() public {
+        string memory target = "laheNehal";
+        string memory pattern = unicode"/([[\\x41-\\x5A]&&[\\u004D-\\u005A]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase65() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1234}"));
+        string memory target = string(abi.encodePacked("neh", utf8Hex, "al"));
+        string memory pattern = unicode"/([[\\u{1230}-\\u{123A}]--[\\u{1233}]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase66() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{3}"));
+        string memory target = string(abi.encodePacked("neh", utf8Hex, "al"));
+        string memory pattern = unicode"/([[\\ca\\cb\\cC]--[\\cb]])/v";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
         console2.log("Original string        : ", returnedData.originalString);
