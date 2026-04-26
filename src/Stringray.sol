@@ -1330,7 +1330,7 @@ contract Stringray {
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
-                groupMatchedString: string(subAtoms),
+                groupMatchedString: string(trimString(stringInBytes, uint256(firstIndex), matchEndIndex)),
                 groupMatchStartIndex: firstIndex,
                 groupMatchEndIndex: matchEndIndex
             })

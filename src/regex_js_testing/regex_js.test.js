@@ -18936,8 +18936,50 @@ const testMain = () => {
   });
 
   test("Pattern match Groups cases: Case00000000000000000000000003", () => {
-    const target = "ms_nehal";
-    let regex = /ms_(n((e(h))a)l)/;
+    const target = "ms_nehalA";
+    let regex = /ms_(n((e(h))a)l)A/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000004", () => {
+    const target = "zabz";
+    let regex = /(ab)/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000005", () => {
+    const target = "nehal";
+    let regex = /ne(ha)l/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000006", () => {
+    const target = "ms_nehalA";
+    let regex = /ms_(n((e(h))a)l)A/u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000007", () => {
+    const target = "zabz";
+    let regex = /(ab)/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000008", () => {
+    const target = "nehal";
+    let regex = /ne(ha)l/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case00000000000000000000000009", () => {
+    const target = "ms_nehalA";
+    let regex = /ms_(n((e(h))a)l)A/v;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
