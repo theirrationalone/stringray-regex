@@ -1014,8 +1014,10 @@ contract Stringray {
             console2.log("cycle starts...");
             console2.log("i: ", matchData.i);
             console2.log("isFirstMatch: ", isFirstMatch);
+            console2.log("fromGroup: ", fromGroup);
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("fromCharacterClass: ", fromCharacterClass);
+            console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
             console2.logBytes(atoms[matchData.i].atom);
             printAtomType(atoms[matchData.i].atomType);
@@ -1229,6 +1231,10 @@ contract Stringray {
                     } else {
                         indexToStartMatch = uint256(matchData.matchEndIndex);
                     }
+                }
+
+                if (fromGroup && !fromCharacterClass && !isFirstMatch) {
+                    return (-1, -1);
                 }
 
                 if (!fromCharacterClass) {
