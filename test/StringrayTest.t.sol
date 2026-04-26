@@ -23783,6 +23783,7 @@ contract PlayStringTest is Test {
         string memory target = "111NehAl";
         string memory pattern = unicode"/([0-9a-f]N)/";
 
+        // @BUG: matching pattern from 0 to last match index instead of first to last matched index.
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);

@@ -1013,6 +1013,7 @@ contract Stringray {
             console2.log("-----------------------matchPattern-----------------------");
             console2.log("cycle starts...");
             console2.log("i: ", matchData.i);
+            console2.log("isFirstMatch: ", isFirstMatch);
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("fromCharacterClass: ", fromCharacterClass);
             console2.log("atom: ", string(atoms[matchData.i].atom));
@@ -1028,7 +1029,7 @@ contract Stringray {
                     isFirstMatch = false;
                 }
             } else {
-                if (!isFirstMatch && !fromCharacterClass) {
+                if (!isFirstMatch && !fromCharacterClass && !fromGroup) {
                     isFirstMatch = true;
                 }
             }
@@ -1301,6 +1302,11 @@ contract Stringray {
         for (uint256 i; i < subAtoms.length; i++) {
             console2.log("subAtoms: ", string(subAtoms));
             console2.log("current i: ", i);
+            if (i > 0) {
+                isFirstMatch = false;
+            } else {
+                isFirstMatch = true;
+            }
             // e(h)
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
@@ -1346,7 +1352,11 @@ contract Stringray {
         (, bytes32 atomType, uint256 atomEndIdx) =
             isLiteralAtom(subAtoms, subAtoms, currentIdx, patternFlags, false, true, false);
 
-        if (atomType != LITERAL_ATOM) {
+        if (atomType == INVALID_ATOM) {
+            (, atomType, atomEndIdx) = isCharacterClass(subAtoms, subAtoms, currentIdx, patternFlags, true);
+        }
+
+        if (atomType == INVALID_ATOM) {
             (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true, true);
         }
 
