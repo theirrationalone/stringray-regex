@@ -1324,6 +1324,44 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
         console2.log("----------------------------------------");
+
+        int256 targetGroupIdx = getRefGroupIndex(atom);
+
+        console2.log("targetGroupIdx: ", targetGroupIdx);
+        return (-1, -1);
+    }
+
+    function getRefGroupIndex(bytes memory atom) private returns (int256) {
+        bytes memory groupNumInString = trimString(atom, 1, -1);
+        uint256 givenGroupNum = stringDigitToDecDigit(groupNumInString);
+
+        uint256 currGroupNum;
+        int256 targetGroupIdx = -1;
+        for (uint256 i; i < allAtoms.length; i++) {
+            if (allAtoms[i].atomType == GROUP_ATOM) {
+                if (targetGroupIdx > -1) break;
+                currGroupNum++;
+                if (currGroupNum != givenGroupNum) {
+                    if (i > 0) {
+                        for (uint256 j = i - 1; j >= 0; j--) {
+                            if (allAtoms[j].atomType == GROUP_SUB_ATOM) {
+                                currGroupNum++;
+                                if (currGroupNum == givenGroupNum) {
+                                    targetGroupIdx = int256(j);
+                                    break;
+                                }
+                            }
+                            if (j == 0) break;
+                        }
+                    }
+                } else {
+                    targetGroupIdx = int256(i);
+                    break;
+                }
+            }
+        }
+
+        return targetGroupIdx;
     }
 
     function matchGroup(
