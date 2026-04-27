@@ -24539,7 +24539,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchGroupsCase67() public {
-        string memory target = "abab";
+        string memory target = "abba";
         string memory pattern = unicode"/(a)(b)\\2/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
@@ -24565,6 +24565,30 @@ contract PlayStringTest is Test {
     function testRegexPatternMatchGroupsCase68() public {
         string memory target = "ms_nehalAh";
         string memory pattern = unicode"/ms_(n((e(h))a)l)A\\4/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        for (uint256 i; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+        }
+        console2.log("------------------------------------");
+
+        console2.log("------------------------------------seeAllAtoms------------------------------------");
+        stringray.seeAllAtoms();
+        console2.log("------------------------------------------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase69() public {
+        string memory target = "ms_nehalAeha";
+        string memory pattern = unicode"/ms_(n((e(h))a)l)A\\2/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");

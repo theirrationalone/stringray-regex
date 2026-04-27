@@ -1323,11 +1323,21 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
-        console2.log("----------------------------------------");
 
         int256 targetGroupIdx = getRefGroupIndex(atom);
 
         console2.log("targetGroupIdx: ", targetGroupIdx);
+        console2.log("----------------------------------------");
+
+        if (targetGroupIdx > -1) {
+            AtomTrait[] memory atom = new AtomTrait[](1);
+            atom[0] = allAtoms[uint256(targetGroupIdx)];
+            atom[0].atomType = GROUP_ATOM;
+            return
+                matchPattern(
+                    atom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
+                );
+        }
         return (-1, -1);
     }
 
@@ -1381,6 +1391,7 @@ contract Stringray {
 
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
+        bool isFirstMatchCpy = isFirstMatch;
 
         if (atom.length == 0) return (matchStartIndex, matchEndIndex);
 
@@ -1393,7 +1404,7 @@ contract Stringray {
             if (i > 0) {
                 isFirstMatch = false;
             } else {
-                isFirstMatch = true;
+                isFirstMatch = isFirstMatchCpy;
             }
             // e(h)
             AtomTrait[] memory subAtom = new AtomTrait[](1);
@@ -1413,6 +1424,7 @@ contract Stringray {
 
             if (matchStartIndex == -1 && matchEndIndex == -1) return (matchStartIndex, matchEndIndex);
             if (matchStartIndex == -1 && matchEndIndex > -1) {
+                if (i + 1 == subAtoms.length) return (matchStartIndex, matchEndIndex);
                 indexToStartMatch = uint256(matchEndIndex);
                 firstIndex = -1;
                 i = 0;
