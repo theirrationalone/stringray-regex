@@ -1185,6 +1185,16 @@ contract Stringray {
             } else if (atoms[matchData.i].atomType == GROUP_ATOM) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+            } else if (atoms[matchData.i].atomType == DIGIT_BACKREFERENCE_PREFIX) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchDigitBackReferenceGroup(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1293,6 +1303,27 @@ contract Stringray {
         }
 
         return (matchData.firstIndex, matchData.matchEndIndex);
+    }
+
+    function matchDigitBackReferenceGroup(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        // let's match digit backreference if available to.. there...
+        console2.log("--------------------matchDigitBackReferenceGroup--------------------");
+        console2.log("Atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("fromGroup: ", fromGroup);
+        console2.log("----------------------------------------");
     }
 
     function matchGroup(
