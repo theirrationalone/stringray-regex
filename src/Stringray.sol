@@ -1163,7 +1163,7 @@ contract Stringray {
                 }
             } else if (atoms[matchData.i].atomType == CHARACTER_CLASS_ATOM) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchCharacterClass(
-                    atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags
+                    atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags
                 );
             } else if (fromCharacterClass && atoms[matchData.i].atomType == CC_RANGE) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
@@ -1189,6 +1189,9 @@ contract Stringray {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
             }
+
+            console2.log("matchStartIndex: ", matchData.matchStartIndex);
+            console2.log("matchEndIndex: ", matchData.matchEndIndex);
 
             if (fromCharacterClass && !isFirstMatch) {
                 return (matchData.matchStartIndex, matchData.matchEndIndex);
@@ -1234,7 +1237,7 @@ contract Stringray {
                 }
 
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
-                    return (-1, -1);
+                    return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
 
                 if (!fromCharacterClass) {
@@ -1257,17 +1260,21 @@ contract Stringray {
             return (-1, -1);
         }
 
-        if (isFirstMatch && matchData.firstIndex == -1) {
+        if ((isFirstMatch || fromGroup) && matchData.firstIndex == -1) {
             matchData.firstIndex = matchData.matchStartIndex > -1 ? matchData.matchStartIndex : matchData.matchEndIndex;
         }
 
         (matchData.firstIndex, matchData.matchEndIndex) = boundaryCheck(matchData.firstIndex, matchData.matchEndIndex);
+
+        console2.log("matchStartIndex after boundary check: ", matchData.matchStartIndex);
+        console2.log("matchEndIndex after boundary check: ", matchData.matchEndIndex);
 
         if (matchData.matchEndIndex > -1 && uint256(matchData.matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
 
         if (matchData.matchEndIndex > -1) {
+            console2.log("yes matchEndIndex is greater than -1");
             if (
                 matchData.matchEndIndex + 1 == int256(stringInBytes.length)
                     && ((atoms[atoms.length - 1].atomType == WORD_BOUNDARY
@@ -1275,10 +1282,16 @@ contract Stringray {
                         || (atoms[atoms.length - 1].atomType == NOT_WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false)))
             ) {
+                console2.log("word boundary found");
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
             }
         }
+
+        if (fromGroup) {
+            return (matchData.firstIndex, matchData.matchEndIndex);
+        }
+
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
@@ -1305,7 +1318,7 @@ contract Stringray {
         bytes memory subAtoms = trimString(atom, 1, int256(atom.length - 2));
         int256 firstIndex = -1;
 
-        for (uint256 i; i < subAtoms.length; i++) {
+        for (uint256 i; i < subAtoms.length;) {
             console2.log("subAtoms: ", string(subAtoms));
             console2.log("current i: ", i);
             if (i > 0) {
@@ -1330,13 +1343,19 @@ contract Stringray {
             console2.log("matchEndIndex: ", matchEndIndex);
 
             if (matchStartIndex == -1 && matchEndIndex == -1) return (matchStartIndex, matchEndIndex);
+            if (matchStartIndex == -1 && matchEndIndex > -1) {
+                indexToStartMatch = uint256(matchEndIndex);
+                firstIndex = -1;
+                i = 0;
+                continue;
+            }
 
             if (firstIndex == -1) {
                 firstIndex = matchStartIndex;
             }
 
             indexToStartMatch = uint256(matchEndIndex) + 1;
-            i = uint256(subAtom[0].atomEndIdx);
+            i = uint256(subAtom[0].atomEndIdx) + 1;
         }
 
         grpMatchedData.push(
@@ -1936,18 +1955,32 @@ contract Stringray {
         return (abi.encodePacked(""), 1114112);
     }
 
+    struct MatchCCLocalVars {
+        uint256 i;
+        bytes32 lAtomType;
+        uint256 lLastParticleIndex;
+        uint256 lLastParticleIndexCpy;
+        bytes32 rAtomType;
+        uint256 rLastParticleIndex;
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+    }
+
     function matchCharacterClass(
-        bytes memory atom,
+        bytes memory pattern,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
+        bool fromGroup,
         bytes memory patternFlags
     ) private returns (int256, int256) {
-        bytes memory pattern = trimString(atom, 1, int256(atom.length - 2));
-        uint256 i = 0;
+        MatchCCLocalVars memory matchCCLocalVars;
+        pattern = trimString(pattern, 1, int256(pattern.length - 2));
+        matchCCLocalVars.i = 0;
+        // uint256 i = 0;
 
         console2.log("--------------------matchCharacterClass--------------------");
-        console2.log("atom: ", string(atom));
+        // console2.log("atom: ", string(atom));
         console2.logBytes(pattern);
         console2.logBytes1(pattern[0]);
         console2.logBytes1(pattern[pattern.length - 1]);
@@ -1964,148 +1997,131 @@ contract Stringray {
             return (int256(indexToStartMatch), int256(indexToStartMatch));
         }
 
-        for (; i < pattern.length;) {
+        for (; matchCCLocalVars.i < pattern.length;) {
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
-            (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(pattern, i, patternFlags, true, false, false);
+            (matchCCLocalVars.lAtomType, matchCCLocalVars.lLastParticleIndex) =
+                ccSubAtoms(pattern, matchCCLocalVars.i, patternFlags, true, fromGroup, false);
 
-            if (lAtomType == INVALID_ATOM) break;
+            if (matchCCLocalVars.lAtomType == INVALID_ATOM) break;
 
             if (
-                lLastParticleIndex + 2 < pattern.length && uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN
-                    && (!hasFlag(patternFlags, "v") || (uint8(pattern[lLastParticleIndex + 2]) != MINUS_SIGN))
+                matchCCLocalVars.lLastParticleIndex + 2 < pattern.length
+                    && uint8(pattern[matchCCLocalVars.lLastParticleIndex + 1]) == MINUS_SIGN
+                    && (!hasFlag(patternFlags, "v")
+                        || (uint8(pattern[matchCCLocalVars.lLastParticleIndex + 2]) != MINUS_SIGN))
             ) {
-                (bytes32 rAtomType, uint256 rLastParticleIndex) =
-                    ccSubAtoms(pattern, lLastParticleIndex + 2, patternFlags, true, false, false);
+                (matchCCLocalVars.rAtomType, matchCCLocalVars.rLastParticleIndex) = ccSubAtoms(
+                    pattern, matchCCLocalVars.lLastParticleIndex + 2, patternFlags, true, fromGroup, false
+                );
 
-                if (rAtomType == INVALID_ATOM) break;
+                if (matchCCLocalVars.rAtomType == INVALID_ATOM) break;
 
                 subAtom[0] = AtomTrait({
                     atomType: CC_RANGE,
-                    atom: trimString(pattern, i, int256(rLastParticleIndex)),
-                    atomStartIdx: int256(i),
-                    atomEndIdx: int256(rLastParticleIndex)
+                    atom: trimString(pattern, matchCCLocalVars.i, int256(matchCCLocalVars.rLastParticleIndex)),
+                    atomStartIdx: int256(matchCCLocalVars.i),
+                    atomEndIdx: int256(matchCCLocalVars.rLastParticleIndex)
                 });
-                // allCCSubAtoms.push(
-                //     AtomTrait({
-                //         atomType: CC_RANGE,
-                //         atom: trimString(pattern, i, int256(rLastParticleIndex)),
-                //         atomEndIdx: int256(rLastParticleIndex)
-                //     })
-                // );
 
-                lLastParticleIndex = rLastParticleIndex;
+                matchCCLocalVars.lLastParticleIndex = matchCCLocalVars.rLastParticleIndex;
             } else {
                 if (
-                    hasFlag(patternFlags, "v") && lLastParticleIndex + 3 < pattern.length
-                        && ((uint8(pattern[lLastParticleIndex + 1]) == AMPERSAND_SIGN
-                                && uint8(pattern[lLastParticleIndex + 2]) == AMPERSAND_SIGN)
-                            || (uint8(pattern[lLastParticleIndex + 1]) == MINUS_SIGN
-                                && uint8(pattern[lLastParticleIndex + 2]) == MINUS_SIGN))
+                    hasFlag(patternFlags, "v") && matchCCLocalVars.lLastParticleIndex + 3 < pattern.length
+                        && ((uint8(pattern[matchCCLocalVars.lLastParticleIndex + 1]) == AMPERSAND_SIGN
+                                && uint8(pattern[matchCCLocalVars.lLastParticleIndex + 2]) == AMPERSAND_SIGN)
+                            || (uint8(pattern[matchCCLocalVars.lLastParticleIndex + 1]) == MINUS_SIGN
+                                && uint8(pattern[matchCCLocalVars.lLastParticleIndex + 2]) == MINUS_SIGN))
                 ) {
-                    uint256 lLastParticleIndexCpy = lLastParticleIndex;
-                    bytes32 rAtomType;
-                    uint256 rLastParticleIndex;
+                    matchCCLocalVars.lLastParticleIndexCpy = matchCCLocalVars.lLastParticleIndex;
+                    matchCCLocalVars.rAtomType;
+                    matchCCLocalVars.rLastParticleIndex;
                     while (true) {
-                        (rAtomType, rLastParticleIndex) =
-                            ccSubAtoms(pattern, lLastParticleIndexCpy + 3, patternFlags, true, false, false);
+                        (matchCCLocalVars.rAtomType, matchCCLocalVars.rLastParticleIndex) = ccSubAtoms(
+                            pattern, matchCCLocalVars.lLastParticleIndexCpy + 3, patternFlags, true, fromGroup, false
+                        );
 
-                        if (rAtomType == INVALID_ATOM) break;
+                        if (matchCCLocalVars.rAtomType == INVALID_ATOM) break;
 
                         if (
-                            rLastParticleIndex + 3 < pattern.length
-                                && ((uint8(pattern[rLastParticleIndex + 1]) == AMPERSAND_SIGN
-                                        && uint8(pattern[rLastParticleIndex + 2]) == AMPERSAND_SIGN)
-                                    || (uint8(pattern[rLastParticleIndex + 1]) == MINUS_SIGN
-                                        && uint8(pattern[rLastParticleIndex + 2]) == MINUS_SIGN))
+                            matchCCLocalVars.rLastParticleIndex + 3 < pattern.length
+                                && ((uint8(pattern[matchCCLocalVars.rLastParticleIndex + 1]) == AMPERSAND_SIGN
+                                        && uint8(pattern[matchCCLocalVars.rLastParticleIndex + 2]) == AMPERSAND_SIGN)
+                                    || (uint8(pattern[matchCCLocalVars.rLastParticleIndex + 1]) == MINUS_SIGN
+                                        && uint8(pattern[matchCCLocalVars.rLastParticleIndex + 2]) == MINUS_SIGN))
                         ) {
-                            lLastParticleIndexCpy = rLastParticleIndex;
+                            matchCCLocalVars.lLastParticleIndexCpy = matchCCLocalVars.rLastParticleIndex;
                         } else {
-                            if (lLastParticleIndexCpy != lLastParticleIndex) {
-                                lLastParticleIndex = lLastParticleIndexCpy;
+                            if (matchCCLocalVars.lLastParticleIndexCpy != matchCCLocalVars.lLastParticleIndex) {
+                                matchCCLocalVars.lLastParticleIndex = matchCCLocalVars.lLastParticleIndexCpy;
                             }
                             break;
                         }
                     }
 
-                    if (rLastParticleIndex == 0) break;
+                    if (matchCCLocalVars.rLastParticleIndex == 0) break;
 
                     subAtom[0] = AtomTrait({
                         atomType: CC_SET_ATOM,
-                        atom: trimString(pattern, i, int256(rLastParticleIndex)),
-                        atomStartIdx: int256(i),
-                        atomEndIdx: int256(rLastParticleIndex)
+                        atom: trimString(pattern, matchCCLocalVars.i, int256(matchCCLocalVars.rLastParticleIndex)),
+                        atomStartIdx: int256(matchCCLocalVars.i),
+                        atomEndIdx: int256(matchCCLocalVars.rLastParticleIndex)
                     });
-                    // allCCSubAtoms.push(
-                    //     AtomTrait({
-                    //         atomType: CC_SET_ATOM,
-                    //         atom: trimString(pattern, i, int256(rLastParticleIndex)),
-                    //         atomEndIdx: int256(rLastParticleIndex)
-                    //     })
-                    // );
 
-                    lLastParticleIndex = rLastParticleIndex;
+                    matchCCLocalVars.lLastParticleIndex = matchCCLocalVars.rLastParticleIndex;
                 } else {
                     subAtom[0] = AtomTrait({
-                        atomType: lAtomType,
-                        atom: trimString(pattern, i, int256(lLastParticleIndex)),
-                        atomStartIdx: int256(i),
-                        atomEndIdx: int256(lLastParticleIndex)
+                        atomType: matchCCLocalVars.lAtomType,
+                        atom: trimString(pattern, matchCCLocalVars.i, int256(matchCCLocalVars.lLastParticleIndex)),
+                        atomStartIdx: int256(matchCCLocalVars.i),
+                        atomEndIdx: int256(matchCCLocalVars.lLastParticleIndex)
                     });
-                    // allCCSubAtoms.push(
-                    //     AtomTrait({
-                    //         atomType: lAtomType,
-                    //         atom: trimString(pattern, i, int256(lLastParticleIndex)),
-                    //         atomEndIdx: int256(lLastParticleIndex)
-                    //     })
-                    // );
                 }
             }
 
-            (int256 matchStartIndex, int256 matchEndIndex) =
-                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
+            (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex) =
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
 
-            if (matchStartIndex > -1 && matchEndIndex > -1) {
-                return (matchStartIndex, matchEndIndex);
+            if (matchCCLocalVars.matchStartIndex > -1 && matchCCLocalVars.matchEndIndex > -1) {
+                return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
             }
 
-            i = lLastParticleIndex + 1;
+            matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
         }
 
         return (-1, -1);
-        // return matchCharacterClassSubAtomsPattern(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
     }
 
-    function matchCharacterClassSubAtomsPattern(
-        bytes memory stringInBytes,
-        uint256 indexToStartMatch,
-        bool isFirstMatch,
-        bytes memory patternFlags
-    ) private returns (int256, int256) {
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
-        console2.log("---------matchCharacterClassSubAtomsPattern---------");
-        console2.log("cc sub atoms length: ", allCCSubAtoms.length);
-        for (uint256 i; i < allCCSubAtoms.length; i++) {
-            AtomTrait[] memory subAtom = new AtomTrait[](1);
-            subAtom[0] = allCCSubAtoms[i];
+    // function matchCharacterClassSubAtomsPattern(
+    //     bytes memory stringInBytes,
+    //     uint256 indexToStartMatch,
+    //     bool isFirstMatch,
+    //     bytes memory patternFlags
+    // ) private returns (int256, int256) {
+    //     int256 matchStartIndex = -1;
+    //     int256 matchEndIndex = -1;
+    //     console2.log("---------matchCharacterClassSubAtomsPattern---------");
+    //     console2.log("cc sub atoms length: ", allCCSubAtoms.length);
+    //     for (uint256 i; i < allCCSubAtoms.length; i++) {
+    //         AtomTrait[] memory subAtom = new AtomTrait[](1);
+    //         subAtom[0] = allCCSubAtoms[i];
 
-            (matchStartIndex, matchEndIndex) =
-                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
+    //         (matchStartIndex, matchEndIndex) =
+    //             matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
 
-            console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
-            console2.log("matchStartIndex: ", matchStartIndex);
-            console2.log("matchEndIndex: ", matchEndIndex);
-            console2.log("stringInBytes: ", string(stringInBytes));
-            console2.log("------------------");
+    //         console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
+    //         console2.log("matchStartIndex: ", matchStartIndex);
+    //         console2.log("matchEndIndex: ", matchEndIndex);
+    //         console2.log("stringInBytes: ", string(stringInBytes));
+    //         console2.log("------------------");
 
-            if (matchStartIndex > -1 && matchEndIndex > -1) {
-                return (matchStartIndex, matchEndIndex);
-            }
-        }
+    //         if (matchStartIndex > -1 && matchEndIndex > -1) {
+    //             return (matchStartIndex, matchEndIndex);
+    //         }
+    //     }
 
-        return (matchStartIndex, matchEndIndex);
-    }
+    //     return (matchStartIndex, matchEndIndex);
+    // }
 
     function ccSubAtoms(
         bytes memory pattern,
