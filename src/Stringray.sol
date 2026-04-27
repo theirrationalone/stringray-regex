@@ -2922,7 +2922,7 @@ contract Stringray {
         uint256 numGroups;
 
         for (uint256 i; i < atoms.length; i++) {
-            if (atoms[i].atomType == GROUP_ATOM) numGroups++;
+            if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) numGroups++;
         }
 
         return numGroups;

@@ -24563,7 +24563,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchGroupsCase68() public {
-        string memory target = "ms_nehalA";
+        string memory target = "ms_nehalAh";
         string memory pattern = unicode"/ms_(n((e(h))a)l)A\\4/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
