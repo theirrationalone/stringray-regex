@@ -1330,12 +1330,30 @@ contract Stringray {
         console2.log("----------------------------------------");
 
         if (targetGroupIdx > -1) {
-            AtomTrait[] memory atom = new AtomTrait[](1);
-            atom[0] = allAtoms[uint256(targetGroupIdx)];
-            atom[0].atomType = GROUP_ATOM;
+            uint256 i;
+            bytes memory groupMatchedString;
+
+            for (; i < grpMatchedData.length; i++) {
+                if (
+                    keccak256(allAtoms[uint256(targetGroupIdx)].atom)
+                        == keccak256(abi.encodePacked(grpMatchedData[i].groupPatternString))
+                ) {
+                    groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
+                    break;
+                }
+            }
+
+            if (groupMatchedString.length == 0) return (-1, -1);
+
+            AtomTrait[] memory atoms = new AtomTrait[](groupMatchedString.length);
+            for (i = 0; i < groupMatchedString.length; i++) {
+                atoms[i].atom = trimString(groupMatchedString, i, int256(i));
+                atoms[i].atomType = LITERAL_ATOM;
+            }
+
             return
                 matchPattern(
-                    atom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
+                    atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
                 );
         }
         return (-1, -1);
