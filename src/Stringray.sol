@@ -1332,96 +1332,60 @@ contract Stringray {
 
         for (uint256 i; i < grpMatchedData.length; i++) {
             if (grpMatchedData[i].groupNum == givenGroupNum) {
-                bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
-                uint256 groupMatchedStringLength = groupMatchedString.length;
-                if (groupMatchedStringLength == 0) return (-1, -1);
-
-                AtomTrait[] memory atoms = new AtomTrait[](groupMatchedStringLength);
-                for (uint256 j; j < groupMatchedStringLength; j++) {
-                    bool flag;
-                    bytes memory chunk = trimString(groupMatchedString, j, -1);
-                    (flag, j) = isUnicodeLiteral(chunk, 0, true);
-
-                    if (flag) {
-                        atoms[j].atom = trimString(groupMatchedString, j, -1);
-                    } else {
-                        atoms[j].atom = trimString(groupMatchedString, j, int256(j));
-                    }
-                    atoms[j].atomType = LITERAL_ATOM;
-                }
-
                 return matchPattern(
-                    atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
+                    getDigitBackRefedAtoms(i),
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    true
                 );
             }
         }
 
-        // int256 targetGroupIdx = getRefGroupIndex(atom);
-
-        // console2.log("targetGroupIdx: ", targetGroupIdx);
-        // console2.log("----------------------------------------");
-
-        // if (targetGroupIdx > -1) {
-        //     uint256 i;
-        //     bytes memory groupMatchedString;
-
-        //     for (; i < grpMatchedData.length; i++) {
-        //         if (
-        //             keccak256(allAtoms[uint256(targetGroupIdx)].atom)
-        //                 == keccak256(abi.encodePacked(grpMatchedData[i].groupPatternString))
-        //         ) {
-        //             groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
-        //             break;
-        //         }
-        //     }
-
-        //     if (groupMatchedString.length == 0) return (-1, -1);
-
-        //     AtomTrait[] memory atoms = new AtomTrait[](groupMatchedString.length);
-        //     for (i = 0; i < groupMatchedString.length; i++) {
-        //         atoms[i].atom = trimString(groupMatchedString, i, int256(i));
-        //         atoms[i].atomType = LITERAL_ATOM;
-        //     }
-
-        //     return
-        //         matchPattern(
-        //             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
-        //         );
-        // }
         return (-1, -1);
     }
 
-    function getRefGroupIndex(bytes memory atom) private returns (int256) {
-        bytes memory groupNumInString = trimString(atom, 1, -1);
-        uint256 givenGroupNum = stringDigitToDecDigit(groupNumInString);
+    function getDigitBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
+        bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
+        uint256 groupMatchedStringLength = groupMatchedString.length;
+        if (groupMatchedStringLength == 0) return new AtomTrait[](0);
 
-        uint256 currGroupNum;
-        int256 targetGroupIdx = -1;
-        for (uint256 i; i < allAtoms.length; i++) {
-            if (allAtoms[i].atomType == GROUP_ATOM) {
-                if (targetGroupIdx > -1) break;
-                currGroupNum++;
-                if (currGroupNum != givenGroupNum) {
-                    if (i > 0) {
-                        for (uint256 j = i - 1; j >= 0; j--) {
-                            if (allAtoms[j].atomType == GROUP_SUB_ATOM) {
-                                currGroupNum++;
-                                if (currGroupNum == givenGroupNum) {
-                                    targetGroupIdx = int256(j);
-                                    break;
-                                }
-                            }
-                            if (j == 0) break;
-                        }
-                    }
-                } else {
-                    targetGroupIdx = int256(i);
-                    break;
-                }
+        bytes memory chunk;
+        uint256 numAtoms;
+        uint256 j;
+        bool flag;
+        uint256 lastIdx;
+        for (j; j < groupMatchedStringLength; j++) {
+            numAtoms++;
+            chunk = trimString(groupMatchedString, j, -1);
+            (flag, lastIdx) = isUnicodeLiteral(chunk, 0, true);
+            if (flag) {
+                j = lastIdx;
             }
         }
 
-        return targetGroupIdx;
+        console2.log("-----------------------------------getDigitBackRefedAtoms-----------------------------------");
+        console2.log("numAtoms: ", numAtoms);
+        console2.log("----------------------------------------------------------------------");
+        AtomTrait[] memory atoms = new AtomTrait[](numAtoms);
+
+        for (j = 0; j < groupMatchedStringLength; j++) {
+            flag = false;
+            lastIdx = 0;
+            chunk = trimString(groupMatchedString, j, -1);
+            (flag, lastIdx) = isUnicodeLiteral(chunk, 0, true);
+
+            if (flag) {
+                atoms[j].atom = trimString(groupMatchedString, j, int256(lastIdx));
+            } else {
+                atoms[j].atom = trimString(groupMatchedString, j, int256(j));
+            }
+            atoms[j].atomType = LITERAL_ATOM;
+        }
+
+        return atoms;
     }
 
     function matchGroup(
