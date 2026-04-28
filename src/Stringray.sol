@@ -928,6 +928,7 @@ contract Stringray {
         string groupMatchedString;
         int256 groupMatchStartIndex;
         int256 groupMatchEndIndex;
+        uint256 groupNum;
     }
 
     struct ReturnData {
@@ -942,6 +943,7 @@ contract Stringray {
     AtomTrait[] private allAtoms;
     AtomTrait[] private allCCSubAtoms;
     GroupMatchedData[] private grpMatchedData;
+    uint256 private groupsCounter;
 
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
@@ -1258,6 +1260,8 @@ contract Stringray {
                 matchData.matchEndIndex = -1;
 
                 matchData.i = 0;
+                groupsCounter = 0;
+                delete grpMatchedData;
                 continue;
             }
 
@@ -1314,7 +1318,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        // let's match digit backreference if available to.. there...
         console2.log("--------------------matchDigitBackReferenceGroup--------------------");
         console2.log("Atom: ", string(atom));
         console2.log("stringInBytes: ", string(stringInBytes));
@@ -1407,6 +1410,32 @@ contract Stringray {
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("----------------------------------------");
 
+        groupsCounter += 1;
+        uint256 groupNum = groupsCounter;
+
+        (int256 matchStartIndex, int256 matchEndIndex) =
+            matchGroupsAtoms(atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+
+        grpMatchedData.push(
+            GroupMatchedData({
+                groupPatternString: string(atom),
+                groupMatchedString: string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex)),
+                groupMatchStartIndex: matchStartIndex,
+                groupMatchEndIndex: matchEndIndex,
+                groupNum: groupNum
+            })
+        );
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function matchGroupsAtoms(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         bool isFirstMatchCpy = isFirstMatch;
@@ -1424,7 +1453,7 @@ contract Stringray {
             } else {
                 isFirstMatch = isFirstMatchCpy;
             }
-            // e(h)
+
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
             (subAtom[0].atomType, subAtom[0].atomEndIdx) = collectGroupSubAtom(subAtoms, i, patternFlags);
@@ -1432,6 +1461,8 @@ contract Stringray {
             if (subAtom[0].atomType == INVALID_ATOM) return (-1, -1);
 
             subAtom[0].atom = trimString(subAtoms, i, subAtom[0].atomEndIdx);
+
+            console2.log("subAtom: ", string(subAtom[0].atom));
 
             (matchStartIndex, matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true);
@@ -1456,15 +1487,6 @@ contract Stringray {
             indexToStartMatch = uint256(matchEndIndex) + 1;
             i = uint256(subAtom[0].atomEndIdx) + 1;
         }
-
-        grpMatchedData.push(
-            GroupMatchedData({
-                groupPatternString: string(atom),
-                groupMatchedString: string(trimString(stringInBytes, uint256(firstIndex), matchEndIndex)),
-                groupMatchStartIndex: firstIndex,
-                groupMatchEndIndex: matchEndIndex
-            })
-        );
 
         return (firstIndex, matchEndIndex);
     }
