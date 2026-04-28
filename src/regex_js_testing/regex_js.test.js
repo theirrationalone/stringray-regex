@@ -19403,5 +19403,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case000000000000000000000000070", () => {
+    const target = "aaha";
+    let regex = /(a)\1/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000071", () => {
+    const target = "abbah";
+    let regex = /(a)(b)\2\1/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000072", () => {
+    const target = "abbah";
+    let regex = /(\w)\1/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
