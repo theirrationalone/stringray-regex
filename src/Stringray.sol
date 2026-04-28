@@ -1327,38 +1327,67 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
 
-        int256 targetGroupIdx = getRefGroupIndex(atom);
+        bytes memory groupNumInString = trimString(atom, 1, -1);
+        uint256 givenGroupNum = stringDigitToDecDigit(groupNumInString);
 
-        console2.log("targetGroupIdx: ", targetGroupIdx);
-        console2.log("----------------------------------------");
+        for (uint256 i; i < grpMatchedData.length; i++) {
+            if (grpMatchedData[i].groupNum == givenGroupNum) {
+                bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
+                uint256 groupMatchedStringLength = groupMatchedString.length;
+                if (groupMatchedStringLength == 0) return (-1, -1);
 
-        if (targetGroupIdx > -1) {
-            uint256 i;
-            bytes memory groupMatchedString;
+                AtomTrait[] memory atoms = new AtomTrait[](groupMatchedStringLength);
+                for (uint256 j; j < groupMatchedStringLength; j++) {
+                    bool flag;
+                    bytes memory chunk = trimString(groupMatchedString, j, -1);
+                    (flag, j) = isUnicodeLiteral(chunk, 0, true);
 
-            for (; i < grpMatchedData.length; i++) {
-                if (
-                    keccak256(allAtoms[uint256(targetGroupIdx)].atom)
-                        == keccak256(abi.encodePacked(grpMatchedData[i].groupPatternString))
-                ) {
-                    groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
-                    break;
+                    if (flag) {
+                        atoms[j].atom = trimString(groupMatchedString, j, -1);
+                    } else {
+                        atoms[j].atom = trimString(groupMatchedString, j, int256(j));
+                    }
+                    atoms[j].atomType = LITERAL_ATOM;
                 }
-            }
 
-            if (groupMatchedString.length == 0) return (-1, -1);
-
-            AtomTrait[] memory atoms = new AtomTrait[](groupMatchedString.length);
-            for (i = 0; i < groupMatchedString.length; i++) {
-                atoms[i].atom = trimString(groupMatchedString, i, int256(i));
-                atoms[i].atomType = LITERAL_ATOM;
-            }
-
-            return
-                matchPattern(
+                return matchPattern(
                     atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
                 );
+            }
         }
+
+        // int256 targetGroupIdx = getRefGroupIndex(atom);
+
+        // console2.log("targetGroupIdx: ", targetGroupIdx);
+        // console2.log("----------------------------------------");
+
+        // if (targetGroupIdx > -1) {
+        //     uint256 i;
+        //     bytes memory groupMatchedString;
+
+        //     for (; i < grpMatchedData.length; i++) {
+        //         if (
+        //             keccak256(allAtoms[uint256(targetGroupIdx)].atom)
+        //                 == keccak256(abi.encodePacked(grpMatchedData[i].groupPatternString))
+        //         ) {
+        //             groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
+        //             break;
+        //         }
+        //     }
+
+        //     if (groupMatchedString.length == 0) return (-1, -1);
+
+        //     AtomTrait[] memory atoms = new AtomTrait[](groupMatchedString.length);
+        //     for (i = 0; i < groupMatchedString.length; i++) {
+        //         atoms[i].atom = trimString(groupMatchedString, i, int256(i));
+        //         atoms[i].atomType = LITERAL_ATOM;
+        //     }
+
+        //     return
+        //         matchPattern(
+        //             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, true
+        //         );
+        // }
         return (-1, -1);
     }
 
