@@ -24556,10 +24556,6 @@ contract PlayStringTest is Test {
             console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
         }
         console2.log("------------------------------------");
-
-        console2.log("------------------------------------seeAllAtoms------------------------------------");
-        stringray.seeAllAtoms();
-        console2.log("------------------------------------------------------------------------");
     }
 
     function testRegexPatternMatchGroupsCase68() public {
@@ -24580,10 +24576,6 @@ contract PlayStringTest is Test {
             console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
         }
         console2.log("------------------------------------");
-
-        console2.log("------------------------------------seeAllAtoms------------------------------------");
-        stringray.seeAllAtoms();
-        console2.log("------------------------------------------------------------------------");
     }
 
     function testRegexPatternMatchGroupsCase69() public {
@@ -24604,9 +24596,5 @@ contract PlayStringTest is Test {
             console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
         }
         console2.log("------------------------------------");
-
-        console2.log("------------------------------------seeAllAtoms------------------------------------");
-        stringray.seeAllAtoms();
-        console2.log("------------------------------------------------------------------------");
     }
 }

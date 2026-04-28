@@ -19382,5 +19382,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case000000000000000000000000067", () => {
+    const target = "abba";
+    let regex = /(a)(b)\2/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000068", () => {
+    const target = "ms_nehalAh";
+    let regex = /ms_(n((e(h))a)l)A\4/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000069", () => {
+    const target = "ms_nehalAeha";
+    let regex = /ms_(n((e(h))a)l)A\2/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
