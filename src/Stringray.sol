@@ -1206,6 +1206,7 @@ contract Stringray {
             console2.log("matchEndIndex: ", matchData.matchEndIndex);
 
             if (fromCharacterClass && !isFirstMatch) {
+                console2.log("return 1");
                 return (matchData.matchStartIndex, matchData.matchEndIndex);
             }
 
@@ -1245,6 +1246,7 @@ contract Stringray {
                         }
                     } else {
                         indexToStartMatch = uint256(matchData.matchEndIndex);
+                        console2.log("indexToStartMatch set: ", indexToStartMatch);
                     }
                 }
 
@@ -1258,6 +1260,7 @@ contract Stringray {
                 if (!fromCharacterClass) {
                     isFirstMatch = true;
                     matchData.matchStartIndex = 0;
+                    console2.log("resetting crucial data");
                 }
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1336,7 +1339,6 @@ contract Stringray {
 
         for (uint256 i; i < grpMatchedData.length; i++) {
             if (grpMatchedData[i].groupNum == givenGroupNum) {
-                // @BUG: somehow causes infinite loop
                 return matchPattern(
                     getDigitBackRefedAtoms(i),
                     stringInBytes,
@@ -1518,7 +1520,11 @@ contract Stringray {
                     return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
                 }
 
-                indexToStartMatch = uint256(matchGroupData.matchEndIndex);
+                if (isFirstMatch) {
+                    indexToStartMatch = uint256(matchGroupData.matchEndIndex);
+                } else {
+                    return (-1, matchGroupData.matchEndIndex);
+                }
 
                 matchGroupData.firstIndex = -1;
                 matchGroupData.i = 0;

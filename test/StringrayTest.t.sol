@@ -24774,7 +24774,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchGroupsCase75() public {
         string memory target = "abbcacccababbhabccbcabc";
-        string memory pattern = unicode"/(a(b(c)))/";
+        string memory pattern = unicode"/(a(b(c)))\\3\\2\\1/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
