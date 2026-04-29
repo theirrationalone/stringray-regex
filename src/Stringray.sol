@@ -1336,6 +1336,7 @@ contract Stringray {
 
         for (uint256 i; i < grpMatchedData.length; i++) {
             if (grpMatchedData[i].groupNum == givenGroupNum) {
+                // @BUG: somehow causes infinite loop
                 return matchPattern(
                     getDigitBackRefedAtoms(i),
                     stringInBytes,
@@ -1484,6 +1485,8 @@ contract Stringray {
         for (matchGroupData.i; matchGroupData.i < subAtoms.length;) {
             console2.log("subAtoms: ", string(subAtoms));
             console2.log("current i: ", matchGroupData.i);
+            console2.log("last matchStartIndex: ", matchGroupData.matchStartIndex);
+            console2.log("last matchEndIndex: ", matchGroupData.matchEndIndex);
             if (matchGroupData.i > 0) {
                 isFirstMatch = false;
             } else {
@@ -1514,7 +1517,9 @@ contract Stringray {
                 if (matchGroupData.i + 1 == subAtoms.length) {
                     return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
                 }
+
                 indexToStartMatch = uint256(matchGroupData.matchEndIndex);
+
                 matchGroupData.firstIndex = -1;
                 matchGroupData.i = 0;
                 groupsCounter = currentGroupNum;
