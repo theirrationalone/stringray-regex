@@ -1348,9 +1348,15 @@ contract Stringray {
     }
 
     function getDigitBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
+        console2.log("into getDigitBackRefedAtoms");
         bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
         uint256 groupMatchedStringLength = groupMatchedString.length;
+        console2.log("groupMatchedStringLength: ", groupMatchedStringLength);
         if (groupMatchedStringLength == 0) return new AtomTrait[](0);
+        console2.log("passing length check");
+
+        // @BUG: somehow getting empty matched string on sub groups
+        // @fixed: false
 
         bytes memory chunk;
         uint256 numAtoms;
@@ -1360,7 +1366,9 @@ contract Stringray {
         for (j; j < groupMatchedStringLength; j++) {
             numAtoms++;
             chunk = trimString(groupMatchedString, j, -1);
+            console2.log("reaching here");
             (flag, lastIdx) = isUnicodeLiteral(chunk, 0, true);
+            console2.log("unreachable");
             if (flag) {
                 j = lastIdx;
             }
