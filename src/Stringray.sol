@@ -994,7 +994,7 @@ contract Stringray {
         int256 firstIndex;
         int256 matchStartIndex;
         int256 matchEndIndex;
-        bool wordBoundary;
+        bool specialFlag;
         uint256 i;
     }
 
@@ -1137,7 +1137,7 @@ contract Stringray {
                         matchData.firstIndex = matchData.matchEndIndex;
                     } else {
                         if (matchData.i + 1 == atoms.length) {
-                            if (!matchData.wordBoundary) {
+                            if (!matchData.specialFlag) {
                                 if (indexToStartMatch + 1 == stringInBytes.length) {
                                     matchData.matchEndIndex = int256(indexToStartMatch);
                                 } else {
@@ -1150,7 +1150,7 @@ contract Stringray {
                             matchData.matchEndIndex = int256(indexToStartMatch);
                         }
                     }
-                    matchData.wordBoundary = true;
+                    matchData.specialFlag = true;
                     matchData.i++;
                     continue;
                 } else if (matchData.matchEndIndex == -1) {
@@ -1224,7 +1224,7 @@ contract Stringray {
                     matchData.firstIndex = -1;
                     matchData.matchEndIndex = -1;
                 }
-                matchData.wordBoundary = false;
+                matchData.specialFlag = false;
                 indexToStartMatch = matchData.matchEndIndex > -1
                     ? uint256(matchData.matchEndIndex) + 1
                     : uint256(matchData.matchEndIndex);
@@ -1233,9 +1233,9 @@ contract Stringray {
             }
 
             if (matchData.matchStartIndex == -1) {
-                if (matchData.wordBoundary) {
+                if (matchData.specialFlag) {
                     indexToStartMatch = uint256(matchData.matchEndIndex + 1);
-                    matchData.wordBoundary = false;
+                    matchData.specialFlag = false;
                 } else {
                     if (fromCharacterClass) {
                         if (matchData.matchEndIndex == -1) {
@@ -1249,6 +1249,9 @@ contract Stringray {
                 }
 
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
+                    groupsCounter = 0;
+                    delete grpMatchedData;
+                    console2.log("resetted groups counter and groups data");
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
 
@@ -1262,10 +1265,11 @@ contract Stringray {
                 matchData.i = 0;
                 groupsCounter = 0;
                 delete grpMatchedData;
+                console2.log("resetted everything...");
                 continue;
             }
 
-            matchData.wordBoundary = false;
+            matchData.specialFlag = false;
             indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
             matchData.i++;
         }
@@ -1352,11 +1356,16 @@ contract Stringray {
         bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
         uint256 groupMatchedStringLength = groupMatchedString.length;
         console2.log("groupMatchedStringLength: ", groupMatchedStringLength);
+        console2.log("in mid call to group matched data for verification");
+        console2.log("i: ", i);
+        console2.log("Group pattern string   : ", grpMatchedData[i].groupPatternString);
+        console2.log("Group matched string   : ", grpMatchedData[i].groupMatchedString);
+        console2.log("Group match start index: ", grpMatchedData[i].groupMatchStartIndex);
+        console2.log("Group match end index  : ", grpMatchedData[i].groupMatchEndIndex);
+        console2.log("Group number           : ", grpMatchedData[i].groupNum);
+        console2.log("---");
         if (groupMatchedStringLength == 0) return new AtomTrait[](0);
         console2.log("passing length check");
-
-        // @BUG: somehow getting empty matched string on sub groups
-        // @fixed: false
 
         bytes memory chunk;
         uint256 numAtoms;
@@ -1404,18 +1413,24 @@ contract Stringray {
         bytes memory patternFlags
     ) private returns (int256, int256) {
         console2.log("--------------------matchGroup--------------------");
+        seelAllMatchedGroups();
         console2.log("Atom: ", string(atom));
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
-        console2.log("----------------------------------------");
+        console2.log("groupsCounter: ", groupsCounter);
 
         groupsCounter += 1;
         uint256 groupNum = groupsCounter;
 
         (int256 matchStartIndex, int256 matchEndIndex) =
-            matchGroupsAtoms(atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+            matchGroupsAtoms(atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, groupNum);
+
+        console2.log("matchStartIndex: ", matchStartIndex);
+        console2.log("matchEndIndex  : ", matchEndIndex);
+        console2.log("groupsCounter  : ", groupsCounter);
+        console2.log("groupNum       : ", groupNum);
 
         grpMatchedData.push(
             GroupMatchedData({
@@ -1427,7 +1442,25 @@ contract Stringray {
             })
         );
 
+        seelAllMatchedGroups();
+        console2.log("--------------------matchGroupEnd--------------------");
+
         return (matchStartIndex, matchEndIndex);
+    }
+
+    function seelAllMatchedGroups() private {
+        console2.log("----------------------seelAllMatchedGroups----------------------");
+        for (uint256 i; i < grpMatchedData.length; i++) {
+            console2.log("-----------matched-group-----------");
+            console2.log("i                      : ", i);
+            console2.log("Group pattern string   : ", grpMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", grpMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", grpMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", grpMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", grpMatchedData[i].groupNum);
+            console2.log("----------------------");
+        }
+        console2.log("--------------------------------------------");
     }
 
     function matchGroupsAtoms(
@@ -1435,61 +1468,68 @@ contract Stringray {
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
-        bytes memory patternFlags
+        bytes memory patternFlags,
+        uint256 currentGroupNum
     ) private returns (int256, int256) {
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
-        bool isFirstMatchCpy = isFirstMatch;
+        MatchData memory matchGroupData;
+        matchGroupData.matchStartIndex = -1;
+        matchGroupData.matchEndIndex = -1;
+        matchGroupData.specialFlag = isFirstMatch;
 
-        if (atom.length == 0) return (matchStartIndex, matchEndIndex);
+        if (atom.length == 0) return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
 
         bytes memory subAtoms = trimString(atom, 1, int256(atom.length - 2));
-        int256 firstIndex = -1;
+        matchGroupData.firstIndex = -1;
 
-        for (uint256 i; i < subAtoms.length;) {
+        for (matchGroupData.i; matchGroupData.i < subAtoms.length;) {
             console2.log("subAtoms: ", string(subAtoms));
-            console2.log("current i: ", i);
-            if (i > 0) {
+            console2.log("current i: ", matchGroupData.i);
+            if (matchGroupData.i > 0) {
                 isFirstMatch = false;
             } else {
-                isFirstMatch = isFirstMatchCpy;
+                isFirstMatch = matchGroupData.specialFlag;
             }
 
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
-            (subAtom[0].atomType, subAtom[0].atomEndIdx) = collectGroupSubAtom(subAtoms, i, patternFlags);
+            (subAtom[0].atomType, subAtom[0].atomEndIdx) = collectGroupSubAtom(subAtoms, matchGroupData.i, patternFlags);
 
             if (subAtom[0].atomType == INVALID_ATOM) return (-1, -1);
 
-            subAtom[0].atom = trimString(subAtoms, i, subAtom[0].atomEndIdx);
+            subAtom[0].atom = trimString(subAtoms, matchGroupData.i, subAtom[0].atomEndIdx);
 
             console2.log("subAtom: ", string(subAtom[0].atom));
 
-            (matchStartIndex, matchEndIndex) =
+            (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true);
 
             console2.log("came back from matchPattern");
-            console2.log("matchStartIndex: ", matchStartIndex);
-            console2.log("matchEndIndex: ", matchEndIndex);
+            console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
+            console2.log("matchEndIndex: ", matchGroupData.matchEndIndex);
 
-            if (matchStartIndex == -1 && matchEndIndex == -1) return (matchStartIndex, matchEndIndex);
-            if (matchStartIndex == -1 && matchEndIndex > -1) {
-                if (i + 1 == subAtoms.length) return (matchStartIndex, matchEndIndex);
-                indexToStartMatch = uint256(matchEndIndex);
-                firstIndex = -1;
-                i = 0;
+            if (matchGroupData.matchStartIndex == -1 && matchGroupData.matchEndIndex == -1) {
+                return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
+            }
+            if (matchGroupData.matchStartIndex == -1 && matchGroupData.matchEndIndex > -1) {
+                if (matchGroupData.i + 1 == subAtoms.length) {
+                    return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
+                }
+                indexToStartMatch = uint256(matchGroupData.matchEndIndex);
+                matchGroupData.firstIndex = -1;
+                matchGroupData.i = 0;
+                groupsCounter = currentGroupNum;
                 continue;
             }
 
-            if (firstIndex == -1) {
-                firstIndex = matchStartIndex;
+            if (matchGroupData.firstIndex == -1) {
+                matchGroupData.firstIndex = matchGroupData.matchStartIndex;
             }
 
-            indexToStartMatch = uint256(matchEndIndex) + 1;
-            i = uint256(subAtom[0].atomEndIdx) + 1;
+            indexToStartMatch = uint256(matchGroupData.matchEndIndex) + 1;
+            matchGroupData.i = uint256(subAtom[0].atomEndIdx) + 1;
         }
 
-        return (firstIndex, matchEndIndex);
+        return (matchGroupData.firstIndex, matchGroupData.matchEndIndex);
     }
 
     function collectGroupSubAtom(bytes memory subAtoms, uint256 currentIdx, bytes memory patternFlags)
