@@ -931,6 +931,11 @@ contract Stringray {
         uint256 groupNum;
     }
 
+    struct GroupNames {
+        bytes groupName;
+        bytes matchedString;
+    }
+
     struct ReturnData {
         string patternString;
         string originalString;
@@ -938,11 +943,7 @@ contract Stringray {
         int256 matchStartIndex;
         int256 matchEndIndex;
         GroupMatchedData[] groupMatchedData;
-    }
-
-    struct GroupNames {
-        bytes groupName;
-        bytes matchedString;
+        GroupNames[] groupNames;
     }
 
     AtomTrait[] private allAtoms;
@@ -992,7 +993,8 @@ contract Stringray {
             matchedString: matchedString,
             matchStartIndex: matchStartIndex,
             matchEndIndex: matchEndIndex,
-            groupMatchedData: grpMatchedData
+            groupMatchedData: grpMatchedData,
+            groupNames: groupNames
         });
     }
 
@@ -1467,6 +1469,9 @@ contract Stringray {
         groupsCounter += 1;
         uint256 groupNum = groupsCounter;
 
+        bytes memory groupName;
+        (atom, groupName) = getAtomSlice(atom);
+
         (int256 matchStartIndex, int256 matchEndIndex) =
             matchGroupsAtoms(atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, groupNum);
 
@@ -1475,20 +1480,51 @@ contract Stringray {
         console2.log("groupsCounter  : ", groupsCounter);
         console2.log("groupNum       : ", groupNum);
 
+        bytes memory matchedString = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
+
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
-                groupMatchedString: string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex)),
+                groupMatchedString: string(matchedString),
                 groupMatchStartIndex: matchStartIndex,
                 groupMatchEndIndex: matchEndIndex,
                 groupNum: groupNum
             })
         );
 
+        if (groupName.length > 0) {
+            groupNames.push(GroupNames({groupName: groupName, matchedString: matchedString}));
+        }
+
         seelAllMatchedGroups();
         console2.log("--------------------matchGroupEnd--------------------");
 
         return (matchStartIndex, matchEndIndex);
+    }
+
+    function getAtomSlice(bytes memory atom) private returns (bytes memory, bytes memory) {
+        int256 groupNameTrimEndIndex = -1;
+        bytes memory groupName;
+
+        atom = trimString(atom, 1, int256(atom.length - 2));
+        if (atom.length > 3 && uint8(atom[0]) == QUESTION_MARK && uint8(atom[1]) == LESS_THAN_SIGN) {
+            for (uint256 i = 2; i < atom.length; i++) {
+                if (uint8(atom[i]) == GREATER_THAN_SIGN) {
+                    groupNameTrimEndIndex = int256(i) - 1;
+                    break;
+                }
+            }
+        }
+
+        if (groupNameTrimEndIndex == -1) return (atom, groupName);
+
+        groupName = trimString(atom, 2, groupNameTrimEndIndex);
+
+        if (uint256(groupNameTrimEndIndex) + 2 < atom.length) {
+            atom = trimString(atom, uint256(groupNameTrimEndIndex) + 2, -1);
+        }
+
+        return (atom, groupName);
     }
 
     function seelAllMatchedGroups() private {
@@ -1507,7 +1543,7 @@ contract Stringray {
     }
 
     function matchGroupsAtoms(
-        bytes memory atom,
+        bytes memory subAtoms,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
@@ -1519,10 +1555,7 @@ contract Stringray {
         matchGroupData.matchEndIndex = -1;
         matchGroupData.specialFlag = isFirstMatch;
 
-        if (atom.length == 0) return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
-
-        bytes memory subAtoms = trimString(atom, 1, int256(atom.length - 2));
-        // @TODO: determine capture groups...
+        if (subAtoms.length == 0) return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
         matchGroupData.firstIndex = -1;
 
         for (matchGroupData.i; matchGroupData.i < subAtoms.length;) {
