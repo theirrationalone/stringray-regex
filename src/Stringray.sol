@@ -1271,6 +1271,7 @@ contract Stringray {
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
                     groupsCounter = 0;
                     delete grpMatchedData;
+                    delete groupNames;
                     console2.log("resetted groups counter and groups data");
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
@@ -1286,6 +1287,7 @@ contract Stringray {
                 matchData.i = 0;
                 groupsCounter = 0;
                 delete grpMatchedData;
+                delete groupNames;
                 console2.log("resetted everything...");
                 continue;
             }

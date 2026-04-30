@@ -19468,8 +19468,22 @@ const testMain = () => {
   });
 
   test("Pattern match Groups cases: Case000000000000000000000000079", () => {
+    const target = "aa";
+    let regex = /(?<x>a)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000080", () => {
     const target = "hello";
     let regex = /(?<word>\w)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000081", () => {
+    const target = "aa";
+    let regex = /(?<x>a)\k<x>/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
