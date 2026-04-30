@@ -1354,9 +1354,33 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
         console2.log("----------------------------------------");
+        bytes memory refGroupName;
+        if (atom.length > 3) {
+            refGroupName = trimString(atom, 3, int256(atom.length) - 2);
+        }
 
-        // @TODO: complete the implement of this function...
+        console2.log("refGroupName: ", string(refGroupName));
+        uint256 i;
+        for (; i < groupNames.length; i++) {
+            if (keccak256(groupNames[i].groupName) == keccak256(refGroupName)) {
+                return matchPattern(
+                    getNamedBackRefedAtoms(i),
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    true
+                );
+            }
+        }
+
         return (-1, -1);
+    }
+
+    function getNamedBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
+        bytes memory groupMatchedString = abi.encodePacked(groupNames[i].matchedString);
+        return generateGroupAtoms(groupMatchedString);
     }
 
     function matchDigitBackReferenceGroup(
@@ -1399,20 +1423,14 @@ contract Stringray {
     }
 
     function getDigitBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
-        console2.log("into getDigitBackRefedAtoms");
         bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
+        return generateGroupAtoms(groupMatchedString);
+    }
+
+    function generateGroupAtoms(bytes memory groupMatchedString) private returns (AtomTrait[] memory) {
         uint256 groupMatchedStringLength = groupMatchedString.length;
-        console2.log("groupMatchedStringLength: ", groupMatchedStringLength);
-        console2.log("in mid call to group matched data for verification");
-        console2.log("i: ", i);
-        console2.log("Group pattern string   : ", grpMatchedData[i].groupPatternString);
-        console2.log("Group matched string   : ", grpMatchedData[i].groupMatchedString);
-        console2.log("Group match start index: ", grpMatchedData[i].groupMatchStartIndex);
-        console2.log("Group match end index  : ", grpMatchedData[i].groupMatchEndIndex);
-        console2.log("Group number           : ", grpMatchedData[i].groupNum);
-        console2.log("---");
+
         if (groupMatchedStringLength == 0) return new AtomTrait[](0);
-        console2.log("passing length check");
 
         bytes memory chunk;
         uint256 numAtoms;
@@ -1430,7 +1448,7 @@ contract Stringray {
             }
         }
 
-        console2.log("-----------------------------------getDigitBackRefedAtoms-----------------------------------");
+        console2.log("-----------------------------------generateGroupAtoms-----------------------------------");
         console2.log("numAtoms: ", numAtoms);
         console2.log("----------------------------------------------------------------------");
         AtomTrait[] memory atoms = new AtomTrait[](numAtoms);

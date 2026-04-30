@@ -24912,7 +24912,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchGroupsCase81() public {
         string memory target = "aa";
-        string memory pattern = unicode"/(?<x>a)\\k<x>/";
+        string memory pattern = unicode"/(?<simple_one>a)\\k<simple_one>/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
