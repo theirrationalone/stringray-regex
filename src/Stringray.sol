@@ -940,9 +940,15 @@ contract Stringray {
         GroupMatchedData[] groupMatchedData;
     }
 
+    struct GroupNames {
+        bytes groupName;
+        bytes matchedString;
+    }
+
     AtomTrait[] private allAtoms;
     AtomTrait[] private allCCSubAtoms;
     GroupMatchedData[] private grpMatchedData;
+    GroupNames[] private groupNames;
     uint256 private groupsCounter;
 
     function seeAllAtoms() public view {
@@ -1516,6 +1522,7 @@ contract Stringray {
         if (atom.length == 0) return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
 
         bytes memory subAtoms = trimString(atom, 1, int256(atom.length - 2));
+        // @TODO: determine capture groups...
         matchGroupData.firstIndex = -1;
 
         for (matchGroupData.i; matchGroupData.i < subAtoms.length;) {

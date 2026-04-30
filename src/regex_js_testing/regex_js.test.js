@@ -19468,8 +19468,8 @@ const testMain = () => {
   });
 
   test("Pattern match Groups cases: Case000000000000000000000000079", () => {
-    const target = "aa";
-    let regex = /(?<x>a)\k<x>/;
+    const target = "hello";
+    let regex = /(?<word>\w)/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
