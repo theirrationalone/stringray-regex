@@ -1197,6 +1197,16 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+            } else if (atoms[matchData.i].atomType == NAMED_BACKREFERENCE_PREFIX) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchNamedBackReferenceGroup(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1316,6 +1326,29 @@ contract Stringray {
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
+    function matchNamedBackReferenceGroup(
+        bytes memory atom,
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        console2.log("--------------------matchNamedBackReferenceGroup--------------------");
+        console2.log("Atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("fromGroup: ", fromGroup);
+        console2.log("----------------------------------------");
+
+        // @TODO: complete the implement of this function...
+        return (-1, -1);
+    }
+
     function matchDigitBackReferenceGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -1333,6 +1366,7 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
+        console2.log("----------------------------------------");
 
         bytes memory groupNumInString = trimString(atom, 1, -1);
         uint256 givenGroupNum = stringDigitToDecDigit(groupNumInString);
