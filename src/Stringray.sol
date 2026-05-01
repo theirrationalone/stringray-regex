@@ -3130,7 +3130,11 @@ contract Stringray {
         uint256 numGroups;
 
         for (uint256 i; i < atoms.length; i++) {
-            if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) numGroups++;
+            if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) {
+                if (uint8(atoms[i].atom[1]) != QUESTION_MARK || uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN) {
+                    numGroups++;
+                }
+            }
         }
 
         return numGroups;

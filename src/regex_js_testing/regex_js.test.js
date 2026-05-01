@@ -19530,5 +19530,19 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000088", () => {
+  //   const target = "foobarfoo\x01foo";
+  //   let regex = /foo(?=bar)\1/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  test("Pattern match Groups cases: Case000000000000000000000000089", () => {
+    const target = "foobar";
+    let regex = /foo(?=bar)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
