@@ -19494,5 +19494,41 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case000000000000000000000000083", () => {
+    const target = "abcabbabxyz";
+    let regex = /(?<a>a)(?<b>b)\k<b>\k<a>/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000084", () => {
+    const target = "abcababxababbyz";
+    let regex = /(?<outer>a(?<inner>b))\k<outer>\k<inner>/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000085", () => {
+    const target = "abcabapsfabcxarabccbcabcbxababbyz";
+    let regex = /(?<g1>a(?<g2>b(?<g3>c)))\k<g3>\k<g2>\k<g1>/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000086", () => {
+    const target = "bccbcabcabbabxaba";
+    let regex = /(?<x>a)(b)\2\k<x>/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000087", () => {
+    const target = "bccbcabcabbabxaba";
+    // @NOTE: works differently as compared to solidity
+    let regex = /\k<x>(?<x>a)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
