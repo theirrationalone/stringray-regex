@@ -2487,8 +2487,15 @@ contract Stringray {
         bool flag;
         uint256 lastIndex;
 
+        console2.log("----------------matchWhitespace----------------");
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("isNotWhitespace: ", isNotWhitespace);
+        console2.log("--------------------------------");
+
         if (isFirstMatch) {
-            for (uint256 i = indexToStartMatch; i < stringInBytes.length;) {
+            uint256 i;
+            for (i = indexToStartMatch; i < stringInBytes.length;) {
                 (flag, lastIndex) = isWhitespace(stringInBytes, i, isNotWhitespace);
                 if (flag) {
                     matchEndIndex = int256(lastIndex);
@@ -2497,11 +2504,14 @@ contract Stringray {
                 }
                 i += 1;
             }
+            matchEndIndex = int256(i - 1);
         } else {
             (flag, lastIndex) = isWhitespace(stringInBytes, indexToStartMatch, isNotWhitespace);
             if (flag) {
                 matchEndIndex = int256(lastIndex);
                 matchStartIndex = int256(indexToStartMatch);
+            } else {
+                matchEndIndex = int256(indexToStartMatch);
             }
         }
 
