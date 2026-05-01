@@ -25204,4 +25204,93 @@ contract PlayStringTest is Test {
         }
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchGroupsCase91() public {
+        string memory target = "foobaz";
+        string memory pattern = unicode"/foo(?!bar)\\1/u";
+
+        // @Error: SyntaxError: Invalid regular expression: /foo(?!bar)\1/u: Invalid escape
+        vm.expectRevert();
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase92() public {
+        string memory target = "foobaz";
+        string memory pattern = unicode"/foo(?!bar)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchGroupsCase93() public {
+        string memory target = "foobaz";
+        string memory pattern = unicode"/foo(?!baz)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
 }

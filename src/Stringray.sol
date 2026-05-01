@@ -1477,6 +1477,15 @@ contract Stringray {
         return atoms;
     }
 
+    struct MatchGroupData {
+        uint256 groupNum;
+        bool isPositiveLookAhead;
+        bool isNegativeLookAhead;
+        bytes groupName;
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+    }
+
     function matchGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -1493,51 +1502,69 @@ contract Stringray {
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("groupsCounter: ", groupsCounter);
 
+        MatchGroupData memory matchGroupData;
+
         groupsCounter += 1;
-        uint256 groupNum = groupsCounter;
-        bool isLookAround;
+        matchGroupData.groupNum = groupsCounter;
 
-        if (atom.length > 4 && uint8(atom[1]) == QUESTION_MARK && uint8(atom[2]) == ASSIGNMENT_SIGN) {
-            isLookAround = true;
+        if (atom.length > 4 && uint8(atom[1]) == QUESTION_MARK) {
+            if (uint8(atom[2]) == ASSIGNMENT_SIGN) {
+                matchGroupData.isPositiveLookAhead = true;
+            } else if (uint8(atom[2]) == EXCLAMATION_MARK) {
+                matchGroupData.isNegativeLookAhead = true;
+            }
         }
 
-        bytes memory groupName;
-        (atom, groupName) = getAtomSlice(atom);
+        (atom, matchGroupData.groupName) = getAtomSlice(atom);
 
-        (int256 matchStartIndex, int256 matchEndIndex) =
-            matchGroupsAtoms(atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, groupNum);
+        (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
+            atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, matchGroupData.groupNum
+        );
 
-        console2.log("matchStartIndex: ", matchStartIndex);
-        console2.log("matchEndIndex  : ", matchEndIndex);
+        console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
+        console2.log("matchEndIndex  : ", matchGroupData.matchEndIndex);
         console2.log("groupsCounter  : ", groupsCounter);
-        console2.log("groupNum       : ", groupNum);
+        console2.log("groupNum       : ", matchGroupData.groupNum);
+        console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
+        console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
 
-        if (matchStartIndex == -1) return (matchStartIndex, matchEndIndex);
-
-        if (isLookAround) {
-            return (matchStartIndex, -2);
+        if (matchGroupData.matchStartIndex == -1) {
+            if (matchGroupData.isNegativeLookAhead) {
+                return (matchGroupData.matchStartIndex, -2);
+            }
+            return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
         }
 
-        bytes memory matchedString = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
+        if (matchGroupData.isNegativeLookAhead) {
+            console2.log("returning right one");
+            return (-1, matchGroupData.matchEndIndex);
+        }
+
+        if (matchGroupData.isPositiveLookAhead) {
+            return (matchGroupData.matchStartIndex, -2);
+        }
+
+        bytes memory matchedString =
+            trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
                 groupMatchedString: string(matchedString),
-                groupMatchStartIndex: matchStartIndex,
-                groupMatchEndIndex: matchEndIndex,
-                groupNum: groupNum
+                groupMatchStartIndex: matchGroupData.matchStartIndex,
+                groupMatchEndIndex: matchGroupData.matchEndIndex,
+                groupNum: matchGroupData.groupNum
             })
         );
 
-        if (groupName.length > 0) {
-            groupNames.push(GroupNames({groupName: groupName, matchedString: matchedString}));
+        if (matchGroupData.groupName.length > 0) {
+            groupNames.push(GroupNames({groupName: matchGroupData.groupName, matchedString: matchedString}));
         }
 
         seelAllMatchedGroups();
         console2.log("--------------------matchGroupEnd--------------------");
 
-        return (matchStartIndex, matchEndIndex);
+        return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
     }
 
     function getAtomSlice(bytes memory atom) private returns (bytes memory, bytes memory) {
@@ -1547,9 +1574,11 @@ contract Stringray {
         atom = trimString(atom, 1, int256(atom.length - 2));
         if (
             atom.length > 2 && uint8(atom[0]) == QUESTION_MARK
-                && (uint8(atom[1]) == LESS_THAN_SIGN || uint8(atom[1]) == ASSIGNMENT_SIGN)
+                && (uint8(atom[1]) == LESS_THAN_SIGN
+                    || uint8(atom[1]) == ASSIGNMENT_SIGN
+                    || uint8(atom[1]) == EXCLAMATION_MARK)
         ) {
-            if (uint8(atom[1]) == ASSIGNMENT_SIGN) {
+            if (uint8(atom[1]) == ASSIGNMENT_SIGN || uint8(atom[1]) == EXCLAMATION_MARK) {
                 groupNameTrimEndIndex = int256(atom.length - 1);
             } else {
                 for (uint256 i = 2; i < atom.length; i++) {
@@ -1569,7 +1598,10 @@ contract Stringray {
             atom = trimString(atom, uint256(groupNameTrimEndIndex) + 2, -1);
         }
 
-        if (atom.length > 2 && uint8(atom[0]) == QUESTION_MARK && uint8(atom[1]) == ASSIGNMENT_SIGN) {
+        if (
+            atom.length > 2 && uint8(atom[0]) == QUESTION_MARK
+                && (uint8(atom[1]) == ASSIGNMENT_SIGN || uint8(atom[1]) == EXCLAMATION_MARK)
+        ) {
             atom = groupName;
             groupName = abi.encodePacked("");
         }
@@ -3161,7 +3193,10 @@ contract Stringray {
 
         for (uint256 i; i < atoms.length; i++) {
             if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) {
-                if (uint8(atoms[i].atom[1]) != QUESTION_MARK || uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN) {
+                if (
+                    uint8(atoms[i].atom[1]) != QUESTION_MARK
+                        || (uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN && uint8(atoms[i].atom[2]) != EXCLAMATION_MARK)
+                ) {
                     numGroups++;
                 }
             }
