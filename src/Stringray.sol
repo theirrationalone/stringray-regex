@@ -1193,8 +1193,15 @@ contract Stringray {
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
             } else if (atoms[matchData.i].atomType == GROUP_ATOM) {
+                int256 prevMatchStartIndex = matchData.matchStartIndex;
+                int256 prevMatchEndIndex = matchData.matchEndIndex;
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+
+                if (matchData.matchEndIndex == -2) {
+                    matchData.matchStartIndex = prevMatchStartIndex;
+                    matchData.matchEndIndex = prevMatchEndIndex;
+                }
             } else if (atoms[matchData.i].atomType == DIGIT_BACKREFERENCE_PREFIX) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDigitBackReferenceGroup(
                     atoms[matchData.i].atom,
@@ -1488,6 +1495,11 @@ contract Stringray {
 
         groupsCounter += 1;
         uint256 groupNum = groupsCounter;
+        bool isLookAround;
+
+        if (atom.length > 4 && uint8(atom[1]) == QUESTION_MARK && uint8(atom[2]) == ASSIGNMENT_SIGN) {
+            isLookAround = true;
+        }
 
         bytes memory groupName;
         (atom, groupName) = getAtomSlice(atom);
@@ -1499,6 +1511,12 @@ contract Stringray {
         console2.log("matchEndIndex  : ", matchEndIndex);
         console2.log("groupsCounter  : ", groupsCounter);
         console2.log("groupNum       : ", groupNum);
+
+        if (matchStartIndex == -1) return (matchStartIndex, matchEndIndex);
+
+        if (isLookAround) {
+            return (matchStartIndex, -2);
+        }
 
         bytes memory matchedString = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
 
@@ -1527,11 +1545,18 @@ contract Stringray {
         bytes memory groupName;
 
         atom = trimString(atom, 1, int256(atom.length - 2));
-        if (atom.length > 3 && uint8(atom[0]) == QUESTION_MARK && uint8(atom[1]) == LESS_THAN_SIGN) {
-            for (uint256 i = 2; i < atom.length; i++) {
-                if (uint8(atom[i]) == GREATER_THAN_SIGN) {
-                    groupNameTrimEndIndex = int256(i) - 1;
-                    break;
+        if (
+            atom.length > 2 && uint8(atom[0]) == QUESTION_MARK
+                && (uint8(atom[1]) == LESS_THAN_SIGN || uint8(atom[1]) == ASSIGNMENT_SIGN)
+        ) {
+            if (uint8(atom[1]) == ASSIGNMENT_SIGN) {
+                groupNameTrimEndIndex = int256(atom.length - 1);
+            } else {
+                for (uint256 i = 2; i < atom.length; i++) {
+                    if (uint8(atom[i]) == GREATER_THAN_SIGN) {
+                        groupNameTrimEndIndex = int256(i) - 1;
+                        break;
+                    }
                 }
             }
         }
@@ -1542,6 +1567,11 @@ contract Stringray {
 
         if (uint256(groupNameTrimEndIndex) + 2 < atom.length) {
             atom = trimString(atom, uint256(groupNameTrimEndIndex) + 2, -1);
+        }
+
+        if (atom.length > 2 && uint8(atom[0]) == QUESTION_MARK && uint8(atom[1]) == ASSIGNMENT_SIGN) {
+            atom = groupName;
+            groupName = abi.encodePacked("");
         }
 
         return (atom, groupName);

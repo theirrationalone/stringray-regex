@@ -19544,5 +19544,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case000000000000000000000000090", () => {
+    const target = "foobaz";
+    let regex = /foo(?=bar)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
