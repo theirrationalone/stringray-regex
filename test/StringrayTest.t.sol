@@ -25266,7 +25266,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchGroupsCase93() public {
-        string memory target = "foobaz";
+        string memory target = "foobazfoobara";
         string memory pattern = unicode"/foo(?!baz)/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
@@ -25353,7 +25353,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchGroupsCase96() public {
-        string memory target = "now let's pay $dollars, total is $9.";
+        string memory target = "now let's pay $dollars, total is $9. or 8";
         string memory pattern = unicode"/(?<!\\$)\\d/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);

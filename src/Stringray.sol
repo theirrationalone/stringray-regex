@@ -1573,7 +1573,7 @@ contract Stringray {
         }
 
         if (matchGroupData.isNegativeLookBehind) {
-            return (-1, matchGroupData.matchEndIndex);
+            return (-1, matchGroupData.matchEndIndex + 1);
         }
 
         bytes memory matchedString =

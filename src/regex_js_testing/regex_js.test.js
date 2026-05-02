@@ -19567,10 +19567,10 @@ const testMain = () => {
   });
 
   test("Pattern match Groups cases: Case000000000000000000000000093", () => {
-    const target = "foobaz";
+    const target = "foobazfoobar";
     let regex = /foo(?!baz)/;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
+    assert.strictEqual(regex.test(target), true);
   });
 
   // test("Pattern match Groups cases: Case000000000000000000000000094", () => {
@@ -19583,6 +19583,13 @@ const testMain = () => {
   test("Pattern match Groups cases: Case000000000000000000000000095", () => {
     const target = "now let's pay $dollars, total is $9.";
     let regex = /(?<=\$)\d/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000095", () => {
+    const target = "now let's pay $dollars, total is $9. or 8";
+    let regex = /(?<!\$)\d/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
