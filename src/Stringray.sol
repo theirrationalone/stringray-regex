@@ -1202,6 +1202,14 @@ contract Stringray {
                     matchData.matchStartIndex = prevMatchStartIndex;
                     matchData.matchEndIndex = prevMatchEndIndex;
                 }
+
+                if (matchData.matchStartIndex == -2) {
+                    indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+                    matchData.matchStartIndex = -1;
+                    matchData.matchEndIndex = -1;
+                    matchData.i++;
+                    continue;
+                }
             } else if (atoms[matchData.i].atomType == DIGIT_BACKREFERENCE_PREFIX) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDigitBackReferenceGroup(
                     atoms[matchData.i].atom,
@@ -1481,6 +1489,8 @@ contract Stringray {
         uint256 groupNum;
         bool isPositiveLookAhead;
         bool isNegativeLookAhead;
+        bool isPositiveLookBehind;
+        bool isNegativeLookBehind;
         bytes groupName;
         int256 matchStartIndex;
         int256 matchEndIndex;
@@ -1512,10 +1522,16 @@ contract Stringray {
                 matchGroupData.isPositiveLookAhead = true;
             } else if (uint8(atom[2]) == EXCLAMATION_MARK) {
                 matchGroupData.isNegativeLookAhead = true;
+            } else if (atom.length > 5 && uint8(atom[2]) == LESS_THAN_SIGN && uint8(atom[3]) == ASSIGNMENT_SIGN) {
+                matchGroupData.isPositiveLookBehind = true;
+            } else if (atom.length > 5 && uint8(atom[2]) == LESS_THAN_SIGN && uint8(atom[3]) == EXCLAMATION_MARK) {
+                matchGroupData.isNegativeLookBehind = true;
             }
         }
 
         (atom, matchGroupData.groupName) = getAtomSlice(atom);
+
+        console2.log("ATOM: ", string(atom));
 
         (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
             atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, matchGroupData.groupNum
@@ -1532,6 +1548,14 @@ contract Stringray {
             if (matchGroupData.isNegativeLookAhead) {
                 return (matchGroupData.matchStartIndex, -2);
             }
+
+            if (matchGroupData.isNegativeLookBehind) {
+                if (atom.length > 0) {
+                    return (-2, int256(indexToStartMatch + atom.length - 1));
+                } else {
+                    return (-2, matchGroupData.matchEndIndex);
+                }
+            }
             return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
         }
 
@@ -1542,6 +1566,14 @@ contract Stringray {
 
         if (matchGroupData.isPositiveLookAhead) {
             return (matchGroupData.matchStartIndex, -2);
+        }
+
+        if (matchGroupData.isPositiveLookBehind) {
+            return (-2, matchGroupData.matchEndIndex);
+        }
+
+        if (matchGroupData.isNegativeLookBehind) {
+            return (-1, matchGroupData.matchEndIndex);
         }
 
         bytes memory matchedString =
@@ -1576,9 +1608,17 @@ contract Stringray {
             atom.length > 2 && uint8(atom[0]) == QUESTION_MARK
                 && (uint8(atom[1]) == LESS_THAN_SIGN
                     || uint8(atom[1]) == ASSIGNMENT_SIGN
-                    || uint8(atom[1]) == EXCLAMATION_MARK)
+                    || uint8(atom[1]) == EXCLAMATION_MARK
+                    || (uint8(atom[1]) == LESS_THAN_SIGN
+                        && atom.length > 3
+                        && (uint8(atom[2]) == ASSIGNMENT_SIGN || uint8(atom[2]) == EXCLAMATION_MARK)))
         ) {
-            if (uint8(atom[1]) == ASSIGNMENT_SIGN || uint8(atom[1]) == EXCLAMATION_MARK) {
+            if (
+                uint8(atom[1]) == ASSIGNMENT_SIGN || uint8(atom[1]) == EXCLAMATION_MARK
+                    || (uint8(atom[1]) == LESS_THAN_SIGN
+                        && atom.length > 3
+                        && (uint8(atom[2]) == ASSIGNMENT_SIGN || uint8(atom[2]) == EXCLAMATION_MARK))
+            ) {
                 groupNameTrimEndIndex = int256(atom.length - 1);
             } else {
                 for (uint256 i = 2; i < atom.length; i++) {
@@ -1592,7 +1632,14 @@ contract Stringray {
 
         if (groupNameTrimEndIndex == -1) return (atom, groupName);
 
-        groupName = trimString(atom, 2, groupNameTrimEndIndex);
+        if (
+            uint8(atom[1]) == LESS_THAN_SIGN && atom.length > 3
+                && (uint8(atom[2]) == ASSIGNMENT_SIGN || uint8(atom[2]) == EXCLAMATION_MARK)
+        ) {
+            groupName = trimString(atom, 3, groupNameTrimEndIndex);
+        } else {
+            groupName = trimString(atom, 2, groupNameTrimEndIndex);
+        }
 
         if (uint256(groupNameTrimEndIndex) + 2 < atom.length) {
             atom = trimString(atom, uint256(groupNameTrimEndIndex) + 2, -1);
@@ -1600,7 +1647,11 @@ contract Stringray {
 
         if (
             atom.length > 2 && uint8(atom[0]) == QUESTION_MARK
-                && (uint8(atom[1]) == ASSIGNMENT_SIGN || uint8(atom[1]) == EXCLAMATION_MARK)
+                && (uint8(atom[1]) == ASSIGNMENT_SIGN
+                    || uint8(atom[1]) == EXCLAMATION_MARK
+                    || (uint8(atom[1]) == LESS_THAN_SIGN
+                        && atom.length > 3
+                        && (uint8(atom[2]) == ASSIGNMENT_SIGN || uint8(atom[2]) == EXCLAMATION_MARK)))
         ) {
             atom = groupName;
             groupName = abi.encodePacked("");
@@ -3195,7 +3246,13 @@ contract Stringray {
             if (atoms[i].atomType == GROUP_ATOM || atoms[i].atomType == GROUP_SUB_ATOM) {
                 if (
                     uint8(atoms[i].atom[1]) != QUESTION_MARK
-                        || (uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN && uint8(atoms[i].atom[2]) != EXCLAMATION_MARK)
+                        || (atoms[i].atom.length > 1
+                            && (uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN
+                                && uint8(atoms[i].atom[2]) != EXCLAMATION_MARK
+                                && (uint8(atoms[i].atom[2]) != LESS_THAN_SIGN
+                                    && atoms[i].atom.length > 2
+                                    && (uint8(atoms[i].atom[3]) != ASSIGNMENT_SIGN
+                                        && uint8(atoms[i].atom[3]) != EXCLAMATION_MARK))))
                 ) {
                     numGroups++;
                 }
