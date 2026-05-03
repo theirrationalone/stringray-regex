@@ -1029,6 +1029,8 @@ contract Stringray {
             console2.log("fromCharacterClass: ", fromCharacterClass);
             console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
+            console2.log("matchData.matchStartIndex at beginning: ", matchData.matchStartIndex);
+            console2.log("matchData.matchStartIndex at beginning: ", matchData.matchEndIndex);
             console2.logBytes(atoms[matchData.i].atom);
             printAtomType(atoms[matchData.i].atomType);
             console2.log("----------------------------------------------");
@@ -1203,10 +1205,18 @@ contract Stringray {
                     matchData.matchEndIndex = prevMatchEndIndex;
                 }
 
-                if (matchData.matchStartIndex == -2) {
+                if (matchData.matchStartIndex == -2 || matchData.matchStartIndex == -3) {
                     indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
-                    matchData.matchStartIndex = -1;
-                    matchData.matchEndIndex = -1;
+                    if (matchData.matchStartIndex == -3) {
+                        matchData.matchStartIndex = matchData.matchEndIndex + 1;
+                    } else {
+                        matchData.matchStartIndex = -1;
+                    }
+
+                    if (matchData.matchStartIndex == -2) {
+                        matchData.matchEndIndex = -1;
+                    }
+
                     matchData.i++;
                     continue;
                 }
@@ -1343,6 +1353,10 @@ contract Stringray {
                 matchData.matchEndIndex = -1;
             }
         }
+
+        console2.log("matchData.firstIndex at end   : ", matchData.firstIndex);
+        console2.log("matchData.matchEndIndex at end: ", matchData.matchEndIndex);
+        console2.log("fromGroup at end              : ", fromGroup);
 
         if (fromGroup) {
             return (matchData.firstIndex, matchData.matchEndIndex);
@@ -1491,6 +1505,7 @@ contract Stringray {
         bool isNegativeLookAhead;
         bool isPositiveLookBehind;
         bool isNegativeLookBehind;
+        bool isFirstMatch;
         bytes groupName;
         int256 matchStartIndex;
         int256 matchEndIndex;
@@ -1513,6 +1528,7 @@ contract Stringray {
         console2.log("groupsCounter: ", groupsCounter);
 
         MatchGroupData memory matchGroupData;
+        matchGroupData.isFirstMatch = isFirstMatch;
 
         groupsCounter += 1;
         matchGroupData.groupNum = groupsCounter;
@@ -1526,6 +1542,7 @@ contract Stringray {
                 matchGroupData.isPositiveLookBehind = true;
             } else if (atom.length > 5 && uint8(atom[2]) == LESS_THAN_SIGN && uint8(atom[3]) == EXCLAMATION_MARK) {
                 matchGroupData.isNegativeLookBehind = true;
+                isFirstMatch = false;
             }
         }
 
@@ -1551,7 +1568,8 @@ contract Stringray {
 
             if (matchGroupData.isNegativeLookBehind) {
                 if (atom.length > 0) {
-                    return (-2, int256(indexToStartMatch + atom.length - 1));
+                    console2.log("returning from negativeLookBehind");
+                    return (-3, int256(indexToStartMatch + atom.length - 1));
                 } else {
                     return (-2, matchGroupData.matchEndIndex);
                 }
@@ -1573,6 +1591,7 @@ contract Stringray {
         }
 
         if (matchGroupData.isNegativeLookBehind) {
+            console2.log("returning from negativeLookBehind when atom matched");
             return (-1, matchGroupData.matchEndIndex + 1);
         }
 

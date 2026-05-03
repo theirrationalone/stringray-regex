@@ -25558,6 +25558,8 @@ contract PlayStringTest is Test {
     function testRegexPatternMatchGroupsCase103() public {
         string memory target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
         string memory pattern = unicode"/(?<!a)b/";
+        // string memory target = "now let's pay $dollars, total is $9. or 8";
+        // string memory pattern = unicode"/(?<!\\$)\\d/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
