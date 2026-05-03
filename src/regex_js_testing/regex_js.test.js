@@ -19587,9 +19587,72 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Groups cases: Case000000000000000000000000095", () => {
+  test("Pattern match Groups cases: Case000000000000000000000000096", () => {
     const target = "now let's pay $dollars, total is $9. or 8";
     let regex = /(?<!\$)\d/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000097", () => {
+    const target = "now let's pay $dollars, totabl is $9. or 8";
+    let regex = /a(?=b)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000098", () => {
+    const target = "now let's pay xz $dollars, xy totabl is $9. or 8";
+    let regex = /x(?=y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case000000000000000000000000099", () => {
+    const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
+    let regex = /a(?!b)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000100", () => {
+    const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
+    let regex = /x(?!y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000101", () => {
+    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+    let regex = /(?<=a)b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000102", () => {
+    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+    let regex = /(?<=x)y/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000103", () => {
+    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+    let regex = /(?<!a)b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000104", () => {
+    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+    let regex = /(?<!x)y/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000105", () => {
+    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+    let regex = /(?<=a)b(?=c)/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
