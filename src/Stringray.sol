@@ -1597,12 +1597,29 @@ contract Stringray {
             return (-1, matchGroupData.matchEndIndex + 1);
         }
 
+        if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
+            if (subAtom[0].atomType == GROUP_ATOM || subAtom[0].atomType == GROUP_SUB_ATOM) {
+                if (uint8(subAtom[0].atom[1]) == QUESTION_MARK) {
+                    if (uint8(subAtom[0].atom[2]) == ASSIGNMENT_SIGN || uint8(subAtom[0].atom[2]) == EXCLAMATION_MARK) {
+                        matchGroupData.matchEndIndex = lastMatchEndIndex;
+                    }
+
+                    if (
+                        uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
+                            && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
+                                || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
+                    ) {
+                        matchGroupData.matchEndIndex = lastMatchEndIndex;
+                    }
+                }
+            }
+        }
+
         bytes memory matchedString =
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
-        // @BUG: nested look arounds are counted
-
         console2.log("pushing to group matched data...");
+        console2.log("atom: ", string(atom));
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
@@ -1707,6 +1724,14 @@ contract Stringray {
         bytes memory patternFlags,
         uint256 currentGroupNum
     ) private returns (int256, int256) {
+        console2.log("----------------------matchGroupsAtoms----------------------");
+        console2.log("sub atoms: ", string(subAtoms));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("currentGroupNum: ", currentGroupNum);
+        console2.log("--------------------------------------------");
         MatchData memory matchGroupData;
         matchGroupData.matchStartIndex = -1;
         matchGroupData.matchEndIndex = -1;
