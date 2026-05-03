@@ -1201,8 +1201,12 @@ contract Stringray {
                     matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
 
                 if (matchData.matchEndIndex == -2) {
-                    matchData.matchStartIndex = prevMatchStartIndex;
-                    matchData.matchEndIndex = prevMatchEndIndex;
+                    if (prevMatchEndIndex == -1) {
+                        matchData.matchEndIndex = matchData.matchStartIndex;
+                    } else {
+                        matchData.matchStartIndex = prevMatchStartIndex;
+                        matchData.matchEndIndex = prevMatchEndIndex;
+                    }
                 }
 
                 if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
@@ -1315,7 +1319,8 @@ contract Stringray {
             }
 
             matchData.specialFlag = false;
-            indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+            indexToStartMatch =
+                matchData.matchEndIndex > -1 ? uint256(matchData.matchEndIndex) + 1 : uint256(matchData.matchEndIndex);
             matchData.i++;
         }
 
@@ -1595,6 +1600,9 @@ contract Stringray {
         bytes memory matchedString =
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
+        // @BUG: nested look arounds are counted
+
+        console2.log("pushing to group matched data...");
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
@@ -1759,8 +1767,11 @@ contract Stringray {
                 matchGroupData.firstIndex = matchGroupData.matchStartIndex;
             }
 
-            indexToStartMatch = uint256(matchGroupData.matchEndIndex) + 1;
-            matchGroupData.i = uint256(subAtom[0].atomEndIdx) + 1;
+            indexToStartMatch = matchGroupData.matchEndIndex > -1
+                ? uint256(matchGroupData.matchEndIndex) + 1
+                : uint256(matchGroupData.matchEndIndex);
+            matchGroupData.i =
+                subAtom[0].atomEndIdx > -1 ? uint256(subAtom[0].atomEndIdx) + 1 : uint256(subAtom[0].atomEndIdx);
         }
 
         return (matchGroupData.firstIndex, matchGroupData.matchEndIndex);

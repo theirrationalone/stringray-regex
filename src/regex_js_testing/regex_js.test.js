@@ -19656,5 +19656,69 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000106", () => {
+    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+    let regex = /a(?=b)b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000107", () => {
+    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+    let regex = /a(?=b)c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000108", () => {
+    const target = "now let's totabl xz $dollabcrbs, xy pacy is $9. or 8";
+    let regex = /a(?!b)c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000109", () => {
+    const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
+    let regex = /(?<=a)b c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000110", () => {
+    const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
+    let regex = /(?<=a)b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000111", () => {
+    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+    let regex = /a(?=b)(?=bc)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000112", () => {
+    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+    // @info: Literally, only possible in quantum world|computing
+    let regex = /a(?=b)(?=c)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000113", () => {
+    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+    let regex = /(?<=a)b(?=c)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000114", () => {
+    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+    let regex = /a(?=(b(?=c)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
