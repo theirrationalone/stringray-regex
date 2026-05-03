@@ -25298,6 +25298,8 @@ contract PlayStringTest is Test {
         string memory target = "total is $9";
         string memory pattern = unicode"/(?<=\\$)\\1/u";
 
+        // @Error: SyntaxError: Invalid regular expression: /(?<=\$)\1/u: Invalid escape
+        vm.expectRevert();
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);

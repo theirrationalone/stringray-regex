@@ -1205,16 +1205,13 @@ contract Stringray {
                     matchData.matchEndIndex = prevMatchEndIndex;
                 }
 
-                if (matchData.matchStartIndex == -2 || matchData.matchStartIndex == -3) {
+                if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
                     indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
-                    if (matchData.matchStartIndex == -3) {
-                        matchData.matchStartIndex = matchData.matchEndIndex + 1;
-                    } else {
-                        matchData.matchStartIndex = -1;
-                    }
 
-                    if (matchData.matchStartIndex == -2) {
+                    if (matchData.matchStartIndex == -4) {
                         matchData.matchEndIndex = -1;
+                    } else if (matchData.matchStartIndex == -3) {
+                        matchData.matchStartIndex = matchData.matchEndIndex + 1;
                     }
 
                     matchData.i++;
@@ -1571,7 +1568,7 @@ contract Stringray {
                     console2.log("returning from negativeLookBehind");
                     return (-3, int256(indexToStartMatch + atom.length - 1));
                 } else {
-                    return (-2, matchGroupData.matchEndIndex);
+                    return (-4, matchGroupData.matchEndIndex);
                 }
             }
             return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
@@ -1587,7 +1584,7 @@ contract Stringray {
         }
 
         if (matchGroupData.isPositiveLookBehind) {
-            return (-2, matchGroupData.matchEndIndex);
+            return (-3, matchGroupData.matchEndIndex);
         }
 
         if (matchGroupData.isNegativeLookBehind) {
