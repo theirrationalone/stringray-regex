@@ -1598,19 +1598,37 @@ contract Stringray {
         }
 
         if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
-            if (subAtom[0].atomType == GROUP_ATOM || subAtom[0].atomType == GROUP_SUB_ATOM) {
-                if (uint8(subAtom[0].atom[1]) == QUESTION_MARK) {
-                    if (uint8(subAtom[0].atom[2]) == ASSIGNMENT_SIGN || uint8(subAtom[0].atom[2]) == EXCLAMATION_MARK) {
-                        matchGroupData.matchEndIndex = lastMatchEndIndex;
+            uint256 subAtomStartIndex;
+            int256 subAtomEndIndex = -1;
+            for (uint256 i; i < atom.length;) {
+                subAtomStartIndex = i;
+                (, subAtomEndIndex) = collectGroupSubAtom(atom, subAtomStartIndex, patternFlags);
+                if (subAtomEndIndex == -1) {
+                    break;
+                }
+                i = uint256(subAtomEndIndex) + 1;
+            }
+
+            if (
+                subAtomEndIndex > -1 && uint8(atom[subAtomStartIndex]) == OPEN_PARANTHESIS
+                    && uint8(atom[uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
+            ) {
+                if (uint8(atom[subAtomStartIndex + 1]) == QUESTION_MARK) {
+                    if (
+                        uint8(atom[subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
+                            || uint8(atom[subAtomStartIndex + 2]) == EXCLAMATION_MARK
+                    ) {
+                        matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
                     }
 
-                    if (
-                        uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
-                            && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
-                                || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
-                    ) {
-                        matchGroupData.matchEndIndex = lastMatchEndIndex;
-                    }
+                    // @info: illogical
+                    // if (
+                    //     uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
+                    //         && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
+                    //             || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
+                    // ) {
+                    //     matchGroupData.matchEndIndex = lastMatchEndIndex;
+                    // }
                 }
             }
         }
