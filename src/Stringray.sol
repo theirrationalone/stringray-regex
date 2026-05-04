@@ -3319,15 +3319,26 @@ contract Stringray {
                         || (atoms[i].atom.length > 1
                             && (uint8(atoms[i].atom[2]) != ASSIGNMENT_SIGN
                                 && uint8(atoms[i].atom[2]) != EXCLAMATION_MARK
-                                && (uint8(atoms[i].atom[2]) != LESS_THAN_SIGN
+                                && (uint8(atoms[i].atom[2]) == LESS_THAN_SIGN
                                     && atoms[i].atom.length > 2
                                     && (uint8(atoms[i].atom[3]) != ASSIGNMENT_SIGN
                                         && uint8(atoms[i].atom[3]) != EXCLAMATION_MARK))))
                 ) {
-                    numGroups++;
+                    if (uint8(atoms[i].atom[2]) == LESS_THAN_SIGN) {
+                        for (uint256 j = 4; j < atoms[i].atom.length; j++) {
+                            if (uint8(atoms[i].atom[j]) == GREATER_THAN_SIGN) {
+                                numGroups++;
+                                break;
+                            }
+                        }
+                    } else {
+                        numGroups++;
+                    }
                 }
             }
         }
+
+        console2.log("numGroups: ", numGroups);
 
         return numGroups;
     }
