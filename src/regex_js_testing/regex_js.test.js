@@ -19720,5 +19720,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000115", () => {
+    const target = "she is n3hal aka drishti";
+    let regex = /\d(?=[a-z])/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000116", () => {
+    const target = "she is n3hal aka drishti";
+    let regex = /[a-z](?=\d)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000117", () => {
+    const target = "she is n3hal aka 3@drishti";
+    let regex = /\d(?![a-z])/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
