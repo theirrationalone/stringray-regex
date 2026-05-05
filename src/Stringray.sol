@@ -1571,6 +1571,9 @@ contract Stringray {
             if (matchGroupData.isNegativeLookBehind) {
                 if (atom.length > 0) {
                     console2.log("returning from negativeLookBehind");
+                    console2.log("atom length: ", atom.length);
+                    console2.log("indexToStartMatch: ", indexToStartMatch);
+                    // @BUG: wrong logic to switch start index
                     return (-3, int256(indexToStartMatch + atom.length - 1));
                 } else {
                     return (-4, matchGroupData.matchEndIndex);
