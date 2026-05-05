@@ -1210,11 +1210,15 @@ contract Stringray {
                 }
 
                 if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
-                    indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+                    if (matchData.matchStartIndex == -3) {
+                        indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+                    } else {
+                        indexToStartMatch = matchData.matchEndIndex == -1 ? 0 : uint256(matchData.matchEndIndex) + 1;
+                    }
 
-                    if (matchData.matchStartIndex == -4) {
+                    if (matchData.matchStartIndex == -5) {
                         matchData.matchEndIndex = -1;
-                    } else if (matchData.matchStartIndex == -3) {
+                    } else if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
                         matchData.matchStartIndex = matchData.matchEndIndex + 1;
                     }
 
@@ -1573,10 +1577,13 @@ contract Stringray {
                     console2.log("returning from negativeLookBehind");
                     console2.log("atom length: ", atom.length);
                     console2.log("indexToStartMatch: ", indexToStartMatch);
-                    // @BUG: wrong logic to switch start index
-                    return (-3, int256(indexToStartMatch + atom.length - 1));
+                    if (int256(indexToStartMatch) == 0) {
+                        return (-4, -1);
+                    } else {
+                        return (-3, int256(indexToStartMatch));
+                    }
                 } else {
-                    return (-4, matchGroupData.matchEndIndex);
+                    return (-5, matchGroupData.matchEndIndex);
                 }
             }
             return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
