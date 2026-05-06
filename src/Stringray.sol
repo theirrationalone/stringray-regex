@@ -2676,6 +2676,8 @@ contract Stringray {
                     matchEndIndex = int256(i);
                     matchStartIndex = matchEndIndex;
                     break;
+                } else {
+                    matchEndIndex = int256(i);
                 }
                 i += 1;
             }
@@ -2684,6 +2686,8 @@ contract Stringray {
             if (flag) {
                 matchEndIndex = int256(indexToStartMatch);
                 matchStartIndex = matchEndIndex;
+            } else {
+                matchEndIndex = int256(indexToStartMatch);
             }
         }
 

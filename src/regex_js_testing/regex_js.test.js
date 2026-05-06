@@ -19804,5 +19804,47 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000127", () => {
+    const target = "she i@1 n3hal aka 3@drishti_";
+    let regex = /([a-z])(?=\d)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000128", () => {
+    const target = "she i@1a n3hal aka 3@drishti_";
+    let regex = /(\d)(?![a-z])/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000129", () => {
+    const target = "s1h1e1 i@1a n3hal aka 3@drishti_";
+    let regex = /([a-z])(?!\d)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000130", () => {
+    const target = "s1ha1e1 i@1a n3habl aka 3@drishti_";
+    let regex = /a(?=(b))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000131", () => {
+    const target = "s1ha1eb1 i@1ba n3habl aka 3@drishti_";
+    let regex = /(?<=(a))b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000131", () => {
+    const target = "shaeb1 i12@1ba n3habl aka 3@drishti_";
+    let regex = /(\d)(?=(\w))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
