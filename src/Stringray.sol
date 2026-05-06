@@ -1384,6 +1384,30 @@ contract Stringray {
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
+    function matchDollarOrEnd(
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        // @TODO: implement functionality to detect the end of the string.
+        return (-1, -1);
+    }
+
+    function matchCaretOrStart(
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        // @TODO: implement functionality to detect the start of the string.
+        return (-1, -1);
+    }
+
     function matchNamedBackReferenceGroup(
         bytes memory atom,
         bytes memory stringInBytes,
