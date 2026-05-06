@@ -1051,6 +1051,11 @@ contract Stringray {
             console2.log("updated isFirstMatch: ", isFirstMatch);
 
             if (indexToStartMatch >= stringInBytes.length) {
+                if (atoms[matchData.i].atom.length > 4 && uint8(atoms[matchData.i].atom[1]) == QUESTION_MARK) {
+                    if (uint8(atoms[matchData.i].atom[2]) == EXCLAMATION_MARK) {
+                        return (matchData.matchStartIndex, matchData.matchEndIndex);
+                    }
+                }
                 break;
             }
 
@@ -2447,6 +2452,9 @@ contract Stringray {
         MatchCCLocalVars memory matchCCLocalVars;
         pattern = trimString(pattern, 1, int256(pattern.length - 2));
         matchCCLocalVars.i = 0;
+        matchCCLocalVars.matchStartIndex = -1;
+        matchCCLocalVars.matchEndIndex = -1;
+
         // uint256 i = 0;
 
         console2.log("--------------------matchCharacterClass--------------------");
@@ -2559,7 +2567,10 @@ contract Stringray {
             matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
         }
 
-        return (-1, -1);
+        console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
+        console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
+
+        return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
     }
 
     // function matchCharacterClassSubAtomsPattern(
