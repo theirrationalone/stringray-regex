@@ -1030,7 +1030,7 @@ contract Stringray {
             console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
             console2.log("matchData.matchStartIndex at beginning: ", matchData.matchStartIndex);
-            console2.log("matchData.matchStartIndex at beginning: ", matchData.matchEndIndex);
+            console2.log("matchData.matchEndIndex at beginning: ", matchData.matchEndIndex);
             console2.logBytes(atoms[matchData.i].atom);
             printAtomType(atoms[matchData.i].atomType);
             console2.log("----------------------------------------------");
@@ -1047,6 +1047,8 @@ contract Stringray {
                     isFirstMatch = true;
                 }
             }
+
+            console2.log("updated isFirstMatch: ", isFirstMatch);
 
             if (indexToStartMatch >= stringInBytes.length) {
                 break;
@@ -1209,16 +1211,22 @@ contract Stringray {
                     }
                 }
 
-                if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
-                    if (matchData.matchStartIndex == -3) {
-                        indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
+                if (
+                    matchData.matchStartIndex == -5 || matchData.matchStartIndex == -4
+                        || matchData.matchStartIndex == -3
+                ) {
+                    if (matchData.matchEndIndex == -1) {
+                        indexToStartMatch = 0;
+                        matchData.matchEndIndex = 0;
                     } else {
-                        indexToStartMatch = matchData.matchEndIndex == -1 ? 0 : uint256(matchData.matchEndIndex) + 1;
+                        indexToStartMatch = uint256(matchData.matchEndIndex) + 1;
                     }
 
                     if (matchData.matchStartIndex == -5) {
                         matchData.matchEndIndex = -1;
-                    } else if (matchData.matchStartIndex == -4 || matchData.matchStartIndex == -3) {
+                    } else if (matchData.matchStartIndex == -4) {
+                        matchData.matchStartIndex = matchData.matchEndIndex;
+                    } else if (matchData.matchStartIndex == -3) {
                         matchData.matchStartIndex = matchData.matchEndIndex + 1;
                     }
 
@@ -1517,6 +1525,8 @@ contract Stringray {
         int256 matchEndIndex;
     }
 
+    bool isFirstTimenNegativeLookBehind = true;
+
     function matchGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -1549,6 +1559,10 @@ contract Stringray {
             } else if (atom.length > 5 && uint8(atom[2]) == LESS_THAN_SIGN && uint8(atom[3]) == EXCLAMATION_MARK) {
                 matchGroupData.isNegativeLookBehind = true;
                 isFirstMatch = false;
+                if (indexToStartMatch == 0 && isFirstTimenNegativeLookBehind) {
+                    isFirstTimenNegativeLookBehind = false;
+                    return (-4, -1);
+                }
             }
         }
 
@@ -1577,11 +1591,7 @@ contract Stringray {
                     console2.log("returning from negativeLookBehind");
                     console2.log("atom length: ", atom.length);
                     console2.log("indexToStartMatch: ", indexToStartMatch);
-                    if (int256(indexToStartMatch) == 0) {
-                        return (-4, -1);
-                    } else {
-                        return (-3, int256(indexToStartMatch));
-                    }
+                    return (-3, int256(indexToStartMatch));
                 } else {
                     return (-5, matchGroupData.matchEndIndex);
                 }

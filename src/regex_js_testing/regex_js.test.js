@@ -19776,5 +19776,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Groups cases: Case0000000000000000000000000123", () => {
+    const target = "she i@1s n3hal aka 3@drishti_";
+    let regex = /_(?=\d)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();
