@@ -1265,7 +1265,7 @@ contract Stringray {
                 );
             } else if (atoms[matchData.i].atomType == CARET_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchCaretOrStart(
-                    atoms[matchData.i].atom,
+                    matchData.i + 1 < atoms.length ? atoms[matchData.i + 1].atom : abi.encodePacked(""),
                     stringInBytes,
                     patternFlags,
                     indexToStartMatch,
@@ -1469,7 +1469,7 @@ contract Stringray {
     }
 
     function matchCaretOrStart(
-        bytes memory atom,
+        bytes memory nextAtom,
         bytes memory stringInBytes,
         bytes memory patternFlags,
         uint256 indexToStartMatch,
@@ -1478,7 +1478,7 @@ contract Stringray {
         bool fromGroup
     ) private returns (int256, int256) {
         console2.log("---------------------------------matchCaretOrStart---------------------------------");
-        console2.log("Atom: ", string(atom));
+        console2.log("nextAtom: ", string(nextAtom));
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("indexToStartMatch: ", indexToStartMatch);
@@ -1486,6 +1486,30 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
         console2.log("------------------------------------------------------------------");
+
+        if (nextAtom.length <= 0 || (uint8(nextAtom[0]) == abi.encodePacked("$")[0] && stringInBytes.length == 0)) {
+            return (0, 0);
+        }
+
+        if (uint8(nextAtom[0]) == abi.encodePacked("$")[0] && stringInBytes.length > 0) {
+            if (indexToStartMatch > 0) {
+                if (
+                    uint8(stringInBytes[indexToStartMatch - 1]) == 10
+                        || uint8(stringInBytes[indexToStartMatch - 1]) == 13
+                ) {
+                    return (int256(indexToStartMatch), int256(indexToStartMatch));
+                } else if (indexToStartMatch > 2) {
+                    if (stringInBytes[indexToStartMatch - 1] == 0xa8 || stringInBytes[indexToStartMatch - 1] == 0xa9) {
+                        if (stringInBytes[indexToStartMatch - 2] == 0x80) {
+                            if (stringInBytes[indexToStartMatch - 3] == 0xe2) {
+                                return (int256(indexToStartMatch), int256(indexToStartMatch));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         return (-1, -1);
     }
 
