@@ -1273,16 +1273,6 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
-            } else if (atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
-                (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
-                    atoms[matchData.i].atom,
-                    stringInBytes,
-                    patternFlags,
-                    indexToStartMatch,
-                    isFirstMatch,
-                    fromCharacterClass,
-                    fromGroup
-                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1368,11 +1358,17 @@ contract Stringray {
         }
 
         if (matchData.i < atoms.length) {
-            if (
-                matchData.i + 1 != atoms.length || atoms[matchData.i].atomType != DOLLAR_ANCHOR
-                    || indexToStartMatch != stringInBytes.length
-            ) {
-                // return (matchData.firstIndex, matchData.matchEndIndex);
+            if (matchData.i + 1 == atoms.length || atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
+            } else {
                 return (-1, -1);
             }
         }
