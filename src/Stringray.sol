@@ -979,6 +979,7 @@ contract Stringray {
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false, false, -1, -1);
+            console2.log("nuclear fission was successful");
             (matchStartIndex, matchEndIndex) =
                 matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
 
@@ -2733,6 +2734,7 @@ contract Stringray {
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("isNotWhitespace: ", isNotWhitespace);
+        console2.log("indexToStartMatch: ", indexToStartMatch);
         console2.log("--------------------------------");
 
         if (isFirstMatch) {
@@ -2746,7 +2748,7 @@ contract Stringray {
                 }
                 i += 1;
             }
-            matchEndIndex = int256(i - 1);
+            matchEndIndex = i == 0 ? int256(0) : int256(i - 1);
         } else {
             (flag, lastIndex) = isWhitespace(stringInBytes, indexToStartMatch, isNotWhitespace);
             if (flag) {
@@ -2756,6 +2758,11 @@ contract Stringray {
                 matchEndIndex = int256(indexToStartMatch);
             }
         }
+
+        console2.log("returning from matchWhitespace");
+        console2.log("matchStartIndex: ", matchStartIndex);
+        console2.log("matchEndIndex  : ", matchEndIndex);
+        console2.log("-----------");
 
         return (matchStartIndex, matchEndIndex);
     }
