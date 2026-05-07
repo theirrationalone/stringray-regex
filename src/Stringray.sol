@@ -1265,7 +1265,8 @@ contract Stringray {
                 );
             } else if (atoms[matchData.i].atomType == CARET_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchCaretOrStart(
-                    matchData.i + 1 < atoms.length ? atoms[matchData.i + 1].atom : abi.encodePacked(""),
+                    atoms,
+                    matchData.i,
                     stringInBytes,
                     patternFlags,
                     indexToStartMatch,
@@ -1273,6 +1274,12 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+
+                if (matchData.matchStartIndex > -1 && matchData.matchEndIndex > -1) {
+                    matchData.i++;
+                    matchData.specialFlag = false;
+                    continue;
+                }
             } else if (atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
                     atoms[matchData.i].atom,
@@ -1469,7 +1476,8 @@ contract Stringray {
     }
 
     function matchCaretOrStart(
-        bytes memory nextAtom,
+        AtomTrait[] memory atoms,
+        uint256 currentAtomIndex,
         bytes memory stringInBytes,
         bytes memory patternFlags,
         uint256 indexToStartMatch,
@@ -1478,7 +1486,7 @@ contract Stringray {
         bool fromGroup
     ) private returns (int256, int256) {
         console2.log("---------------------------------matchCaretOrStart---------------------------------");
-        console2.log("nextAtom: ", string(nextAtom));
+        console2.log("nextAtom: ", string(atoms[currentAtomIndex].atom));
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("indexToStartMatch: ", indexToStartMatch);
@@ -1487,22 +1495,34 @@ contract Stringray {
         console2.log("fromGroup: ", fromGroup);
         console2.log("------------------------------------------------------------------");
 
-        if (nextAtom.length <= 0 || (uint8(nextAtom[0]) == abi.encodePacked("$")[0] && stringInBytes.length == 0)) {
-            return (0, 0);
+        if (
+            atoms.length == 1
+                || (atoms.length == 2
+                    && atoms[currentAtomIndex + 1].atomType == DOLLAR_ANCHOR
+                    && stringInBytes.length == 0)
+        ) {
+            return (0, -1);
         }
 
-        if (uint8(nextAtom[0]) == abi.encodePacked("$")[0] && stringInBytes.length > 0) {
-            if (indexToStartMatch > 0) {
-                if (
-                    uint8(stringInBytes[indexToStartMatch - 1]) == 10
-                        || uint8(stringInBytes[indexToStartMatch - 1]) == 13
-                ) {
-                    return (int256(indexToStartMatch), int256(indexToStartMatch));
-                } else if (indexToStartMatch > 2) {
-                    if (stringInBytes[indexToStartMatch - 1] == 0xa8 || stringInBytes[indexToStartMatch - 1] == 0xa9) {
-                        if (stringInBytes[indexToStartMatch - 2] == 0x80) {
-                            if (stringInBytes[indexToStartMatch - 3] == 0xe2) {
-                                return (int256(indexToStartMatch), int256(indexToStartMatch));
+        if (atoms.length >= 2) {
+            if (hasFlag(patternFlags, "m")) {
+                if (atoms[currentAtomIndex + 1].atomType == DOLLAR_ANCHOR && stringInBytes.length > 0) {
+                    if (indexToStartMatch > 0) {
+                        if (
+                            uint8(stringInBytes[indexToStartMatch - 1]) == 10
+                                || uint8(stringInBytes[indexToStartMatch - 1]) == 13
+                        ) {
+                            return (int256(indexToStartMatch), int256(indexToStartMatch));
+                        } else if (indexToStartMatch > 2) {
+                            if (
+                                stringInBytes[indexToStartMatch - 1] == 0xa8
+                                    || stringInBytes[indexToStartMatch - 1] == 0xa9
+                            ) {
+                                if (stringInBytes[indexToStartMatch - 2] == 0x80) {
+                                    if (stringInBytes[indexToStartMatch - 3] == 0xe2) {
+                                        return (int256(indexToStartMatch), int256(indexToStartMatch));
+                                    }
+                                }
                             }
                         }
                     }
@@ -1510,7 +1530,12 @@ contract Stringray {
             }
         }
 
-        return (-1, -1);
+        AtomTrait[] memory singleAtom = new AtomTrait[](1);
+        singleAtom[0] = atoms[currentAtomIndex + 1];
+
+        return matchPattern(
+            singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
+        );
     }
 
     function matchNamedBackReferenceGroup(
