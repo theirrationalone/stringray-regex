@@ -18921,1012 +18921,1036 @@ const testMain = () => {
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case00000000000000000000000001", () => {
-    const target = "zabz";
-    let regex = /(ab)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Pattern match Groups cases: Case00000000000000000000000001", () => {
+  //   const target = "zabz";
+  //   let regex = /(ab)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Pattern match Groups cases: Case00000000000000000000000002", () => {
-    const target = "nehal";
-    let regex = /ne(ha)l/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000003", () => {
-    const target = "ms_nehalA";
-    let regex = /ms_(n((e(h))a)l)A/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000004", () => {
-    const target = "zabz";
-    let regex = /(ab)/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000005", () => {
-    const target = "nehal";
-    let regex = /ne(ha)l/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000006", () => {
-    const target = "ms_nehalA";
-    let regex = /ms_(n((e(h))a)l)A/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000007", () => {
-    const target = "zabz";
-    let regex = /(ab)/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000008", () => {
-    const target = "nehal";
-    let regex = /ne(ha)l/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case00000000000000000000000009", () => {
-    const target = "ms_nehalA";
-    let regex = /ms_(n((e(h))a)l)A/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000010", () => {
-    const target = "nehal";
-    let regex = /(ne[jklshmnp]al)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000011", () => {
-    const target = "nehal";
-    let regex = /(ne[jklshmnp]al)/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000012", () => {
-    const target = "nehal";
-    let regex = /([jklshmnp])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000013", () => {
-    const target = "nehal";
-    let regex = /([jklshmnp])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000014", () => {
-    const target = "neuhal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000015", () => {
-    const target = "ne{hal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000016", () => {
-    const target = "ne0hal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000017", () => {
-    const target = "nefhal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000018", () => {
-    const target = "ne}hal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000019", () => {
-    const target = "ne\x0fhal";
-    let regex = /(ne[\x0f-\u{00000f}]hal)/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000020", () => {
-    const target = "ne\x0fhal";
-    let regex = /([\x0f-\u{00006c}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000021", () => {
-    const target = "ne\x0fhal";
-    let regex = /(\x0f[\x0f-\u{00006c}]al)/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000022", () => {
-    const target = "nehal";
-    let regex = /([abc])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000023", () => {
-    const target = "nehal";
-    let regex = /([xyz])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000024", () => {
-    const target = "neha1";
-    let regex = /([0123456789])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000025", () => {
-    const target = "nehal";
-    let regex = /([aeiou])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000026", () => {
-    const target = "NehAl";
-    let regex = /([AEIOU])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000027", () => {
-    const target = "NehAl";
-    let regex = /([a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000028", () => {
-    const target = "111NehAl";
-    let regex = /(N[a-zA-Z]hAl)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000029", () => {
-    const target = "111NehAl";
-    let regex = /(N[a-zA-Z]hAl)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000030", () => {
-    const target = "111NehAl";
-    let regex = /([0-9a-f]N)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000031", () => {
-    const target = "ne\u{1F600}hal";
-    let regex = /([\u{1F600}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000032", () => {
-    const target = "ne\u{1F64F}hal";
-    let regex = /([\u{1F600}-\u{1F64F}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000033", () => {
-    const target = "ne😀hal";
-    let regex = /([😀ab])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000034", () => {
-    const target = "ne\u0061hal";
-    let regex = /([\u0061\u{62}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000035", () => {
-    const target = "\u{1F600}hal";
-    let regex = /([a-\u{1F601}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000036", () => {
-    const target = "neßhal";
-    let regex = /([ß])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000037", () => {
-    const target = "néhal";
-    let regex = /([é])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000038", () => {
-    const target = "ne\u{69}hal";
-    let regex = /([\u{61}-\u{7A}])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000039", () => {
-    const target = "ne😍hal";
-    let regex = /([😀-🙏])/u;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  // test("Pattern match Groups cases: Case000000000000000000000000040", () => {
+  // test("Pattern match Groups cases: Case00000000000000000000000002", () => {
   //   const target = "nehal";
-  //   let regex = /([a-z&&[aeiou]])/v;
+  //   let regex = /ne(ha)l/;
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000041", () => {
-    const target = "nehal";
-    let regex = /([[a-z]&&[aeiou]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Pattern match Groups cases: Case00000000000000000000000003", () => {
+  //   const target = "ms_nehalA";
+  //   let regex = /ms_(n((e(h))a)l)A/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000042", () => {
-    const target = "nehal";
-    let regex = /([[a&&b]&&[aeiou]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Pattern match Groups cases: Case00000000000000000000000004", () => {
+  //   const target = "zabz";
+  //   let regex = /(ab)/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000043", () => {
-    const target = "nehal";
-    let regex = /([[bcdefghijkup]&&[aeiou]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000044", () => {
-    const target = "nehal";
-    let regex = /([[[anil]&&[nehal]]&&[aeiou]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000045", () => {
-    const target = "nehal";
-    let regex = /([[a-z]--[aeiou]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000046", () => {
-    const target = "nehal";
-    let regex = /([[adsadasdz]&&[dasdasdz]&&[masdasdz]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000047", () => {
-    const target = "nehal";
-    let regex = /([[a-z]&&[d-z]&&[m-z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000048", () => {
-    const target = "nehal";
-    let regex = /([[[a-z]&&[a-m]]--[d-f]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000049", () => {
-    const target = "nehal";
-    let regex = /([[[a-z]&&[b-m]]--[d-f]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000050", () => {
-    const target = "nehal";
-    let regex = /([[a-z]&&[x-z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000051", () => {
-    const target = "nehal";
-    let regex = /([[a-z]&&[[a-m]--[h-k]]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000052", () => {
-    const target = "nehal";
-    let regex = /([[a-z]--[m-z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000053", () => {
-    const target = "nehal";
-    let regex = /([[a-z]--[d-m]--[x-z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  // test("Pattern match Groups cases: Case000000000000000000000000054", () => {
+  // test("Pattern match Groups cases: Case00000000000000000000000005", () => {
   //   const target = "nehal";
-  //   let regex = /([[a-z]&&[a-m]--[g-k]])/v;
+  //   let regex = /ne(ha)l/u;
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000055", () => {
-    const target = "nehal";
-    let regex = /([[[a-z]&&[a-m]]&&[f-z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000056", () => {
-    const target = "nehal";
-    let regex = /([[a-z]--[[d-z]&&[m-z]]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000057", () => {
-    const target = "nehal";
-    let regex = /([[[[a-f]&&[c-z]]--[d]]&&[b-e]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000058", () => {
-    const target = "ne\nhal";
-    let regex = /([[\cJ]&&[\n-\r]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000059", () => {
-    const target = "ne\x01hal";
-    let regex = /([[\cA]&&[\cB]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000060", () => {
-    const target = "nehAl";
-    let regex = /([[\x41]&&[A-Z]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000061", () => {
-    const target = "nehAl";
-    let regex = /([[\u0041]&&[\x41]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000062", () => {
-    const target = "neh\u{1F606}al";
-    let regex = /([[\u{1F600}-\u{1F607}]&&[\u{1F604}-\u{1F60A}]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000063", () => {
-    const target = "neh\x03al";
-    let regex = /([[\cA\cB\cC]--[\cB]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000064", () => {
-    const target = "laheNehal";
-    let regex = /([[\x41-\x5A]&&[\u004D-\u005A]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000065", () => {
-    const target = "neh\u{1234}al";
-    let regex = /([[\u{1230}-\u{123A}]--[\u{1233}]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000066", () => {
-    const target = "neh\x03al";
-    let regex = /([[\ca\cb\cc]--[\cb]])/v;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000067", () => {
-    const target = "abba";
-    let regex = /(a)(b)\2/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000068", () => {
-    const target = "ms_nehalAh";
-    let regex = /ms_(n((e(h))a)l)A\4/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000069", () => {
-    const target = "ms_nehalAeha";
-    let regex = /ms_(n((e(h))a)l)A\2/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000070", () => {
-    const target = "aaha";
-    let regex = /(a)\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000071", () => {
-    const target = "abbah";
-    let regex = /(a)(b)\2\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000072", () => {
-    const target = "abbah";
-    let regex = /(\w)\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000073", () => {
-    const target = "abbcaccch";
-    let regex = /(\w)\1\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000074", () => {
-    const target = "abbcacccababbh";
-    let regex = /(a(b))\1\2/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000075", () => {
-    const target = "abbcacccababbhabccbcabc";
-    let regex = /(a(b(c)))\3\2\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000076", () => {
-    const target = "abbcacccababcabcbbhabccbcabc";
-    let regex = /((ab)c)\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000077", () => {
-    const target = "abbcacabbaccababcabcbbhabccbcabc";
-    let regex = /((a)(b))\3\2/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000078", () => {
-    const target = "abbcacabbaccahahababcabcbbhahahabccbcabc";
-    let regex = /(ha)\1\1/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000079", () => {
-    const target = "aa";
-    let regex = /(?<x>a)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000080", () => {
-    const target = "hello";
-    let regex = /(?<word>\w)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000081", () => {
-    const target = "aa";
-    let regex = /(?<x>a)\k<x>/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000082", () => {
-    const target = "John Doe";
-    let regex = /(?<first>\w)\s(?<second>\w)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000083", () => {
-    const target = "abcabbabxyz";
-    let regex = /(?<a>a)(?<b>b)\k<b>\k<a>/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000084", () => {
-    const target = "abcababxababbyz";
-    let regex = /(?<outer>a(?<inner>b))\k<outer>\k<inner>/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000085", () => {
-    const target = "abcabapsfabcxarabccbcabcbxababbyz";
-    let regex = /(?<g1>a(?<g2>b(?<g3>c)))\k<g3>\k<g2>\k<g1>/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000086", () => {
-    const target = "bccbcabcabbabxaba";
-    let regex = /(?<x>a)(b)\2\k<x>/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000087", () => {
-    const target = "bccbcabcabbabxaba";
-    // @NOTE: works differently as compared to solidity
-    let regex = /\k<x>(?<x>a)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  // test("Pattern match Groups cases: Case000000000000000000000000088", () => {
-  //   const target = "foobarfoo\x01foo";
-  //   let regex = /foo(?=bar)\1/v;
+  // test("Pattern match Groups cases: Case00000000000000000000000006", () => {
+  //   const target = "ms_nehalA";
+  //   let regex = /ms_(n((e(h))a)l)A/u;
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000089", () => {
-    const target = "foobar";
-    let regex = /foo(?=bar)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Pattern match Groups cases: Case00000000000000000000000007", () => {
+  //   const target = "zabz";
+  //   let regex = /(ab)/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000090", () => {
-    const target = "foobaz";
-    let regex = /foo(?=bar)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
+  // test("Pattern match Groups cases: Case00000000000000000000000008", () => {
+  //   const target = "nehal";
+  //   let regex = /ne(ha)l/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  // test("Pattern match Groups cases: Case000000000000000000000000091", () => {
+  // test("Pattern match Groups cases: Case00000000000000000000000009", () => {
+  //   const target = "ms_nehalA";
+  //   let regex = /ms_(n((e(h))a)l)A/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000010", () => {
+  //   const target = "nehal";
+  //   let regex = /(ne[jklshmnp]al)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000011", () => {
+  //   const target = "nehal";
+  //   let regex = /(ne[jklshmnp]al)/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000012", () => {
+  //   const target = "nehal";
+  //   let regex = /([jklshmnp])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000013", () => {
+  //   const target = "nehal";
+  //   let regex = /([jklshmnp])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000014", () => {
+  //   const target = "neuhal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000015", () => {
+  //   const target = "ne{hal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000016", () => {
+  //   const target = "ne0hal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000017", () => {
+  //   const target = "nefhal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000018", () => {
+  //   const target = "ne}hal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000019", () => {
+  //   const target = "ne\x0fhal";
+  //   let regex = /(ne[\x0f-\u{00000f}]hal)/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000020", () => {
+  //   const target = "ne\x0fhal";
+  //   let regex = /([\x0f-\u{00006c}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000021", () => {
+  //   const target = "ne\x0fhal";
+  //   let regex = /(\x0f[\x0f-\u{00006c}]al)/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000022", () => {
+  //   const target = "nehal";
+  //   let regex = /([abc])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000023", () => {
+  //   const target = "nehal";
+  //   let regex = /([xyz])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000024", () => {
+  //   const target = "neha1";
+  //   let regex = /([0123456789])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000025", () => {
+  //   const target = "nehal";
+  //   let regex = /([aeiou])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000026", () => {
+  //   const target = "NehAl";
+  //   let regex = /([AEIOU])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000027", () => {
+  //   const target = "NehAl";
+  //   let regex = /([a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000028", () => {
+  //   const target = "111NehAl";
+  //   let regex = /(N[a-zA-Z]hAl)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000029", () => {
+  //   const target = "111NehAl";
+  //   let regex = /(N[a-zA-Z]hAl)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000030", () => {
+  //   const target = "111NehAl";
+  //   let regex = /([0-9a-f]N)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000031", () => {
+  //   const target = "ne\u{1F600}hal";
+  //   let regex = /([\u{1F600}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000032", () => {
+  //   const target = "ne\u{1F64F}hal";
+  //   let regex = /([\u{1F600}-\u{1F64F}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000033", () => {
+  //   const target = "ne😀hal";
+  //   let regex = /([😀ab])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000034", () => {
+  //   const target = "ne\u0061hal";
+  //   let regex = /([\u0061\u{62}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000035", () => {
+  //   const target = "\u{1F600}hal";
+  //   let regex = /([a-\u{1F601}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000036", () => {
+  //   const target = "neßhal";
+  //   let regex = /([ß])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000037", () => {
+  //   const target = "néhal";
+  //   let regex = /([é])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000038", () => {
+  //   const target = "ne\u{69}hal";
+  //   let regex = /([\u{61}-\u{7A}])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000039", () => {
+  //   const target = "ne😍hal";
+  //   let regex = /([😀-🙏])/u;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // // test("Pattern match Groups cases: Case000000000000000000000000040", () => {
+  // //   const target = "nehal";
+  // //   let regex = /([a-z&&[aeiou]])/v;
+  // //   console.log("output: ", target.match(regex));
+  // //   assert.strictEqual(regex.test(target), true);
+  // // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000041", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]&&[aeiou]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000042", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a&&b]&&[aeiou]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000043", () => {
+  //   const target = "nehal";
+  //   let regex = /([[bcdefghijkup]&&[aeiou]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000044", () => {
+  //   const target = "nehal";
+  //   let regex = /([[[anil]&&[nehal]]&&[aeiou]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000045", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]--[aeiou]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000046", () => {
+  //   const target = "nehal";
+  //   let regex = /([[adsadasdz]&&[dasdasdz]&&[masdasdz]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000047", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]&&[d-z]&&[m-z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000048", () => {
+  //   const target = "nehal";
+  //   let regex = /([[[a-z]&&[a-m]]--[d-f]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000049", () => {
+  //   const target = "nehal";
+  //   let regex = /([[[a-z]&&[b-m]]--[d-f]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000050", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]&&[x-z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000051", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]&&[[a-m]--[h-k]]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000052", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]--[m-z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000053", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]--[d-m]--[x-z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // // test("Pattern match Groups cases: Case000000000000000000000000054", () => {
+  // //   const target = "nehal";
+  // //   let regex = /([[a-z]&&[a-m]--[g-k]])/v;
+  // //   console.log("output: ", target.match(regex));
+  // //   assert.strictEqual(regex.test(target), true);
+  // // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000055", () => {
+  //   const target = "nehal";
+  //   let regex = /([[[a-z]&&[a-m]]&&[f-z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000056", () => {
+  //   const target = "nehal";
+  //   let regex = /([[a-z]--[[d-z]&&[m-z]]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000057", () => {
+  //   const target = "nehal";
+  //   let regex = /([[[[a-f]&&[c-z]]--[d]]&&[b-e]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000058", () => {
+  //   const target = "ne\nhal";
+  //   let regex = /([[\cJ]&&[\n-\r]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000059", () => {
+  //   const target = "ne\x01hal";
+  //   let regex = /([[\cA]&&[\cB]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000060", () => {
+  //   const target = "nehAl";
+  //   let regex = /([[\x41]&&[A-Z]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000061", () => {
+  //   const target = "nehAl";
+  //   let regex = /([[\u0041]&&[\x41]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000062", () => {
+  //   const target = "neh\u{1F606}al";
+  //   let regex = /([[\u{1F600}-\u{1F607}]&&[\u{1F604}-\u{1F60A}]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000063", () => {
+  //   const target = "neh\x03al";
+  //   let regex = /([[\cA\cB\cC]--[\cB]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000064", () => {
+  //   const target = "laheNehal";
+  //   let regex = /([[\x41-\x5A]&&[\u004D-\u005A]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000065", () => {
+  //   const target = "neh\u{1234}al";
+  //   let regex = /([[\u{1230}-\u{123A}]--[\u{1233}]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000066", () => {
+  //   const target = "neh\x03al";
+  //   let regex = /([[\ca\cb\cc]--[\cb]])/v;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000067", () => {
+  //   const target = "abba";
+  //   let regex = /(a)(b)\2/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000068", () => {
+  //   const target = "ms_nehalAh";
+  //   let regex = /ms_(n((e(h))a)l)A\4/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000069", () => {
+  //   const target = "ms_nehalAeha";
+  //   let regex = /ms_(n((e(h))a)l)A\2/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000070", () => {
+  //   const target = "aaha";
+  //   let regex = /(a)\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000071", () => {
+  //   const target = "abbah";
+  //   let regex = /(a)(b)\2\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000072", () => {
+  //   const target = "abbah";
+  //   let regex = /(\w)\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000073", () => {
+  //   const target = "abbcaccch";
+  //   let regex = /(\w)\1\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000074", () => {
+  //   const target = "abbcacccababbh";
+  //   let regex = /(a(b))\1\2/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000075", () => {
+  //   const target = "abbcacccababbhabccbcabc";
+  //   let regex = /(a(b(c)))\3\2\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000076", () => {
+  //   const target = "abbcacccababcabcbbhabccbcabc";
+  //   let regex = /((ab)c)\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000077", () => {
+  //   const target = "abbcacabbaccababcabcbbhabccbcabc";
+  //   let regex = /((a)(b))\3\2/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000078", () => {
+  //   const target = "abbcacabbaccahahababcabcbbhahahabccbcabc";
+  //   let regex = /(ha)\1\1/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000079", () => {
+  //   const target = "aa";
+  //   let regex = /(?<x>a)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000080", () => {
+  //   const target = "hello";
+  //   let regex = /(?<word>\w)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000081", () => {
+  //   const target = "aa";
+  //   let regex = /(?<x>a)\k<x>/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000082", () => {
+  //   const target = "John Doe";
+  //   let regex = /(?<first>\w)\s(?<second>\w)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000083", () => {
+  //   const target = "abcabbabxyz";
+  //   let regex = /(?<a>a)(?<b>b)\k<b>\k<a>/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000084", () => {
+  //   const target = "abcababxababbyz";
+  //   let regex = /(?<outer>a(?<inner>b))\k<outer>\k<inner>/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000085", () => {
+  //   const target = "abcabapsfabcxarabccbcabcbxababbyz";
+  //   let regex = /(?<g1>a(?<g2>b(?<g3>c)))\k<g3>\k<g2>\k<g1>/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000086", () => {
+  //   const target = "bccbcabcabbabxaba";
+  //   let regex = /(?<x>a)(b)\2\k<x>/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000087", () => {
+  //   const target = "bccbcabcabbabxaba";
+  //   // @NOTE: works differently as compared to solidity
+  //   let regex = /\k<x>(?<x>a)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // // test("Pattern match Groups cases: Case000000000000000000000000088", () => {
+  // //   const target = "foobarfoo\x01foo";
+  // //   let regex = /foo(?=bar)\1/v;
+  // //   console.log("output: ", target.match(regex));
+  // //   assert.strictEqual(regex.test(target), true);
+  // // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000089", () => {
+  //   const target = "foobar";
+  //   let regex = /foo(?=bar)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000090", () => {
   //   const target = "foobaz";
-  //   let regex = /foo(?!bar)\1/u;
+  //   let regex = /foo(?=bar)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // // test("Pattern match Groups cases: Case000000000000000000000000091", () => {
+  // //   const target = "foobaz";
+  // //   let regex = /foo(?!bar)\1/u;
+  // //   console.log("output: ", target.match(regex));
+  // //   assert.strictEqual(regex.test(target), true);
+  // // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000092", () => {
+  //   const target = "foobaz";
+  //   let regex = /foo(?!bar)/;
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000092", () => {
-    const target = "foobaz";
-    let regex = /foo(?!bar)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // test("Pattern match Groups cases: Case000000000000000000000000093", () => {
+  //   const target = "foobazfoobar";
+  //   let regex = /foo(?!baz)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000093", () => {
-    const target = "foobazfoobar";
-    let regex = /foo(?!baz)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
+  // // test("Pattern match Groups cases: Case000000000000000000000000094", () => {
+  // //   const target = "now let's pay $dollars, total is $9.";
+  // //   let regex = /(?<=\$)\1/u;
+  // //   console.log("output: ", target.match(regex));
+  // //   assert.strictEqual(regex.test(target), true);
+  // // });
 
-  // test("Pattern match Groups cases: Case000000000000000000000000094", () => {
+  // test("Pattern match Groups cases: Case000000000000000000000000095", () => {
   //   const target = "now let's pay $dollars, total is $9.";
-  //   let regex = /(?<=\$)\1/u;
+  //   let regex = /(?<=\$)\d/;
   //   console.log("output: ", target.match(regex));
   //   assert.strictEqual(regex.test(target), true);
   // });
 
-  test("Pattern match Groups cases: Case000000000000000000000000095", () => {
-    const target = "now let's pay $dollars, total is $9.";
-    let regex = /(?<=\$)\d/;
+  // test("Pattern match Groups cases: Case000000000000000000000000096", () => {
+  //   const target = "now let's pay $dollars, total is $9. or 8";
+  //   let regex = /(?<!\$)\d/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000097", () => {
+  //   const target = "now let's pay $dollars, totabl is $9. or 8";
+  //   let regex = /a(?=b)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000098", () => {
+  //   const target = "now let's pay xz $dollars, xy totabl is $9. or 8";
+  //   let regex = /x(?=y)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case000000000000000000000000099", () => {
+  //   const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
+  //   let regex = /a(?!b)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000100", () => {
+  //   const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
+  //   let regex = /x(?!y)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000101", () => {
+  //   const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+  //   let regex = /(?<=a)b/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000102", () => {
+  //   const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+  //   let regex = /(?<=x)y/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000103", () => {
+  //   const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+  //   let regex = /(?<!a)b/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000104", () => {
+  //   const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
+  //   let regex = /(?<!x)y/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000105", () => {
+  //   const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+  //   let regex = /(?<=a)b(?=c)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000106", () => {
+  //   const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+  //   let regex = /a(?=b)b/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000107", () => {
+  //   const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
+  //   let regex = /a(?=b)c/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000108", () => {
+  //   const target = "now let's totabl xz $dollabcrbs, xy pacy is $9. or 8";
+  //   let regex = /a(?!b)c/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000109", () => {
+  //   const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
+  //   let regex = /(?<=a)b c/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000110", () => {
+  //   const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
+  //   let regex = /(?<=a)b/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000111", () => {
+  //   const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+  //   let regex = /a(?=b)(?=bc)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000112", () => {
+  //   const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+  //   // @info: Literally, only possible in quantum world|computing
+  //   let regex = /a(?=b)(?=c)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000113", () => {
+  //   const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+  //   let regex = /(?<=a)b(?=c)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000114", () => {
+  //   const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
+  //   let regex = /a(?=(b(?=c)))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000115", () => {
+  //   const target = "she is n3hal aka drishti";
+  //   let regex = /\d(?=[a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000116", () => {
+  //   const target = "she is n3hal aka drishti";
+  //   let regex = /[a-z](?=\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000117", () => {
+  //   const target = "she is n3hal aka 3@drishti";
+  //   let regex = /\d(?![a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000118", () => {
+  //   const target = "s1h1e i@s n3hal aka 3@drishti";
+  //   let regex = /[a-z](?!\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000119", () => {
+  //   const target = "s1h1e i@s n3hal aka 3@drishti";
+  //   let regex = /(?<=\d)[a-z]/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000120", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti";
+  //   let regex = /(?<=[a-z])\d/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000121", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti";
+  //   let regex = /(?<!\d)[a-z]/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000122", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti";
+  //   let regex = /(?<![a-z])\d/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000123", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti_";
+  //   let regex = /_(?=\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), false);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000124", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti_";
+  //   let regex = /_(?!\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000125", () => {
+  //   const target = "she i@1s n3hal aka 3@drishti_";
+  //   let regex = /(\d)(?=[a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000126", () => {
+  //   const target = "she i@1 n3hal aka 3@drishti_";
+  //   let regex = /(\d)(?=[a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000127", () => {
+  //   const target = "she i@1 n3hal aka 3@drishti_";
+  //   let regex = /([a-z])(?=\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000128", () => {
+  //   const target = "she i@1a n3hal aka 3@drishti_";
+  //   let regex = /(\d)(?![a-z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000129", () => {
+  //   const target = "s1h1e1 i@1a n3hal aka 3@drishti_";
+  //   let regex = /([a-z])(?!\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000130", () => {
+  //   const target = "s1ha1e1 i@1a n3habl aka 3@drishti_";
+  //   let regex = /a(?=(b))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000131", () => {
+  //   const target = "s1ha1eb1 i@1ba n3habl aka 3@drishti_";
+  //   let regex = /(?<=(a))b/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000132", () => {
+  //   const target = "shaeb1 i12@1ba n3habl aka 3@drishti_";
+  //   let regex = /(\d)(?=(\w))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000133", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl aka 3@drishti_";
+  //   let regex = /(?<=(\w))(\d)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000134", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl a9nOv 3@drishti_";
+  //   let regex = /\d(?=[a-z])(?=[a-z][A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000135", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
+  //   let regex = /[a-z](?=\d)(?=\d[A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000136", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
+  //   let regex = /(\w)(?=(\d))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000137", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl z9N2o08v 3@drishti_";
+  //   let regex = /(?<=(\d))(\w)(?=(\d))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000138", () => {
+  //   const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
+  //   let regex = /(?<=(\w))(\d)(?=(\w))/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000139", () => {
+  //   const target = "shaeb$ @1A@1ba n3#habl z9NOv 3@drishti_";
+  //   let regex = /\d(?![a-z])(?![A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000140", () => {
+  //   const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
+  //   let regex = /(?<=\d)[a-z](?=[A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000141", () => {
+  //   const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
+  //   let regex = /(?<=[a-z])\d(?=[A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000142", () => {
+  //   const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
+  //   let regex = /(?<!\d)[a-z](?![A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000143", () => {
+  //   const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
+  //   let regex = /(?<![a-z])\d(?![A-Z])/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  // test("Pattern match Groups cases: Case0000000000000000000000000144", () => {
+  //   const target = "shaeb$ @1A@1ba 3@drishti_nehal_2008";
+  //   let regex = /(?<=_)nehal(?=_)/;
+  //   console.log("output: ", target.match(regex));
+  //   assert.strictEqual(regex.test(target), true);
+  // });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000001", () => {
+    const target =
+      "nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    let regex = /^nehal/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Groups cases: Case000000000000000000000000096", () => {
-    const target = "now let's pay $dollars, total is $9. or 8";
-    let regex = /(?<!\$)\d/;
+  test("Pattern match Anchors cases: Case000000000000000000000000002", () => {
+    const target = "A girl named nehal";
+    let regex = /nehal$/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Groups cases: Case000000000000000000000000097", () => {
-    const target = "now let's pay $dollars, totabl is $9. or 8";
-    let regex = /a(?=b)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000098", () => {
-    const target = "now let's pay xz $dollars, xy totabl is $9. or 8";
-    let regex = /x(?=y)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case000000000000000000000000099", () => {
-    const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
-    let regex = /a(?!b)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000100", () => {
-    const target = "now let's totabl xz $dollars, xy pay is $9. or 8";
-    let regex = /x(?!y)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000101", () => {
-    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
-    let regex = /(?<=a)b/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000102", () => {
-    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
-    let regex = /(?<=x)y/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000103", () => {
-    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
-    let regex = /(?<!a)b/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000104", () => {
-    const target = "now let's totabl xz $dollarbs, xy pay is $9. or 8";
-    let regex = /(?<!x)y/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000105", () => {
-    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
-    let regex = /(?<=a)b(?=c)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000106", () => {
-    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
-    let regex = /a(?=b)b/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000107", () => {
-    const target = "now let's totabl xz $dollabcrbs, xy pay is $9. or 8";
-    let regex = /a(?=b)c/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000108", () => {
-    const target = "now let's totabl xz $dollabcrbs, xy pacy is $9. or 8";
-    let regex = /a(?!b)c/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000109", () => {
-    const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
-    let regex = /(?<=a)b c/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000110", () => {
-    const target = "now let's totabcl xz $dollab crbs, xy pacy is $9. or 8";
-    let regex = /(?<=a)b/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000111", () => {
-    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
-    let regex = /a(?=b)(?=bc)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000112", () => {
-    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
-    // @info: Literally, only possible in quantum world|computing
-    let regex = /a(?=b)(?=c)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000113", () => {
-    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
-    let regex = /(?<=a)b(?=c)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000114", () => {
-    const target = "now let's totabl xz $dollab crbabcs, xy pacy is $9. or 8";
-    let regex = /a(?=(b(?=c)))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000115", () => {
-    const target = "she is n3hal aka drishti";
-    let regex = /\d(?=[a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000116", () => {
-    const target = "she is n3hal aka drishti";
-    let regex = /[a-z](?=\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000117", () => {
-    const target = "she is n3hal aka 3@drishti";
-    let regex = /\d(?![a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000118", () => {
-    const target = "s1h1e i@s n3hal aka 3@drishti";
-    let regex = /[a-z](?!\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000119", () => {
-    const target = "s1h1e i@s n3hal aka 3@drishti";
-    let regex = /(?<=\d)[a-z]/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000120", () => {
-    const target = "she i@1s n3hal aka 3@drishti";
-    let regex = /(?<=[a-z])\d/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000121", () => {
-    const target = "she i@1s n3hal aka 3@drishti";
-    let regex = /(?<!\d)[a-z]/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000122", () => {
-    const target = "she i@1s n3hal aka 3@drishti";
-    let regex = /(?<![a-z])\d/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000123", () => {
-    const target = "she i@1s n3hal aka 3@drishti_";
-    let regex = /_(?=\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000124", () => {
-    const target = "she i@1s n3hal aka 3@drishti_";
-    let regex = /_(?!\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000125", () => {
-    const target = "she i@1s n3hal aka 3@drishti_";
-    let regex = /(\d)(?=[a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000126", () => {
-    const target = "she i@1 n3hal aka 3@drishti_";
-    let regex = /(\d)(?=[a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000127", () => {
-    const target = "she i@1 n3hal aka 3@drishti_";
-    let regex = /([a-z])(?=\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000128", () => {
-    const target = "she i@1a n3hal aka 3@drishti_";
-    let regex = /(\d)(?![a-z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000129", () => {
-    const target = "s1h1e1 i@1a n3hal aka 3@drishti_";
-    let regex = /([a-z])(?!\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000130", () => {
-    const target = "s1ha1e1 i@1a n3habl aka 3@drishti_";
-    let regex = /a(?=(b))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000131", () => {
-    const target = "s1ha1eb1 i@1ba n3habl aka 3@drishti_";
-    let regex = /(?<=(a))b/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000132", () => {
-    const target = "shaeb1 i12@1ba n3habl aka 3@drishti_";
-    let regex = /(\d)(?=(\w))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000133", () => {
-    const target = "shaeb$1 @1@1ba n3habl aka 3@drishti_";
-    let regex = /(?<=(\w))(\d)/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000134", () => {
-    const target = "shaeb$1 @1@1ba n3habl a9nOv 3@drishti_";
-    let regex = /\d(?=[a-z])(?=[a-z][A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000135", () => {
-    const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
-    let regex = /[a-z](?=\d)(?=\d[A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000136", () => {
-    const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
-    let regex = /(\w)(?=(\d))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000137", () => {
-    const target = "shaeb$1 @1@1ba n3habl z9N2o08v 3@drishti_";
-    let regex = /(?<=(\d))(\w)(?=(\d))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000138", () => {
-    const target = "shaeb$1 @1@1ba n3habl z9NOv 3@drishti_";
-    let regex = /(?<=(\w))(\d)(?=(\w))/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000139", () => {
-    const target = "shaeb$ @1A@1ba n3#habl z9NOv 3@drishti_";
-    let regex = /\d(?![a-z])(?![A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000140", () => {
-    const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
-    let regex = /(?<=\d)[a-z](?=[A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000141", () => {
-    const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
-    let regex = /(?<=[a-z])\d(?=[A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000142", () => {
-    const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
-    let regex = /(?<!\d)[a-z](?![A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000143", () => {
-    const target = "shaeb$ @1A@1ba n3#1hAbl z9NOv 3@drishti_";
-    let regex = /(?<![a-z])\d(?![A-Z])/;
-    console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), true);
-  });
-
-  test("Pattern match Groups cases: Case0000000000000000000000000144", () => {
-    const target = "shaeb$ @1A@1ba 3@drishti_nehal_2008";
-    let regex = /(?<=_)nehal(?=_)/;
+  test("Pattern match Anchors cases: Case000000000000000000000000003", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal";
+    let regex = /^nehal$/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });

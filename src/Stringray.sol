@@ -1027,7 +1027,8 @@ contract Stringray {
             console2.log("isFirstMatch: ", isFirstMatch);
             console2.log("fromGroup: ", fromGroup);
             console2.log("indexToStartMatch: ", indexToStartMatch);
-            console2.log("fromCharacterClass: ", fromCharacterClass);
+            console2.log("stringInBytes length: ", stringInBytes.length);
+            console2.log("stringInBytes: ", string(stringInBytes));
             console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
             console2.log("matchData.matchStartIndex at beginning: ", matchData.matchStartIndex);
@@ -1262,6 +1263,26 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+            } else if (atoms[matchData.i].atomType == CARET_ANCHOR) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchCaretOrStart(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
+            } else if (atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1295,6 +1316,7 @@ contract Stringray {
                     ? uint256(matchData.matchEndIndex) + 1
                     : uint256(matchData.matchEndIndex);
                 matchData.i++;
+                console2.log("breaking from here");
                 break;
             }
 
@@ -1346,7 +1368,13 @@ contract Stringray {
         }
 
         if (matchData.i < atoms.length) {
-            return (-1, -1);
+            if (
+                matchData.i + 1 != atoms.length || atoms[matchData.i].atomType != DOLLAR_ANCHOR
+                    || indexToStartMatch != stringInBytes.length
+            ) {
+                // return (matchData.firstIndex, matchData.matchEndIndex);
+                return (-1, -1);
+            }
         }
 
         if ((isFirstMatch || fromGroup) && matchData.firstIndex == -1) {
@@ -1389,6 +1417,7 @@ contract Stringray {
     }
 
     function matchDollarOrEnd(
+        bytes memory atom,
         bytes memory stringInBytes,
         bytes memory patternFlags,
         uint256 indexToStartMatch,
@@ -1396,11 +1425,20 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        // @TODO: implement functionality to detect the end of the string.
+        console2.log("---------------------------------matchDollarOrEnd---------------------------------");
+        console2.log("Atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("fromGroup: ", fromGroup);
+        console2.log("------------------------------------------------------------------");
         return (-1, -1);
     }
 
     function matchCaretOrStart(
+        bytes memory atom,
         bytes memory stringInBytes,
         bytes memory patternFlags,
         uint256 indexToStartMatch,
@@ -1408,7 +1446,15 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        // @TODO: implement functionality to detect the start of the string.
+        console2.log("---------------------------------matchCaretOrStart---------------------------------");
+        console2.log("Atom: ", string(atom));
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("patternFlags: ", string(patternFlags));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("fromGroup: ", fromGroup);
+        console2.log("------------------------------------------------------------------");
         return (-1, -1);
     }
 
