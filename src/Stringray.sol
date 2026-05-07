@@ -1273,6 +1273,16 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+            } else if (atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
+                    atoms[matchData.i].atom,
+                    stringInBytes,
+                    patternFlags,
+                    matchData.matchEndIndex,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1363,7 +1373,7 @@ contract Stringray {
                     atoms[matchData.i].atom,
                     stringInBytes,
                     patternFlags,
-                    indexToStartMatch,
+                    matchData.matchEndIndex,
                     isFirstMatch,
                     fromCharacterClass,
                     fromGroup
@@ -1416,7 +1426,7 @@ contract Stringray {
         bytes memory atom,
         bytes memory stringInBytes,
         bytes memory patternFlags,
-        uint256 indexToStartMatch,
+        int256 indexToStartMatch,
         bool isFirstMatch,
         bool fromCharacterClass,
         bool fromGroup
@@ -1430,6 +1440,31 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("fromGroup: ", fromGroup);
         console2.log("------------------------------------------------------------------");
+
+        if (indexToStartMatch + 1 >= int256(stringInBytes.length)) {
+            return (indexToStartMatch, indexToStartMatch);
+        } else if (indexToStartMatch >= 0) {
+            if (
+                uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 10
+                    || uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 13
+            ) {
+                return (indexToStartMatch, indexToStartMatch);
+            } else if (stringInBytes[uint256(indexToStartMatch) + 1] == 0xe2) {
+                if (
+                    indexToStartMatch + 2 < int256(stringInBytes.length)
+                        && stringInBytes[uint256(indexToStartMatch) + 2] == 0x80
+                ) {
+                    if (
+                        indexToStartMatch + 3 < int256(stringInBytes.length)
+                            && (stringInBytes[uint256(indexToStartMatch) + 3] == 0xa8
+                                || stringInBytes[uint256(indexToStartMatch) + 3] == 0xa9)
+                    ) {
+                        return (indexToStartMatch, indexToStartMatch);
+                    }
+                }
+            }
+        }
+
         return (-1, -1);
     }
 

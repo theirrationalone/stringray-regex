@@ -26808,7 +26808,9 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchAnchorsCase2() public {
-        string memory target = "A girl named nehal";
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{2029}"));
+        string memory target = string(abi.encodePacked("A girl named nehal", utf8Hex, ", born on 09 Nov 2008"));
+        // string memory target = "A girl named nehal\r, born on 09 Nov 2008";
         string memory pattern = unicode"/nehal$/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
