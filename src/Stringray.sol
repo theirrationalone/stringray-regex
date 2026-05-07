@@ -1202,7 +1202,10 @@ contract Stringray {
 
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch);
-            } else if (atoms[matchData.i].atomType == GROUP_ATOM) {
+            } else if (
+                atoms[matchData.i].atomType == GROUP_ATOM
+                    && uint8(atoms[matchData.i].atom[atoms[matchData.i].atom.length - 1]) == CLOSE_PARANTHESIS
+            ) {
                 int256 prevMatchStartIndex = matchData.matchStartIndex;
                 int256 prevMatchEndIndex = matchData.matchEndIndex;
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
