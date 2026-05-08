@@ -1275,10 +1275,27 @@ contract Stringray {
                     fromGroup
                 );
 
+                console2.log("matchData.matchStartIndex: ", matchData.matchStartIndex);
+                console2.log("matchData.matchEndIndex  : ", matchData.matchEndIndex);
+
                 if (matchData.matchStartIndex > -1 && matchData.matchEndIndex > -1) {
                     matchData.i++;
                     matchData.specialFlag = false;
                     continue;
+                } else {
+                    delete grpMatchedData;
+                    delete groupNames;
+                    if (hasFlag(patternFlags, "m")) {
+                        matchData.firstIndex = -1;
+                        matchData.matchEndIndex = -1;
+                        matchData.i = 0;
+                        groupsCounter = 0;
+                        matchData.specialFlag = false;
+                        indexToStartMatch += 1;
+                        continue;
+                    } else {
+                        return (-1, -1);
+                    }
                 }
             } else if (atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
@@ -1532,10 +1549,52 @@ contract Stringray {
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
         singleAtom[0] = atoms[currentAtomIndex + 1];
+        int256 matchEndIndex = -1;
 
-        return matchPattern(
-            singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
-        );
+        if (indexToStartMatch <= 0) {
+            (, matchEndIndex) = matchPattern(
+                singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
+            );
+        } else {
+            if (hasFlag(patternFlags, "m")) {
+                if (
+                    uint8(stringInBytes[indexToStartMatch - 1]) == 10
+                        || uint8(stringInBytes[indexToStartMatch - 1]) == 13
+                ) {
+                    (, matchEndIndex) = matchPattern(
+                        singleAtom,
+                        stringInBytes,
+                        patternFlags,
+                        indexToStartMatch,
+                        isFirstMatch,
+                        fromCharacterClass,
+                        fromGroup
+                    );
+                } else if (indexToStartMatch > 2) {
+                    if (stringInBytes[indexToStartMatch - 1] == 0xa8 || stringInBytes[indexToStartMatch - 1] == 0xa9) {
+                        if (stringInBytes[indexToStartMatch - 2] == 0x80) {
+                            if (stringInBytes[indexToStartMatch - 3] == 0xe2) {
+                                (, matchEndIndex) = matchPattern(
+                                    singleAtom,
+                                    stringInBytes,
+                                    patternFlags,
+                                    indexToStartMatch,
+                                    isFirstMatch,
+                                    fromCharacterClass,
+                                    fromGroup
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (matchEndIndex != int256(indexToStartMatch)) {
+            return (-1, -1);
+        }
+
+        return (matchEndIndex, matchEndIndex);
     }
 
     function matchNamedBackReferenceGroup(

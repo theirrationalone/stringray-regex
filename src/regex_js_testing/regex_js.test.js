@@ -19954,5 +19954,14 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000004", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "A girl named nehal";
+    let regex = /^nehal$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
