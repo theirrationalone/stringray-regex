@@ -26809,8 +26809,8 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchAnchorsCase2() public {
         bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{2029}"));
-        string memory target = string(abi.encodePacked("A girl named nehal", utf8Hex, ", born on 09 Nov 2008"));
-        // string memory target = "A girl named nehal\r, born on 09 Nov 2008";
+        // string memory target = string(abi.encodePacked("A girl named nehal", utf8Hex, ", born on 09 Nov 2008"));
+        string memory target = "A girl named nehal";
         string memory pattern = unicode"/nehal$/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
@@ -27233,8 +27233,6 @@ contract PlayStringTest is Test {
         string memory target = "nehal\n";
         string memory pattern = unicode"/nehal\n^$/m";
 
-        // // @BUG: doesn't match with the string. However, expected to match
-
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
@@ -27355,7 +27353,6 @@ contract PlayStringTest is Test {
         string memory target = "nehal\n";
         string memory pattern = unicode"/nehal$/";
 
-        // @BUG: matches with the string. However, expected to not match
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
@@ -27386,7 +27383,6 @@ contract PlayStringTest is Test {
         string memory target = "nehal\n";
         string memory pattern = unicode"/nehal\n^/";
 
-        // @BUG: matches with the string. However, expected to not match
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);

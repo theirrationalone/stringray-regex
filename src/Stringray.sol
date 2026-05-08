@@ -1398,7 +1398,7 @@ contract Stringray {
         }
 
         if (matchData.i < atoms.length) {
-            if (matchData.i + 1 == atoms.length || atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
+            if (matchData.i + 1 <= atoms.length && atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
                     atoms[matchData.i].atom,
                     stringInBytes,
@@ -1408,6 +1408,24 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+
+                if (matchData.matchEndIndex == -1) {
+                    matchData.firstIndex = -1;
+                }
+            } else if (matchData.i + 1 <= atoms.length && atoms[matchData.i].atomType == CARET_ANCHOR) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchCaretOrStart(
+                    atoms,
+                    matchData.i,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup
+                );
+                if (matchData.matchEndIndex == -1) {
+                    matchData.firstIndex = -1;
+                }
             } else {
                 return (-1, -1);
             }
@@ -1474,22 +1492,24 @@ contract Stringray {
         if (indexToStartMatch + 1 >= int256(stringInBytes.length)) {
             return (indexToStartMatch, indexToStartMatch);
         } else if (indexToStartMatch >= 0) {
-            if (
-                uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 10
-                    || uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 13
-            ) {
-                return (indexToStartMatch, indexToStartMatch);
-            } else if (stringInBytes[uint256(indexToStartMatch) + 1] == 0xe2) {
+            if (hasFlag(patternFlags, "m")) {
                 if (
-                    indexToStartMatch + 2 < int256(stringInBytes.length)
-                        && stringInBytes[uint256(indexToStartMatch) + 2] == 0x80
+                    uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 10
+                        || uint8(stringInBytes[uint256(indexToStartMatch) + 1]) == 13
                 ) {
+                    return (indexToStartMatch, indexToStartMatch);
+                } else if (stringInBytes[uint256(indexToStartMatch) + 1] == 0xe2) {
                     if (
-                        indexToStartMatch + 3 < int256(stringInBytes.length)
-                            && (stringInBytes[uint256(indexToStartMatch) + 3] == 0xa8
-                                || stringInBytes[uint256(indexToStartMatch) + 3] == 0xa9)
+                        indexToStartMatch + 2 < int256(stringInBytes.length)
+                            && stringInBytes[uint256(indexToStartMatch) + 2] == 0x80
                     ) {
-                        return (indexToStartMatch, indexToStartMatch);
+                        if (
+                            indexToStartMatch + 3 < int256(stringInBytes.length)
+                                && (stringInBytes[uint256(indexToStartMatch) + 3] == 0xa8
+                                    || stringInBytes[uint256(indexToStartMatch) + 3] == 0xa9)
+                        ) {
+                            return (indexToStartMatch, indexToStartMatch);
+                        }
                     }
                 }
             }
@@ -1529,13 +1549,17 @@ contract Stringray {
 
         if (atoms.length >= 2) {
             if (hasFlag(patternFlags, "m")) {
-                if (atoms[currentAtomIndex + 1].atomType == DOLLAR_ANCHOR && stringInBytes.length > 0) {
+                if (
+                    (currentAtomIndex + 1 < atoms.length
+                            && atoms[currentAtomIndex + 1].atomType == DOLLAR_ANCHOR
+                            && stringInBytes.length > 0) || (indexToStartMatch == stringInBytes.length)
+                ) {
                     if (indexToStartMatch > 0) {
                         if (
                             uint8(stringInBytes[indexToStartMatch - 1]) == 10
                                 || uint8(stringInBytes[indexToStartMatch - 1]) == 13
                         ) {
-                            return (int256(indexToStartMatch), int256(indexToStartMatch));
+                            return (int256(indexToStartMatch - 1), int256(indexToStartMatch - 1));
                         } else if (indexToStartMatch > 2) {
                             if (
                                 stringInBytes[indexToStartMatch - 1] == 0xa8
@@ -1543,7 +1567,7 @@ contract Stringray {
                             ) {
                                 if (stringInBytes[indexToStartMatch - 2] == 0x80) {
                                     if (stringInBytes[indexToStartMatch - 3] == 0xe2) {
-                                        return (int256(indexToStartMatch), int256(indexToStartMatch));
+                                        return (int256(indexToStartMatch - 1), int256(indexToStartMatch - 1));
                                     }
                                 }
                             }
@@ -1551,6 +1575,10 @@ contract Stringray {
                     }
                 }
             }
+        }
+
+        if (currentAtomIndex + 1 >= atoms.length) {
+            return (-1, -1);
         }
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
@@ -1563,6 +1591,7 @@ contract Stringray {
             );
         } else {
             if (hasFlag(patternFlags, "m")) {
+                console2.log("i think this block in unreachable");
                 if (
                     uint8(stringInBytes[indexToStartMatch - 1]) == 10
                         || uint8(stringInBytes[indexToStartMatch - 1]) == 13
@@ -1595,6 +1624,8 @@ contract Stringray {
                 }
             }
         }
+
+        console2.log("matchEndIndex in start anchor func: ", matchEndIndex);
 
         if (matchEndIndex != int256(indexToStartMatch)) {
             return (-1, -1);
