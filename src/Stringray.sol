@@ -1058,6 +1058,9 @@ contract Stringray {
                         return (matchData.matchStartIndex, matchData.matchEndIndex);
                     }
                 }
+                if (atoms[matchData.i].atomType == CARET_ANCHOR) {
+                    return (matchData.matchStartIndex, matchData.matchEndIndex);
+                }
                 break;
             }
 
@@ -1294,6 +1297,9 @@ contract Stringray {
                         indexToStartMatch += 1;
                         continue;
                     } else {
+                        if (matchData.matchStartIndex == 0) {
+                            return (0, -1);
+                        }
                         return (-1, -1);
                     }
                 }

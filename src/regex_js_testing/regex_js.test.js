@@ -19961,6 +19961,213 @@ const testMain = () => {
     const target = "A girl named nehal";
     let regex = /^nehal$/;
     console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000005", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "A girl named nehal";
+    let regex = /^$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000006", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "";
+    let regex = /^$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000007", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "n";
+    let regex = /n^$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000008", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "n";
+    let regex = /^$n/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case000000000000000000000000009", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal";
+    let regex = /neh^$al/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000010", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "n\n";
+    let regex = /n^$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000011", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "n\n";
+    let regex = /^$n/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000012", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "neh\nal";
+    let regex = /neh^$al/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000013", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000014", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n^$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000015", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal^$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000016", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n^$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000017", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000018", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n^/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000019", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000020", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000021", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n^/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000022", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000023", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000024", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal\n^/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000025", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal$\n/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000026", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal$\n$/m;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case0000000000000000000000000027", () => {
+    // const target =
+    //   "A girl named nehal, born on 09 Nov 2008, A straight forward fierce girl.";
+    const target = "nehal\n";
+    let regex = /nehal$\n^$/m;
+    console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 };
