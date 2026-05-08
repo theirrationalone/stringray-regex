@@ -1313,6 +1313,10 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
+
+                if (matchData.matchEndIndex > -1) {
+                    indexToStartMatch = uint256(matchData.matchEndIndex);
+                }
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
