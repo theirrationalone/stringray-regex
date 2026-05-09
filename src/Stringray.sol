@@ -1031,6 +1031,7 @@ contract Stringray {
             console2.log("stringInBytes: ", string(stringInBytes));
             console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
+            console2.log("fromCharacterClass: ", fromCharacterClass);
             console2.log("matchData.matchStartIndex at beginning: ", matchData.matchStartIndex);
             console2.log("matchData.matchEndIndex at beginning: ", matchData.matchEndIndex);
             console2.logBytes(atoms[matchData.i].atom);
@@ -2857,6 +2858,8 @@ contract Stringray {
                 }
             }
 
+            collectCCLiterals(subAtom[0]);
+
             (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
 
@@ -2879,36 +2882,33 @@ contract Stringray {
         return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
     }
 
-    // function matchCharacterClassSubAtomsPattern(
-    //     bytes memory stringInBytes,
-    //     uint256 indexToStartMatch,
-    //     bool isFirstMatch,
-    //     bytes memory patternFlags
-    // ) private returns (int256, int256) {
-    //     int256 matchStartIndex = -1;
-    //     int256 matchEndIndex = -1;
-    //     console2.log("---------matchCharacterClassSubAtomsPattern---------");
-    //     console2.log("cc sub atoms length: ", allCCSubAtoms.length);
-    //     for (uint256 i; i < allCCSubAtoms.length; i++) {
-    //         AtomTrait[] memory subAtom = new AtomTrait[](1);
-    //         subAtom[0] = allCCSubAtoms[i];
+    bytes[] private ccLiterals;
 
-    //         (matchStartIndex, matchEndIndex) =
-    //             matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, false);
-
-    //         console2.log("allCCSubAtoms[i]: ", string(allCCSubAtoms[i].atom));
-    //         console2.log("matchStartIndex: ", matchStartIndex);
-    //         console2.log("matchEndIndex: ", matchEndIndex);
-    //         console2.log("stringInBytes: ", string(stringInBytes));
-    //         console2.log("------------------");
-
-    //         if (matchStartIndex > -1 && matchEndIndex > -1) {
-    //             return (matchStartIndex, matchEndIndex);
-    //         }
-    //     }
-
-    //     return (matchStartIndex, matchEndIndex);
-    // }
+    function collectCCLiterals(AtomTrait subAtom) private {
+        bytes memory atom;
+        if (subAtom.atomType == LITERAL_ATOM) {
+            atom = subAtom.atom;
+        } else if (subAtom.atomType == TAB) {
+            atom = abi.encodePacked(0x09);
+        } else if (subAtom.atomType == NEWLINE) {
+            atom = abi.encodePacked(0x0a);
+        } else if (subAtom.atomType == VERTICAL_TAB) {
+            atom = abi.encodePacked(0x0b);
+        } else if (subAtom.atomType == FORMFEED) {
+            atom = abi.encodePacked(0x0c);
+        } else if (subAtom.atomType == CARRIAGE_RETURN) {
+            atom = abi.encodePacked(0x0d);
+        } else if (subAtom.atomType == ESCAPE_LITERAL_ATOM) {
+            atom = trimString(subAtom.atom, 1, int256(subAtom.atom.length - 1));
+        } else if (subAtom.atomType == CONTROL_PREFIX) {
+            bytes memory targetHex = trimString(atom, 2, -1);
+            atom = abi.encodePacked(uint8(targetHex[0]) % 32);
+        } else if (subAtom.atomType == DIGIT || subAtom.atomType == 
+        ) {
+            // it's \d or \D
+        }
+        ccLiterals.push(atom);
+    }
 
     function ccSubAtoms(
         bytes memory pattern,
