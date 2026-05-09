@@ -27855,8 +27855,6 @@ contract PlayStringTest is Test {
         string memory target = "abc";
         string memory pattern = unicode"/$/";
 
-        // @BUG: inconsistent return vars
-
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string         : ", returnedData.patternString);
@@ -28320,8 +28318,6 @@ contract PlayStringTest is Test {
     function testRegexPatternMatchAnchorsCase53() public {
         string memory target = "\n";
         string memory pattern = unicode"/^$/m";
-
-        // @BUG: not matched
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
