@@ -2769,6 +2769,11 @@ contract Stringray {
         }
 
         for (; matchCCLocalVars.i < pattern.length;) {
+            if (matchCCLocalVars.i == 0 && uint8(pattern[matchCCLocalVars.i]) == CARET_SIGN) {
+                matchCCLocalVars.i += 1;
+                continue;
+            }
+
             AtomTrait[] memory subAtom = new AtomTrait[](1);
 
             (matchCCLocalVars.lAtomType, matchCCLocalVars.lLastParticleIndex) =
@@ -2854,7 +2859,9 @@ contract Stringray {
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
 
             if (matchCCLocalVars.matchStartIndex > -1 && matchCCLocalVars.matchEndIndex > -1) {
-                return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
+                if (uint8(pattern[0]) != CARET_SIGN) {
+                    return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
+                } else {}
             }
 
             matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
