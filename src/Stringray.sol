@@ -2768,6 +2768,8 @@ contract Stringray {
             return (int256(indexToStartMatch), int256(indexToStartMatch));
         }
 
+        // @info: current logic to match with targets is so hectic, need to invent a new way
+
         for (; matchCCLocalVars.i < pattern.length;) {
             if (matchCCLocalVars.i == 0 && uint8(pattern[matchCCLocalVars.i]) == CARET_SIGN) {
                 matchCCLocalVars.i += 1;
@@ -2861,7 +2863,11 @@ contract Stringray {
             if (matchCCLocalVars.matchStartIndex > -1 && matchCCLocalVars.matchEndIndex > -1) {
                 if (uint8(pattern[0]) != CARET_SIGN) {
                     return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
-                } else {}
+                }
+            } else {
+                if (uint8(pattern[0]) == CARET_SIGN) {
+                    return (matchCCLocalVars.matchEndIndex, matchCCLocalVars.matchEndIndex);
+                }
             }
 
             matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
