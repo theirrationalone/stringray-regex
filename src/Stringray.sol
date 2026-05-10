@@ -2893,9 +2893,11 @@ contract Stringray {
 
         if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass) {
             return
-                neutralizeAndMatchCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, true);
+                neutralizeAndMatchCCAtomsNegation(
+                    stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags
+                );
         }
-        return neutralizeAndMatchCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, false);
+        return neutralizeAndMatchCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags);
 
         // console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
         // console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
@@ -2906,18 +2908,82 @@ contract Stringray {
     AtomTrait[] private ccIdAtoms;
     bytes[] private ccLiterals;
 
+    function neutralizeAndMatchCCAtomsNegation(
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromGroup,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        console2.log("--------------------neutralizeAndMatchCCAtomsNegation--------------------");
+        console2.log("negation  is true");
+        console2.log("isFirstMatch: ", isFirstMatch);
+        for (uint256 i; i < ccIdAtoms.length; i++) {
+            console2.log("atom: ", string(ccIdAtoms[i].atom));
+        }
+        console2.log("----------------------------------------");
+
+        bool negation;
+        // axcbedilr!n\\do
+        // axcbedilr!nedr9iunihcollb
+        // @NOTE: below is an another(might be efficient) way to match with negation
+        // @TODO: for code optimizations sake, first, let's try to make this function more dank
+        // by adding non-negation matching functionality too.
+        // @TODO: implement all are possible atoms to unleash full atoms match support
+        for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+            for (uint256 j; j < ccIdAtoms.length; j++) {
+                matchStartIndex = -1;
+                matchEndIndex = -1;
+
+                if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
+                        if (j + 1 == ccIdAtoms.length) {
+                            matchStartIndex = int256(i);
+                            matchEndIndex = matchStartIndex;
+                        }
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (ccIdAtoms[j].atomType == DIGIT) {
+                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, i, false, true, true);
+
+                    console2.log("digit matchStartIndex: ", matchStartIndex);
+                    console2.log("digit matchEndIndex: ", matchEndIndex);
+
+                    if (matchStartIndex > -1) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            if (matchStartIndex > -1) {
+                break;
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function matchTargetWithCurrentCCAtom() private returns (int256, int256) {}
+
     function neutralizeAndMatchCCAtoms(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bool fromGroup,
-        bytes memory patternFlags,
-        bool negation
+        bytes memory patternFlags
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         console2.log("--------------------neutralizeAndMatchCCAtoms--------------------");
-        console2.log("negation    : ", negation);
+        console2.log("negation  is false");
         console2.log("isFirstMatch: ", isFirstMatch);
         for (uint256 i; i < ccIdAtoms.length; i++) {
             console2.log("atom: ", string(ccIdAtoms[i].atom));
@@ -2925,7 +2991,6 @@ contract Stringray {
         console2.log("----------------------------------------");
 
         for (uint256 z; z < ccIdAtoms.length; z++) {
-            console2.log("entered into loop");
             z = onlyCCLiteralsAndSimilarCollection(z);
 
             for (uint256 i; i < ccLiterals.length; i++) {
@@ -2933,131 +2998,128 @@ contract Stringray {
             }
 
             (matchStartIndex, matchEndIndex) =
-                matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+                matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, false);
 
-            if (matchStartIndex > -1 && negation) {
+            if (matchStartIndex == -1) {
                 if (z < ccIdAtoms.length) {
                     if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
                         if (ccIdAtoms[z].atomType == DIGIT) {
-                            if (negation) {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                            } else {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                            }
+                            (matchStartIndex, matchEndIndex) =
+                                matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
                         } else {
-                            if (negation) {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                            } else {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                            }
+                            (matchStartIndex, matchEndIndex) =
+                                matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                         }
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                // for (uint256 i = z; i < ccIdAtoms.length; i++) {
                 if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
-                        if (ccIdAtoms[z].atomType == DIGIT) {
-                            if (negation) {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                            } else {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                            }
-                        } else {
-                            if (negation) {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                            } else {
-                                (matchStartIndex, matchEndIndex) =
-                                    matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                            }
-                        }
-                    }
-                }
-                // }
-            }
-
-            if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == WHITESPACE || ccIdAtoms[i].atomType == NOT_WHITESPACE) {
-                        if (ccIdAtoms[i].atomType == WHITESPACE) {
+                    if (ccIdAtoms[z].atomType == WHITESPACE || ccIdAtoms[z].atomType == NOT_WHITESPACE) {
+                        if (ccIdAtoms[z].atomType == WHITESPACE) {
                             (matchStartIndex, matchEndIndex) =
-                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
+                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
                         } else {
                             (matchStartIndex, matchEndIndex) =
-                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
+                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                         }
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == WORD_CHARACTER || ccIdAtoms[i].atomType == NOT_WORD_CHARACTER) {
-                        if (ccIdAtoms[i].atomType == WORD_CHARACTER) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == WORD_CHARACTER || ccIdAtoms[z].atomType == NOT_WORD_CHARACTER) {
+                        if (ccIdAtoms[z].atomType == WORD_CHARACTER) {
                             (matchStartIndex, matchEndIndex) =
-                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
+                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
                         } else {
                             (matchStartIndex, matchEndIndex) =
-                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
+                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                         }
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == HEX_ESCAPE) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == HEX_ESCAPE) {
                         (matchStartIndex, matchEndIndex) = matchBackslashXHexEscape(
-                            ccIdAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, negation
+                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
                         );
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == UNICODE_ESCAPE) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == UNICODE_ESCAPE) {
                         (matchStartIndex, matchEndIndex) = matchBackslashUUnicodeEscape(
-                            ccIdAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, negation
+                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
                         );
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == CC_RANGE) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == CC_RANGE) {
                         console2.log("yeah its range pattern match");
                         (matchStartIndex, matchEndIndex) =
-                            matchCCRange(ccIdAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, negation);
+                            matchCCRange(ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                for (uint256 i = z; i < ccIdAtoms.length; i++) {
-                    if (ccIdAtoms[i].atomType == CC_SET_ATOM) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == CC_SET_ATOM) {
                         matchCCSetAtoms(
-                            ccIdAtoms[i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, true
+                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, true
                         );
 
                         (matchStartIndex, matchEndIndex) =
-                            evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+                            evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch, false);
                     }
                 }
             }
 
             if (matchStartIndex > -1) {
                 break;
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function confirmCCMatch(
+        bytes memory stringInBytes,
+        uint256 z,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool negation
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+
+        if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
+            if (ccIdAtoms[z].atomType == DIGIT) {
+                if (negation) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
+                } else {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
+                }
+            } else {
+                if (negation) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
+                } else {
+                    (matchStartIndex, matchEndIndex) =
+                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
+                }
             }
         }
 

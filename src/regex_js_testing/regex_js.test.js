@@ -20385,8 +20385,8 @@ const testMain = () => {
   // });
 
   test("Pattern match Anchors cases: Case0000000000000000000000000001", () => {
-    const target = "acbedilnedriunihcollab";
-    let regex = /[^abcdefghijkl]/;
+    const target = "axcbedilr!nedr9iunihcollb";
+    let regex = /[^axcbedilr!n\do]/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
