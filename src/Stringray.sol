@@ -2902,7 +2902,8 @@ contract Stringray {
         bool negation
     ) private returns (int256, int256) {
         console2.log("--------------------neutralizeAndMatchCCAtoms--------------------");
-        console2.log("negation: ", negation);
+        console2.log("negation    : ", negation);
+        console2.log("isFirstMatch: ", isFirstMatch);
         for (uint256 i; i < ccIdAtoms.length; i++) {
             console2.log("atom: ", string(ccIdAtoms[i].atom));
         }
@@ -2926,9 +2927,14 @@ contract Stringray {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
 
+        // acbedilnedriunihcollab
+        // abcdefghijkl
+
         if (isFirstMatch) {
             for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
                 for (uint256 i; i < ccLiterals.length; i++) {
+                    console2.log("current char: ", j, " ", string(abi.encodePacked(stringInBytes[j])));
+                    console2.log("target char : ", i, " ", string(abi.encodePacked(ccLiterals[i])));
                     if (keccak256(abi.encodePacked(stringInBytes[j])) == keccak256(abi.encodePacked(ccLiterals[i]))) {
                         matchStartIndex = int256(j);
                         matchEndIndex = int256(j);
@@ -2937,7 +2943,13 @@ contract Stringray {
                 }
 
                 if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
+                    console2.log("yes matched with negation: ", j);
                     return (int256(j), int256(j));
+                }
+
+                if (negation) {
+                    matchStartIndex = -1;
+                    matchEndIndex = -1;
                 }
 
                 // if (matchStartIndex > -1 && matchEndIndex > -1 && !negation) {
