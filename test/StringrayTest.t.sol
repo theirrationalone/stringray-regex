@@ -28461,8 +28461,8 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchCharacterClassNegationCase1() public {
-        string memory target = "axcbedilnedriunihcollb";
-        string memory pattern = unicode"/[fgmp-z]/";
+        string memory target = "axcbedilr!nedr9iunihcollb";
+        string memory pattern = unicode"/[^axcbedilr!n\\do]/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
