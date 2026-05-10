@@ -2939,28 +2939,60 @@ contract Stringray {
 
                 if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
                     if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
-                        if (j + 1 == ccIdAtoms.length) {
-                            matchStartIndex = int256(i);
-                            matchEndIndex = matchStartIndex;
-                        }
-                        continue;
-                    } else {
-                        break;
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
                     }
                 }
 
                 if (ccIdAtoms[j].atomType == DIGIT) {
                     (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, i, false, true, true);
-
-                    console2.log("digit matchStartIndex: ", matchStartIndex);
-                    console2.log("digit matchEndIndex: ", matchEndIndex);
-
-                    if (matchStartIndex > -1) {
-                        continue;
-                    } else {
-                        break;
-                    }
                 }
+
+                if (ccIdAtoms[j].atomType == NOT_DIGIT) {
+                    (matchStartIndex, matchEndIndex) = matchDigit(stringInBytes, i, false, false, true);
+                }
+
+                if (ccIdAtoms[j].atomType == WHITESPACE) {
+                    (matchStartIndex, matchEndIndex) = matchWhitespace(stringInBytes, i, false, true, false);
+                }
+
+                if (ccIdAtoms[j].atomType == NOT_WHITESPACE) {
+                    (matchStartIndex, matchEndIndex) = matchWhitespace(stringInBytes, i, false, false, false);
+                }
+
+                if (ccIdAtoms[j].atomType == WORD_CHARACTER) {
+                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, i, false, true, false);
+                }
+
+                if (ccIdAtoms[j].atomType == NOT_WORD_CHARACTER) {
+                    (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, i, false, false, false);
+                }
+
+                if (ccIdAtoms[j].atomType == HEX_ESCAPE) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchBackslashXHexEscape(ccIdAtoms[j].atom, stringInBytes, i, false, false);
+                }
+
+                if (ccIdAtoms[j].atomType == UNICODE_ESCAPE) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchBackslashUUnicodeEscape(ccIdAtoms[j].atom, stringInBytes, i, false, false);
+                }
+
+                if (ccIdAtoms[j].atomType == CC_RANGE) {
+                    (matchStartIndex, matchEndIndex) = matchCCRange(ccIdAtoms[j].atom, stringInBytes, i, false, false);
+                }
+
+                if (ccIdAtoms[j].atomType == CC_SET_ATOM) {
+                    matchCCSetAtoms(ccIdAtoms[j].atom, stringInBytes, i, false, patternFlags, true);
+
+                    (matchStartIndex, matchEndIndex) = evaluateSetOperationMatch(stringInBytes, i, false, false);
+                }
+
+                if (matchStartIndex > -1) {
+                    continue;
+                }
+
+                break;
             }
 
             if (matchStartIndex > -1) {
