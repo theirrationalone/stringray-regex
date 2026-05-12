@@ -18714,6 +18714,9 @@ const testMain = () => {
   test("Pattern match character classes cases: Case00000000000000000000000028", () => {
     const target = "néhal";
     let regex = /[é]/u;
+
+    // @BUG: doesn't match with first atom in target string, matches with last surogate instead
+    // @info: this bug is exclusive to Js
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });

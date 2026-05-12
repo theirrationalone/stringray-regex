@@ -2926,7 +2926,7 @@ contract Stringray {
         console2.log("----------------------------------------");
 
         bool negation;
-        
+
         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
             for (uint256 j; j < ccIdAtoms.length; j++) {
                 matchStartIndex = -1;
@@ -3189,52 +3189,58 @@ contract Stringray {
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
+        bytes memory stringToMatchWith;
 
         // @BUG: missing match support for unicodes which consumes more than one byte
 
         if (isFirstMatch) {
-            for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
+            for (uint256 j = indexToStartMatch; j < stringInBytes.length;) {
+                if (negation) {
+                    matchStartIndex = -1;
+                    matchEndIndex = -1;
+                }
+
                 for (uint256 i; i < ccLiterals.length; i++) {
-                    console2.log("i: ", i);
-                    console2.log("i string: ", string(abi.encodePacked(ccLiterals[i])));
-                    console2.log("j: ", j);
-                    console2.log("J string: ", string(abi.encodePacked(stringInBytes[j])));
-                    if (keccak256(abi.encodePacked(stringInBytes[j])) == keccak256(abi.encodePacked(ccLiterals[i]))) {
-                        console2.log("yeashhh matches");
+                    stringToMatchWith = hex"";
+                    if (stringInBytes.length - 1 >= j + ccLiterals[i].length - 1) {
+                        stringToMatchWith = trimString(stringInBytes, j, int256(j + ccLiterals[i].length - 1));
+                    }
+
+                    if (keccak256(stringToMatchWith) == keccak256(abi.encodePacked(ccLiterals[i]))) {
                         matchStartIndex = int256(j);
-                        matchEndIndex = int256(j);
+                        matchEndIndex = int256(j + stringToMatchWith.length - 1);
                         break;
                     }
                 }
 
                 if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
-                    return (int256(j), int256(j));
+                    return (int256(j), stringToMatchWith.length == 0 ? int256(j) : int256(j + stringToMatchWith.length - 1));
                 }
 
-                if (matchStartIndex > -1 && matchEndIndex > -1 && !
-                negation) {
-                    return (int256(j), int256(j));
+                if (matchStartIndex > -1 && matchEndIndex > -1 && !negation) {
+                    return (matchStartIndex, matchEndIndex);
                 }
 
-                if (negation) {
-                    matchStartIndex = -1;
-                    matchEndIndex = -1;
-                }
+                j = stringToMatchWith.length == 0 ? j + 1 : j + stringToMatchWith.length;
             }
         } else {
             for (uint256 i; i < ccLiterals.length; i++) {
-                if (
-                    keccak256(abi.encodePacked(ccLiterals[i]))
-                        == keccak256(abi.encodePacked(stringInBytes[indexToStartMatch]))
-                ) {
+                stringToMatchWith = hex"";
+                if (stringInBytes.length - 1 >= indexToStartMatch + ccLiterals[i].length - 1) {
+                    stringToMatchWith = trimString(
+                        stringInBytes, indexToStartMatch, int256(indexToStartMatch + ccLiterals[i].length - 1)
+                    );
+                }
+
+                if (keccak256(abi.encodePacked(ccLiterals[i])) == keccak256(stringToMatchWith)) {
                     matchStartIndex = int256(indexToStartMatch);
-                    matchEndIndex = int256(indexToStartMatch);
+                    matchEndIndex = int256(indexToStartMatch + stringToMatchWith.length - 1);
                     break;
                 }
             }
 
             if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
-                return (int256(indexToStartMatch), int256(indexToStartMatch));
+                return (int256(indexToStartMatch), stringToMatchWith.length == 0 ? int256(indexToStartMatch) : int256(indexToStartMatch + stringToMatchWith.length - 1));
             }
         }
 
@@ -3242,14 +3248,12 @@ contract Stringray {
             if (isFirstMatch) {
                 matchEndIndex = stringInBytes.length == 0 ? -1 : int256(stringInBytes.length - 1);
             } else {
-                matchEndIndex = int256(indexToStartMatch);
+                matchEndIndex = stringToMatchWith.length == 0 ? int256(indexToStartMatch) : int256(indexToStartMatch + stringToMatchWith.length - 1);
             }
         }
 
-        if (negation && matchEndIndex > -1 && matchEndIndex > -1) {
-            if (!isFirstMatch) {
-                return (-1, matchEndIndex);
-            }
+        if (negation && matchStartIndex > -1 && matchEndIndex > -1) {
+            return (-1, matchEndIndex);
         }
 
         console2.log("matchStartIndex matchNeutralizedCCAtoms: ", matchStartIndex);
