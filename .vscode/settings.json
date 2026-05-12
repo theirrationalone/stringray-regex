@@ -1,7 +1,7 @@
 {
     "solidity.formatter": "forge",
     "[solidity]": {
-        "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
+        "editor.defaultFormatter": "forge"
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"

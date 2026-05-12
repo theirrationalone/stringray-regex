@@ -3193,7 +3193,12 @@ contract Stringray {
         if (isFirstMatch) {
             for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
                 for (uint256 i; i < ccLiterals.length; i++) {
+                    console2.log("i: ", i);
+                    console2.log("i string: ", string(abi.encodePacked(ccLiterals[i])));
+                    console2.log("j: ", j);
+                    console2.log("J string: ", string(abi.encodePacked(stringInBytes[j])));
                     if (keccak256(abi.encodePacked(stringInBytes[j])) == keccak256(abi.encodePacked(ccLiterals[i]))) {
+                        console2.log("yeashhh matches");
                         matchStartIndex = int256(j);
                         matchEndIndex = int256(j);
                         break;
@@ -3201,6 +3206,10 @@ contract Stringray {
                 }
 
                 if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
+                    return (int256(j), int256(j));
+                }
+
+                if (matchStartIndex > -1 && matchEndIndex > -1 && !negation) {
                     return (int256(j), int256(j));
                 }
 
@@ -3239,6 +3248,9 @@ contract Stringray {
                 return (-1, matchEndIndex);
             }
         }
+
+        console2.log("matchStartIndex matchNeutralizedCCAtoms: ", matchStartIndex);
+        console2.log("matchEndIndex matchNeutralizedCCAtoms  : ", matchEndIndex);
 
         return (matchStartIndex, matchEndIndex);
     }
