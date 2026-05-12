@@ -2194,6 +2194,7 @@ contract Stringray {
             console2.logBytes(utf8Atom);
             console2.log("----------------------------------------");
 
+            // @BUG: prioritizing pattern atoms instead of target string atoms, therefore not a first encounter first match from target pov.
             (matchStartIndex, matchEndIndex) = matchLiteral(utf8Atom, stringInBytes, indexToStartMatch, isFirstMatch);
 
             if (matchStartIndex > -1 && matchEndIndex > -1) {
@@ -2267,7 +2268,7 @@ contract Stringray {
         return unicodeString;
     }
 
-    function singlNibbleToString(bytes1 singleNibble) private returns (string memory) {
+    function singlNibbleToString(bytes1 singleNibble) private pure returns (string memory) {
         if (singleNibble == 0x00) {
             return "0";
         }
