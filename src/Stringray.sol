@@ -2926,12 +2926,7 @@ contract Stringray {
         console2.log("----------------------------------------");
 
         bool negation;
-        // axcbedilr!n\\do
-        // axcbedilr!nedr9iunihcollb
-        // @NOTE: below is an another(might be efficient) way to match with negation
-        // @TODO: for code optimizations sake, first, let's try to make this function more dank
-        // by adding non-negation matching functionality too.
-        // @TODO: implement all are possible atoms to unleash full atoms match support
+        
         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
             for (uint256 j; j < ccIdAtoms.length; j++) {
                 matchStartIndex = -1;
