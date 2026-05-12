@@ -3190,6 +3190,8 @@ contract Stringray {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
 
+        // @BUG: missing match support for unicodes which consumes more than one byte
+
         if (isFirstMatch) {
             for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
                 for (uint256 i; i < ccLiterals.length; i++) {
@@ -3209,7 +3211,8 @@ contract Stringray {
                     return (int256(j), int256(j));
                 }
 
-                if (matchStartIndex > -1 && matchEndIndex > -1 && !negation) {
+                if (matchStartIndex > -1 && matchEndIndex > -1 && !
+                negation) {
                     return (int256(j), int256(j));
                 }
 
