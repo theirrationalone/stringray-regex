@@ -3235,6 +3235,7 @@ contract Stringray {
                 }
 
                 if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
+                    // @BUG: could return garble atoms in negation mode
                     return (int256(j), stringToMatchWith.length == 0 ? int256(j) : int256(j + stringToMatchWith.length - 1));
                 }
 
