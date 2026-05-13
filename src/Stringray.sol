@@ -2946,15 +2946,77 @@ contract Stringray {
         }
         console2.log("----------------------------------------");
 
-        bool negation;
+        bytes memory stringToMatchWith;
 
         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
             for (uint256 j; j < ccIdAtoms.length; j++) {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
+                stringToMatchWith = hex"";
 
                 if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
-                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
+                    if (stringInBytes.length - 1 >= i + ccIdAtoms[j].atom.length - 1) {
+                        stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtoms[j].atom.length - 1));
+                    }
+
+                    if (confirmValidStringChunk(stringToMatchWith)) {
+                        if (keccak256(stringToMatchWith) != keccak256(ccIdAtoms[j].atom)) {
+                            matchStartIndex = int256(i);
+                            matchEndIndex = int256(i + stringToMatchWith.length - 1);
+                        }
+                    } else {
+                        if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
+                            matchStartIndex = int256(i);
+                            matchEndIndex = matchStartIndex;
+                        }
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == TAB) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"09")) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == NEWLINE) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0a")) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == VERTICAL_TAB) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0b")) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == FORMFEED) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0c")) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == CARRIAGE_RETURN) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0d")) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(trimString(ccIdAtoms[i].atom, 1, int256(ccIdAtoms[i].atom.length - 1)))) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
+                if (ccIdAtoms[i].atomType == CONTROL_PREFIX) {
+                    bytes memory targetHex = trimString(ccIdAtoms[i].atom, 2, -1);
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(abi.encodePacked(uint8(targetHex[0]) % 32))) {
                         matchStartIndex = int256(i);
                         matchEndIndex = matchStartIndex;
                     }
@@ -3018,8 +3080,6 @@ contract Stringray {
 
         return (matchStartIndex, matchEndIndex);
     }
-
-    function matchTargetWithCurrentCCAtom() private returns (int256, int256) {}
 
     function neutralizeAndMatchCCAtoms(
         bytes memory stringInBytes,
@@ -3135,39 +3195,6 @@ contract Stringray {
 
             if (matchStartIndex > -1) {
                 break;
-            }
-        }
-
-        return (matchStartIndex, matchEndIndex);
-    }
-
-    function confirmCCMatch(
-        bytes memory stringInBytes,
-        uint256 z,
-        uint256 indexToStartMatch,
-        bool isFirstMatch,
-        bool negation
-    ) private returns (int256, int256) {
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
-
-        if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
-            if (ccIdAtoms[z].atomType == DIGIT) {
-                if (negation) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                } else {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                }
-            } else {
-                if (negation) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, negation);
-                } else {
-                    (matchStartIndex, matchEndIndex) =
-                        matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, negation);
-                }
             }
         }
 
