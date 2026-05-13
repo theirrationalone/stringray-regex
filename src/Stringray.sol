@@ -2184,6 +2184,28 @@ contract Stringray {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
 
+        // for (uint256 i; i < leftSet.length; i++) {
+        //     bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
+        //     bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
+
+        //     console2.log("--------------------evaluateSetOperationMatch--------------------");
+        //     console2.log("set length: ", leftSet.length);
+        //     console2.log("utf8Atom: ");
+        //     console2.logBytes(utf8Atom);
+        //     console2.log("----------------------------------------");
+
+        //     // @BUG: prioritizing pattern atoms instead of target string atoms, therefore not a first encounter first match from target pov.
+        //     (matchStartIndex, matchEndIndex) = matchLiteral(utf8Atom, stringInBytes, indexToStartMatch, isFirstMatch);
+
+        //     if (matchStartIndex > -1 && matchEndIndex > -1) {
+        //         delete leftSet;
+        //         delete rightSet;
+        //         delete intersectionSet;
+        //         delete differenceSet;
+        //         return (matchStartIndex, matchEndIndex);
+        //     }
+        // }
+
         for (uint256 i; i < leftSet.length; i++) {
             bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
             bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
@@ -2194,23 +2216,20 @@ contract Stringray {
             console2.logBytes(utf8Atom);
             console2.log("----------------------------------------");
 
-            // @BUG: prioritizing pattern atoms instead of target string atoms, therefore not a first encounter first match from target pov.
-            (matchStartIndex, matchEndIndex) = matchLiteral(utf8Atom, stringInBytes, indexToStartMatch, isFirstMatch);
-
-            if (matchStartIndex > -1 && matchEndIndex > -1) {
-                delete leftSet;
-                delete rightSet;
-                delete intersectionSet;
-                delete differenceSet;
-                return (matchStartIndex, matchEndIndex);
-            }
+            ccLiterals.push(utf8Atom);
         }
 
-        delete leftSet;
-        delete rightSet;
-        delete intersectionSet;
-        delete differenceSet;
-        return (-1, -1);
+        (matchStartIndex, matchEndIndex) = matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+
+        if (matchStartIndex > -1 && matchEndIndex > -1) {
+            delete leftSet;
+            delete rightSet;
+            delete intersectionSet;
+            delete differenceSet;
+            return (matchStartIndex, matchEndIndex);
+        }
+
+        return (-1, matchEndIndex);
     }
 
     function convertUnicodeHexToUtf8Hex(bytes memory unicodeHex) private returns (bytes memory) {
@@ -3192,14 +3211,15 @@ contract Stringray {
         int256 matchEndIndex = -1;
         bytes memory stringToMatchWith;
 
-        // @BUG: missing match support for unicodes which consumes more than one byte
-
         if (isFirstMatch) {
-            for (uint256 j = indexToStartMatch; j < stringInBytes.length;) {
+            for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
                 if (negation) {
                     matchStartIndex = -1;
                     matchEndIndex = -1;
                 }
+
+                console2.log("string in bytes: ");
+                console2.logBytes(stringInBytes);
 
                 for (uint256 i; i < ccLiterals.length; i++) {
                     stringToMatchWith = hex"";
@@ -3222,7 +3242,7 @@ contract Stringray {
                     return (matchStartIndex, matchEndIndex);
                 }
 
-                j = stringToMatchWith.length == 0 ? j + 1 : j + stringToMatchWith.length;
+                // j = stringToMatchWith.length == 0 ? j + 1 : j + stringToMatchWith.length;
             }
         } else {
             for (uint256 i; i < ccLiterals.length; i++) {
@@ -4466,10 +4486,6 @@ contract Stringray {
             (flag, atomType, lastMatchedIndex) =
                 isLiteralAtom(_pattern, _orgPattern, i, _patternFlags, true, fromGroup, true);
 
-            console2.log("flag: ", flag);
-            printAtomType(atomType);
-            console2.log("lastMatchedIndex: ", lastMatchedIndex);
-
             if (!flag) {
                 if (
                     (uint8(_pattern[i]) == QUESTION_MARK) || (uint8(_pattern[i]) == ASTERISK)
@@ -4485,6 +4501,10 @@ contract Stringray {
                 (flag, atomType, lastMatchedIndex) =
                     isCharacterClass(_pattern, _orgPattern, i, _patternFlags, fromGroup);
             }
+
+            console2.log("flag: ", flag);
+            printAtomType(atomType);
+            console2.log("lastMatchedIndex: ", lastMatchedIndex);
 
             if (flag) {
                 if (

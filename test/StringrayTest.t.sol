@@ -22894,9 +22894,8 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchCharacterClassesCase39() public {
         string memory target = unicode"nehal";
-        string memory pattern = unicode"/[[a-z]&&[a-m]--[d-f]]/v";
-
-        vm.expectRevert();
+        string memory pattern = unicode"/[[[a-z]&&[a-m]]--[d-f]]/v";
+        
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string   : ", returnedData.patternString);
