@@ -18649,8 +18649,8 @@ const testMain = () => {
   });
 
   test("Pattern match character classes cases: Case00000000000000000000000019", () => {
-    const target = "111NehAl";
-    let regex = /N[a-zA-Z]hAl/;
+    const target = "NehAl";
+    let regex = /[A-Z]/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });

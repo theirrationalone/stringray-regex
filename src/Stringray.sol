@@ -2219,7 +2219,8 @@ contract Stringray {
             ccLiterals.push(utf8Atom);
         }
 
-        (matchStartIndex, matchEndIndex) = matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+        (matchStartIndex, matchEndIndex) =
+            matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
@@ -3235,8 +3236,12 @@ contract Stringray {
                 }
 
                 if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
-                    // @BUG: could return garble atoms in negation mode
-                    return (int256(j), stringToMatchWith.length == 0 ? int256(j) : int256(j + stringToMatchWith.length - 1));
+                    return (
+                        int256(j),
+                        !confirmValidStringChunk(stringToMatchWith)
+                            ? int256(j)
+                            : int256(j + stringToMatchWith.length - 1)
+                    );
                 }
 
                 if (matchStartIndex > -1 && matchEndIndex > -1 && !negation) {
@@ -3262,7 +3267,12 @@ contract Stringray {
             }
 
             if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
-                return (int256(indexToStartMatch), stringToMatchWith.length == 0 ? int256(indexToStartMatch) : int256(indexToStartMatch + stringToMatchWith.length - 1));
+                return (
+                    int256(indexToStartMatch),
+                    !confirmValidStringChunk(stringToMatchWith)
+                        ? int256(indexToStartMatch)
+                        : int256(indexToStartMatch + stringToMatchWith.length - 1)
+                );
             }
         }
 
@@ -3270,7 +3280,9 @@ contract Stringray {
             if (isFirstMatch) {
                 matchEndIndex = stringInBytes.length == 0 ? -1 : int256(stringInBytes.length - 1);
             } else {
-                matchEndIndex = stringToMatchWith.length == 0 ? int256(indexToStartMatch) : int256(indexToStartMatch + stringToMatchWith.length - 1);
+                matchEndIndex = !confirmValidStringChunk(stringToMatchWith)
+                    ? int256(indexToStartMatch)
+                    : int256(indexToStartMatch + stringToMatchWith.length - 1);
             }
         }
 
@@ -3282,6 +3294,88 @@ contract Stringray {
         console2.log("matchEndIndex matchNeutralizedCCAtoms  : ", matchEndIndex);
 
         return (matchStartIndex, matchEndIndex);
+    }
+
+    function confirmValidStringChunk(bytes memory stringChunk) private pure returns (bool) {
+        uint256 stringChunkLength = stringChunk.length;
+
+        if (stringChunkLength == 1) return true;
+
+        if (stringChunkLength == 2) {
+            if (
+                (stringChunk[0] >= 0xc2 && stringChunk[0] <= 0xdf) && (stringChunk[1] >= 0x80 && stringChunk[1] <= 0xbf)
+            ) {
+                return true;
+            }
+        }
+
+        if (stringChunkLength == 3) {
+            if (stringChunk[0] == 0xe0) {
+                if (stringChunk[1] >= 0xa0 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[1] <= 0xbf) {
+                        return true;
+                    }
+                }
+            }
+
+            if (stringChunk[0] >= 0xe1 && stringChunk[0] <= 0xec) {
+                if (stringChunk[1] >= 0x80 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[2] <= 0xbf) {
+                        return true;
+                    }
+                }
+            }
+
+            if (stringChunk[0] == 0xed) {
+                if (stringChunk[1] >= 0x80 && stringChunk[1] <= 0x9f) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[2] <= 0xbf) {
+                        return true;
+                    }
+                }
+            }
+
+            if (stringChunk[0] >= 0xee && stringChunk[0] <= 0xef) {
+                if (stringChunk[1] >= 0x80 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[1] <= 0xbf) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        if (stringChunkLength == 4) {
+            if (stringChunk[0] == 0xf0) {
+                if (stringChunk[1] >= 0x90 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[2] <= 0xbf) {
+                        if (stringChunk[3] >= 0x80 && stringChunk[3] <= 0xbf) {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            if (stringChunk[0] >= 0xf1 && stringChunk[0] <= 0xf3) {
+                if (stringChunk[1] >= 0x80 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[2] <= 0xbf) {
+                        if (stringChunk[3] >= 0x80 && stringChunk[3] <= 0xbf) {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            if (stringChunk[0] == 0xf4) {
+                if (stringChunk[1] >= 0x80 && stringChunk[1] <= 0xbf) {
+                    if (stringChunk[2] >= 0x80 && stringChunk[2] <= 0xbf) {
+                        if (stringChunk[3] >= 0x80 && stringChunk[3] <= 0xbf) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     function ccSubAtoms(
