@@ -20524,5 +20524,33 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000021", () => {
+    const target = "d";
+    let regex = /^[^abc]$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000022", () => {
+    const target = "de";
+    let regex = /^[^abc]$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000023", () => {
+    const target = "c";
+    let regex = /^[^ab]$/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000024", () => {
+    const target = "é";
+    let regex = /[^a-z]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

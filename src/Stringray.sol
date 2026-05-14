@@ -2638,6 +2638,8 @@ contract Stringray {
         if (rightAtom.length <= atomLength) {
             while (rightAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
+                    // @BUG: wrong method to find and match with string atoms
+                    // @info: heavily implemented all over....
                     matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
                     if (matchEndIndex < int256(stringInBytes.length)) {
                         if (validateCCRange(
@@ -5413,7 +5415,7 @@ contract Stringray {
                 if (fromCharacterClass) {
                     return (true, LITERAL_ATOM, _currentParticleIndex);
                 }
-                
+
                 return (true, CARET_ANCHOR, _currentParticleIndex);
             }
         }
