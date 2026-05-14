@@ -4013,7 +4013,7 @@ contract Stringray {
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isDollarOrCaretAnchor(_pattern, _currentParticleIdx);
+            (flag, atomType, lastMatchedParticleIndex) = isDollarOrCaretAnchor(_pattern, _currentParticleIdx, fromCharacterClass);
         }
 
         if (!flag) {
@@ -5389,7 +5389,7 @@ contract Stringray {
         return (true, stripFrom);
     }
 
-    function isDollarOrCaretAnchor(bytes memory _pattern, uint256 _currentParticleIndex)
+    function isDollarOrCaretAnchor(bytes memory _pattern, uint256 _currentParticleIndex, bool fromCharacterClass)
         private
         pure
         returns (bool, bytes32, uint256)
@@ -5402,10 +5402,18 @@ contract Stringray {
                         || uint8(_pattern[_currentParticleIndex - 2]) == BACK_SLASH))
         ) {
             if (uint8(_pattern[_currentParticleIndex]) == DOLLAR_SIGN) {
+                if (fromCharacterClass) {
+                    return (true, LITERAL_ATOM, _currentParticleIndex);
+                }
+
                 return (true, DOLLAR_ANCHOR, _currentParticleIndex);
             }
 
             if (uint8(_pattern[_currentParticleIndex]) == CARET_SIGN) {
+                if (fromCharacterClass) {
+                    return (true, LITERAL_ATOM, _currentParticleIndex);
+                }
+                
                 return (true, CARET_ANCHOR, _currentParticleIndex);
             }
         }
