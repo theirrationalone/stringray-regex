@@ -340,6 +340,7 @@ contract Stringray {
     bytes32 private constant DOLLAR_ANCHOR = "DOLLAR_ANCHOR";
     bytes32 private constant CARET_ANCHOR = "CARET_ANCHOR";
     bytes32 private constant WORD_BOUNDARY = "WORD_BOUNDARY";
+    bytes32 private constant BACKSPACE = "BACKSPACE";
     bytes32 private constant CONTROL_PREFIX = "CONTROL_PREFIX";
     bytes32 private constant DIGIT = "DIGIT";
     bytes32 private constant FORMFEED = "FORMFEED";
@@ -4417,7 +4418,11 @@ contract Stringray {
             uint8 lastMatchedParticle = uint8(_pattern[lastMatchedParticleIndex]);
 
             if (lastMatchedParticle == uint8(abi.encodePacked("b")[0])) {
-                atomType = WORD_BOUNDARY;
+                if (fromCharacterClass) {
+                    atomType = BACKSPACE;
+                } else {
+                    atomType = WORD_BOUNDARY;
+                }
             } else if (lastMatchedParticle == uint8(abi.encodePacked("d")[0])) {
                 atomType = DIGIT;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("f")[0])) {
@@ -4439,8 +4444,11 @@ contract Stringray {
                     throwError(
                         _orgPattern, "SyntaxError: Invalid regular expression: /", ": Invalid escape", _patternFlags
                     );
+                } else if (fromCharacterClass && (!hasFlag(_patternFlags, "u") && !hasFlag(_patternFlags, "v"))) {
+                    atomType = ESCAPE_LITERAL_ATOM;
+                } else {
+                    atomType = NOT_WORD_BOUNDARY;
                 }
-                atomType = NOT_WORD_BOUNDARY;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("D")[0])) {
                 atomType = NOT_DIGIT;
             } else if (lastMatchedParticle == uint8(abi.encodePacked("S")[0])) {
@@ -5473,6 +5481,8 @@ contract Stringray {
             console2.log("Atom Type: ALTERNATION_OPERATOR");
         } else if (atomType == WORD_BOUNDARY) {
             console2.log("Atom Type: WORD_BOUNDARY");
+        } else if (atomType == BACKSPACE) {
+            console2.log("Atom Type: BACKSPACE");
         } else if (atomType == CONTROL_PREFIX) {
             console2.log("Atom Type: CONTROL_PREFIX");
         } else if (atomType == DIGIT) {

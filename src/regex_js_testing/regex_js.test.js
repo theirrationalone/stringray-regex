@@ -20594,5 +20594,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000031", () => {
+    const target = "B";
+    let regex = /[^\B]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();
