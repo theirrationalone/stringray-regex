@@ -2641,7 +2641,7 @@ contract Stringray {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i);
                     while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), int256(i)))) {
+                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i)))) {
                             i++;
                         } else {
                             break;
@@ -2680,7 +2680,7 @@ contract Stringray {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i);
                     while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), int256(i)))) {
+                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i)))) {
                             i++;
                         } else {
                             break;
@@ -3173,7 +3173,7 @@ contract Stringray {
             z = onlyCCLiteralsAndSimilarCollection(z);
 
             for (uint256 i; i < ccLiterals.length; i++) {
-                console2.log("ccLiteral: ", string(ccLiterals[i]));
+                console2.log("ccLiteral - neutralizeAndMatchCCAtoms: ", string(ccLiterals[i]));
             }
 
             (matchStartIndex, matchEndIndex) =
@@ -3222,36 +3222,38 @@ contract Stringray {
             }
 
             if (matchStartIndex == -1) {
-                if (ccIdAtoms[z].atomType == BACKSPACE) {
-                    for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-                        if (uint8(stringInBytes[i]) == BACK_SLASH) {
-                            if (
-                                i + 1 < stringInBytes.length
-                                    && uint8(stringInBytes[i + 1]) == uint8(abi.encodePacked("b")[0])
-                            ) {
-                                matchStartIndex = int256(i);
-                                matchEndIndex = matchStartIndex + 1;
-                                break;
-                            } else if (
-                                i + 1 < stringInBytes.length
-                                    && uint8(stringInBytes[i + 1]) != uint8(abi.encodePacked("b")[0])
-                            ) {
-                                matchStartIndex = -1;
-                                matchEndIndex = int256(i) + 1;
-                                if (!isFirstMatch) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[z].atomType == BACKSPACE) {
+                        for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+                            if (uint8(stringInBytes[i]) == BACK_SLASH) {
+                                if (
+                                    i + 1 < stringInBytes.length
+                                        && uint8(stringInBytes[i + 1]) == uint8(abi.encodePacked("b")[0])
+                                ) {
+                                    matchStartIndex = int256(i);
+                                    matchEndIndex = matchStartIndex + 1;
                                     break;
+                                } else if (
+                                    i + 1 < stringInBytes.length
+                                        && uint8(stringInBytes[i + 1]) != uint8(abi.encodePacked("b")[0])
+                                ) {
+                                    matchStartIndex = -1;
+                                    matchEndIndex = int256(i) + 1;
+                                    if (!isFirstMatch) {
+                                        break;
+                                    }
                                 }
-                            }
-                        } else {
-                            if (stringInBytes[i] == 0x08) {
-                                matchStartIndex = int256(i);
-                                matchEndIndex = matchStartIndex;
-                                break;
                             } else {
-                                matchStartIndex = -1;
-                                matchEndIndex = int256(i);
-                                if (!isFirstMatch) {
+                                if (stringInBytes[i] == 0x08) {
+                                    matchStartIndex = int256(i);
+                                    matchEndIndex = matchStartIndex;
                                     break;
+                                } else {
+                                    matchStartIndex = -1;
+                                    matchEndIndex = int256(i);
+                                    if (!isFirstMatch) {
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -3285,6 +3287,8 @@ contract Stringray {
                         console2.log("yeah it's range pattern match");
                         (matchStartIndex, matchEndIndex) =
                             matchCCRange(ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
+                        console2.log("after cc range match - matchStartIndex: ", matchStartIndex);
+                        console2.log("after cc range match - matchEndIndex: ", matchEndIndex);
                     }
                 }
             }
@@ -3370,11 +3374,11 @@ contract Stringray {
                     break;
                 }
 
-                if (!isFirstMatch && !negation) {
-                    matchStartIndex = -1;
-                    matchEndIndex = int256(j + stringToMatchWith.length - 1);
-                    break;
-                }
+                // if (!isFirstMatch && !negation) {
+                //     matchStartIndex = -1;
+                //     matchEndIndex = int256(j + stringToMatchWith.length - 1);
+                //     break;
+                // }
             }
 
             if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
@@ -3388,7 +3392,7 @@ contract Stringray {
                 return (matchStartIndex, matchEndIndex);
             }
 
-            if (!isFirstMatch && !negation) {
+            if (!isFirstMatch) {
                 break;
             }
 
