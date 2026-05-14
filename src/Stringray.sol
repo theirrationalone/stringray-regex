@@ -2641,8 +2641,14 @@ contract Stringray {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i);
                     while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i)))) {
-                            i++;
+                        if (matchEndIndex > -1 && uint256(matchEndIndex) + i < stringInBytes.length) {
+                            if (!confirmValidStringChunk(
+                                    trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i))
+                                )) {
+                                i++;
+                            } else {
+                                break;
+                            }
                         } else {
                             break;
                         }
@@ -2680,8 +2686,14 @@ contract Stringray {
                 for (uint256 i; i < stringInBytes.length; i++) {
                     matchEndIndex = int256(indexToStartMatch + i);
                     while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i)))) {
-                            i++;
+                        if (matchEndIndex > -1 && uint256(matchEndIndex) + i < stringInBytes.length) {
+                            if (!confirmValidStringChunk(
+                                    trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i))
+                                )) {
+                                i++;
+                            } else {
+                                break;
+                            }
                         } else {
                             break;
                         }
