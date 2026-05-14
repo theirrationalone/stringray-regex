@@ -2643,15 +2643,18 @@ contract Stringray {
                         if (validateCCRange(
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
-                            return (int256(indexToStartMatch + i), matchEndIndex);
+                            if (!negation) {
+                                return (int256(indexToStartMatch + i), matchEndIndex);
+                            } else {
+                                return (-1, matchEndIndex);
+                            }
                         } else {
                             if (negation) {
                                 return (int256(indexToStartMatch + i), matchEndIndex);
                             }
                         }
                     }
-                    if (!isFirstMatch && !negation) return (-1, matchEndIndex);
-                    else if (!isFirstMatch && negation) return (-1, -1);
+                    if (!isFirstMatch) return (-1, matchEndIndex);
                     matchEndIndex = -1;
                 }
                 atomLength--;
@@ -2665,15 +2668,18 @@ contract Stringray {
                         if (validateCCRange(
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
-                            return (int256(indexToStartMatch + i), matchEndIndex);
+                            if (!negation) {
+                                return (int256(indexToStartMatch + i), matchEndIndex);
+                            } else {
+                                return (-1, matchEndIndex);
+                            }
                         } else {
                             if (negation) {
                                 return (int256(indexToStartMatch + i), matchEndIndex);
                             }
                         }
                     }
-                    if (!isFirstMatch && !negation) return (-1, matchEndIndex);
-                    else if (!isFirstMatch && negation) return (-1, -1);
+                    if (!isFirstMatch) return (-1, matchEndIndex);
                     matchEndIndex = -1;
                 }
                 atomLength--;
