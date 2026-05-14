@@ -2932,26 +2932,17 @@ contract Stringray {
                 matchEndIndex = -1;
                 stringToMatchWith = hex"";
 
-                console2.log("i: ", i);
-                console2.log("j: ", j);
-
                 if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
                     if (stringInBytes.length - 1 >= i + ccIdAtoms[j].atom.length - 1) {
                         stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtoms[j].atom.length - 1));
                     }
 
-                    console2.log("stringToMatchWith: ", string(stringToMatchWith));
-
                     if (confirmValidStringChunk(stringToMatchWith)) {
-                        console2.log("valid string");
                         if (keccak256(stringToMatchWith) != keccak256(ccIdAtoms[j].atom)) {
-                            console2.log("not matched setting indices");
                             matchStartIndex = int256(i);
                             matchEndIndex = int256(i + stringToMatchWith.length - 1);
                         }
-                        console2.log("moving...");
                     } else {
-                        console2.log("invalid, back to fallback");
                         if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
                             matchStartIndex = int256(i);
                             matchEndIndex = matchStartIndex;
@@ -3168,7 +3159,7 @@ contract Stringray {
             if (matchStartIndex == -1) {
                 if (z < ccIdAtoms.length) {
                     if (ccIdAtoms[z].atomType == CC_RANGE) {
-                        console2.log("yeah its range pattern match");
+                        console2.log("yeah it's range pattern match");
                         (matchStartIndex, matchEndIndex) =
                             matchCCRange(ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
                     }
@@ -3246,6 +3237,9 @@ contract Stringray {
                     if (stringInBytes.length - 1 >= j + ccLiterals[i].length - 1) {
                         stringToMatchWith = trimString(stringInBytes, j, int256(j + ccLiterals[i].length - 1));
                     }
+
+                    console2.log("applicant string length: ", ccLiterals[i].length);
+                    console2.log("matchNeutralizedCCAtoms - stringToMatchWith: ", string(stringToMatchWith));
 
                     if (keccak256(stringToMatchWith) == keccak256(abi.encodePacked(ccLiterals[i]))) {
                         matchStartIndex = int256(j);

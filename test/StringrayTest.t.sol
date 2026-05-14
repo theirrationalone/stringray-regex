@@ -22738,8 +22738,6 @@ contract PlayStringTest is Test {
         string memory target = unicode"néhal";
         string memory pattern = unicode"/[é]/u";
 
-        // @info: works well in solidity
-
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
         console2.log("Pattern string   : ", returnedData.patternString);
