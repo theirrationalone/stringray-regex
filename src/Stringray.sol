@@ -3078,6 +3078,21 @@ contract Stringray {
                     (matchStartIndex, matchEndIndex) = matchWord(stringInBytes, i, false, false, false);
                 }
 
+                if (ccIdAtoms[j].atomType == BACKSPACE) {
+                    if (uint8(stringInBytes[i]) == BACK_SLASH) {
+                        if (i + 1 < stringInBytes.length && uint8(stringInBytes[i + 1]) != uint8(abi.encodePacked("b")[0])) {
+                            matchStartIndex = int256(i);
+                            matchEndIndex = matchStartIndex + 1;
+                        } else if(i + 1 < stringInBytes.length && uint8(stringInBytes[i + 1]) == uint8(abi.encodePacked("b")[0])) {
+                            matchStartIndex = -1;
+                            matchEndIndex = int256(i) + 1;
+                        }
+                    } else {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
+
                 if (ccIdAtoms[j].atomType == HEX_ESCAPE) {
                     (matchStartIndex, matchEndIndex) =
                         matchBackslashXHexEscape(ccIdAtoms[j].atom, stringInBytes, i, false, true);
@@ -3111,6 +3126,16 @@ contract Stringray {
                 break;
             }
             console2.log("recycle to check next string");
+            i = matchEndIndex > -1 ? uint256(matchEndIndex) : i;
+        }
+
+        console2.log("matchStartIndex a: " , matchStartIndex);
+        console2.log("matchEndIndex a  : " , matchEndIndex);
+
+        if (matchStartIndex == -1 && matchEndIndex == -1) {
+            matchEndIndex = stringInBytes.length > 0 ? int256(stringInBytes.length) : -1;
+        } else if (matchStartIndex == -1 && matchEndIndex > -1) {
+            matchEndIndex += 1;
         }
 
         return (matchStartIndex, matchEndIndex);

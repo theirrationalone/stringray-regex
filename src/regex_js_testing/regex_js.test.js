@@ -20596,10 +20596,129 @@ const testMain = () => {
   });
 
   test("Pattern match Anchors cases: Case00000000000000000000000000031", () => {
+    const target = "7";
+    let regex = /[^\d]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000032", () => {
+    const target = "x";
+    let regex = /[^\d]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000033", () => {
+    const target = "7x";
+    let regex = /[^\d]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000034", () => {
+    const target = "_";
+    let regex = /[^\w]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000035", () => {
+    const target = "-";
+    let regex = /[^\w]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000036", () => {
+    const target = " ";
+    let regex = /[^\w]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000037", () => {
+    const target = "\n";
+    let regex = /[^\s]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000038", () => {
+    const target = "\t";
+    let regex = /[^\s]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000039", () => {
+    const target = "A";
+    let regex = /[^\s]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000040", () => {
+    const target = "\n";
+    let regex = /[^\n]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000041", () => {
+    const target = "\r";
+    let regex = /[^\n]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000042", () => {
+    const target = " ";
+    let regex = /[^\t]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000043", () => {
+    const target = "\n";
+    let regex = /[^\r]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000044", () => {
+    const target = "A";
+    let regex = /[^\b]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000045", () => {
+    const target = "\b";
+    let regex = /[^\b]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000046", () => {
+    const target = "]";
+    let regex = /[^\]]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000047", () => {
     const target = "B";
     let regex = /[^\B]/
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000048", () => {
+    const target = "c";
+    let regex = /[^\B]/
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
   });
 };
 testMain();
