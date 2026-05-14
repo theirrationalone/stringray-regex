@@ -2600,10 +2600,9 @@ contract Stringray {
         (bytes memory rightAtom, uint256 rightAtomDec) =
             evaluateAtomDecValue(trimString(atom, uint256(minusSignIndex) + 1, -1));
 
-        return
-            matchRawCCRange(
-                stringInBytes, indexToStartMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec, isFirstMatch
-            );
+        return matchRawCCRange(
+            stringInBytes, indexToStartMatch, leftAtom, rightAtom, leftAtomDec, rightAtomDec, isFirstMatch, negation
+        );
     }
 
     function matchRawCCRange(
@@ -2613,7 +2612,8 @@ contract Stringray {
         bytes memory rightAtom,
         uint256 leftAtomDec,
         uint256 rightAtomDec,
-        bool isFirstMatch
+        bool isFirstMatch,
+        bool negation
     ) private returns (int256, int256) {
         int256 matchEndIndex = -1;
         uint256 atomLength = leftAtom.length;
@@ -2644,9 +2644,15 @@ contract Stringray {
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
                             return (int256(indexToStartMatch + i), matchEndIndex);
+                        } else {
+                            if (negation) {
+                                return (int256(indexToStartMatch + i), matchEndIndex);
+                            }
                         }
                     }
-                    if (!isFirstMatch) return (-1, matchEndIndex);
+                    if (!isFirstMatch && !negation) return (-1, matchEndIndex);
+                    else if (!isFirstMatch && negation) return (-1, -1);
+                    matchEndIndex = -1;
                 }
                 atomLength--;
             }
@@ -2660,9 +2666,15 @@ contract Stringray {
                                 stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
                             )) {
                             return (int256(indexToStartMatch + i), matchEndIndex);
+                        } else {
+                            if (negation) {
+                                return (int256(indexToStartMatch + i), matchEndIndex);
+                            }
                         }
                     }
-                    if (!isFirstMatch) return (-1, matchEndIndex);
+                    if (!isFirstMatch && !negation) return (-1, matchEndIndex);
+                    else if (!isFirstMatch && negation) return (-1, -1);
+                    matchEndIndex = -1;
                 }
                 atomLength--;
             }
@@ -2921,6 +2933,7 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         for (uint256 i; i < ccIdAtoms.length; i++) {
             console2.log("atom: ", string(ccIdAtoms[i].atom));
+            printAtomType(ccIdAtoms[i].atomType);
         }
         console2.log("----------------------------------------");
 
@@ -3041,6 +3054,7 @@ contract Stringray {
                 }
 
                 if (ccIdAtoms[j].atomType == CC_RANGE) {
+                    console2.log("yes it's a range atom with negation");
                     (matchStartIndex, matchEndIndex) = matchCCRange(ccIdAtoms[j].atom, stringInBytes, i, false, true);
                 }
 
