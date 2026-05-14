@@ -2638,25 +2638,37 @@ contract Stringray {
         if (rightAtom.length <= atomLength) {
             while (rightAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
-                    // @BUG: wrong method to find and match with string atoms
-                    // @info: heavily implemented all over....
-                    matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
-                    if (matchEndIndex < int256(stringInBytes.length)) {
+                    matchEndIndex = int256(indexToStartMatch + i);
+                    while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
+                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), int256(i)))) {
+                            i++;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    if (i >= stringInBytes.length) return (-1, int256(i));
+
+                    if (indexToStartMatch + i < stringInBytes.length) {
                         if (validateCCRange(
-                                stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
+                                stringInBytes,
+                                uint256(matchEndIndex),
+                                int256(indexToStartMatch + i),
+                                leftAtomDec,
+                                rightAtomDec
                             )) {
                             if (!negation) {
-                                return (int256(indexToStartMatch + i), matchEndIndex);
+                                return (matchEndIndex, int256(indexToStartMatch + i));
                             } else {
-                                return (-1, matchEndIndex);
+                                return (-1, int256(indexToStartMatch + i));
                             }
                         } else {
                             if (negation) {
-                                return (int256(indexToStartMatch + i), matchEndIndex);
+                                return (matchEndIndex, int256(indexToStartMatch + i));
                             }
                         }
                     }
-                    if (!isFirstMatch) return (-1, matchEndIndex);
+                    if (!isFirstMatch) return (-1, int256(indexToStartMatch + i));
                     matchEndIndex = -1;
                 }
                 atomLength--;
@@ -2665,23 +2677,37 @@ contract Stringray {
             atomLength = rightAtom.length;
             while (leftAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
-                    matchEndIndex = int256(indexToStartMatch + i + atomLength - 1);
-                    if (matchEndIndex < int256(stringInBytes.length)) {
+                    matchEndIndex = int256(indexToStartMatch + i);
+                    while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
+                        if (!confirmValidStringChunk(trimString(stringInBytes, uint256(matchEndIndex), int256(i)))) {
+                            i++;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    if (i >= stringInBytes.length) return (-1, int256(i));
+
+                    if (indexToStartMatch + i < stringInBytes.length) {
                         if (validateCCRange(
-                                stringInBytes, indexToStartMatch + i, matchEndIndex, leftAtomDec, rightAtomDec
+                                stringInBytes,
+                                uint256(matchEndIndex),
+                                int256(indexToStartMatch + i),
+                                leftAtomDec,
+                                rightAtomDec
                             )) {
                             if (!negation) {
-                                return (int256(indexToStartMatch + i), matchEndIndex);
+                                return (matchEndIndex, int256(indexToStartMatch + i));
                             } else {
-                                return (-1, matchEndIndex);
+                                return (-1, int256(indexToStartMatch + i));
                             }
                         } else {
                             if (negation) {
-                                return (int256(indexToStartMatch + i), matchEndIndex);
+                                return (matchEndIndex, int256(indexToStartMatch + i));
                             }
                         }
                     }
-                    if (!isFirstMatch) return (-1, matchEndIndex);
+                    if (!isFirstMatch) return (-1, int256(indexToStartMatch + i));
                     matchEndIndex = -1;
                 }
                 atomLength--;
@@ -3334,7 +3360,11 @@ contract Stringray {
     function confirmValidStringChunk(bytes memory stringChunk) private pure returns (bool) {
         uint256 stringChunkLength = stringChunk.length;
 
-        if (stringChunkLength == 1) return true;
+        if (stringChunkLength == 1) {
+            if (stringChunk[0] >= 0x00 && stringChunk[0] <= 0x7f) {
+                return true;
+            }
+        }
 
         if (stringChunkLength == 2) {
             if (
@@ -4015,7 +4045,8 @@ contract Stringray {
         }
 
         if (!flag) {
-            (flag, atomType, lastMatchedParticleIndex) = isDollarOrCaretAnchor(_pattern, _currentParticleIdx, fromCharacterClass);
+            (flag, atomType, lastMatchedParticleIndex) =
+                isDollarOrCaretAnchor(_pattern, _currentParticleIdx, fromCharacterClass);
         }
 
         if (!flag) {
