@@ -2639,43 +2639,26 @@ contract Stringray {
         if (rightAtom.length <= atomLength) {
             while (rightAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
-                    matchEndIndex = int256(indexToStartMatch + i);
-                    while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (matchEndIndex > -1 && uint256(matchEndIndex) + i < stringInBytes.length) {
-                            if (!confirmValidStringChunk(
-                                    trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i))
-                                )) {
-                                i++;
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    }
+                    (matchEndIndex, i) = validateAtomWithVariableLength(stringInBytes, i, indexToStartMatch);
+
+                    console2.log("1st block, here in match raw cc range, i is: ", i);
+                    console2.log("here in match raw cc range, matchEndIndex is: ", matchEndIndex);
 
                     if (i >= stringInBytes.length) return (-1, int256(i));
 
-                    if (indexToStartMatch + i < stringInBytes.length) {
-                        if (validateCCRange(
-                                stringInBytes,
-                                uint256(matchEndIndex),
-                                int256(indexToStartMatch + i),
-                                leftAtomDec,
-                                rightAtomDec
-                            )) {
-                            if (!negation) {
-                                return (matchEndIndex, int256(indexToStartMatch + i));
-                            } else {
-                                return (-1, int256(indexToStartMatch + i));
-                            }
+                    if (validateCCRange(stringInBytes, uint256(matchEndIndex), int256(i), leftAtomDec, rightAtomDec)) {
+                        if (!negation) {
+                            return (matchEndIndex, int256(i));
                         } else {
-                            if (negation) {
-                                return (matchEndIndex, int256(indexToStartMatch + i));
-                            }
+                            return (-1, int256(i));
+                        }
+                    } else {
+                        if (negation) {
+                            return (matchEndIndex, int256(i));
                         }
                     }
-                    if (!isFirstMatch) return (-1, int256(indexToStartMatch + i));
+
+                    if (!isFirstMatch) return (-1, int256(i));
                     matchEndIndex = -1;
                 }
                 atomLength--;
@@ -2684,43 +2667,26 @@ contract Stringray {
             atomLength = rightAtom.length;
             while (leftAtom.length <= atomLength) {
                 for (uint256 i; i < stringInBytes.length; i++) {
-                    matchEndIndex = int256(indexToStartMatch + i);
-                    while (uint256(matchEndIndex) < stringInBytes.length && i < stringInBytes.length) {
-                        if (matchEndIndex > -1 && uint256(matchEndIndex) + i < stringInBytes.length) {
-                            if (!confirmValidStringChunk(
-                                    trimString(stringInBytes, uint256(matchEndIndex), matchEndIndex + int256(i))
-                                )) {
-                                i++;
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    }
+                    (matchEndIndex, i) = validateAtomWithVariableLength(stringInBytes, i, indexToStartMatch);
+
+                    console2.log("here in match raw cc range, i is: ", i);
+                    console2.log("here in match raw cc range, matchEndIndex is: ", matchEndIndex);
 
                     if (i >= stringInBytes.length) return (-1, int256(i));
 
-                    if (indexToStartMatch + i < stringInBytes.length) {
-                        if (validateCCRange(
-                                stringInBytes,
-                                uint256(matchEndIndex),
-                                int256(indexToStartMatch + i),
-                                leftAtomDec,
-                                rightAtomDec
-                            )) {
-                            if (!negation) {
-                                return (matchEndIndex, int256(indexToStartMatch + i));
-                            } else {
-                                return (-1, int256(indexToStartMatch + i));
-                            }
+                    if (validateCCRange(stringInBytes, uint256(matchEndIndex), int256(i), leftAtomDec, rightAtomDec)) {
+                        if (!negation) {
+                            return (matchEndIndex, int256(i));
                         } else {
-                            if (negation) {
-                                return (matchEndIndex, int256(indexToStartMatch + i));
-                            }
+                            return (-1, int256(i));
+                        }
+                    } else {
+                        if (negation) {
+                            return (matchEndIndex, int256(i));
                         }
                     }
-                    if (!isFirstMatch) return (-1, int256(indexToStartMatch + i));
+
+                    if (!isFirstMatch) return (-1, int256(i));
                     matchEndIndex = -1;
                 }
                 atomLength--;
@@ -2728,6 +2694,32 @@ contract Stringray {
         }
 
         return (-1, matchEndIndex);
+    }
+
+    function validateAtomWithVariableLength(bytes memory stringInBytes, uint256 i, uint256 indexToStartMatch)
+        private
+        returns (int256, uint256)
+    {
+        uint256 stringInBytesLength = stringInBytes.length;
+        int256 atomLengthIncrementer = 0;
+
+        int256 matchStartIndex = int256(indexToStartMatch + i);
+
+        if (uint256(matchStartIndex) < stringInBytesLength) {
+            while (true) {
+                if (!confirmValidStringChunk(
+                        trimString(stringInBytes, uint256(matchStartIndex), matchStartIndex + atomLengthIncrementer)
+                    )) {
+                    if (atomLengthIncrementer == 4) {
+                        return (matchStartIndex, i);
+                    }
+                    atomLengthIncrementer++;
+                } else {
+                    return (matchStartIndex, uint256(matchStartIndex + atomLengthIncrementer));
+                }
+            }
+        }
+        return (matchStartIndex, i);
     }
 
     function validateCCRange(
