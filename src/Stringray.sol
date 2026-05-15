@@ -1196,7 +1196,8 @@ contract Stringray {
                     isFirstMatch,
                     fromGroup,
                     patternFlags,
-                    fromCharacterClass
+                    fromCharacterClass,
+                    false
                 );
             } else if (fromCharacterClass && atoms[matchData.i].atomType == CC_RANGE) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
@@ -2807,7 +2808,8 @@ contract Stringray {
         bool isFirstMatch,
         bool fromGroup,
         bytes memory patternFlags,
-        bool fromCharacterClass
+        bool fromCharacterClass,
+        bool negation
     ) private returns (int256, int256) {
         MatchCCLocalVars memory matchCCLocalVars;
         pattern = trimString(pattern, 1, int256(pattern.length - 2));
@@ -2944,7 +2946,7 @@ contract Stringray {
             matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
         }
 
-        if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass) {
+        if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass || negation) {
             return neutralizeAndMatchCCAtomsNegation(
                 stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms
             );
@@ -3122,8 +3124,9 @@ contract Stringray {
                 }
 
                 if (ccIdAtoms[j].atomType == CHARACTER_CLASS_ATOM) {
-                    (matchStartIndex, matchEndIndex) =
-                        matchCharacterClass(ccIdAtoms[j].atom, stringInBytes, i, false, fromGroup, patternFlags, true);
+                    (matchStartIndex, matchEndIndex) = matchCharacterClass(
+                        ccIdAtoms[j].atom, stringInBytes, i, false, fromGroup, patternFlags, true, true
+                    );
                 }
 
                 if (ccIdAtoms[j].atomType == CC_RANGE) {
@@ -3350,7 +3353,14 @@ contract Stringray {
             if (matchStartIndex == -1) {
                 if (ccIdAtoms[z].atomType == CHARACTER_CLASS_ATOM) {
                     (matchStartIndex, matchEndIndex) = matchCharacterClass(
-                        ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, true
+                        ccIdAtoms[z].atom,
+                        stringInBytes,
+                        indexToStartMatch,
+                        isFirstMatch,
+                        fromGroup,
+                        patternFlags,
+                        true,
+                        false
                     );
                 }
             }
@@ -3418,7 +3428,7 @@ contract Stringray {
         bool isFirstMatch,
         bytes[] memory ccLiterals,
         bool negation
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         bytes memory stringToMatchWith;
