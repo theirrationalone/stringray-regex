@@ -2185,6 +2185,8 @@ contract Stringray {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
 
+        bytes[] memory ccLiterals = new bytes[](leftSet.length);
+
         for (uint256 i; i < leftSet.length; i++) {
             bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
             bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
@@ -2195,11 +2197,11 @@ contract Stringray {
             console2.logBytes(utf8Atom);
             console2.log("----------------------------------------");
 
-            ccLiterals.push(utf8Atom);
+            ccLiterals[i] = utf8Atom;
         }
 
         (matchStartIndex, matchEndIndex) =
-            matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+            matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
@@ -2795,9 +2797,8 @@ contract Stringray {
         uint256 rLastParticleIndex;
         int256 matchStartIndex;
         int256 matchEndIndex;
-        AtomTrait[] ccIdAtoms;
-        bytes[] ccLiterals;
     }
+    AtomTrait[] ccIdAtoms;
 
     function matchCharacterClass(
         bytes memory pattern,
@@ -2835,7 +2836,7 @@ contract Stringray {
             return (int256(indexToStartMatch), int256(indexToStartMatch));
         }
 
-        // @info: current logic to match with targets is so hectic, need to invent a new way
+        delete ccIdAtoms;
 
         for (; matchCCLocalVars.i < pattern.length;) {
             if (matchCCLocalVars.i == 0 && uint8(pattern[matchCCLocalVars.i]) == CARET_SIGN && !fromCharacterClass) {
@@ -2925,7 +2926,7 @@ contract Stringray {
                 }
             }
 
-            matchCCLocalVars.ccIdAtoms.push(subAtom);
+            ccIdAtoms.push(subAtom);
 
             // (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex) =
             //     matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
@@ -2945,12 +2946,13 @@ contract Stringray {
 
         if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass) {
             return neutralizeAndMatchCCAtomsNegation(
-                stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, matchCCLocalVars.ccIdAtoms
+                stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms
             );
         }
-        return neutralizeAndMatchCCAtoms(
-            stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, matchCCLocalVars.ccIdAtoms
-        );
+        return
+            neutralizeAndMatchCCAtoms(
+                stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms
+            );
 
         // console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
         // console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
@@ -3182,6 +3184,7 @@ contract Stringray {
         console2.log("----------------------------------------");
 
         for (uint256 z; z < ccIdAtoms.length; z++) {
+            bytes[] memory ccLiterals = new bytes[](1);
             // z = onlyCCLiteralsAndSimilarCollection(z);
 
             // for (uint256 i; i < ccLiterals.length; i++) {
@@ -3191,155 +3194,136 @@ contract Stringray {
             // (matchStartIndex, matchEndIndex) =
             //     matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, false);
 
-            if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
-                if (stringInBytes.length - 1 >= i + ccIdAtoms[j].atom.length - 1) {
-                    stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtoms[j].atom.length - 1));
-                }
-
-                if (confirmValidStringChunk(stringToMatchWith)) {
-                    if (keccak256(stringToMatchWith) != keccak256(ccIdAtoms[j].atom)) {
-                        matchStartIndex = int256(i);
-                        matchEndIndex = int256(i + stringToMatchWith.length - 1);
-                    }
-                } else {
-                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
-                        matchStartIndex = int256(i);
-                        matchEndIndex = matchStartIndex;
-                    }
-                }
+            if (ccIdAtoms[z].atomType == LITERAL_ATOM) {
+                ccLiterals[0] = ccIdAtoms[z].atom;
+                (matchStartIndex, matchEndIndex) =
+                    matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
             }
 
-            if (ccIdAtoms[j].atomType == TAB) {
-                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"09")) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == NEWLINE) {
-                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0a")) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == VERTICAL_TAB) {
-                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0b")) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == FORMFEED) {
-                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0c")) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == CARRIAGE_RETURN) {
-                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0d")) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == ESCAPE_LITERAL_ATOM) {
-                if (
-                    keccak256(abi.encodePacked(stringInBytes[i]))
-                        != keccak256(trimString(ccIdAtoms[j].atom, 1, int256(ccIdAtoms[j].atom.length - 1)))
-                ) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
-                }
-            }
-
-            if (ccIdAtoms[j].atomType == CONTROL_PREFIX) {
-                bytes memory targetHex = trimString(ccIdAtoms[j].atom, 2, -1);
-                if (
-                    keccak256(abi.encodePacked(stringInBytes[i]))
-                        != keccak256(abi.encodePacked(uint8(targetHex[0]) % 32))
-                ) {
-                    matchStartIndex = int256(i);
-                    matchEndIndex = matchStartIndex;
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == TAB) {
+                    ccLiterals[0] = hex"09";
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
-                        if (ccIdAtoms[z].atomType == DIGIT) {
-                            (matchStartIndex, matchEndIndex) =
-                                matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
-                        } else {
-                            (matchStartIndex, matchEndIndex) =
-                                matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
-                        }
+                if (ccIdAtoms[z].atomType == NEWLINE) {
+                    ccLiterals[0] = hex"0a";
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == VERTICAL_TAB) {
+                    ccLiterals[0] = hex"0b";
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == FORMFEED) {
+                    ccLiterals[0] = hex"0c";
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == CARRIAGE_RETURN) {
+                    ccLiterals[0] = hex"0d";
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == ESCAPE_LITERAL_ATOM) {
+                    ccLiterals[0] = trimString(ccIdAtoms[z].atom, 1, int256(ccIdAtoms[z].atom.length - 1));
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == CONTROL_PREFIX) {
+                    bytes memory targetHex = trimString(ccIdAtoms[z].atom, 2, -1);
+                    ccLiterals[0] = abi.encodePacked(uint8(targetHex[0]) % 32);
+                    (matchStartIndex, matchEndIndex) =
+                        matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, false);
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (ccIdAtoms[z].atomType == DIGIT || ccIdAtoms[z].atomType == NOT_DIGIT) {
+                    if (ccIdAtoms[z].atomType == DIGIT) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
+                    } else {
+                        (matchStartIndex, matchEndIndex) =
+                            matchDigit(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == WHITESPACE || ccIdAtoms[z].atomType == NOT_WHITESPACE) {
-                        if (ccIdAtoms[z].atomType == WHITESPACE) {
-                            (matchStartIndex, matchEndIndex) =
-                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
-                        } else {
-                            (matchStartIndex, matchEndIndex) =
-                                matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
-                        }
+                if (ccIdAtoms[z].atomType == WHITESPACE || ccIdAtoms[z].atomType == NOT_WHITESPACE) {
+                    if (ccIdAtoms[z].atomType == WHITESPACE) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
+                    } else {
+                        (matchStartIndex, matchEndIndex) =
+                            matchWhitespace(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == WORD_CHARACTER || ccIdAtoms[z].atomType == NOT_WORD_CHARACTER) {
-                        if (ccIdAtoms[z].atomType == WORD_CHARACTER) {
-                            (matchStartIndex, matchEndIndex) =
-                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
-                        } else {
-                            (matchStartIndex, matchEndIndex) =
-                                matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
-                        }
+                if (ccIdAtoms[z].atomType == WORD_CHARACTER || ccIdAtoms[z].atomType == NOT_WORD_CHARACTER) {
+                    if (ccIdAtoms[z].atomType == WORD_CHARACTER) {
+                        (matchStartIndex, matchEndIndex) =
+                            matchWord(stringInBytes, indexToStartMatch, isFirstMatch, false, false);
+                    } else {
+                        (matchStartIndex, matchEndIndex) =
+                            matchWord(stringInBytes, indexToStartMatch, isFirstMatch, true, false);
                     }
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == BACKSPACE) {
-                        for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
-                            if (uint8(stringInBytes[i]) == BACK_SLASH) {
-                                if (
-                                    i + 1 < stringInBytes.length
-                                        && uint8(stringInBytes[i + 1]) == uint8(abi.encodePacked("b")[0])
-                                ) {
-                                    matchStartIndex = int256(i);
-                                    matchEndIndex = matchStartIndex + 1;
+                if (ccIdAtoms[z].atomType == BACKSPACE) {
+                    for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+                        if (uint8(stringInBytes[i]) == BACK_SLASH) {
+                            if (
+                                i + 1 < stringInBytes.length
+                                    && uint8(stringInBytes[i + 1]) == uint8(abi.encodePacked("b")[0])
+                            ) {
+                                matchStartIndex = int256(i);
+                                matchEndIndex = matchStartIndex + 1;
+                                break;
+                            } else if (
+                                i + 1 < stringInBytes.length
+                                    && uint8(stringInBytes[i + 1]) != uint8(abi.encodePacked("b")[0])
+                            ) {
+                                matchStartIndex = -1;
+                                matchEndIndex = int256(i) + 1;
+                                if (!isFirstMatch) {
                                     break;
-                                } else if (
-                                    i + 1 < stringInBytes.length
-                                        && uint8(stringInBytes[i + 1]) != uint8(abi.encodePacked("b")[0])
-                                ) {
-                                    matchStartIndex = -1;
-                                    matchEndIndex = int256(i) + 1;
-                                    if (!isFirstMatch) {
-                                        break;
-                                    }
                                 }
+                            }
+                        } else {
+                            if (stringInBytes[i] == 0x08) {
+                                matchStartIndex = int256(i);
+                                matchEndIndex = matchStartIndex;
+                                break;
                             } else {
-                                if (stringInBytes[i] == 0x08) {
-                                    matchStartIndex = int256(i);
-                                    matchEndIndex = matchStartIndex;
+                                matchStartIndex = -1;
+                                matchEndIndex = int256(i);
+                                if (!isFirstMatch) {
                                     break;
-                                } else {
-                                    matchStartIndex = -1;
-                                    matchEndIndex = int256(i);
-                                    if (!isFirstMatch) {
-                                        break;
-                                    }
                                 }
                             }
                         }
@@ -3348,63 +3332,47 @@ contract Stringray {
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == HEX_ESCAPE) {
-                        (matchStartIndex, matchEndIndex) = matchBackslashXHexEscape(
-                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
-                        );
-                    }
+                if (ccIdAtoms[z].atomType == HEX_ESCAPE) {
+                    (matchStartIndex, matchEndIndex) = matchBackslashXHexEscape(
+                        ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
+                    );
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == UNICODE_ESCAPE) {
-                        (matchStartIndex, matchEndIndex) = matchBackslashUUnicodeEscape(
-                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
-                        );
-                    }
+                if (ccIdAtoms[z].atomType == UNICODE_ESCAPE) {
+                    (matchStartIndex, matchEndIndex) = matchBackslashUUnicodeEscape(
+                        ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
+                    );
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == CHARACTER_CLASS_ATOM) {
-                        (matchStartIndex, matchEndIndex) = matchCharacterClass(
-                            ccIdAtoms[z].atom,
-                            stringInBytes,
-                            indexToStartMatch,
-                            isFirstMatch,
-                            fromGroup,
-                            patternFlags,
-                            true
-                        );
-                    }
+                if (ccIdAtoms[z].atomType == CHARACTER_CLASS_ATOM) {
+                    (matchStartIndex, matchEndIndex) = matchCharacterClass(
+                        ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, true
+                    );
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == CC_RANGE) {
-                        console2.log("yeah it's range pattern match");
-                        (matchStartIndex, matchEndIndex) =
-                            matchCCRange(ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
-                        console2.log("after cc range match - matchStartIndex: ", matchStartIndex);
-                        console2.log("after cc range match - matchEndIndex: ", matchEndIndex);
-                    }
+                if (ccIdAtoms[z].atomType == CC_RANGE) {
+                    console2.log("yeah it's range pattern match");
+                    (matchStartIndex, matchEndIndex) =
+                        matchCCRange(ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false);
+                    console2.log("after cc range match - matchStartIndex: ", matchStartIndex);
+                    console2.log("after cc range match - matchEndIndex: ", matchEndIndex);
                 }
             }
 
             if (matchStartIndex == -1) {
-                if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[z].atomType == CC_SET_ATOM) {
-                        matchCCSetAtoms(
-                            ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, true
-                        );
+                if (ccIdAtoms[z].atomType == CC_SET_ATOM) {
+                    matchCCSetAtoms(
+                        ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, true
+                    );
 
-                        (matchStartIndex, matchEndIndex) =
-                            evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch, false);
-                    }
+                    (matchStartIndex, matchEndIndex) =
+                        evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch, false);
                 }
             }
 
@@ -3416,38 +3384,39 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
-    function onlyCCLiteralsAndSimilarCollection(uint256 lastIdx) private returns (uint256) {
-        uint256 i = lastIdx;
-        for (i; i < ccIdAtoms.length; i++) {
-            if (ccIdAtoms[i].atomType == LITERAL_ATOM) {
-                ccLiterals.push(ccIdAtoms[i].atom);
-            } else if (ccIdAtoms[i].atomType == TAB) {
-                ccLiterals.push(hex"09");
-            } else if (ccIdAtoms[i].atomType == NEWLINE) {
-                ccLiterals.push(hex"0a");
-            } else if (ccIdAtoms[i].atomType == VERTICAL_TAB) {
-                ccLiterals.push(hex"0b");
-            } else if (ccIdAtoms[i].atomType == FORMFEED) {
-                ccLiterals.push(hex"0c");
-            } else if (ccIdAtoms[i].atomType == CARRIAGE_RETURN) {
-                ccLiterals.push(hex"0d");
-            } else if (ccIdAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
-                ccLiterals.push(trimString(ccIdAtoms[i].atom, 1, int256(ccIdAtoms[i].atom.length - 1)));
-            } else if (ccIdAtoms[i].atomType == CONTROL_PREFIX) {
-                bytes memory targetHex = trimString(ccIdAtoms[i].atom, 2, -1);
-                ccLiterals.push(abi.encodePacked(uint8(targetHex[0]) % 32));
-            } else {
-                break;
-            }
-        }
+    // function onlyCCLiteralsAndSimilarCollection(uint256 lastIdx) private returns (uint256) {
+    //     uint256 i = lastIdx;
+    //     for (i; i < ccIdAtoms.length; i++) {
+    //         if (ccIdAtoms[i].atomType == LITERAL_ATOM) {
+    //             ccLiterals.push(ccIdAtoms[i].atom);
+    //         } else if (ccIdAtoms[i].atomType == TAB) {
+    //             ccLiterals.push(hex"09");
+    //         } else if (ccIdAtoms[i].atomType == NEWLINE) {
+    //             ccLiterals.push(hex"0a");
+    //         } else if (ccIdAtoms[i].atomType == VERTICAL_TAB) {
+    //             ccLiterals.push(hex"0b");
+    //         } else if (ccIdAtoms[i].atomType == FORMFEED) {
+    //             ccLiterals.push(hex"0c");
+    //         } else if (ccIdAtoms[i].atomType == CARRIAGE_RETURN) {
+    //             ccLiterals.push(hex"0d");
+    //         } else if (ccIdAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
+    //             ccLiterals.push(trimString(ccIdAtoms[i].atom, 1, int256(ccIdAtoms[i].atom.length - 1)));
+    //         } else if (ccIdAtoms[i].atomType == CONTROL_PREFIX) {
+    //             bytes memory targetHex = trimString(ccIdAtoms[i].atom, 2, -1);
+    //             ccLiterals.push(abi.encodePacked(uint8(targetHex[0]) % 32));
+    //         } else {
+    //             break;
+    //         }
+    //     }
 
-        return i;
-    }
+    //     return i;
+    // }
 
     function matchNeutralizedCCAtoms(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
+        bytes[] memory ccLiterals,
         bool negation
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
@@ -3679,8 +3648,10 @@ contract Stringray {
             return matchLiteral(atom, stringInBytes, indexToStartMatch, isFirstMatch);
         }
 
-        ccLiterals.push(atom);
-        return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+        bytes[] memory ccLiterals = new bytes[](1);
+        ccLiterals[0] = atom;
+
+        return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
     }
 
     function matchBackslashXHexEscape(
@@ -3697,8 +3668,10 @@ contract Stringray {
             return matchLiteral(actualHex, stringInBytes, indexToStartMatch, isFirstMatch);
         }
 
-        ccLiterals.push(actualHex);
-        return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, negation);
+        bytes[] memory ccLiterals = new bytes[](1);
+        ccLiterals[0] = actualHex;
+
+        return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
     }
 
     function matchWord(
