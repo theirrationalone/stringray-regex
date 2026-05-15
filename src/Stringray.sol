@@ -2795,6 +2795,8 @@ contract Stringray {
         uint256 rLastParticleIndex;
         int256 matchStartIndex;
         int256 matchEndIndex;
+        AtomTrait[] ccIdAtoms;
+        bytes[] ccLiterals;
     }
 
     function matchCharacterClass(
@@ -2923,7 +2925,7 @@ contract Stringray {
                 }
             }
 
-            ccIdAtoms.push(subAtom);
+            matchCCLocalVars.ccIdAtoms.push(subAtom);
 
             // (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex) =
             //     matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
@@ -2942,12 +2944,13 @@ contract Stringray {
         }
 
         if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass) {
-            return
-                neutralizeAndMatchCCAtomsNegation(
-                    stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags
-                );
+            return neutralizeAndMatchCCAtomsNegation(
+                stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, matchCCLocalVars.ccIdAtoms
+            );
         }
-        return neutralizeAndMatchCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags);
+        return neutralizeAndMatchCCAtoms(
+            stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, matchCCLocalVars.ccIdAtoms
+        );
 
         // console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
         // console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
@@ -2955,15 +2958,13 @@ contract Stringray {
         // return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
     }
 
-    AtomTrait[] private ccIdAtoms;
-    bytes[] private ccLiterals;
-
     function neutralizeAndMatchCCAtomsNegation(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bool fromGroup,
-        bytes memory patternFlags
+        bytes memory patternFlags,
+        AtomTrait[] memory ccIdAtoms
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
@@ -3166,7 +3167,8 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bool fromGroup,
-        bytes memory patternFlags
+        bytes memory patternFlags,
+        AtomTrait[] memory ccIdAtoms
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
@@ -3175,18 +3177,93 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         for (uint256 i; i < ccIdAtoms.length; i++) {
             console2.log("atom: ", string(ccIdAtoms[i].atom));
+            printAtomType(ccIdAtoms[i].atomType);
         }
         console2.log("----------------------------------------");
 
         for (uint256 z; z < ccIdAtoms.length; z++) {
-            z = onlyCCLiteralsAndSimilarCollection(z);
+            // z = onlyCCLiteralsAndSimilarCollection(z);
 
-            for (uint256 i; i < ccLiterals.length; i++) {
-                console2.log("ccLiteral - neutralizeAndMatchCCAtoms: ", string(ccLiterals[i]));
+            // for (uint256 i; i < ccLiterals.length; i++) {
+            //     console2.log("ccLiteral - neutralizeAndMatchCCAtoms: ", string(ccLiterals[i]));
+            // }
+
+            // (matchStartIndex, matchEndIndex) =
+            //     matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, false);
+
+            if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
+                if (stringInBytes.length - 1 >= i + ccIdAtoms[j].atom.length - 1) {
+                    stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtoms[j].atom.length - 1));
+                }
+
+                if (confirmValidStringChunk(stringToMatchWith)) {
+                    if (keccak256(stringToMatchWith) != keccak256(ccIdAtoms[j].atom)) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = int256(i + stringToMatchWith.length - 1);
+                    }
+                } else {
+                    if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
+                        matchStartIndex = int256(i);
+                        matchEndIndex = matchStartIndex;
+                    }
+                }
             }
 
-            (matchStartIndex, matchEndIndex) =
-                matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, false);
+            if (ccIdAtoms[j].atomType == TAB) {
+                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"09")) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == NEWLINE) {
+                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0a")) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == VERTICAL_TAB) {
+                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0b")) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == FORMFEED) {
+                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0c")) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == CARRIAGE_RETURN) {
+                if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"0d")) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == ESCAPE_LITERAL_ATOM) {
+                if (
+                    keccak256(abi.encodePacked(stringInBytes[i]))
+                        != keccak256(trimString(ccIdAtoms[j].atom, 1, int256(ccIdAtoms[j].atom.length - 1)))
+                ) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
+
+            if (ccIdAtoms[j].atomType == CONTROL_PREFIX) {
+                bytes memory targetHex = trimString(ccIdAtoms[j].atom, 2, -1);
+                if (
+                    keccak256(abi.encodePacked(stringInBytes[i]))
+                        != keccak256(abi.encodePacked(uint8(targetHex[0]) % 32))
+                ) {
+                    matchStartIndex = int256(i);
+                    matchEndIndex = matchStartIndex;
+                }
+            }
 
             if (matchStartIndex == -1) {
                 if (z < ccIdAtoms.length) {
@@ -3292,9 +3369,15 @@ contract Stringray {
 
             if (matchStartIndex == -1) {
                 if (z < ccIdAtoms.length) {
-                    if (ccIdAtoms[j].atomType == CHARACTER_CLASS_ATOM) {
+                    if (ccIdAtoms[z].atomType == CHARACTER_CLASS_ATOM) {
                         (matchStartIndex, matchEndIndex) = matchCharacterClass(
-                            ccIdAtoms[j].atom, stringInBytes, i, false, fromGroup, patternFlags, true
+                            ccIdAtoms[z].atom,
+                            stringInBytes,
+                            indexToStartMatch,
+                            isFirstMatch,
+                            fromGroup,
+                            patternFlags,
+                            true
                         );
                     }
                 }
