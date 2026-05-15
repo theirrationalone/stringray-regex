@@ -20720,5 +20720,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Anchors cases: Case00000000000000000000000000049", () => {
+    const target = "schwarz";
+    let regex = /[^[[a-z]--[aeiou]]]/v
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

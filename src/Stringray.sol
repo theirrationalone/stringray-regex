@@ -3118,6 +3118,11 @@ contract Stringray {
                         matchBackslashUUnicodeEscape(ccIdAtoms[j].atom, stringInBytes, i, false, true);
                 }
 
+                if (ccIdAtoms[j].atomType == CHARACTER_CLASS_ATOM) {
+                    (matchStartIndex, matchEndIndex) =
+                        matchCharacterClass(ccIdAtoms[j].atom, stringInBytes, i, false, fromGroup, patternFlags, true);
+                }
+
                 if (ccIdAtoms[j].atomType == CC_RANGE) {
                     console2.log("yes it's a range atom with negation");
                     (matchStartIndex, matchEndIndex) = matchCCRange(ccIdAtoms[j].atom, stringInBytes, i, false, true);
@@ -3280,6 +3285,16 @@ contract Stringray {
                     if (ccIdAtoms[z].atomType == UNICODE_ESCAPE) {
                         (matchStartIndex, matchEndIndex) = matchBackslashUUnicodeEscape(
                             ccIdAtoms[z].atom, stringInBytes, indexToStartMatch, isFirstMatch, false
+                        );
+                    }
+                }
+            }
+
+            if (matchStartIndex == -1) {
+                if (z < ccIdAtoms.length) {
+                    if (ccIdAtoms[j].atomType == CHARACTER_CLASS_ATOM) {
+                        (matchStartIndex, matchEndIndex) = matchCharacterClass(
+                            ccIdAtoms[j].atom, stringInBytes, i, false, fromGroup, patternFlags, true
                         );
                     }
                 }
