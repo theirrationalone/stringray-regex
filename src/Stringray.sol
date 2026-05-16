@@ -3455,6 +3455,7 @@ contract Stringray {
                         break;
                     } else {
                         if (negation) {
+                            matchEndIndex = int256(i);
                             break;
                         }
                         continue;
@@ -3482,12 +3483,19 @@ contract Stringray {
                 }
 
                 if (ccIdAtomsLcl[z].atomType == CC_SET_ATOM) {
+                    console2.log("before i in neutral and cc set atom: ", i);
                     matchCCSetAtoms(
                         ccIdAtomsLcl[z].atom, stringInBytes, i, negation ? false : isFirstMatch, patternFlags, true
                     );
 
+                    console2.log("after i in neutral and cc set atom: ", i);
+
                     (matchStartIndex, matchEndIndex) =
                         evaluateSetOperationMatch(stringInBytes, i, negation ? false : isFirstMatch, negation);
+                        
+                    
+                    console2.log("after evaluateSetOperationMatch: matchStartIndex: ", matchStartIndex);
+                    console2.log("after evaluateSetOperationMatch: matchEndIndex  : ", matchEndIndex);
 
                     if (matchStartIndex > -1) {
                         if (negation) {
@@ -3555,6 +3563,13 @@ contract Stringray {
         int256 matchEndIndex = -1;
         bytes memory stringToMatchWith;
 
+        console2.log("---------------------matchNeutralizedCCAtoms---------------------");
+        console2.log("stringInBytes: ", string(stringInBytes));
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("negation: ", negation);
+        console2.log("isFirstMatch: ", isFirstMatch);
+        console2.log("------------------------------------------");
+
         // if (isFirstMatch) {
         for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
             if (negation) {
@@ -3574,6 +3589,8 @@ contract Stringray {
                 if (keccak256(stringToMatchWith) == keccak256(abi.encodePacked(ccLiterals[i]))) {
                     matchStartIndex = int256(j);
                     matchEndIndex = int256(j + stringToMatchWith.length - 1);
+                    console2.log("j: ", j);
+                    console2.log("stringToMatchWith length: ", stringToMatchWith.length);
                     break;
                 }
 
