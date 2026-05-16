@@ -3217,7 +3217,7 @@ contract Stringray {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         console2.log("--------------------neutralizeAndMatchCCAtoms--------------------");
-        console2.log("negation  is false");
+        console2.log("negation: ", negation);
         console2.log("isFirstMatch: ", isFirstMatch);
         for (uint256 i; i < ccIdAtomsLcl.length; i++) {
             console2.log("atom: ", string(ccIdAtomsLcl[i].atom));
@@ -3227,6 +3227,7 @@ contract Stringray {
         bytes memory stringToMatchWith;
 
         for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
+            console2.log("indexTostartMatch per iterations: ", i);
             for (uint256 z; z < ccIdAtomsLcl.length; z++) {
                 stringToMatchWith = hex"";
                 matchStartIndex = -1;
@@ -3343,8 +3344,14 @@ contract Stringray {
                     }
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3360,8 +3367,14 @@ contract Stringray {
                     }
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3377,8 +3390,14 @@ contract Stringray {
                     }
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3389,8 +3408,14 @@ contract Stringray {
                     );
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3401,8 +3426,14 @@ contract Stringray {
                     );
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3420,8 +3451,14 @@ contract Stringray {
                     );
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3434,8 +3471,14 @@ contract Stringray {
                     console2.log("after cc range match - matchEndIndex: ", matchEndIndex);
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
@@ -3449,8 +3492,14 @@ contract Stringray {
                         evaluateSetOperationMatch(stringInBytes, i, negation ? false : isFirstMatch, negation);
 
                     if (matchStartIndex > -1) {
+                        if (negation) {
+                            continue;
+                        }
                         break;
                     } else {
+                        if (negation) {
+                            break;
+                        }
                         continue;
                     }
                 }
