@@ -1030,6 +1030,7 @@ contract Stringray {
             console2.log("indexToStartMatch: ", indexToStartMatch);
             console2.log("stringInBytes length: ", stringInBytes.length);
             console2.log("stringInBytes: ", string(stringInBytes));
+            console2.logBytes(stringInBytes);
             console2.log("atoms length: ", atoms.length);
             console2.log("atom: ", string(atoms[matchData.i].atom));
             console2.log("fromCharacterClass: ", fromCharacterClass);
@@ -3234,16 +3235,13 @@ contract Stringray {
                 matchEndIndex = -1;
 
                 if (ccIdAtomsLcl[z].atomType == LITERAL_ATOM || ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
-                    if (ccIdAtomsLcl[z].atomType == LITERAL_ATOM) {
-                        if (stringInBytes.length - 1 >= i + ccIdAtomsLcl[z].atom.length - 1) {
-                            stringToMatchWith =
-                                trimString(stringInBytes, i, int256(i + ccIdAtomsLcl[z].atom.length - 1));
-                        }
-                    } else if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
-                        stringToMatchWith = trimString(ccIdAtomsLcl[z].atom, 1, int256(ccIdAtomsLcl[z].atom.length - 1));
-                        if (stringInBytes.length - 1 < i + stringToMatchWith.length - 1) {
-                            stringToMatchWith = hex"";
-                        }
+                    if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
+                        ccIdAtomsLcl[z].atom = trimString(ccIdAtomsLcl[z].atom, 1, int256(ccIdAtomsLcl[z].atom.length - 1));
+                    }
+
+                    if (stringInBytes.length - 1 >= i + ccIdAtomsLcl[z].atom.length - 1) {
+                        stringToMatchWith =
+                            trimString(stringInBytes, i, int256(i + ccIdAtomsLcl[z].atom.length - 1));
                     }
 
                     if (confirmValidStringChunk(stringToMatchWith)) {
