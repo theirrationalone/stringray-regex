@@ -2352,8 +2352,8 @@ contract Stringray {
     uint256[] private rightSet;
     uint256[] private intersectionSet;
     uint256[] private differenceSet;
-    bool nestedCCSetLeftAtomNegation;
-    bool nestedCCSetRightAtomNegation;
+    bool ccLeftSetNegation;
+    bool ccRightSetNegation;
 
     function matchCCSetAtoms(
         bytes memory atom,
@@ -2428,11 +2428,10 @@ contract Stringray {
                 }
                 delete leftSet;
 
-                // nestedCCSetNegation = atom[0] == 0x5e;
-                console2.log("atom before update sets...: ", string(atom));
-                console2.log("right atom: ", string(rightAtom));
+                ccLeftSetNegation = atom[1] == 0x5e;
+                ccRightSetNegation = rightAtom[1] == 0x5e;
+                
                 updateSets(operationType, localLeftSet, localRightSet);
-                // nestedCCSetNegation = false;
 
                 lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
@@ -2495,8 +2494,6 @@ contract Stringray {
                     }
                     console2.log("range: lLastParticleIndex: ", lLastParticleIndex);
 
-                    
-
                     while (dec <= dec2) {
                         // if (isLeftAtomComputed) {
                         //     rightSet.push(dec);
@@ -2527,6 +2524,20 @@ contract Stringray {
     function updateSets(uint8 operationTypeSymbol, uint256[] memory localLeftSet, uint256[] memory localRightSet)
         private
     {
+        if (ccLeftSetNegation) {
+            leftSet.push(1114111);
+            if (ccRightSetNegation) {
+                rightSet.push(1114111);
+            }
+
+            if (operationTypeSymbol == AMPERSAND_SIGN) {
+                // [^abcd]&&[^1234] => [efgh0123456789]&&[abcdefgh5678]
+                if (ccLeftSetNegation && ccRightSetNegation) {
+                    leftSet.push(1114111);
+                }
+            }
+        }
+
         if (operationTypeSymbol == AMPERSAND_SIGN) {
             console2.log("intersection operation");
             for (uint256 i = 0; i < localLeftSet.length; i++) {
