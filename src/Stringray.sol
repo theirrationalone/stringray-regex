@@ -2701,9 +2701,11 @@ contract Stringray {
             }
 
             if (localNegatedLeftSet.length > 0 && localNegatedRightSet.length == 0 && localLeftSet.length == 0 && localRightSet.length > 0) {
-                // [^abcd1234]--[1234789] => [efgh0123456789]--[1234] => [efgh5678]
-                // @inference: only right set is common except each element of right set that's also not in left set
-                // @conclusion: negated set with elements: [abcd1234] === left negated set
+                // [^abcd1234]--[1234789] => [efgh056789]--[1234789] => [efgh056 and complete universe]
+                // @inference: entire left negated set 
+                // @conclusion: entire left negated set because negated left set is nothing but all possible elements except abcd1234 and if we subtract or remove 1234789 from the universe
+                // still then, in that case tooo, abcd1234 are all prohibited elements 
+                // logic implemented: ❌
 
                 for (i = 0; i < localNegatedLeftSet.length; i++) {
                     exist = false;
@@ -2721,11 +2723,10 @@ contract Stringray {
             }
 
             if (localNegatedLeftSet.length == 0 && localNegatedRightSet.length > 0 && localLeftSet.length > 0 && localRightSet.length == 0) {
-                // [abcd123467]&&[^1234acd] => [abcd123467]&&[056789befgh] => 
-                // @inference: only left set is common except each element of left set that's also not in right set
-                // @conclusion: negated set with elements: [1234acd] === right negated set
-
-                
+                // [abcd123467]--[^1234acd] => [abcd123467]--[056789befgh] => [abcd1234]
+                // @inference: all elements that are in left set except elements that're in in right set.
+                // @conclusion: some sort of left set.
+                // logic impl: ❌
                 for (i = 0; i < localNegatedRightSet.length; i++) {
                     exist = false;
                     for (j = 0; j < negatedIntersectionSet.length; j++) {
@@ -2742,9 +2743,10 @@ contract Stringray {
             }
 
             if (localNegatedLeftSet.length == 0 && localNegatedRightSet.length > 0 && localLeftSet.length > 0 && localRightSet.length == 0) {
-                // [abcd123467]&&[1234acd] => [acd123]
-                // @inference: only common elements as simple as it is.
-                // @conclusion: set of intersection of both
+                // [abcd123467]--[1234acd] => [b67]
+                // @inference: only elements that're not in left set.
+                // @conclusion: set of difference of both
+                // logic impl: ✅
                 for (i = 0; i < localLeftSet.length; i++) {
                     for (j = 0; j < localRightSet.length; j++) {
                         if (localLeftSet[i] == localRightSet[j]) {
