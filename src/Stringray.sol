@@ -2800,6 +2800,7 @@ contract Stringray {
         int256 matchStartIndex;
         int256 matchEndIndex;
     }
+
     AtomTrait[] ccIdAtoms;
 
     function matchCharacterClass(
@@ -2835,23 +2836,26 @@ contract Stringray {
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("----------------------------------------");
 
-        if (pattern.length == 1 && uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass) {
+        if (pattern.length == 1 && uint8(pattern[0]) == CARET_SIGN) {
             return (int256(indexToStartMatch), int256(indexToStartMatch));
         }
 
         delete ccIdAtoms;
 
-        if (!fromCharacterClass && !negation && pattern.length > 0 && uint8(pattern[0]) == CARET_SIGN) {
-            negation = true;
+        if (pattern.length > 0 && uint8(pattern[0]) == CARET_SIGN) {
+            if (negation) {
+                negation = false;
+            } else {
+                negation = true;
+            }
         }
 
         for (; matchCCLocalVars.i < pattern.length;) {
-            if (matchCCLocalVars.i == 0 && uint8(pattern[matchCCLocalVars.i]) == CARET_SIGN && !fromCharacterClass) {
+            if (matchCCLocalVars.i == 0 && uint8(pattern[matchCCLocalVars.i]) == CARET_SIGN) {
                 matchCCLocalVars.i += 1;
                 continue;
             }
 
-            // AtomTrait[] memory subAtom = new AtomTrait[](1);
             AtomTrait memory subAtom;
 
             (matchCCLocalVars.lAtomType, matchCCLocalVars.lLastParticleIndex) =
@@ -3437,7 +3441,6 @@ contract Stringray {
                 }
 
                 if (ccIdAtomsLcl[z].atomType == CHARACTER_CLASS_ATOM) {
-                    // @BUG: nested cc doesn't respect nested negations
                     (matchStartIndex, matchEndIndex) = matchCharacterClass(
                         ccIdAtomsLcl[z].atom,
                         stringInBytes,

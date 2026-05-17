@@ -20764,10 +20764,17 @@ const testMain = () => {
   });
 
   test("Pattern match Character class negation: Case00000000000000000000000000055", () => {
-    const target = "DEAF";
+    const target = "ERC20v";
     let regex = /[^[[^a-z]]]/v;
     console.log("output: ", target.match(regex));
-    assert.strictEqual(regex.test(target), false);
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000056", () => {
+    const target = "ercV";
+    let regex = /[^[[a-z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
   });
 };
 testMain();
