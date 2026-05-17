@@ -2352,6 +2352,8 @@ contract Stringray {
     uint256[] private rightSet;
     uint256[] private intersectionSet;
     uint256[] private differenceSet;
+    bool nestedCCSetLeftAtomNegation;
+    bool nestedCCSetRightAtomNegation;
 
     function matchCCSetAtoms(
         bytes memory atom,
@@ -2371,6 +2373,10 @@ contract Stringray {
         console2.log("--------------------------------------------------");
         uint256 dec;
         for (uint256 i; i < atom.length;) {
+            if (i == 0 && atom[i] == 0x5e) {
+                i += 1;
+                continue;
+            }
             console2.log("loop start atom: ", string(atom));
             console2.log("i: ", i);
             (bytes32 lAtomType, uint256 lLastParticleIndex) = ccSubAtoms(atom, i, patternFlags, true, false, false);
@@ -2422,7 +2428,11 @@ contract Stringray {
                 }
                 delete leftSet;
 
+                // nestedCCSetNegation = atom[0] == 0x5e;
+                console2.log("atom before update sets...: ", string(atom));
+                console2.log("right atom: ", string(rightAtom));
                 updateSets(operationType, localLeftSet, localRightSet);
+                // nestedCCSetNegation = false;
 
                 lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
@@ -2484,6 +2494,8 @@ contract Stringray {
                         }
                     }
                     console2.log("range: lLastParticleIndex: ", lLastParticleIndex);
+
+                    
 
                     while (dec <= dec2) {
                         // if (isLeftAtomComputed) {
