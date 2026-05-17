@@ -2960,10 +2960,9 @@ contract Stringray {
         //         stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms
         //     );
         // }
-        return
-            neutralizeAndMatchCCAtoms(
-                stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms, negation
-            );
+        return neutralizeAndMatchCCAtoms(
+            stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms, negation
+        );
 
         // console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
         // console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
@@ -3238,18 +3237,28 @@ contract Stringray {
                 matchStartIndex = -1;
                 matchEndIndex = -1;
 
+                console2.log("z: ", z);
+                console2.log("pattern atom: ", string(ccIdAtomsLcl[z].atom));
+                printAtomType(ccIdAtomsLcl[z].atomType);
+
                 if (ccIdAtomsLcl[z].atomType == LITERAL_ATOM || ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
                     if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
-                        ccIdAtomsLcl[z].atom = trimString(ccIdAtomsLcl[z].atom, 1, int256(ccIdAtomsLcl[z].atom.length - 1));
+                        ccIdAtomsLcl[z].atom =
+                            trimString(ccIdAtomsLcl[z].atom, 1, int256(ccIdAtomsLcl[z].atom.length - 1));
                     }
 
                     if (stringInBytes.length - 1 >= i + ccIdAtomsLcl[z].atom.length - 1) {
-                        stringToMatchWith =
-                            trimString(stringInBytes, i, int256(i + ccIdAtomsLcl[z].atom.length - 1));
+                        stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtomsLcl[z].atom.length - 1));
                     }
+
+                    console2.log("passing above checks...");
 
                     if (confirmValidStringChunk(stringToMatchWith)) {
                         if (keccak256(stringToMatchWith) == keccak256(ccIdAtomsLcl[z].atom)) {
+                            if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
+                                ccIdAtomsLcl[z].atom = abi.encodePacked("\\", ccIdAtomsLcl[z].atom);
+                                console2.log("atom: ", string(ccIdAtomsLcl[z].atom));
+                            }
                             matchStartIndex = int256(i);
                             matchEndIndex = int256(i + stringToMatchWith.length - 1);
 
@@ -3259,6 +3268,10 @@ contract Stringray {
 
                             break;
                         } else {
+                            if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
+                                ccIdAtomsLcl[z].atom = abi.encodePacked("\\", ccIdAtomsLcl[z].atom);
+                                console2.log("atom: ", string(ccIdAtomsLcl[z].atom));
+                            }
                             matchStartIndex = -1;
                             matchEndIndex = int256(i + stringToMatchWith.length - 1);
 
@@ -3270,6 +3283,10 @@ contract Stringray {
                         }
                     } else {
                         if (keccak256(abi.encodePacked(stringInBytes[i])) == keccak256(ccIdAtomsLcl[z].atom)) {
+                            if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
+                                ccIdAtomsLcl[z].atom = abi.encodePacked("\\", ccIdAtomsLcl[z].atom);
+                                console2.log("atom: ", string(ccIdAtomsLcl[z].atom));
+                            }
                             matchStartIndex = int256(i);
                             matchEndIndex = matchStartIndex;
 
@@ -3279,6 +3296,10 @@ contract Stringray {
 
                             break;
                         } else {
+                            if (ccIdAtomsLcl[z].atomType == ESCAPE_LITERAL_ATOM) {
+                                ccIdAtomsLcl[z].atom = abi.encodePacked("\\", ccIdAtomsLcl[z].atom);
+                                console2.log("atom: ", string(ccIdAtomsLcl[z].atom));
+                            }
                             matchStartIndex = -1;
                             matchEndIndex = int256(i);
 
@@ -3496,8 +3517,7 @@ contract Stringray {
 
                     (matchStartIndex, matchEndIndex) =
                         evaluateSetOperationMatch(stringInBytes, i, negation ? false : isFirstMatch, negation);
-                        
-                    
+
                     console2.log("after evaluateSetOperationMatch: matchStartIndex: ", matchStartIndex);
                     console2.log("after evaluateSetOperationMatch: matchEndIndex  : ", matchEndIndex);
 
