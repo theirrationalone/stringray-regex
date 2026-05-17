@@ -20762,5 +20762,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000055", () => {
+    const target = "DEAF";
+    let regex = /[^[[^a-z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();

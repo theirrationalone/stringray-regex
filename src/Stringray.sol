@@ -3437,6 +3437,7 @@ contract Stringray {
                 }
 
                 if (ccIdAtomsLcl[z].atomType == CHARACTER_CLASS_ATOM) {
+                    // @BUG: nested cc doesn't respect nested negations
                     (matchStartIndex, matchEndIndex) = matchCharacterClass(
                         ccIdAtomsLcl[z].atom,
                         stringInBytes,
