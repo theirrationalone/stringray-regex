@@ -2602,7 +2602,106 @@ contract Stringray {
             }
 
             if (localNegatedLeftSet.length > 0 && localNegatedRightSet.length == 0 && localLeftSet.length == 0 && localRightSet.length > 0) {
-                // [^abcd1234]&&[1234] => [efgh0123456789]&&[1234] => [efgh5678]
+                // [^abcd1234]&&[1234] => [efgh056789]&&[1234] => [remaining common universe]
+                // @inference: only right set is common except each element of right set that's also not in left negated set
+                // @conclusion: negated set with elements: [abcd1234] === left negated set
+
+                for (i = 0; i < localNegatedLeftSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < negatedIntersectionSet.length; j++) {
+                        if (localNegatedLeftSet[i] == negatedIntersectionSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        negatedIntersectionSet.push(localNegatedLeftSet[i]);
+                    }
+                }
+            }
+
+            if (localNegatedLeftSet.length == 0 && localNegatedRightSet.length > 0 && localLeftSet.length > 0 && localRightSet.length == 0) {
+                // [abcd123467]&&[^1234acd] => [abcd123467]&&[056789befgh] => 
+                // @inference: only left set is common except each element of left set that's also not in right set
+                // @conclusion: negated set with elements: [1234acd] === right negated set
+
+                
+                for (i = 0; i < localNegatedRightSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < negatedIntersectionSet.length; j++) {
+                        if (localNegatedRightSet[i] == negatedIntersectionSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        negatedIntersectionSet.push(localNegatedRightSet[i]);
+                    }
+                }
+            }
+
+            if (localNegatedLeftSet.length == 0 && localNegatedRightSet.length > 0 && localLeftSet.length > 0 && localRightSet.length == 0) {
+                // [abcd123467]&&[1234acd] => [acd123]
+                // @inference: only common elements as simple as it is.
+                // @conclusion: set of intersection of both
+                for (i = 0; i < localLeftSet.length; i++) {
+                    for (j = 0; j < localRightSet.length; j++) {
+                        if (localLeftSet[i] == localRightSet[j]) {
+                            exist = false;
+                            for (k = 0; k < intersectionSet.length; k++) {
+                                if (localLeftSet[i] == intersectionSet[k]) {
+                                    exist = true;
+                                    break;
+                                }
+                            }
+
+                            if (!exist) {
+                                intersectionSet.push(localLeftSet[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (localNegatedLeftSet.length > 0 && localNegatedRightSet.length > 0 && localLeftSet.length == 0 && localRightSet.length == 0) {
+                // [^abcd]--[^1234] => [efgh0123456789]--[5678abcdefgh] => [012349]
+                // @inference: whole left universe - whole right universe except elements 1234 and elements 1234 must not be in left negated set
+                // @conclusion: positive set with right negated set elements which aren't not in left negated set
+                // logic implemented: ❌
+                for (i = 0; i < localNegatedLeftSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < negatedIntersectionSet.length; j++) {
+                        if (localNegatedLeftSet[i] == negatedIntersectionSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        negatedIntersectionSet.push(localNegatedLeftSet[i]);
+                    }
+                }
+
+                for (i = 0; i < localNegatedRightSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < negatedIntersectionSet.length; j++) {
+                        if (localNegatedRightSet[i] == negatedIntersectionSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        negatedIntersectionSet.push(localNegatedRightSet[i]);
+                    }
+                }
+            }
+
+            if (localNegatedLeftSet.length > 0 && localNegatedRightSet.length == 0 && localLeftSet.length == 0 && localRightSet.length > 0) {
+                // [^abcd1234]--[1234789] => [efgh0123456789]--[1234] => [efgh5678]
                 // @inference: only right set is common except each element of right set that's also not in left set
                 // @conclusion: negated set with elements: [abcd1234] === left negated set
 
