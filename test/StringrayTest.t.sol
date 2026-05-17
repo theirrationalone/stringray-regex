@@ -30065,7 +30065,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchCharacterClassNegationCase57() public {
         string memory target = unicode"NEH2L";
-        string memory pattern = unicode"/[^[[^a-z]--[0-9]]]/v";
+        string memory pattern = unicode"/[^[[^a-z]--[0-9]--[A-Z]]]/v";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
