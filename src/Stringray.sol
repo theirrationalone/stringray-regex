@@ -2351,13 +2351,11 @@ contract Stringray {
     uint256[] private leftSet;
     uint256[] private rightSet;
     uint256[] private negatedLeftSet;
-    uint256[] private negationRightSet;
+    uint256[] private negatedRightSet;
     uint256[] private intersectionSet;
     uint256[] private differenceSet;
     uint256[] private negatedIntersectionSet;
     uint256[] private negatedDifferenceSet;
-    bool ccLeftSetNegation;
-    bool ccRightSetNegation;
 
     struct MatchCCSetAtomsData {
         uint256 dec;
@@ -2843,28 +2841,45 @@ contract Stringray {
             }
         }
 
-        for (uint256 i = 0; i < intersectionSet.length; i++) {
+        for (i = 0; i < intersectionSet.length; i++) {
             leftSet.push(intersectionSet[i]);
         }
 
-        for (uint256 i = 0; i < differenceSet.length; i++) {
+        for (i = 0; i < differenceSet.length; i++) {
             leftSet.push(differenceSet[i]);
+        }
+
+        for (i = 0; i < negatedIntersectionSet.length; i++) {
+            negatedLeftSet.push(negatedIntersectionSet[i]);
+        }
+
+        for (i = 0; i < negatedDifferenceSet.length; i++) {
+            negatedLeftSet.push(negatedDifferenceSet[i]);
         }
 
         console2.log("--------------------------updateSets--------------------------");
         console2.log("---leftElements---");
-        for (uint256 i = 0; i < leftSet.length; i++) {
+        for (i = 0; i < leftSet.length; i++) {
             console2.log("left set element ", i + 1, ": ", leftSet[i]);
         }
+        console2.log("---negated leftElements---");
+        for (i = 0; i < negatedLeftSet.length; i++) {
+            console2.log("left set element ", i + 1, ": ", negatedLeftSet[i]);
+        }
         console2.log("---rightElements---");
-        for (uint256 i = 0; i < rightSet.length; i++) {
+        for (i = 0; i < rightSet.length; i++) {
             console2.log("right set element ", i + 1, ": ", rightSet[i]);
+        }
+        console2.log("---negated rightElements---");
+        for (i = 0; i < negatedRightSet.length; i++) {
+            console2.log("right set element ", i + 1, ": ", negatedRightSet[i]);
         }
         console2.log("----------------------------------------------------");
 
         delete intersectionSet;
         delete differenceSet;
-        // delete rightSet;
+        delete negatedIntersectionSet;
+        delete negatedDifferenceSet;
     }
 
     function matchCCRange(
