@@ -2594,6 +2594,7 @@ contract Stringray {
             // [^abcd]&&[^1234] => [efgh0123456789]&&[5678abcdefgh] => [efgh5678]
             // @inference: everything except elements in both negated sets
             // @conclusion: negated set with elements [abcd1234]
+            // logic implemented: ✅
 
             if (
                 localNegatedLeftSet.length > 0 && localNegatedRightSet.length > 0 && localLeftSet.length == 0
@@ -2634,19 +2635,29 @@ contract Stringray {
             ) {
                 // [^abcd1234]&&[1234] => [efgh056789]&&[1234] => [remaining common universe]
                 // @inference: only right set is common except each element of right set that's also not in left negated set
-                // @conclusion: negated set with elements: [abcd1234] === left negated set
+                // @conclusion: some sort of right set.
+                // logic implemented: ✅
 
-                for (i = 0; i < localNegatedLeftSet.length; i++) {
+                for (i = 0; i < localRightSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedIntersectionSet.length; j++) {
-                        if (localNegatedLeftSet[i] == negatedIntersectionSet[j]) {
+                    for (j = 0; j < localNegatedLeftSet.length; j++) {
+                        if (localRightSet[i] == localNegatedLeftSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        negatedIntersectionSet.push(localNegatedLeftSet[i]);
+                        for (k = 0; k < intersectionSet.length; k++) {
+                            if (localRightSet[i] == intersectionSet[k]) {
+                                exist = true;
+                                break;
+                            }
+                        }
+
+                        if (!exist) {
+                            intersectionSet.push(localRightSet[i]);
+                        }
                     }
                 }
             }
@@ -2657,19 +2668,29 @@ contract Stringray {
             ) {
                 // [abcd123467]&&[^1234acd] => [abcd123467]&&[056789befgh] =>
                 // @inference: only left set is common except each element of left set that's also not in right set
-                // @conclusion: negated set with elements: [1234acd] === right negated set
+                // @conclusion: some sort of left set.
+                // logic implemented: ✅
 
-                for (i = 0; i < localNegatedRightSet.length; i++) {
+                for (i = 0; i < localLeftSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedIntersectionSet.length; j++) {
-                        if (localNegatedRightSet[i] == negatedIntersectionSet[j]) {
+                    for (j = 0; j < localNegatedRightSet.length; j++) {
+                        if (localLeftSet[i] == localNegatedRightSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        negatedIntersectionSet.push(localNegatedRightSet[i]);
+                        for (k = 0; k < intersectionSet.length; k++) {
+                            if (localLeftSet[i] == intersectionSet[k]) {
+                                exist = true;
+                                break;
+                            }
+                        }
+
+                        if (!exist) {
+                            intersectionSet.push(localLeftSet[i]);
+                        }
                     }
                 }
             }
@@ -2681,6 +2702,7 @@ contract Stringray {
                 // [abcd123467]&&[1234acd] => [acd123]
                 // @inference: only common elements as simple as it is.
                 // @conclusion: set of intersection of both
+                // logic implemented: ✅
 
                 for (i = 0; i < localLeftSet.length; i++) {
                     for (j = 0; j < localRightSet.length; j++) {
@@ -2695,8 +2717,8 @@ contract Stringray {
 
                             if (!exist) {
                                 intersectionSet.push(localLeftSet[i]);
-                                break;
                             }
+                            break;
                         }
                     }
                 }
@@ -2708,7 +2730,7 @@ contract Stringray {
             ) {
                 // [^abcd]--[^1234] => [efgh0123456789]--[5678abcdefgh] => [012349]
                 // @inference: whole left universe - whole right universe except elements 1234 and elements 1234 must not be in left negated set
-                // @conclusion: positive set with right negated set elements which aren't not in left negated set
+                // @conclusion: positive set with right negated set elements which aren't in left negated set
                 // logic implemented: ✅
 
                 for (i = 0; i < localNegatedRightSet.length; i++) {
@@ -2765,21 +2787,26 @@ contract Stringray {
                     && localRightSet.length == 0
             ) {
                 // [abcd123467]--[^1234acd] => [abcd123467]--[056789befgh] => [acd1234]
-                // @inference: all elements that are in the right set.
-                // @conclusion: some sort of left set.
+                // @inference: all elements that are common in both sets.
+                // @conclusion: intersection of both.
                 // logic impl: ✅
 
-                for (i = 0; i < localNegatedRightSet.length; i++) {
-                    exist = false;
-                    for (j = 0; j < differenceSet.length; j++) {
-                        if (localNegatedRightSet[i] == differenceSet[j]) {
-                            exist = true;
-                            break;
-                        }
-                    }
+                for (i = 0; i < localLeftSet.length; i++) {
+                    for (j = 0; j < localNegatedRightSet.length; j++) {
+                        if (localLeftSet[i] == localNegatedRightSet[j]) {
+                            exist = false;
+                            for (k = 0; k < differenceSet.length; k++) {
+                                if (localLeftSet[i] == differenceSet[k]) {
+                                    exist = true;
+                                    break;
+                                }
+                            }
 
-                    if (!exist) {
-                        differenceSet.push(localNegatedRightSet[i]);
+                            if (!exist) {
+                                differenceSet.push(localLeftSet[i]);
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -2793,17 +2820,16 @@ contract Stringray {
                 // @conclusion: set of difference of both
                 // logic impl: ✅
 
-                for (uint256 i = 0; i < localLeftSet.length; i++) {
-                    bool found;
-                    for (uint256 j = 0; j < localRightSet.length; j++) {
+                for (i = 0; i < localLeftSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < localRightSet.length; j++) {
                         if (localLeftSet[i] == localRightSet[j]) {
-                            found = true;
+                            exist = true;
                             break;
                         }
                     }
-                    if (!found) {
-                        bool exist;
-                        for (uint256 k; k < differenceSet.length; k++) {
+                    if (!exist) {
+                        for (k = 0; k < differenceSet.length; k++) {
                             if (localLeftSet[i] == differenceSet[k]) {
                                 exist = true;
                                 break;
