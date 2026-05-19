@@ -1,0 +1,2161 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
+[PASS] testRegexPatternMatchCharacterClassNegationCase57() (gas: 12946409)
+Logs:
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^[[^a-z]--[0-9]--[A-Z]]
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  [^a-z]--[0-9]--[A-Z]
+  i:  0
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  flag:  true
+  Atom Type: CHARACTER_CLASS_ATOM
+  lastMatchedIndex:  5
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  flag:  true
+  Atom Type: CHARACTER_CLASS_ATOM
+  lastMatchedIndex:  22
+  nuclear fission was successful
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  true
+  fromGroup:  false
+  indexToStartMatch:  0
+  stringInBytes length:  5
+  stringInBytes:  NEH2L
+  0x4e4548324c
+  atoms length:  1
+  atom:  [^[[^a-z]--[0-9]--[A-Z]]]
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x5b5e5b5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d5d5d
+  Atom Type: CHARACTER_CLASS_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  true
+  --------------------matchCharacterClass--------------------
+  0x5e5b5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d5d
+  0x5e
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  true
+  patternFlags:  v
+  pattern length:  23
+  caret sign:  94
+  caret sign from pattern:  94
+  fromCharacterClass:  false
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  [^a-z]--[0-9]--[A-Z]
+  i:  0
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  flag:  true
+  Atom Type: CHARACTER_CLASS_ATOM
+  lastMatchedIndex:  5
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  true
+  atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  0
+  z:  0
+  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  --------------------matchCharacterClass--------------------
+  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
+  0x5b
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  pattern length:  20
+  caret sign:  94
+  caret sign from pattern:  91
+  fromCharacterClass:  true
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  false
+  atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  0
+  z:  0
+  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  before i in neutral and cc set atom:  0
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  ^a-z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  3
+  pushed to sets...
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  -------------------------end-------------------------
+  negated current left element  0 :  97
+  negated current left element  1 :  98
+  negated current left element  2 :  99
+  negated current left element  3 :  100
+  negated current left element  4 :  101
+  negated current left element  5 :  102
+  negated current left element  6 :  103
+  negated current left element  7 :  104
+  negated current left element  8 :  105
+  negated current left element  9 :  106
+  negated current left element  10 :  107
+  negated current left element  11 :  108
+  negated current left element  12 :  109
+  negated current left element  13 :  110
+  negated current left element  14 :  111
+  negated current left element  15 :  112
+  negated current left element  16 :  113
+  negated current left element  17 :  114
+  negated current left element  18 :  115
+  negated current left element  19 :  116
+  negated current left element  20 :  117
+  negated current left element  21 :  118
+  negated current left element  22 :  119
+  negated current left element  23 :  120
+  negated current left element  24 :  121
+  negated current left element  25 :  122
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  0-9
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  A-Z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  current right element  0 :  48
+  current right element  1 :  49
+  current right element  2 :  50
+  current right element  3 :  51
+  current right element  4 :  52
+  current right element  5 :  53
+  current right element  6 :  54
+  current right element  7 :  55
+  current right element  8 :  56
+  current right element  9 :  57
+  current right element  10 :  65
+  current right element  11 :  66
+  current right element  12 :  67
+  current right element  13 :  68
+  current right element  14 :  69
+  current right element  15 :  70
+  current right element  16 :  71
+  current right element  17 :  72
+  current right element  18 :  73
+  current right element  19 :  74
+  current right element  20 :  75
+  current right element  21 :  76
+  current right element  22 :  77
+  current right element  23 :  78
+  current right element  24 :  79
+  current right element  25 :  80
+  current right element  26 :  81
+  current right element  27 :  82
+  current right element  28 :  83
+  current right element  29 :  84
+  current right element  30 :  85
+  current right element  31 :  86
+  current right element  32 :  87
+  current right element  33 :  88
+  current right element  34 :  89
+  current right element  35 :  90
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
+  -------------------------end-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  left atom:  [^a-z]
+  right atom:  [0-9]--[A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  19
+  going for next cycle... i:  20
+  -------------------------end-------------------------
+  after i in neutral and cc set atom:  0
+  leftSet.length:  0
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  0
+  negation:  true
+  isFirstMatch:  false
+  ------------------------------------------
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  0
+  negation:  false
+  isFirstMatch:  false
+  ------------------------------------------
+  after evaluateSetOperationMatch: matchStartIndex:  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  indexTostartMatch per iterations:  1
+  z:  0
+  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  --------------------matchCharacterClass--------------------
+  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
+  0x5b
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  1
+  isFirstMatch:  false
+  patternFlags:  v
+  pattern length:  20
+  caret sign:  94
+  caret sign from pattern:  91
+  fromCharacterClass:  true
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  false
+  atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  1
+  z:  0
+  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  before i in neutral and cc set atom:  1
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  1
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  ^a-z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  3
+  pushed to sets...
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  -------------------------end-------------------------
+  negated current left element  0 :  97
+  negated current left element  1 :  98
+  negated current left element  2 :  99
+  negated current left element  3 :  100
+  negated current left element  4 :  101
+  negated current left element  5 :  102
+  negated current left element  6 :  103
+  negated current left element  7 :  104
+  negated current left element  8 :  105
+  negated current left element  9 :  106
+  negated current left element  10 :  107
+  negated current left element  11 :  108
+  negated current left element  12 :  109
+  negated current left element  13 :  110
+  negated current left element  14 :  111
+  negated current left element  15 :  112
+  negated current left element  16 :  113
+  negated current left element  17 :  114
+  negated current left element  18 :  115
+  negated current left element  19 :  116
+  negated current left element  20 :  117
+  negated current left element  21 :  118
+  negated current left element  22 :  119
+  negated current left element  23 :  120
+  negated current left element  24 :  121
+  negated current left element  25 :  122
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  0-9
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  A-Z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  current right element  0 :  48
+  current right element  1 :  49
+  current right element  2 :  50
+  current right element  3 :  51
+  current right element  4 :  52
+  current right element  5 :  53
+  current right element  6 :  54
+  current right element  7 :  55
+  current right element  8 :  56
+  current right element  9 :  57
+  current right element  10 :  65
+  current right element  11 :  66
+  current right element  12 :  67
+  current right element  13 :  68
+  current right element  14 :  69
+  current right element  15 :  70
+  current right element  16 :  71
+  current right element  17 :  72
+  current right element  18 :  73
+  current right element  19 :  74
+  current right element  20 :  75
+  current right element  21 :  76
+  current right element  22 :  77
+  current right element  23 :  78
+  current right element  24 :  79
+  current right element  25 :  80
+  current right element  26 :  81
+  current right element  27 :  82
+  current right element  28 :  83
+  current right element  29 :  84
+  current right element  30 :  85
+  current right element  31 :  86
+  current right element  32 :  87
+  current right element  33 :  88
+  current right element  34 :  89
+  current right element  35 :  90
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
+  -------------------------end-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  left atom:  [^a-z]
+  right atom:  [0-9]--[A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  19
+  going for next cycle... i:  20
+  -------------------------end-------------------------
+  after i in neutral and cc set atom:  1
+  leftSet.length:  0
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  1
+  negation:  true
+  isFirstMatch:  false
+  ------------------------------------------
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  1
+  negation:  false
+  isFirstMatch:  false
+  ------------------------------------------
+  after evaluateSetOperationMatch: matchStartIndex:  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  indexTostartMatch per iterations:  2
+  z:  0
+  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  --------------------matchCharacterClass--------------------
+  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
+  0x5b
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  v
+  pattern length:  20
+  caret sign:  94
+  caret sign from pattern:  91
+  fromCharacterClass:  true
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  false
+  atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  2
+  z:  0
+  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  before i in neutral and cc set atom:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  ^a-z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  3
+  pushed to sets...
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  -------------------------end-------------------------
+  negated current left element  0 :  97
+  negated current left element  1 :  98
+  negated current left element  2 :  99
+  negated current left element  3 :  100
+  negated current left element  4 :  101
+  negated current left element  5 :  102
+  negated current left element  6 :  103
+  negated current left element  7 :  104
+  negated current left element  8 :  105
+  negated current left element  9 :  106
+  negated current left element  10 :  107
+  negated current left element  11 :  108
+  negated current left element  12 :  109
+  negated current left element  13 :  110
+  negated current left element  14 :  111
+  negated current left element  15 :  112
+  negated current left element  16 :  113
+  negated current left element  17 :  114
+  negated current left element  18 :  115
+  negated current left element  19 :  116
+  negated current left element  20 :  117
+  negated current left element  21 :  118
+  negated current left element  22 :  119
+  negated current left element  23 :  120
+  negated current left element  24 :  121
+  negated current left element  25 :  122
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  0-9
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  A-Z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  current right element  0 :  48
+  current right element  1 :  49
+  current right element  2 :  50
+  current right element  3 :  51
+  current right element  4 :  52
+  current right element  5 :  53
+  current right element  6 :  54
+  current right element  7 :  55
+  current right element  8 :  56
+  current right element  9 :  57
+  current right element  10 :  65
+  current right element  11 :  66
+  current right element  12 :  67
+  current right element  13 :  68
+  current right element  14 :  69
+  current right element  15 :  70
+  current right element  16 :  71
+  current right element  17 :  72
+  current right element  18 :  73
+  current right element  19 :  74
+  current right element  20 :  75
+  current right element  21 :  76
+  current right element  22 :  77
+  current right element  23 :  78
+  current right element  24 :  79
+  current right element  25 :  80
+  current right element  26 :  81
+  current right element  27 :  82
+  current right element  28 :  83
+  current right element  29 :  84
+  current right element  30 :  85
+  current right element  31 :  86
+  current right element  32 :  87
+  current right element  33 :  88
+  current right element  34 :  89
+  current right element  35 :  90
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
+  -------------------------end-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  left atom:  [^a-z]
+  right atom:  [0-9]--[A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  19
+  going for next cycle... i:  20
+  -------------------------end-------------------------
+  after i in neutral and cc set atom:  2
+  leftSet.length:  0
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  2
+  negation:  true
+  isFirstMatch:  false
+  ------------------------------------------
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  2
+  negation:  false
+  isFirstMatch:  false
+  ------------------------------------------
+  after evaluateSetOperationMatch: matchStartIndex:  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  indexTostartMatch per iterations:  3
+  z:  0
+  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  --------------------matchCharacterClass--------------------
+  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
+  0x5b
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  v
+  pattern length:  20
+  caret sign:  94
+  caret sign from pattern:  91
+  fromCharacterClass:  true
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  false
+  atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  3
+  z:  0
+  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  before i in neutral and cc set atom:  3
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  ^a-z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  3
+  pushed to sets...
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  -------------------------end-------------------------
+  negated current left element  0 :  97
+  negated current left element  1 :  98
+  negated current left element  2 :  99
+  negated current left element  3 :  100
+  negated current left element  4 :  101
+  negated current left element  5 :  102
+  negated current left element  6 :  103
+  negated current left element  7 :  104
+  negated current left element  8 :  105
+  negated current left element  9 :  106
+  negated current left element  10 :  107
+  negated current left element  11 :  108
+  negated current left element  12 :  109
+  negated current left element  13 :  110
+  negated current left element  14 :  111
+  negated current left element  15 :  112
+  negated current left element  16 :  113
+  negated current left element  17 :  114
+  negated current left element  18 :  115
+  negated current left element  19 :  116
+  negated current left element  20 :  117
+  negated current left element  21 :  118
+  negated current left element  22 :  119
+  negated current left element  23 :  120
+  negated current left element  24 :  121
+  negated current left element  25 :  122
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  0-9
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  A-Z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  current right element  0 :  48
+  current right element  1 :  49
+  current right element  2 :  50
+  current right element  3 :  51
+  current right element  4 :  52
+  current right element  5 :  53
+  current right element  6 :  54
+  current right element  7 :  55
+  current right element  8 :  56
+  current right element  9 :  57
+  current right element  10 :  65
+  current right element  11 :  66
+  current right element  12 :  67
+  current right element  13 :  68
+  current right element  14 :  69
+  current right element  15 :  70
+  current right element  16 :  71
+  current right element  17 :  72
+  current right element  18 :  73
+  current right element  19 :  74
+  current right element  20 :  75
+  current right element  21 :  76
+  current right element  22 :  77
+  current right element  23 :  78
+  current right element  24 :  79
+  current right element  25 :  80
+  current right element  26 :  81
+  current right element  27 :  82
+  current right element  28 :  83
+  current right element  29 :  84
+  current right element  30 :  85
+  current right element  31 :  86
+  current right element  32 :  87
+  current right element  33 :  88
+  current right element  34 :  89
+  current right element  35 :  90
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
+  -------------------------end-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  left atom:  [^a-z]
+  right atom:  [0-9]--[A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  19
+  going for next cycle... i:  20
+  -------------------------end-------------------------
+  after i in neutral and cc set atom:  3
+  leftSet.length:  0
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  3
+  negation:  true
+  isFirstMatch:  false
+  ------------------------------------------
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  3
+  negation:  false
+  isFirstMatch:  false
+  ------------------------------------------
+  after evaluateSetOperationMatch: matchStartIndex:  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  indexTostartMatch per iterations:  4
+  z:  0
+  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
+  Atom Type: CHARACTER_CLASS_ATOM
+  --------------------matchCharacterClass--------------------
+  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
+  0x5b
+  0x5d
+  stringInBytes:  NEH2L
+  indexToStartMatch:  4
+  isFirstMatch:  false
+  patternFlags:  v
+  pattern length:  20
+  caret sign:  94
+  caret sign from pattern:  91
+  fromCharacterClass:  true
+  ----------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  --------------------neutralizeAndMatchCCAtoms--------------------
+  negation:  true
+  isFirstMatch:  false
+  atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  ----------------------------------------
+  indexTostartMatch per iterations:  4
+  z:  0
+  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  Atom Type: CC_SET_ATOM
+  before i in neutral and cc set atom:  4
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  4
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [^a-z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  ^a-z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  ^a-z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  false
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  3
+  pushed to sets...
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  -------------------------end-------------------------
+  negated current left element  0 :  97
+  negated current left element  1 :  98
+  negated current left element  2 :  99
+  negated current left element  3 :  100
+  negated current left element  4 :  101
+  negated current left element  5 :  102
+  negated current left element  6 :  103
+  negated current left element  7 :  104
+  negated current left element  8 :  105
+  negated current left element  9 :  106
+  negated current left element  10 :  107
+  negated current left element  11 :  108
+  negated current left element  12 :  109
+  negated current left element  13 :  110
+  negated current left element  14 :  111
+  negated current left element  15 :  112
+  negated current left element  16 :  113
+  negated current left element  17 :  114
+  negated current left element  18 :  115
+  negated current left element  19 :  116
+  negated current left element  20 :  117
+  negated current left element  21 :  118
+  negated current left element  22 :  119
+  negated current left element  23 :  120
+  negated current left element  24 :  121
+  negated current left element  25 :  122
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]--[A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [0-9]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  0-9
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  0-9
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  [A-Z]
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  A-Z
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  Atom Type: CHARACTER_CLASS_ATOM
+  -------------------------matchCCSetAtoms-------------------------
+  atom:  A-Z
+  string:  NEH2L
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  v
+  fromCharacterClass:  true
+  isRightAtom:  true
+  --------------------------------------------------
+  Atom Type: LITERAL_ATOM
+  coming to range...
+  atom length:  1
+  dec evaluated...
+  subAtom evaluated...
+  secondd dec evaluation...
+  atom length:  1
+  range: lLastParticleIndex:  2
+  pushed to sets...
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  -------------------------end-------------------------
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  -------------------------end-------------------------
+  current right element  0 :  48
+  current right element  1 :  49
+  current right element  2 :  50
+  current right element  3 :  51
+  current right element  4 :  52
+  current right element  5 :  53
+  current right element  6 :  54
+  current right element  7 :  55
+  current right element  8 :  56
+  current right element  9 :  57
+  current right element  10 :  65
+  current right element  11 :  66
+  current right element  12 :  67
+  current right element  13 :  68
+  current right element  14 :  69
+  current right element  15 :  70
+  current right element  16 :  71
+  current right element  17 :  72
+  current right element  18 :  73
+  current right element  19 :  74
+  current right element  20 :  75
+  current right element  21 :  76
+  current right element  22 :  77
+  current right element  23 :  78
+  current right element  24 :  79
+  current right element  25 :  80
+  current right element  26 :  81
+  current right element  27 :  82
+  current right element  28 :  83
+  current right element  29 :  84
+  current right element  30 :  85
+  current right element  31 :  86
+  current right element  32 :  87
+  current right element  33 :  88
+  current right element  34 :  89
+  current right element  35 :  90
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
+  -------------------------end-------------------------
+  atom:  [^a-z]--[0-9]--[A-Z]
+  left atom:  [^a-z]
+  right atom:  [0-9]--[A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  19
+  going for next cycle... i:  20
+  -------------------------end-------------------------
+  after i in neutral and cc set atom:  4
+  leftSet.length:  0
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  4
+  negation:  true
+  isFirstMatch:  false
+  ------------------------------------------
+  ---------------------matchNeutralizedCCAtoms---------------------
+  stringInBytes:  NEH2L
+  indexToStartMatch:  4
+  negation:  false
+  isFirstMatch:  false
+  ------------------------------------------
+  after evaluateSetOperationMatch: matchStartIndex:  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  indexToStartMatch set:  5
+  resetting crucial data
+  resetted everything...
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  true
+  fromGroup:  false
+  indexToStartMatch:  5
+  stringInBytes length:  5
+  stringInBytes:  NEH2L
+  0x4e4548324c
+  atoms length:  1
+  atom:  [^[[^a-z]--[0-9]--[A-Z]]]
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x5b5e5b5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d5d5d
+  Atom Type: CHARACTER_CLASS_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  true
+  ------------------returnedData------------------
+  Pattern string         :  /[^[[^a-z]--[0-9]--[A-Z]]]/v
+  Original string        :  NEH2L
+  Matched string         :  
+  Match start index      :  -1
+  Match end index        :  -1
+  ------------------------------------
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 25.00ms (16.49ms CPU time)
+
+Ran 1 test suite in 27.63ms (25.00ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
