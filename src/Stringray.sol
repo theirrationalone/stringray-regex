@@ -2186,12 +2186,17 @@ contract Stringray {
     ) private returns (int256, int256) {
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
+        uint256 i;
+        bytes memory atom;
+        bytes memory utf8Atom;
 
-        bytes[] memory ccLiterals = new bytes[](leftSet.length);
+        bytes[] memory ccLiterals;
+        ccLiterals = new bytes[](leftSet.length);
+
         console2.log("leftSet.length: ", leftSet.length);
-        for (uint256 i; i < leftSet.length; i++) {
-            bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
-            bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
+        for (i; i < leftSet.length; i++) {
+            atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
+            utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
             console2.log("--------------------evaluateSetOperationMatch--------------------");
             console2.log("set length: ", leftSet.length);
@@ -2204,15 +2209,54 @@ contract Stringray {
 
         (matchStartIndex, matchEndIndex) =
             matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
-        
+
         console2.log("evaluateSetOperationMatch matchStartIndex: ", matchStartIndex);
         console2.log("evaluateSetOperationMatch matchEndIndex: ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
+            delete negatedLeftSet;
             delete rightSet;
+            delete negatedRightSet;
             delete intersectionSet;
+            delete negatedIntersectionSet;
             delete differenceSet;
+            delete negatedDifferenceSet;
+            return (matchStartIndex, matchEndIndex);
+        }
+
+        if (negatedLeftSet.length != leftSet.length) {
+            ccLiterals = new bytes[](negatedLeftSet.length);
+        }
+
+        console2.log("negatedLeftSet.length: ", negatedLeftSet.length);
+        console2.log("ccLiterals.length: ", ccLiterals.length);
+
+        for (i = 0; i < negatedLeftSet.length; i++) {
+            atom = trimAccessZerosFromByte(abi.encodePacked(negatedLeftSet[i]));
+            utf8Atom = convertUnicodeHexToUtf8Hex(atom);
+
+            console2.log("--------------------evaluateSetOperationMatch--------------------");
+            console2.log("set length: ", negatedLeftSet.length);
+            console2.log("utf8Atom: ");
+            console2.logBytes(utf8Atom);
+            console2.log("----------------------------------------");
+
+            ccLiterals[i] = utf8Atom;
+        }
+
+        (matchStartIndex, matchEndIndex) =
+            matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, !negation);
+
+        if (matchStartIndex > -1 && matchEndIndex > -1) {
+            delete leftSet;
+            delete negatedLeftSet;
+            delete rightSet;
+            delete negatedRightSet;
+            delete intersectionSet;
+            delete negatedIntersectionSet;
+            delete differenceSet;
+            delete negatedDifferenceSet;
             return (matchStartIndex, matchEndIndex);
         }
 
@@ -2433,7 +2477,10 @@ contract Stringray {
                 uint256[] memory localNegatedLeftSet = new uint256[](negatedLeftSet.length);
                 for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
                     console2.log(
-                        "negated current left element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
+                        "negated current left element ",
+                        matchCCSetAtomsData.s,
+                        ": ",
+                        negatedLeftSet[matchCCSetAtomsData.s]
                     );
                     localNegatedLeftSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
                 }
@@ -2463,7 +2510,10 @@ contract Stringray {
                 uint256[] memory localNegatedRightSet = new uint256[](negatedLeftSet.length);
                 for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
                     console2.log(
-                        "negated current right element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
+                        "negated current right element ",
+                        matchCCSetAtomsData.s,
+                        ": ",
+                        negatedLeftSet[matchCCSetAtomsData.s]
                     );
                     localNegatedRightSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
                 }
@@ -2854,10 +2904,32 @@ contract Stringray {
 
         for (i = 0; i < negatedIntersectionSet.length; i++) {
             negatedLeftSet.push(negatedIntersectionSet[i]);
+            int256 existIndex = -1;
+            for (j = 0; j < leftSet.length; j++) {
+                if (negatedIntersectionSet[i] == leftSet[j]) {
+                    existIndex = int256(j);
+                    break;
+                }
+            }
+
+            if (existIndex > -1) {
+                delete leftSet[uint256(existIndex)];
+            }
         }
 
         for (i = 0; i < negatedDifferenceSet.length; i++) {
             negatedLeftSet.push(negatedDifferenceSet[i]);
+            int256 existIndex = -1;
+            for (j = 0; j < leftSet.length; j++) {
+                if (negatedDifferenceSet[i] == leftSet[j]) {
+                    existIndex = int256(j);
+                    break;
+                }
+            }
+
+            if (existIndex > -1) {
+                delete leftSet[uint256(existIndex)];
+            }
         }
 
         console2.log("--------------------------updateSets--------------------------");
