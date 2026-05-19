@@ -2877,6 +2877,20 @@ contract Stringray {
                         negatedDifferenceSet.push(localNegatedLeftSet[i]);
                     }
                 }
+
+                for (i = 0; i < localRightSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < negatedDifferenceSet.length; j++) {
+                        if (localRightSet[i] == negatedDifferenceSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+
+                    if (!exist) {
+                        negatedDifferenceSet.push(localRightSet[i]);
+                    }
+                }
             }
 
             if (
