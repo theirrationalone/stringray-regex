@@ -2188,7 +2188,7 @@ contract Stringray {
         int256 matchEndIndex = -1;
 
         bytes[] memory ccLiterals = new bytes[](leftSet.length);
-
+        console2.log("leftSet.length: ", leftSet.length);
         for (uint256 i; i < leftSet.length; i++) {
             bytes memory atom = trimAccessZerosFromByte(abi.encodePacked(leftSet[i]));
             bytes memory utf8Atom = convertUnicodeHexToUtf8Hex(atom);
@@ -2204,6 +2204,9 @@ contract Stringray {
 
         (matchStartIndex, matchEndIndex) =
             matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
+        
+        console2.log("evaluateSetOperationMatch matchStartIndex: ", matchStartIndex);
+        console2.log("evaluateSetOperationMatch matchEndIndex: ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
@@ -2430,7 +2433,7 @@ contract Stringray {
                 uint256[] memory localNegatedLeftSet = new uint256[](negatedLeftSet.length);
                 for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
                     console2.log(
-                        "current left element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
+                        "negated current left element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
                     );
                     localNegatedLeftSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
                 }
@@ -2460,7 +2463,7 @@ contract Stringray {
                 uint256[] memory localNegatedRightSet = new uint256[](negatedLeftSet.length);
                 for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
                     console2.log(
-                        "current right element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
+                        "negated current right element ", matchCCSetAtomsData.s, ": ", negatedLeftSet[matchCCSetAtomsData.s]
                     );
                     localNegatedRightSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
                 }
@@ -3891,6 +3894,8 @@ contract Stringray {
         console2.log("negation: ", negation);
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("------------------------------------------");
+
+        if (ccLiterals.length == 0) return (matchStartIndex, matchEndIndex);
 
         // if (isFirstMatch) {
         for (uint256 j = indexToStartMatch; j < stringInBytes.length; j++) {
