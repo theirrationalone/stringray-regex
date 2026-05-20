@@ -2497,7 +2497,9 @@ contract Stringray {
                 console2.log("leftSet.length             : ", leftSet.length);
                 console2.log("negatedLeftSet.length      : ", negatedLeftSet.length);
 
-                updateSets(matchCCSetAtomsData.operationType);
+                updateSets(matchCCSetAtomsData.operationType, isRightAtom);
+
+                isRightAtom = true;
 
                 // console2.log("last left atom: ", string(matchCCSetAtomsData.leftAtom));
 
@@ -2537,11 +2539,11 @@ contract Stringray {
                     isFirstMatch,
                     patternFlags,
                     fromCharacterClass,
-                    true,
+                    isRightAtom,
                     matchCCSetAtomsData.operationType
                 );
 
-                updateSets(matchCCSetAtomsData.operationType);
+                updateSets(matchCCSetAtomsData.operationType, isRightAtom);
 
                 // uint256[] memory localRightSet = new uint256[](rightSet.length);
                 // if (!isRightAtom) {
@@ -2694,7 +2696,7 @@ contract Stringray {
     uint256[] private negatedIntersectionSet;
     uint256[] private negatedDifferenceSet;
 
-    function updateSets(uint8 operationTypeSymbol) private {
+    function updateSets(uint8 operationTypeSymbol, bool isRightAtom) private {
         uint256 i;
         uint256 j;
         uint256 k;
@@ -2707,14 +2709,19 @@ contract Stringray {
         console2.log("differenceSet.length: ", differenceSet.length);
         console2.log("negatedIntersectionSet.length: ", negatedIntersectionSet.length);
         console2.log("negatedDifferenceSet.length: ", negatedDifferenceSet.length);
+        console2.log("isRightAtom: ", isRightAtom);
         console2.log("yeahhhhh it's time to perform set operations...................................................");
 
         if (operationTypeSymbol == AMPERSAND_SIGN) {
-            if (intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && leftSet.length > 0) {
+            if (intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && leftSet.length > 0 && !isRightAtom)
+            {
                 for (i = 0; i < leftSet.length; i++) {
                     intersectionSet.push(leftSet[i]);
                 }
-            } else if (intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && negatedLeftSet.length > 0) {
+            } else if (
+                intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && negatedLeftSet.length > 0
+                    && !isRightAtom
+            ) {
                 for (i = 0; i < negatedLeftSet.length; i++) {
                     negatedIntersectionSet.push(negatedLeftSet[i]);
                 }
@@ -2828,11 +2835,14 @@ contract Stringray {
                 delete clonerSet;
             }
         } else if (operationTypeSymbol == MINUS_SIGN) {
-            if (differenceSet.length == 0 && negatedDifferenceSet.length == 0 && leftSet.length > 0) {
+            if (differenceSet.length == 0 && negatedDifferenceSet.length == 0 && leftSet.length > 0 && !isRightAtom) {
                 for (i = 0; i < leftSet.length; i++) {
                     differenceSet.push(leftSet[i]);
                 }
-            } else if (differenceSet.length == 0 && negatedDifferenceSet.length == 0 && negatedLeftSet.length > 0) {
+            } else if (
+                differenceSet.length == 0 && negatedDifferenceSet.length == 0 && negatedLeftSet.length > 0
+                    && !isRightAtom
+            ) {
                 for (i = 0; i < negatedLeftSet.length; i++) {
                     negatedDifferenceSet.push(negatedLeftSet[i]);
                 }
@@ -2909,6 +2919,32 @@ contract Stringray {
                                 break;
                             }
                         }
+                    }
+                }
+
+                delete differenceSet;
+
+                for (i = 0; i < clonerSet.length; i++) {
+                    differenceSet.push(clonerSet[i]);
+                }
+
+                delete clonerSet;
+            } else if (differenceSet.length > 0 && leftSet.length > 0) {
+                // [abcd123467]--[1234acd] => [b67]
+                // @inference: only elements that're not in left set.
+                // @conclusion: set of difference of both
+                // logic impl: ✅
+
+                for (i = 0; i < differenceSet.length; i++) {
+                    exist = false;
+                    for (j = 0; j < leftSet.length; j++) {
+                        if (differenceSet[i] == leftSet[j]) {
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if (!exist) {
+                        clonerSet.push(differenceSet[i]);
                     }
                 }
 
