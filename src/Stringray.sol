@@ -2193,24 +2193,11 @@ contract Stringray {
         bytes memory utf8Atom;
 
         bytes[] memory ccLiterals;
-        ccLiterals = new bytes[](intersectionSet.length + differenceSet.length);
+        ccLiterals = new bytes[](poolSet.length);
 
         console2.log("leftSet.length: ", leftSet.length);
-        for (i; i < intersectionSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(intersectionSet[i]));
-            utf8Atom = convertUnicodeHexToUtf8Hex(atom);
-
-            // console2.log("--------------------evaluateSetOperationMatch--------------------");
-            // console2.log("set length: ", leftSet.length);
-            // console2.log("utf8Atom: ");
-            // console2.logBytes(utf8Atom);
-            // console2.log("----------------------------------------");
-
-            ccLiterals[i] = utf8Atom;
-        }
-
-        for (i; i < differenceSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(differenceSet[i]));
+        for (i; i < poolSet.length; i++) {
+            atom = trimAccessZerosFromByte(abi.encodePacked(poolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
             // console2.log("--------------------evaluateSetOperationMatch--------------------");
@@ -2231,37 +2218,22 @@ contract Stringray {
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
             delete negatedLeftSet;
-            delete intersectionSet;
-            delete negatedIntersectionSet;
-            delete differenceSet;
-            delete negatedDifferenceSet;
+            delete poolSet;
+            delete negatedPoolSet;
             return (matchStartIndex, matchEndIndex);
         }
 
         if (
-            negatedIntersectionSet.length + negatedDifferenceSet.length != intersectionSet.length + differenceSet.length
+            negatedPoolSet.length != poolSet.length
         ) {
-            ccLiterals = new bytes[](negatedIntersectionSet.length + negatedDifferenceSet.length);
+            ccLiterals = new bytes[](negatedPoolSet.length);
         }
 
         // console2.log("negatedLeftSet.length: ", negatedLeftSet.length);
         // console2.log("ccLiterals.length: ", ccLiterals.length);
 
-        for (i = 0; i < negatedIntersectionSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(negatedIntersectionSet[i]));
-            utf8Atom = convertUnicodeHexToUtf8Hex(atom);
-
-            // console2.log("--------------------evaluateSetOperationMatch--------------------");
-            // console2.log("set length: ", negatedLeftSet.length);
-            // console2.log("utf8Atom: ");
-            // console2.logBytes(utf8Atom);
-            // console2.log("----------------------------------------");
-
-            ccLiterals[i] = utf8Atom;
-        }
-
-        for (i = 0; i < negatedDifferenceSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(negatedDifferenceSet[i]));
+        for (i = 0; i < negatedPoolSet.length; i++) {
+            atom = trimAccessZerosFromByte(abi.encodePacked(negatedPoolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
             // console2.log("--------------------evaluateSetOperationMatch--------------------");
@@ -2278,10 +2250,8 @@ contract Stringray {
 
         delete leftSet;
         delete negatedLeftSet;
-        delete intersectionSet;
-        delete negatedIntersectionSet;
-        delete differenceSet;
-        delete negatedDifferenceSet;
+        delete poolSet;
+        delete negatedPoolSet;
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             return (matchStartIndex, matchEndIndex);
@@ -2497,9 +2467,10 @@ contract Stringray {
                 console2.log("leftSet.length             : ", leftSet.length);
                 console2.log("negatedLeftSet.length      : ", negatedLeftSet.length);
 
-                updateSets(matchCCSetAtomsData.operationType, isRightAtom);
+                updateSets(lastOperationType, isRightAtom);
 
                 isRightAtom = true;
+                lastOperationType = matchCCSetAtomsData.operationType;
 
                 // console2.log("last left atom: ", string(matchCCSetAtomsData.leftAtom));
 
@@ -2543,7 +2514,7 @@ contract Stringray {
                     matchCCSetAtomsData.operationType
                 );
 
-                updateSets(matchCCSetAtomsData.operationType, isRightAtom);
+                updateSets(lastOperationType, isRightAtom);
 
                 // uint256[] memory localRightSet = new uint256[](rightSet.length);
                 // if (!isRightAtom) {
@@ -2689,12 +2660,10 @@ contract Stringray {
     }
 
     uint256[] private leftSet;
-    uint256[] private clonerSet;
     uint256[] private negatedLeftSet;
-    uint256[] private intersectionSet;
-    uint256[] private differenceSet;
-    uint256[] private negatedIntersectionSet;
-    uint256[] private negatedDifferenceSet;
+    uint256[] private poolSet;
+    uint256[] private negatedPoolSet;
+    uint256[] private clonerSet;
 
     function updateSets(uint8 operationTypeSymbol, bool isRightAtom) private {
         uint256 i;
@@ -2702,30 +2671,31 @@ contract Stringray {
         uint256 k;
         bool exist;
 
+        console2.log("operationTypeSymbol: ", operationTypeSymbol);
         console2.log("leftSet.length: ", leftSet.length);
         console2.log("clonerSet.length: ", clonerSet.length);
         console2.log("negatedLeftSet.length: ", negatedLeftSet.length);
-        console2.log("intersectionSet.length: ", intersectionSet.length);
-        console2.log("differenceSet.length: ", differenceSet.length);
-        console2.log("negatedIntersectionSet.length: ", negatedIntersectionSet.length);
-        console2.log("negatedDifferenceSet.length: ", negatedDifferenceSet.length);
+        console2.log("poolSet.length: ", poolSet.length);
+        console2.log("negatedPoolSet.length: ", negatedPoolSet.length);
         console2.log("isRightAtom: ", isRightAtom);
         console2.log("yeahhhhh it's time to perform set operations...................................................");
+        
+        if (poolSet.length == 0 && negatedPoolSet.length == 0 && leftSet.length > 0 && !isRightAtom)
+        {
+            for (i = 0; i < leftSet.length; i++) {
+                poolSet.push(leftSet[i]);
+            }
+        } else if (
+            poolSet.length == 0 && negatedPoolSet.length == 0 && negatedLeftSet.length > 0
+                && !isRightAtom
+        ) {
+            for (i = 0; i < negatedLeftSet.length; i++) {
+                negatedPoolSet.push(negatedLeftSet[i]);
+            }
+        }
 
-        if (operationTypeSymbol == AMPERSAND_SIGN) {
-            if (intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && leftSet.length > 0 && !isRightAtom)
-            {
-                for (i = 0; i < leftSet.length; i++) {
-                    intersectionSet.push(leftSet[i]);
-                }
-            } else if (
-                intersectionSet.length == 0 && negatedIntersectionSet.length == 0 && negatedLeftSet.length > 0
-                    && !isRightAtom
-            ) {
-                for (i = 0; i < negatedLeftSet.length; i++) {
-                    negatedIntersectionSet.push(negatedLeftSet[i]);
-                }
-            } else if (negatedIntersectionSet.length > 0 && negatedLeftSet.length > 0) {
+        if (operationTypeSymbol == AMPERSAND_SIGN && isRightAtom) {
+             if (negatedPoolSet.length > 0 && negatedLeftSet.length > 0) {
                 // [^abcd]&&[^1234] => [efgh0123456789]&&[5678abcdefgh] => [efgh5678]
                 // @inference: everything except elements in both negated sets
                 // @conclusion: negated set with elements [abcd1234]
@@ -2733,18 +2703,18 @@ contract Stringray {
 
                 for (i = 0; i < negatedLeftSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedIntersectionSet.length; j++) {
-                        if (negatedLeftSet[i] == negatedIntersectionSet[j]) {
+                    for (j = 0; j < negatedPoolSet.length; j++) {
+                        if (negatedLeftSet[i] == negatedPoolSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        negatedIntersectionSet.push(negatedLeftSet[i]);
+                        negatedPoolSet.push(negatedLeftSet[i]);
                     }
                 }
-            } else if (negatedIntersectionSet.length > 0 && leftSet.length > 0) {
+            } else if (negatedPoolSet.length > 0 && leftSet.length > 0) {
                 // [^abcd1234]&&[1234] => [efgh056789]&&[1234] => [remaining common universe]
                 // @inference: only right set is common except each element of right set that's also not in left negated set
                 // @conclusion: some sort of right set.
@@ -2752,101 +2722,92 @@ contract Stringray {
 
                 for (i = 0; i < leftSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedIntersectionSet.length; j++) {
-                        if (leftSet[i] == negatedIntersectionSet[j]) {
+                    for (j = 0; j < negatedPoolSet.length; j++) {
+                        if (leftSet[i] == negatedPoolSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        for (k = 0; k < intersectionSet.length; k++) {
-                            if (leftSet[i] == intersectionSet[k]) {
+                        for (k = 0; k < poolSet.length; k++) {
+                            if (leftSet[i] == poolSet[k]) {
                                 exist = true;
                                 break;
                             }
                         }
 
                         if (!exist) {
-                            intersectionSet.push(leftSet[i]);
+                            poolSet.push(leftSet[i]);
                         }
                     }
                 }
 
-                delete negatedIntersectionSet;
-            } else if (intersectionSet.length > 0 && negatedLeftSet.length > 0) {
+                delete negatedPoolSet;
+            } else if (poolSet.length > 0 && negatedLeftSet.length > 0) {
                 // [abcd123467]&&[^1234acd] => [abcd123467]&&[056789befgh] =>
                 // @inference: only left set is common except each element of left set that's also not in right set
                 // @conclusion: some sort of left set.
                 // logic implemented: ✅
 
-                for (i = 0; i < intersectionSet.length; i++) {
+                for (i = 0; i < poolSet.length; i++) {
                     exist = false;
                     for (j = 0; j < negatedLeftSet.length; j++) {
-                        if (intersectionSet[i] == negatedLeftSet[j]) {
+                        if (poolSet[i] == negatedLeftSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        clonerSet.push(intersectionSet[i]);
+                        clonerSet.push(poolSet[i]);
                     }
                 }
 
-                delete intersectionSet;
+                delete poolSet;
 
                 for (i = 0; i < clonerSet.length; i++) {
-                    intersectionSet.push(clonerSet[i]);
+                    poolSet.push(clonerSet[i]);
                 }
 
                 delete clonerSet;
-            } else if (intersectionSet.length > 0 && leftSet.length > 0) {
+            } else if (poolSet.length > 0 && leftSet.length > 0) {
                 // [abcd123467]&&[1234acd] => [acd123]
                 // @inference: only common elements as simple as it is.
                 // @conclusion: set of intersection of both
                 // logic implemented: ✅
 
-                for (i = 0; i < intersectionSet.length; i++) {
+                console2.log("piiiiiiiiiiiiiiinnnnnnnnnnnnnncccchhhhhhhhiiiiiinnnnnnnggggggg right one");
+
+                for (i = 0; i < poolSet.length; i++) {
                     for (j = 0; j < leftSet.length; j++) {
-                        if (intersectionSet[i] == leftSet[j]) {
+                        if (poolSet[i] == leftSet[j]) {
                             exist = false;
                             for (k = 0; k < clonerSet.length; k++) {
-                                if (intersectionSet[i] == clonerSet[k]) {
+                                if (poolSet[i] == clonerSet[k]) {
                                     exist = true;
                                     break;
                                 }
                             }
 
                             if (!exist) {
-                                clonerSet.push(intersectionSet[i]);
+                                clonerSet.push(poolSet[i]);
                             }
                             break;
                         }
                     }
                 }
 
-                delete intersectionSet;
+                delete poolSet;
 
                 for (i = 0; i < clonerSet.length; i++) {
-                    intersectionSet.push(clonerSet[i]);
+                    poolSet.push(clonerSet[i]);
                 }
 
                 delete clonerSet;
             }
-        } else if (operationTypeSymbol == MINUS_SIGN) {
-            if (differenceSet.length == 0 && negatedDifferenceSet.length == 0 && leftSet.length > 0 && !isRightAtom) {
-                for (i = 0; i < leftSet.length; i++) {
-                    differenceSet.push(leftSet[i]);
-                }
-            } else if (
-                differenceSet.length == 0 && negatedDifferenceSet.length == 0 && negatedLeftSet.length > 0
-                    && !isRightAtom
-            ) {
-                for (i = 0; i < negatedLeftSet.length; i++) {
-                    negatedDifferenceSet.push(negatedLeftSet[i]);
-                }
-            } else if (negatedDifferenceSet.length > 0 && negatedLeftSet.length > 0) {
+        } else if (operationTypeSymbol == MINUS_SIGN && isRightAtom) {
+            if (negatedPoolSet.length > 0 && negatedLeftSet.length > 0) {
                 // [^abcd]--[^1234] => [efgh0123456789]--[5678abcdefgh] => [012349]
                 // @inference: whole left universe - whole right universe except elements 1234 and elements 1234 must not be in left negated set
                 // @conclusion: positive set with right negated set elements which aren't in left negated set
@@ -2854,29 +2815,29 @@ contract Stringray {
 
                 for (i = 0; i < negatedLeftSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedDifferenceSet.length; j++) {
-                        if (negatedLeftSet[i] == negatedDifferenceSet[j]) {
+                    for (j = 0; j < negatedPoolSet.length; j++) {
+                        if (negatedLeftSet[i] == negatedPoolSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        for (k = 0; k < differenceSet.length; k++) {
-                            if (negatedLeftSet[i] == differenceSet[k]) {
+                        for (k = 0; k < poolSet.length; k++) {
+                            if (negatedLeftSet[i] == poolSet[k]) {
                                 exist = true;
                                 break;
                             }
                         }
 
                         if (!exist) {
-                            differenceSet.push(negatedLeftSet[i]);
+                            poolSet.push(negatedLeftSet[i]);
                         }
                     }
                 }
 
-                delete negatedDifferenceSet;
-            } else if (negatedDifferenceSet.length > 0 && leftSet.length > 0) {
+                delete negatedPoolSet;
+            } else if (negatedPoolSet.length > 0 && leftSet.length > 0) {
                 // [^abcd1234]--[1234789] => [efgh056789]--[1234789] => [efgh056 and complete universe]
                 // @inference: entire universe except abcd1234 or left negated set and that universe must not have 1234789 or right positive set
                 // @conclusion: a negated set having both sets all elements
@@ -2886,72 +2847,72 @@ contract Stringray {
 
                 for (i = 0; i < leftSet.length; i++) {
                     exist = false;
-                    for (j = 0; j < negatedDifferenceSet.length; j++) {
-                        if (leftSet[i] == negatedDifferenceSet[j]) {
+                    for (j = 0; j < negatedPoolSet.length; j++) {
+                        if (leftSet[i] == negatedPoolSet[j]) {
                             exist = true;
                             break;
                         }
                     }
 
                     if (!exist) {
-                        negatedDifferenceSet.push(leftSet[i]);
+                        negatedPoolSet.push(leftSet[i]);
                     }
                 }
-            } else if (differenceSet.length > 0 && negatedLeftSet.length > 0) {
+            } else if (poolSet.length > 0 && negatedLeftSet.length > 0) {
                 // [abcd123467]--[^1234acd] => [abcd123467]--[056789befgh] => [acd1234]
                 // @inference: all elements that are common in both sets.
                 // @conclusion: intersection of both.
                 // logic impl: ✅
 
-                for (i = 0; i < differenceSet.length; i++) {
+                for (i = 0; i < poolSet.length; i++) {
                     for (j = 0; j < negatedLeftSet.length; j++) {
-                        if (differenceSet[i] == negatedLeftSet[j]) {
+                        if (poolSet[i] == negatedLeftSet[j]) {
                             exist = false;
                             for (k = 0; k < clonerSet.length; k++) {
-                                if (differenceSet[i] == clonerSet[k]) {
+                                if (poolSet[i] == clonerSet[k]) {
                                     exist = true;
                                     break;
                                 }
                             }
 
                             if (!exist) {
-                                clonerSet.push(differenceSet[i]);
+                                clonerSet.push(poolSet[i]);
                                 break;
                             }
                         }
                     }
                 }
 
-                delete differenceSet;
+                delete poolSet;
 
                 for (i = 0; i < clonerSet.length; i++) {
-                    differenceSet.push(clonerSet[i]);
+                    poolSet.push(clonerSet[i]);
                 }
 
                 delete clonerSet;
-            } else if (differenceSet.length > 0 && leftSet.length > 0) {
+            } else if (poolSet.length > 0 && leftSet.length > 0) {
                 // [abcd123467]--[1234acd] => [b67]
                 // @inference: only elements that're not in left set.
                 // @conclusion: set of difference of both
                 // logic impl: ✅
 
-                for (i = 0; i < differenceSet.length; i++) {
+                for (i = 0; i < poolSet.length; i++) {
                     exist = false;
                     for (j = 0; j < leftSet.length; j++) {
-                        if (differenceSet[i] == leftSet[j]) {
+                        if (poolSet[i] == leftSet[j]) {
                             exist = true;
                             break;
                         }
                     }
                     if (!exist) {
-                        clonerSet.push(differenceSet[i]);
+                        clonerSet.push(poolSet[i]);
                     }
                 }
 
-                delete differenceSet;
+                delete poolSet;
 
                 for (i = 0; i < clonerSet.length; i++) {
-                    differenceSet.push(clonerSet[i]);
+                    poolSet.push(clonerSet[i]);
                 }
 
                 delete clonerSet;
@@ -2962,22 +2923,15 @@ contract Stringray {
         delete negatedLeftSet;
 
         console2.log("--------------------------updateSets--------------------------");
-        console2.log("---intersectionSet---");
-        for (i = 0; i < intersectionSet.length; i++) {
-            console2.log("intersectionSet element ", i + 1, ": ", intersectionSet[i]);
+        console2.log("---poolSet---");
+        for (i = 0; i < poolSet.length; i++) {
+            console2.log("poolSet element ", i + 1, ": ", poolSet[i]);
         }
-        console2.log("---negatedIntersectionSet---");
-        for (i = 0; i < negatedIntersectionSet.length; i++) {
-            console2.log("egatedIntersectionSet element ", i + 1, ": ", negatedIntersectionSet[i]);
+        console2.log("---negatedPoolSet---");
+        for (i = 0; i < negatedPoolSet.length; i++) {
+            console2.log("negatedPoolSet element ", i + 1, ": ", negatedPoolSet[i]);
         }
-        console2.log("---differenceSet---");
-        for (i = 0; i < differenceSet.length; i++) {
-            console2.log("differenceSet element ", i + 1, ": ", differenceSet[i]);
-        }
-        console2.log("---negatedDifferenceSet---");
-        for (i = 0; i < negatedDifferenceSet.length; i++) {
-            console2.log("negatedDifferenceSet element ", i + 1, ": ", negatedDifferenceSet[i]);
-        }
+        
         console2.log("----------------------------------------------------");
     }
 
