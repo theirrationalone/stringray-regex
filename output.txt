@@ -1,7 +1,7 @@
 No files changed, compilation skipped
 
 Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
-[PASS] testRegexPatternMatchCharacterClassNegationCase57() (gas: 12946409)
+[PASS] testRegexPatternMatchCharacterClassNegationCase57() (gas: 34523849)
 Logs:
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^[[^a-z]--[0-9]--[A-Z]]
@@ -237,6 +237,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -265,6 +266,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -293,6 +295,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -309,32 +312,10 @@ Logs:
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
   -------------------------end-------------------------
-  negated current left element  0 :  97
-  negated current left element  1 :  98
-  negated current left element  2 :  99
-  negated current left element  3 :  100
-  negated current left element  4 :  101
-  negated current left element  5 :  102
-  negated current left element  6 :  103
-  negated current left element  7 :  104
-  negated current left element  8 :  105
-  negated current left element  9 :  106
-  negated current left element  10 :  107
-  negated current left element  11 :  108
-  negated current left element  12 :  109
-  negated current left element  13 :  110
-  negated current left element  14 :  111
-  negated current left element  15 :  112
-  negated current left element  16 :  113
-  negated current left element  17 :  114
-  negated current left element  18 :  115
-  negated current left element  19 :  116
-  negated current left element  20 :  117
-  negated current left element  21 :  118
-  negated current left element  22 :  119
-  negated current left element  23 :  120
-  negated current left element  24 :  121
-  negated current left element  25 :  122
+  leftSet.length             :  0
+  negatedLeftSet.length      :  26
+  rightSet.length            :  0
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
   i:  0
@@ -357,6 +338,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -381,6 +363,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -405,6 +388,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -421,6 +405,10 @@ Logs:
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
   -------------------------end-------------------------
+  leftSet.length             :  0
+  negatedLeftSet.length      :  26
+  rightSet.length            :  10
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
   i:  0
@@ -443,6 +431,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
@@ -467,6 +456,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -482,6 +472,13 @@ Logs:
   -------------------------end-------------------------
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  -------------------------end-------------------------
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
   -------------------------end-------------------------
   current right element  0 :  48
   current right element  1 :  49
@@ -519,13 +516,6 @@ Logs:
   current right element  33 :  88
   current right element  34 :  89
   current right element  35 :  90
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
-  yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
-  -------------------------end-------------------------
   atom:  [^a-z]--[0-9]--[A-Z]
   left atom:  [^a-z]
   right atom:  [0-9]--[A-Z]
@@ -547,8 +537,62 @@ Logs:
   negation:  false
   isFirstMatch:  false
   ------------------------------------------
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchStartIndex matchNeutralizedCCAtoms:  -1
+  matchEndIndex matchNeutralizedCCAtoms  :  0
   after evaluateSetOperationMatch: matchStartIndex:  -1
-  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  0
   indexTostartMatch per iterations:  1
   z:  0
   pattern atom:  [[^a-z]--[0-9]--[A-Z]]
@@ -631,6 +675,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -659,6 +704,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -687,6 +733,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -703,32 +750,10 @@ Logs:
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
   -------------------------end-------------------------
-  negated current left element  0 :  97
-  negated current left element  1 :  98
-  negated current left element  2 :  99
-  negated current left element  3 :  100
-  negated current left element  4 :  101
-  negated current left element  5 :  102
-  negated current left element  6 :  103
-  negated current left element  7 :  104
-  negated current left element  8 :  105
-  negated current left element  9 :  106
-  negated current left element  10 :  107
-  negated current left element  11 :  108
-  negated current left element  12 :  109
-  negated current left element  13 :  110
-  negated current left element  14 :  111
-  negated current left element  15 :  112
-  negated current left element  16 :  113
-  negated current left element  17 :  114
-  negated current left element  18 :  115
-  negated current left element  19 :  116
-  negated current left element  20 :  117
-  negated current left element  21 :  118
-  negated current left element  22 :  119
-  negated current left element  23 :  120
-  negated current left element  24 :  121
-  negated current left element  25 :  122
+  leftSet.length             :  0
+  negatedLeftSet.length      :  52
+  rightSet.length            :  0
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
   i:  0
@@ -751,6 +776,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -775,6 +801,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -799,6 +826,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -815,6 +843,10 @@ Logs:
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
   -------------------------end-------------------------
+  leftSet.length             :  0
+  negatedLeftSet.length      :  52
+  rightSet.length            :  10
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
   i:  0
@@ -837,6 +869,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
@@ -861,6 +894,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -876,6 +910,13 @@ Logs:
   -------------------------end-------------------------
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  -------------------------end-------------------------
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
   -------------------------end-------------------------
   current right element  0 :  48
   current right element  1 :  49
@@ -913,13 +954,6 @@ Logs:
   current right element  33 :  88
   current right element  34 :  89
   current right element  35 :  90
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
-  yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
-  -------------------------end-------------------------
   atom:  [^a-z]--[0-9]--[A-Z]
   left atom:  [^a-z]
   right atom:  [0-9]--[A-Z]
@@ -941,8 +975,114 @@ Logs:
   negation:  false
   isFirstMatch:  false
   ------------------------------------------
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  E
+  matchStartIndex matchNeutralizedCCAtoms:  -1
+  matchEndIndex matchNeutralizedCCAtoms  :  1
   after evaluateSetOperationMatch: matchStartIndex:  -1
-  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  1
   indexTostartMatch per iterations:  2
   z:  0
   pattern atom:  [[^a-z]--[0-9]--[A-Z]]
@@ -1025,6 +1165,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1053,6 +1194,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1081,6 +1223,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1097,32 +1240,10 @@ Logs:
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
   -------------------------end-------------------------
-  negated current left element  0 :  97
-  negated current left element  1 :  98
-  negated current left element  2 :  99
-  negated current left element  3 :  100
-  negated current left element  4 :  101
-  negated current left element  5 :  102
-  negated current left element  6 :  103
-  negated current left element  7 :  104
-  negated current left element  8 :  105
-  negated current left element  9 :  106
-  negated current left element  10 :  107
-  negated current left element  11 :  108
-  negated current left element  12 :  109
-  negated current left element  13 :  110
-  negated current left element  14 :  111
-  negated current left element  15 :  112
-  negated current left element  16 :  113
-  negated current left element  17 :  114
-  negated current left element  18 :  115
-  negated current left element  19 :  116
-  negated current left element  20 :  117
-  negated current left element  21 :  118
-  negated current left element  22 :  119
-  negated current left element  23 :  120
-  negated current left element  24 :  121
-  negated current left element  25 :  122
+  leftSet.length             :  0
+  negatedLeftSet.length      :  78
+  rightSet.length            :  0
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
   i:  0
@@ -1145,6 +1266,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1169,6 +1291,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1193,6 +1316,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1209,6 +1333,10 @@ Logs:
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
   -------------------------end-------------------------
+  leftSet.length             :  0
+  negatedLeftSet.length      :  78
+  rightSet.length            :  10
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
   i:  0
@@ -1231,6 +1359,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
@@ -1255,6 +1384,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1270,6 +1400,13 @@ Logs:
   -------------------------end-------------------------
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  -------------------------end-------------------------
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
   -------------------------end-------------------------
   current right element  0 :  48
   current right element  1 :  49
@@ -1307,13 +1444,6 @@ Logs:
   current right element  33 :  88
   current right element  34 :  89
   current right element  35 :  90
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
-  yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
-  -------------------------end-------------------------
   atom:  [^a-z]--[0-9]--[A-Z]
   left atom:  [^a-z]
   right atom:  [0-9]--[A-Z]
@@ -1335,8 +1465,166 @@ Logs:
   negation:  false
   isFirstMatch:  false
   ------------------------------------------
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  H
+  matchStartIndex matchNeutralizedCCAtoms:  -1
+  matchEndIndex matchNeutralizedCCAtoms  :  2
   after evaluateSetOperationMatch: matchStartIndex:  -1
-  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  2
   indexTostartMatch per iterations:  3
   z:  0
   pattern atom:  [[^a-z]--[0-9]--[A-Z]]
@@ -1419,6 +1707,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1447,6 +1736,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1475,6 +1765,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1491,32 +1782,10 @@ Logs:
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
   -------------------------end-------------------------
-  negated current left element  0 :  97
-  negated current left element  1 :  98
-  negated current left element  2 :  99
-  negated current left element  3 :  100
-  negated current left element  4 :  101
-  negated current left element  5 :  102
-  negated current left element  6 :  103
-  negated current left element  7 :  104
-  negated current left element  8 :  105
-  negated current left element  9 :  106
-  negated current left element  10 :  107
-  negated current left element  11 :  108
-  negated current left element  12 :  109
-  negated current left element  13 :  110
-  negated current left element  14 :  111
-  negated current left element  15 :  112
-  negated current left element  16 :  113
-  negated current left element  17 :  114
-  negated current left element  18 :  115
-  negated current left element  19 :  116
-  negated current left element  20 :  117
-  negated current left element  21 :  118
-  negated current left element  22 :  119
-  negated current left element  23 :  120
-  negated current left element  24 :  121
-  negated current left element  25 :  122
+  leftSet.length             :  0
+  negatedLeftSet.length      :  104
+  rightSet.length            :  0
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
   i:  0
@@ -1539,6 +1808,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1563,6 +1833,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1587,6 +1858,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1603,6 +1875,10 @@ Logs:
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
   -------------------------end-------------------------
+  leftSet.length             :  0
+  negatedLeftSet.length      :  104
+  rightSet.length            :  10
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
   i:  0
@@ -1625,6 +1901,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
@@ -1649,6 +1926,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1664,6 +1942,13 @@ Logs:
   -------------------------end-------------------------
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  -------------------------end-------------------------
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
   -------------------------end-------------------------
   current right element  0 :  48
   current right element  1 :  49
@@ -1701,13 +1986,6 @@ Logs:
   current right element  33 :  88
   current right element  34 :  89
   current right element  35 :  90
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
-  yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
-  -------------------------end-------------------------
   atom:  [^a-z]--[0-9]--[A-Z]
   left atom:  [^a-z]
   right atom:  [0-9]--[A-Z]
@@ -1729,8 +2007,218 @@ Logs:
   negation:  false
   isFirstMatch:  false
   ------------------------------------------
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  2
+  matchStartIndex matchNeutralizedCCAtoms:  -1
+  matchEndIndex matchNeutralizedCCAtoms  :  3
   after evaluateSetOperationMatch: matchStartIndex:  -1
-  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  3
   indexTostartMatch per iterations:  4
   z:  0
   pattern atom:  [[^a-z]--[0-9]--[A-Z]]
@@ -1813,6 +2301,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1841,6 +2330,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  ^a-z
@@ -1869,6 +2359,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1885,32 +2376,10 @@ Logs:
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
   -------------------------end-------------------------
-  negated current left element  0 :  97
-  negated current left element  1 :  98
-  negated current left element  2 :  99
-  negated current left element  3 :  100
-  negated current left element  4 :  101
-  negated current left element  5 :  102
-  negated current left element  6 :  103
-  negated current left element  7 :  104
-  negated current left element  8 :  105
-  negated current left element  9 :  106
-  negated current left element  10 :  107
-  negated current left element  11 :  108
-  negated current left element  12 :  109
-  negated current left element  13 :  110
-  negated current left element  14 :  111
-  negated current left element  15 :  112
-  negated current left element  16 :  113
-  negated current left element  17 :  114
-  negated current left element  18 :  115
-  negated current left element  19 :  116
-  negated current left element  20 :  117
-  negated current left element  21 :  118
-  negated current left element  22 :  119
-  negated current left element  23 :  120
-  negated current left element  24 :  121
-  negated current left element  25 :  122
+  leftSet.length             :  0
+  negatedLeftSet.length      :  130
+  rightSet.length            :  0
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
   i:  0
@@ -1933,6 +2402,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1957,6 +2427,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  0-9
@@ -1981,6 +2452,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -1997,6 +2469,10 @@ Logs:
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
   -------------------------end-------------------------
+  leftSet.length             :  0
+  negatedLeftSet.length      :  130
+  rightSet.length            :  10
+  negatedRightSet.length     :  0
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
   i:  0
@@ -2019,6 +2495,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
   _pattern:  A-Z
@@ -2043,6 +2520,7 @@ Logs:
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
+  lastOperationType:  45
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
   coming to range...
@@ -2058,6 +2536,13 @@ Logs:
   -------------------------end-------------------------
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  -------------------------end-------------------------
+  atom:  [0-9]--[A-Z]
+  left atom:  [0-9]
+  right atom:  [A-Z]
+  yeah truning to end...
+  bottom: lLastParticleIndex:  11
+  going for next cycle... i:  12
   -------------------------end-------------------------
   current right element  0 :  48
   current right element  1 :  49
@@ -2095,13 +2580,6 @@ Logs:
   current right element  33 :  88
   current right element  34 :  89
   current right element  35 :  90
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
-  yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
-  -------------------------end-------------------------
   atom:  [^a-z]--[0-9]--[A-Z]
   left atom:  [^a-z]
   right atom:  [0-9]--[A-Z]
@@ -2123,8 +2601,270 @@ Logs:
   negation:  false
   isFirstMatch:  false
   ------------------------------------------
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  applicant string length:  1
+  matchNeutralizedCCAtoms - stringToMatchWith:  L
+  matchStartIndex matchNeutralizedCCAtoms:  -1
+  matchEndIndex matchNeutralizedCCAtoms  :  4
   after evaluateSetOperationMatch: matchStartIndex:  -1
-  after evaluateSetOperationMatch: matchEndIndex  :  -1
+  after evaluateSetOperationMatch: matchEndIndex  :  4
   matchStartIndex:  -1
   matchEndIndex:  5
   indexToStartMatch set:  5
@@ -2156,6 +2896,6 @@ Logs:
   Match end index        :  -1
   ------------------------------------
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 25.00ms (16.49ms CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 60.88ms (51.23ms CPU time)
 
-Ran 1 test suite in 27.63ms (25.00ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 64.89ms (60.88ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

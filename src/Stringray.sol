@@ -1211,7 +1211,8 @@ contract Stringray {
                     isFirstMatch,
                     patternFlags,
                     fromCharacterClass,
-                    false
+                    false,
+                    0
                 );
 
                 console2.log("set expressions evaluated succesfully");
@@ -2427,7 +2428,8 @@ contract Stringray {
         bool isFirstMatch,
         bytes memory patternFlags,
         bool fromCharacterClass,
-        bool isRightAtom
+        bool isRightAtom,
+        uint8 lastOperationType
     ) private {
         console2.log("-------------------------matchCCSetAtoms-------------------------");
         console2.log("atom: ", string(atom));
@@ -2437,6 +2439,7 @@ contract Stringray {
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("fromCharacterClass: ", fromCharacterClass);
         console2.log("isRightAtom: ", isRightAtom);
+        console2.log("lastOperationType: ", lastOperationType);
         console2.log("--------------------------------------------------");
 
         MatchCCSetAtomsData memory matchCCSetAtomsData;
@@ -2471,29 +2474,37 @@ contract Stringray {
                     isFirstMatch,
                     patternFlags,
                     fromCharacterClass,
-                    isRightAtom
+                    isRightAtom,
+                    matchCCSetAtomsData.operationType
                 );
+
+                console2.log("leftSet.length             : ", leftSet.length);
+                console2.log("negatedLeftSet.length      : ", negatedLeftSet.length);
+                console2.log("rightSet.length            : ", rightSet.length);
+                console2.log("negatedRightSet.length     : ", negatedRightSet.length);
+
+                updateSets(matchCCSetAtomsData.operationType);
 
                 // console2.log("last left atom: ", string(matchCCSetAtomsData.leftAtom));
 
-                uint256[] memory localLeftSet = new uint256[](leftSet.length);
-                for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < leftSet.length; matchCCSetAtomsData.s++) {
-                    console2.log("current left element ", matchCCSetAtomsData.s, ": ", leftSet[matchCCSetAtomsData.s]);
-                    localLeftSet[matchCCSetAtomsData.s] = leftSet[matchCCSetAtomsData.s];
-                }
-                delete leftSet;
+                // uint256[] memory localLeftSet = new uint256[](leftSet.length);
+                // for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < leftSet.length; matchCCSetAtomsData.s++) {
+                //     console2.log("current left element ", matchCCSetAtomsData.s, ": ", leftSet[matchCCSetAtomsData.s]);
+                //     localLeftSet[matchCCSetAtomsData.s] = leftSet[matchCCSetAtomsData.s];
+                // }
+                // delete leftSet;
 
-                uint256[] memory localNegatedLeftSet = new uint256[](negatedLeftSet.length);
-                for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
-                    console2.log(
-                        "negated current left element ",
-                        matchCCSetAtomsData.s,
-                        ": ",
-                        negatedLeftSet[matchCCSetAtomsData.s]
-                    );
-                    localNegatedLeftSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
-                }
-                delete negatedLeftSet;
+                // uint256[] memory localNegatedLeftSet = new uint256[](negatedLeftSet.length);
+                // for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
+                //     console2.log(
+                //         "negated current left element ",
+                //         matchCCSetAtomsData.s,
+                //         ": ",
+                //         negatedLeftSet[matchCCSetAtomsData.s]
+                //     );
+                //     localNegatedLeftSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
+                // }
+                // delete negatedLeftSet;
 
                 // console2.log("yeah turning to right atom...");
                 // console2.log("lLastParticleIndex before: ", matchCCSetAtomsData.lLastParticleIndex);
@@ -2512,7 +2523,8 @@ contract Stringray {
                     isFirstMatch,
                     patternFlags,
                     fromCharacterClass,
-                    true
+                    true,
+                    matchCCSetAtomsData.operationType
                 );
 
                 uint256[] memory localRightSet = new uint256[](rightSet.length);
@@ -2548,15 +2560,15 @@ contract Stringray {
                 console2.log("left atom: ", string(matchCCSetAtomsData.leftAtom));
                 console2.log("right atom: ", string(matchCCSetAtomsData.rightAtom));
 
-                if (!isRightAtom) {
-                    updateSets(
-                        matchCCSetAtomsData.operationType,
-                        localLeftSet,
-                        localRightSet,
-                        localNegatedLeftSet,
-                        localNegatedRightSet
-                    );
-                }
+                // if (!isRightAtom) {
+                //     updateSets(
+                //         matchCCSetAtomsData.operationType,
+                //         localLeftSet,
+                //         localRightSet,
+                //         localNegatedLeftSet,
+                //         localNegatedRightSet
+                //     );
+                // }
 
                 matchCCSetAtomsData.lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
@@ -2569,7 +2581,8 @@ contract Stringray {
                         isFirstMatch,
                         patternFlags,
                         fromCharacterClass,
-                        isRightAtom
+                        isRightAtom,
+                        lastOperationType
                     );
                 } else if (
                     matchCCSetAtomsData.lLastParticleIndex + 2 < atom.length
@@ -2674,11 +2687,7 @@ contract Stringray {
     }
 
     function updateSets(
-        uint8 operationTypeSymbol,
-        uint256[] memory localLeftSet,
-        uint256[] memory localRightSet,
-        uint256[] memory localNegatedLeftSet,
-        uint256[] memory localNegatedRightSet
+        uint8 operationTypeSymbol
     ) private {
         uint256 i;
         uint256 j;
@@ -3610,7 +3619,7 @@ contract Stringray {
                 }
 
                 if (ccIdAtoms[j].atomType == CC_SET_ATOM) {
-                    matchCCSetAtoms(ccIdAtoms[j].atom, stringInBytes, i, false, patternFlags, true, false);
+                    matchCCSetAtoms(ccIdAtoms[j].atom, stringInBytes, i, false, patternFlags, true, false, 0);
 
                     (matchStartIndex, matchEndIndex) = evaluateSetOperationMatch(stringInBytes, i, false, true);
                 }
@@ -3949,7 +3958,8 @@ contract Stringray {
                         negation ? false : isFirstMatch,
                         patternFlags,
                         true,
-                        false
+                        false,
+                        0
                     );
 
                     console2.log("after i in neutral and cc set atom: ", i);

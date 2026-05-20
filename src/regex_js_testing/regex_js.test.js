@@ -20783,5 +20783,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000057", () => {
+    const target = "abcd1";
+    let regex = /[[^abcd]--[^1234]--[1234]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
