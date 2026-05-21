@@ -2451,6 +2451,30 @@ contract Stringray {
                             && uint8(atom[matchCCSetAtomsData.lLastParticleIndex + 2]) == MINUS_SIGN))
             ) {
                 matchCCSetAtomsData.operationType = uint8(atom[matchCCSetAtomsData.lLastParticleIndex + 1]);
+
+                uint256[] memory localPoolSet = new uint256[](poolSet.length);
+                uint256[] memory localNegatedPoolSet = new uint256[](negatedPoolSet.length);
+                if (lastOperationType == 38 && matchCCSetAtomsData.operationType == 45 || lastOperationType == 45 && matchCCSetAtomsData.operationType == 38) {
+                    for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < localPoolSet.length; matchCCSetAtomsData.s++) {
+                        console2.log("current poolSet element ", matchCCSetAtomsData.s, ": ", poolSet[matchCCSetAtomsData.s]);
+                        localPoolSet[matchCCSetAtomsData.s] = poolSet[matchCCSetAtomsData.s];
+                    }
+                    delete poolSet;
+
+                    for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < localNegatedPoolSet.length; matchCCSetAtomsData.s++) {
+                        console2.log(
+                            "negated current left element ",
+                            matchCCSetAtomsData.s,
+                            ": ",
+                            negatedPoolSet[matchCCSetAtomsData.s]
+                        );
+                        localNegatedPoolSet[matchCCSetAtomsData.s] = negatedPoolSet[matchCCSetAtomsData.s];
+                    }
+                    delete negatedPoolSet;
+
+                    isRightAtom = false;
+                }
+
                 matchCCSetAtomsData.leftAtom =
                     trimString(atom, matchCCSetAtomsData.i, int256(matchCCSetAtomsData.lLastParticleIndex));
                 matchCCSetAtoms(
@@ -2463,14 +2487,6 @@ contract Stringray {
                     isRightAtom,
                     matchCCSetAtomsData.operationType
                 );
-
-                if (lastOperationType == 38 && matchCCSetAtomsData.operationType == 45 || lastOperationType == 45 && matchCCSetAtomsData.operationType == 38) {
-                    // @BUG: logic isn't not compliant with the case when operation changes...
-                    console2.log("operation changed need to choose different path way...................................................");
-                }
-
-                console2.log("leftSet.length             : ", leftSet.length);
-                console2.log("negatedLeftSet.length      : ", negatedLeftSet.length);
 
                 updateSets(lastOperationType, isRightAtom);
 
@@ -2520,6 +2536,19 @@ contract Stringray {
                 );
 
                 updateSets(lastOperationType, isRightAtom);
+
+                console2.log("*****************************************************moving back to caller*****************************************************");
+
+                
+                console2.log("localPoolSet.length: ", localPoolSet.length);
+                console2.log("localNegatedPoolSet.length: ", localNegatedPoolSet.length);
+
+                if (localPoolSet.length > 0) {
+                    // need to replace current pool set elements to the left set & same for negated ones
+                    // and replace local pool set to pool set as well
+                    // after that, update the sets once again
+                    uint256[] memory localPoolSet = new uint256[](poolSet.length);
+                }
 
                 // uint256[] memory localRightSet = new uint256[](rightSet.length);
                 // if (!isRightAtom) {
