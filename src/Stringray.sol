@@ -1418,6 +1418,10 @@ contract Stringray {
                 continue;
             }
 
+            if (matchData.i + 1 < atoms.length)
+
+            atoms[matchData.i]
+
             matchData.specialFlag = false;
             indexToStartMatch =
                 matchData.matchEndIndex > -1 ? uint256(matchData.matchEndIndex) + 1 : uint256(matchData.matchEndIndex);
