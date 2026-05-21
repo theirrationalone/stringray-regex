@@ -20784,9 +20784,254 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Character class negation: Case00000000000000000000000000057", () => {
-    const target = "67bc";
-    let regex = /[[abcd123467]--[^1234acd]]/v;
+  test("Pattern match Character class negation: Case00000000000000000000000000058", () => {
+    const target = "_$,";
+    let regex = /[^[[^a-z]--[0-9]--[A-Z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000059", () => {
+    const target = "_$a,";
+    let regex = /[^[[^a-z]--[0-9]--[A-Z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000060", () => {
+    const target = "_$A,";
+    let regex = /[^[[^a-z]--[0-9]--[A-Z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000061", () => {
+    const target = "_$4,";
+    let regex = /[^[[^a-z]--[0-9]--[A-Z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000062", () => {
+    const target = "THEIRRATIONAL1";
+    let regex = /[^[[^a-z]--[0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000063", () => {
+    const target = "tTHEIRRATIONALONE";
+    let regex = /[^[[^a-z]--[0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000064", () => {
+    const target = "THEiRRATIONAL1";
+    let regex = /[^[[^a-z]--[0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000065", () => {
+    const target = "THEIRRATIONALONe";
+    let regex = /[^[[^a-z]--[0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000066", () => {
+    const target = "THEIRRATIONAL_oN|";
+    let regex = /[^[[^a-z]--[0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000067", () => {
+    const target = "THEIRRATIONAL_oN|";
+    let regex = /[^]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000068", () => {
+    const target = "abcxyz";
+    let regex = /[^[[abc][xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000069", () => {
+    const target = "abcuxyz";
+    let regex = /[^[[abc][xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000070", () => {
+    const target = "abcxyz_";
+    let regex = /[^[[abc][xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000071", () => {
+    const target = "a\nbcxyz";
+    let regex = /[^[[abc][xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000072", () => {
+    const target = "aBcxyz";
+    let regex = /[^[[abc][xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000073", () => {
+    const target = "aerecx234yZ";
+    let regex = /[[^a-z]&&[^0-9]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000074", () => {
+    const target = "aerec-x234yz";
+    let regex = /[[^a-z]&&[^0-9]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000075", () => {
+    const target = "@aerecx234yz";
+    let regex = /[[^a-z]&&[^0-9]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000076", () => {
+    const target = "aerecx234yz";
+    let regex = /[[^a-z]&&[^0-9]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000077", () => {
+    const target = "nehal_as_known_as_DRISHTI";
+    let regex = /[[^a-z]&&[A-Z]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000078", () => {
+    const target = "nehal_as_known_as_DRISHTI";
+    let regex = /[[^a-z]&&[a-z]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000079", () => {
+    const target = "abcxyz";
+    let regex = /[[^abc]--[xyz]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000080", () => {
+    const target = "abc-xyz";
+    let regex = /[[^abc]--[xyz]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000081", () => {
+    const target = "ABc-xyz";
+    let regex = /[^[[^abc]--[xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000082", () => {
+    const target = "ABC-XYz";
+    let regex = /[^[[^abc]--[xyz]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000083", () => {
+    const target = "129589";
+    let regex = /[^[[0-9]--[5]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000084", () => {
+    const target = "12346789";
+    let regex = /[^[[0-9]--[5]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000085", () => {
+    const target = "1234_6789";
+    let regex = /[^[[0-9]--[5]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000086", () => {
+    const target = "nopar";
+    let regex = /[^[[a-z]&&[m-z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000087", () => {
+    const target = "spdxLicense";
+    let regex = /[^[[a-z]&&[^aeiou]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000088", () => {
+    const target = "spd*license";
+    let regex = /[^[[a-z]&&[^aeiou]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000089", () => {
+    const target = "SPDX_LICENSE";
+    let regex = /[^[[^a-z]&&[^0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000090", () => {
+    const target = "PRAGMA SOLIDITY ^0.8.20";
+    let regex = /[^[[^a-z]&&[^0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000091", () => {
+    const target = "PRAGMA SOLIDITY =dEaD";
+    let regex = /[^[[^a-z]&&[^0-9]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Character class negation: Case00000000000000000000000000092", () => {
+    const target = "PRAGMASOLIDITYDEAD";
+    let regex = /[^[[^a-z]&&[A-Z]]]/v;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match Character class negation: Case00000000000000000000000000093", () => {
+    const target = "PRAGMASOLIDITY=dEaD";
+    let regex = /[^[[^a-z]&&[A-Z]]]/v;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
