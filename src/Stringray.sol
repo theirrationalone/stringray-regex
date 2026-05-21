@@ -2195,25 +2195,15 @@ contract Stringray {
         bytes[] memory ccLiterals;
         ccLiterals = new bytes[](poolSet.length);
 
-        console2.log("leftSet.length: ", leftSet.length);
         for (i; i < poolSet.length; i++) {
             atom = trimAccessZerosFromByte(abi.encodePacked(poolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
-
-            // console2.log("--------------------evaluateSetOperationMatch--------------------");
-            // console2.log("set length: ", leftSet.length);
-            // console2.log("utf8Atom: ");
-            // console2.logBytes(utf8Atom);
-            // console2.log("----------------------------------------");
 
             ccLiterals[i] = utf8Atom;
         }
 
         (matchStartIndex, matchEndIndex) =
             matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
-
-        // console2.log("evaluateSetOperationMatch matchStartIndex: ", matchStartIndex);
-        // console2.log("evaluateSetOperationMatch matchEndIndex: ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             delete leftSet;
@@ -2227,18 +2217,9 @@ contract Stringray {
             ccLiterals = new bytes[](negatedPoolSet.length);
         }
 
-        // console2.log("negatedLeftSet.length: ", negatedLeftSet.length);
-        // console2.log("ccLiterals.length: ", ccLiterals.length);
-
         for (i = 0; i < negatedPoolSet.length; i++) {
             atom = trimAccessZerosFromByte(abi.encodePacked(negatedPoolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
-
-            // console2.log("--------------------evaluateSetOperationMatch--------------------");
-            // console2.log("set length: ", negatedLeftSet.length);
-            // console2.log("utf8Atom: ");
-            // console2.logBytes(utf8Atom);
-            // console2.log("----------------------------------------");
 
             ccLiterals[i] = utf8Atom;
         }
@@ -2304,7 +2285,7 @@ contract Stringray {
         return unicodeHexToUtf8Hex(abi.encodePacked("\\u{", unicodeString, "}"));
     }
 
-    function convertUnicodeHexToUnicodeString(bytes1 unicodeHex) private returns (bytes memory) {
+    function convertUnicodeHexToUnicodeString(bytes1 unicodeHex) private pure returns (bytes memory) {
         bytes memory unicodeString;
 
         unicodeString = abi.encodePacked(singlNibbleToString(bytes1(unicodeHex) << 4 * 1), unicodeString);
@@ -2432,11 +2413,9 @@ contract Stringray {
                 matchCCSetAtomsData.i += 1;
                 continue;
             }
-            // console2.log("loop start atom: ", string(atom));
-            // console2.log("i: ", matchCCSetAtomsData.i);
+
             (matchCCSetAtomsData.lAtomType, matchCCSetAtomsData.lLastParticleIndex) =
                 ccSubAtoms(atom, matchCCSetAtomsData.i, patternFlags, true, false, false);
-            // console2.log("lLastParticleIndex: ", matchCCSetAtomsData.lLastParticleIndex);
             printAtomType(matchCCSetAtomsData.lAtomType);
 
             if (matchCCSetAtomsData.lAtomType == INVALID_ATOM) break;
@@ -2511,34 +2490,9 @@ contract Stringray {
                 isRightAtom = true;
                 lastOperationType = matchCCSetAtomsData.operationType;
 
-                // console2.log("last left atom: ", string(matchCCSetAtomsData.leftAtom));
-
-                // uint256[] memory localLeftSet = new uint256[](leftSet.length);
-                // for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < leftSet.length; matchCCSetAtomsData.s++) {
-                //     console2.log("current left element ", matchCCSetAtomsData.s, ": ", leftSet[matchCCSetAtomsData.s]);
-                //     localLeftSet[matchCCSetAtomsData.s] = leftSet[matchCCSetAtomsData.s];
-                // }
-                // delete leftSet;
-
-                // uint256[] memory localNegatedLeftSet = new uint256[](negatedLeftSet.length);
-                // for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < negatedLeftSet.length; matchCCSetAtomsData.s++) {
-                //     console2.log(
-                //         "negated current left element ",
-                //         matchCCSetAtomsData.s,
-                //         ": ",
-                //         negatedLeftSet[matchCCSetAtomsData.s]
-                //     );
-                //     localNegatedLeftSet[matchCCSetAtomsData.s] = negatedLeftSet[matchCCSetAtomsData.s];
-                // }
-                // delete negatedLeftSet;
-
-                // console2.log("yeah turning to right atom...");
-                // console2.log("lLastParticleIndex before: ", matchCCSetAtomsData.lLastParticleIndex);
-
                 matchCCSetAtomsData.rightAtom = trimString(atom, matchCCSetAtomsData.lLastParticleIndex + 3, -1);
                 (matchCCSetAtomsData.lAtomType, matchCCSetAtomsData.lLastParticleIndex) =
                     ccSubAtoms(atom, matchCCSetAtomsData.lLastParticleIndex + 3, patternFlags, true, false, false);
-                // console2.log("lLastParticleIndex of right: ", matchCCSetAtomsData.lLastParticleIndex);
 
                 if (matchCCSetAtomsData.lAtomType == INVALID_ATOM) break;
 
@@ -2596,49 +2550,6 @@ contract Stringray {
 
                     updateSets(localOperationType, true);
                 }
-
-                // uint256[] memory localRightSet = new uint256[](rightSet.length);
-                // if (!isRightAtom) {
-                //     for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < rightSet.length; matchCCSetAtomsData.s++) {
-                //         console2.log(
-                //             "current right element ", matchCCSetAtomsData.s, ": ", rightSet[matchCCSetAtomsData.s]
-                //         );
-                //         localRightSet[matchCCSetAtomsData.s] = rightSet[matchCCSetAtomsData.s];
-                //     }
-                //     delete rightSet;
-                // }
-
-                // uint256[] memory localNegatedRightSet = new uint256[](negatedRightSet.length);
-                // if (!isRightAtom) {
-                //     for (
-                //         matchCCSetAtomsData.s = 0;
-                //         matchCCSetAtomsData.s < negatedRightSet.length;
-                //         matchCCSetAtomsData.s++
-                //     ) {
-                //         console2.log(
-                //             "negated current right element ",
-                //             matchCCSetAtomsData.s,
-                //             ": ",
-                //             negatedRightSet[matchCCSetAtomsData.s]
-                //         );
-                //         localNegatedRightSet[matchCCSetAtomsData.s] = negatedRightSet[matchCCSetAtomsData.s];
-                //     }
-                //     delete negatedRightSet;
-                // }
-
-                console2.log("atom: ", string(atom));
-                console2.log("left atom: ", string(matchCCSetAtomsData.leftAtom));
-                console2.log("right atom: ", string(matchCCSetAtomsData.rightAtom));
-
-                // if (!isRightAtom) {
-                //     updateSets(
-                //         matchCCSetAtomsData.operationType,
-                //         localLeftSet,
-                //         localRightSet,
-                //         localNegatedLeftSet,
-                //         localNegatedRightSet
-                //     );
-                // }
 
                 matchCCSetAtomsData.lLastParticleIndex = atom.length - 1;
                 console2.log("yeah truning to end...");
@@ -20782,7 +20693,6 @@ contract Stringray {
 
         if (!isValid) {
             string memory errorMsg = string(abi.encodePacked("SyntaxError: Invalid Unicode codepoint: ", _unicodeHex));
-            revert(errorMsg);
             throwError(
                 abi.encodePacked(""), "SyntaxError: Invalid Unicode codepoint: ", string(_unicodeHex), abi.encode("")
             );
@@ -20790,12 +20700,13 @@ contract Stringray {
 
         bytes memory binary;
         uint256 rightOperand = _unicodeHex[_unicodeHex.length - 1] != 0x7d ? _unicodeHex.length : _unicodeHex.length - 1;
-        for (uint256 i = 3; i < rightOperand; i++) {
+        uint256 i;
+        for (i = 3; i < rightOperand; i++) {
             bytes memory bin = hexToBinary(_unicodeHex[i], 4, true);
             binary = abi.encodePacked(binary, bin);
         }
 
-        uint256 i;
+        i = 0;
         while (true) {
             if (binary.length == 0) {
                 return hex"00";
@@ -22551,7 +22462,8 @@ contract Stringray {
 
         if (isValidProperty) {
             return (true, propertyNameEndIdx + 1);
-        } else {
+        }
+        // else {
             string memory eMsg = " Invalid property name";
             string memory lastMsg = fromCharacterClass ? " in character class" : "";
             throwError(
@@ -22560,9 +22472,9 @@ contract Stringray {
                 string(abi.encodePacked(eMsg, lastMsg)),
                 _patternFlags
             );
-        }
+        // }
 
-        return (false, 0);
+        // return (false, 0);
     }
 
     function validatePropertyName(bytes memory propertyName) private pure returns (bool) {
@@ -23164,7 +23076,7 @@ contract Stringray {
         return _newString;
     }
 
-    function hasFlag(bytes memory _flags, string memory _requiredFlagString) private returns (bool) {
+    function hasFlag(bytes memory _flags, string memory _requiredFlagString) private pure returns (bool) {
         return includes(string(_flags), _requiredFlagString);
     }
 }
