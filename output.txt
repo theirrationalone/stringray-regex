@@ -1,20 +1,13 @@
 No files changed, compilation skipped
 
 Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
-[PASS] testRegexPatternMatchCharacterClassNegationCase57() (gas: 8295492)
+[PASS] testRegexPatternMatchCharacterClassesCase37() (gas: 3388907)
 Logs:
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^[[^a-z]--[0-9]--[A-Z]]
-  i:  0
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  [^a-z]--[0-9]--[A-Z]
+  _pattern:  [adsadasdz]&&[dasdasdz]&&[masdasdz]
   i:  0
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^a-z
+  _pattern:  adsadasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -31,40 +24,97 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  3
+  i:  4
   flag:  true
-  Atom Type: CHARACTER_CLASS_ATOM
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
   lastMatchedIndex:  5
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
-  i:  0
+  i:  6
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
+  lastMatchedIndex:  6
+  i:  7
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  1
-  i:  2
+  lastMatchedIndex:  7
+  i:  8
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  2
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  A-Z
-  i:  0
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  1
-  i:  2
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  2
+  lastMatchedIndex:  8
   flag:  true
   Atom Type: CHARACTER_CLASS_ATOM
-  lastMatchedIndex:  22
+  lastMatchedIndex:  10
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  dasdasdz
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
+  ---------------------setExpressionValidationInsideCC---------------------
+  _pattern:  masdasdz
+  i:  0
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  0
+  i:  1
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  1
+  i:  2
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   nuclear fission was successful
   -----------------------matchPattern-----------------------
   cycle starts...
@@ -73,35 +123,32 @@ Logs:
   fromGroup:  false
   indexToStartMatch:  0
   stringInBytes length:  5
-  stringInBytes:  NEH2L
-  0x4e4548324c
+  stringInBytes:  nehal
+  0x6e6568616c
   atoms length:  1
-  atom:  [^[[^a-z]--[0-9]--[A-Z]]]
+  atom:  [[adsadasdz]&&[dasdasdz]&&[masdasdz]]
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x5b5e5b5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d5d5d
+  0x5b5b61647361646173647a5d26265b646173646173647a5d26265b6d6173646173647a5d5d
   Atom Type: CHARACTER_CLASS_ATOM
   ----------------------------------------------
   updated isFirstMatch:  true
   --------------------matchCharacterClass--------------------
-  0x5e5b5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d5d
-  0x5e
+  0x5b61647361646173647a5d26265b646173646173647a5d26265b6d6173646173647a5d
+  0x5b
   0x5d
-  stringInBytes:  NEH2L
+  stringInBytes:  nehal
   indexToStartMatch:  0
   isFirstMatch:  true
   patternFlags:  v
-  pattern length:  23
+  pattern length:  35
   caret sign:  94
-  caret sign from pattern:  94
+  caret sign from pattern:  91
   fromCharacterClass:  false
   ----------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  [^a-z]--[0-9]--[A-Z]
-  i:  0
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^a-z
+  _pattern:  adsadasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -118,62 +165,28 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  3
+  i:  4
   flag:  true
-  Atom Type: CHARACTER_CLASS_ATOM
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
   lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
+  i:  8
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  8
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
-  i:  0
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  1
-  i:  2
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  2
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  A-Z
-  i:  0
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  1
-  i:  2
-  flag:  true
-  Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  2
-  --------------------neutralizeAndMatchCCAtoms--------------------
-  negation:  true
-  isFirstMatch:  true
-  atom:  [[^a-z]--[0-9]--[A-Z]]
-  Atom Type: CHARACTER_CLASS_ATOM
-  ----------------------------------------
-  indexTostartMatch per iterations:  0
-  z:  0
-  pattern atom:  [[^a-z]--[0-9]--[A-Z]]
-  Atom Type: CHARACTER_CLASS_ATOM
-  --------------------matchCharacterClass--------------------
-  0x5b5e612d7a5d2d2d5b302d395d2d2d5b412d5a5d
-  0x5b
-  0x5d
-  stringInBytes:  NEH2L
-  indexToStartMatch:  0
-  isFirstMatch:  false
-  patternFlags:  v
-  pattern length:  20
-  caret sign:  94
-  caret sign from pattern:  91
-  fromCharacterClass:  true
-  ----------------------------------------
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^a-z
+  _pattern:  dasdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -190,8 +203,24 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
+  _pattern:  masdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -204,43 +233,49 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
-  ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  A-Z
-  i:  0
+  i:  3
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  0
-  i:  1
+  lastMatchedIndex:  3
+  i:  4
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  1
-  i:  2
+  lastMatchedIndex:  4
+  i:  5
   flag:  true
   Atom Type: LITERAL_ATOM
-  lastMatchedIndex:  2
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   --------------------neutralizeAndMatchCCAtoms--------------------
-  negation:  true
-  isFirstMatch:  false
-  atom:  [^a-z]--[0-9]--[A-Z]
+  negation:  false
+  isFirstMatch:  true
+  atom:  [adsadasdz]&&[dasdasdz]&&[masdasdz]
   Atom Type: CC_SET_ATOM
   ----------------------------------------
   indexTostartMatch per iterations:  0
   z:  0
-  pattern atom:  [^a-z]--[0-9]--[A-Z]
+  pattern atom:  [adsadasdz]&&[dasdasdz]&&[masdasdz]
   Atom Type: CC_SET_ATOM
   before i in neutral and cc set atom:  0
   -------------------------matchCCSetAtoms-------------------------
-  atom:  [^a-z]--[0-9]--[A-Z]
-  string:  NEH2L
+  atom:  [adsadasdz]&&[dasdasdz]&&[masdasdz]
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
   lastOperationType:  0
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^a-z
+  _pattern:  adsadasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -257,19 +292,39 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
+  i:  8
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  8
   Atom Type: CHARACTER_CLASS_ATOM
   -------------------------matchCCSetAtoms-------------------------
-  atom:  [^a-z]
-  string:  NEH2L
+  atom:  [adsadasdz]
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  ^a-z
+  _pattern:  adsadasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -286,76 +341,100 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
+  i:  8
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  8
   Atom Type: CHARACTER_CLASS_ATOM
   -------------------------matchCCSetAtoms-------------------------
-  atom:  ^a-z
-  string:  NEH2L
+  atom:  adsadasdz
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  false
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
-  coming to range...
   atom length:  1
-  dec evaluated...
-  subAtom evaluated...
-  secondd dec evaluation...
+  bottom: lLastParticleIndex:  0
+  going for next cycle... i:  1
+  Atom Type: LITERAL_ATOM
   atom length:  1
-  range: lLastParticleIndex:  3
-  pushed to sets...
+  bottom: lLastParticleIndex:  1
+  going for next cycle... i:  2
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  2
+  going for next cycle... i:  3
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  3
   going for next cycle... i:  4
-  -------------------------end-------------------------
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  4
+  going for next cycle... i:  5
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  5
   going for next cycle... i:  6
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  6
+  going for next cycle... i:  7
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  7
+  going for next cycle... i:  8
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  8
+  going for next cycle... i:  9
   -------------------------end-------------------------
-  leftSet.length             :  0
-  negatedLeftSet.length      :  26
-  leftSet.length:  0
+  bottom: lLastParticleIndex:  10
+  going for next cycle... i:  11
+  -------------------------end-------------------------
+  operationTypeSymbol:  0
+  leftSet.length:  9
   clonerSet.length:  0
-  negatedLeftSet.length:  26
-  intersectionSet.length:  0
-  differenceSet.length:  0
-  negatedIntersectionSet.length:  0
-  negatedDifferenceSet.length:  0
+  negatedLeftSet.length:  0
+  poolSet.length:  0
+  negatedPoolSet.length:  0
+  isRightAtom:  false
   yeahhhhh it's time to perform set operations...................................................
   --------------------------updateSets--------------------------
-  ---intersectionSet---
-  ---negatedIntersectionSet---
-  ---differenceSet---
-  ---negatedDifferenceSet---
-  negatedDifferenceSet element  1 :  97
-  negatedDifferenceSet element  2 :  98
-  negatedDifferenceSet element  3 :  99
-  negatedDifferenceSet element  4 :  100
-  negatedDifferenceSet element  5 :  101
-  negatedDifferenceSet element  6 :  102
-  negatedDifferenceSet element  7 :  103
-  negatedDifferenceSet element  8 :  104
-  negatedDifferenceSet element  9 :  105
-  negatedDifferenceSet element  10 :  106
-  negatedDifferenceSet element  11 :  107
-  negatedDifferenceSet element  12 :  108
-  negatedDifferenceSet element  13 :  109
-  negatedDifferenceSet element  14 :  110
-  negatedDifferenceSet element  15 :  111
-  negatedDifferenceSet element  16 :  112
-  negatedDifferenceSet element  17 :  113
-  negatedDifferenceSet element  18 :  114
-  negatedDifferenceSet element  19 :  115
-  negatedDifferenceSet element  20 :  116
-  negatedDifferenceSet element  21 :  117
-  negatedDifferenceSet element  22 :  118
-  negatedDifferenceSet element  23 :  119
-  negatedDifferenceSet element  24 :  120
-  negatedDifferenceSet element  25 :  121
-  negatedDifferenceSet element  26 :  122
+  ---poolSet---
+  poolSet element  1 :  97
+  poolSet element  2 :  100
+  poolSet element  3 :  115
+  poolSet element  4 :  97
+  poolSet element  5 :  100
+  poolSet element  6 :  97
+  poolSet element  7 :  115
+  poolSet element  8 :  100
+  poolSet element  9 :  122
+  ---negatedPoolSet---
   ----------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
+  _pattern:  dasdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -368,18 +447,38 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   -------------------------matchCCSetAtoms-------------------------
-  atom:  [0-9]--[A-Z]
-  string:  NEH2L
+  atom:  [dasdasdz]&&[masdasdz]
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
+  _pattern:  dasdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -392,19 +491,39 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   Atom Type: CHARACTER_CLASS_ATOM
   -------------------------matchCCSetAtoms-------------------------
-  atom:  [0-9]
-  string:  NEH2L
+  atom:  [dasdasdz]
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  0-9
+  _pattern:  dasdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -417,87 +536,92 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   Atom Type: CHARACTER_CLASS_ATOM
   -------------------------matchCCSetAtoms-------------------------
-  atom:  0-9
-  string:  NEH2L
+  atom:  dasdasdz
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
-  coming to range...
   atom length:  1
-  dec evaluated...
-  subAtom evaluated...
-  secondd dec evaluation...
+  bottom: lLastParticleIndex:  0
+  going for next cycle... i:  1
+  Atom Type: LITERAL_ATOM
   atom length:  1
-  range: lLastParticleIndex:  2
-  pushed to sets...
+  bottom: lLastParticleIndex:  1
+  going for next cycle... i:  2
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  2
   going for next cycle... i:  3
-  -------------------------end-------------------------
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  6
+  going for next cycle... i:  7
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  7
+  going for next cycle... i:  8
   -------------------------end-------------------------
-  leftSet.length             :  10
-  negatedLeftSet.length      :  0
-  leftSet.length:  10
+  bottom: lLastParticleIndex:  9
+  going for next cycle... i:  10
+  -------------------------end-------------------------
+  operationTypeSymbol:  38
+  leftSet.length:  8
   clonerSet.length:  0
   negatedLeftSet.length:  0
-  intersectionSet.length:  0
-  differenceSet.length:  0
-  negatedIntersectionSet.length:  0
-  negatedDifferenceSet.length:  26
+  poolSet.length:  9
+  negatedPoolSet.length:  0
+  isRightAtom:  true
   yeahhhhh it's time to perform set operations...................................................
-  yeah pinching right block of code...
+  piiiiiiiiiiiiiiinnnnnnnnnnnnnncccchhhhhhhhiiiiiinnnnnnnggggggg right one
   --------------------------updateSets--------------------------
-  ---intersectionSet---
-  ---negatedIntersectionSet---
-  ---differenceSet---
-  ---negatedDifferenceSet---
-  negatedDifferenceSet element  1 :  97
-  negatedDifferenceSet element  2 :  98
-  negatedDifferenceSet element  3 :  99
-  negatedDifferenceSet element  4 :  100
-  negatedDifferenceSet element  5 :  101
-  negatedDifferenceSet element  6 :  102
-  negatedDifferenceSet element  7 :  103
-  negatedDifferenceSet element  8 :  104
-  negatedDifferenceSet element  9 :  105
-  negatedDifferenceSet element  10 :  106
-  negatedDifferenceSet element  11 :  107
-  negatedDifferenceSet element  12 :  108
-  negatedDifferenceSet element  13 :  109
-  negatedDifferenceSet element  14 :  110
-  negatedDifferenceSet element  15 :  111
-  negatedDifferenceSet element  16 :  112
-  negatedDifferenceSet element  17 :  113
-  negatedDifferenceSet element  18 :  114
-  negatedDifferenceSet element  19 :  115
-  negatedDifferenceSet element  20 :  116
-  negatedDifferenceSet element  21 :  117
-  negatedDifferenceSet element  22 :  118
-  negatedDifferenceSet element  23 :  119
-  negatedDifferenceSet element  24 :  120
-  negatedDifferenceSet element  25 :  121
-  negatedDifferenceSet element  26 :  122
-  negatedDifferenceSet element  27 :  48
-  negatedDifferenceSet element  28 :  49
-  negatedDifferenceSet element  29 :  50
-  negatedDifferenceSet element  30 :  51
-  negatedDifferenceSet element  31 :  52
-  negatedDifferenceSet element  32 :  53
-  negatedDifferenceSet element  33 :  54
-  negatedDifferenceSet element  34 :  55
-  negatedDifferenceSet element  35 :  56
-  negatedDifferenceSet element  36 :  57
+  ---poolSet---
+  poolSet element  1 :  97
+  poolSet element  2 :  100
+  poolSet element  3 :  115
+  poolSet element  4 :  122
+  ---negatedPoolSet---
   ----------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  A-Z
+  _pattern:  masdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -510,18 +634,38 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   -------------------------matchCCSetAtoms-------------------------
-  atom:  [A-Z]
-  string:  NEH2L
+  atom:  [masdasdz]
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   ---------------------setExpressionValidationInsideCC---------------------
-  _pattern:  A-Z
+  _pattern:  masdasdz
   i:  0
   flag:  true
   Atom Type: LITERAL_ATOM
@@ -534,333 +678,180 @@ Logs:
   flag:  true
   Atom Type: LITERAL_ATOM
   lastMatchedIndex:  2
+  i:  3
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  3
+  i:  4
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  4
+  i:  5
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  5
+  i:  6
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  6
+  i:  7
+  flag:  true
+  Atom Type: LITERAL_ATOM
+  lastMatchedIndex:  7
   Atom Type: CHARACTER_CLASS_ATOM
   -------------------------matchCCSetAtoms-------------------------
-  atom:  A-Z
-  string:  NEH2L
+  atom:  masdasdz
+  string:  nehal
   indexToStartMatch:  0
-  isFirstMatch:  false
+  isFirstMatch:  true
   patternFlags:  v
   fromCharacterClass:  true
   isRightAtom:  true
-  lastOperationType:  45
+  lastOperationType:  38
   --------------------------------------------------
   Atom Type: LITERAL_ATOM
-  coming to range...
   atom length:  1
-  dec evaluated...
-  subAtom evaluated...
-  secondd dec evaluation...
+  bottom: lLastParticleIndex:  0
+  going for next cycle... i:  1
+  Atom Type: LITERAL_ATOM
   atom length:  1
-  range: lLastParticleIndex:  2
-  pushed to sets...
+  bottom: lLastParticleIndex:  1
+  going for next cycle... i:  2
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  2
   going for next cycle... i:  3
-  -------------------------end-------------------------
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  3
+  going for next cycle... i:  4
+  Atom Type: LITERAL_ATOM
+  atom length:  1
   bottom: lLastParticleIndex:  4
   going for next cycle... i:  5
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  5
+  going for next cycle... i:  6
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  6
+  going for next cycle... i:  7
+  Atom Type: LITERAL_ATOM
+  atom length:  1
+  bottom: lLastParticleIndex:  7
+  going for next cycle... i:  8
   -------------------------end-------------------------
-  leftSet.length:  26
+  bottom: lLastParticleIndex:  9
+  going for next cycle... i:  10
+  -------------------------end-------------------------
+  operationTypeSymbol:  38
+  leftSet.length:  8
   clonerSet.length:  0
   negatedLeftSet.length:  0
-  intersectionSet.length:  0
-  differenceSet.length:  0
-  negatedIntersectionSet.length:  0
-  negatedDifferenceSet.length:  36
+  poolSet.length:  4
+  negatedPoolSet.length:  0
+  isRightAtom:  true
   yeahhhhh it's time to perform set operations...................................................
-  yeah pinching right block of code...
+  piiiiiiiiiiiiiiinnnnnnnnnnnnnncccchhhhhhhhiiiiiinnnnnnnggggggg right one
   --------------------------updateSets--------------------------
-  ---intersectionSet---
-  ---negatedIntersectionSet---
-  ---differenceSet---
-  ---negatedDifferenceSet---
-  negatedDifferenceSet element  1 :  97
-  negatedDifferenceSet element  2 :  98
-  negatedDifferenceSet element  3 :  99
-  negatedDifferenceSet element  4 :  100
-  negatedDifferenceSet element  5 :  101
-  negatedDifferenceSet element  6 :  102
-  negatedDifferenceSet element  7 :  103
-  negatedDifferenceSet element  8 :  104
-  negatedDifferenceSet element  9 :  105
-  negatedDifferenceSet element  10 :  106
-  negatedDifferenceSet element  11 :  107
-  negatedDifferenceSet element  12 :  108
-  negatedDifferenceSet element  13 :  109
-  negatedDifferenceSet element  14 :  110
-  negatedDifferenceSet element  15 :  111
-  negatedDifferenceSet element  16 :  112
-  negatedDifferenceSet element  17 :  113
-  negatedDifferenceSet element  18 :  114
-  negatedDifferenceSet element  19 :  115
-  negatedDifferenceSet element  20 :  116
-  negatedDifferenceSet element  21 :  117
-  negatedDifferenceSet element  22 :  118
-  negatedDifferenceSet element  23 :  119
-  negatedDifferenceSet element  24 :  120
-  negatedDifferenceSet element  25 :  121
-  negatedDifferenceSet element  26 :  122
-  negatedDifferenceSet element  27 :  48
-  negatedDifferenceSet element  28 :  49
-  negatedDifferenceSet element  29 :  50
-  negatedDifferenceSet element  30 :  51
-  negatedDifferenceSet element  31 :  52
-  negatedDifferenceSet element  32 :  53
-  negatedDifferenceSet element  33 :  54
-  negatedDifferenceSet element  34 :  55
-  negatedDifferenceSet element  35 :  56
-  negatedDifferenceSet element  36 :  57
-  negatedDifferenceSet element  37 :  65
-  negatedDifferenceSet element  38 :  66
-  negatedDifferenceSet element  39 :  67
-  negatedDifferenceSet element  40 :  68
-  negatedDifferenceSet element  41 :  69
-  negatedDifferenceSet element  42 :  70
-  negatedDifferenceSet element  43 :  71
-  negatedDifferenceSet element  44 :  72
-  negatedDifferenceSet element  45 :  73
-  negatedDifferenceSet element  46 :  74
-  negatedDifferenceSet element  47 :  75
-  negatedDifferenceSet element  48 :  76
-  negatedDifferenceSet element  49 :  77
-  negatedDifferenceSet element  50 :  78
-  negatedDifferenceSet element  51 :  79
-  negatedDifferenceSet element  52 :  80
-  negatedDifferenceSet element  53 :  81
-  negatedDifferenceSet element  54 :  82
-  negatedDifferenceSet element  55 :  83
-  negatedDifferenceSet element  56 :  84
-  negatedDifferenceSet element  57 :  85
-  negatedDifferenceSet element  58 :  86
-  negatedDifferenceSet element  59 :  87
-  negatedDifferenceSet element  60 :  88
-  negatedDifferenceSet element  61 :  89
-  negatedDifferenceSet element  62 :  90
+  ---poolSet---
+  poolSet element  1 :  97
+  poolSet element  2 :  100
+  poolSet element  3 :  115
+  poolSet element  4 :  122
+  ---negatedPoolSet---
   ----------------------------------------------------
-  atom:  [0-9]--[A-Z]
-  left atom:  [0-9]
-  right atom:  [A-Z]
+  *****************************************************moving back to caller*****************************************************
+  localPoolSet.length:  0
+  localNegatedPoolSet.length:  0
+  atom:  [dasdasdz]&&[masdasdz]
+  left atom:  [dasdasdz]
+  right atom:  [masdasdz]
   yeah truning to end...
-  bottom: lLastParticleIndex:  11
-  going for next cycle... i:  12
+  bottom: lLastParticleIndex:  21
+  going for next cycle... i:  22
   -------------------------end-------------------------
+  operationTypeSymbol:  38
   leftSet.length:  0
   clonerSet.length:  0
   negatedLeftSet.length:  0
-  intersectionSet.length:  0
-  differenceSet.length:  0
-  negatedIntersectionSet.length:  0
-  negatedDifferenceSet.length:  62
+  poolSet.length:  4
+  negatedPoolSet.length:  0
+  isRightAtom:  true
   yeahhhhh it's time to perform set operations...................................................
   --------------------------updateSets--------------------------
-  ---intersectionSet---
-  ---negatedIntersectionSet---
-  ---differenceSet---
-  ---negatedDifferenceSet---
-  negatedDifferenceSet element  1 :  97
-  negatedDifferenceSet element  2 :  98
-  negatedDifferenceSet element  3 :  99
-  negatedDifferenceSet element  4 :  100
-  negatedDifferenceSet element  5 :  101
-  negatedDifferenceSet element  6 :  102
-  negatedDifferenceSet element  7 :  103
-  negatedDifferenceSet element  8 :  104
-  negatedDifferenceSet element  9 :  105
-  negatedDifferenceSet element  10 :  106
-  negatedDifferenceSet element  11 :  107
-  negatedDifferenceSet element  12 :  108
-  negatedDifferenceSet element  13 :  109
-  negatedDifferenceSet element  14 :  110
-  negatedDifferenceSet element  15 :  111
-  negatedDifferenceSet element  16 :  112
-  negatedDifferenceSet element  17 :  113
-  negatedDifferenceSet element  18 :  114
-  negatedDifferenceSet element  19 :  115
-  negatedDifferenceSet element  20 :  116
-  negatedDifferenceSet element  21 :  117
-  negatedDifferenceSet element  22 :  118
-  negatedDifferenceSet element  23 :  119
-  negatedDifferenceSet element  24 :  120
-  negatedDifferenceSet element  25 :  121
-  negatedDifferenceSet element  26 :  122
-  negatedDifferenceSet element  27 :  48
-  negatedDifferenceSet element  28 :  49
-  negatedDifferenceSet element  29 :  50
-  negatedDifferenceSet element  30 :  51
-  negatedDifferenceSet element  31 :  52
-  negatedDifferenceSet element  32 :  53
-  negatedDifferenceSet element  33 :  54
-  negatedDifferenceSet element  34 :  55
-  negatedDifferenceSet element  35 :  56
-  negatedDifferenceSet element  36 :  57
-  negatedDifferenceSet element  37 :  65
-  negatedDifferenceSet element  38 :  66
-  negatedDifferenceSet element  39 :  67
-  negatedDifferenceSet element  40 :  68
-  negatedDifferenceSet element  41 :  69
-  negatedDifferenceSet element  42 :  70
-  negatedDifferenceSet element  43 :  71
-  negatedDifferenceSet element  44 :  72
-  negatedDifferenceSet element  45 :  73
-  negatedDifferenceSet element  46 :  74
-  negatedDifferenceSet element  47 :  75
-  negatedDifferenceSet element  48 :  76
-  negatedDifferenceSet element  49 :  77
-  negatedDifferenceSet element  50 :  78
-  negatedDifferenceSet element  51 :  79
-  negatedDifferenceSet element  52 :  80
-  negatedDifferenceSet element  53 :  81
-  negatedDifferenceSet element  54 :  82
-  negatedDifferenceSet element  55 :  83
-  negatedDifferenceSet element  56 :  84
-  negatedDifferenceSet element  57 :  85
-  negatedDifferenceSet element  58 :  86
-  negatedDifferenceSet element  59 :  87
-  negatedDifferenceSet element  60 :  88
-  negatedDifferenceSet element  61 :  89
-  negatedDifferenceSet element  62 :  90
+  ---poolSet---
+  poolSet element  1 :  97
+  poolSet element  2 :  100
+  poolSet element  3 :  115
+  poolSet element  4 :  122
+  ---negatedPoolSet---
   ----------------------------------------------------
-  atom:  [^a-z]--[0-9]--[A-Z]
-  left atom:  [^a-z]
-  right atom:  [0-9]--[A-Z]
+  *****************************************************moving back to caller*****************************************************
+  localPoolSet.length:  0
+  localNegatedPoolSet.length:  0
+  atom:  [adsadasdz]&&[dasdasdz]&&[masdasdz]
+  left atom:  [adsadasdz]
+  right atom:  [dasdasdz]&&[masdasdz]
   yeah truning to end...
-  bottom: lLastParticleIndex:  19
-  going for next cycle... i:  20
+  bottom: lLastParticleIndex:  34
+  going for next cycle... i:  35
   -------------------------end-------------------------
   after i in neutral and cc set atom:  0
   leftSet.length:  0
   ---------------------matchNeutralizedCCAtoms---------------------
-  stringInBytes:  NEH2L
-  indexToStartMatch:  0
-  negation:  true
-  isFirstMatch:  false
-  ------------------------------------------
-  ---------------------matchNeutralizedCCAtoms---------------------
-  stringInBytes:  NEH2L
+  stringInBytes:  nehal
   indexToStartMatch:  0
   negation:  false
-  isFirstMatch:  false
+  isFirstMatch:  true
   ------------------------------------------
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  n
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  n
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  n
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  n
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  e
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  e
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  e
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  e
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  h
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  h
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  h
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
+  matchNeutralizedCCAtoms - stringToMatchWith:  h
   applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  applicant string length:  1
-  matchNeutralizedCCAtoms - stringToMatchWith:  N
-  j:  0
+  matchNeutralizedCCAtoms - stringToMatchWith:  a
+  j:  3
   stringToMatchWith length:  1
-  after evaluateSetOperationMatch: matchStartIndex:  0
-  after evaluateSetOperationMatch: matchEndIndex  :  0
-  matchStartIndex:  0
-  matchEndIndex:  0
-  matchStartIndex after boundary check:  0
-  matchEndIndex after boundary check:  0
+  after evaluateSetOperationMatch: matchStartIndex:  3
+  after evaluateSetOperationMatch: matchEndIndex  :  3
+  matchStartIndex:  3
+  matchEndIndex:  3
+  matchStartIndex after boundary check:  3
+  matchEndIndex after boundary check:  3
   yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  0
-  matchData.matchEndIndex at end:  0
+  matchData.firstIndex at end   :  3
+  matchData.matchEndIndex at end:  3
   fromGroup at end              :  false
   ------------------returnedData------------------
-  Pattern string         :  /[^[[^a-z]--[0-9]--[A-Z]]]/v
-  Original string        :  NEH2L
-  Matched string         :  N
-  Match start index      :  0
-  Match end index        :  0
+  Pattern string   :  /[[adsadasdz]&&[dasdasdz]&&[masdasdz]]/v
+  Original string  :  nehal
+  Matched string   :  a
+  Match start index:  3
+  Match end index  :  3
   ------------------------------------
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 21.02ms (12.53ms CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.72ms (5.31ms CPU time)
 
-Ran 1 test suite in 22.75ms (21.02ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 15.36ms (13.72ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

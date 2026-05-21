@@ -2223,9 +2223,7 @@ contract Stringray {
             return (matchStartIndex, matchEndIndex);
         }
 
-        if (
-            negatedPoolSet.length != poolSet.length
-        ) {
+        if (negatedPoolSet.length != poolSet.length) {
             ccLiterals = new bytes[](negatedPoolSet.length);
         }
 
@@ -2452,16 +2450,36 @@ contract Stringray {
             ) {
                 matchCCSetAtomsData.operationType = uint8(atom[matchCCSetAtomsData.lLastParticleIndex + 1]);
 
-                uint256[] memory localPoolSet = new uint256[](poolSet.length);
-                uint256[] memory localNegatedPoolSet = new uint256[](negatedPoolSet.length);
-                if (lastOperationType == 38 && matchCCSetAtomsData.operationType == 45 || lastOperationType == 45 && matchCCSetAtomsData.operationType == 38) {
-                    for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < localPoolSet.length; matchCCSetAtomsData.s++) {
-                        console2.log("current poolSet element ", matchCCSetAtomsData.s, ": ", poolSet[matchCCSetAtomsData.s]);
+                uint256[] memory localPoolSet;
+                uint256[] memory localNegatedPoolSet;
+                uint8 localOperationType;
+                if (
+                    lastOperationType == 38 && matchCCSetAtomsData.operationType == 45
+                        || (lastOperationType == 45 && matchCCSetAtomsData.operationType == 38)
+                ) {
+                    localPoolSet = new uint256[](poolSet.length);
+                    localNegatedPoolSet = new uint256[](negatedPoolSet.length);
+                    localOperationType = lastOperationType;
+                    console2.log(
+                        "operation type change causes entry to this block........................................................."
+                    );
+                    for (
+                        matchCCSetAtomsData.s = 0;
+                        matchCCSetAtomsData.s < localPoolSet.length;
+                        matchCCSetAtomsData.s++
+                    ) {
+                        console2.log(
+                            "current poolSet element ", matchCCSetAtomsData.s, ": ", poolSet[matchCCSetAtomsData.s]
+                        );
                         localPoolSet[matchCCSetAtomsData.s] = poolSet[matchCCSetAtomsData.s];
                     }
                     delete poolSet;
 
-                    for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < localNegatedPoolSet.length; matchCCSetAtomsData.s++) {
+                    for (
+                        matchCCSetAtomsData.s = 0;
+                        matchCCSetAtomsData.s < localNegatedPoolSet.length;
+                        matchCCSetAtomsData.s++
+                    ) {
                         console2.log(
                             "negated current left element ",
                             matchCCSetAtomsData.s,
@@ -2537,17 +2555,46 @@ contract Stringray {
 
                 updateSets(lastOperationType, isRightAtom);
 
-                console2.log("*****************************************************moving back to caller*****************************************************");
+                console2.log(
+                    "*****************************************************moving back to caller*****************************************************"
+                );
 
-                
                 console2.log("localPoolSet.length: ", localPoolSet.length);
                 console2.log("localNegatedPoolSet.length: ", localNegatedPoolSet.length);
 
-                if (localPoolSet.length > 0) {
-                    // need to replace current pool set elements to the left set & same for negated ones
-                    // and replace local pool set to pool set as well
-                    // after that, update the sets once again
-                    uint256[] memory localPoolSet = new uint256[](poolSet.length);
+                if (localPoolSet.length > 0 || localNegatedPoolSet.length > 0) {
+                    for (matchCCSetAtomsData.s = 0; matchCCSetAtomsData.s < poolSet.length; matchCCSetAtomsData.s++) {
+                        leftSet.push(poolSet[matchCCSetAtomsData.s]);
+                    }
+
+                    for (
+                        matchCCSetAtomsData.s = 0;
+                        matchCCSetAtomsData.s < negatedPoolSet.length;
+                        matchCCSetAtomsData.s++
+                    ) {
+                        negatedLeftSet.push(negatedPoolSet[matchCCSetAtomsData.s]);
+                    }
+
+                    delete poolSet;
+                    delete negatedPoolSet;
+
+                    for (
+                        matchCCSetAtomsData.s = 0;
+                        matchCCSetAtomsData.s < localPoolSet.length;
+                        matchCCSetAtomsData.s++
+                    ) {
+                        poolSet.push(localPoolSet[matchCCSetAtomsData.s]);
+                    }
+
+                    for (
+                        matchCCSetAtomsData.s = 0;
+                        matchCCSetAtomsData.s < localNegatedPoolSet.length;
+                        matchCCSetAtomsData.s++
+                    ) {
+                        negatedPoolSet.push(localNegatedPoolSet[matchCCSetAtomsData.s]);
+                    }
+
+                    updateSets(localOperationType, true);
                 }
 
                 // uint256[] memory localRightSet = new uint256[](rightSet.length);
@@ -2713,23 +2760,19 @@ contract Stringray {
         console2.log("negatedPoolSet.length: ", negatedPoolSet.length);
         console2.log("isRightAtom: ", isRightAtom);
         console2.log("yeahhhhh it's time to perform set operations...................................................");
-        
-        if (poolSet.length == 0 && negatedPoolSet.length == 0 && leftSet.length > 0 && !isRightAtom)
-        {
+
+        if (poolSet.length == 0 && negatedPoolSet.length == 0 && leftSet.length > 0 && !isRightAtom) {
             for (i = 0; i < leftSet.length; i++) {
                 poolSet.push(leftSet[i]);
             }
-        } else if (
-            poolSet.length == 0 && negatedPoolSet.length == 0 && negatedLeftSet.length > 0
-                && !isRightAtom
-        ) {
+        } else if (poolSet.length == 0 && negatedPoolSet.length == 0 && negatedLeftSet.length > 0 && !isRightAtom) {
             for (i = 0; i < negatedLeftSet.length; i++) {
                 negatedPoolSet.push(negatedLeftSet[i]);
             }
         }
 
         if (operationTypeSymbol == AMPERSAND_SIGN && isRightAtom) {
-             if (negatedPoolSet.length > 0 && negatedLeftSet.length > 0) {
+            if (negatedPoolSet.length > 0 && negatedLeftSet.length > 0) {
                 // [^abcd]&&[^1234] => [efgh0123456789]&&[5678abcdefgh] => [efgh5678]
                 // @inference: everything except elements in both negated sets
                 // @conclusion: negated set with elements [abcd1234]
@@ -2965,7 +3008,7 @@ contract Stringray {
         for (i = 0; i < negatedPoolSet.length; i++) {
             console2.log("negatedPoolSet element ", i + 1, ": ", negatedPoolSet[i]);
         }
-        
+
         console2.log("----------------------------------------------------");
     }
 
