@@ -2464,6 +2464,11 @@ contract Stringray {
                     matchCCSetAtomsData.operationType
                 );
 
+                if (lastOperationType == 38 && matchCCSetAtomsData.operationType == 45 || lastOperationType == 45 && matchCCSetAtomsData.operationType == 38) {
+                    // @BUG: logic isn't not compliant with the case when operation changes...
+                    console2.log("operation changed need to choose different path way...................................................");
+                }
+
                 console2.log("leftSet.length             : ", leftSet.length);
                 console2.log("negatedLeftSet.length      : ", negatedLeftSet.length);
 
