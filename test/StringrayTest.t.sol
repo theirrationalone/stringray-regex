@@ -31137,7 +31137,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchAlternationAnchorCase1() public {
-        string memory target = unicode"cat";
+        string memory target = unicode"cadocardogrind";
         string memory pattern = unicode"/cat|dog/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);

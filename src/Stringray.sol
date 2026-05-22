@@ -971,8 +971,8 @@ contract Stringray {
 
         bytes memory stringInBytes = bytes(_proposedString);
         bytes memory patternInBytes = bytes(_pattern);
-        int256 matchStartIndex;
-        int256 matchEndIndex;
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
         string memory matchedString;
 
         if (slashPairIndex > -1) {
@@ -981,12 +981,58 @@ contract Stringray {
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false, false, -1, -1);
             console2.log("nuclear fission was successful");
-            (matchStartIndex, matchEndIndex) =
-                matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
+            
+            int256 lastAlternationOperatorIndex = -1;
+            for (uint256 i; i < allAtoms.length; i++) {
+                if (allAtoms[i].atomType == ALTERNATION_OPERATOR) {
+                    AtomTrait[] memory atoms;
+                    if (lastAlternationOperatorIndex <= -1) {
+                        atoms = new AtomTrait[](i);
+                    } else {
+                        atoms = new AtomTrait[](i - uint256(lastAlternationOperatorIndex) - 1);
+                    }
+                    
+                    
+                    for (uint256 j; j < atoms.length; j++) {
+                        atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
+                    }
 
-            if (matchStartIndex > -1 && matchEndIndex > -1) {
-                matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                    (matchStartIndex, matchEndIndex) =
+                        matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
+                        
+                    if (matchStartIndex > -1 && matchEndIndex > -1) {
+                        matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                        break;
+                    }
+
+                    lastAlternationOperatorIndex = int256(i);
+                }
             }
+
+            if (matchStartIndex == -1) {
+                if (lastAlternationOperatorIndex <= -1) {
+                    (matchStartIndex, matchEndIndex) =
+                            matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
+                            
+                    if (matchStartIndex > -1 && matchEndIndex > -1) {
+                        matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                    }
+                } else {
+                    AtomTrait[] memory atoms = new AtomTrait[](allAtoms.length - uint256(lastAlternationOperatorIndex) - 1);
+
+                    for (uint256 j; j < atoms.length; j++) {
+                        atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
+                    }
+
+                    (matchStartIndex, matchEndIndex) =
+                        matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
+                        
+                    if (matchStartIndex > -1 && matchEndIndex > -1) {
+                        matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                    }
+                }
+            }
+
         }
 
         return ReturnData({
