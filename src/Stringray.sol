@@ -1037,7 +1037,6 @@ contract Stringray {
                     }
                 }
             }
-
         }
 
         return ReturnData({
@@ -1058,6 +1057,7 @@ contract Stringray {
         bool specialFlag;
         uint256 i;
     }
+    uint256 groupAlternationMatchCount;
 
     function matchPattern(
         AtomTrait[] memory atoms,
@@ -1278,6 +1278,8 @@ contract Stringray {
                 int256 prevMatchEndIndex = matchData.matchEndIndex;
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
+
+                // /gr(a|e)y/
 
                 if (matchData.matchEndIndex == -2) {
                     if (prevMatchEndIndex == -1) {
@@ -2044,7 +2046,7 @@ contract Stringray {
         return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
     }
 
-    function getAtomSlice(bytes memory atom) private returns (bytes memory, bytes memory) {
+    function getAtomSlice(bytes memory atom) private pure returns (bytes memory, bytes memory) {
         int256 groupNameTrimEndIndex = -1;
         bytes memory groupName;
 
