@@ -1024,11 +1024,16 @@ contract Stringray {
                         atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
                     }
 
-                    (matchStartIndex, matchEndIndex) =
-                        matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
-                        
-                    if (matchStartIndex > -1 && matchEndIndex > -1) {
-                        matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                    if (atoms.length == 0) {
+                        matchStartIndex = 0;
+                        matchEndIndex = 0;
+                    } else {
+                        (matchStartIndex, matchEndIndex) =
+                            matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
+
+                        if (matchStartIndex > -1 && matchEndIndex > -1) {
+                            matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                        }
                     }
                 }
             }
