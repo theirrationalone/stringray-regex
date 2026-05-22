@@ -2000,114 +2000,113 @@ contract Stringray {
                 matchGroupData.groupNum
             );
 
-            console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
-            console2.log("matchEndIndex  : ", matchGroupData.matchEndIndex);
-            console2.log("groupsCounter  : ", groupsCounter);
-            console2.log("groupNum       : ", matchGroupData.groupNum);
-            console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
-            console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
-
-            if (matchGroupData.matchStartIndex == -1) {
-                if (matchGroupData.isNegativeLookAhead) {
-                    return (matchGroupData.matchStartIndex, -2);
-                }
-
-                if (matchGroupData.isNegativeLookBehind) {
-                    if (subAtoms[matchGroupData.k].length > 0) {
-                        console2.log("returning from negativeLookBehind");
-                        console2.log("atom length: ", subAtoms[matchGroupData.k].length);
-                        console2.log("indexToStartMatch: ", indexToStartMatch);
-                        return (-3, int256(indexToStartMatch));
-                    } else {
-                        return (-5, matchGroupData.matchEndIndex);
-                    }
-                }
-                return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
-            }
-
-            if (matchGroupData.isNegativeLookAhead) {
-                console2.log("returning right one");
-                return (-1, matchGroupData.matchEndIndex);
-            }
-
-            if (matchGroupData.isPositiveLookAhead) {
-                return (matchGroupData.matchStartIndex, -2);
-            }
-
-            if (matchGroupData.isPositiveLookBehind) {
-                return (-3, matchGroupData.matchEndIndex);
-            }
-
-            if (matchGroupData.isNegativeLookBehind) {
-                console2.log("returning from negativeLookBehind when atom matched");
-                return (-1, matchGroupData.matchEndIndex + 1);
-            }
-
-            if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
-                uint256 subAtomStartIndex;
-                int256 subAtomEndIndex = -1;
-                for (uint256 i; i < subAtoms[matchGroupData.k].length;) {
-                    subAtomStartIndex = i;
-                    (, subAtomEndIndex) =
-                        collectGroupSubAtom(subAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
-                    if (subAtomEndIndex == -1) {
-                        break;
-                    }
-                    i = uint256(subAtomEndIndex) + 1;
-                }
-
-                if (
-                    subAtomEndIndex > -1 && uint8(subAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
-                        && uint8(subAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
-                ) {
-                    if (uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
-                        if (
-                            uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
-                                || uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
-                        ) {
-                            matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
-                        }
-
-                        // @info: illogical
-                        // if (
-                        //     uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
-                        //         && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
-                        //             || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
-                        // ) {
-                        //     matchGroupData.matchEndIndex = lastMatchEndIndex;
-                        // }
-                    }
-                }
-            }
-
-            bytes memory matchedString =
-                trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
-
-            console2.log("pushing to group matched data...");
-            console2.log("atom: ", string(subAtoms[matchGroupData.k]));
-            grpMatchedData.push(
-                GroupMatchedData({
-                    groupPatternString: string(subAtoms[matchGroupData.k]),
-                    groupMatchedString: string(matchedString),
-                    groupMatchStartIndex: matchGroupData.matchStartIndex,
-                    groupMatchEndIndex: matchGroupData.matchEndIndex,
-                    groupNum: matchGroupData.groupNum
-                })
-            );
-
-            if (matchGroupData.groupName.length > 0) {
-                groupNames.push(GroupNames({groupName: matchGroupData.groupName, matchedString: matchedString}));
-            }
-
-            seelAllMatchedGroups();
-            console2.log("--------------------matchGroupEnd--------------------");
-
             if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
                 break;
             }
 
             matchGroupData.k++;
         }
+
+        console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
+        console2.log("matchEndIndex  : ", matchGroupData.matchEndIndex);
+        console2.log("groupsCounter  : ", groupsCounter);
+        console2.log("groupNum       : ", matchGroupData.groupNum);
+        console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
+        console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
+
+        if (matchGroupData.matchStartIndex == -1) {
+            if (matchGroupData.isNegativeLookAhead) {
+                return (matchGroupData.matchStartIndex, -2);
+            }
+
+            if (matchGroupData.isNegativeLookBehind) {
+                if (subAtoms[matchGroupData.k].length > 0) {
+                    console2.log("returning from negativeLookBehind");
+                    console2.log("atom length: ", subAtoms[matchGroupData.k].length);
+                    console2.log("indexToStartMatch: ", indexToStartMatch);
+                    return (-3, int256(indexToStartMatch));
+                } else {
+                    return (-5, matchGroupData.matchEndIndex);
+                }
+            }
+            return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
+        }
+
+        if (matchGroupData.isNegativeLookAhead) {
+            console2.log("returning right one");
+            return (-1, matchGroupData.matchEndIndex);
+        }
+
+        if (matchGroupData.isPositiveLookAhead) {
+            return (matchGroupData.matchStartIndex, -2);
+        }
+
+        if (matchGroupData.isPositiveLookBehind) {
+            return (-3, matchGroupData.matchEndIndex);
+        }
+
+        if (matchGroupData.isNegativeLookBehind) {
+            console2.log("returning from negativeLookBehind when atom matched");
+            return (-1, matchGroupData.matchEndIndex + 1);
+        }
+
+        if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
+            uint256 subAtomStartIndex;
+            int256 subAtomEndIndex = -1;
+            for (uint256 i; i < subAtoms[matchGroupData.k].length;) {
+                subAtomStartIndex = i;
+                (, subAtomEndIndex) = collectGroupSubAtom(subAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
+                if (subAtomEndIndex == -1) {
+                    break;
+                }
+                i = uint256(subAtomEndIndex) + 1;
+            }
+
+            if (
+                subAtomEndIndex > -1 && uint8(subAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
+                    && uint8(subAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
+            ) {
+                if (uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
+                    if (
+                        uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
+                            || uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
+                    ) {
+                        matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
+                    }
+
+                    // @info: illogical
+                    // if (
+                    //     uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
+                    //         && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
+                    //             || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
+                    // ) {
+                    //     matchGroupData.matchEndIndex = lastMatchEndIndex;
+                    // }
+                }
+            }
+        }
+
+        bytes memory matchedString =
+            trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
+
+        console2.log("pushing to group matched data...");
+        console2.log("atom: ", string(subAtoms[matchGroupData.k]));
+        grpMatchedData.push(
+            GroupMatchedData({
+                groupPatternString: string(subAtoms[matchGroupData.k]),
+                groupMatchedString: string(matchedString),
+                groupMatchStartIndex: matchGroupData.matchStartIndex,
+                groupMatchEndIndex: matchGroupData.matchEndIndex,
+                groupNum: matchGroupData.groupNum
+            })
+        );
+
+        if (matchGroupData.groupName.length > 0) {
+            groupNames.push(GroupNames({groupName: matchGroupData.groupName, matchedString: matchedString}));
+        }
+
+        seelAllMatchedGroups();
+        console2.log("--------------------matchGroupEnd--------------------");
 
         return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
     }
