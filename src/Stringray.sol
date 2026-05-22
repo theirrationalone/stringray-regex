@@ -1418,10 +1418,6 @@ contract Stringray {
                 continue;
             }
 
-            if (matchData.i + 1 < atoms.length)
-
-            atoms[matchData.i]
-
             matchData.specialFlag = false;
             indexToStartMatch =
                 matchData.matchEndIndex > -1 ? uint256(matchData.matchEndIndex) + 1 : uint256(matchData.matchEndIndex);
@@ -1429,6 +1425,10 @@ contract Stringray {
         }
 
         if (matchData.i < atoms.length) {
+            console2.log("new atom: ", string(atoms[matchData.i].atom));
+            printAtomType(atoms[matchData.i].atomType);
+            console2.log("matchData.matchStartIndex: ", matchData.matchStartIndex);
+            console2.log("matchData.matchEndIndex  : ", matchData.matchEndIndex);
             if (matchData.i + 1 <= atoms.length && atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
                     atoms,
@@ -4738,8 +4738,12 @@ contract Stringray {
 
         if (!flag) {
             if (uint8(targetChar) == VERTICAL_BAR) {
+                if (fromCharacterClass) {
+                    atomType = LITERAL_ATOM;
+                } else {
+                    atomType = ALTERNATION_OPERATOR;
+                }
                 flag = true;
-                atomType = ALTERNATION_OPERATOR;
                 lastMatchedParticleIndex = _currentParticleIdx;
             }
         }
