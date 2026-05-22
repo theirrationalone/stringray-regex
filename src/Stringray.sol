@@ -2093,7 +2093,7 @@ contract Stringray {
         console2.log("atom: ", string(subAtoms[matchGroupData.k]));
         grpMatchedData.push(
             GroupMatchedData({
-                groupPatternString: string(subAtoms[matchGroupData.k]),
+                groupPatternString: string(atom),
                 groupMatchedString: string(matchedString),
                 groupMatchStartIndex: matchGroupData.matchStartIndex,
                 groupMatchEndIndex: matchGroupData.matchEndIndex,

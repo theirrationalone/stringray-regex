@@ -21165,5 +21165,26 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000019", () => {
+    const target = "abd";
+    let regex = /a(b|c)d/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000020", () => {
+    const target = "acd";
+    let regex = /a(b|c)d/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000021", () => {
+    const target = "ab";
+    let regex = /(ab|a)b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
