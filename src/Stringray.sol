@@ -1431,6 +1431,7 @@ contract Stringray {
             }
 
             if (matchData.matchStartIndex == -1) {
+                uint256 indexToStartMatchForAlternation = indexToStartMatch;
                 if (matchData.specialFlag) {
                     indexToStartMatch = uint256(matchData.matchEndIndex + 1);
                     matchData.specialFlag = false;
@@ -1465,8 +1466,15 @@ contract Stringray {
 
                 matchData.i = 0;
 
+                console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
+                console2.log("subAtoms.length: ", subAtoms.length);
                 if (matchData.lastAlternationQueueIndex > 0) {
-                    indexToStartMatch = 0;
+                    if (matchData.lastAlternationQueueIndex == type(uint256).max) {
+                        indexToStartMatch = indexToStartMatchForAlternation + 1;
+                        matchData.lastAlternationQueueIndex = subAtoms.length;
+                    } else {
+                        indexToStartMatch = 0;
+                    }
                     if (matchData.i >= 1) {
                         matchData.i -= 1;
                     }
@@ -2023,6 +2031,10 @@ contract Stringray {
                 break;
             }
 
+            if (matchGroupData.matchStartIndex == -1 && lastAlternationQueueIndex + 1 == subAtoms.length) {
+                return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
+            }
+
             matchGroupData.k++;
         }
 
@@ -2032,6 +2044,7 @@ contract Stringray {
         console2.log("groupNum       : ", matchGroupData.groupNum);
         console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
         console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
+        console2.log("lastAlternationQueueIndex : ", lastAlternationQueueIndex);
 
         if (matchGroupData.matchStartIndex == -1) {
             if (matchGroupData.isNegativeLookAhead) {
