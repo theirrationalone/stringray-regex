@@ -981,6 +981,7 @@ contract Stringray {
 
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false, false, -1, -1);
             console2.log("nuclear fission was successful");
+            seeAllAtoms();
 
             int256 lastAlternationOperatorIndex = -1;
             for (uint256 i; i < allAtoms.length; i++) {
@@ -1466,10 +1467,14 @@ contract Stringray {
 
                 matchData.i = 0;
 
+                groupsCounter = 0;
+                delete grpMatchedData;
+                delete groupNames;
+
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
                 console2.log("subAtoms.length: ", subAtoms.length);
                 if (matchData.lastAlternationQueueIndex > 0) {
-                    if (matchData.lastAlternationQueueIndex == type(uint256).max) {
+                    if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
                         indexToStartMatch = indexToStartMatchForAlternation + 1;
                         matchData.lastAlternationQueueIndex = subAtoms.length;
                     } else {
@@ -1480,10 +1485,6 @@ contract Stringray {
                     }
                     continue;
                 }
-
-                groupsCounter = 0;
-                delete grpMatchedData;
-                delete groupNames;
                 console2.log("resetted everything...");
                 continue;
             }

@@ -32011,7 +32011,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchAlternationAnchorCase31() public {
-        string memory target = unicode"abzbcb";
+        string memory target = unicode"abzbqb";
         string memory pattern = unicode"/(a|b)c/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
