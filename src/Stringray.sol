@@ -1464,16 +1464,19 @@ contract Stringray {
                 matchData.matchEndIndex = -1;
 
                 matchData.i = 0;
-                groupsCounter = 0;
-                delete grpMatchedData;
-                delete groupNames;
-                console2.log("resetted everything...");
+
                 if (matchData.lastAlternationQueueIndex > 0) {
                     indexToStartMatch = 0;
                     if (matchData.i >= 1) {
                         matchData.i -= 1;
                     }
+                    continue;
                 }
+
+                groupsCounter = 0;
+                delete grpMatchedData;
+                delete groupNames;
+                console2.log("resetted everything...");
                 continue;
             }
 
@@ -1608,8 +1611,11 @@ contract Stringray {
             }
         }
 
-        if (indexToStartMatch + 1 == int256(stringInBytes.length)) {
-            return (indexToStartMatch, indexToStartMatch);
+        if (indexToStartMatch + 1 >= int256(stringInBytes.length)) {
+            if (stringInBytes.length >= 1) {
+                return (int256(stringInBytes.length - 1), int256(stringInBytes.length - 1));
+            }
+            return (int256(stringInBytes.length), int256(stringInBytes.length));
         }
 
         if (hasFlag(patternFlags, "m")) {
@@ -2278,6 +2284,8 @@ contract Stringray {
                 matchGroupData.firstIndex = matchGroupData.matchStartIndex;
             }
 
+            // BUG🪱: incrementing 1 when indexToStartMatch is the last index breaks end enchor logic.
+            // Status: Fixed✅
             indexToStartMatch = matchGroupData.matchEndIndex > -1
                 ? uint256(matchGroupData.matchEndIndex) + 1
                 : uint256(matchGroupData.matchEndIndex);
