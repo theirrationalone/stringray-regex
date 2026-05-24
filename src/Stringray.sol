@@ -1463,10 +1463,28 @@ contract Stringray {
                     }
                 }
 
+                groupsCounter = 0;
+                delete grpMatchedData;
+                delete groupNames;
+
+                if (matchData.lastAlternationQueueIndex > 0) {
+                    if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
+                        indexToStartMatch = indexToStartMatchForAlternation + 1;
+                        matchData.lastAlternationQueueIndex = subAtoms.length;
+                    } else {
+                        if(isFirstMatch) {
+                            indexToStartMatch = 0;
+                        } else {
+                            indexToStartMatch = indexToStartMatchForAlternation;
+                        }
+                    }
+                    if (matchData.i >= 1) {
+                        matchData.i -= 1;
+                    }
+                    continue;
+                }
+
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
-                    groupsCounter = 0;
-                    delete grpMatchedData;
-                    delete groupNames;
                     console2.log("resetted groups counter and groups data");
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
@@ -1481,24 +1499,13 @@ contract Stringray {
 
                 matchData.i = 0;
 
-                groupsCounter = 0;
-                delete grpMatchedData;
-                delete groupNames;
+                // groupsCounter = 0;
+                // delete grpMatchedData;
+                // delete groupNames;
 
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
                 console2.log("subAtoms.length: ", subAtoms.length);
-                if (matchData.lastAlternationQueueIndex > 0) {
-                    if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
-                        indexToStartMatch = indexToStartMatchForAlternation + 1;
-                        matchData.lastAlternationQueueIndex = subAtoms.length;
-                    } else {
-                        indexToStartMatch = 0;
-                    }
-                    if (matchData.i >= 1) {
-                        matchData.i -= 1;
-                    }
-                    continue;
-                }
+                
                 console2.log("resetted everything...");
                 continue;
             }
@@ -1932,10 +1939,13 @@ contract Stringray {
         uint256 k;
         uint256 openParanthesisCount;
         uint256 closeParanthesisCount;
+        uint256 lastKnownIndexToStartMatch;
+        bytes subAtom;
     }
 
     bool isFirstTimenNegativeLookBehind = true;
     bytes[] private subAtoms;
+
 
     function matchGroup(
         bytes memory atom,
@@ -1956,6 +1966,8 @@ contract Stringray {
 
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
+        matchGroupData.lastKnownIndexToStartMatch = indexToStartMatch;
+        delete subAtoms;
 
         groupsCounter += 1;
         matchGroupData.groupNum = groupsCounter;
@@ -1982,7 +1994,7 @@ contract Stringray {
         console2.log("ATOM: ", string(atom));
 
         matchGroupData.lastAlternationOperatorIndex = -1;
-        bytes memory subAtom; // atoms
+        // bytes memory matchGroupData.subAtom; // atoms
         matchGroupData.openParanthesisCount = 0;
         matchGroupData.closeParanthesisCount = 0;
         for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
@@ -1994,10 +2006,10 @@ contract Stringray {
 
             if (uint8(atom[matchGroupData.j]) == VERTICAL_BAR && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount) {
                 console2.log("pipe found");
-                subAtom = hex""; // atoms
+                matchGroupData.subAtom = hex""; // atoms
                 if (matchGroupData.lastAlternationOperatorIndex <= -1) {
                     for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
-                        subAtom = abi.encodePacked(subAtom, atom[matchGroupData.k]);
+                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
                     }
                 } else {
                     for (
@@ -2005,11 +2017,11 @@ contract Stringray {
                         matchGroupData.k < matchGroupData.j;
                         matchGroupData.k++
                     ) {
-                        subAtom = abi.encodePacked(subAtom, atom[matchGroupData.k]);
+                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
                     }
                 }
 
-                subAtoms.push(subAtom);
+                subAtoms.push(matchGroupData.subAtom);
 
                 matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
             }
@@ -2018,17 +2030,17 @@ contract Stringray {
         if (matchGroupData.lastAlternationOperatorIndex <= -1) {
             subAtoms.push(atom);
         } else {
-            subAtom = hex""; // atoms
+            matchGroupData.subAtom = hex""; // atoms
             for (
                 matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
                 matchGroupData.k < atom.length;
                 matchGroupData.k++
             ) {
-                subAtom = abi.encodePacked(subAtom, atom[matchGroupData.k]);
+                matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
             }
 
-            if (subAtom.length > 0) {
-                subAtoms.push(subAtom);
+            if (matchGroupData.subAtom.length > 0) {
+                subAtoms.push(matchGroupData.subAtom);
             }
         }
 
@@ -2038,8 +2050,6 @@ contract Stringray {
         for (matchGroupData.i = 0; matchGroupData.i < subAtoms.length; matchGroupData.i++) {
             metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
         }
-
-        delete subAtoms;
 
         matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length  ? 0 : lastAlternationQueueIndex;
         console2.log("k: ", matchGroupData.k);
@@ -2057,8 +2067,8 @@ contract Stringray {
             );
 
             console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
-            console2.log("subatom at index ", 1, " is: ", string(metaSubAtoms[1]));
             console2.log("came back to match alternation....");
+
 
             if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
                 if (metaSubAtoms.length > 1) {
@@ -2067,8 +2077,19 @@ contract Stringray {
                 break;
             }
 
-            if (matchGroupData.matchStartIndex == -1 && lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
-                return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
+            if (matchGroupData.matchStartIndex == -1 && metaSubAtoms.length > 1) {
+                if (lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
+                    return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
+                }
+
+                if (metaSubAtoms[matchGroupData.k].length > 1 && indexToStartMatch + 1 < stringInBytes.length) {
+                    indexToStartMatch = matchGroupData.matchEndIndex > -1 ? uint256(matchGroupData.matchEndIndex) : indexToStartMatch + 1;
+                    continue;
+                } else {
+                    if (indexToStartMatch + 1 >= stringInBytes.length) {
+                        indexToStartMatch = matchGroupData.lastKnownIndexToStartMatch;
+                    }
+                }
             }
 
             matchGroupData.k++;
