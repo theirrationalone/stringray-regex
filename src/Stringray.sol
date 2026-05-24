@@ -1009,7 +1009,7 @@ contract Stringray {
                 }
             }
 
-            if (matchStartIndex == -1) {
+            if (matchStartIndex == -1 || (matchStartIndex == 0 && matchEndIndex == -1)) {
                 if (lastAlternationOperatorIndex <= -1) {
                     (matchStartIndex, matchEndIndex) =
                         matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
@@ -1021,6 +1021,8 @@ contract Stringray {
                     AtomTrait[] memory atoms =
                         new AtomTrait[](allAtoms.length - uint256(lastAlternationOperatorIndex) - 1);
 
+                    console2.log("atoms.length: ", atoms.length);
+
                     for (uint256 j; j < atoms.length; j++) {
                         atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
                     }
@@ -1029,11 +1031,23 @@ contract Stringray {
                         matchStartIndex = 0;
                         matchEndIndex = 0;
                     } else {
+                        bool emptyMatchBool;
+                        if (matchStartIndex == 0 && matchEndIndex == -1) {
+                            if (lastAlternationOperatorIndex == 0 || (lastAlternationOperatorIndex > 0 && allAtoms[uint256(lastAlternationOperatorIndex) - 1].atomType == ALTERNATION_OPERATOR)) {
+                                emptyMatchBool = true;
+                            }
+                        }
+
                         (matchStartIndex, matchEndIndex) =
                             matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
 
                         if (matchStartIndex > -1 && matchEndIndex > -1) {
                             matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
+                        } else {
+                            if (emptyMatchBool) {
+                                matchStartIndex = 0;
+                                matchEndIndex = 0;
+                            }
                         }
                     }
                 }
