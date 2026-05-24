@@ -1926,8 +1926,12 @@ contract Stringray {
         bytes groupName;
         int256 matchStartIndex;
         int256 matchEndIndex;
+        int256 lastAlternationOperatorIndex;
+        uint256 i;
         uint256 j;
         uint256 k;
+        uint256 openParanthesisCount;
+        uint256 closeParanthesisCount;
     }
 
     bool isFirstTimenNegativeLookBehind = true;
@@ -1949,7 +1953,6 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("groupsCounter: ", groupsCounter);
-        delete subAtoms;
 
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
@@ -1978,21 +1981,27 @@ contract Stringray {
 
         console2.log("ATOM: ", string(atom));
 
-        // @BUG: Doesn't trim nested alternation branches with in care.
-
-        int256 lastAlternationOperatorIndex = -1;
+        matchGroupData.lastAlternationOperatorIndex = -1;
         bytes memory subAtom; // atoms
+        matchGroupData.openParanthesisCount = 0;
+        matchGroupData.closeParanthesisCount = 0;
         for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
-            if (uint8(atom[matchGroupData.j]) == VERTICAL_BAR) {
+            if (uint8(atom[matchGroupData.j]) == OPEN_PARANTHESIS) {
+                matchGroupData.openParanthesisCount++;
+            } else if (uint8(atom[matchGroupData.j]) == CLOSE_PARANTHESIS) {
+                matchGroupData.closeParanthesisCount++;
+            }
+
+            if (uint8(atom[matchGroupData.j]) == VERTICAL_BAR && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount) {
                 console2.log("pipe found");
                 subAtom = hex""; // atoms
-                if (lastAlternationOperatorIndex <= -1) {
+                if (matchGroupData.lastAlternationOperatorIndex <= -1) {
                     for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
                         subAtom = abi.encodePacked(subAtom, atom[matchGroupData.k]);
                     }
                 } else {
                     for (
-                        matchGroupData.k = uint256(lastAlternationOperatorIndex) + 1;
+                        matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
                         matchGroupData.k < matchGroupData.j;
                         matchGroupData.k++
                     ) {
@@ -2002,16 +2011,16 @@ contract Stringray {
 
                 subAtoms.push(subAtom);
 
-                lastAlternationOperatorIndex = int256(matchGroupData.j);
+                matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
             }
         }
 
-        if (lastAlternationOperatorIndex <= -1) {
+        if (matchGroupData.lastAlternationOperatorIndex <= -1) {
             subAtoms.push(atom);
         } else {
             subAtom = hex""; // atoms
             for (
-                matchGroupData.k = uint256(lastAlternationOperatorIndex) + 1;
+                matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
                 matchGroupData.k < atom.length;
                 matchGroupData.k++
             ) {
@@ -2025,15 +2034,21 @@ contract Stringray {
 
         console2.log("-------------------------------------------------------------------------Alternation-------------------------------------------------------------------------");
         console2.log("subAtoms.length: ", subAtoms.length);
+        bytes[] memory metaSubAtoms = new bytes[](subAtoms.length);
+        for (matchGroupData.i = 0; matchGroupData.i < subAtoms.length; matchGroupData.i++) {
+            metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
+        }
 
-        matchGroupData.k = lastAlternationQueueIndex == subAtoms.length  ? 0 : lastAlternationQueueIndex;
+        delete subAtoms;
+
+        matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length  ? 0 : lastAlternationQueueIndex;
         console2.log("k: ", matchGroupData.k);
         console2.log("--------------------------------------------------------------------------------------------------------------------------------------------------");
-        while (matchGroupData.k < subAtoms.length) {
+        while (matchGroupData.k < metaSubAtoms.length) {
             console2.log("starting matching....");
-            console2.log("subatom at index ", matchGroupData.k, " is: ", string(subAtoms[matchGroupData.k]));
+            console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
             (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
-                subAtoms[matchGroupData.k],
+                metaSubAtoms[matchGroupData.k],
                 stringInBytes,
                 indexToStartMatch,
                 isFirstMatch,
@@ -2041,14 +2056,18 @@ contract Stringray {
                 matchGroupData.groupNum
             );
 
+            console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
+            console2.log("subatom at index ", 1, " is: ", string(metaSubAtoms[1]));
+            console2.log("came back to match alternation....");
+
             if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
-                if (subAtoms.length > 1) {
+                if (metaSubAtoms.length > 1) {
                     lastAlternationQueueIndex = matchGroupData.k + 1;
                 }
                 break;
             }
 
-            if (matchGroupData.matchStartIndex == -1 && lastAlternationQueueIndex + 1 == subAtoms.length) {
+            if (matchGroupData.matchStartIndex == -1 && lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
                 return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
             }
 
@@ -2069,9 +2088,9 @@ contract Stringray {
             }
 
             if (matchGroupData.isNegativeLookBehind) {
-                if (subAtoms[matchGroupData.k].length > 0) {
+                if (metaSubAtoms[matchGroupData.k].length > 0) {
                     console2.log("returning from negativeLookBehind");
-                    console2.log("atom length: ", subAtoms[matchGroupData.k].length);
+                    console2.log("atom length: ", metaSubAtoms[matchGroupData.k].length);
                     console2.log("indexToStartMatch: ", indexToStartMatch);
                     return (-3, int256(indexToStartMatch), 0);
                 } else {
@@ -2102,9 +2121,9 @@ contract Stringray {
         if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
             uint256 subAtomStartIndex;
             int256 subAtomEndIndex = -1;
-            for (uint256 i; i < subAtoms[matchGroupData.k].length;) {
+            for (uint256 i; i < metaSubAtoms[matchGroupData.k].length;) {
                 subAtomStartIndex = i;
-                (, subAtomEndIndex) = collectGroupSubAtom(subAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
+                (, subAtomEndIndex) = collectGroupSubAtom(metaSubAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
                 if (subAtomEndIndex == -1) {
                     break;
                 }
@@ -2112,13 +2131,13 @@ contract Stringray {
             }
 
             if (
-                subAtomEndIndex > -1 && uint8(subAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
-                    && uint8(subAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
+                subAtomEndIndex > -1 && uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
+                    && uint8(metaSubAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
             ) {
-                if (uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
+                if (uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
                     if (
-                        uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
-                            || uint8(subAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
+                        uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
+                            || uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
                     ) {
                         matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
                     }
@@ -2139,7 +2158,7 @@ contract Stringray {
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
         console2.log("pushing to group matched data...");
-        console2.log("atom: ", string(subAtoms[matchGroupData.k]));
+        console2.log("atom: ", string(metaSubAtoms[matchGroupData.k]));
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(atom),
