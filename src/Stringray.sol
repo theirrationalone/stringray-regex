@@ -1978,6 +1978,8 @@ contract Stringray {
 
         console2.log("ATOM: ", string(atom));
 
+        // @BUG: Doesn't trim nested alternation branches with in care.
+
         int256 lastAlternationOperatorIndex = -1;
         bytes memory subAtom; // atoms
         for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
