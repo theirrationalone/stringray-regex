@@ -21235,5 +21235,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000027", () => {
+    const target = "color-catish_blue_shows_seriousness";
+    let regex = /(?=cat|dog)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
