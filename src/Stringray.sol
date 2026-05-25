@@ -1473,11 +1473,17 @@ contract Stringray {
                     if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
                         indexToStartMatch = indexToStartMatchForAlternation + 1;
                         matchData.lastAlternationQueueIndex = subAtoms.length;
+                        matchData.firstIndex = -1;
+                        matchData.matchEndIndex = -1;
                     } else {
                         if (matchData.lastAlternationQueueIndex + 1 == subAtoms.length) {
                             indexToStartMatch = 0;
+                            matchData.firstIndex = -1;
+                            matchData.matchEndIndex = -1;
                         } else if(isFirstMatch) {
                             indexToStartMatch = 0;
+                            matchData.firstIndex = -1;
+                            matchData.matchEndIndex = -1;
                         } else {
                             indexToStartMatch = indexToStartMatchForAlternation;
                         }
