@@ -1463,26 +1463,32 @@ contract Stringray {
                     }
                 }
 
-                // groupsCounter = 0;
-                // delete grpMatchedData;
-                // delete groupNames;
+                groupsCounter = 0;
+                delete grpMatchedData;
+                delete groupNames;
 
-                // if (matchData.lastAlternationQueueIndex > 0) {
-                //     if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
-                //         indexToStartMatch = indexToStartMatchForAlternation + 1;
-                //         matchData.lastAlternationQueueIndex = subAtoms.length;
-                //     } else {
-                //         if(isFirstMatch) {
-                //             indexToStartMatch = 0;
-                //         } else {
-                //             indexToStartMatch = indexToStartMatchForAlternation;
-                //         }
-                //     }
-                //     if (matchData.i >= 1) {
-                //         matchData.i -= 1;
-                //     }
-                //     continue;
-                // }
+                console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
+                console2.log("subAtoms.length: ", subAtoms.length);
+                if (matchData.lastAlternationQueueIndex > 0) {
+                    if (matchData.lastAlternationQueueIndex == type(uint256).max || matchData.lastAlternationQueueIndex == subAtoms.length) {
+                        indexToStartMatch = indexToStartMatchForAlternation + 1;
+                        matchData.lastAlternationQueueIndex = subAtoms.length;
+                    } else {
+                        if (matchData.lastAlternationQueueIndex + 1 == subAtoms.length) {
+                            indexToStartMatch = 0;
+                        } else if(isFirstMatch) {
+                            indexToStartMatch = 0;
+                        } else {
+                            indexToStartMatch = indexToStartMatchForAlternation;
+                        }
+                    }
+
+                    if (matchData.i >= 1) {
+                        matchData.i -= 1;
+                    }
+
+                    continue;
+                }
 
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
                     console2.log("resetted groups counter and groups data");
@@ -1499,9 +1505,9 @@ contract Stringray {
 
                 matchData.i = 0;
 
-                groupsCounter = 0;
-                delete grpMatchedData;
-                delete groupNames;
+                // groupsCounter = 0;
+                // delete grpMatchedData;
+                // delete groupNames;
 
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
                 console2.log("subAtoms.length: ", subAtoms.length);
@@ -1587,9 +1593,9 @@ contract Stringray {
         console2.log("matchData.matchEndIndex at end: ", matchData.matchEndIndex);
         console2.log("fromGroup at end              : ", fromGroup);
 
-        if (fromGroup) {
-            return (matchData.firstIndex, matchData.matchEndIndex);
-        }
+        // if (fromGroup) {
+        //     return (matchData.firstIndex, matchData.matchEndIndex);
+        // }
 
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
@@ -1967,7 +1973,7 @@ contract Stringray {
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
         matchGroupData.lastKnownIndexToStartMatch = indexToStartMatch;
-        // delete subAtoms;
+        delete subAtoms;
 
         groupsCounter += 1;
         matchGroupData.groupNum = groupsCounter;
@@ -1993,116 +1999,116 @@ contract Stringray {
 
         console2.log("ATOM: ", string(atom));
 
-        // matchGroupData.lastAlternationOperatorIndex = -1;
-        // // bytes memory matchGroupData.subAtom; // atoms
-        // matchGroupData.openParanthesisCount = 0;
-        // matchGroupData.closeParanthesisCount = 0;
-        // for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
-        //     if (uint8(atom[matchGroupData.j]) == OPEN_PARANTHESIS) {
-        //         matchGroupData.openParanthesisCount++;
-        //     } else if (uint8(atom[matchGroupData.j]) == CLOSE_PARANTHESIS) {
-        //         matchGroupData.closeParanthesisCount++;
-        //     }
+        matchGroupData.lastAlternationOperatorIndex = -1;
+        // bytes memory matchGroupData.subAtom; // atoms
+        matchGroupData.openParanthesisCount = 0;
+        matchGroupData.closeParanthesisCount = 0;
+        for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
+            if (uint8(atom[matchGroupData.j]) == OPEN_PARANTHESIS) {
+                matchGroupData.openParanthesisCount++;
+            } else if (uint8(atom[matchGroupData.j]) == CLOSE_PARANTHESIS) {
+                matchGroupData.closeParanthesisCount++;
+            }
 
-        //     if (uint8(atom[matchGroupData.j]) == VERTICAL_BAR && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount) {
-        //         console2.log("pipe found");
-        //         matchGroupData.subAtom = hex""; // atoms
-        //         if (matchGroupData.lastAlternationOperatorIndex <= -1) {
-        //             for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
-        //                 matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
-        //             }
-        //         } else {
-        //             for (
-        //                 matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
-        //                 matchGroupData.k < matchGroupData.j;
-        //                 matchGroupData.k++
-        //             ) {
-        //                 matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
-        //             }
-        //         }
+            if (uint8(atom[matchGroupData.j]) == VERTICAL_BAR && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount) {
+                console2.log("pipe found");
+                matchGroupData.subAtom = hex""; // atoms
+                if (matchGroupData.lastAlternationOperatorIndex <= -1) {
+                    for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
+                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
+                    }
+                } else {
+                    for (
+                        matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
+                        matchGroupData.k < matchGroupData.j;
+                        matchGroupData.k++
+                    ) {
+                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
+                    }
+                }
 
-        //         subAtoms.push(matchGroupData.subAtom);
+                subAtoms.push(matchGroupData.subAtom);
 
-        //         matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
-        //     }
-        // }
+                matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
+            }
+        }
 
-        // if (matchGroupData.lastAlternationOperatorIndex <= -1) {
-        //     subAtoms.push(atom);
-        // } else {
-        //     matchGroupData.subAtom = hex""; // atoms
-        //     for (
-        //         matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
-        //         matchGroupData.k < atom.length;
-        //         matchGroupData.k++
-        //     ) {
-        //         matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
-        //     }
+        if (matchGroupData.lastAlternationOperatorIndex <= -1) {
+            subAtoms.push(atom);
+        } else {
+            matchGroupData.subAtom = hex""; // atoms
+            for (
+                matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
+                matchGroupData.k < atom.length;
+                matchGroupData.k++
+            ) {
+                matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
+            }
 
-        //     if (matchGroupData.subAtom.length > 0) {
-        //         subAtoms.push(matchGroupData.subAtom);
-        //     }
-        // }
+            if (matchGroupData.subAtom.length > 0) {
+                subAtoms.push(matchGroupData.subAtom);
+            }
+        }
 
-        // console2.log("-------------------------------------------------------------------------Alternation-------------------------------------------------------------------------");
-        // console2.log("subAtoms.length: ", subAtoms.length);
-        // bytes[] memory metaSubAtoms = new bytes[](subAtoms.length);
-        // for (matchGroupData.i = 0; matchGroupData.i < subAtoms.length; matchGroupData.i++) {
-        //     metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
-        // }
+        console2.log("-------------------------------------------------------------------------Alternation-------------------------------------------------------------------------");
+        console2.log("subAtoms.length: ", subAtoms.length);
+        bytes[] memory metaSubAtoms = new bytes[](subAtoms.length);
+        for (matchGroupData.i = 0; matchGroupData.i < subAtoms.length; matchGroupData.i++) {
+            metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
+        }
 
-        // matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length  ? 0 : lastAlternationQueueIndex;
-        // console2.log("k: ", matchGroupData.k);
-        // console2.log("--------------------------------------------------------------------------------------------------------------------------------------------------");
-        // while (matchGroupData.k < metaSubAtoms.length) {
-        //     console2.log("starting matching....");
-        //     console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
-        //     (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
-        //         metaSubAtoms[matchGroupData.k],
-        //         stringInBytes,
-        //         indexToStartMatch,
-        //         isFirstMatch,
-        //         patternFlags,
-        //         matchGroupData.groupNum
-        //     );
+        matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length  ? 0 : lastAlternationQueueIndex;
+        console2.log("k: ", matchGroupData.k);
+        console2.log("--------------------------------------------------------------------------------------------------------------------------------------------------");
+        while (matchGroupData.k < metaSubAtoms.length) {
+            console2.log("starting matching....");
+            console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
+            (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
+                metaSubAtoms[matchGroupData.k],
+                stringInBytes,
+                indexToStartMatch,
+                isFirstMatch,
+                patternFlags,
+                matchGroupData.groupNum
+            );
 
-        //     console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
-        //     console2.log("came back to match alternation....");
+            console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
+            console2.log("came back to match alternation....");
 
 
-        //     if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
-        //         if (metaSubAtoms.length > 1) {
-        //             lastAlternationQueueIndex = matchGroupData.k + 1;
-        //         }
-        //         break;
-        //     }
+            if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
+                if (metaSubAtoms.length > 1) {
+                    lastAlternationQueueIndex = matchGroupData.k + 1;
+                }
+                break;
+            }
 
-        //     if (matchGroupData.matchStartIndex == -1 && metaSubAtoms.length > 1) {
-        //         if (lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
-        //             return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
-        //         }
+            if (matchGroupData.matchStartIndex == -1 && metaSubAtoms.length > 1) {
+                if (lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
+                    return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
+                }
 
-        //         if (metaSubAtoms[matchGroupData.k].length > 1 && indexToStartMatch + 1 < stringInBytes.length) {
-        //             indexToStartMatch = matchGroupData.matchEndIndex > -1 ? uint256(matchGroupData.matchEndIndex) : indexToStartMatch + 1;
-        //             continue;
-        //         } else {
-        //             if (indexToStartMatch + 1 >= stringInBytes.length) {
-        //                 indexToStartMatch = matchGroupData.lastKnownIndexToStartMatch;
-        //             }
-        //         }
-        //     }
+                if (metaSubAtoms[matchGroupData.k].length > 1 && indexToStartMatch + 1 < stringInBytes.length) {
+                    indexToStartMatch = matchGroupData.matchEndIndex > -1 ? uint256(matchGroupData.matchEndIndex) : indexToStartMatch + 1;
+                    continue;
+                } else {
+                    if (indexToStartMatch + 1 >= stringInBytes.length) {
+                        indexToStartMatch = matchGroupData.lastKnownIndexToStartMatch;
+                    }
+                }
+            }
 
-        //     matchGroupData.k++;
-        // }
+            matchGroupData.k++;
+        }
 
-        (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
-            atom,
-            stringInBytes,
-            indexToStartMatch,
-            isFirstMatch,
-            patternFlags,
-            matchGroupData.groupNum
-        );
+        // (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
+        //     atom,
+        //     stringInBytes,
+        //     indexToStartMatch,
+        //     isFirstMatch,
+        //     patternFlags,
+        //     matchGroupData.groupNum
+        // );
 
         console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
         console2.log("matchEndIndex  : ", matchGroupData.matchEndIndex);
@@ -2117,26 +2123,26 @@ contract Stringray {
                 return (matchGroupData.matchStartIndex, -2, 0);
             }
 
-            if (matchGroupData.isNegativeLookBehind) {
-                if (atom.length > 0) {
-                    console2.log("returning from negativeLookBehind");
-                    console2.log("atom length: ", atom.length);
-                    console2.log("indexToStartMatch: ", indexToStartMatch);
-                    return (-3, int256(indexToStartMatch), 0);
-                } else {
-                    return (-5, matchGroupData.matchEndIndex, 0);
-                }
-            }
             // if (matchGroupData.isNegativeLookBehind) {
-            //     if (metaSubAtoms[matchGroupData.k].length > 0) {
+            //     if (atom.length > 0) {
             //         console2.log("returning from negativeLookBehind");
-            //         console2.log("atom length: ", metaSubAtoms[matchGroupData.k].length);
+            //         console2.log("atom length: ", atom.length);
             //         console2.log("indexToStartMatch: ", indexToStartMatch);
             //         return (-3, int256(indexToStartMatch), 0);
             //     } else {
             //         return (-5, matchGroupData.matchEndIndex, 0);
             //     }
             // }
+            if (matchGroupData.isNegativeLookBehind) {
+                if (metaSubAtoms[matchGroupData.k].length > 0) {
+                    console2.log("returning from negativeLookBehind");
+                    console2.log("atom length: ", metaSubAtoms[matchGroupData.k].length);
+                    console2.log("indexToStartMatch: ", indexToStartMatch);
+                    return (-3, int256(indexToStartMatch), 0);
+                } else {
+                    return (-5, matchGroupData.matchEndIndex, 0);
+                }
+            }
             return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, 0);
         }
 
@@ -2194,57 +2200,66 @@ contract Stringray {
             }
         }
 
-        // if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
-        //     uint256 subAtomStartIndex;
-        //     int256 subAtomEndIndex = -1;
-        //     for (uint256 i; i < metaSubAtoms[matchGroupData.k].length;) {
-        //         subAtomStartIndex = i;
-        //         (, subAtomEndIndex) = collectGroupSubAtom(metaSubAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
-        //         if (subAtomEndIndex == -1) {
-        //             break;
-        //         }
-        //         i = uint256(subAtomEndIndex) + 1;
-        //     }
+        if (matchGroupData.matchEndIndex > matchGroupData.matchStartIndex) {
+            uint256 subAtomStartIndex;
+            int256 subAtomEndIndex = -1;
+            for (uint256 i; i < metaSubAtoms[matchGroupData.k].length;) {
+                subAtomStartIndex = i;
+                (, subAtomEndIndex) = collectGroupSubAtom(metaSubAtoms[matchGroupData.k], subAtomStartIndex, patternFlags);
+                if (subAtomEndIndex == -1) {
+                    break;
+                }
+                i = uint256(subAtomEndIndex) + 1;
+            }
 
-        //     if (
-        //         subAtomEndIndex > -1 && uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
-        //             && uint8(metaSubAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
-        //     ) {
-        //         if (uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
-        //             if (
-        //                 uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
-        //                     || uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
-        //             ) {
-        //                 matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
-        //             }
+            if (
+                subAtomEndIndex > -1 && uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex]) == OPEN_PARANTHESIS
+                    && uint8(metaSubAtoms[matchGroupData.k][uint256(subAtomEndIndex)]) == CLOSE_PARANTHESIS
+            ) {
+                if (uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 1]) == QUESTION_MARK) {
+                    if (
+                        uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == ASSIGNMENT_SIGN
+                            || uint8(metaSubAtoms[matchGroupData.k][subAtomStartIndex + 2]) == EXCLAMATION_MARK
+                    ) {
+                        matchGroupData.matchEndIndex = matchGroupData.matchStartIndex;
+                    }
 
-        //             // @info: illogical
-        //             // if (
-        //             //     uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
-        //             //         && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
-        //             //             || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
-        //             // ) {
-        //             //     matchGroupData.matchEndIndex = lastMatchEndIndex;
-        //             // }
-        //         }
-        //     }
-        // }
+                    // @info: illogical
+                    // if (
+                    //     uint8(subAtom[0].atom[2]) == LESS_THAN_SIGN
+                    //         && (uint8(subAtom[0].atom[3]) == ASSIGNMENT_SIGN
+                    //             || uint8(subAtom[0].atom[3]) == EXCLAMATION_MARK)
+                    // ) {
+                    //     matchGroupData.matchEndIndex = lastMatchEndIndex;
+                    // }
+                }
+            }
+        }
 
         bytes memory matchedString =
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
         console2.log("pushing to group matched data...");
-        console2.log("atom: ", string(atom));
-        // console2.log("atom: ", string(metaSubAtoms[matchGroupData.k]));
+        // console2.log("atom: ", string(atom));
+        console2.log("atom: ", string(metaSubAtoms[matchGroupData.k]));
         grpMatchedData.push(
             GroupMatchedData({
-                groupPatternString: string(atom),
+                groupPatternString: string(metaSubAtoms[matchGroupData.k]),
                 groupMatchedString: string(matchedString),
                 groupMatchStartIndex: matchGroupData.matchStartIndex,
                 groupMatchEndIndex: matchGroupData.matchEndIndex,
                 groupNum: matchGroupData.groupNum
             })
         );
+        // grpMatchedData.push(
+        //     GroupMatchedData({
+        //         groupPatternString: string(atom),
+        //         groupMatchedString: string(matchedString),
+        //         groupMatchStartIndex: matchGroupData.matchStartIndex,
+        //         groupMatchEndIndex: matchGroupData.matchEndIndex,
+        //         groupNum: matchGroupData.groupNum
+        //     })
+        // );
 
         if (matchGroupData.groupName.length > 0) {
             groupNames.push(GroupNames({groupName: matchGroupData.groupName, matchedString: matchedString}));
