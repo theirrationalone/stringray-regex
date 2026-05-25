@@ -25335,6 +25335,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchGroupsCase96() public {
         string memory target = "now let's pay $dollars, total is $9. or 8";
+        // @BUG: throwing out of bounds
         string memory pattern = unicode"/(?<!\\$)\\d/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
@@ -33633,6 +33634,4 @@ contract PlayStringTest is Test {
         }
         console2.log("------------------------------------");
     }
-
-    // testRegexPatternMatchGroupsCase88
 }
