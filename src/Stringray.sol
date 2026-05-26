@@ -1995,9 +1995,11 @@ contract Stringray {
                 matchGroupData.isNegativeLookBehind = true;
                 isFirstMatch = false;
                 if (indexToStartMatch == 0 && isFirstTimenNegativeLookBehind) {
+                    console2.log("isFirstTimenNegativeLookBehind: ", isFirstTimenNegativeLookBehind);
                     isFirstTimenNegativeLookBehind = false;
                     return (-4, -1, 0);
                 }
+                console2.log("negativeLookBehind: ", matchGroupData.isNegativeLookBehind);
             }
         }
 
@@ -2102,6 +2104,10 @@ contract Stringray {
                         indexToStartMatch = matchGroupData.lastKnownIndexToStartMatch;
                     }
                 }
+            }
+
+            if (matchGroupData.k + 1 == metaSubAtoms.length) {
+                break;
             }
 
             matchGroupData.k++;
