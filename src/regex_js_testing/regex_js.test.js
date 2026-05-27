@@ -21229,16 +21229,366 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Alternation anchor: Case000000000000000000000000000027", () => {
-    const target = "ccdbccbbd";
+  test("Pattern match Alternation anchor: Case000000000000000000000000000028", () => {
+    const target = "bird_cat-dog";
+    let regex = /(^cat)|(dog$)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000029", () => {
+    const target = "aac";
+    let regex = /(a|b)c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000030", () => {
+    const target = "abzbcc";
+    let regex = /(a|b)c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000031", () => {
+    const target = "abzbqb";
+    let regex = /(a|b)c/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000032", () => {
+    const target = "abzxybqb";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000033", () => {
+    const target = "abzbqbxz";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000034", () => {
+    const target = "abzbqbxy";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000035", () => {
+    const target = "abzxzbqb";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000036", () => {
+    const target = "xzabzbqb";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000037", () => {
+    const target = "xxabzbqby";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000038", () => {
+    const target = "xxabzbqbz";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000039", () => {
+    const target = "yxabzbqbz";
+    let regex = /x(y|z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000040", () => {
+    const target = "prefixed";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000041", () => {
+    const target = "postfixed";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000042", () => {
+    const target = "plusfixed";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000043", () => {
+    const target = "superprefix";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000044", () => {
+    const target = "superpostfix";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000045", () => {
+    const target = "superposterprefix";
+    let regex = /(pre|post)fix/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000046", () => {
+    const target = "goonsaredogs";
+    let regex = /|dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000047", () => {
+    const target = "dogsaregoons";
+    let regex = /|dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000048", () => {
+    const target = "";
+    let regex = /|dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000049", () => {
+    const target = "cats_are_cutest";
+    let regex = /|dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000050", () => {
+    const target = "dogs_are_loyal";
+    let regex = /cat||dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000051", () => {
+    const target = "dogs_are_loyal";
+    let regex = /cat||dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000052", () => {
+    const target = "monkeys_are_crazy";
+    let regex = /cat||dog/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000053", () => {
+    const target = "monkeys_are_craxy_beings";
+    let regex = /(a|b)|(x|y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000054", () => {
+    const target = "monkeys_or_birds_r_crxy_beings";
+    let regex = /(a|b)|(x|y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000055", () => {
+    const target = "monkeys_do_flex";
+    let regex = /(a|b)|(x|y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000056", () => {
+    const target = "monkeys_r_fuzzing";
+    let regex = /(a|b)|(x|y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000057", () => {
+    const target = "monkees_r_fuzzing";
+    let regex = /(a|b)|(x|y)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000058", () => {
+    const target = "monkeys_and_cats_are_fighting";
     let regex = /((cat|dog)|bird)/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match Alternation anchor: Case000000000000000000000000000027", () => {
-    const target = "color-catish_blue_shows_seriousness";
-    let regex = /(?=cat|dog)/;
+  test("Pattern match Alternation anchor: Case000000000000000000000000000059", () => {
+    const target = "monkeys_and_dogs_are_fighting";
+    let regex = /((cat|dog)|bird)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000060", () => {
+    const target = "why_birds_are_chirping";
+    let regex = /((cat|dog)|bird)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000061", () => {
+    const target = "t-rex_is_dangerous";
+    let regex = /((cat|dog)|bird)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000062", () => {
+    const target = "t-red_is_dangerous";
+    let regex = /(red)|(blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000063", () => {
+    const target = "color-blue_is_dangerous";
+    let regex = /(red)|(blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000064", () => {
+    const target = "colors-blue_and_red_are_decent_ones";
+    let regex = /(red)|(blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000065", () => {
+    const target = "color-black_is_phenomenal_one";
+    let regex = /(red)|(blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000066", () => {
+    const target = "color-black_is_phenomenal_one";
+    let regex = /(a(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000067", () => {
+    const target = "color-blake_is_absolute_phenomenal_one";
+    let regex = /(a(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000068", () => {
+    const target = "color-black_is_the_sexzy_one";
+    let regex = /((x|y)z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000069", () => {
+    const target = "the_boyz_webseries_is_crazyyy";
+    let regex = /((x|y)z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000070", () => {
+    const target = "color-black_is_the_sexy_one";
+    let regex = /((x|y)z)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000071", () => {
+    const target = "color-red_is_the_happiest_one";
+    let regex = /(?<color>red|blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000072", () => {
+    const target = "color-blue_is_the_enigmatic";
+    let regex = /(?<color>red|blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000073", () => {
+    const target = "color-blue_is_the_enigmatic_than_red";
+    let regex = /(?<color>red|blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000074", () => {
+    const target = "color-black_is_shows_seriousness";
+    let regex = /(?<color>red|blue)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000075", () => {
+    const target = "color-black_is_shows_seriousness";
+    let regex = /(?<x>a)|(?<y>b)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000076", () => {
+    const target = "color-blck_is_shows_seriousness";
+    let regex = /(?<x>a)|(?<y>b)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000077", () => {
+    const target = "color-lck_is_shows_seriousness";
+    let regex = /(?<x>a)|(?<y>b)/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000078", () => {
+    const target = "color-caty_black_shows_seriousness";
+    let regex = /(cat)|(dog)\\1/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match Alternation anchor: Case000000000000000000000000000079", () => {
+    const target = "color-catcaty_black_shows_seriousness";
+    let regex = /(cat)|(dog)\\1/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
