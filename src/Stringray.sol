@@ -2094,7 +2094,7 @@ contract Stringray {
                 break;
             }
 
-            if (matchGroupData.matchStartIndex == -1 && matchGroupData.isNegativeLookAhead) {
+            if (matchGroupData.matchStartIndex == -1 && (matchGroupData.isNegativeLookAhead || matchGroupData.isNegativeLookBehind)) {
                 break;
             }
 
