@@ -33608,7 +33608,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchAlternationAnchorCase86() public {
         string memory target = unicode"yescolor-carish_blue_shows_seriousness";
-        string memory pattern = unicode"/(?!yes|no)/";
+        string memory pattern = unicode"/(?!yes)/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");

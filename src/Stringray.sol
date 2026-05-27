@@ -1295,6 +1295,9 @@ contract Stringray {
                 int256 prevMatchEndIndex = matchData.matchEndIndex;
                 (matchData.matchStartIndex, matchData.matchEndIndex, matchData.lastAlternationQueueIndex) =
                     matchGroup(atoms[matchData.i].atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, matchData.lastAlternationQueueIndex);
+                
+                console2.log("after group match: matchData.matchStartIndex: ", matchData.matchStartIndex);
+                console2.log("after group match: matchData.matchEndIndex  : ", matchData.matchEndIndex);
 
                 if (matchData.matchEndIndex == -2) {
                     if (prevMatchEndIndex == -1) {
@@ -2091,6 +2094,10 @@ contract Stringray {
                 break;
             }
 
+            if (matchGroupData.matchStartIndex == -1 && matchGroupData.isNegativeLookAhead) {
+                break;
+            }
+
             if (matchGroupData.matchStartIndex == -1 && metaSubAtoms.length > 1) {
                 if (lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
                     return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
@@ -2132,7 +2139,10 @@ contract Stringray {
 
         if (matchGroupData.matchStartIndex == -1) {
             if (matchGroupData.isNegativeLookAhead) {
-                return (matchGroupData.matchStartIndex, -2, 0);
+                console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
+                console2.log("matchGroupData.matchEndIndex not matched : ", matchGroupData.matchEndIndex);
+                return (int256(matchGroupData.lastKnownIndexToStartMatch), -2, 0);
+                // return (matchGroupData.matchStartIndex, -2, 0);
             }
 
             // if (matchGroupData.isNegativeLookBehind) {
@@ -2160,7 +2170,10 @@ contract Stringray {
 
         if (matchGroupData.isNegativeLookAhead) {
             console2.log("returning right one");
-            return (-1, matchGroupData.matchEndIndex, 0);
+            // return (-1, matchGroupData.matchEndIndex, 0);
+            console2.log("matchGroupData.matchEndIndex             : ", matchGroupData.matchEndIndex);
+            console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
+            return (-1, int256(matchGroupData.lastKnownIndexToStartMatch + 1), 0);
         }
 
         if (matchGroupData.isPositiveLookAhead) {
