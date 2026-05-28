@@ -1225,6 +1225,9 @@ contract Stringray {
                         matchWordBoundary(stringInBytes, indexToStartMatch, true);
                 }
 
+                console2.log("matchData.matchStartIndex after boundary: ", matchData.matchStartIndex);
+                console2.log("matchData.matchEndIndex after boundary: ", matchData.matchEndIndex);
+
                 if (matchData.matchEndIndex >= int256(indexToStartMatch)) {
                     if (isFirstMatch) {
                         indexToStartMatch = uint256(matchData.matchEndIndex);
@@ -4738,10 +4741,13 @@ contract Stringray {
                     return (int256(indexToStartMatch - 1), int256(indexToStartMatch - 1));
                 }
 
+                console2.log("inside boundary match...");
+
                 if (
                     indexToStartMatch == stringLength - 1 && isWord(stringInBytes[indexToStartMatch - 1], false)
-                        && isWord(stringInBytes[indexToStartMatch], false)
+                        && !isWord(stringInBytes[indexToStartMatch], false)
                 ) {
+                    console2.log("returning index...");
                     return (int256(indexToStartMatch), int256(indexToStartMatch));
                 }
 
