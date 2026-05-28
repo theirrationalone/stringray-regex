@@ -1238,7 +1238,7 @@ contract Stringray {
                                 if (indexToStartMatch + 1 == stringInBytes.length) {
                                     matchData.matchEndIndex = int256(indexToStartMatch);
                                 } else {
-                                    matchData.matchEndIndex = int256(indexToStartMatch - 1);
+                                    matchData.matchEndIndex = indexToStartMatch > 0 ? int256(indexToStartMatch - 1) : int256(indexToStartMatch);
                                 }
                             } else {
                                 matchData.matchEndIndex = int256(indexToStartMatch);
@@ -1332,6 +1332,20 @@ contract Stringray {
 
                     matchData.i++;
                     continue;
+                }
+
+                if (matchData.matchStartIndex > -1) {
+                    if (matchData.i + 1 < atoms.length && (atoms[matchData.i + 1].atomType == WORD_BOUNDARY || atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY)) {
+                        if (matchData.matchEndIndex > 0) {
+                            console2.log("updating index just after group match............");
+                            matchData.matchEndIndex -= 1;
+                            indexToStartMatch = uint256(matchData.matchEndIndex);
+                        } else {
+                            matchData.specialFlag = false;
+                            matchData.i++;
+                            continue;
+                        }
+                    }
                 }
             } else if (atoms[matchData.i].atomType == DIGIT_BACKREFERENCE_PREFIX) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDigitBackReferenceGroup(
@@ -4703,7 +4717,7 @@ contract Stringray {
                 }
 
                 if (
-                    indexToStartMatch == stringLength - 1 && isWord(stringInBytes[indexToStartMatch - 1], false)
+                    indexToStartMatch + 1 == stringLength && isWord(stringInBytes[indexToStartMatch - 1], false)
                         && !isWord(stringInBytes[indexToStartMatch], false)
                 ) {
                     return (int256(indexToStartMatch), int256(indexToStartMatch));
@@ -4744,8 +4758,8 @@ contract Stringray {
                 console2.log("inside boundary match...");
 
                 if (
-                    indexToStartMatch == stringLength - 1 && isWord(stringInBytes[indexToStartMatch - 1], false)
-                        && !isWord(stringInBytes[indexToStartMatch], false)
+                    indexToStartMatch + 1 == stringLength && isWord(stringInBytes[indexToStartMatch - 1], false)
+                        && isWord(stringInBytes[indexToStartMatch], false)
                 ) {
                     console2.log("returning index...");
                     return (int256(indexToStartMatch), int256(indexToStartMatch));
