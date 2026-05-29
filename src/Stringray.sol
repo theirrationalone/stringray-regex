@@ -2150,6 +2150,14 @@ contract Stringray {
                 break;
             }
 
+            console2.log("matchGroupData.matchStartIndex: ", matchGroupData.matchStartIndex);
+            console2.log("metaSubAtoms.length: ", metaSubAtoms.length);
+            console2.log("matchGroupData.k: ", matchGroupData.k);
+            console2.log("lastAlternationQueueIndex: ", lastAlternationQueueIndex);
+            console2.log("metaSubAtoms[matchGroupData.k].length: ", metaSubAtoms[matchGroupData.k].length);
+            console2.log("indexToStartMatch: ", indexToStartMatch);
+            console2.log("matchGroupData.isFirstMatch: ", matchGroupData.isFirstMatch);
+            console2.log("matchGroupData.matchEndIndex: ", matchGroupData.matchEndIndex);
             if (matchGroupData.matchStartIndex == -1 && metaSubAtoms.length > 1) {
                 if (lastAlternationQueueIndex + 1 == metaSubAtoms.length) {
                     return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, type(uint256).max);
@@ -2157,12 +2165,22 @@ contract Stringray {
 
                 if (metaSubAtoms[matchGroupData.k].length > 1 && indexToStartMatch + 1 < stringInBytes.length) {
                     indexToStartMatch = matchGroupData.matchEndIndex > -1
-                        ? uint256(matchGroupData.matchEndIndex)
+                        ? uint256(matchGroupData.matchEndIndex + 1)
                         : indexToStartMatch + 1;
                     continue;
                 } else {
                     if (indexToStartMatch + 1 >= stringInBytes.length) {
                         indexToStartMatch = matchGroupData.lastKnownIndexToStartMatch;
+                    } else {
+                        // zzz
+                        // (a|b)(x|y)
+                        if (matchGroupData.isFirstMatch && matchGroupData.k + 1 == metaSubAtoms.length) {
+                            indexToStartMatch = matchGroupData.matchEndIndex > -1
+                            ? uint256(matchGroupData.matchEndIndex + 1)
+                            : indexToStartMatch + 1;
+                            
+                            matchGroupData.matchEndIndex += 1;
+                        }
                     }
                 }
             }
