@@ -1078,6 +1078,7 @@ contract Stringray {
         uint256 i;
         uint256 j;
         uint256 lastAlternationQueueIndex;
+        bool groupChecked;
     }
     uint256 groupAlternationMatchCount;
 
@@ -1309,8 +1310,15 @@ contract Stringray {
                     indexToStartMatch,
                     isFirstMatch,
                     patternFlags,
-                    fromGroup
+                    fromGroup,
+                    matchData.lastAlternationQueueIndex
                 );
+
+                matchData.groupChecked = true;
+
+                if (matchData.matchStartIndex == -1) {
+                    matchData.lastAlternationQueueIndex = 1;
+                }
 
                 console2.log("after group match: matchData.matchStartIndex: ", matchData.matchStartIndex);
                 console2.log("after group match: matchData.matchEndIndex  : ", matchData.matchEndIndex);
@@ -1552,6 +1560,13 @@ contract Stringray {
                 matchData.matchEndIndex = -1;
 
                 matchData.i = 0;
+
+                if (matchData.lastAlternationQueueIndex == 0 && matchData.groupChecked) {
+                    console2.log("resetting alternation data....");
+                    indexToStartMatch = 0;
+                    matchData.lastAlternationQueueIndex = 2;
+                    matchData.groupChecked = false;
+                }
 
                 groupsCounter = 0;
                 delete grpMatchedData;
@@ -2008,7 +2023,8 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
-        bool fromGroup
+        bool fromGroup,
+        uint256 lastAlternationQueueIndex
     ) private returns (int256, int256, uint256) {
         console2.log("--------------------matchGroup--------------------");
         seelAllMatchedGroups();
@@ -2018,7 +2034,7 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("groupsCounter: ", groupsCounter);
-        uint256 lastAlternationQueueIndex = 0;
+        
 
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
@@ -2084,6 +2100,10 @@ contract Stringray {
 
                 subAtoms.push(matchGroupData.subAtom);
 
+                if (matchGroupData.j + 1 == atom.length || matchGroupData.j == 0 || (matchGroupData.j > 0 && uint8(atom[matchGroupData.j - 1]) == VERTICAL_BAR)) {
+                    subAtoms.push(hex"");
+                }
+
                 matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
             }
         }
@@ -2109,9 +2129,9 @@ contract Stringray {
             "-------------------------------------------------------------------------Alternation-------------------------------------------------------------------------"
         );
         console2.log("subAtoms.length: ", subAtoms.length);
-        // if (subAtoms.length > 1) {
-        //     isFirstMatch = false;
-        // }
+        if (subAtoms.length > 1) {
+            isFirstMatch = false;
+        }
         bytes[] memory metaSubAtoms = new bytes[](subAtoms.length);
         for (matchGroupData.i = 0; matchGroupData.i < subAtoms.length; matchGroupData.i++) {
             metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
@@ -2126,6 +2146,11 @@ contract Stringray {
         
         if (metaSubAtoms.length > 1) {
             for (matchGroupData.k = 0; matchGroupData.k < metaSubAtoms.length;) {
+                if (lastAlternationQueueIndex == 2) {
+                    matchGroupData.k += 1;
+                    lastAlternationQueueIndex = 0;
+                    continue;
+                }
                 (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
                     metaSubAtoms[matchGroupData.k],
                     stringInBytes,
@@ -2139,13 +2164,17 @@ contract Stringray {
                     break;
                 }
 
+                console2.log("matchGroupData.k: ", matchGroupData.k);
+                console2.log("metaSubAtoms.length: ", metaSubAtoms.length);
+
                 if (matchGroupData.matchStartIndex == -1) {
                     if (matchGroupData.k + 1 < metaSubAtoms.length) {
                         matchGroupData.k++;
+                        lastAlternationQueueIndex = 1;
                         continue;
                     }
 
-                    if (matchGroupData.k + 1 == metaSubAtoms.length && !fromGroup) {
+                    if (matchGroupData.k + 1 == metaSubAtoms.length && matchGroupData.isFirstMatch && !fromGroup) {
                         if (indexToStartMatch + 1 < stringInBytes.length) {
                             matchGroupData.k = 0;
                             indexToStartMatch += 1;
@@ -2153,6 +2182,8 @@ contract Stringray {
                         }
                     }
                 }
+
+                console2.log("going to break....");
 
                 if (matchGroupData.k + 1 == metaSubAtoms.length) break;
 
@@ -2252,7 +2283,7 @@ contract Stringray {
                 // console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
                 console2.log("matchGroupData.matchEndIndex not matched : ", matchGroupData.matchEndIndex);
                 // return (int256(matchGroupData.lastKnownIndexToStartMatch), -2, 0);
-                return (matchGroupData.matchStartIndex, -2, 0);
+                return (matchGroupData.matchStartIndex, -2, lastAlternationQueueIndex);
             }
 
             // if (matchGroupData.isNegativeLookBehind) {
@@ -2271,17 +2302,17 @@ contract Stringray {
                     console2.log("returning from negativeLookBehind");
                     console2.log("atom length: ", metaSubAtoms[matchGroupData.k].length);
                     console2.log("indexToStartMatch: ", indexToStartMatch);
-                    return (-3, int256(indexToStartMatch), 0);
+                    return (-3, int256(indexToStartMatch), lastAlternationQueueIndex);
                 } else {
-                    return (-5, matchGroupData.matchEndIndex, 0);
+                    return (-5, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
                 }
             }
-            return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, 0);
+            return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
         }
 
         if (matchGroupData.isNegativeLookAhead) {
             console2.log("returning right one");
-            return (-1, matchGroupData.matchEndIndex, 0);
+            return (-1, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
             console2.log("matchGroupData.matchEndIndex             : ", matchGroupData.matchEndIndex);
             // console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
             // return (-1, int256(matchGroupData.lastKnownIndexToStartMatch + 1), 0);
