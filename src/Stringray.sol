@@ -2124,6 +2124,7 @@ contract Stringray {
         while (matchGroupData.k < metaSubAtoms.length) {
             console2.log("starting matching....");
             console2.log("subatom at index ", matchGroupData.k, " is: ", string(metaSubAtoms[matchGroupData.k]));
+            console2.log("indexToStartMatch: ", indexToStartMatch);
             (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
                 metaSubAtoms[matchGroupData.k],
                 stringInBytes,
@@ -2164,9 +2165,7 @@ contract Stringray {
                 }
 
                 if (metaSubAtoms[matchGroupData.k].length > 1 && indexToStartMatch + 1 < stringInBytes.length) {
-                    indexToStartMatch = matchGroupData.matchEndIndex > -1
-                        ? uint256(matchGroupData.matchEndIndex + 1)
-                        : indexToStartMatch + 1;
+                    indexToStartMatch += 1;
                     continue;
                 } else {
                     if (indexToStartMatch + 1 >= stringInBytes.length) {

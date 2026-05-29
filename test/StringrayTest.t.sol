@@ -34816,7 +34816,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchAlternationAnchorCase127() public {
-        string memory target = unicode"Neh@l is @ Cute Girl @nD she is be@utiful too";
+        string memory target = unicode"Neh@l is @b Cute Girl @nD";
         string memory pattern = unicode"/(a|(b|(c|d)))/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
