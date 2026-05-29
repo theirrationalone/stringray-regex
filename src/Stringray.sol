@@ -1309,7 +1309,7 @@ contract Stringray {
                     indexToStartMatch,
                     isFirstMatch,
                     patternFlags,
-                    matchData.lastAlternationQueueIndex
+                    fromGroup
                 );
 
                 console2.log("after group match: matchData.matchStartIndex: ", matchData.matchStartIndex);
@@ -2008,7 +2008,7 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
-        uint256 lastAlternationQueueIndex
+        bool fromGroup
     ) private returns (int256, int256, uint256) {
         console2.log("--------------------matchGroup--------------------");
         seelAllMatchedGroups();
@@ -2018,6 +2018,7 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("groupsCounter: ", groupsCounter);
+        uint256 lastAlternationQueueIndex = 0;
 
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
@@ -2144,7 +2145,7 @@ contract Stringray {
                         continue;
                     }
 
-                    if (matchGroupData.k + 1 == metaSubAtoms.length) {
+                    if (matchGroupData.k + 1 == metaSubAtoms.length && !fromGroup) {
                         if (indexToStartMatch + 1 < stringInBytes.length) {
                             matchGroupData.k = 0;
                             indexToStartMatch += 1;
@@ -2244,7 +2245,7 @@ contract Stringray {
         console2.log("groupNum       : ", matchGroupData.groupNum);
         console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
         console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
-        console2.log("lastAlternationQueueIndex : ", lastAlternationQueueIndex);
+        // console2.log("lastAlternationQueueIndex : ", lastAlternationQueueIndex);
 
         if (matchGroupData.matchStartIndex == -1) {
             if (matchGroupData.isNegativeLookAhead) {
