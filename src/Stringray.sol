@@ -2183,6 +2183,11 @@ contract Stringray {
                 console2.log("metaSubAtoms.length: ", metaSubAtoms.length);
 
                 if (matchGroupData.matchStartIndex == -1) {
+                    if (matchGroupData.isNegativeLookBehind || matchGroupData.isNegativeLookAhead) {
+                        lastAlternationQueueIndex = 0;
+                        break;
+                    }
+                    
                     if (matchGroupData.k + 1 < metaSubAtoms.length) {
                         matchGroupData.k++;
                         lastAlternationQueueIndex = 1;
