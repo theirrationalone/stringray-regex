@@ -35777,4 +35777,323 @@ contract PlayStringTest is Test {
         }
         console2.log("------------------------------------");
     }
+
+    function testRegexPatternMatchAlternationAnchorCase160() public {
+        string memory target = unicode"CatRedDogBlue";
+        string memory pattern = unicode"/(cat|dog)(red|blue)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase161() public {
+        string memory target = unicode"catredDogBlue";
+        string memory pattern = unicode"/(cat|dog)(red|blue)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase162() public {
+        string memory target = unicode"catblueDogRed";
+        string memory pattern = unicode"/(cat|dog)(red|blue)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase163() public {
+        string memory target = unicode"CatBluedogred";
+        string memory pattern = unicode"/(cat|dog)(red|blue)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase164() public {
+        string memory target = unicode"CatBluedogblue";
+        string memory pattern = unicode"/(cat|dog)(red|blue)/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase165() public {
+        string memory target = unicode"StartTheEnd";
+        string memory pattern = unicode"/^start|end$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase166() public {
+        string memory target = unicode"startTheEnd";
+        string memory pattern = unicode"/^start|end$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase167() public {
+        string memory target = unicode"StartTheend";
+        string memory pattern = unicode"/^start|end$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase168() public {
+        string memory target = unicode"starttheend";
+        string memory pattern = unicode"/^(start|end)$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase169() public {
+        string memory target = unicode"start";
+        string memory pattern = unicode"/^(start|end)$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
+    function testRegexPatternMatchAlternationAnchorCase170() public {
+        string memory target = unicode"end";
+        string memory pattern = unicode"/^(start|end)$/";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
 }

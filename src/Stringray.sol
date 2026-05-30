@@ -1757,6 +1757,7 @@ contract Stringray {
     ) private returns (int256, int256) {
         console2.log("---------------------------------matchCaretOrStart---------------------------------");
         console2.log("nextAtom: ", string(atoms[currentAtomIndex].atom));
+        console2.log("currentAtomIndex: ", currentAtomIndex);
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("indexToStartMatch: ", indexToStartMatch);
@@ -1809,7 +1810,13 @@ contract Stringray {
         }
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
-        singleAtom[0] = atoms[currentAtomIndex + 1];
+        uint256 i;
+        while(true) {
+            if (atoms[currentAtomIndex + 1].atomType == GROUP_SUB_ATOM) continue;
+            singleAtom[0] = atoms[currentAtomIndex + 1];
+            break;
+        }
+
         int256 matchEndIndex = -1;
 
         if (indexToStartMatch <= 0) {
@@ -1854,8 +1861,10 @@ contract Stringray {
 
         console2.log("matchEndIndex in start anchor func: ", matchEndIndex);
 
-        if (matchEndIndex != int256(indexToStartMatch)) {
+        if (matchEndIndex != int256(indexToStartMatch) && singleAtom[0].atomType != GROUP_ATOM) {
             return (-1, -1);
+        } if (singleAtom[0].atomType == GROUP_ATOM) {
+            return (0, matchEndIndex);
         }
 
         return (matchEndIndex, matchEndIndex);
