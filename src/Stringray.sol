@@ -2187,6 +2187,8 @@ contract Stringray {
                             lastAlternationQueueIndex = 0;
                             continue;
                         }
+                    } else if (matchGroupData.k + 1 == metaSubAtoms.length && matchGroupData.isFirstMatch && fromGroup) {
+                        matchGroupData.matchEndIndex = int256(indexToStartMatch + 1);
                     }
                 }
 

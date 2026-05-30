@@ -32708,7 +32708,7 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchAlternationAnchorCase55() public {
-        string memory target = unicode"monkeys_do_flex";
+        string memory target = unicode"monkees_do_flex";
         string memory pattern = unicode"/(a|b)|(x|y)/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);

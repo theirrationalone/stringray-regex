@@ -1,31 +1,25 @@
 No files changed, compilation skipped
 
 Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
-[PASS] testRegexPatternMatchAlternationAnchorCase27() (gas: 1456337)
+[PASS] testRegexPatternMatchAlternationAnchorCase55() (gas: 3553321)
 Logs:
-  numGroups:  2
   nuclear fission was successful
   ------------------------seeAllAtoms------------------------
-  atoms length:  4
+  atoms length:  3
   Atom Type: GROUP_ATOM
-  Atom:  (a)
+  Atom:  (a|b)
   Atom start index:  0
-  Atom end index:  2
+  Atom end index:  4
   ------------------------------------------------
   Atom Type: ALTERNATION_OPERATOR
   Atom:  |
-  Atom start index:  3
-  Atom end index:  3
+  Atom start index:  5
+  Atom end index:  5
   ------------------------------------------------
   Atom Type: GROUP_ATOM
-  Atom:  (b)
-  Atom start index:  4
-  Atom end index:  6
-  ------------------------------------------------
-  Atom Type: DIGIT_BACKREFERENCE_PREFIX
-  Atom:  \1
-  Atom start index:  7
-  Atom end index:  8
+  Atom:  (x|y)
+  Atom start index:  6
+  Atom end index:  10
   ------------------------------------------------
   -----------------------matchPattern-----------------------
   cycle starts...
@@ -33,38 +27,40 @@ Logs:
   isFirstMatch:  true
   fromGroup:  false
   indexToStartMatch:  0
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
-  atom:  (a)
+  atom:  (a|b)
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x286129
+  0x28617c6229
   Atom Type: GROUP_ATOM
   ----------------------------------------------
   updated isFirstMatch:  true
   --------------------matchGroup--------------------
   ----------------------seelAllMatchedGroups----------------------
   --------------------------------------------
-  Atom:  (a)
-  stringInBytes:  ccdbccbbd
+  Atom:  (a|b)
+  stringInBytes:  monkeys_do_flex
   indexToStartMatch:  0
   isFirstMatch:  true
   patternFlags:  
   groupsCounter:  0
-  ATOM:  a
+  ATOM:  a|b
+  pipe found
   -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
-  subAtoms.length:  1
+  subAtoms.length:  2
   -------------------------------------------------refined sub atoms-------------------------------------------------
   sub atom  1 :  a
+  sub atom  2 :  b
   -------------------------------------------------end-------------------------------------------------
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  ccdbccbbd
+  stringInBytes:  monkeys_do_flex
   indexToStartMatch:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   patternFlags:  
   currentGroupNum:  1
   --------------------------------------------
@@ -80,12 +76,12 @@ Logs:
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  0
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -94,126 +90,21 @@ Logs:
   0x61
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
+  updated isFirstMatch:  false
   matchStartIndex:  -1
-  matchEndIndex:  8
-  indexToStartMatch set:  8
-  resetting crucial data
-  matchData.lastAlternationQueueIndex:  0
-  matchData.matchEndIndex:  -1
-  subAtoms.length:  1
-  resetted everything...
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  true
-  fromGroup:  true
-  indexToStartMatch:  8
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  1
-  atom:  a
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x61
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  true
-  matchStartIndex:  -1
-  matchEndIndex:  8
-  breaking from here
-  matchStartIndex after boundary check:  -1
-  matchEndIndex after boundary check:  -1
-  matchData.firstIndex at end   :  -1
-  matchData.matchEndIndex at end:  -1
-  fromGroup at end              :  true
+  matchEndIndex:  0
+  indexToStartMatch set:  0
+  resetted groups counter and groups data
   came back from matchPattern
   matchStartIndex:  -1
-  matchEndIndex:  -1
-  -----------------last group data-----------------
-  lastAlternationQueueIndex:  0
-  matchGroupData.matchStartIndex:  -1
-  matchGroupData.matchEndIndex:  -1
-  ----------------------------------
-  matchStartIndex:  -1
-  matchEndIndex  :  -1
-  groupsCounter  :  0
-  groupNum       :  1
-  isNegativeLookAhead       :  false
-  isPositiveLookAhead       :  false
-  after group match: matchData.matchStartIndex:  -1
-  after group match: matchData.matchEndIndex  :  -1
-  matchStartIndex:  -1
-  matchEndIndex:  -1
-  indexToStartMatch set:  115792089237316195423570985008687907853269984665640564039457584007913129639935
-  resetting crucial data
-  matchData.lastAlternationQueueIndex:  0
-  matchData.matchEndIndex:  -1
-  subAtoms.length:  1
-  resetted everything...
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  115792089237316195423570985008687907853269984665640564039457584007913129639935
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  1
-  atom:  (a)
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x286129
-  Atom Type: GROUP_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  true
-  new atom:  (a)
-  Atom Type: GROUP_ATOM
-  matchData.matchStartIndex:  0
-  matchData.matchEndIndex  :  -1
-  atoms.length:  2
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  0
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  2
-  atom:  (b)
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x286229
-  Atom Type: GROUP_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  true
-  --------------------matchGroup--------------------
-  ----------------------seelAllMatchedGroups----------------------
-  --------------------------------------------
-  Atom:  (b)
-  stringInBytes:  ccdbccbbd
-  indexToStartMatch:  0
-  isFirstMatch:  true
-  patternFlags:  
-  groupsCounter:  0
-  ATOM:  b
-  -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
-  subAtoms.length:  1
-  -------------------------------------------------refined sub atoms-------------------------------------------------
-  sub atom  1 :  b
-  -------------------------------------------------end-------------------------------------------------
+  matchEndIndex:  0
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  b
-  stringInBytes:  ccdbccbbd
+  stringInBytes:  monkeys_do_flex
   indexToStartMatch:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   patternFlags:  
   currentGroupNum:  1
   --------------------------------------------
@@ -229,12 +120,12 @@ Logs:
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  0
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
   atom:  b
   fromCharacterClass:  false
@@ -243,88 +134,350 @@ Logs:
   0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
-  matchStartIndex:  3
-  matchEndIndex:  3
-  matchStartIndex after boundary check:  3
-  matchEndIndex after boundary check:  3
-  yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  3
-  matchData.matchEndIndex at end:  3
-  fromGroup at end              :  true
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  indexToStartMatch set:  0
+  resetted groups counter and groups data
   came back from matchPattern
-  matchStartIndex:  3
-  matchEndIndex:  3
-  -----------------last group data-----------------
-  lastAlternationQueueIndex:  0
-  matchGroupData.matchStartIndex:  3
-  matchGroupData.matchEndIndex:  3
-  ----------------------------------
-  matchStartIndex:  3
-  matchEndIndex  :  3
-  groupsCounter  :  1
-  groupNum       :  1
-  isNegativeLookAhead       :  false
-  isPositiveLookAhead       :  false
-  pushing to group matched data...
-  atom:  b
-  atom:  b
-  ----------------------seelAllMatchedGroups----------------------
-  -----------matched-group-----------
-  i                      :  0
-  Group pattern string   :  b
-  Group matched string   :  b
-  Group match start index:  3
-  Group match end index  :  3
-  Group number           :  1
-  ----------------------
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  1
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
   --------------------------------------------
-  --------------------matchGroupEnd--------------------
-  after group match: matchData.matchStartIndex:  3
-  after group match: matchData.matchEndIndex  :  3
-  matchStartIndex:  3
-  matchEndIndex:  3
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
-  i:  1
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  4
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  2
-  atom:  \1
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  1
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
   fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  3
-  matchData.matchEndIndex at beginning:  3
-  0x5c31
-  Atom Type: DIGIT_BACKREFERENCE_PREFIX
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
-  --------------------matchDigitBackReferenceGroup--------------------
-  Atom:  \1
-  stringInBytes:  ccdbccbbd
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  indexToStartMatch set:  1
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  1
+  isFirstMatch:  false
   patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  1
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  indexToStartMatch set:  1
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  2
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  indexToStartMatch set:  2
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  2
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  indexToStartMatch set:  2
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  3
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  indexToStartMatch set:  3
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  3
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  indexToStartMatch set:  3
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
   indexToStartMatch:  4
   isFirstMatch:  false
-  fromCharacterClass:  false
-  fromGroup:  false
-  ----------------------------------------
-  reaching here
-  unreachable
-  -----------------------------------generateGroupAtoms-----------------------------------
-  numAtoms:  1
-  ----------------------------------------------------------------------
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  4
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  indexToStartMatch set:  4
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  4
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  4
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
   atom:  b
   fromCharacterClass:  false
@@ -338,52 +491,60 @@ Logs:
   matchEndIndex:  4
   indexToStartMatch set:  4
   resetted groups counter and groups data
+  came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  4
-  indexToStartMatch set:  4
-  resetting crucial data
-  matchData.lastAlternationQueueIndex:  0
-  matchData.matchEndIndex:  -1
-  subAtoms.length:  1
-  resetted everything...
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  5
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  4
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  2
-  atom:  (b)
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  5
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x286229
-  Atom Type: GROUP_ATOM
+  0x61
+  Atom Type: LITERAL_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
-  --------------------matchGroup--------------------
-  ----------------------seelAllMatchedGroups----------------------
-  --------------------------------------------
-  Atom:  (b)
-  stringInBytes:  ccdbccbbd
-  indexToStartMatch:  4
-  isFirstMatch:  true
-  patternFlags:  
-  groupsCounter:  0
-  ATOM:  b
-  -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
-  subAtoms.length:  1
-  -------------------------------------------------refined sub atoms-------------------------------------------------
-  sub atom  1 :  b
-  -------------------------------------------------end-------------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  indexToStartMatch set:  5
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  b
-  stringInBytes:  ccdbccbbd
-  indexToStartMatch:  4
-  isFirstMatch:  true
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  5
+  isFirstMatch:  false
   patternFlags:  
   currentGroupNum:  1
   --------------------------------------------
@@ -399,12 +560,12 @@ Logs:
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   fromGroup:  true
-  indexToStartMatch:  4
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  indexToStartMatch:  5
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
   atom:  b
   fromCharacterClass:  false
@@ -413,88 +574,174 @@ Logs:
   0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
-  matchStartIndex:  6
-  matchEndIndex:  6
-  matchStartIndex after boundary check:  6
-  matchEndIndex after boundary check:  6
-  yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  6
-  matchData.matchEndIndex at end:  6
-  fromGroup at end              :  true
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  indexToStartMatch set:  5
+  resetted groups counter and groups data
   came back from matchPattern
-  matchStartIndex:  6
-  matchEndIndex:  6
-  -----------------last group data-----------------
-  lastAlternationQueueIndex:  0
-  matchGroupData.matchStartIndex:  6
-  matchGroupData.matchEndIndex:  6
-  ----------------------------------
-  matchStartIndex:  6
-  matchEndIndex  :  6
-  groupsCounter  :  1
-  groupNum       :  1
-  isNegativeLookAhead       :  false
-  isPositiveLookAhead       :  false
-  pushing to group matched data...
-  atom:  b
-  atom:  b
-  ----------------------seelAllMatchedGroups----------------------
-  -----------matched-group-----------
-  i                      :  0
-  Group pattern string   :  b
-  Group matched string   :  b
-  Group match start index:  6
-  Group match end index  :  6
-  Group number           :  1
-  ----------------------
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  6
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
   --------------------------------------------
-  --------------------matchGroupEnd--------------------
-  after group match: matchData.matchStartIndex:  6
-  after group match: matchData.matchEndIndex  :  6
-  matchStartIndex:  6
-  matchEndIndex:  6
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
-  i:  1
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  7
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
-  atoms length:  2
-  atom:  \1
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  6
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
   fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  6
-  matchData.matchEndIndex at beginning:  6
-  0x5c31
-  Atom Type: DIGIT_BACKREFERENCE_PREFIX
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
-  --------------------matchDigitBackReferenceGroup--------------------
-  Atom:  \1
-  stringInBytes:  ccdbccbbd
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  indexToStartMatch set:  6
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  6
+  isFirstMatch:  false
   patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  6
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  indexToStartMatch set:  6
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
   indexToStartMatch:  7
   isFirstMatch:  false
-  fromCharacterClass:  false
-  fromGroup:  false
-  ----------------------------------------
-  reaching here
-  unreachable
-  -----------------------------------generateGroupAtoms-----------------------------------
-  numAtoms:  1
-  ----------------------------------------------------------------------
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  7
-  stringInBytes length:  9
-  stringInBytes:  ccdbccbbd
-  0x636364626363626264
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  7
+  indexToStartMatch set:  7
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  7
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  7
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  7
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
   atoms length:  1
   atom:  b
   fromCharacterClass:  false
@@ -504,35 +751,1297 @@ Logs:
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
-  matchStartIndex:  7
+  matchStartIndex:  -1
   matchEndIndex:  7
-  matchStartIndex after boundary check:  7
-  matchEndIndex after boundary check:  7
-  yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  7
-  matchData.matchEndIndex at end:  7
+  indexToStartMatch set:  7
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  7
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  8
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  8
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  indexToStartMatch set:  8
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  8
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  8
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  indexToStartMatch set:  8
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  9
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  9
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  indexToStartMatch set:  9
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  9
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  9
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  indexToStartMatch set:  9
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  10
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  10
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  indexToStartMatch set:  10
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  10
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  10
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  indexToStartMatch set:  10
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  11
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  11
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  indexToStartMatch set:  11
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  11
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  11
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  indexToStartMatch set:  11
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  12
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  12
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  indexToStartMatch set:  12
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  12
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  12
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  indexToStartMatch set:  12
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  13
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  13
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  indexToStartMatch set:  13
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  13
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  13
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  indexToStartMatch set:  13
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  14
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  14
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  14
+  breaking from here
+  matchStartIndex after boundary check:  -1
+  matchEndIndex after boundary check:  -1
+  matchData.firstIndex at end   :  -1
+  matchData.matchEndIndex at end:  -1
   fromGroup at end              :  true
-  matchStartIndex:  7
-  matchEndIndex:  7
-  matchStartIndex after boundary check:  7
-  matchEndIndex after boundary check:  7
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  -1
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  14
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  14
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  14
+  breaking from here
+  matchStartIndex after boundary check:  -1
+  matchEndIndex after boundary check:  -1
+  matchData.firstIndex at end   :  -1
+  matchData.matchEndIndex at end:  -1
+  fromGroup at end              :  true
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  -1
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  going to break....
+  -----------------last group data-----------------
+  lastAlternationQueueIndex:  1
+  matchGroupData.matchStartIndex:  -1
+  matchGroupData.matchEndIndex:  -1
+  ----------------------------------
+  matchStartIndex:  -1
+  matchEndIndex  :  -1
+  groupsCounter  :  1
+  groupNum       :  1
+  isNegativeLookAhead       :  false
+  isPositiveLookAhead       :  false
+  after group match: matchData.matchStartIndex:  -1
+  after group match: matchData.matchEndIndex  :  -1
+  matchStartIndex:  -1
+  matchEndIndex:  -1
+  indexToStartMatch set:  115792089237316195423570985008687907853269984665640564039457584007913129639935
+  resetting crucial data
+  matchData.lastAlternationQueueIndex:  0
+  matchData.matchEndIndex:  -1
+  subAtoms.length:  2
+  resetted everything...
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  true
+  fromGroup:  false
+  indexToStartMatch:  115792089237316195423570985008687907853269984665640564039457584007913129639935
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  (a|b)
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x28617c6229
+  Atom Type: GROUP_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  true
+  new atom:  (a|b)
+  Atom Type: GROUP_ATOM
+  matchData.matchStartIndex:  0
+  matchData.matchEndIndex  :  -1
+  atoms.length:  1
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  true
+  fromGroup:  false
+  indexToStartMatch:  0
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  (x|y)
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x28787c7929
+  Atom Type: GROUP_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  true
+  --------------------matchGroup--------------------
+  ----------------------seelAllMatchedGroups----------------------
+  --------------------------------------------
+  Atom:  (x|y)
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  0
+  isFirstMatch:  true
+  patternFlags:  
+  groupsCounter:  0
+  ATOM:  x|y
+  pipe found
+  -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
+  subAtoms.length:  2
+  -------------------------------------------------refined sub atoms-------------------------------------------------
+  sub atom  1 :  x
+  sub atom  2 :  y
+  -------------------------------------------------end-------------------------------------------------
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  0
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  indexToStartMatch set:  0
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  0
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  indexToStartMatch set:  0
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  0
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  1
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  1
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  indexToStartMatch set:  1
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  1
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  1
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  indexToStartMatch set:  1
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  1
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  2
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  indexToStartMatch set:  2
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  2
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  2
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  indexToStartMatch set:  2
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  2
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  3
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  indexToStartMatch set:  3
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  3
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  3
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  indexToStartMatch set:  3
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  3
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  4
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  4
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  indexToStartMatch set:  4
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  4
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  4
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  indexToStartMatch set:  4
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  4
+  matchGroupData.k:  1
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  x
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  5
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  x
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  x
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  5
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  x
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x78
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  indexToStartMatch set:  5
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  5
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  y
+  stringInBytes:  monkeys_do_flex
+  indexToStartMatch:  5
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  y
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  y
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  5
+  stringInBytes length:  15
+  stringInBytes:  monkeys_do_flex
+  0x6d6f6e6b6579735f646f5f666c6578
+  atoms length:  1
+  atom:  y
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x79
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  5
+  matchEndIndex:  5
+  matchStartIndex after boundary check:  5
+  matchEndIndex after boundary check:  5
   yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  6
-  matchData.matchEndIndex at end:  7
+  matchData.firstIndex at end   :  5
+  matchData.matchEndIndex at end:  5
+  fromGroup at end              :  true
+  came back from matchPattern
+  matchStartIndex:  5
+  matchEndIndex:  5
+  -----------------last group data-----------------
+  lastAlternationQueueIndex:  0
+  matchGroupData.matchStartIndex:  5
+  matchGroupData.matchEndIndex:  5
+  ----------------------------------
+  matchStartIndex:  5
+  matchEndIndex  :  5
+  groupsCounter  :  1
+  groupNum       :  1
+  isNegativeLookAhead       :  false
+  isPositiveLookAhead       :  false
+  pushing to group matched data...
+  atom:  x|y
+  atom:  y
+  ----------------------seelAllMatchedGroups----------------------
+  -----------matched-group-----------
+  i                      :  0
+  Group pattern string   :  y
+  Group matched string   :  y
+  Group match start index:  5
+  Group match end index  :  5
+  Group number           :  1
+  ----------------------
+  --------------------------------------------
+  --------------------matchGroupEnd--------------------
+  after group match: matchData.matchStartIndex:  5
+  after group match: matchData.matchEndIndex  :  5
+  matchStartIndex:  5
+  matchEndIndex:  5
+  matchStartIndex after boundary check:  5
+  matchEndIndex after boundary check:  5
+  yes matchEndIndex is greater than -1
+  matchData.firstIndex at end   :  5
+  matchData.matchEndIndex at end:  5
   fromGroup at end              :  false
   ------------------returnedData------------------
-  Pattern string         :  /(a)|(b)\1/
-  Original string        :  ccdbccbbd
-  Matched string         :  bb
-  Match start index      :  6
-  Match end index        :  7
-  Group pattern string   :  b
-  Group matched string   :  b
-  Group match start index:  6
-  Group match end index  :  6
+  Pattern string         :  /(a|b)|(x|y)/
+  Original string        :  monkeys_do_flex
+  Matched string         :  y
+  Match start index      :  5
+  Match end index        :  5
+  Group pattern string   :  y
+  Group matched string   :  y
+  Group match start index:  5
+  Group match end index  :  5
   Group number           :  1
   ------------------------------------
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.49ms (1.85ms CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 14.84ms (5.43ms CPU time)
 
-Ran 1 test suite in 11.54ms (10.49ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 17.11ms (14.84ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
