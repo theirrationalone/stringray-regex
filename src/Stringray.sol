@@ -1317,7 +1317,7 @@ contract Stringray {
                 matchData.groupChecked = true;
 
                 if (matchData.matchStartIndex == -1) {
-                    matchData.lastAlternationQueueIndex = 1;
+                    matchData.lastAlternationQueueIndex = 0;
                 }
 
                 console2.log("after group match: matchData.matchStartIndex: ", matchData.matchStartIndex);
@@ -1561,7 +1561,11 @@ contract Stringray {
 
                 matchData.i = 0;
 
-                if (matchData.lastAlternationQueueIndex == 0 && matchData.groupChecked) {
+
+                console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
+                console2.log("matchData.matchEndIndex: ", matchData.matchEndIndex);
+                console2.log("subAtoms.length: ", subAtoms.length);
+                if (matchData.lastAlternationQueueIndex == 1 && matchData.groupChecked) {
                     console2.log("resetting alternation data....");
                     indexToStartMatch = 0;
                     matchData.lastAlternationQueueIndex = 2;
@@ -1572,9 +1576,6 @@ contract Stringray {
                 delete grpMatchedData;
                 delete groupNames;
 
-                console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
-                console2.log("subAtoms.length: ", subAtoms.length);
-
                 console2.log("resetted everything...");
                 continue;
             }
@@ -1583,7 +1584,7 @@ contract Stringray {
             indexToStartMatch =
                 matchData.matchEndIndex > -1 ? uint256(matchData.matchEndIndex) + 1 : uint256(matchData.matchEndIndex);
 
-            matchData.lastAlternationQueueIndex = 0;
+            // matchData.lastAlternationQueueIndex = 0;
             matchData.i++;
         }
 
@@ -2161,6 +2162,11 @@ contract Stringray {
                 );
 
                 if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
+                    if (matchGroupData.k + 1 == metaSubAtoms.length) {
+                        lastAlternationQueueIndex = 0;
+                    } else {
+                        lastAlternationQueueIndex = 1;
+                    }
                     break;
                 }
 
@@ -2178,6 +2184,7 @@ contract Stringray {
                         if (indexToStartMatch + 1 < stringInBytes.length) {
                             matchGroupData.k = 0;
                             indexToStartMatch += 1;
+                            lastAlternationQueueIndex = 0;
                             continue;
                         }
                     }
@@ -2194,6 +2201,12 @@ contract Stringray {
                 atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, matchGroupData.groupNum
             );
         }
+
+        console2.log("-----------------last group data-----------------");
+        console2.log("lastAlternationQueueIndex: ", lastAlternationQueueIndex);
+        console2.log("matchGroupData.matchStartIndex: ", matchGroupData.matchStartIndex);
+        console2.log("matchGroupData.matchEndIndex: ", matchGroupData.matchEndIndex);
+        console2.log("----------------------------------");
 
         // matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length ? 0 : lastAlternationQueueIndex;
         // console2.log("k: ", matchGroupData.k);
