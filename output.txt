@@ -1,25 +1,20 @@
 No files changed, compilation skipped
 
 Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
-[PASS] testRegexPatternMatchAlternationAnchorCase55() (gas: 3553321)
+[PASS] testRegexPatternMatchAlternationAnchorCase123() (gas: 6269097)
 Logs:
   nuclear fission was successful
   ------------------------seeAllAtoms------------------------
-  atoms length:  3
+  atoms length:  2
+  Atom Type: GROUP_SUB_ATOM
+  Atom:  (b|c)
+  Atom start index:  2
+  Atom end index:  6
+  ------------------------------------------------
   Atom Type: GROUP_ATOM
-  Atom:  (a|b)
+  Atom:  (a|(b|c))
   Atom start index:  0
-  Atom end index:  4
-  ------------------------------------------------
-  Atom Type: ALTERNATION_OPERATOR
-  Atom:  |
-  Atom start index:  5
-  Atom end index:  5
-  ------------------------------------------------
-  Atom Type: GROUP_ATOM
-  Atom:  (x|y)
-  Atom start index:  6
-  Atom end index:  10
+  Atom end index:  8
   ------------------------------------------------
   -----------------------matchPattern-----------------------
   cycle starts...
@@ -27,38 +22,56 @@ Logs:
   isFirstMatch:  true
   fromGroup:  false
   indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  (a|b)
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  2
+  atom:  (b|c)
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x28617c6229
+  0x28627c6329
+  Atom Type: GROUP_SUB_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  true
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  1
+  isFirstMatch:  true
+  fromGroup:  false
+  indexToStartMatch:  0
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  2
+  atom:  (a|(b|c))
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x28617c28627c632929
   Atom Type: GROUP_ATOM
   ----------------------------------------------
   updated isFirstMatch:  true
   --------------------matchGroup--------------------
   ----------------------seelAllMatchedGroups----------------------
   --------------------------------------------
-  Atom:  (a|b)
-  stringInBytes:  monkeys_do_flex
+  Atom:  (a|(b|c))
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  0
   isFirstMatch:  true
   patternFlags:  
   groupsCounter:  0
-  ATOM:  a|b
+  ATOM:  a|(b|c)
   pipe found
   -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
   subAtoms.length:  2
   -------------------------------------------------refined sub atoms-------------------------------------------------
   sub atom  1 :  a
-  sub atom  2 :  b
+  sub atom  2 :  (b|c)
   -------------------------------------------------end-------------------------------------------------
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  0
   isFirstMatch:  false
   patternFlags:  
@@ -79,9 +92,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -98,55 +111,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  0
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  0
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  0
-  indexToStartMatch set:  0
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  0
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  1
   isFirstMatch:  false
   patternFlags:  
@@ -167,9 +134,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  1
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -186,55 +153,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  1
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  1
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  1
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  1
-  indexToStartMatch set:  1
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  1
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  2
   isFirstMatch:  false
   patternFlags:  
@@ -255,9 +176,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  2
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -274,55 +195,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  2
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  2
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  2
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  2
-  indexToStartMatch set:  2
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  2
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  3
   isFirstMatch:  false
   patternFlags:  
@@ -343,9 +218,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  3
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -362,55 +237,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  3
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  3
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  3
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  3
-  indexToStartMatch set:  3
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  3
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  4
   isFirstMatch:  false
   patternFlags:  
@@ -431,9 +260,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  4
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -450,55 +279,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  4
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  4
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  4
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  4
-  indexToStartMatch set:  4
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  4
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  5
   isFirstMatch:  false
   patternFlags:  
@@ -519,9 +302,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  5
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -538,55 +321,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  5
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  5
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  5
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  5
-  indexToStartMatch set:  5
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  5
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  6
   isFirstMatch:  false
   patternFlags:  
@@ -607,9 +344,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  6
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -626,55 +363,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  6
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  6
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  6
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  6
-  indexToStartMatch set:  6
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  6
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  7
   isFirstMatch:  false
   patternFlags:  
@@ -695,9 +386,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  7
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -714,55 +405,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  7
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  7
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  7
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  7
-  indexToStartMatch set:  7
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  7
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  8
   isFirstMatch:  false
   patternFlags:  
@@ -783,9 +428,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  8
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -802,55 +447,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  8
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  8
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  8
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  8
-  indexToStartMatch set:  8
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  8
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  9
   isFirstMatch:  false
   patternFlags:  
@@ -871,9 +470,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  9
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -890,55 +489,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  9
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  9
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  9
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  9
-  indexToStartMatch set:  9
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  9
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  10
   isFirstMatch:  false
   patternFlags:  
@@ -959,9 +512,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  10
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -978,55 +531,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  10
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  10
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  10
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  10
-  indexToStartMatch set:  10
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  10
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  11
   isFirstMatch:  false
   patternFlags:  
@@ -1047,9 +554,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  11
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -1066,55 +573,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  11
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  11
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  11
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  11
-  indexToStartMatch set:  11
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  11
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  12
   isFirstMatch:  false
   patternFlags:  
@@ -1135,9 +596,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  12
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -1154,55 +615,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  12
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  12
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  12
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  12
-  indexToStartMatch set:  12
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  12
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  13
   isFirstMatch:  false
   patternFlags:  
@@ -1223,9 +638,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  13
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -1242,55 +657,9 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  13
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  13
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  b
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  b
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  13
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  b
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x62
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  13
-  indexToStartMatch set:  13
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  13
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
   sub atoms:  a
-  stringInBytes:  monkeys_do_flex
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  14
   isFirstMatch:  false
   patternFlags:  
@@ -1311,9 +680,9 @@ Logs:
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  14
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
   atom:  a
   fromCharacterClass:  false
@@ -1325,26 +694,20 @@ Logs:
   updated isFirstMatch:  false
   matchStartIndex:  -1
   matchEndIndex:  14
-  breaking from here
-  matchStartIndex after boundary check:  -1
-  matchEndIndex after boundary check:  -1
-  matchData.firstIndex at end   :  -1
-  matchData.matchEndIndex at end:  -1
-  fromGroup at end              :  true
+  indexToStartMatch set:  14
+  resetted groups counter and groups data
   came back from matchPattern
   matchStartIndex:  -1
-  matchEndIndex:  -1
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
+  matchEndIndex:  14
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  b
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  14
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  15
   isFirstMatch:  false
   patternFlags:  
   currentGroupNum:  1
   --------------------------------------------
-  subAtoms:  b
+  subAtoms:  a
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1352,27 +715,1539 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  b
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
-  indexToStartMatch:  14
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  indexToStartMatch:  15
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  b
+  atom:  a
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x62
+  0x61
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
   matchStartIndex:  -1
-  matchEndIndex:  14
+  matchEndIndex:  15
+  indexToStartMatch set:  15
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  15
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  16
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  16
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  16
+  indexToStartMatch set:  16
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  16
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  17
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  17
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  17
+  indexToStartMatch set:  17
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  17
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  18
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  18
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  18
+  indexToStartMatch set:  18
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  18
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  19
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  19
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  19
+  indexToStartMatch set:  19
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  19
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  20
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  20
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  20
+  indexToStartMatch set:  20
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  20
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  21
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  21
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  21
+  indexToStartMatch set:  21
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  21
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  22
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  22
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  22
+  indexToStartMatch set:  22
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  22
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  23
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  23
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  23
+  indexToStartMatch set:  23
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  23
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  24
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  24
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  24
+  indexToStartMatch set:  24
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  24
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  25
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  25
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  25
+  indexToStartMatch set:  25
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  25
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  26
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  26
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  26
+  indexToStartMatch set:  26
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  26
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  27
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  27
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  27
+  indexToStartMatch set:  27
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  27
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  28
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  28
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  28
+  indexToStartMatch set:  28
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  28
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  29
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  29
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  29
+  indexToStartMatch set:  29
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  29
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  30
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  30
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  30
+  indexToStartMatch set:  30
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  30
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  31
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  31
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  31
+  indexToStartMatch set:  31
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  31
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  32
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  32
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  32
+  indexToStartMatch set:  32
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  32
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  33
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  33
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  33
+  indexToStartMatch set:  33
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  33
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  34
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  34
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  34
+  indexToStartMatch set:  34
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  34
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  35
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  35
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  35
+  indexToStartMatch set:  35
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  35
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  36
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  36
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  36
+  indexToStartMatch set:  36
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  36
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  37
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  37
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  37
+  indexToStartMatch set:  37
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  37
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  38
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  38
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  38
+  indexToStartMatch set:  38
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  38
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  39
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  39
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  39
+  indexToStartMatch set:  39
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  39
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  40
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  40
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  40
+  indexToStartMatch set:  40
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  40
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  41
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  41
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  41
+  indexToStartMatch set:  41
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  41
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  42
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  42
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  42
+  indexToStartMatch set:  42
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  42
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  43
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  43
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  43
+  indexToStartMatch set:  43
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  43
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  44
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  44
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  44
+  indexToStartMatch set:  44
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  44
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  45
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  45
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  45
+  indexToStartMatch set:  45
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  45
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  46
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  46
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  46
+  indexToStartMatch set:  46
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  46
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  47
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  47
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  47
+  indexToStartMatch set:  47
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  47
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  48
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  48
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  48
+  indexToStartMatch set:  48
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  48
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  49
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  49
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  49
+  indexToStartMatch set:  49
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  49
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  50
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  50
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  50
+  indexToStartMatch set:  50
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  50
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  51
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  51
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  a
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x61
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  51
   breaking from here
   matchStartIndex after boundary check:  -1
   matchEndIndex after boundary check:  -1
@@ -1382,97 +2257,113 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  -1
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  going to break....
-  -----------------last group data-----------------
-  lastAlternationQueueIndex:  1
-  matchGroupData.matchStartIndex:  -1
-  matchGroupData.matchEndIndex:  -1
-  ----------------------------------
-  matchStartIndex:  -1
-  matchEndIndex  :  -1
-  groupsCounter  :  1
-  groupNum       :  1
-  isNegativeLookAhead       :  false
-  isPositiveLookAhead       :  false
-  after group match: matchData.matchStartIndex:  -1
-  after group match: matchData.matchEndIndex  :  -1
-  matchStartIndex:  -1
-  matchEndIndex:  -1
-  indexToStartMatch set:  115792089237316195423570985008687907853269984665640564039457584007913129639935
-  resetting crucial data
-  matchData.lastAlternationQueueIndex:  0
-  matchData.matchEndIndex:  -1
-  subAtoms.length:  2
-  resetted everything...
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  a
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  52
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  a
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  a
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
-  fromGroup:  false
-  indexToStartMatch:  115792089237316195423570985008687907853269984665640564039457584007913129639935
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  52
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  (a|b)
+  atom:  a
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x28617c6229
-  Atom Type: GROUP_ATOM
+  0x61
+  Atom Type: LITERAL_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
-  new atom:  (a|b)
-  Atom Type: GROUP_ATOM
+  updated isFirstMatch:  false
+  new atom:  a
+  Atom Type: LITERAL_ATOM
   matchData.matchStartIndex:  0
   matchData.matchEndIndex  :  -1
-  atoms.length:  1
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  -1
+  matchGroupData.k:  0
+  metaSubAtoms.length:  2
+  matchGroupData.matchEndIndex:  -1
+  indexToStartMatch:  0
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  (b|c)
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  0
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  1
+  --------------------------------------------
+  subAtoms:  (b|c)
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: GROUP_SUB_ATOM
+  atomEndIdx:  4
+  --------------------------------------------------------------------
+  subAtom:  (b|c)
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
-  isFirstMatch:  true
-  fromGroup:  false
+  isFirstMatch:  false
+  fromGroup:  true
   indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  (x|y)
+  atom:  (b|c)
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x28787c7929
+  0x28627c6329
   Atom Type: GROUP_ATOM
   ----------------------------------------------
-  updated isFirstMatch:  true
+  updated isFirstMatch:  false
   --------------------matchGroup--------------------
   ----------------------seelAllMatchedGroups----------------------
   --------------------------------------------
-  Atom:  (x|y)
-  stringInBytes:  monkeys_do_flex
+  Atom:  (b|c)
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  0
-  isFirstMatch:  true
+  isFirstMatch:  false
   patternFlags:  
-  groupsCounter:  0
-  ATOM:  x|y
+  groupsCounter:  1
+  ATOM:  b|c
   pipe found
   -------------------------------------------------------------------------Alternation-------------------------------------------------------------------------
   subAtoms.length:  2
   -------------------------------------------------refined sub atoms-------------------------------------------------
-  sub atom  1 :  x
-  sub atom  2 :  y
+  sub atom  1 :  b
+  sub atom  2 :  c
   -------------------------------------------------end-------------------------------------------------
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
   indexToStartMatch:  0
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  x
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1480,22 +2371,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1506,17 +2397,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  0
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  0
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  1
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1524,66 +2413,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  0
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  y
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x79
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  0
-  indexToStartMatch set:  0
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  0
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  1
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  x
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  1
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1594,17 +2439,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  1
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  1
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  2
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1612,66 +2455,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  1
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  y
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x79
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  1
-  indexToStartMatch set:  1
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  1
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  2
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  x
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  2
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1682,17 +2481,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  2
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  2
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  3
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1700,66 +2497,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  2
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  y
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x79
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  2
-  indexToStartMatch set:  2
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  2
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  3
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  x
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  3
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1770,17 +2523,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  3
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  3
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  4
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1788,66 +2539,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  3
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  y
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x79
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  3
-  indexToStartMatch set:  3
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  3
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  4
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  x
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  4
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1858,17 +2565,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  4
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  4
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  5
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1876,66 +2581,22 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
-  -----------------------matchPattern-----------------------
-  cycle starts...
-  i:  0
-  isFirstMatch:  false
-  fromGroup:  true
-  indexToStartMatch:  4
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
-  atoms length:  1
-  atom:  y
-  fromCharacterClass:  false
-  matchData.matchStartIndex at beginning:  0
-  matchData.matchEndIndex at beginning:  -1
-  0x79
-  Atom Type: LITERAL_ATOM
-  ----------------------------------------------
-  updated isFirstMatch:  false
-  matchStartIndex:  -1
-  matchEndIndex:  4
-  indexToStartMatch set:  4
-  resetted groups counter and groups data
-  came back from matchPattern
-  matchStartIndex:  -1
-  matchEndIndex:  4
-  matchGroupData.k:  1
-  metaSubAtoms.length:  2
-  ----------------------matchGroupsAtoms----------------------
-  sub atoms:  x
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  5
-  isFirstMatch:  false
-  patternFlags:  
-  currentGroupNum:  1
-  --------------------------------------------
-  subAtoms:  x
-  current i:  0
-  last matchStartIndex:  -1
-  last matchEndIndex:  -1
-  ----------------------------------collectGroupSubAtom----------------------------------
-  Atom Type: LITERAL_ATOM
-  atomEndIdx:  0
-  --------------------------------------------------------------------
-  subAtom:  x
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
   indexToStartMatch:  5
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  x
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x78
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
@@ -1946,17 +2607,15 @@ Logs:
   came back from matchPattern
   matchStartIndex:  -1
   matchEndIndex:  5
-  matchGroupData.k:  0
-  metaSubAtoms.length:  2
   ----------------------matchGroupsAtoms----------------------
-  sub atoms:  y
-  stringInBytes:  monkeys_do_flex
-  indexToStartMatch:  5
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  6
   isFirstMatch:  false
   patternFlags:  
-  currentGroupNum:  1
+  currentGroupNum:  2
   --------------------------------------------
-  subAtoms:  y
+  subAtoms:  b
   current i:  0
   last matchStartIndex:  -1
   last matchEndIndex:  -1
@@ -1964,84 +2623,770 @@ Logs:
   Atom Type: LITERAL_ATOM
   atomEndIdx:  0
   --------------------------------------------------------------------
-  subAtom:  y
+  subAtom:  b
   -----------------------matchPattern-----------------------
   cycle starts...
   i:  0
   isFirstMatch:  false
   fromGroup:  true
-  indexToStartMatch:  5
-  stringInBytes length:  15
-  stringInBytes:  monkeys_do_flex
-  0x6d6f6e6b6579735f646f5f666c6578
+  indexToStartMatch:  6
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
   atoms length:  1
-  atom:  y
+  atom:  b
   fromCharacterClass:  false
   matchData.matchStartIndex at beginning:  0
   matchData.matchEndIndex at beginning:  -1
-  0x79
+  0x62
   Atom Type: LITERAL_ATOM
   ----------------------------------------------
   updated isFirstMatch:  false
-  matchStartIndex:  5
-  matchEndIndex:  5
-  matchStartIndex after boundary check:  5
-  matchEndIndex after boundary check:  5
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  indexToStartMatch set:  6
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  6
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  7
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  7
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  7
+  indexToStartMatch set:  7
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  7
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  8
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  8
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  indexToStartMatch set:  8
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  8
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  9
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  9
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  indexToStartMatch set:  9
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  9
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  10
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  10
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  indexToStartMatch set:  10
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  10
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  11
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  11
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  indexToStartMatch set:  11
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  11
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  12
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  12
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  indexToStartMatch set:  12
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  12
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  13
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  13
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  indexToStartMatch set:  13
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  13
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  14
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  14
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  14
+  indexToStartMatch set:  14
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  14
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  15
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  15
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  15
+  indexToStartMatch set:  15
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  15
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  16
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  16
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  16
+  indexToStartMatch set:  16
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  16
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  17
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  17
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  17
+  indexToStartMatch set:  17
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  17
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  18
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  18
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  18
+  indexToStartMatch set:  18
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  18
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  19
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  19
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  19
+  indexToStartMatch set:  19
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  19
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  20
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  20
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  -1
+  matchEndIndex:  20
+  indexToStartMatch set:  20
+  resetted groups counter and groups data
+  came back from matchPattern
+  matchStartIndex:  -1
+  matchEndIndex:  20
+  ----------------------matchGroupsAtoms----------------------
+  sub atoms:  b
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  indexToStartMatch:  21
+  isFirstMatch:  false
+  patternFlags:  
+  currentGroupNum:  2
+  --------------------------------------------
+  subAtoms:  b
+  current i:  0
+  last matchStartIndex:  -1
+  last matchEndIndex:  -1
+  ----------------------------------collectGroupSubAtom----------------------------------
+  Atom Type: LITERAL_ATOM
+  atomEndIdx:  0
+  --------------------------------------------------------------------
+  subAtom:  b
+  -----------------------matchPattern-----------------------
+  cycle starts...
+  i:  0
+  isFirstMatch:  false
+  fromGroup:  true
+  indexToStartMatch:  21
+  stringInBytes length:  52
+  stringInBytes:  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  0x4e6568406c20697320402043757465204769726c2062757420736865206c40636b73204020626974206f66204174746974756465
+  atoms length:  1
+  atom:  b
+  fromCharacterClass:  false
+  matchData.matchStartIndex at beginning:  0
+  matchData.matchEndIndex at beginning:  -1
+  0x62
+  Atom Type: LITERAL_ATOM
+  ----------------------------------------------
+  updated isFirstMatch:  false
+  matchStartIndex:  21
+  matchEndIndex:  21
+  matchStartIndex after boundary check:  21
+  matchEndIndex after boundary check:  21
   yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  5
-  matchData.matchEndIndex at end:  5
+  matchData.firstIndex at end   :  21
+  matchData.matchEndIndex at end:  21
   fromGroup at end              :  true
   came back from matchPattern
-  matchStartIndex:  5
-  matchEndIndex:  5
+  matchStartIndex:  21
+  matchEndIndex:  21
   -----------------last group data-----------------
-  lastAlternationQueueIndex:  0
-  matchGroupData.matchStartIndex:  5
-  matchGroupData.matchEndIndex:  5
+  lastAlternationQueueIndex:  1
+  matchGroupData.matchStartIndex:  21
+  matchGroupData.matchEndIndex:  21
   ----------------------------------
-  matchStartIndex:  5
-  matchEndIndex  :  5
-  groupsCounter  :  1
-  groupNum       :  1
-  isNegativeLookAhead       :  false
+  matchStartIndex:  21
+  matchEndIndex  :  21
+  groupsCounter  :  2
+  groupNum       :  2
   isPositiveLookAhead       :  false
+  isNegativeLookAhead       :  false
+  isPositiveLookBehind       :  false
+  isNegativeLookBehind       :  false
   pushing to group matched data...
-  atom:  x|y
-  atom:  y
+  atom:  b|c
+  atom:  b
   ----------------------seelAllMatchedGroups----------------------
   -----------matched-group-----------
   i                      :  0
-  Group pattern string   :  y
-  Group matched string   :  y
-  Group match start index:  5
-  Group match end index  :  5
+  Group pattern string   :  b
+  Group matched string   :  b
+  Group match start index:  21
+  Group match end index  :  21
+  Group number           :  2
+  ----------------------
+  --------------------------------------------
+  --------------------matchGroupEnd--------------------
+  after group match: matchData.matchStartIndex:  21
+  after group match: matchData.matchEndIndex  :  21
+  matchStartIndex:  21
+  matchEndIndex:  21
+  matchStartIndex after boundary check:  21
+  matchEndIndex after boundary check:  21
+  yes matchEndIndex is greater than -1
+  matchData.firstIndex at end   :  21
+  matchData.matchEndIndex at end:  21
+  fromGroup at end              :  true
+  came back from matchPattern
+  matchStartIndex:  21
+  matchEndIndex:  21
+  breaking here, ..............................................................
+  -----------------last group data-----------------
+  lastAlternationQueueIndex:  0
+  matchGroupData.matchStartIndex:  21
+  matchGroupData.matchEndIndex:  21
+  ----------------------------------
+  matchStartIndex:  21
+  matchEndIndex  :  21
+  groupsCounter  :  2
+  groupNum       :  1
+  isPositiveLookAhead       :  false
+  isNegativeLookAhead       :  false
+  isPositiveLookBehind       :  false
+  isNegativeLookBehind       :  false
+  pushing to group matched data...
+  atom:  a|(b|c)
+  atom:  (b|c)
+  ----------------------seelAllMatchedGroups----------------------
+  -----------matched-group-----------
+  i                      :  0
+  Group pattern string   :  b
+  Group matched string   :  b
+  Group match start index:  21
+  Group match end index  :  21
+  Group number           :  2
+  ----------------------
+  -----------matched-group-----------
+  i                      :  1
+  Group pattern string   :  (b|c)
+  Group matched string   :  b
+  Group match start index:  21
+  Group match end index  :  21
   Group number           :  1
   ----------------------
   --------------------------------------------
   --------------------matchGroupEnd--------------------
-  after group match: matchData.matchStartIndex:  5
-  after group match: matchData.matchEndIndex  :  5
-  matchStartIndex:  5
-  matchEndIndex:  5
-  matchStartIndex after boundary check:  5
-  matchEndIndex after boundary check:  5
+  after group match: matchData.matchStartIndex:  21
+  after group match: matchData.matchEndIndex  :  21
+  matchStartIndex:  21
+  matchEndIndex:  21
+  matchStartIndex after boundary check:  21
+  matchEndIndex after boundary check:  21
   yes matchEndIndex is greater than -1
-  matchData.firstIndex at end   :  5
-  matchData.matchEndIndex at end:  5
+  matchData.firstIndex at end   :  21
+  matchData.matchEndIndex at end:  21
   fromGroup at end              :  false
   ------------------returnedData------------------
-  Pattern string         :  /(a|b)|(x|y)/
-  Original string        :  monkeys_do_flex
-  Matched string         :  y
-  Match start index      :  5
-  Match end index        :  5
-  Group pattern string   :  y
-  Group matched string   :  y
-  Group match start index:  5
-  Group match end index  :  5
+  Pattern string         :  /(a|(b|c))/
+  Original string        :  Neh@l is @ Cute Girl but she l@cks @ bit of Attitude
+  Matched string         :  b
+  Match start index      :  21
+  Match end index        :  21
+  Group pattern string   :  b
+  Group matched string   :  b
+  Group match start index:  21
+  Group match end index  :  21
+  Group number           :  2
+  Group pattern string   :  (b|c)
+  Group matched string   :  b
+  Group match start index:  21
+  Group match end index  :  21
   Group number           :  1
   ------------------------------------
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 14.84ms (5.43ms CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 18.32ms (9.00ms CPU time)
 
-Ran 1 test suite in 17.11ms (14.84ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 21.90ms (18.32ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
