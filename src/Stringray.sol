@@ -2221,7 +2221,7 @@ contract Stringray {
                             continue;
                         }
 
-                        if (matchGroupData.i < stringInBytes.length) {
+                        if (matchGroupData.i < stringInBytes.length && matchGroupData.isFirstMatch) {
                             matchGroupData.j = 0;
                             matchGroupData.i += 1;
                             continue;
