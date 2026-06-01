@@ -1364,6 +1364,14 @@ contract Stringray {
                     ) {
                         if (matchData.matchEndIndex + 1 < int256(stringInBytes.length) && isWord(stringInBytes[uint256(matchData.matchEndIndex) + 1], false)) {
                             matchData.matchStartIndex = -1;
+                        } else if (matchData.matchEndIndex + 1 == int256(stringInBytes.length)) {
+                            if (matchData.i > 0
+                            && atoms[matchData.i - 1].atomType == WORD_BOUNDARY && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)) {
+                                matchData.matchStartIndex = -1;
+                            } else {
+
+                            return (matchData.matchStartIndex, matchData.matchEndIndex);
+                            }
                         }
                     }
 
@@ -1373,6 +1381,19 @@ contract Stringray {
                                 
                     ) {
                         if (matchData.matchStartIndex > 0 && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)) {
+                            matchData.matchStartIndex = -1;
+                        }
+                    }
+
+                    if (
+                        matchData.i + 1 < atoms.length
+                            && atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY
+                    ){
+                        if (matchData.matchEndIndex == 0 && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)) {
+                            matchData.matchStartIndex = -1;
+                        }
+
+                        if (matchData.matchEndIndex + 1 == int256(stringInBytes.length) && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)) {
                             matchData.matchStartIndex = -1;
                         }
                     }
@@ -1478,6 +1499,7 @@ contract Stringray {
                         && (atoms[matchData.i + 1].atomType == WORD_BOUNDARY
                             || atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY)
                 ) {
+                    console2.log("continued.................");
                     matchData.i++;
                     continue;
                 }

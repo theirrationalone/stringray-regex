@@ -21669,5 +21669,12 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000089", () => {
+    const target = "ab";
+    let regex = /\b(a|b)\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
