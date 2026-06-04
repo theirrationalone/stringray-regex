@@ -21663,18 +21663,81 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match Alternation anchor: Case000000000000000000000000000089", () => {
-    const target = "i'llsayyesmaybe";
-    let regex = /(?:yes|no)maybe/;
+  test("Pattern match Alternation anchor: Case000000000000000000000000000090", () => {
+    const target = "AMAN IS NEHAL'S UNCLE";
+    let regex = /[a-z]|[0-9]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000091", () => {
+    const target = "AMAN IS NEHAL'$ UNCLE";
+    let regex = /[a-z]|[0-9]/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000092", () => {
+    const target = "AMAN IS NEHaL'S UNCLE";
+    let regex = /[a-z]|[0-9]/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match Alternation anchor: Case000000000000000000000000000089", () => {
-    const target = "ab";
-    let regex = /\b(a|b)\b/;
+  test("Pattern match Alternation anchor: Case000000000000000000000000000093", () => {
+    const target = "AMAN IS NEHAL'S UNCLE AND NEHAL HAS 2 TOTAL UNCLES";
+    let regex = /[a-z]|[0-9]/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000094", () => {
+    const target = "aman is nehal's uncle";
+    let regex = /[A-Z]|_/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000095", () => {
+    const target = "aman is Nehal's uncle";
+    let regex = /[A-Z]|_/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000096", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /[A-Z]|_/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000097", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /猫|犬/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000098", () => {
+    const target = "aman is 猫 nehal's_uncle";
+    let regex = /猫|犬/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Alternation anchor: Case000000000000000000000000000099", () => {
+    const target = "aman is 犬 nehal's_uncle";
+    let regex = /猫|犬/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000100", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /α|β/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
   });
 };
 testMain();
