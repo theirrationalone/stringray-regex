@@ -21739,5 +21739,229 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), false);
   });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000101", () => {
+    const target = "aman is α nehal's_uncle";
+    let regex = /α|β/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000102", () => {
+    const target = "aman is β nehal's_uncle";
+    let regex = /α|β/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000103", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /😀|🔥/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000104", () => {
+    const target = "aman is 😀 nehal's_uncle";
+    let regex = /😀|🔥/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000105", () => {
+    const target = "aman is 🔥 nehal's_uncle";
+    let regex = /😀|🔥/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000106", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /🚀|🌙/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000107", () => {
+    const target = "aman is 🚀 nehal's_uncle";
+    let regex = /🚀|🌙/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000108", () => {
+    const target = "aman is 🌙 nehal's_uncle";
+    let regex = /🚀|🌙/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000109", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /\n|\t/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000110", () => {
+    const target = "aman is \n nehal's_uncle";
+    let regex = /\n|\t/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000111", () => {
+    const target = "aman is \t nehal's_uncle";
+    let regex = /\n|\t/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000112", () => {
+    const target = "aman is nehal's_uncle";
+    let regex = /\.|,/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000113", () => {
+    const target = "aman is . nehal's_uncle";
+    let regex = /\.|,/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000114", () => {
+    const target = "aman is , nehal's_uncle";
+    let regex = /\.|,/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000115", () => {
+    const target = "nehal is like a _cat_ most of the time she seems excited & passioinated";
+    let regex = /\bcat\b|\bdog\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000116", () => {
+    const target = "nehal is like a cat and aman is like a dog haha";
+    let regex = /\bcat\b|\bdog\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000117", () => {
+    const target = "nehal is like a cat most of the time she seems excited & passioinated";
+    let regex = /\bcat\b|\bdog\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000118", () => {
+    const target = "aman is like a _dog_ he always finds ways to drink and walk around the hood";
+    let regex = /\bcat\b|\bdog\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000119", () => {
+    const target = "aman is like a dog he always finds ways to drink and walk around the hood";
+    let regex = /\bcat\b|\bdog\b/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000120", () => {
+    const target = "Neh@l is @ Cute Girl";
+    let regex = /(a|(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000121", () => {
+    const target = "Nehal is a Cute Girl";
+    let regex = /(a|(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000122", () => {
+    const target = "Nehal is a cute Girl but she lacks a bit of attitude";
+    let regex = /(a|(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000123", () => {
+    const target = "Neh@l is @ Cute Girl but she l@cks @ bit of Attitude";
+    let regex = /(a|(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000124", () => {
+    const target = "Neh@l is @ cute Girl But she l@cks @ Bit of @ttitude";
+    let regex = /(a|(b|c))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000125", () => {
+    const target = "Neh@l is @CuteGirl,BuDDy";
+    let regex = /(a|(b|(c|d)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000126", () => {
+    const target = "Nehal is a cute Girl and she is beautiful too";
+    let regex = /(a|(b|(c|d)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000127", () => {
+    const target = "Neh@l is @b Cute Girl @nD";
+    let regex = /(a|(b|(c|d)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000128", () => {
+    const target = "Neh@l is @ cute Girl @nD she is Be@utiful too";
+    let regex = /(a|(b|(c|d)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000129", () => {
+    const target = "Neh@l is @ Cute Girl @nd she is Be@utiful too";
+    let regex = /(a|(b|(c|d)))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000130", () => {
+    const target = "CatsDogsBirdsFishes";
+    let regex = /(?=(cat|dog)|(bird|fish))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000131", () => {
+    const target = "cats are cute, Dogs are loyal, Birds are innocent and Fishes are tasty.";
+    let regex = /(?=(cat|dog)|(bird|fish))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+  
+  test("Pattern match Alternation anchor: Case0000000000000000000000000000132", () => {
+    const target = "Cats are cute, dogs are loyal, Birds are innocent and Fishes are tasty.";
+    let regex = /(?=(cat|dog)|(bird|fish))/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
 };
 testMain();

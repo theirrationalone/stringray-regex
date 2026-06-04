@@ -34739,26 +34739,6 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchAlternationAnchorCase125() public {
         string memory target = unicode"Neh@l is @CuteGirl,BuDDy";
-        // @note: catastrophic pattern
-        // @info: if target string gets bigger in size than it has right now then MooG revert would be thrown...
-        // @reason: after finding nothing throughout the last alternation ...(b|(c|d)), logic backtracks the whole pattern
-        // with the next consequenced starting index i.e., let's say 0 was the last index
-        // and as we can see nothing can be matched with the current pattern.
-        // So for each alternation world, search will go from index 0 throughout to the last index of the target string.
-        // and iff it finds no match then logic backtracks...
-        // 1st-backtrack: backtracks and sets index to 1 and again starts the search for "a" (first alternation world)
-        // then if again it finds nothing then backtracks again with the next consequenced index 2 and so on so forth.
-        // After not matching with any at any index, the alternation world shifts to adjacent alternative world (b|(c|d))...
-        // then similar circumstances repeats....
-        // As logically, there're always only two possible alternation worlds left and right... (nesting inclusively)
-        // So due to the nesting, logic first goes into the depth and then comes out gradually with complexity O(n)^n
-        // After exploring both worlds and finding nothing, again backtracks to...
-        // 2nd-backtrack: nothing found in both worlds, checks the outer most index of the recursive logic
-        // and increments the index let's say to 1, and then again starts with left world....
-        // this process follows itself recursively in a loopy manner until it finds something or nothing.
-
-        // So if the target string size gets bigger n bigger than typical,
-        // Memory out of Gas error hits eventually.
         string memory pattern = unicode"/(a|(b|(c|d)))/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
