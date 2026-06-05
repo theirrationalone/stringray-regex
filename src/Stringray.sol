@@ -1484,9 +1484,28 @@ contract Stringray {
             } else if (atoms[matchData.i].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
                 // @Status: Not
+                // trimString(atoms[matchData.i].atom, 0, int256(atoms[matchData.i].atom.length - 2));
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
+                    atoms[matchData.i].atom,
+                    true,
+                    stringInBytes,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    patternFlags,
+                    fromGroup
+                );
             } else if (atoms[matchData.i].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
                 // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
                 // @Status: Not
+                (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
+                    atoms[matchData.i].atom,
+                    false,
+                    stringInBytes,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    patternFlags,
+                    fromGroup
+                );
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
@@ -1704,6 +1723,41 @@ contract Stringray {
         // }
 
         return (matchData.firstIndex, matchData.matchEndIndex);
+    }
+
+    function matchQuantifier(
+        bytes memory atom,
+        bool isGreedy,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
+        // @Status: Not
+
+        bytes memory quantifierType;
+
+        if (isGreedy) {
+            quantifierType = trimString(atom, atom.length - 1, -1);
+            atom = trimString(atom, 0, int256(atom.length - 2));
+        } else {
+            quantifierType = trimString(atom, atom.length - 2, -1);
+            atom = trimString(atom, 0, int256(atom.length - 3));
+        }
+
+        console2.log("-----------------------------matchQuantifier-----------------------------");
+        console2.log("quantifierType   : ", string(quantifierType));
+        console2.log("atom             : ", string(atom));
+        console2.log("isGreedy         : ", isGreedy);
+        console2.log("indexToStartMatch: ", indexToStartMatch);
+        console2.log("isFirstMatch     : ", isFirstMatch);
+        console2.log("patternFlags     : ", string(patternFlags));
+        console2.log("fromGroup        : ", fromGroup);
+        console2.log("----------------------------------------------------------");
+
+        return(-1, -1);
     }
 
     function matchDollarOrEnd(
