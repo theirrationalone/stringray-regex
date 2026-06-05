@@ -1481,6 +1481,12 @@ contract Stringray {
                 } else {
                     matchData.matchEndIndex = int256(indexToStartMatch + 1);
                 }
+            } else if (atoms[matchData.i].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
+                // @Status: Not
+            } else if (atoms[matchData.i].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+                // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
+                // @Status: Not
             } else {
                 matchData.matchStartIndex = -1;
                 matchData.matchEndIndex = -1;
