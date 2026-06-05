@@ -1359,43 +1359,45 @@ contract Stringray {
                 }
 
                 if (matchData.matchStartIndex > -1) {
-                    if (
-                        matchData.i + 1 < atoms.length
-                            && atoms[matchData.i + 1].atomType == WORD_BOUNDARY
-                               
-                    ) {
-                        if (matchData.matchEndIndex + 1 < int256(stringInBytes.length) && isWord(stringInBytes[uint256(matchData.matchEndIndex) + 1], false)) {
+                    if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == WORD_BOUNDARY) {
+                        if (
+                            matchData.matchEndIndex + 1 < int256(stringInBytes.length)
+                                && isWord(stringInBytes[uint256(matchData.matchEndIndex) + 1], false)
+                        ) {
                             matchData.matchStartIndex = -1;
                         } else if (matchData.matchEndIndex + 1 == int256(stringInBytes.length)) {
-                            if (matchData.i > 0
-                            && atoms[matchData.i - 1].atomType == WORD_BOUNDARY && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)) {
+                            if (
+                                matchData.i > 0 && atoms[matchData.i - 1].atomType == WORD_BOUNDARY
+                                    && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)
+                            ) {
                                 matchData.matchStartIndex = -1;
                             } else {
-
-                            return (matchData.matchStartIndex, matchData.matchEndIndex);
+                                return (matchData.matchStartIndex, matchData.matchEndIndex);
                             }
                         }
                     }
 
-                    if (
-                        matchData.i > 0
-                            && atoms[matchData.i - 1].atomType == WORD_BOUNDARY
-                                
-                    ) {
-                        if (matchData.matchStartIndex > 0 && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)) {
+                    if (matchData.i > 0 && atoms[matchData.i - 1].atomType == WORD_BOUNDARY) {
+                        if (
+                            matchData.matchStartIndex > 0
+                                && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)
+                        ) {
                             matchData.matchStartIndex = -1;
                         }
                     }
 
-                    if (
-                        matchData.i + 1 < atoms.length
-                            && atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY
-                    ){
-                        if (matchData.matchEndIndex == 0 && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)) {
+                    if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY) {
+                        if (
+                            matchData.matchEndIndex == 0
+                                && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)
+                        ) {
                             matchData.matchStartIndex = -1;
                         }
 
-                        if (matchData.matchEndIndex + 1 == int256(stringInBytes.length) && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)) {
+                        if (
+                            matchData.matchEndIndex + 1 == int256(stringInBytes.length)
+                                && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)
+                        ) {
                             matchData.matchStartIndex = -1;
                         }
                     }
@@ -1481,25 +1483,36 @@ contract Stringray {
                 } else {
                     matchData.matchEndIndex = int256(indexToStartMatch + 1);
                 }
-            } else if (atoms[matchData.i].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
-                // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
-                // @Status: Not
-                // trimString(atoms[matchData.i].atom, 0, int256(atoms[matchData.i].atom.length - 2));
+            } else if (
+                atoms[matchData.i].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == PLUS_GREEDY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+            ) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
                     atoms[matchData.i].atom,
                     true,
+                    atoms[matchData.i].atomType,
                     stringInBytes,
                     indexToStartMatch,
                     isFirstMatch,
                     patternFlags,
                     fromGroup
                 );
-            } else if (atoms[matchData.i].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == PLUS_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
-                // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
-                // @Status: Not
+            } else if (
+                atoms[matchData.i].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                    || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+            ) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
                     atoms[matchData.i].atom,
                     false,
+                    atoms[matchData.i].atomType,
                     stringInBytes,
                     indexToStartMatch,
                     isFirstMatch,
@@ -1613,7 +1626,6 @@ contract Stringray {
 
                 matchData.i = 0;
 
-
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
                 console2.log("matchData.matchEndIndex: ", matchData.matchEndIndex);
                 console2.log("subAtoms.length: ", subAtoms.length);
@@ -1622,8 +1634,6 @@ contract Stringray {
                     indexToStartMatch = 0;
                     matchData.lastAlternationQueueIndex = 2;
                     matchData.groupChecked = false;
-
-                
                 }
 
                 if (lastAlternationCheckpoint.lastAlternationQueueIndex == 1) {
@@ -1728,6 +1738,28 @@ contract Stringray {
     function matchQuantifier(
         bytes memory atom,
         bool isGreedy,
+        bytes32 quantifierType,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        if (isGreedy) {
+            atom = trimString(atom, 0, int256(atom.length - 2));
+        } else {
+            atom = trimString(atom, 0, int256(atom.length - 3));
+        }
+
+        return matchRawQuantifier(
+            atom, isGreedy, quantifierType, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromGroup
+        );
+    }
+
+    function matchRawQuantifier(
+        bytes memory atom,
+        bool isGreedy,
+        bytes32 quantifierType,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
@@ -1737,18 +1769,8 @@ contract Stringray {
         // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
         // @Status: Not
 
-        bytes memory quantifierType;
-
-        if (isGreedy) {
-            quantifierType = trimString(atom, atom.length - 1, -1);
-            atom = trimString(atom, 0, int256(atom.length - 2));
-        } else {
-            quantifierType = trimString(atom, atom.length - 2, -1);
-            atom = trimString(atom, 0, int256(atom.length - 3));
-        }
-
         console2.log("-----------------------------matchQuantifier-----------------------------");
-        console2.log("quantifierType   : ", string(quantifierType));
+        printAtomType(quantifierType);
         console2.log("atom             : ", string(atom));
         console2.log("isGreedy         : ", isGreedy);
         console2.log("indexToStartMatch: ", indexToStartMatch);
@@ -1757,7 +1779,7 @@ contract Stringray {
         console2.log("fromGroup        : ", fromGroup);
         console2.log("----------------------------------------------------------");
 
-        return(-1, -1);
+        return (-1, -1);
     }
 
     function matchDollarOrEnd(
@@ -1905,7 +1927,7 @@ contract Stringray {
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
         uint256 i;
-        while(true) {
+        while (true) {
             if (atoms[currentAtomIndex + 1].atomType == GROUP_SUB_ATOM) continue;
             singleAtom[0] = atoms[currentAtomIndex + 1];
             break;
@@ -1957,7 +1979,8 @@ contract Stringray {
 
         if (matchEndIndex != int256(indexToStartMatch) && singleAtom[0].atomType != GROUP_ATOM) {
             return (-1, -1);
-        } if (singleAtom[0].atomType == GROUP_ATOM) {
+        }
+        if (singleAtom[0].atomType == GROUP_ATOM) {
             return (0, matchEndIndex);
         }
 
@@ -2148,7 +2171,6 @@ contract Stringray {
         console2.log("isFirstMatch: ", isFirstMatch);
         console2.log("patternFlags: ", string(patternFlags));
         console2.log("groupsCounter: ", groupsCounter);
-        
 
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
@@ -2215,7 +2237,10 @@ contract Stringray {
 
                 subAtoms.push(matchGroupData.subAtom);
 
-                if (matchGroupData.j + 1 == atom.length || matchGroupData.j == 0 || (matchGroupData.j > 0 && uint8(atom[matchGroupData.j - 1]) == VERTICAL_BAR)) {
+                if (
+                    matchGroupData.j + 1 == atom.length || matchGroupData.j == 0
+                        || (matchGroupData.j > 0 && uint8(atom[matchGroupData.j - 1]) == VERTICAL_BAR)
+                ) {
                     subAtoms.push(hex"");
                 }
 
@@ -2252,17 +2277,25 @@ contract Stringray {
             metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
         }
 
-        console2.log("-------------------------------------------------refined sub atoms-------------------------------------------------");
+        console2.log(
+            "-------------------------------------------------refined sub atoms-------------------------------------------------"
+        );
         for (matchGroupData.i = 0; matchGroupData.i < metaSubAtoms.length; matchGroupData.i++) {
             console2.log("sub atom ", matchGroupData.i + 1, ": ", string(metaSubAtoms[matchGroupData.i]));
         }
-        console2.log("-------------------------------------------------end-------------------------------------------------");
+        console2.log(
+            "-------------------------------------------------end-------------------------------------------------"
+        );
 
-        console2.log("lastAlternationCheckpoint.lastAlternationQueueIndex: ", lastAlternationCheckpoint.lastAlternationQueueIndex);
-        console2.log("lastAlternationCheckpoint.lastAlternationPatternIndex: ", lastAlternationCheckpoint.lastAlternationPatternIndex);
+        console2.log(
+            "lastAlternationCheckpoint.lastAlternationQueueIndex: ", lastAlternationCheckpoint.lastAlternationQueueIndex
+        );
+        console2.log(
+            "lastAlternationCheckpoint.lastAlternationPatternIndex: ",
+            lastAlternationCheckpoint.lastAlternationPatternIndex
+        );
         console2.log("lastAlternationCheckpoint.trigger: ", lastAlternationCheckpoint.trigger);
 
-        
         if (metaSubAtoms.length > 1) {
             for (matchGroupData.k = 0; matchGroupData.k < metaSubAtoms.length;) {
                 if (lastAlternationCheckpoint.lastAlternationQueueIndex == 1 && lastAlternationCheckpoint.trigger) {
@@ -2272,7 +2305,7 @@ contract Stringray {
                 }
 
                 console2.log("matchGroupData.k: ", matchGroupData.k);
-                
+
                 if (lastAlternationQueueIndex == 2) {
                     lastAlternationQueueIndex = 0;
                     if (matchGroupData.k + 1 == metaSubAtoms.length) break;
@@ -2281,10 +2314,16 @@ contract Stringray {
                 }
 
                 matchGroupData.i = indexToStartMatch;
-                
+
                 for (matchGroupData.j = 0; matchGroupData.j < metaSubAtoms[matchGroupData.k].length;) {
                     (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) = matchGroupsAtoms(
-                        uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_PARANTHESIS ? metaSubAtoms[matchGroupData.k] : uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_SQUARE_BRACKET ? metaSubAtoms[matchGroupData.k] : uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == BACK_SLASH ? metaSubAtoms[matchGroupData.k] : abi.encodePacked(metaSubAtoms[matchGroupData.k][matchGroupData.j]) ,
+                        uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_PARANTHESIS
+                            ? metaSubAtoms[matchGroupData.k]
+                            : uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_SQUARE_BRACKET
+                                ? metaSubAtoms[matchGroupData.k]
+                                : uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == BACK_SLASH
+                                    ? metaSubAtoms[matchGroupData.k]
+                                    : abi.encodePacked(metaSubAtoms[matchGroupData.k][matchGroupData.j]),
                         stringInBytes,
                         matchGroupData.i,
                         isFirstMatch,
@@ -2292,7 +2331,11 @@ contract Stringray {
                         matchGroupData.groupNum
                     );
 
-                    if (uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_PARANTHESIS || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_SQUARE_BRACKET || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == BACK_SLASH) {
+                    if (
+                        uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_PARANTHESIS
+                            || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_SQUARE_BRACKET
+                            || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == BACK_SLASH
+                    ) {
                         console2.log("breaking here, ..............................................................");
                         break;
                     }
@@ -2305,7 +2348,7 @@ contract Stringray {
                         matchGroupData.j++;
                         continue;
                     } else if (matchGroupData.matchStartIndex == -1) {
-                        if (matchGroupData.isNegativeLookAhead || matchGroupData.isNegativeLookBehind ) {
+                        if (matchGroupData.isNegativeLookAhead || matchGroupData.isNegativeLookBehind) {
                             matchGroupData.i += 1;
                             matchGroupData.j++;
                             continue;
@@ -2322,7 +2365,9 @@ contract Stringray {
                 }
 
                 if (matchGroupData.matchStartIndex > -1 && matchGroupData.matchEndIndex > -1) {
-                    matchGroupData.matchStartIndex = matchGroupData.firstMatchStartIndex > -1 ? matchGroupData.firstMatchStartIndex : matchGroupData.matchStartIndex;
+                    matchGroupData.matchStartIndex = matchGroupData.firstMatchStartIndex > -1
+                        ? matchGroupData.firstMatchStartIndex
+                        : matchGroupData.matchStartIndex;
                     if (matchGroupData.k + 1 == metaSubAtoms.length) {
                         lastAlternationQueueIndex = 0;
                     } else {
@@ -2345,11 +2390,13 @@ contract Stringray {
                         } else {
                             lastAlternationQueueIndex = 1;
                         }
-                        indexToStartMatch = matchGroupData.matchEndIndex > -1 ? uint256(matchGroupData.matchEndIndex) : indexToStartMatch;
+                        indexToStartMatch = matchGroupData.matchEndIndex > -1
+                            ? uint256(matchGroupData.matchEndIndex)
+                            : indexToStartMatch;
                         lastAlternationCheckpoint.lastAlternationQueueIndex = lastAlternationQueueIndex;
                         break;
                     }
-                    
+
                     if (matchGroupData.k + 1 < metaSubAtoms.length) {
                         matchGroupData.k++;
                         lastAlternationQueueIndex = 1;
@@ -2363,7 +2410,8 @@ contract Stringray {
                             indexToStartMatch += 1;
                             continue;
                         }
-                    } else if (matchGroupData.k + 1 == metaSubAtoms.length && matchGroupData.isFirstMatch && fromGroup) {
+                    } else if (matchGroupData.k + 1 == metaSubAtoms.length && matchGroupData.isFirstMatch && fromGroup)
+                    {
                         matchGroupData.matchEndIndex = int256(indexToStartMatch + 1);
                     }
                 }
