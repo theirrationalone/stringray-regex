@@ -22306,5 +22306,75 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000003", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a*/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000004", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a*?/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000005", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a?/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000006", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a??/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000007", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2}/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000008", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2}?/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case000000000000000000000000000009", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2,}/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case0000000000000000000000000000010", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2,}?/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case0000000000000000000000000000011", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2,3}/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+  
+  test("Pattern match quantifiers: Case0000000000000000000000000000012", () => {
+    const target = "nehaaaaaaaaaaal";
+    let regex = /a{2,3}?/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();
