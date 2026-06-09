@@ -1492,13 +1492,13 @@ contract Stringray {
                     || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
             ) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
-                    atoms[matchData.i].atom,
+                    atoms[matchData.i],
                     true,
-                    atoms[matchData.i].atomType,
                     stringInBytes,
                     indexToStartMatch,
                     isFirstMatch,
                     patternFlags,
+                    fromCharacterClass,
                     fromGroup
                 );
             } else if (
@@ -1510,13 +1510,13 @@ contract Stringray {
                     || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
             ) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
-                    atoms[matchData.i].atom,
+                    atoms[matchData.i],
                     false,
-                    atoms[matchData.i].atomType,
                     stringInBytes,
                     indexToStartMatch,
                     isFirstMatch,
                     patternFlags,
+                    fromCharacterClass,
                     fromGroup
                 );
             } else {
@@ -1736,56 +1736,56 @@ contract Stringray {
     }
 
     function matchQuantifier(
-        bytes memory atom,
+        AtomTrait memory atom,
         bool isGreedy,
-        bytes32 quantifierType,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
+        bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
         if (isGreedy) {
-            atom = trimString(atom, 0, int256(atom.length - 2));
+            atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
         } else {
-            atom = trimString(atom, 0, int256(atom.length - 3));
+            atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
         }
 
         return matchRawQuantifier(
-            atom, isGreedy, quantifierType, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromGroup
+            atom, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
         );
     }
 
     function matchRawQuantifier(
-        bytes memory atom,
+        AtomTrait memory atom,
         bool isGreedy,
-        bytes32 quantifierType,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags,
+        bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
         // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
         // @Status: Not
 
         console2.log("-----------------------------matchQuantifier-----------------------------");
-        printAtomType(quantifierType);
-        console2.log("atom             : ", string(atom));
-        console2.log("isGreedy         : ", isGreedy);
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch     : ", isFirstMatch);
-        console2.log("patternFlags     : ", string(patternFlags));
-        console2.log("fromGroup        : ", fromGroup);
+        printAtomType(atom.atomType);
+        console2.log("atom              : ", string(atom.atom));
+        console2.log("isGreedy          : ", isGreedy);
+        console2.log("indexToStartMatch : ", indexToStartMatch);
+        console2.log("isFirstMatch      : ", isFirstMatch);
+        console2.log("patternFlags      : ", string(patternFlags));
+        console2.log("fromCharacterClass: ", fromCharacterClass);
+        console2.log("fromGroup         : ", fromGroup);
         console2.log("----------------------------------------------------------");
 
-        (int256 matchStartIndex, int256 matchEndIndex) = matchPattern(AtomTrait[] memory atoms,
-        bytes memory stringInBytes,
-        bytes memory patternFlags,
-        uint256 indexToStartMatch,
-        bool isFirstMatch,
-        bool fromCharacterClass,
-        bool fromGroup);
+        AtomTrait[] memory atoms = new AtomTrait[](1);
+        atoms[0] = atom;
+
+        (int256 matchStartIndex, int256 matchEndIndex) = matchPattern(
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
+        );
 
         return (-1, -1);
     }
