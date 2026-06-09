@@ -1779,6 +1779,14 @@ contract Stringray {
         console2.log("fromGroup        : ", fromGroup);
         console2.log("----------------------------------------------------------");
 
+        (int256 matchStartIndex, int256 matchEndIndex) = matchPattern(AtomTrait[] memory atoms,
+        bytes memory stringInBytes,
+        bytes memory patternFlags,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bool fromCharacterClass,
+        bool fromGroup);
+
         return (-1, -1);
     }
 
