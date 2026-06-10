@@ -1767,7 +1767,7 @@ contract Stringray {
         bool fromGroup
     ) private returns (int256, int256) {
         // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
-        // @Status: Not
+        // @Status: partially implemented...
 
         console2.log("-----------------------------matchQuantifier-----------------------------");
         printAtomType(atom.atomType);
@@ -1780,12 +1780,19 @@ contract Stringray {
         console2.log("fromGroup         : ", fromGroup);
         console2.log("----------------------------------------------------------");
 
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
 
-        (int256 matchStartIndex, int256 matchEndIndex) = matchPattern(
+        (matchStartIndex, matchEndIndex) = matchPattern(
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
         );
+
+        if (matchStartIndex > -1 && matchEndIndex > -1) {
+            // @TODO: capture the matched string and behave according to the quantifier...
+            // @Status: not implemented...
+        }
 
         return (-1, -1);
     }
