@@ -1751,6 +1751,8 @@ contract Stringray {
             atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
         }
 
+        // @BUG: Quantifiers sub atoms atom type mismatch
+
         return matchRawQuantifier(
             atom, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
         );
@@ -1788,6 +1790,9 @@ contract Stringray {
         (matchStartIndex, matchEndIndex) = matchPattern(
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
         );
+
+        console2.log("quantifiers matchStartIndex: ", matchStartIndex);
+        console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             // @TODO: capture the matched string and behave according to the quantifier...
