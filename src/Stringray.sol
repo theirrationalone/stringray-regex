@@ -1745,13 +1745,23 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
+        bytes memory orgAtom = atom.atom;
         if (isGreedy) {
+            // || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+            // || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+            // || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+
             atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
         } else {
-            atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
+            if (atom.atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+                console2.log("----------------------------yeahhhhhhh");
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
+            } else {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
+            }
         }
 
-        // @BUG: Quantifiers sub atoms atom type mismatch
+        (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
         return matchRawQuantifier(
             atom, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
