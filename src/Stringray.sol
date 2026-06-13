@@ -1747,9 +1747,19 @@ contract Stringray {
     ) private returns (int256, int256) {
         bytes memory orgAtom = atom.atom;
         if (isGreedy) {
-            // || atoms[matchData.i].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
-            // || atoms[matchData.i].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
-            // || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+            // || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM
+            // || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+            // || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+
+            if (atom.atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
+            } else if (atom.atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
+            } else if (atom.atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
+            } else {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
+            }
 
             atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
         } else {
