@@ -1812,17 +1812,16 @@ contract Stringray {
         console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
-            while (true) {
-                bytes memory matchedAtoms = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
+            bytes memory matchedAtoms = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
 
-                int256 lastMatchStartIndex = matchStartIndex;
+            while (true) {
+                int256 tempMatchStartIndex = -1;
                 int256 lastMatchEndIndex = matchEndIndex;
 
-                (matchStartIndex, matchEndIndex) =
+                (tempMatchStartIndex, matchEndIndex) =
                     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
 
-                if (matchStartIndex == -1) {
-                    matchStartIndex = lastMatchStartIndex;
+                if (tempMatchStartIndex == -1) {
                     matchEndIndex = lastMatchEndIndex;
                     break;
                 }
