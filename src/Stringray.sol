@@ -1747,10 +1747,6 @@ contract Stringray {
     ) private returns (int256, int256) {
         bytes memory orgAtom = atom.atom;
         if (isGreedy) {
-            // || atoms[matchData.i].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM
-            // || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
-            // || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
-
             if (atom.atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
             } else if (atom.atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
@@ -1760,8 +1756,6 @@ contract Stringray {
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
             }
-
-            atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
         } else {
             if (atom.atomType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
@@ -1818,8 +1812,23 @@ contract Stringray {
         console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
-            // @TODO: capture the matched string and behave according to the quantifier...
-            // @Status: not implemented...
+            while (true) {
+                bytes memory matchedAtoms = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
+
+                int256 lastMatchStartIndex = matchStartIndex;
+                int256 lastMatchEndIndex = matchEndIndex;
+
+                (matchStartIndex, matchEndIndex) =
+                    matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+
+                if (matchStartIndex == -1) {
+                    matchStartIndex = lastMatchStartIndex;
+                    matchEndIndex = lastMatchEndIndex;
+                    break;
+                }
+            }
+
+            return (matchStartIndex, matchEndIndex);
         }
 
         return (-1, -1);
