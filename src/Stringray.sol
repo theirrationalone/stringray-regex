@@ -1746,22 +1746,23 @@ contract Stringray {
         bool fromGroup
     ) private returns (int256, int256) {
         bytes memory orgAtom = atom.atom;
+        bytes32 quantifierType = atom.atomType;
         if (isGreedy) {
-            if (atom.atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
-            } else if (atom.atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            } else if (quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
-            } else if (atom.atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            } else if (quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
             }
         } else {
-            if (atom.atomType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            if (quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
-            } else if (atom.atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
+            } else if (quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 7));
-            } else if (atom.atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+            } else if (quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
@@ -1771,12 +1772,13 @@ contract Stringray {
         (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
         return matchRawQuantifier(
-            atom, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
+            atom, quantifierType, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
         );
     }
 
     function matchRawQuantifier(
         AtomTrait memory atom,
+        bytes32 quantifierType,
         bool isGreedy,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -1807,6 +1809,13 @@ contract Stringray {
         (matchStartIndex, matchEndIndex) = matchPattern(
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
         );
+
+        if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
+            // if () {
+            //     // 
+            // }
+            // asterisk quantifier (zero or more) weird behavior...
+        }
 
         console2.log("quantifiers matchStartIndex: ", matchStartIndex);
         console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
