@@ -1772,7 +1772,15 @@ contract Stringray {
         (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
         return matchRawQuantifier(
-            atom, quantifierType, isGreedy, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, fromCharacterClass, fromGroup
+            atom,
+            quantifierType,
+            isGreedy,
+            stringInBytes,
+            indexToStartMatch,
+            isFirstMatch,
+            patternFlags,
+            fromCharacterClass,
+            fromGroup
         );
     }
 
@@ -1811,9 +1819,13 @@ contract Stringray {
         );
 
         if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
-            // if () {
-            //     // 
-            // }
+            if (matchStartIndex == -1 && indexToStartMatch > 0) {
+                matchStartIndex = int256(indexToStartMatch - 1);
+                matchEndIndex = int256(indexToStartMatch - 1);
+            }
+
+            return (matchStartIndex, matchEndIndex);
+
             // asterisk quantifier (zero or more) weird behavior...
             // @BURN-OUT: Leaving it for now..... :(
         }
