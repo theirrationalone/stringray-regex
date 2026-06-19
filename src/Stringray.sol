@@ -998,7 +998,7 @@ contract Stringray {
                     }
 
                     (matchStartIndex, matchEndIndex) =
-                        matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
+                        matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
                     if (matchStartIndex > -1 && matchEndIndex > -1) {
                         matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -1012,7 +1012,7 @@ contract Stringray {
             if (matchStartIndex == -1 || (matchStartIndex == 0 && matchEndIndex == -1)) {
                 if (lastAlternationOperatorIndex <= -1) {
                     (matchStartIndex, matchEndIndex) =
-                        matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false);
+                        matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
                     if (matchStartIndex > -1 && matchEndIndex > -1) {
                         matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -1044,7 +1044,7 @@ contract Stringray {
                         }
 
                         (matchStartIndex, matchEndIndex) =
-                            matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false);
+                            matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
                         if (matchStartIndex > -1 && matchEndIndex > -1) {
                             matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
@@ -1089,7 +1089,8 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bool fromCharacterClass,
-        bool fromGroup
+        bool fromGroup,
+        bool fromQuantifier
     ) private returns (int256, int256) {
         MatchData memory matchData;
         matchData.firstIndex = -1;
@@ -1122,7 +1123,7 @@ contract Stringray {
                     isFirstMatch = false;
                 }
             } else {
-                if (!isFirstMatch && !fromCharacterClass && !fromGroup) {
+                if (!isFirstMatch && !fromCharacterClass && !fromGroup && !fromQuantifier) {
                     isFirstMatch = true;
                 }
             }
@@ -1558,7 +1559,7 @@ contract Stringray {
             }
 
             if (matchData.matchStartIndex == -1) {
-                uint256 indexToStartMatchForAlternation = indexToStartMatch;
+                // uint256 indexToStartMatchForAlternation = indexToStartMatch;
                 if (matchData.specialFlag) {
                     indexToStartMatch = uint256(matchData.matchEndIndex + 1);
                     matchData.specialFlag = false;
@@ -1616,6 +1617,10 @@ contract Stringray {
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
 
+                if (fromQuantifier) {
+                    return (matchData.matchStartIndex, matchData.matchEndIndex);
+                }
+
                 if (!fromCharacterClass) {
                     isFirstMatch = true;
                     matchData.matchStartIndex = 0;
@@ -1623,7 +1628,7 @@ contract Stringray {
                 }
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
-
+                
                 matchData.i = 0;
 
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
@@ -1815,7 +1820,7 @@ contract Stringray {
         atoms[0] = atom;
 
         (matchStartIndex, matchEndIndex) = matchPattern(
-            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
 
         if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
@@ -2010,7 +2015,7 @@ contract Stringray {
 
         if (indexToStartMatch <= 0) {
             (, matchEndIndex) = matchPattern(
-                singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup
+                singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, false
             );
         } else {
             if (hasFlag(patternFlags, "m")) {
@@ -2026,7 +2031,8 @@ contract Stringray {
                         indexToStartMatch,
                         isFirstMatch,
                         fromCharacterClass,
-                        fromGroup
+                        fromGroup,
+                        false
                     );
                 } else if (indexToStartMatch > 2) {
                     if (stringInBytes[indexToStartMatch - 1] == 0xa8 || stringInBytes[indexToStartMatch - 1] == 0xa9) {
@@ -2039,7 +2045,8 @@ contract Stringray {
                                     indexToStartMatch,
                                     isFirstMatch,
                                     fromCharacterClass,
-                                    fromGroup
+                                    fromGroup,
+                                    false
                                 );
                             }
                         }
@@ -2094,7 +2101,8 @@ contract Stringray {
                     indexToStartMatch,
                     isFirstMatch,
                     fromCharacterClass,
-                    true
+                    true,
+                    false
                 );
             }
         }
@@ -2138,7 +2146,8 @@ contract Stringray {
                     indexToStartMatch,
                     isFirstMatch,
                     fromCharacterClass,
-                    true
+                    true,
+                    false
                 );
             }
         }
@@ -2884,7 +2893,7 @@ contract Stringray {
             console2.log("subAtom: ", string(subAtom[0].atom));
 
             (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) =
-                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true);
+                matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true, false);
 
             console2.log("came back from matchPattern");
             console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
