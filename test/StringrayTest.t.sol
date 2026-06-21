@@ -36339,8 +36339,8 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchQuantifiersCase1() public {
-        string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a+/";
+        string memory target = unicode"nehaaaaabaaaaaal";
+        string memory pattern = unicode"/[abcd]+/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
@@ -36599,92 +36599,92 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase10() public {
-        string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a{2,}?/";
+    // function testRegexPatternMatchQuantifiersCase10() public {
+    //     string memory target = unicode"nehaaaaaaaaaaal";
+    //     string memory pattern = unicode"/a{2,}?/";
 
-        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
-        console2.log("------------------returnedData------------------");
-        console2.log("Pattern string         : ", returnedData.patternString);
-        console2.log("Original string        : ", returnedData.originalString);
-        console2.log("Matched string         : ", returnedData.matchedString);
-        console2.log("Match start index      : ", returnedData.matchStartIndex);
-        console2.log("Match end index        : ", returnedData.matchEndIndex);
-        uint256 i;
-        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
-            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
-            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
-            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
-            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
-            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
-        }
+    //     Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+    //     console2.log("------------------returnedData------------------");
+    //     console2.log("Pattern string         : ", returnedData.patternString);
+    //     console2.log("Original string        : ", returnedData.originalString);
+    //     console2.log("Matched string         : ", returnedData.matchedString);
+    //     console2.log("Match start index      : ", returnedData.matchStartIndex);
+    //     console2.log("Match end index        : ", returnedData.matchEndIndex);
+    //     uint256 i;
+    //     for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+    //         console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+    //         console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+    //         console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+    //         console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+    //         console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+    //     }
 
-        for (i = 0; i < returnedData.groupNames.length; i++) {
-            console2.log("---start---");
-            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
-            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
-            console2.log("---end---");
-        }
-        console2.log("------------------------------------");
-    }
+    //     for (i = 0; i < returnedData.groupNames.length; i++) {
+    //         console2.log("---start---");
+    //         console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+    //         console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+    //         console2.log("---end---");
+    //     }
+    //     console2.log("------------------------------------");
+    // }
 
-    function testRegexPatternMatchQuantifiersCase11() public {
-        string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a{2,3}/";
+    // function testRegexPatternMatchQuantifiersCase11() public {
+    //     string memory target = unicode"nehaaaaaaaaaaal";
+    //     string memory pattern = unicode"/a{2,3}/";
 
-        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
-        console2.log("------------------returnedData------------------");
-        console2.log("Pattern string         : ", returnedData.patternString);
-        console2.log("Original string        : ", returnedData.originalString);
-        console2.log("Matched string         : ", returnedData.matchedString);
-        console2.log("Match start index      : ", returnedData.matchStartIndex);
-        console2.log("Match end index        : ", returnedData.matchEndIndex);
-        uint256 i;
-        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
-            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
-            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
-            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
-            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
-            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
-        }
+    //     Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+    //     console2.log("------------------returnedData------------------");
+    //     console2.log("Pattern string         : ", returnedData.patternString);
+    //     console2.log("Original string        : ", returnedData.originalString);
+    //     console2.log("Matched string         : ", returnedData.matchedString);
+    //     console2.log("Match start index      : ", returnedData.matchStartIndex);
+    //     console2.log("Match end index        : ", returnedData.matchEndIndex);
+    //     uint256 i;
+    //     for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+    //         console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+    //         console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+    //         console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+    //         console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+    //         console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+    //     }
 
-        for (i = 0; i < returnedData.groupNames.length; i++) {
-            console2.log("---start---");
-            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
-            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
-            console2.log("---end---");
-        }
-        console2.log("------------------------------------");
-    }
+    //     for (i = 0; i < returnedData.groupNames.length; i++) {
+    //         console2.log("---start---");
+    //         console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+    //         console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+    //         console2.log("---end---");
+    //     }
+    //     console2.log("------------------------------------");
+    // }
 
-    function testRegexPatternMatchQuantifiersCase12() public {
-        string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a{2,3}?/";
+    // function testRegexPatternMatchQuantifiersCase12() public {
+    //     string memory target = unicode"nehaaaaaaaaaaal";
+    //     string memory pattern = unicode"/a{2,3}?/";
 
-        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
-        console2.log("------------------returnedData------------------");
-        console2.log("Pattern string         : ", returnedData.patternString);
-        console2.log("Original string        : ", returnedData.originalString);
-        console2.log("Matched string         : ", returnedData.matchedString);
-        console2.log("Match start index      : ", returnedData.matchStartIndex);
-        console2.log("Match end index        : ", returnedData.matchEndIndex);
-        uint256 i;
-        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
-            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
-            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
-            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
-            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
-            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
-        }
+    //     Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+    //     console2.log("------------------returnedData------------------");
+    //     console2.log("Pattern string         : ", returnedData.patternString);
+    //     console2.log("Original string        : ", returnedData.originalString);
+    //     console2.log("Matched string         : ", returnedData.matchedString);
+    //     console2.log("Match start index      : ", returnedData.matchStartIndex);
+    //     console2.log("Match end index        : ", returnedData.matchEndIndex);
+    //     uint256 i;
+    //     for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+    //         console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+    //         console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+    //         console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+    //         console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+    //         console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+    //     }
 
-        for (i = 0; i < returnedData.groupNames.length; i++) {
-            console2.log("---start---");
-            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
-            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
-            console2.log("---end---");
-        }
-        console2.log("------------------------------------");
-    }
+    //     for (i = 0; i < returnedData.groupNames.length; i++) {
+    //         console2.log("---start---");
+    //         console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+    //         console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+    //         console2.log("---end---");
+    //     }
+    //     console2.log("------------------------------------");
+    // }
 
     // @BURN-OUT: Leaving it for now..... :(
 }

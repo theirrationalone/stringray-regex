@@ -1733,6 +1733,12 @@ contract Stringray {
         console2.log("matchData.matchEndIndex at end: ", matchData.matchEndIndex);
         console2.log("fromGroup at end              : ", fromGroup);
 
+        if (fromQuantifier) {
+            if (matchData.matchStartIndex > -1) {
+                return (matchData.matchStartIndex, matchData.matchEndIndex);
+            }
+        }
+
         // if (fromGroup) {
         //     return (matchData.firstIndex, matchData.matchEndIndex);
         // }
@@ -1775,6 +1781,10 @@ contract Stringray {
         }
 
         (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
+
+        if (atom.atomType == INVALID_ATOM) {
+            (, atom.atomType, ) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
+        }
 
         return matchRawQuantifier(
             atom,
@@ -1839,14 +1849,16 @@ contract Stringray {
         console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
-            bytes memory matchedAtoms = trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex);
-
             while (true) {
+                console2.log("repeating quantifier.....................");
                 int256 tempMatchStartIndex = -1;
                 int256 lastMatchEndIndex = matchEndIndex;
 
-                (tempMatchStartIndex, matchEndIndex) =
-                    matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+                // (tempMatchStartIndex, matchEndIndex) =
+                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+                (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                    atoms, stringInBytes, patternFlags, uint256(matchEndIndex) + 1, false, fromCharacterClass, fromGroup, true
+                );
 
                 if (tempMatchStartIndex == -1) {
                     matchEndIndex = lastMatchEndIndex;
