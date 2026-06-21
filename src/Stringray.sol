@@ -1492,8 +1492,19 @@ contract Stringray {
                     || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
                     || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
             ) {
+                // AtomTrait ({
+                //     atomType: atoms[matchData.i].atomType;
+                //     atom: atoms[matchData.i].atom;
+                //     atomStartIdx: atoms[matchData.i].atomStartIdx;
+                //     atomEndIdx: atoms[matchData.i].atomEndIdx;
+                // });
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
-                    atoms[matchData.i],
+                    AtomTrait({
+                        atomType: atoms[matchData.i].atomType,
+                        atom: atoms[matchData.i].atom,
+                        atomStartIdx: atoms[matchData.i].atomStartIdx,
+                        atomEndIdx: atoms[matchData.i].atomEndIdx
+                    }),
                     true,
                     stringInBytes,
                     indexToStartMatch,
@@ -1511,7 +1522,12 @@ contract Stringray {
                     || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
             ) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
-                    atoms[matchData.i],
+                    AtomTrait({
+                        atomType: atoms[matchData.i].atomType,
+                        atom: atoms[matchData.i].atom,
+                        atomStartIdx: atoms[matchData.i].atomStartIdx,
+                        atomEndIdx: atoms[matchData.i].atomEndIdx
+                    }),
                     false,
                     stringInBytes,
                     indexToStartMatch,
@@ -1546,6 +1562,30 @@ contract Stringray {
                 }
 
                 if (matchData.matchStartIndex == -1) {
+                    console2.log("reaching here.......... for quantifiers backtrackk.......");
+                    if (matchData.i > 0) {
+                        if (
+                            atoms[matchData.i - 1].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == PLUS_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+                        ) {
+                            console2.log("backtracking from here....");
+                            indexToStartMatch -= 1;
+                            continue;
+                        }
+                    }
+                }
+
+                if (matchData.matchStartIndex == -1) {
                     matchData.firstIndex = -1;
                     matchData.matchEndIndex = -1;
                 }
@@ -1559,6 +1599,26 @@ contract Stringray {
             }
 
             if (matchData.matchStartIndex == -1) {
+                if (matchData.i > 0) {
+                    if (
+                        atoms[matchData.i - 1].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == PLUS_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_RANGE_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == ASTERISK_LAZY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                            || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+                    ) {
+                        console2.log("backtracking from here....");
+                        indexToStartMatch -= 1;
+                        continue;
+                    }
+                }
                 // uint256 indexToStartMatchForAlternation = indexToStartMatch;
                 if (matchData.specialFlag) {
                     indexToStartMatch = uint256(matchData.matchEndIndex + 1);
@@ -1628,7 +1688,7 @@ contract Stringray {
                 }
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
-                
+
                 matchData.i = 0;
 
                 console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
@@ -1783,7 +1843,7 @@ contract Stringray {
         (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
         if (atom.atomType == INVALID_ATOM) {
-            (, atom.atomType, ) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
+            (, atom.atomType,) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
         }
 
         return matchRawQuantifier(
@@ -1857,7 +1917,14 @@ contract Stringray {
                 // (tempMatchStartIndex, matchEndIndex) =
                 //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
                 (tempMatchStartIndex, matchEndIndex) = matchPattern(
-                    atoms, stringInBytes, patternFlags, uint256(matchEndIndex) + 1, false, fromCharacterClass, fromGroup, true
+                    atoms,
+                    stringInBytes,
+                    patternFlags,
+                    uint256(matchEndIndex) + 1,
+                    false,
+                    fromCharacterClass,
+                    fromGroup,
+                    true
                 );
 
                 if (tempMatchStartIndex == -1) {
@@ -1866,9 +1933,12 @@ contract Stringray {
                 }
             }
 
+            console2.log("back to the caller.............................");
+
             return (matchStartIndex, matchEndIndex);
         }
 
+        console2.log("back to the caller from endpoint.............................");
         return (-1, -1);
     }
 
@@ -2027,7 +2097,14 @@ contract Stringray {
 
         if (indexToStartMatch <= 0) {
             (, matchEndIndex) = matchPattern(
-                singleAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, false
+                singleAtom,
+                stringInBytes,
+                patternFlags,
+                indexToStartMatch,
+                isFirstMatch,
+                fromCharacterClass,
+                fromGroup,
+                false
             );
         } else {
             if (hasFlag(patternFlags, "m")) {
