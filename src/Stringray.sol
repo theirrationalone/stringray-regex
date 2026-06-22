@@ -1893,6 +1893,10 @@ contract Stringray {
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
 
+        if (!isGreedy) {
+            return (matchStartIndex, matchEndIndex);
+        }
+
         if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
             if (matchStartIndex == -1 && indexToStartMatch > 0) {
                 matchStartIndex = int256(indexToStartMatch - 1);

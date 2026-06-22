@@ -36369,7 +36369,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchQuantifiersCase2() public {
         string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a+?/";
+        string memory pattern = unicode"/a+?l/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
