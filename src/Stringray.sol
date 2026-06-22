@@ -1579,6 +1579,7 @@ contract Stringray {
                                 || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                         ) {
                             console2.log("backtracking from here....");
+                            // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
                             indexToStartMatch -= 1;
                             continue;
                         }
@@ -1615,6 +1616,7 @@ contract Stringray {
                             || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                     ) {
                         console2.log("backtracking from here....");
+                        // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
                         indexToStartMatch -= 1;
                         continue;
                     }
