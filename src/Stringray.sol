@@ -1907,18 +1907,32 @@ contract Stringray {
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
 
-        (matchStartIndex, matchEndIndex) = matchPattern(
-            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
-        );
-
-        if (!isGreedy) {
-            return (matchStartIndex, matchEndIndex);
+        if (quantifierType != ASTERISK_GREEDY_QUANTIFIER_ATOM && quantifierType != ASTERISK_LAZY_QUANTIFIER_ATOM) {
+            (matchStartIndex, matchEndIndex) = matchPattern(
+                atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+            );
+            
+            if (!isGreedy) {
+                return (matchStartIndex, matchEndIndex);
+            }
         }
 
+
         if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
-            if (matchStartIndex == -1 && indexToStartMatch > 0) {
-                matchStartIndex = int256(indexToStartMatch - 1);
-                matchEndIndex = int256(indexToStartMatch - 1);
+            (matchStartIndex, matchEndIndex) = matchPattern(
+                atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
+            );
+
+            console2.log("quantifiers matchStartIndex *: ", matchStartIndex);
+            console2.log("quantifiers matchEndIndex   *: ", matchEndIndex);
+            if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+                if (indexToStartMatch == 0) {
+                    matchStartIndex = int256(indexToStartMatch);
+                    matchEndIndex = int256(indexToStartMatch);    
+                } else {
+                    matchStartIndex = int256(indexToStartMatch - 1);
+                    matchEndIndex = int256(indexToStartMatch - 1);
+                }
             }
 
             return (matchStartIndex, matchEndIndex);
