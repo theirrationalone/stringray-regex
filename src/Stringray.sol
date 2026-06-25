@@ -1907,14 +1907,22 @@ contract Stringray {
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
 
-        if (quantifierType != ASTERISK_GREEDY_QUANTIFIER_ATOM && quantifierType != ASTERISK_LAZY_QUANTIFIER_ATOM) {
+        if (quantifierType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM || quantifierType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM) {
             (matchStartIndex, matchEndIndex) = matchPattern(
-                atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+                atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
             );
-            
-            if (!isGreedy) {
-                return (matchStartIndex, matchEndIndex);
+
+            if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+                if (indexToStartMatch == 0) {
+                    matchStartIndex = int256(indexToStartMatch + 1);
+                    matchEndIndex = int256(indexToStartMatch);
+                } else {
+                    matchStartIndex = int256(indexToStartMatch - 1);
+                    matchEndIndex = int256(indexToStartMatch - 1);
+                }
             }
+
+            return (matchStartIndex, matchEndIndex);
         }
 
 
@@ -1927,7 +1935,7 @@ contract Stringray {
             console2.log("quantifiers matchEndIndex   *: ", matchEndIndex);
             if (matchStartIndex == -1 && indexToStartMatch >= 0) {
                 if (indexToStartMatch == 0) {
-                    matchStartIndex = int256(indexToStartMatch);
+                    matchStartIndex = int256(indexToStartMatch + 1);
                     matchEndIndex = int256(indexToStartMatch);    
                 } else {
                     matchStartIndex = int256(indexToStartMatch - 1);
@@ -1940,6 +1948,16 @@ contract Stringray {
             // asterisk quantifier (zero or more) weird behavior...
             // @BURN-OUT: Leaving it for now..... :(
         }
+
+        // if (quantifierType != ASTERISK_GREEDY_QUANTIFIER_ATOM && quantifierType != ASTERISK_LAZY_QUANTIFIER_ATOM) {
+            (matchStartIndex, matchEndIndex) = matchPattern(
+                atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+            );
+            
+            if (!isGreedy) {
+                return (matchStartIndex, matchEndIndex);
+            }
+        // }
 
         console2.log("quantifiers matchStartIndex: ", matchStartIndex);
         console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
