@@ -1580,7 +1580,12 @@ contract Stringray {
                         ) {
                             console2.log("backtracking from here....");
                             // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
-                            if (atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                            if (atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM) {
+                                matchData.i -= 1;
+                                indexToStartMatch += 1;
+                                isFirstMatch = true;
+                                matchData.firstIndex = -1;
+                            } else if (atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
@@ -1625,6 +1630,12 @@ contract Stringray {
                     ) {
                         console2.log("backtracking from here....");
                         // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
+                        if (atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM) {
+                            matchData.i -= 1;
+                            indexToStartMatch += 1;
+                            isFirstMatch = true;
+                            matchData.firstIndex = -1;
+                        } else 
                         if (atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
                             || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
                             || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
