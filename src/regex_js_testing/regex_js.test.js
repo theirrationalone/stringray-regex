@@ -22294,15 +22294,15 @@ const testMain = () => {
   // });
   
   test("Pattern match quantifiers: Case000000000000000000000000000001", () => {
-    const target = "nehaaaaaaaaaaal";
-    let regex = /a+/;
+    const target = "nehaaaaabaaaaaal";
+    let regex = /[abcd]+al/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
   test("Pattern match quantifiers: Case000000000000000000000000000002", () => {
     const target = "nehaaaaaaaaaaal";
-    let regex = /a+?l/;
+    let regex = /neha+?l/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
@@ -22321,70 +22321,70 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match quantifiers: Case000000000000000000000000000004a", () => {
+  test("Pattern match quantifiers: Case000000000000000000000000000005", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a*?/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000005", () => {
+  test("Pattern match quantifiers: Case000000000000000000000000000006", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a?/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000005a", () => {
+  test("Pattern match quantifiers: Case000000000000000000000000000007", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a?a/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000006", () => {
+  test("Pattern match quantifiers: Case000000000000000000000000000008", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a??/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000007", () => {
+  test("Pattern match quantifiers: Case000000000000000000000000000009", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2}/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000008", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000010", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2}?/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case000000000000000000000000000009", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000011", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2,}/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case0000000000000000000000000000010", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000012", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2,}?/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case0000000000000000000000000000011", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000013", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2,3}/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
   
-  test("Pattern match quantifiers: Case0000000000000000000000000000012", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000014", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a{2,3}?/;
     console.log("output: ", target.match(regex));

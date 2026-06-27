@@ -36454,7 +36454,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase4a() public {
+    function testRegexPatternMatchQuantifiersCase5() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a*?/";
 
@@ -36483,7 +36483,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase5() public {
+    function testRegexPatternMatchQuantifiersCase6() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a?/";
 
@@ -36512,7 +36512,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase5a() public {
+    function testRegexPatternMatchQuantifiersCase7() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a?a/";
 
@@ -36541,7 +36541,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase6() public {
+    function testRegexPatternMatchQuantifiersCase8() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a??/";
 
@@ -36570,7 +36570,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase7() public {
+    function testRegexPatternMatchQuantifiersCase9() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2}/";
 
@@ -36599,7 +36599,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase8() public {
+    function testRegexPatternMatchQuantifiersCase10() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2}?/";
 
@@ -36628,7 +36628,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase9() public {
+    function testRegexPatternMatchQuantifiersCase11() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2,}/";
 
@@ -36657,7 +36657,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase10() public {
+    function testRegexPatternMatchQuantifiersCase12() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2,}?/";
 
@@ -36686,7 +36686,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase11() public {
+    function testRegexPatternMatchQuantifiersCase13() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2,3}/";
 
@@ -36715,7 +36715,7 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    function testRegexPatternMatchQuantifiersCase12() public {
+    function testRegexPatternMatchQuantifiersCase14() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a{2,3}?/";
 
