@@ -1848,11 +1848,11 @@ contract Stringray {
         bytes32 quantifierType = atom.atomType;
         if (isGreedy) {
             if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
-                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
-            } else if (quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
-                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
-            } else if (quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
+            } else if (quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
+            } else if (quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
             }
