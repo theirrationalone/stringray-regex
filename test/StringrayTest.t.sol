@@ -36744,7 +36744,6 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
-    
     function testRegexPatternMatchQuantifiersCase15() public {
         string memory target = unicode"nehaaaaaaaaaaal";
         string memory pattern = unicode"/a??l/";

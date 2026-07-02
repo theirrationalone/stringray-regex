@@ -1580,19 +1580,24 @@ contract Stringray {
                         ) {
                             console2.log("backtracking from here....");
                             // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
-                            if (atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM|| atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM) {
+                            if (
+                                atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                                    || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                            ) {
                                 matchData.i -= 1;
                                 indexToStartMatch += 1;
                                 isFirstMatch = true;
                                 matchData.firstIndex = -1;
-                            } else if (atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
-                                || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
-                                || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
-                                || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
-                                    matchData.i -= 1;
-                                } else {
-                                    indexToStartMatch -= 1;
-                                }
+                            } else if (
+                                atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                                    || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                                    || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                                    || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+                            ) {
+                                matchData.i -= 1;
+                            } else {
+                                indexToStartMatch -= 1;
+                            }
                             continue;
                         }
                     }
@@ -1629,21 +1634,25 @@ contract Stringray {
                     ) {
                         console2.log("backtracking from here....");
                         // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
-                        if (atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM|| atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM) {
+                        if (
+                            atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                        ) {
                             matchData.i -= 1;
                             indexToStartMatch += 1;
                             isFirstMatch = true;
                             matchData.firstIndex = -1;
-                        } else 
-                        if (atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
-                            || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
-                            || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
-                            || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
-                            || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
-                                matchData.i -= 1;
-                            } else {
-                                indexToStartMatch -= 1;
-                            }
+                        } else if (
+                            atoms[matchData.i - 1].atomType == PLUS_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                                || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+                        ) {
+                            matchData.i -= 1;
+                        } else {
+                            indexToStartMatch -= 1;
+                        }
                         continue;
                     }
                 }
@@ -1834,6 +1843,13 @@ contract Stringray {
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
+    struct QuantifierData {
+        bytes orgAtom;
+        bytes32 quantifierType;
+        uint256 rangeLowerBound;
+        uint256 rangeUpperBound;
+    }
+
     function matchQuantifier(
         AtomTrait memory atom,
         bool isGreedy,
@@ -1844,31 +1860,39 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        bytes memory orgAtom = atom.atom;
-        bytes32 quantifierType = atom.atomType;
+        QuantifierData memory quantifierData;
+        quantifierData.orgAtom = atom.atom;
+        quantifierData.quantifierType = atom.atomType;
+        quantifierData.rangeLowerBound;
+        quantifierData.rangeUpperBound;
+
         if (isGreedy) {
-            if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                quantifierData.rangeLowerBound =
+                    stringDigitToDecDigit(trimString(atom.atom, 2, int256(atom.atom.length - 2)));
+                quantifierData.rangeUpperBound = quantifierData.rangeLowerBound;
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
-            } else if (quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            } else if (quantifierData.quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
-            } else if (quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
+            } else if (quantifierData.quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
             }
         } else {
-            if (quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            if (quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
-            } else if (quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
+            } else if (quantifierData.quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 7));
-            } else if (quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+            } else if (quantifierData.quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
             } else {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 3));
             }
         }
 
-        (, atom.atomType,) = isLiteralAtom(atom.atom, orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
+        (, atom.atomType,) =
+            isLiteralAtom(atom.atom, quantifierData.orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
         if (atom.atomType == INVALID_ATOM) {
             (, atom.atomType,) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
@@ -1876,7 +1900,9 @@ contract Stringray {
 
         return matchRawQuantifier(
             atom,
-            quantifierType,
+            quantifierData.quantifierType,
+            quantifierData.rangeLowerBound,
+            quantifierData.rangeUpperBound,
             isGreedy,
             stringInBytes,
             indexToStartMatch,
@@ -1890,6 +1916,8 @@ contract Stringray {
     function matchRawQuantifier(
         AtomTrait memory atom,
         bytes32 quantifierType,
+        uint256 rangeLowerBound,
+        uint256 rangeUpperBound,
         bool isGreedy,
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -1919,7 +1947,30 @@ contract Stringray {
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
 
-        if (quantifierType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM || quantifierType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM) {
+        if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            for (uint256 i = rangeLowerBound; i <= rangeUpperBound; i++) {
+                (matchStartIndex, matchEndIndex) = matchPattern(
+                    atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
+                );
+
+                if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+                    if (indexToStartMatch == 0) {
+                        matchStartIndex = int256(indexToStartMatch + 1);
+                        matchEndIndex = int256(indexToStartMatch);
+                    } else {
+                        matchStartIndex = int256(indexToStartMatch - 1);
+                        matchEndIndex = int256(indexToStartMatch - 1);
+                    }
+                    break;
+                }
+            }
+            return (matchStartIndex, matchEndIndex);
+        }
+
+        if (
+            quantifierType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
+                || quantifierType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
+        ) {
             (matchStartIndex, matchEndIndex) = matchPattern(
                 atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
             );
@@ -1937,7 +1988,6 @@ contract Stringray {
             return (matchStartIndex, matchEndIndex);
         }
 
-
         if (quantifierType == ASTERISK_GREEDY_QUANTIFIER_ATOM || quantifierType == ASTERISK_LAZY_QUANTIFIER_ATOM) {
             (matchStartIndex, matchEndIndex) = matchPattern(
                 atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
@@ -1948,7 +1998,7 @@ contract Stringray {
             if (matchStartIndex == -1 && indexToStartMatch >= 0) {
                 if (indexToStartMatch == 0) {
                     matchStartIndex = int256(indexToStartMatch + 1);
-                    matchEndIndex = int256(indexToStartMatch);    
+                    matchEndIndex = int256(indexToStartMatch);
                 } else {
                     matchStartIndex = int256(indexToStartMatch - 1);
                     matchEndIndex = int256(indexToStartMatch - 1);
@@ -1962,13 +2012,13 @@ contract Stringray {
         }
 
         // if (quantifierType != ASTERISK_GREEDY_QUANTIFIER_ATOM && quantifierType != ASTERISK_LAZY_QUANTIFIER_ATOM) {
-            (matchStartIndex, matchEndIndex) = matchPattern(
-                atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
-            );
-            
-            if (!isGreedy) {
-                return (matchStartIndex, matchEndIndex);
-            }
+        (matchStartIndex, matchEndIndex) = matchPattern(
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+        );
+
+        if (!isGreedy) {
+            return (matchStartIndex, matchEndIndex);
+        }
         // }
 
         console2.log("quantifiers matchStartIndex: ", matchStartIndex);
