@@ -1866,6 +1866,9 @@ contract Stringray {
         quantifierData.rangeLowerBound;
         quantifierData.rangeUpperBound;
 
+        // @BUG: range number could be more than one digit
+        // @status: not fixed✅
+
         if (isGreedy) {
             if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 quantifierData.rangeLowerBound =
