@@ -2109,32 +2109,33 @@ contract Stringray {
         int256 matchEndIndex = -1;
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
+
+        (matchStartIndex, matchEndIndex) = matchPattern(
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+        );
         
         if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
-            for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
-                (matchStartIndex, matchEndIndex) = matchPattern(
+            for (uint256 i = 2; i <= rangeUpperBound; i++) {
+                int256 tempMatchStartIndex = -1;
+                int256 lastMatchEndIndex = matchEndIndex;
+
+                // (tempMatchStartIndex, matchEndIndex) =
+                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+                (tempMatchStartIndex, matchEndIndex) = matchPattern(
                     atoms,
                     stringInBytes,
                     patternFlags,
-                    indexToStartMatch,
-                    isFirstMatch,
+                    uint256(matchEndIndex) + 1,
+                    false,
                     fromCharacterClass,
                     fromGroup,
                     true
                 );
 
-                if (matchStartIndex == -1 && indexToStartMatch >= 0) {
-                    if (indexToStartMatch == 0) {
-                        matchStartIndex = int256(indexToStartMatch + 1);
-                        matchEndIndex = int256(indexToStartMatch);
-                    } else {
-                        matchStartIndex = int256(indexToStartMatch - 1);
-                        matchEndIndex = int256(indexToStartMatch - 1);
-                    }
+                if (tempMatchStartIndex == -1) {
+                    matchEndIndex = lastMatchEndIndex;
                     break;
                 }
-
-                indexToStartMatch = uint256(matchEndIndex) + 1;
             }
         }
 
