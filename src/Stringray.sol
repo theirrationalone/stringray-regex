@@ -1869,11 +1869,11 @@ contract Stringray {
         // @BUG: range number could be more than one digit
         // @status: not fixed✅
 
+        (quantifierData.rangeLowerBound, quantifierData.rangeUpperBound) =
+            simplifiedRangeBounds(atom.atom, quantifierData.quantifierType);
+
         if (isGreedy) {
             if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
-                quantifierData.rangeLowerBound =
-                    stringDigitToDecDigit(trimString(atom.atom, 2, int256(atom.atom.length - 2)));
-                quantifierData.rangeUpperBound = quantifierData.rangeLowerBound;
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
             } else if (quantifierData.quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 6));
@@ -1901,7 +1901,10 @@ contract Stringray {
             (, atom.atomType,) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
         }
 
-        if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+        if (
+            quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM
+                || quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM
+        ) {
             return matchRangeQuantifier(
                 atom,
                 quantifierData.quantifierType,
@@ -1930,6 +1933,70 @@ contract Stringray {
             fromCharacterClass,
             fromGroup
         );
+    }
+
+    function simplifiedRangeBounds(bytes memory atom, bytes32 quantifierType) private pure returns (uint256, uint256) {
+        uint256 rangeLowerBound;
+        uint256 rangeUpperBound;
+
+        uint256 rangeLowerBoundStartIdx;
+        uint256 rangeLowerBoundEndIdx;
+
+        uint256 rangeUpperBoundStartIdx;
+        uint256 rangeUpperBoundEndIdx;
+
+        if (
+            quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+                || quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+                || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM
+                || quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+                || quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+        ) {
+            for (uint256 i = atom.length - 1; i >= 0; i--) {
+                if (uint8(atom[i]) == QUESTION_MARK) continue;
+
+                if (uint8(atom[i]) == CLOSE_CURLY_BRACE) {
+                    rangeUpperBoundEndIdx = i - 1;
+                    if (rangeLowerBoundEndIdx == 0) {
+                        rangeLowerBoundEndIdx = i - 1;
+                    }
+                    continue;
+                }
+
+                if (uint8(atom[i]) == COMMA_SIGN) {
+                    rangeUpperBoundStartIdx = i + 1;
+                    rangeLowerBoundEndIdx = i - 1;
+                    continue;
+                }
+
+                if (uint8(atom[i]) == OPEN_CURLY_BRACE) {
+                    rangeLowerBoundStartIdx = i + 1;
+                    continue;
+                }
+
+                if (i == 0) break;
+            }
+
+            if (rangeLowerBoundStartIdx > 0 && rangeLowerBoundEndIdx > 0) {
+                rangeLowerBound =
+                    stringDigitToDecDigit(trimString(atom, rangeLowerBoundStartIdx, int256(rangeLowerBoundEndIdx)));
+            }
+
+            if (rangeUpperBoundStartIdx > 0 && rangeUpperBoundEndIdx > 0) {
+                rangeUpperBound =
+                    stringDigitToDecDigit(trimString(atom, rangeUpperBoundStartIdx, int256(rangeUpperBoundEndIdx)));
+            }
+
+            if (rangeUpperBound == 0) {
+                rangeUpperBound = rangeLowerBound;
+            }
+
+            if (rangeLowerBound == 0) {
+                rangeLowerBound = rangeUpperBound;
+            }
+        }
+
+        return (rangeLowerBound, rangeUpperBound);
     }
 
     function matchRawQuantifier(
@@ -1980,25 +2047,25 @@ contract Stringray {
         //         fromCharacterClass,
         //         fromGroup
         //     );
-            // for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
-            //     (matchStartIndex, matchEndIndex) = matchPattern(
-            //         atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
-            //     );
+        // for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
+        //     (matchStartIndex, matchEndIndex) = matchPattern(
+        //         atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+        //     );
 
-            //     if (matchStartIndex == -1 && indexToStartMatch >= 0) {
-            //         if (indexToStartMatch == 0) {
-            //             matchStartIndex = int256(indexToStartMatch + 1);
-            //             matchEndIndex = int256(indexToStartMatch);
-            //         } else {
-            //             matchStartIndex = int256(indexToStartMatch - 1);
-            //             matchEndIndex = int256(indexToStartMatch - 1);
-            //         }
-            //         break;
-            //     }
+        //     if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+        //         if (indexToStartMatch == 0) {
+        //             matchStartIndex = int256(indexToStartMatch + 1);
+        //             matchEndIndex = int256(indexToStartMatch);
+        //         } else {
+        //             matchStartIndex = int256(indexToStartMatch - 1);
+        //             matchEndIndex = int256(indexToStartMatch - 1);
+        //         }
+        //         break;
+        //     }
 
-            //     indexToStartMatch = uint256(matchEndIndex) + 1;
-            // }
-            // return (matchStartIndex, matchEndIndex);
+        //     indexToStartMatch = uint256(matchEndIndex) + 1;
+        // }
+        // return (matchStartIndex, matchEndIndex);
         // }
 
         if (
@@ -2113,7 +2180,7 @@ contract Stringray {
         (matchStartIndex, matchEndIndex) = matchPattern(
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
-        
+
         if (matchStartIndex > -1) {
             if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
                 for (uint256 i = 2; i <= rangeUpperBound; i++) {
