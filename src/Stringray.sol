@@ -1901,6 +1901,22 @@ contract Stringray {
             (, atom.atomType,) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
         }
 
+        if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            return matchRangeQuantifier(
+                atom,
+                quantifierData.quantifierType,
+                quantifierData.rangeLowerBound,
+                quantifierData.rangeUpperBound,
+                isGreedy,
+                stringInBytes,
+                indexToStartMatch,
+                isFirstMatch,
+                patternFlags,
+                fromCharacterClass,
+                fromGroup
+            );
+        }
+
         return matchRawQuantifier(
             atom,
             quantifierData.quantifierType,
@@ -1950,25 +1966,40 @@ contract Stringray {
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
 
-        if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
-            for (uint256 i = rangeLowerBound; i <= rangeUpperBound; i++) {
-                (matchStartIndex, matchEndIndex) = matchPattern(
-                    atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
-                );
+        // if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+        //     (matchStartIndex, matchEndIndex) = matchRangeQuantifier(
+        //         atom,
+        //         quantifierType,
+        //         rangeLowerBound,
+        //         rangeUpperBound,
+        //         isGreedy,
+        //         stringInBytes,
+        //         indexToStartMatch,
+        //         isFirstMatch,
+        //         patternFlags,
+        //         fromCharacterClass,
+        //         fromGroup
+        //     );
+            // for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
+            //     (matchStartIndex, matchEndIndex) = matchPattern(
+            //         atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+            //     );
 
-                if (matchStartIndex == -1 && indexToStartMatch >= 0) {
-                    if (indexToStartMatch == 0) {
-                        matchStartIndex = int256(indexToStartMatch + 1);
-                        matchEndIndex = int256(indexToStartMatch);
-                    } else {
-                        matchStartIndex = int256(indexToStartMatch - 1);
-                        matchEndIndex = int256(indexToStartMatch - 1);
-                    }
-                    break;
-                }
-            }
-            return (matchStartIndex, matchEndIndex);
-        }
+            //     if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+            //         if (indexToStartMatch == 0) {
+            //             matchStartIndex = int256(indexToStartMatch + 1);
+            //             matchEndIndex = int256(indexToStartMatch);
+            //         } else {
+            //             matchStartIndex = int256(indexToStartMatch - 1);
+            //             matchEndIndex = int256(indexToStartMatch - 1);
+            //         }
+            //         break;
+            //     }
+
+            //     indexToStartMatch = uint256(matchEndIndex) + 1;
+            // }
+            // return (matchStartIndex, matchEndIndex);
+        // }
 
         if (
             quantifierType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
@@ -2059,6 +2090,55 @@ contract Stringray {
 
         console2.log("back to the caller from endpoint.............................");
         return (-1, -1);
+    }
+
+    function matchRangeQuantifier(
+        AtomTrait memory atom,
+        bytes32 quantifierType,
+        uint256 rangeLowerBound,
+        uint256 rangeUpperBound,
+        bool isGreedy,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        AtomTrait[] memory atoms = new AtomTrait[](1);
+        atoms[0] = atom;
+        
+        if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
+                (matchStartIndex, matchEndIndex) = matchPattern(
+                    atoms,
+                    stringInBytes,
+                    patternFlags,
+                    indexToStartMatch,
+                    isFirstMatch,
+                    fromCharacterClass,
+                    fromGroup,
+                    true
+                );
+
+                if (matchStartIndex == -1 && indexToStartMatch >= 0) {
+                    if (indexToStartMatch == 0) {
+                        matchStartIndex = int256(indexToStartMatch + 1);
+                        matchEndIndex = int256(indexToStartMatch);
+                    } else {
+                        matchStartIndex = int256(indexToStartMatch - 1);
+                        matchEndIndex = int256(indexToStartMatch - 1);
+                    }
+                    break;
+                }
+
+                indexToStartMatch = uint256(matchEndIndex) + 1;
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
     }
 
     function matchDollarOrEnd(
