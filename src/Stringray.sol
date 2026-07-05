@@ -2114,27 +2114,30 @@ contract Stringray {
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
         
-        if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
-            for (uint256 i = 2; i <= rangeUpperBound; i++) {
-                int256 tempMatchStartIndex = -1;
-                int256 lastMatchEndIndex = matchEndIndex;
+        if (matchStartIndex > -1) {
+            if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+                for (uint256 i = 2; i <= rangeUpperBound; i++) {
+                    int256 tempMatchStartIndex = -1;
+                    // int256 lastMatchEndIndex = matchEndIndex;
 
-                // (tempMatchStartIndex, matchEndIndex) =
-                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
-                (tempMatchStartIndex, matchEndIndex) = matchPattern(
-                    atoms,
-                    stringInBytes,
-                    patternFlags,
-                    uint256(matchEndIndex) + 1,
-                    false,
-                    fromCharacterClass,
-                    fromGroup,
-                    true
-                );
+                    // (tempMatchStartIndex, matchEndIndex) =
+                    //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+                    (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                        atoms,
+                        stringInBytes,
+                        patternFlags,
+                        uint256(matchEndIndex) + 1,
+                        false,
+                        fromCharacterClass,
+                        fromGroup,
+                        true
+                    );
 
-                if (tempMatchStartIndex == -1) {
-                    matchEndIndex = lastMatchEndIndex;
-                    break;
+                    if (tempMatchStartIndex == -1) {
+                        return (tempMatchStartIndex, matchEndIndex);
+                        // matchEndIndex = lastMatchEndIndex;
+                        // break;
+                    }
                 }
             }
         }
