@@ -1956,7 +1956,10 @@ contract Stringray {
                 if (uint8(atom[i]) == QUESTION_MARK) continue;
 
                 if (uint8(atom[i]) == CLOSE_CURLY_BRACE) {
-                    rangeUpperBoundEndIdx = i - 1;
+                    if (uint8(atom[i-1]) != COMMA_SIGN) {
+                        rangeUpperBoundEndIdx = i - 1;
+                    }
+
                     if (rangeLowerBoundEndIdx == 0) {
                         rangeLowerBoundEndIdx = i - 1;
                     }
@@ -1964,7 +1967,9 @@ contract Stringray {
                 }
 
                 if (uint8(atom[i]) == COMMA_SIGN) {
-                    rangeUpperBoundStartIdx = i + 1;
+                    if (uint8(atom[i+1]) != CLOSE_CURLY_BRACE) {
+                        rangeUpperBoundStartIdx = i + 1;
+                    }
                     rangeLowerBoundEndIdx = i - 1;
                     continue;
                 }
@@ -1974,8 +1979,20 @@ contract Stringray {
                     continue;
                 }
 
+                // @info: It's impossible for continue to throw after zero index
+                // @reason: pre-validation
+                
                 if (i == 0) break;
             }
+
+            console2.log("rangeLowerBoundStartIdx: ", rangeLowerBoundStartIdx);
+            console2.log("rangeLowerBoundEndIdx  : ", rangeLowerBoundEndIdx);
+            console2.log("rangeUpperBoundStartIdx: ", rangeUpperBoundStartIdx);
+            console2.log("rangeUpperBoundEndIdx  : ", rangeUpperBoundEndIdx);
+            console2.log("bounds...");
+            console2.log("rangeLowerBound        : ", rangeLowerBound);
+            console2.log("rangeUpperBound        : ", rangeUpperBound);
+
 
             if (rangeLowerBoundStartIdx > 0 && rangeLowerBoundEndIdx > 0) {
                 rangeLowerBound =
@@ -1995,6 +2012,10 @@ contract Stringray {
                 rangeLowerBound = rangeUpperBound;
             }
         }
+
+        console2.log("final bounds...");
+        console2.log("rangeLowerBound        : ", rangeLowerBound);
+        console2.log("rangeUpperBound        : ", rangeUpperBound);
 
         return (rangeLowerBound, rangeUpperBound);
     }
