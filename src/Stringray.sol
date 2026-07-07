@@ -1905,7 +1905,25 @@ contract Stringray {
             quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM
                 || quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM
         ) {
-            return matchRangeQuantifier(
+            return matchNRangeQuantifier(
+                atom,
+                quantifierData.quantifierType,
+                quantifierData.rangeLowerBound,
+                quantifierData.rangeUpperBound,
+                isGreedy,
+                stringInBytes,
+                indexToStartMatch,
+                isFirstMatch,
+                patternFlags,
+                fromCharacterClass,
+                fromGroup
+            );
+        }
+
+        if (quantifierData.quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+                || quantifierData.quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+        ) {
+            return matchNAndInfinityRangeQuantifier(
                 atom,
                 quantifierData.quantifierType,
                 quantifierData.rangeLowerBound,
@@ -1956,7 +1974,7 @@ contract Stringray {
                 if (uint8(atom[i]) == QUESTION_MARK) continue;
 
                 if (uint8(atom[i]) == CLOSE_CURLY_BRACE) {
-                    if (uint8(atom[i-1]) != COMMA_SIGN) {
+                    if (uint8(atom[i - 1]) != COMMA_SIGN) {
                         rangeUpperBoundEndIdx = i - 1;
                     }
 
@@ -1967,7 +1985,7 @@ contract Stringray {
                 }
 
                 if (uint8(atom[i]) == COMMA_SIGN) {
-                    if (uint8(atom[i+1]) != CLOSE_CURLY_BRACE) {
+                    if (uint8(atom[i + 1]) != CLOSE_CURLY_BRACE) {
                         rangeUpperBoundStartIdx = i + 1;
                     }
                     rangeLowerBoundEndIdx = i - 1;
@@ -1981,7 +1999,7 @@ contract Stringray {
 
                 // @info: It's impossible for continue to throw after zero index
                 // @reason: pre-validation
-                
+
                 if (i == 0) break;
             }
 
@@ -1992,7 +2010,6 @@ contract Stringray {
             console2.log("bounds...");
             console2.log("rangeLowerBound        : ", rangeLowerBound);
             console2.log("rangeUpperBound        : ", rangeUpperBound);
-
 
             if (rangeLowerBoundStartIdx > 0 && rangeLowerBoundEndIdx > 0) {
                 rangeLowerBound =
@@ -2180,7 +2197,7 @@ contract Stringray {
         return (-1, -1);
     }
 
-    function matchRangeQuantifier(
+    function matchNRangeQuantifier(
         AtomTrait memory atom,
         bytes32 quantifierType,
         uint256 rangeLowerBound,
@@ -2203,7 +2220,7 @@ contract Stringray {
         );
 
         if (matchStartIndex > -1) {
-            if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
+            
                 for (uint256 i = 2; i <= rangeUpperBound; i++) {
                     int256 tempMatchStartIndex = -1;
                     // int256 lastMatchEndIndex = matchEndIndex;
@@ -2227,7 +2244,70 @@ contract Stringray {
                         // break;
                     }
                 }
-            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function matchNAndInfinityRangeQuantifier(
+        AtomTrait memory atom,
+        bytes32 quantifierType,
+        uint256 rangeLowerBound,
+        uint256 rangeUpperBound,
+        bool isGreedy,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        AtomTrait[] memory atoms = new AtomTrait[](1);
+        atoms[0] = atom;
+
+        (matchStartIndex, matchEndIndex) = matchPattern(
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+        );
+
+        if (matchStartIndex > -1) {
+                while (true) {
+                    console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
+                    int256 tempMatchStartIndex = -1;
+                    int256 lastMatchEndIndex = matchEndIndex;
+
+                    (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                        atoms,
+                        stringInBytes,
+                        patternFlags,
+                        uint256(matchEndIndex) + 1,
+                        false,
+                        fromCharacterClass,
+                        fromGroup,
+                        true
+                    );
+
+                    if (tempMatchStartIndex == -1) {
+                        if (lastMatchEndIndex - matchStartIndex < int256(rangeLowerBound)) {
+                            console2.log("lastMatchEndIndex: ", lastMatchEndIndex);
+                            console2.log("matchStartIndex: ", matchStartIndex);
+                            console2.log("come back after match pattern");
+                            matchStartIndex = -1;
+                            break;
+                        }
+
+                        matchEndIndex = lastMatchEndIndex;
+                        break;
+                    }
+
+                    if (!isGreedy) {
+                        if (tempMatchStartIndex > -1 && ((matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound))) {
+                            break;
+                        }
+                    }
+                }
+            
         }
 
         return (matchStartIndex, matchEndIndex);
