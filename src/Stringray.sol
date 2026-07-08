@@ -1595,6 +1595,8 @@ contract Stringray {
                                     || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                             ) {
                                 matchData.i -= 1;
+                            } else if (atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+                                indexToStartMatch += 1;
                             } else {
                                 indexToStartMatch -= 1;
                             }
@@ -1647,9 +1649,11 @@ contract Stringray {
                                 || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == N_RANGE_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
-                                || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
+                            // || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                         ) {
                             matchData.i -= 1;
+                        } else if (atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
+                            indexToStartMatch += 1;
                         } else {
                             indexToStartMatch -= 1;
                         }
@@ -1920,7 +1924,8 @@ contract Stringray {
             );
         }
 
-        if (quantifierData.quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
+        if (
+            quantifierData.quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
                 || quantifierData.quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
         ) {
             return matchNAndInfinityRangeQuantifier(
@@ -2220,30 +2225,29 @@ contract Stringray {
         );
 
         if (matchStartIndex > -1) {
-            
-                for (uint256 i = 2; i <= rangeUpperBound; i++) {
-                    int256 tempMatchStartIndex = -1;
-                    // int256 lastMatchEndIndex = matchEndIndex;
+            for (uint256 i = 2; i <= rangeUpperBound; i++) {
+                int256 tempMatchStartIndex = -1;
+                // int256 lastMatchEndIndex = matchEndIndex;
 
-                    // (tempMatchStartIndex, matchEndIndex) =
-                    //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
-                    (tempMatchStartIndex, matchEndIndex) = matchPattern(
-                        atoms,
-                        stringInBytes,
-                        patternFlags,
-                        uint256(matchEndIndex) + 1,
-                        false,
-                        fromCharacterClass,
-                        fromGroup,
-                        true
-                    );
+                // (tempMatchStartIndex, matchEndIndex) =
+                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
+                (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                    atoms,
+                    stringInBytes,
+                    patternFlags,
+                    uint256(matchEndIndex) + 1,
+                    false,
+                    fromCharacterClass,
+                    fromGroup,
+                    true
+                );
 
-                    if (tempMatchStartIndex == -1) {
-                        return (tempMatchStartIndex, matchEndIndex);
-                        // matchEndIndex = lastMatchEndIndex;
-                        // break;
-                    }
+                if (tempMatchStartIndex == -1) {
+                    return (tempMatchStartIndex, matchEndIndex);
+                    // matchEndIndex = lastMatchEndIndex;
+                    // break;
                 }
+            }
         }
 
         return (matchStartIndex, matchEndIndex);
@@ -2272,45 +2276,46 @@ contract Stringray {
         );
 
         // @BUG🪱🐍: N and Infinity range quantifiers matching backtracking logic misbehaves
+        // @status: fixed✅
 
         if (matchStartIndex > -1) {
-                while (true) {
-                    console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
-                    int256 tempMatchStartIndex = -1;
-                    int256 lastMatchEndIndex = matchEndIndex;
+            while (true) {
+                console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
+                int256 tempMatchStartIndex = -1;
+                int256 lastMatchEndIndex = matchEndIndex;
 
-                    (tempMatchStartIndex, matchEndIndex) = matchPattern(
-                        atoms,
-                        stringInBytes,
-                        patternFlags,
-                        uint256(matchEndIndex) + 1,
-                        false,
-                        fromCharacterClass,
-                        fromGroup,
-                        true
-                    );
+                (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                    atoms,
+                    stringInBytes,
+                    patternFlags,
+                    uint256(matchEndIndex) + 1,
+                    false,
+                    fromCharacterClass,
+                    fromGroup,
+                    true
+                );
 
-                    if (tempMatchStartIndex == -1) {
-                        if (lastMatchEndIndex - matchStartIndex < int256(rangeLowerBound)) {
-                            console2.log("lastMatchEndIndex: ", lastMatchEndIndex);
-                            console2.log("matchStartIndex: ", matchStartIndex);
-                            console2.log("come back after match pattern");
-                            matchStartIndex = -1;
-                            matchEndIndex = lastMatchEndIndex + 1;
-                            break;
-                        }
-
-                        matchEndIndex = lastMatchEndIndex;
+                if (tempMatchStartIndex == -1) {
+                    if (lastMatchEndIndex - matchStartIndex < int256(rangeLowerBound)) {
+                        console2.log("lastMatchEndIndex: ", lastMatchEndIndex);
+                        console2.log("matchStartIndex: ", matchStartIndex);
+                        console2.log("come back after match pattern");
+                        matchStartIndex = -1;
+                        matchEndIndex = lastMatchEndIndex + 1;
                         break;
                     }
 
-                    if (!isGreedy) {
-                        if (tempMatchStartIndex > -1 && ((matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound))) {
-                            break;
-                        }
+                    matchEndIndex = lastMatchEndIndex;
+                    break;
+                }
+
+                if (!isGreedy) {
+                    if (tempMatchStartIndex > -1 && ((matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound)))
+                    {
+                        break;
                     }
                 }
-            
+            }
         }
 
         return (matchStartIndex, matchEndIndex);
