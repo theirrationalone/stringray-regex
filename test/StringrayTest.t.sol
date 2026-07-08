@@ -36691,7 +36691,7 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchQuantifiersCase13() public {
         string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a{2,3}/";
+        string memory pattern = unicode"/a{2,3}l/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");
@@ -36719,8 +36719,8 @@ contract PlayStringTest is Test {
     }
 
     function testRegexPatternMatchQuantifiersCase14() public {
-        string memory target = unicode"nehaaaaaaaaaaal";
-        string memory pattern = unicode"/a{2,3}?/";
+        string memory target = unicode"nehaaaaaaaaaxaal";
+        string memory pattern = unicode"/a{2,3}?l/";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
         console2.log("------------------returnedData------------------");

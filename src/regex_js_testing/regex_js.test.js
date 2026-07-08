@@ -22379,7 +22379,7 @@ const testMain = () => {
   
   test("Pattern match quantifiers: Case0000000000000000000000000000013", () => {
     const target = "nehaaaaaaaaaaal";
-    let regex = /a{2,3}/;
+    let regex = /a{2,3}l/;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });

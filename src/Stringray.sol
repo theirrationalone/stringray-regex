@@ -1597,6 +1597,10 @@ contract Stringray {
                                 matchData.i -= 1;
                             } else if (atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
                                 indexToStartMatch += 1;
+                            } else if (atoms[matchData.i - 1].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                                matchData.i -= 1;
+                                isFirstMatch = true;
+                                matchData.firstIndex = -1;
                             } else {
                                 indexToStartMatch -= 1;
                             }
@@ -1654,6 +1658,11 @@ contract Stringray {
                             matchData.i -= 1;
                         } else if (atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM) {
                             indexToStartMatch += 1;
+                        } else if (atoms[matchData.i - 1].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
+                            matchData.i -= 1;
+                            isFirstMatch = true;
+                            matchData.firstIndex = -1;
+                            indexToStartMatch -= 1;
                         } else {
                             indexToStartMatch -= 1;
                         }
@@ -1931,6 +1940,24 @@ contract Stringray {
             return matchNAndInfinityRangeQuantifier(
                 atom,
                 quantifierData.quantifierType,
+                quantifierData.rangeLowerBound,
+                quantifierData.rangeUpperBound,
+                isGreedy,
+                stringInBytes,
+                indexToStartMatch,
+                isFirstMatch,
+                patternFlags,
+                fromCharacterClass,
+                fromGroup
+            );
+        }
+
+        if (
+            quantifierData.quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
+                || quantifierData.quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
+        ) {
+            return matchNAndMRangeQuantifier(
+                atom,
                 quantifierData.rangeLowerBound,
                 quantifierData.rangeUpperBound,
                 isGreedy,
@@ -2308,6 +2335,76 @@ contract Stringray {
                     matchEndIndex = lastMatchEndIndex;
                     break;
                 }
+
+                if (!isGreedy) {
+                    if (tempMatchStartIndex > -1 && ((matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound)))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return (matchStartIndex, matchEndIndex);
+    }
+
+    function matchNAndMRangeQuantifier(
+        AtomTrait memory atom,
+        uint256 rangeLowerBound,
+        uint256 rangeUpperBound,
+        bool isGreedy,
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags,
+        bool fromCharacterClass,
+        bool fromGroup
+    ) private returns (int256, int256) {
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
+        AtomTrait[] memory atoms = new AtomTrait[](1);
+        atoms[0] = atom;
+
+        (matchStartIndex, matchEndIndex) = matchPattern(
+            atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
+        );
+
+        if (matchStartIndex > -1) {
+            for (uint256 i = 2; i <= rangeUpperBound; i++) {
+                console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
+                int256 tempMatchStartIndex = -1;
+                int256 lastMatchEndIndex = matchEndIndex;
+
+                (tempMatchStartIndex, matchEndIndex) = matchPattern(
+                    atoms,
+                    stringInBytes,
+                    patternFlags,
+                    uint256(matchEndIndex) + 1,
+                    false,
+                    fromCharacterClass,
+                    fromGroup,
+                    true
+                );
+
+                if (tempMatchStartIndex == -1) {
+                    if (lastMatchEndIndex - matchStartIndex < int256(rangeLowerBound)) {
+                        console2.log("lastMatchEndIndex: ", lastMatchEndIndex);
+                        console2.log("matchStartIndex: ", matchStartIndex);
+                        console2.log("come back after match pattern");
+                        matchStartIndex = -1;
+                        matchEndIndex = lastMatchEndIndex + 1;
+                        break;
+                    }
+
+                    matchEndIndex = lastMatchEndIndex;
+                    break;
+                }
+
+                // if (isGreedy && (matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound)) {
+                    // @info: track and backtrack with lowerBound then come back and again track and backtrack with upper bound is a catastrophic evaluation
+                    // So, we don't implement due to the GAS scarcity.
+                    // ~ also for lazy variant as well.
+                // }
 
                 if (!isGreedy) {
                     if (tempMatchStartIndex > -1 && ((matchEndIndex - matchStartIndex) + 1 == int256(rangeLowerBound)))
