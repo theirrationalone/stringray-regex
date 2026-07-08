@@ -1542,7 +1542,7 @@ contract Stringray {
             }
 
             console2.log("matchStartIndex: ", matchData.matchStartIndex);
-            console2.log("matchEndIndex: ", matchData.matchEndIndex);
+            console2.log("matchEndIndex hereree: ", matchData.matchEndIndex);
 
             if (fromCharacterClass && !isFirstMatch) {
                 console2.log("return 1");
@@ -2271,6 +2271,8 @@ contract Stringray {
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
 
+        // @BUG🪱🐍: N and Infinity range quantifiers matching backtracking logic misbehaves
+
         if (matchStartIndex > -1) {
                 while (true) {
                     console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
@@ -2294,6 +2296,7 @@ contract Stringray {
                             console2.log("matchStartIndex: ", matchStartIndex);
                             console2.log("come back after match pattern");
                             matchStartIndex = -1;
+                            matchEndIndex = lastMatchEndIndex + 1;
                             break;
                         }
 
