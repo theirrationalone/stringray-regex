@@ -1145,6 +1145,9 @@ contract Stringray {
             if (atoms[matchData.i].atomType == GROUP_SUB_ATOM) {
                 matchData.i += 1;
                 continue;
+            } else if (atoms[matchData.i].atomType == DOT_ATOM) {
+                (matchData.matchStartIndex, matchData.matchEndIndex) =
+                    matchDotWildcardCharacters(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else if (
                 atoms[matchData.i].atomType == LITERAL_ATOM || atoms[matchData.i].atomType == TAB
                     || atoms[matchData.i].atomType == NEWLINE || atoms[matchData.i].atomType == VERTICAL_TAB
@@ -1854,6 +1857,54 @@ contract Stringray {
         // }
 
         return (matchData.firstIndex, matchData.matchEndIndex);
+    }
+
+    function matchDotWildcardCharacters(
+        bytes memory stringInBytes,
+        uint256 indexToStartMatch,
+        bool isFirstMatch,
+        bytes memory patternFlags
+    ) private returns (int256, int256) {
+        // @TODO: Complete DOT_WILDCARD implementation...
+        // @STATUS: Not implemented yet.
+
+        // \u2028: 0xe280a8
+        // \u2029: 0xe280a9
+
+        if (hasFlag(patternFlags, "s")) {
+            return (int256(indexToStartMatch), int256(indexToStartMatch));
+        }
+
+        if (isFirstMatch) {
+            for (uint256 i=indexToStartMatch; i < stringInBytes.length; i++) {
+                if (stringInBytes[i] != 0x0a && stringInBytes[i] != 0x0d) {
+                    if (stringInBytes[i] == 0xe2) {
+                        if (i + 1 < stringInBytes.length && stringInBytes[i+1] == 0x80) {
+                            if (i + 2 < stringInBytes.length && (stringInBytes[i+2] == 0xa8 || stringInBytes[i+2] == 0xa9)) {
+                                i += 2;
+                                continue;
+                            }
+                        }
+                    }
+
+                    return (int256(i), int256(i));
+                }
+            }
+        } else {
+            if (stringInBytes[indexToStartMatch] != 0x0a && stringInBytes[indexToStartMatch] != 0x0d) {
+                if (stringInBytes[indexToStartMatch] == 0xe2) {
+                    if (indexToStartMatch + 1 < stringInBytes.length && stringInBytes[indexToStartMatch+1] == 0x80) {
+                        if (indexToStartMatch + 2 < stringInBytes.length && (stringInBytes[indexToStartMatch+2] == 0xa8 || stringInBytes[indexToStartMatch+2] == 0xa9)) {
+                            return (-1, int256(indexToStartMatch+2));
+                        }
+                    }
+                }
+
+                return (int256(indexToStartMatch), int256(indexToStartMatch));
+            }
+        }
+
+        return (-1, -1);
     }
 
     struct QuantifierData {

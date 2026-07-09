@@ -22391,9 +22391,16 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  test("Pattern match quantifiers: Case000000000000000000000000000008", () => {
+  test("Pattern match quantifiers: Case0000000000000000000000000000015", () => {
     const target = "nehaaaaaaaaaaal";
     let regex = /a??l/;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match dot wildcard: Case0000000000000000000000000000001", () => {
+    const target = "\u2028nehal is aman's niece";
+    let regex = /./;
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
