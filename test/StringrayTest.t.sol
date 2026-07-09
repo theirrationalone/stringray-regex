@@ -36886,5 +36886,45 @@ contract PlayStringTest is Test {
         console2.log("------------------------------------");
     }
 
+    function testRegexPatternMatchDotWildcardCase4() public {
+        bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{2029}"));
+        bytes memory utf8Hex2 = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F600}"));
+        bytes memory utf8Hex3 = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{2028}"));
+        console2.log("----------------");
+        console2.log("utf8Hex: ");
+        console2.logBytes(utf8Hex);
+        console2.log("utf8Hex2: ");
+        console2.logBytes(utf8Hex2);
+        console2.log("utf8Hex3: ");
+        console2.logBytes(utf8Hex3);
+        console2.log("----------------");
+        string memory target = string(abi.encodePacked(utf8Hex, utf8Hex3, utf8Hex2, "nehal is aman's niece"));
+        string memory pattern = unicode"/\\u{2029}./u";
+
+        Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+        console2.log("------------------returnedData------------------");
+        console2.log("Pattern string         : ", returnedData.patternString);
+        console2.log("Original string        : ", returnedData.originalString);
+        console2.log("Matched string         : ", returnedData.matchedString);
+        console2.log("Match start index      : ", returnedData.matchStartIndex);
+        console2.log("Match end index        : ", returnedData.matchEndIndex);
+        uint256 i;
+        for (i = 0; i < returnedData.groupMatchedData.length; i++) {
+            console2.log("Group pattern string   : ", returnedData.groupMatchedData[i].groupPatternString);
+            console2.log("Group matched string   : ", returnedData.groupMatchedData[i].groupMatchedString);
+            console2.log("Group match start index: ", returnedData.groupMatchedData[i].groupMatchStartIndex);
+            console2.log("Group match end index  : ", returnedData.groupMatchedData[i].groupMatchEndIndex);
+            console2.log("Group number           : ", returnedData.groupMatchedData[i].groupNum);
+        }
+
+        for (i = 0; i < returnedData.groupNames.length; i++) {
+            console2.log("---start---");
+            console2.log("Group Name             : ", string(returnedData.groupNames[i].groupName));
+            console2.log("Group matched string   : ", string(returnedData.groupNames[i].matchedString));
+            console2.log("---end---");
+        }
+        console2.log("------------------------------------");
+    }
+
     // @BURN-OUT: Leaving it for now..... :(
 }

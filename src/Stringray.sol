@@ -1866,14 +1866,29 @@ contract Stringray {
         bytes memory patternFlags
     ) private pure returns (int256, int256) {
         // @TODO: Complete DOT_WILDCARD implementation...
-        // @STATUS: Not implemented yet.
+        // @STATUS: Finished🗽✅💓
 
         // \u2028: 0xe280a8
         // \u2029: 0xe280a9
 
         console2.log("yes matching with dot wildcard...");
 
+        uint256 j;
+
         if (hasFlag(patternFlags, "s")) {
+            j = indexToStartMatch;
+            while (true) {
+                if (confirmValidStringChunk(trimString(stringInBytes, indexToStartMatch, int256(j)))) {
+                    return (int256(indexToStartMatch), int256(j));
+                }
+
+                j += 1;
+
+                if (j > indexToStartMatch + 4) {
+                    // @quest: what if we break here instead returning?
+                    return (int256(indexToStartMatch), int256(indexToStartMatch));
+                }
+            }
             return (int256(indexToStartMatch), int256(indexToStartMatch));
         }
 
@@ -1892,16 +1907,15 @@ contract Stringray {
                         }
                     }
 
-                    uint256 j = 0;
-                    // @BUG🪱🐍: validating only one byte at a time instead of a collective group of unicode chunk.
+                    j = i;
                     while (true) {
-                        if (confirmValidStringChunk(abi.encodePacked(stringInBytes[i + j]))) {
-                            return (int256(i), int256(i + j-1));
+                        if (confirmValidStringChunk(trimString(stringInBytes, i, int256(j)))) {
+                            return (int256(i), int256(j));
                         }
 
                         j += 1;
 
-                        if (j > 5) {
+                        if (j > i + 4) {
                             // @quest: what if we break here instead returning?
                             return (int256(i), int256(i));
                         }
@@ -1930,18 +1944,18 @@ contract Stringray {
                     }
                 }
 
-                uint256 j = 0;
+                j = indexToStartMatch;
                 while (true) {
                     console2.log("finding valid one...");
                     console2.log("bytes: ");
                     console2.logBytes(abi.encodePacked(stringInBytes[indexToStartMatch + j]));
-                    if (confirmValidStringChunk(abi.encodePacked(stringInBytes[indexToStartMatch + j]))) {
-                        return (int256(indexToStartMatch), int256(indexToStartMatch + j-1));
+                    if (confirmValidStringChunk(trimString(stringInBytes, indexToStartMatch, int256(j)))) {
+                        return (int256(indexToStartMatch), int256(j));
                     }
 
                     j += 1;
 
-                    if (j > 5) {
+                    if (j > indexToStartMatch + 4) {
                         // @quest: what if we break here instead returning?
                         return (int256(indexToStartMatch), int256(indexToStartMatch));
                     }
