@@ -1864,12 +1864,14 @@ contract Stringray {
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags
-    ) private returns (int256, int256) {
+    ) private pure returns (int256, int256) {
         // @TODO: Complete DOT_WILDCARD implementation...
         // @STATUS: Not implemented yet.
 
         // \u2028: 0xe280a8
         // \u2029: 0xe280a9
+
+        console2.log("yes matching with dot wildcard...");
 
         if (hasFlag(patternFlags, "s")) {
             return (int256(indexToStartMatch), int256(indexToStartMatch));
@@ -1891,6 +1893,7 @@ contract Stringray {
                     }
 
                     uint256 j = 0;
+                    // @BUG🪱🐍: validating only one byte at a time instead of a collective group of unicode chunk.
                     while (true) {
                         if (confirmValidStringChunk(abi.encodePacked(stringInBytes[i + j]))) {
                             return (int256(i), int256(i + j-1));
@@ -1909,6 +1912,11 @@ contract Stringray {
             }
         } else {
             if (stringInBytes[indexToStartMatch] != 0x0a && stringInBytes[indexToStartMatch] != 0x0d) {
+                console2.log("indexToStartMatch: ", indexToStartMatch);
+                console2.log("string: ", string(stringInBytes));
+                console2.logBytes(stringInBytes);
+                console2.logBytes1(stringInBytes[indexToStartMatch]);
+                console2.log("...");
                 if (stringInBytes[indexToStartMatch] == 0xe2) {
                     if (indexToStartMatch + 1 < stringInBytes.length && stringInBytes[indexToStartMatch + 1] == 0x80) {
                         if (
@@ -1916,6 +1924,7 @@ contract Stringray {
                                 && (stringInBytes[indexToStartMatch + 2] == 0xa8
                                     || stringInBytes[indexToStartMatch + 2] == 0xa9)
                         ) {
+                            console2.log("returning right but usage isn't");
                             return (-1, int256(indexToStartMatch + 2));
                         }
                     }
@@ -1923,6 +1932,9 @@ contract Stringray {
 
                 uint256 j = 0;
                 while (true) {
+                    console2.log("finding valid one...");
+                    console2.log("bytes: ");
+                    console2.logBytes(abi.encodePacked(stringInBytes[indexToStartMatch + j]));
                     if (confirmValidStringChunk(abi.encodePacked(stringInBytes[indexToStartMatch + j]))) {
                         return (int256(indexToStartMatch), int256(indexToStartMatch + j-1));
                     }
