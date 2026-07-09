@@ -1876,14 +1876,31 @@ contract Stringray {
         }
 
         if (isFirstMatch) {
-            for (uint256 i=indexToStartMatch; i < stringInBytes.length; i++) {
+            for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
                 if (stringInBytes[i] != 0x0a && stringInBytes[i] != 0x0d) {
                     if (stringInBytes[i] == 0xe2) {
-                        if (i + 1 < stringInBytes.length && stringInBytes[i+1] == 0x80) {
-                            if (i + 2 < stringInBytes.length && (stringInBytes[i+2] == 0xa8 || stringInBytes[i+2] == 0xa9)) {
+                        if (i + 1 < stringInBytes.length && stringInBytes[i + 1] == 0x80) {
+                            if (
+                                i + 2 < stringInBytes.length
+                                    && (stringInBytes[i + 2] == 0xa8 || stringInBytes[i + 2] == 0xa9)
+                            ) {
                                 i += 2;
                                 continue;
                             }
+                        }
+                    }
+
+                    uint256 j = 0;
+                    while (true) {
+                        if (confirmValidStringChunk(abi.encodePacked(stringInBytes[i + j]))) {
+                            return (int256(i), int256(i + j-1));
+                        }
+
+                        j += 1;
+
+                        if (j > 5) {
+                            // @quest: what if we break here instead returning?
+                            return (int256(i), int256(i));
                         }
                     }
 
@@ -1893,10 +1910,28 @@ contract Stringray {
         } else {
             if (stringInBytes[indexToStartMatch] != 0x0a && stringInBytes[indexToStartMatch] != 0x0d) {
                 if (stringInBytes[indexToStartMatch] == 0xe2) {
-                    if (indexToStartMatch + 1 < stringInBytes.length && stringInBytes[indexToStartMatch+1] == 0x80) {
-                        if (indexToStartMatch + 2 < stringInBytes.length && (stringInBytes[indexToStartMatch+2] == 0xa8 || stringInBytes[indexToStartMatch+2] == 0xa9)) {
-                            return (-1, int256(indexToStartMatch+2));
+                    if (indexToStartMatch + 1 < stringInBytes.length && stringInBytes[indexToStartMatch + 1] == 0x80) {
+                        if (
+                            indexToStartMatch + 2 < stringInBytes.length
+                                && (stringInBytes[indexToStartMatch + 2] == 0xa8
+                                    || stringInBytes[indexToStartMatch + 2] == 0xa9)
+                        ) {
+                            return (-1, int256(indexToStartMatch + 2));
                         }
+                    }
+                }
+
+                uint256 j = 0;
+                while (true) {
+                    if (confirmValidStringChunk(abi.encodePacked(stringInBytes[indexToStartMatch + j]))) {
+                        return (int256(indexToStartMatch), int256(indexToStartMatch + j-1));
+                    }
+
+                    j += 1;
+
+                    if (j > 5) {
+                        // @quest: what if we break here instead returning?
+                        return (int256(indexToStartMatch), int256(indexToStartMatch));
                     }
                 }
 

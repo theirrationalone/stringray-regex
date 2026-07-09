@@ -36778,11 +36778,12 @@ contract PlayStringTest is Test {
 
     function testRegexPatternMatchDotWildcardCase1() public {
         bytes memory utf8Hex = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{2029}"));
+        bytes memory utf8Hex2 = stringray.unicodeHexToUtf8Hex(abi.encodePacked("\\u{1F600}"));
         console2.log("----------------");
         console2.log("utf8Hex: ");
         console2.logBytes(utf8Hex);
         console2.log("----------------");
-        string memory target = string(abi.encodePacked(utf8Hex, "nehal is aman's niece"));
+        string memory target = string(abi.encodePacked(utf8Hex, utf8Hex2, "nehal is aman's niece"));
         string memory pattern = unicode"/./";
 
         Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
