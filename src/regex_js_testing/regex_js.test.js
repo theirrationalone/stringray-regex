@@ -22405,6 +22405,32 @@ const testMain = () => {
     assert.strictEqual(regex.test(target), true);
   });
 
-  // @BURN-OUT: Leaving it for now..... :(
+  test("Pattern match dot wildcard: Case0000000000000000000000000000002", () => {
+    const target = "\u2029\u{1f600}nehal is aman's niece";
+    let regex = /\u{2029}./u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match dot wildcard: Case0000000000000000000000000000003", () => {
+    const target = "\u2029\u{1f600}\u2028nehal is aman's niece";
+    let regex = /\u{2029}./u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
+
+  test("Pattern match dot wildcard: Case0000000000000000000000000000004", () => {
+    const target = "\u2029\u2028\u{1f600}nehal is aman's niece";
+    let regex = /\u{2029}./u;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), false);
+  });
+
+  test("Pattern match with all flags: Case00000000000000000000000000000001", () => {
+    const target = "nehal is a girl in 11th standard.";
+    let regex = /a/g;
+    console.log("output: ", target.match(regex));
+    assert.strictEqual(regex.test(target), true);
+  });
 };
 testMain();

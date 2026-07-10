@@ -1859,6 +1859,11 @@ contract Stringray {
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
+    function matchPatternWithFlags() private {
+        // @TODO: Complete matching with all remaining flags implementation...
+        // @STATUS: YET TO IMPLEMENT...🚀
+    }
+
     function matchDotWildcardCharacters(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
