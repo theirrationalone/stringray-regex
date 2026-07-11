@@ -1856,10 +1856,12 @@ contract Stringray {
         //     return (matchData.firstIndex, matchData.matchEndIndex);
         // }
 
+        matchPatternWithFlags(patternFlags);
+
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
-    function matchPatternWithFlags() private {
+    function matchPatternWithFlags(bytes memory patternFlags) private {
         // @TODO: Complete matching with all remaining flags implementation...
         // @STATUS: YET TO IMPLEMENT...🚀
     }
