@@ -1864,6 +1864,30 @@ contract Stringray {
     function matchPatternWithFlags(bytes memory patternFlags) private {
         // @TODO: Complete matching with all remaining flags implementation...
         // @STATUS: YET TO IMPLEMENT...🚀
+
+        if (hasFlag(patternFlags, "m")) {
+            // @TODO: complete multiline flag implementation
+        }
+
+        if (hasFlag(patternFlags, "i")) {
+            // @TODO: complete ignoreCase flag implementation
+        }
+
+        if (hasFlag(patternFlags, "g")) {
+            // @TODO: complete global flag implementation
+        }
+
+        if (hasFlag(patternFlags, "s")) {
+            // @TODO: complete dotAll flag implementation
+        }
+
+        if (hasFlag(patternFlags, "y")) {
+            // @TODO: complete sticky flag implementation
+        }
+
+        if (hasFlag(patternFlags, "d")) {
+            // @TODO: complete has indices flag implementation
+        }
     }
 
     function matchDotWildcardCharacters(
