@@ -1886,8 +1886,12 @@ contract Stringray {
         }
 
         if (hasFlag(patternFlags, "d")) {
-            // @TODO: complete has indices flag implementation
+            // @TODO: complete `has indices` flag implementation
         }
+
+        // @doubt: where to start?????
+        // @question: have u and v flags implemented and works well.
+        // @research: let's learn about all of them first....🚀
     }
 
     function matchDotWildcardCharacters(
