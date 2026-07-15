@@ -1856,14 +1856,21 @@ contract Stringray {
         //     return (matchData.firstIndex, matchData.matchEndIndex);
         // }
 
-        matchPatternWithFlags(patternFlags);
+        matchPatternWithFlags(patternFlags, matchData.firstIndex, matchData.matchEndIndex, stringInBytes);
 
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
-    function matchPatternWithFlags(bytes memory patternFlags) private {
+    function matchPatternWithFlags(
+        bytes memory patternFlags,
+        int256 firstIndex,
+        int256 endIndex,
+        bytes memory stringInBytes
+    ) private {
         // @TODO: Complete matching with all remaining flags implementation...
         // @STATUS: YET TO IMPLEMENT...🚀
+        int256 matchStartIndex = -1;
+        int256 matchEndIndex = -1;
 
         if (hasFlag(patternFlags, "m")) {
             // @TODO: complete multiline flag implementation
@@ -1875,6 +1882,20 @@ contract Stringray {
 
         if (hasFlag(patternFlags, "g")) {
             // @TODO: complete global flag implementation
+            if (firstIndex > -1 && endIndex > -1) {
+                if (uint256(endIndex) < stringInBytes.length - 1) {
+                    (matchStartIndex, matchEndIndex) = matchPattern(
+                        atoms,
+                        stringInBytes,
+                        patternFlags,
+                        indexToStartMatch,
+                        isFirstMatch,
+                        fromCharacterClass,
+                        fromGroup,
+                        fromQuantifier
+                    );
+                }
+            }
         }
 
         if (hasFlag(patternFlags, "s")) {
