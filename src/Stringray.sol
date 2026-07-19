@@ -1370,6 +1370,9 @@ contract Stringray {
                     continue;
                 }
 
+                console2.log("matchData.i: ", matchData.i);
+                console2.log("atoms.length: ", atoms.length);
+
                 if (matchData.matchStartIndex > -1) {
                     if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == WORD_BOUNDARY) {
                         if (
@@ -1390,13 +1393,17 @@ contract Stringray {
                     }
 
                     if (matchData.i > 0 && atoms[matchData.i - 1].atomType == WORD_BOUNDARY) {
+                        console2.log("going through here....");
                         if (
                             matchData.matchStartIndex > 0
                                 && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)
                         ) {
+                            console2.log("resetting start index here...........!");
                             matchData.matchStartIndex = -1;
                         }
                     }
+
+                    console2.log("herherherhehrerhhrehr: matchData.matchStartIndex: ", matchData.matchStartIndex);
 
                     if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY) {
                         if (
@@ -1411,6 +1418,14 @@ contract Stringray {
                                 && isWord(stringInBytes[uint256(matchData.matchEndIndex)], false)
                         ) {
                             matchData.matchStartIndex = -1;
+                        }
+                    }
+
+                    if (matchData.matchStartIndex == -1) {
+                        console2.log("indexToStartMatch: ", indexToStartMatch);
+                        console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
+                        if (matchData.lastAlternationQueueIndex == 0) {
+                            matchData.matchEndIndex += 1;
                         }
                     }
                 }
@@ -2711,6 +2726,7 @@ contract Stringray {
     ) private returns (int256, int256) {
         console2.log("---------------------------------matchCaretOrStart---------------------------------");
         console2.log("nextAtom: ", string(atoms[currentAtomIndex].atom));
+        console2.log("atoms.length: ", atoms.length);
         console2.log("currentAtomIndex: ", currentAtomIndex);
         console2.log("stringInBytes: ", string(stringInBytes));
         console2.log("patternFlags: ", string(patternFlags));
@@ -2723,11 +2739,14 @@ contract Stringray {
         if (
             atoms.length == 1
                 || (atoms.length == 2
+                    && currentAtomIndex < 1
                     && atoms[currentAtomIndex + 1].atomType == DOLLAR_ANCHOR
                     && stringInBytes.length == 0)
         ) {
             return (0, -1);
         }
+
+        console2.log("passing first check");
 
         if (atoms.length >= 2) {
             if (hasFlag(patternFlags, "m")) {
@@ -2758,10 +2777,13 @@ contract Stringray {
                 }
             }
         }
+        console2.log("passing second check");
 
         if (currentAtomIndex + 1 >= atoms.length) {
             return (-1, -1);
         }
+
+        console2.log("passing third check");
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
         uint256 i;
@@ -2773,7 +2795,10 @@ contract Stringray {
 
         int256 matchEndIndex = -1;
 
+        console2.log("passing while loop");
+
         if (indexToStartMatch <= 0) {
+            console2.log("into if (indexToStartMatch <= 0) check");
             (, matchEndIndex) = matchPattern(
                 singleAtom,
                 stringInBytes,
@@ -3053,47 +3078,51 @@ contract Stringray {
 
         console2.log("ATOM: ", string(atom));
 
+        (bool isCC,,) = isCharacterClass(atom, atom, 0, patternFlags, fromGroup);
+
         matchGroupData.lastAlternationOperatorIndex = -1;
         // bytes memory matchGroupData.subAtom; // atoms
         matchGroupData.openParanthesisCount = 0;
         matchGroupData.closeParanthesisCount = 0;
-        for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
-            if (uint8(atom[matchGroupData.j]) == OPEN_PARANTHESIS) {
-                matchGroupData.openParanthesisCount++;
-            } else if (uint8(atom[matchGroupData.j]) == CLOSE_PARANTHESIS) {
-                matchGroupData.closeParanthesisCount++;
-            }
-
-            if (
-                uint8(atom[matchGroupData.j]) == VERTICAL_BAR
-                    && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount
-            ) {
-                console2.log("pipe found");
-                matchGroupData.subAtom = hex""; // atoms
-                if (matchGroupData.lastAlternationOperatorIndex <= -1) {
-                    for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
-                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
-                    }
-                } else {
-                    for (
-                        matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
-                        matchGroupData.k < matchGroupData.j;
-                        matchGroupData.k++
-                    ) {
-                        matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
-                    }
+        if (!isCC) {
+            for (matchGroupData.j = 0; matchGroupData.j < atom.length; matchGroupData.j++) {
+                if (uint8(atom[matchGroupData.j]) == OPEN_PARANTHESIS) {
+                    matchGroupData.openParanthesisCount++;
+                } else if (uint8(atom[matchGroupData.j]) == CLOSE_PARANTHESIS) {
+                    matchGroupData.closeParanthesisCount++;
                 }
-
-                subAtoms.push(matchGroupData.subAtom);
 
                 if (
-                    matchGroupData.j + 1 == atom.length || matchGroupData.j == 0
-                        || (matchGroupData.j > 0 && uint8(atom[matchGroupData.j - 1]) == VERTICAL_BAR)
+                    uint8(atom[matchGroupData.j]) == VERTICAL_BAR
+                        && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount
                 ) {
-                    subAtoms.push(hex"");
-                }
+                    console2.log("pipe found");
+                    matchGroupData.subAtom = hex""; // atoms
+                    if (matchGroupData.lastAlternationOperatorIndex <= -1) {
+                        for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
+                            matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
+                        }
+                    } else {
+                        for (
+                            matchGroupData.k = uint256(matchGroupData.lastAlternationOperatorIndex) + 1;
+                            matchGroupData.k < matchGroupData.j;
+                            matchGroupData.k++
+                        ) {
+                            matchGroupData.subAtom = abi.encodePacked(matchGroupData.subAtom, atom[matchGroupData.k]);
+                        }
+                    }
 
-                matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
+                    subAtoms.push(matchGroupData.subAtom);
+
+                    if (
+                        matchGroupData.j + 1 == atom.length || matchGroupData.j == 0
+                            || (matchGroupData.j > 0 && uint8(atom[matchGroupData.j - 1]) == VERTICAL_BAR)
+                    ) {
+                        subAtoms.push(hex"");
+                    }
+
+                    matchGroupData.lastAlternationOperatorIndex = int256(matchGroupData.j);
+                }
             }
         }
 
@@ -3364,8 +3393,8 @@ contract Stringray {
         console2.log("groupNum       : ", matchGroupData.groupNum);
         console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
         console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
-        console2.log("isPositiveLookBehind       : ", matchGroupData.isPositiveLookBehind);
-        console2.log("isNegativeLookBehind       : ", matchGroupData.isNegativeLookBehind);
+        console2.log("isPositiveLookBehind      : ", matchGroupData.isPositiveLookBehind);
+        console2.log("isNegativeLookBehind      : ", matchGroupData.isNegativeLookBehind);
         // console2.log("lastAlternationQueueIndex : ", lastAlternationQueueIndex);
 
         if (matchGroupData.matchStartIndex == -1) {
@@ -3493,6 +3522,9 @@ contract Stringray {
                 }
             }
         }
+
+        console2.log("matchGroupData.matchStartIndex: ", matchGroupData.matchStartIndex);
+        console2.log("matchGroupData.matchEndIndex  : ", matchGroupData.matchEndIndex);
 
         bytes memory matchedString =
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
