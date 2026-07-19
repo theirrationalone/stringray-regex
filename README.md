@@ -42,3 +42,9 @@ However, because this engine targets **Solidity**, some regex features and imple
 ## License
 
 MIT License.
+
+## Installation
+
+```bash
+forge install https://github.com/theirrationalone/stringray-regex
+```
