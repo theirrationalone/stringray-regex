@@ -1081,7 +1081,7 @@ contract Stringray {
         int256 firstIndex;
         int256 matchStartIndex;
         int256 matchEndIndex;
-        
+
         bool specialFlag;
         uint256 i;
         uint256 j;
@@ -1864,69 +1864,66 @@ contract Stringray {
         //     return (matchData.firstIndex, matchData.matchEndIndex);
         // }
 
-        matchPatternWithFlags(patternFlags, matchData.firstIndex, matchData.matchEndIndex, stringInBytes);
+        // @info: Intentionally walled due to GAS
+        // @Vision: Might allow these features in future.
+        // matchPatternWithFlags(patternFlags, matchData.firstIndex, matchData.matchEndIndex, stringInBytes);
 
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
-    function matchPatternWithFlags(
-        bytes memory patternFlags,
-        int256 firstIndex,
-        int256 endIndex,
-        bytes memory stringInBytes
-    ) private {
-        // @TODO: Complete matching with all remaining flags implementation...
-        // @STATUS: YET TO IMPLEMENT...🚀
-        int256 matchStartIndex = -1;
-        int256 matchEndIndex = -1;
+    // @info: Intentionally walled due to GAS
+    // @Vision: Might allow these features in future.
+    // function matchPatternWithFlags(
+    //     bytes memory patternFlags,
+    //     int256 firstIndex,
+    //     int256 endIndex,
+    //     bytes memory stringInBytes
+    // ) private {
+    //     // @TODO: Complete matching with all remaining flags implementation...
+    //     // @STATUS: YET TO IMPLEMENT...🚀
+    //     int256 matchStartIndex = -1;
+    //     int256 matchEndIndex = -1;
 
-        if (hasFlag(patternFlags, "m")) {
-            // @TODO: complete multiline flag implementation
-        }
+    //     if (hasFlag(patternFlags, "m")) {
+    //         // @TODO: complete multiline flag implementation
+    //     }
 
-        if (hasFlag(patternFlags, "i")) {
-            // @TODO: complete ignoreCase flag implementation
-        }
+    //     if (hasFlag(patternFlags, "i")) {
+    //         // @TODO: complete ignoreCase flag implementation
+    //     }
 
-        if (hasFlag(patternFlags, "g")) {
-            // @TODO: complete global flag implementation
-            if (firstIndex > -1 && endIndex > -1) {
-                if (uint256(endIndex) < stringInBytes.length - 1) {
-                    (matchStartIndex, matchEndIndex) = matchPattern(
-                        atoms,
-                        stringInBytes,
-                        patternFlags,
-                        indexToStartMatch,
-                        isFirstMatch,
-                        fromCharacterClass,
-                        fromGroup,
-                        fromQuantifier
-                    );
+    //     if (hasFlag(patternFlags, "g")) {
+    //         // @TODO: complete global flag implementation
+    //         if (firstIndex > -1 && endIndex > -1) {
+    //             if (uint256(endIndex) < stringInBytes.length - 1) {
+    //                 (matchStartIndex, matchEndIndex) = matchPattern(
+    //                     atoms,
+    //                     stringInBytes,
+    //                     patternFlags,
+    //                     indexToStartMatch,
+    //                     isFirstMatch,
+    //                     fromCharacterClass,
+    //                     fromGroup,
+    //                     fromQuantifier
+    //                 );
 
-                    globalMatchIndices.push(matchStartIndex, matchEndIndex);
-                }
-            }
-        }
+    //                 globalMatches.push(GlobalMatches(matchStartIndex, matchEndIndex));
+    //             }
+    //         }
+    //     }
 
-        if (hasFlag(patternFlags, "s")) {
-            // @TODO: complete dotAll flag implementation
-        }
+    //     if (hasFlag(patternFlags, "s")) {
+    //         // @TODO: complete dotAll flag implementation
+    //     }
 
-        if (hasFlag(patternFlags, "y")) {
-            // @TODO: complete sticky flag implementation
-        }
+    //     if (hasFlag(patternFlags, "y")) {
+    //         // @TODO: complete sticky flag implementation
+    //     }
 
-        if (hasFlag(patternFlags, "d")) {
-            // @TODO: complete `has indices` flag implementation
-        }
-
-        // @doubt: where to start?????
-        // @question: have u and v flags implemented and works well.
-        // @research: let's learn about all of them first....🚀
-        // @tragedy: lost my mind
-        // @Procrastination: Let's do it on saturdays and sundays dusks to morning
-        // misery: today i lost an ANGEL.
-    }
+    //     if (hasFlag(patternFlags, "d")) {
+    //         // @TODO: complete `has indices` flag implementation
+    //     }
+    // }
 
     function matchDotWildcardCharacters(
         bytes memory stringInBytes,
