@@ -1070,10 +1070,18 @@ contract Stringray {
         });
     }
 
+    struct GlobalMatches {
+        int256 matchStartIndex;
+        int256 matchEndIndex;
+    }
+
+    GlobalMatches[] private globalMatches;
+
     struct MatchData {
         int256 firstIndex;
         int256 matchStartIndex;
         int256 matchEndIndex;
+        
         bool specialFlag;
         uint256 i;
         uint256 j;
@@ -1894,6 +1902,8 @@ contract Stringray {
                         fromGroup,
                         fromQuantifier
                     );
+
+                    globalMatchIndices.push(matchStartIndex, matchEndIndex);
                 }
             }
         }
