@@ -68,6 +68,7 @@ import {console2} from "forge-std/console2.sol";
 
 
 contract Stringray {
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
         bytes memory bytesForm = bytes(_string);
         bytes memory bytesFormSpace = new bytes(1);
@@ -79,6 +80,7 @@ contract Stringray {
         return string(bytesFormSpace);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function charCodeAt(string memory _string, uint256 _index) internal pure returns (int256) {
         bytes memory bytesForm = bytes(_string);
         if (_index >= bytesForm.length) return -1;
@@ -86,6 +88,7 @@ contract Stringray {
         return int256(uint256(uint8(bytesForm[_index])));
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function copyWithIn(string memory _string, uint256 _targetIndex, uint256 _startIndex, uint256 _endIndex)
         internal
         pure
@@ -110,10 +113,12 @@ contract Stringray {
         return string(bytesForm);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function endsWith(string memory _string, string memory _searchString) internal pure returns (bool) {
         return _endsWith(0, _string, _searchString);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function endsWith(string memory _string, string memory _searchString, uint256 _searchEndIndex)
         internal
         pure
@@ -122,6 +127,7 @@ contract Stringray {
         return _endsWith(_searchEndIndex, _string, _searchString);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function _endsWith(uint256 _searchEndIndex, string memory _target, string memory _search)
         private
         pure
@@ -150,6 +156,7 @@ contract Stringray {
         return true;
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function includes(string memory _string, string memory _subString) internal pure returns (bool) {
         bytes memory bytesForm = bytes(_string);
         bytes memory subBytesForm = bytes(_subString);
@@ -174,10 +181,12 @@ contract Stringray {
         return false;
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function indexOf(string memory _string, string memory _subString) internal pure returns (int256) {
         return _indexOf(_string, _subString, 0);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function indexOf(string memory _string, string memory _subString, uint256 _beginIndex)
         internal
         pure
@@ -186,6 +195,7 @@ contract Stringray {
         return _indexOf(_string, _subString, _beginIndex);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function _indexOf(string memory _target, string memory _search, uint256 _startIndex) private pure returns (int256) {
         bytes memory bytesForm = bytes(_target);
         bytes memory subBytesForm = bytes(_search);
@@ -210,11 +220,13 @@ contract Stringray {
         return -1;
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function lastIndexOf(string memory _string, string memory _subString) internal pure returns (int256) {
         bytes memory bytesForm = bytes(_string);
         return _lastIndexOf(_string, _subString, bytesForm.length - 1);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function lastIndexOf(string memory _string, string memory _subString, uint256 _lastIndex)
         internal
         pure
@@ -223,6 +235,7 @@ contract Stringray {
         return _lastIndexOf(_string, _subString, _lastIndex);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function _lastIndexOf(string memory _target, string memory _search, uint256 _lastIndex)
         private
         pure
@@ -257,14 +270,18 @@ contract Stringray {
         return -1;
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function length(string memory _string) internal pure returns (uint256) {
         return bytes(_string).length;
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+    
     function localeCompare(string memory _string, string memory _subString) internal pure returns (int256) {
         return _localeCompare(_string, _subString, false);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function localeCompare(string memory _string, string memory _subString, bool _ignoreCase)
         internal
         pure
@@ -273,6 +290,7 @@ contract Stringray {
         return _localeCompare(_string, _subString, _ignoreCase);
     }
 
+    // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function _localeCompare(string memory _target, string memory _search, bool _ignoreCase)
         private
         pure
@@ -354,6 +372,7 @@ contract Stringray {
         return 0;
     }
 
+    // @Info: Constants for pattern syntax
     uint8 private constant FORWARD_SLASH = 47;
     uint8 private constant BACK_SLASH = 92;
     uint8 private constant QUESTION_MARK = 63;
@@ -392,6 +411,7 @@ contract Stringray {
     uint8 private constant CLOSE_CURLY_BRACE = 125;
     uint8 private constant COMMA_SIGN = 44;
 
+    // @Info: Constants for Identifying ATOM TYPE or Pattern Identifiers.
     bytes32 private constant INVALID_ATOM = "INVALID_ATOM";
     bytes32 private constant LITERAL_ATOM = "LITERAL_ATOM";
     bytes32 private constant ESCAPE_LITERAL_ATOM = "ESCAPE_LITERAL_ATOM";

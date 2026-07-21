@@ -48,3 +48,5 @@ MIT License.
 ```bash
 forge install https://github.com/theirrationalone/stringray-regex
 ```
+
+## Usecases
