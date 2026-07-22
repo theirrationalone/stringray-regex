@@ -22432,5 +22432,9 @@ const testMain = () => {
     console.log("output: ", target.match(regex));
     assert.strictEqual(regex.test(target), true);
   });
+
+  ///////////////////////////////////////
+  ////////        END            ////////
+  ///////////////////////////////////////
 };
 testMain();

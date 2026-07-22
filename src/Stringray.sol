@@ -1000,6 +1000,7 @@ contract Stringray {
     bytes32 private constant WS = keccak256(abi.encodePacked("WS"));
     bytes32 private constant space = keccak256(abi.encodePacked("space"));
 
+    // @info: To preserve matches
     struct AtomTrait {
         bytes32 atomType;
         bytes atom;
@@ -1007,6 +1008,7 @@ contract Stringray {
         int256 atomEndIdx;
     }
 
+    // @info: To preserve matches
     struct GroupMatchedData {
         string groupPatternString;
         string groupMatchedString;
@@ -1015,11 +1017,13 @@ contract Stringray {
         uint256 groupNum;
     }
 
+    // @info: To preserve matches
     struct GroupNames {
         bytes groupName;
         bytes matchedString;
     }
 
+    // @info: To preserve matches
     struct ReturnData {
         string patternString;
         string originalString;
@@ -1030,12 +1034,14 @@ contract Stringray {
         GroupNames[] groupNames;
     }
 
+    // @info: To preserve matches
     AtomTrait[] private allAtoms;
     AtomTrait[] private allCCSubAtoms;
     GroupMatchedData[] private grpMatchedData;
     GroupNames[] private groupNames;
     uint256 private groupsCounter;
 
+    // @dev: helper function to lookup all atoms|patterns to match with target.
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
         console2.log("------------------------seeAllAtoms------------------------");
@@ -1049,6 +1055,7 @@ contract Stringray {
         }
     }
 
+    // @dev: Main Entry point to regex patterns validation & matching.
     function regex(string memory _proposedString, string memory _pattern) public returns (ReturnData memory) {
         int256 slashPairIndex = validateRegex(_pattern);
 

@@ -50,3 +50,35 @@ forge install https://github.com/theirrationalone/stringray-regex
 ```
 
 ## Usecases
+
+Explore `test/StringrayTest.t.sol/`
+
+- Match Characters:
+
+```solidity
+function testRegexPatternMatchCase1() public {
+    string memory target = "thithing";
+    string memory pattern = unicode"/thin/";
+
+    Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
+    console2.log("------------------returnedData------------------");
+    console2.log("Pattern string   : ", returnedData.patternString);
+    console2.log("Original string  : ", returnedData.originalString);
+    console2.log("Matched string   : ", returnedData.matchedString);
+    console2.log("Match start index: ", returnedData.matchStartIndex);
+    console2.log("Match end index  : ", returnedData.matchEndIndex);
+    console2.log("------------------------------------");
+}
+```
+
+- Output:
+
+```bash
+  ------------------returnedData------------------
+  Pattern string   :  /thin/
+  Original string  :  thithing
+  Matched string   :  thin
+  Match start index:  3
+  Match end index  :  6
+  ------------------------------------
+```
