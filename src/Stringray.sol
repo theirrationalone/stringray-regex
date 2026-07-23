@@ -66,7 +66,6 @@ import {console2} from "forge-std/console2.sol";
 
 */
 
-
 contract Stringray {
     // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
     function charAt(string memory _string, uint256 _index) internal pure returns (string memory) {
@@ -276,7 +275,7 @@ contract Stringray {
     }
 
     // @doc: MDN Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-    
+
     function localeCompare(string memory _string, string memory _subString) internal pure returns (int256) {
         return _localeCompare(_string, _subString, false);
     }
@@ -1000,7 +999,7 @@ contract Stringray {
     bytes32 private constant WS = keccak256(abi.encodePacked("WS"));
     bytes32 private constant space = keccak256(abi.encodePacked("space"));
 
-    // @info: To preserve matches
+    /// @notice: To preserve matches
     struct AtomTrait {
         bytes32 atomType;
         bytes atom;
@@ -1008,7 +1007,7 @@ contract Stringray {
         int256 atomEndIdx;
     }
 
-    // @info: To preserve matches
+    /// @notice: To preserve matches
     struct GroupMatchedData {
         string groupPatternString;
         string groupMatchedString;
@@ -1017,13 +1016,13 @@ contract Stringray {
         uint256 groupNum;
     }
 
-    // @info: To preserve matches
+    /// @notice: To preserve matches
     struct GroupNames {
         bytes groupName;
         bytes matchedString;
     }
 
-    // @info: To preserve matches
+    /// @notice: To preserve matches
     struct ReturnData {
         string patternString;
         string originalString;
@@ -1034,14 +1033,14 @@ contract Stringray {
         GroupNames[] groupNames;
     }
 
-    // @info: To preserve matches
+    /// To preserve matches
     AtomTrait[] private allAtoms;
     AtomTrait[] private allCCSubAtoms;
     GroupMatchedData[] private grpMatchedData;
     GroupNames[] private groupNames;
     uint256 private groupsCounter;
 
-    // @dev: helper function to lookup all atoms|patterns to match with target.
+    /// Helper function to lookup all atoms|patterns to match with target.
     function seeAllAtoms() public view {
         AtomTrait[] memory atoms = allAtoms;
         console2.log("------------------------seeAllAtoms------------------------");
@@ -1055,8 +1054,9 @@ contract Stringray {
         }
     }
 
-    // @dev: Main Entry point to regex patterns validation & matching.
+    /// Main Entry point to regex patterns validation & matching.
     function regex(string memory _proposedString, string memory _pattern) public returns (ReturnData memory) {
+        /// @notice: Validates Regex Pattern and returns pattern ending index "the last / index" to split pattern and flags
         int256 slashPairIndex = validateRegex(_pattern);
 
         bytes memory stringInBytes = bytes(_proposedString);
@@ -1065,63 +1065,87 @@ contract Stringray {
         int256 matchEndIndex = -1;
         string memory matchedString;
 
+        // If there's no slash pair index, simply skip the check
         if (slashPairIndex > -1) {
+            /// Trims pattern flags
             bytes memory patternFlags = trimString(patternInBytes, uint256(slashPairIndex) + 1, -1);
+            /// Trims pattern
             bytes memory filteredPatternInBytes = trimString(patternInBytes, 1, slashPairIndex - 1);
 
+            /// Validates and nukes the pattern into atomic patterns (pattern tokens)
             nuclearFission(filteredPatternInBytes, filteredPatternInBytes, patternFlags, false, false, -1, -1);
-            console2.log("nuclear fission was successful");
-            seeAllAtoms();
+            // seeAllAtoms();
 
+            /// @notice: Logic for Alternation Boundaries
+            /// Holds last alternation | operator index
             int256 lastAlternationOperatorIndex = -1;
+            /// Iterate over all atoms(single pattern token) of pattern and finds out Alternation boundaries
             for (uint256 i; i < allAtoms.length; i++) {
+                /// Checks it current atom is the ALTERNATION_OPERATOR atom.
                 if (allAtoms[i].atomType == ALTERNATION_OPERATOR) {
+                    ///Finally an alternation boundary found
+                    /// Preserves all sub atoms
                     AtomTrait[] memory atoms;
+                    /// If It's not the Alternation atom(token) then it means it's an other type of atom(token), So getting ready to preserve it into memory.
                     if (lastAlternationOperatorIndex <= -1) {
                         atoms = new AtomTrait[](i);
                     } else {
+                        /// Otherwise, split the pattern and create an array for all atoms(tokens)
                         atoms = new AtomTrait[](i - uint256(lastAlternationOperatorIndex) - 1);
                     }
 
+                    /// Preserve all boundary atoms(tokens)
                     for (uint256 j; j < atoms.length; j++) {
                         atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
                     }
 
+                    /// Finds match with target string
                     (matchStartIndex, matchEndIndex) =
                         matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
+                    /// If match found
                     if (matchStartIndex > -1 && matchEndIndex > -1) {
+                        /// Filter out and preserve the matched string and get out of the loop
                         matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
                         break;
                     }
 
+                    // Match not found so let's Iterate over next to find another boundary
                     lastAlternationOperatorIndex = int256(i);
                 }
             }
 
+            /// If no boundary found OR boundary is at first index
             if (matchStartIndex == -1 || (matchStartIndex == 0 && matchEndIndex == -1)) {
+                /// If no bondary
                 if (lastAlternationOperatorIndex <= -1) {
+                    /// Simply try to match the given pattern tokens
                     (matchStartIndex, matchEndIndex) =
                         matchPattern(allAtoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
+                    /// If match found
                     if (matchStartIndex > -1 && matchEndIndex > -1) {
+                        /// Filter out and preserve the matched string and get out of the loop
                         matchedString = string(trimString(stringInBytes, uint256(matchStartIndex), matchEndIndex));
                     }
                 } else {
+                    /// If Boundary is at first index
+                    // Create a new array to preserve all atoms (tokens)
                     AtomTrait[] memory atoms =
                         new AtomTrait[](allAtoms.length - uint256(lastAlternationOperatorIndex) - 1);
 
-                    console2.log("atoms.length: ", atoms.length);
-
+                    /// Create an array for all atoms(tokens)
                     for (uint256 j; j < atoms.length; j++) {
                         atoms[j] = allAtoms[uint256(lastAlternationOperatorIndex + 1) + j];
                     }
 
+                    /// If still there's no atoms (token), simply return (0,0)
                     if (atoms.length == 0) {
                         matchStartIndex = 0;
                         matchEndIndex = 0;
                     } else {
                         bool emptyMatchBool;
+                        /// If nothing matched
                         if (matchStartIndex == 0 && matchEndIndex == -1) {
                             if (
                                 lastAlternationOperatorIndex == 0
@@ -1133,6 +1157,7 @@ contract Stringray {
                             }
                         }
 
+                        /// Finds match with target string `stringInBytes`
                         (matchStartIndex, matchEndIndex) =
                             matchPattern(atoms, stringInBytes, patternFlags, 0, true, false, false, false);
 
@@ -1149,6 +1174,7 @@ contract Stringray {
             }
         }
 
+        // Returns Funneled data
         return ReturnData({
             patternString: _pattern,
             originalString: _proposedString,
