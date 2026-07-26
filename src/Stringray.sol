@@ -1206,6 +1206,9 @@ contract Stringray {
     }
     uint256 groupAlternationMatchCount;
 
+    /// Pattern matching main function, the allrounder.
+    /// Might contains most of the bugs
+    /// Maintains almost all pattern matching doors
     function matchPattern(
         AtomTrait[] memory atoms,
         bytes memory stringInBytes,
@@ -1216,28 +1219,17 @@ contract Stringray {
         bool fromGroup,
         bool fromQuantifier
     ) private returns (int256, int256) {
+        /// Snapshot for all matched data thus far
         MatchData memory matchData;
+        /// The first matched index
         matchData.firstIndex = -1;
+        /// The last matched index
         matchData.matchEndIndex = -1;
 
+        // Iterate over all pattern atoms and tries to finda a match with the target string...
         for (; matchData.i < atoms.length;) {
-            console2.log("-----------------------matchPattern-----------------------");
-            console2.log("cycle starts...");
-            console2.log("i: ", matchData.i);
-            console2.log("isFirstMatch: ", isFirstMatch);
-            console2.log("fromGroup: ", fromGroup);
-            console2.log("indexToStartMatch: ", indexToStartMatch);
-            console2.log("stringInBytes length: ", stringInBytes.length);
-            console2.log("stringInBytes: ", string(stringInBytes));
-            console2.logBytes(stringInBytes);
-            console2.log("atoms length: ", atoms.length);
-            console2.log("atom: ", string(atoms[matchData.i].atom));
-            console2.log("fromCharacterClass: ", fromCharacterClass);
-            console2.log("matchData.matchStartIndex at beginning: ", matchData.matchStartIndex);
-            console2.log("matchData.matchEndIndex at beginning: ", matchData.matchEndIndex);
-            console2.logBytes(atoms[matchData.i].atom);
-            printAtomType(atoms[matchData.i].atomType);
-            console2.log("----------------------------------------------");
+            // If the last match end index is Greater than -1
+            // Means found a matching sequence
             if (matchData.matchEndIndex > -1) {
                 if (matchData.firstIndex == -1 && !fromCharacterClass) {
                     matchData.firstIndex = matchData.matchStartIndex;
@@ -1247,32 +1239,39 @@ contract Stringray {
                     isFirstMatch = false;
                 }
             } else {
+                // Else, get ready to find a match with another target sequences
                 if (!isFirstMatch && !fromCharacterClass && !fromGroup && !fromQuantifier) {
                     isFirstMatch = true;
                 }
             }
 
-            console2.log("updated isFirstMatch: ", isFirstMatch);
-
+            // If target search exhausted
             if (indexToStartMatch >= stringInBytes.length) {
+                // If possible to exit
                 if (atoms[matchData.i].atom.length > 4 && uint8(atoms[matchData.i].atom[1]) == QUESTION_MARK) {
                     if (uint8(atoms[matchData.i].atom[2]) == EXCLAMATION_MARK) {
                         return (matchData.matchStartIndex, matchData.matchEndIndex);
                     }
                 }
+
+                // If possible to exit
                 if (atoms[matchData.i].atomType == CARET_ANCHOR) {
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
                 break;
             }
 
+            // If It's a nested group
             if (atoms[matchData.i].atomType == GROUP_SUB_ATOM) {
                 matchData.i += 1;
+                // skip the atom, already explored internally
                 continue;
             } else if (atoms[matchData.i].atomType == DOT_ATOM) {
+                // Logic for dot all atom [match everything, Please refer MDN Docs for more info]
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     matchDotWildcardCharacters(stringInBytes, indexToStartMatch, isFirstMatch, patternFlags);
             } else if (
+                // Logic for literal, tab, newline, vertical tab, carriage return and formfeed, matching...
                 atoms[matchData.i].atomType == LITERAL_ATOM || atoms[matchData.i].atomType == TAB
                     || atoms[matchData.i].atomType == NEWLINE || atoms[matchData.i].atomType == VERTICAL_TAB
                     || atoms[matchData.i].atomType == CARRIAGE_RETURN || atoms[matchData.i].atomType == FORMFEED
@@ -1359,9 +1358,7 @@ contract Stringray {
                         matchWordBoundary(stringInBytes, indexToStartMatch, true);
                 }
 
-                console2.log("matchData.matchStartIndex after boundary: ", matchData.matchStartIndex);
-                console2.log("matchData.matchEndIndex after boundary: ", matchData.matchEndIndex);
-
+                // Maintains word boundaries
                 if (matchData.matchEndIndex >= int256(indexToStartMatch)) {
                     if (isFirstMatch) {
                         indexToStartMatch = uint256(matchData.matchEndIndex);
@@ -1422,8 +1419,6 @@ contract Stringray {
                     0
                 );
 
-                console2.log("set expressions evaluated succesfully");
-
                 (matchData.matchStartIndex, matchData.matchEndIndex) =
                     evaluateSetOperationMatch(stringInBytes, indexToStartMatch, isFirstMatch, false);
             } else if (
@@ -1449,9 +1444,6 @@ contract Stringray {
                 } else {
                     lastAlternationCheckpoint.lastAlternationPatternIndex = matchData.i;
                 }
-
-                console2.log("after group match: matchData.matchStartIndex: ", matchData.matchStartIndex);
-                console2.log("after group match: matchData.matchEndIndex  : ", matchData.matchEndIndex);
 
                 if (matchData.matchEndIndex == -2) {
                     if (prevMatchEndIndex == -1) {
@@ -1486,9 +1478,7 @@ contract Stringray {
                     continue;
                 }
 
-                console2.log("matchData.i: ", matchData.i);
-                console2.log("atoms.length: ", atoms.length);
-
+                // group patterns matching backtracking and word boundaries support....S
                 if (matchData.matchStartIndex > -1) {
                     if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == WORD_BOUNDARY) {
                         if (
@@ -1509,17 +1499,13 @@ contract Stringray {
                     }
 
                     if (matchData.i > 0 && atoms[matchData.i - 1].atomType == WORD_BOUNDARY) {
-                        console2.log("going through here....");
                         if (
                             matchData.matchStartIndex > 0
                                 && isWord(stringInBytes[uint256(matchData.matchStartIndex) - 1], false)
                         ) {
-                            console2.log("resetting start index here...........!");
                             matchData.matchStartIndex = -1;
                         }
                     }
-
-                    console2.log("herherherhehrerhhrehr: matchData.matchStartIndex: ", matchData.matchStartIndex);
 
                     if (matchData.i + 1 < atoms.length && atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY) {
                         if (
@@ -1538,8 +1524,6 @@ contract Stringray {
                     }
 
                     if (matchData.matchStartIndex == -1) {
-                        console2.log("indexToStartMatch: ", indexToStartMatch);
-                        console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
                         if (matchData.lastAlternationQueueIndex == 0) {
                             matchData.matchEndIndex += 1;
                         }
@@ -1576,9 +1560,6 @@ contract Stringray {
                     fromCharacterClass,
                     fromGroup
                 );
-
-                console2.log("matchData.matchStartIndex: ", matchData.matchStartIndex);
-                console2.log("matchData.matchEndIndex  : ", matchData.matchEndIndex);
 
                 if (matchData.matchStartIndex > -1 && matchData.matchEndIndex > -1) {
                     matchData.i++;
@@ -1618,9 +1599,6 @@ contract Stringray {
                     fromGroup
                 );
 
-                console2.log("matchData.matchStartIndex after dollar call: ", matchData.matchStartIndex);
-                console2.log("matchData.matchEndIndex after dollar call  : ", matchData.matchEndIndex);
-
                 if (matchData.matchEndIndex > -1) {
                     indexToStartMatch = uint256(matchData.matchEndIndex);
                 } else {
@@ -1634,12 +1612,6 @@ contract Stringray {
                     || atoms[matchData.i].atomType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
                     || atoms[matchData.i].atomType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
             ) {
-                // AtomTrait ({
-                //     atomType: atoms[matchData.i].atomType;
-                //     atom: atoms[matchData.i].atom;
-                //     atomStartIdx: atoms[matchData.i].atomStartIdx;
-                //     atomEndIdx: atoms[matchData.i].atomEndIdx;
-                // });
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchQuantifier(
                     AtomTrait({
                         atomType: atoms[matchData.i].atomType,
@@ -1683,14 +1655,11 @@ contract Stringray {
                 matchData.matchEndIndex = -1;
             }
 
-            console2.log("matchStartIndex: ", matchData.matchStartIndex);
-            console2.log("matchEndIndex hereree: ", matchData.matchEndIndex);
-
             if (fromCharacterClass && !isFirstMatch) {
-                console2.log("return 1");
                 return (matchData.matchStartIndex, matchData.matchEndIndex);
             }
 
+            // If target string exhaused
             if (indexToStartMatch + 1 >= stringInBytes.length) {
                 if (
                     matchData.matchStartIndex != -1 && matchData.matchEndIndex == int256(indexToStartMatch)
@@ -1698,13 +1667,11 @@ contract Stringray {
                         && (atoms[matchData.i + 1].atomType == WORD_BOUNDARY
                             || atoms[matchData.i + 1].atomType == NOT_WORD_BOUNDARY)
                 ) {
-                    console2.log("continued.................");
                     matchData.i++;
                     continue;
                 }
 
                 if (matchData.matchStartIndex == -1) {
-                    console2.log("reaching here.......... for quantifiers backtrackk.......");
                     if (matchData.i > 0) {
                         if (
                             atoms[matchData.i - 1].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM
@@ -1720,8 +1687,8 @@ contract Stringray {
                                 || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                         ) {
-                            console2.log("backtracking from here....");
                             // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
+                            // @STATUS: Finished!
                             if (
                                 atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
                                     || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
@@ -1761,12 +1728,14 @@ contract Stringray {
                     ? uint256(matchData.matchEndIndex) + 1
                     : uint256(matchData.matchEndIndex);
                 matchData.i++;
-                console2.log("breaking from here");
                 break;
             }
 
+            // Comes out of loop and checks whether a match found or not
             if (matchData.matchStartIndex == -1) {
+                // If match not found, resets to previous state
                 if (matchData.i > 0) {
+                    // Reset and backtracking for quantifiers
                     if (
                         atoms[matchData.i - 1].atomType == ASTERISK_GREEDY_QUANTIFIER_ATOM
                             || atoms[matchData.i - 1].atomType == PLUS_GREEDY_QUANTIFIER_ATOM
@@ -1781,8 +1750,6 @@ contract Stringray {
                             || atoms[matchData.i - 1].atomType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
                             || atoms[matchData.i - 1].atomType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
                     ) {
-                        console2.log("backtracking from here....");
-                        // @TODO: add lazy quantifier backtrack logic.... DATE: 23-06-2026
                         if (
                             atoms[matchData.i - 1].atomType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
                                 || atoms[matchData.i - 1].atomType == QUESTION_MARK_LAZY_QUANTIFIER_ATOM
@@ -1824,70 +1791,33 @@ contract Stringray {
                         }
                     } else {
                         indexToStartMatch = uint256(matchData.matchEndIndex);
-                        console2.log("indexToStartMatch set: ", indexToStartMatch);
                     }
                 }
 
-                // groupsCounter = 0;
-                // delete grpMatchedData;
-                // delete groupNames;
-
-                // console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
-                // console2.log("subAtoms.length: ", subAtoms.length);
-                // if (matchData.lastAlternationQueueIndex > 0) {
-                //     if (
-                //         matchData.lastAlternationQueueIndex == type(uint256).max
-                //             || matchData.lastAlternationQueueIndex == subAtoms.length
-                //     ) {
-                //         indexToStartMatch = indexToStartMatchForAlternation + 1;
-                //         matchData.lastAlternationQueueIndex = subAtoms.length;
-                //         matchData.firstIndex = -1;
-                //         matchData.matchEndIndex = -1;
-                //     } else {
-                //         if (matchData.lastAlternationQueueIndex + 1 == subAtoms.length) {
-                //             indexToStartMatch = 0;
-                //             matchData.firstIndex = -1;
-                //             matchData.matchEndIndex = -1;
-                //         } else if (isFirstMatch) {
-                //             indexToStartMatch = 0;
-                //             matchData.firstIndex = -1;
-                //             matchData.matchEndIndex = -1;
-                //         } else {
-                //             indexToStartMatch = indexToStartMatchForAlternation;
-                //         }
-                //     }
-
-                //     if (matchData.i >= 1) {
-                //         matchData.i -= 1;
-                //     }
-
-                //     continue;
-                // }
-
                 if (fromGroup && !fromCharacterClass && !isFirstMatch) {
-                    console2.log("resetted groups counter and groups data");
+                    // returns if match query was within from group
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
 
                 if (fromQuantifier) {
+                    // returns if from quantifier
                     return (matchData.matchStartIndex, matchData.matchEndIndex);
                 }
 
                 if (!fromCharacterClass) {
+                    // if not from character class, full reset
                     isFirstMatch = true;
                     matchData.matchStartIndex = 0;
-                    console2.log("resetting crucial data");
                 }
+
+                // resetting iteration, first and end indices
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
 
                 matchData.i = 0;
 
-                console2.log("matchData.lastAlternationQueueIndex: ", matchData.lastAlternationQueueIndex);
-                console2.log("matchData.matchEndIndex: ", matchData.matchEndIndex);
-                console2.log("subAtoms.length: ", subAtoms.length);
+                // Reset logic for alternation boundaries reset
                 if (matchData.lastAlternationQueueIndex == 1 && matchData.groupChecked) {
-                    console2.log("resetting alternation data....");
                     indexToStartMatch = 0;
                     matchData.lastAlternationQueueIndex = 2;
                     matchData.groupChecked = false;
@@ -1898,11 +1828,10 @@ contract Stringray {
                     lastAlternationCheckpoint.trigger = true;
                 }
 
+                // final remaining reset.
                 groupsCounter = 0;
                 delete grpMatchedData;
                 delete groupNames;
-
-                console2.log("resetted everything...");
                 continue;
             }
 
@@ -1914,11 +1843,10 @@ contract Stringray {
             matchData.i++;
         }
 
+        // If match was found...
+
+        // Logic for start and end pattern atoms matching...
         if (matchData.i < atoms.length) {
-            console2.log("new atom: ", string(atoms[matchData.i].atom));
-            printAtomType(atoms[matchData.i].atomType);
-            console2.log("matchData.matchStartIndex: ", matchData.matchStartIndex);
-            console2.log("matchData.matchEndIndex  : ", matchData.matchEndIndex);
             if (matchData.i + 1 <= atoms.length && atoms[matchData.i].atomType == DOLLAR_ANCHOR) {
                 (matchData.matchStartIndex, matchData.matchEndIndex) = matchDollarOrEnd(
                     atoms,
@@ -1957,17 +1885,16 @@ contract Stringray {
             matchData.firstIndex = matchData.matchStartIndex > -1 ? matchData.matchStartIndex : matchData.matchEndIndex;
         }
 
+        // Ending boundary check
         (matchData.firstIndex, matchData.matchEndIndex) = boundaryCheck(matchData.firstIndex, matchData.matchEndIndex);
 
-        console2.log("matchStartIndex after boundary check: ", matchData.matchStartIndex);
-        console2.log("matchEndIndex after boundary check: ", matchData.matchEndIndex);
-
+        // fallback for impossible case
         if (matchData.matchEndIndex > -1 && uint256(matchData.matchEndIndex) >= stringInBytes.length) {
             return (-1, -1);
         }
 
+        // if next pattern atom is either word boundary or not_word boundary...
         if (matchData.matchEndIndex > -1) {
-            console2.log("yes matchEndIndex is greater than -1");
             if (
                 matchData.matchEndIndex + 1 == int256(stringInBytes.length)
                     && ((atoms[atoms.length - 1].atomType == WORD_BOUNDARY
@@ -1975,16 +1902,12 @@ contract Stringray {
                         || (atoms[atoms.length - 1].atomType == NOT_WORD_BOUNDARY
                             && !isWord(stringInBytes[stringInBytes.length - 1], false)))
             ) {
-                console2.log("word boundary found");
                 matchData.firstIndex = -1;
                 matchData.matchEndIndex = -1;
             }
         }
 
-        console2.log("matchData.firstIndex at end   : ", matchData.firstIndex);
-        console2.log("matchData.matchEndIndex at end: ", matchData.matchEndIndex);
-        console2.log("fromGroup at end              : ", fromGroup);
-
+        // returns if it's a match called by quantifiers...
         if (fromQuantifier) {
             if (matchData.matchStartIndex > -1) {
                 return (matchData.matchStartIndex, matchData.matchEndIndex);
@@ -1999,6 +1922,7 @@ contract Stringray {
         // @Vision: Might allow these features in future.
         // matchPatternWithFlags(patternFlags, matchData.firstIndex, matchData.matchEndIndex, stringInBytes);
 
+        // returns the conclusive output
         return (matchData.firstIndex, matchData.matchEndIndex);
     }
 
