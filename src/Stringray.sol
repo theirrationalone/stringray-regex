@@ -1209,6 +1209,7 @@ contract Stringray {
     /// Pattern matching main function, the allrounder.
     /// Might contains most of the bugs
     /// Maintains almost all pattern matching doors
+    /// Contains recursion, iteration, and backtracking logic.
     function matchPattern(
         AtomTrait[] memory atoms,
         bytes memory stringInBytes,
@@ -1980,24 +1981,18 @@ contract Stringray {
     //     }
     // }
 
+    /// Matches for DotAll (.) pattern atom
     function matchDotWildcardCharacters(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
         bool isFirstMatch,
         bytes memory patternFlags
     ) private pure returns (int256, int256) {
-        // @TODO: Complete DOT_WILDCARD implementation...
-        // @STATUS: Finished🗽✅💓
-
-        // \u2028: 0xe280a8
-        // \u2029: 0xe280a9
-
-        console2.log("yes matching with dot wildcard...");
-
         uint256 j;
 
         if (hasFlag(patternFlags, "s")) {
             j = indexToStartMatch;
+            // Iterate over to find the valid string chunk 1 byte, 2 bytes, ... 5 bytes
             while (true) {
                 if (confirmValidStringChunk(trimString(stringInBytes, indexToStartMatch, int256(j)))) {
                     return (int256(indexToStartMatch), int256(j));
@@ -2014,6 +2009,7 @@ contract Stringray {
         }
 
         if (isFirstMatch) {
+            // finds the valid match if exist
             for (uint256 i = indexToStartMatch; i < stringInBytes.length; i++) {
                 if (stringInBytes[i] != 0x0a && stringInBytes[i] != 0x0d) {
                     if (stringInBytes[i] == 0xe2) {
@@ -2046,12 +2042,8 @@ contract Stringray {
                 }
             }
         } else {
+            // check only the next char if matches otherwise returns -1
             if (stringInBytes[indexToStartMatch] != 0x0a && stringInBytes[indexToStartMatch] != 0x0d) {
-                console2.log("indexToStartMatch: ", indexToStartMatch);
-                console2.log("string: ", string(stringInBytes));
-                console2.logBytes(stringInBytes);
-                console2.logBytes1(stringInBytes[indexToStartMatch]);
-                console2.log("...");
                 if (stringInBytes[indexToStartMatch] == 0xe2) {
                     if (indexToStartMatch + 1 < stringInBytes.length && stringInBytes[indexToStartMatch + 1] == 0x80) {
                         if (
@@ -2059,7 +2051,6 @@ contract Stringray {
                                 && (stringInBytes[indexToStartMatch + 2] == 0xa8
                                     || stringInBytes[indexToStartMatch + 2] == 0xa9)
                         ) {
-                            console2.log("returning right but usage isn't");
                             return (-1, int256(indexToStartMatch + 2));
                         }
                     }
@@ -2067,9 +2058,6 @@ contract Stringray {
 
                 j = indexToStartMatch;
                 while (true) {
-                    console2.log("finding valid one...");
-                    console2.log("bytes: ");
-                    console2.logBytes(abi.encodePacked(stringInBytes[indexToStartMatch + j]));
                     if (confirmValidStringChunk(trimString(stringInBytes, indexToStartMatch, int256(j)))) {
                         return (int256(indexToStartMatch), int256(j));
                     }
@@ -2096,6 +2084,7 @@ contract Stringray {
         uint256 rangeUpperBound;
     }
 
+    // Matching logic for all quantifiers +,*,?,{n}, {n,}, {n,m}, greedy and lazy both
     function matchQuantifier(
         AtomTrait memory atom,
         bool isGreedy,
@@ -2112,13 +2101,13 @@ contract Stringray {
         quantifierData.rangeLowerBound;
         quantifierData.rangeUpperBound;
 
-        // @BUG: range number could be more than one digit
-        // @status: not fixed✅
-
+        // gets the range lower and upperbound
         (quantifierData.rangeLowerBound, quantifierData.rangeUpperBound) =
             simplifiedRangeBounds(atom.atom, quantifierData.quantifierType);
 
+        // If it's greedy
         if (isGreedy) {
+            // Extract the valid atom
             if (quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 4));
             } else if (quantifierData.quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM) {
@@ -2129,6 +2118,8 @@ contract Stringray {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 2));
             }
         } else {
+            // If it's lazy
+            // Extract the valid atom
             if (quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
                 atom.atom = trimString(atom.atom, 0, int256(atom.atom.length - 5));
             } else if (quantifierData.quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM) {
@@ -2140,13 +2131,16 @@ contract Stringray {
             }
         }
 
+        // checks if it's a literal atom
         (, atom.atomType,) =
             isLiteralAtom(atom.atom, quantifierData.orgAtom, 0, patternFlags, fromCharacterClass, fromGroup, false);
 
+        // checks if it's a character class atom
         if (atom.atomType == INVALID_ATOM) {
             (, atom.atomType,) = isCharacterClass(atom.atom, atom.atom, 0, patternFlags, fromGroup);
         }
 
+        // Finds match for N range greedy and lazy quantifier
         if (
             quantifierData.quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM
                 || quantifierData.quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM
@@ -2166,6 +2160,7 @@ contract Stringray {
             );
         }
 
+        // Finds match for N and infinity range greedy and lazy quantifier
         if (
             quantifierData.quantifierType == N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM
                 || quantifierData.quantifierType == N_AND_INFINITE_RANGE_LAZY_QUANTIFIER_ATOM
@@ -2185,6 +2180,7 @@ contract Stringray {
             );
         }
 
+        // Finds match for N and M range greedy and lazy quantifier
         if (
             quantifierData.quantifierType == N_AND_M_RANGE_GREEDY_QUANTIFIER_ATOM
                 || quantifierData.quantifierType == N_AND_M_RANGE_LAZY_QUANTIFIER_ATOM
@@ -2203,6 +2199,7 @@ contract Stringray {
             );
         }
 
+        // Finds match for other quantifier types i.e., +,*,? range greedy and lazy quantifier
         return matchRawQuantifier(
             atom,
             quantifierData.quantifierType,
