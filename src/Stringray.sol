@@ -2215,6 +2215,7 @@ contract Stringray {
         );
     }
 
+    // Gives valid range quantifiers lower and upper bounds
     function simplifiedRangeBounds(bytes memory atom, bytes32 quantifierType) private pure returns (uint256, uint256) {
         uint256 rangeLowerBound;
         uint256 rangeUpperBound;
@@ -2265,14 +2266,6 @@ contract Stringray {
                 if (i == 0) break;
             }
 
-            console2.log("rangeLowerBoundStartIdx: ", rangeLowerBoundStartIdx);
-            console2.log("rangeLowerBoundEndIdx  : ", rangeLowerBoundEndIdx);
-            console2.log("rangeUpperBoundStartIdx: ", rangeUpperBoundStartIdx);
-            console2.log("rangeUpperBoundEndIdx  : ", rangeUpperBoundEndIdx);
-            console2.log("bounds...");
-            console2.log("rangeLowerBound        : ", rangeLowerBound);
-            console2.log("rangeUpperBound        : ", rangeUpperBound);
-
             if (rangeLowerBoundStartIdx > 0 && rangeLowerBoundEndIdx > 0) {
                 rangeLowerBound =
                     stringDigitToDecDigit(trimString(atom, rangeLowerBoundStartIdx, int256(rangeLowerBoundEndIdx)));
@@ -2292,13 +2285,11 @@ contract Stringray {
             }
         }
 
-        console2.log("final bounds...");
-        console2.log("rangeLowerBound        : ", rangeLowerBound);
-        console2.log("rangeUpperBound        : ", rangeUpperBound);
-
         return (rangeLowerBound, rangeUpperBound);
     }
 
+    // Matches with quantifiers atoms pattern except range quantifiers
+    // returns match start index and match end index
     function matchRawQuantifier(
         AtomTrait memory atom,
         bytes32 quantifierType,
@@ -2312,61 +2303,10 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        // @TODO: implement quantifiers matching logic. Greedy as well as Lazy...
-        // @Status: Almost implemented...
-
-        // next range quantifiers....
-
-        console2.log("-----------------------------matchQuantifier-----------------------------");
-        printAtomType(atom.atomType);
-        console2.log("atom              : ", string(atom.atom));
-        console2.log("isGreedy          : ", isGreedy);
-        console2.log("indexToStartMatch : ", indexToStartMatch);
-        console2.log("isFirstMatch      : ", isFirstMatch);
-        console2.log("patternFlags      : ", string(patternFlags));
-        console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("fromGroup         : ", fromGroup);
-        console2.log("----------------------------------------------------------");
-
         int256 matchStartIndex = -1;
         int256 matchEndIndex = -1;
         AtomTrait[] memory atoms = new AtomTrait[](1);
         atoms[0] = atom;
-
-        // if (quantifierType == N_RANGE_GREEDY_QUANTIFIER_ATOM || quantifierType == N_RANGE_LAZY_QUANTIFIER_ATOM) {
-        //     (matchStartIndex, matchEndIndex) = matchRangeQuantifier(
-        //         atom,
-        //         quantifierType,
-        //         rangeLowerBound,
-        //         rangeUpperBound,
-        //         isGreedy,
-        //         stringInBytes,
-        //         indexToStartMatch,
-        //         isFirstMatch,
-        //         patternFlags,
-        //         fromCharacterClass,
-        //         fromGroup
-        //     );
-        // for (uint256 i = rangeLowerBound == rangeUpperBound ? 1 : rangeLowerBound; i <= rangeUpperBound; i++) {
-        //     (matchStartIndex, matchEndIndex) = matchPattern(
-        //         atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
-        //     );
-
-        //     if (matchStartIndex == -1 && indexToStartMatch >= 0) {
-        //         if (indexToStartMatch == 0) {
-        //             matchStartIndex = int256(indexToStartMatch + 1);
-        //             matchEndIndex = int256(indexToStartMatch);
-        //         } else {
-        //             matchStartIndex = int256(indexToStartMatch - 1);
-        //             matchEndIndex = int256(indexToStartMatch - 1);
-        //         }
-        //         break;
-        //     }
-
-        //     indexToStartMatch = uint256(matchEndIndex) + 1;
-        // }
-        // return (matchStartIndex, matchEndIndex);
-        // }
 
         if (
             quantifierType == QUESTION_MARK_GREEDY_QUANTIFIER_ATOM
@@ -2394,8 +2334,6 @@ contract Stringray {
                 atoms, stringInBytes, patternFlags, indexToStartMatch, false, fromCharacterClass, fromGroup, true
             );
 
-            console2.log("quantifiers matchStartIndex *: ", matchStartIndex);
-            console2.log("quantifiers matchEndIndex   *: ", matchEndIndex);
             if (matchStartIndex == -1 && indexToStartMatch >= 0) {
                 if (indexToStartMatch == 0) {
                     matchStartIndex = int256(indexToStartMatch + 1);
@@ -2407,12 +2345,8 @@ contract Stringray {
             }
 
             return (matchStartIndex, matchEndIndex);
-
-            // asterisk quantifier (zero or more) weird behavior...
-            // @BURN-OUT: Leaving it for now..... :(
         }
 
-        // if (quantifierType != ASTERISK_GREEDY_QUANTIFIER_ATOM && quantifierType != ASTERISK_LAZY_QUANTIFIER_ATOM) {
         (matchStartIndex, matchEndIndex) = matchPattern(
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
@@ -2420,19 +2354,12 @@ contract Stringray {
         if (!isGreedy) {
             return (matchStartIndex, matchEndIndex);
         }
-        // }
-
-        console2.log("quantifiers matchStartIndex: ", matchStartIndex);
-        console2.log("quantifiers matchEndIndex  : ", matchEndIndex);
 
         if (matchStartIndex > -1 && matchEndIndex > -1) {
             while (true) {
-                console2.log("repeating quantifier.....................");
                 int256 tempMatchStartIndex = -1;
                 int256 lastMatchEndIndex = matchEndIndex;
 
-                // (tempMatchStartIndex, matchEndIndex) =
-                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
                 (tempMatchStartIndex, matchEndIndex) = matchPattern(
                     atoms,
                     stringInBytes,
@@ -2450,15 +2377,14 @@ contract Stringray {
                 }
             }
 
-            console2.log("back to the caller.............................");
-
             return (matchStartIndex, matchEndIndex);
         }
 
-        console2.log("back to the caller from endpoint.............................");
         return (-1, -1);
     }
 
+    // Matches with N range quantifier atom pattern
+    // returns match start index and match end index
     function matchNRangeQuantifier(
         AtomTrait memory atom,
         bytes32 quantifierType,
@@ -2484,10 +2410,6 @@ contract Stringray {
         if (matchStartIndex > -1) {
             for (uint256 i = 2; i <= rangeUpperBound; i++) {
                 int256 tempMatchStartIndex = -1;
-                // int256 lastMatchEndIndex = matchEndIndex;
-
-                // (tempMatchStartIndex, matchEndIndex) =
-                //     matchLiteral(matchedAtoms, stringInBytes, uint256(matchEndIndex) + 1, false);
                 (tempMatchStartIndex, matchEndIndex) = matchPattern(
                     atoms,
                     stringInBytes,
@@ -2501,8 +2423,6 @@ contract Stringray {
 
                 if (tempMatchStartIndex == -1) {
                     return (tempMatchStartIndex, matchEndIndex);
-                    // matchEndIndex = lastMatchEndIndex;
-                    // break;
                 }
             }
         }
@@ -2510,6 +2430,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Matches with N and inifinity range quantifier atom pattern
+    // returns match start index and match end index
     function matchNAndInfinityRangeQuantifier(
         AtomTrait memory atom,
         bytes32 quantifierType,
@@ -2532,12 +2454,8 @@ contract Stringray {
             atoms, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, fromCharacterClass, fromGroup, true
         );
 
-        // @BUG🪱🐍: N and Infinity range quantifiers matching backtracking logic misbehaves
-        // @status: fixed✅
-
         if (matchStartIndex > -1) {
             while (true) {
-                console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
                 int256 tempMatchStartIndex = -1;
                 int256 lastMatchEndIndex = matchEndIndex;
 
@@ -2554,9 +2472,6 @@ contract Stringray {
 
                 if (tempMatchStartIndex == -1) {
                     if (lastMatchEndIndex - matchStartIndex < int256(rangeLowerBound)) {
-                        console2.log("lastMatchEndIndex: ", lastMatchEndIndex);
-                        console2.log("matchStartIndex: ", matchStartIndex);
-                        console2.log("come back after match pattern");
                         matchStartIndex = -1;
                         matchEndIndex = lastMatchEndIndex + 1;
                         break;
@@ -2587,6 +2502,8 @@ contract Stringray {
         uint256 i;
     }
 
+    // Matches with N and M range quantifier atom pattern
+    // returns match start index and match end index
     function matchNAndMRangeQuantifier(
         AtomTrait memory atom,
         uint256 rangeLowerBound,
@@ -2619,7 +2536,6 @@ contract Stringray {
 
         if (rangeQuantifierData.matchStartIndex > -1) {
             for (rangeQuantifierData.i = 2; rangeQuantifierData.i <= rangeUpperBound; rangeQuantifierData.i++) {
-                console2.log("repeating quantifier.....................N_AND_INFINITE_RANGE_GREEDY_QUANTIFIER_ATOM");
                 rangeQuantifierData.tempMatchStartIndex = -1;
                 rangeQuantifierData.lastMatchEndIndex = rangeQuantifierData.matchEndIndex;
 
@@ -2639,9 +2555,6 @@ contract Stringray {
                         rangeQuantifierData.lastMatchEndIndex - rangeQuantifierData.matchStartIndex
                             < int256(rangeLowerBound)
                     ) {
-                        console2.log("lastMatchEndIndex: ", rangeQuantifierData.lastMatchEndIndex);
-                        console2.log("matchStartIndex: ", rangeQuantifierData.matchStartIndex);
-                        console2.log("come back after match pattern");
                         rangeQuantifierData.matchStartIndex = -1;
                         rangeQuantifierData.matchEndIndex = rangeQuantifierData.lastMatchEndIndex + 1;
                         break;
@@ -2672,6 +2585,8 @@ contract Stringray {
         return (rangeQuantifierData.matchStartIndex, rangeQuantifierData.matchEndIndex);
     }
 
+    // Matches with $(start) quantifier atom pattern
+    // returns match start index and match end index
     function matchDollarOrEnd(
         AtomTrait[] memory atoms,
         uint256 currentAtomIndex,
@@ -2682,19 +2597,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private pure returns (int256, int256) {
-        console2.log("---------------------------------matchDollarOrEnd---------------------------------");
-        console2.log("Atom: ", string(atoms[currentAtomIndex].atom));
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("string length: ", stringInBytes.length);
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("fromGroup: ", fromGroup);
-        console2.log("------------------------------------------------------------------");
-
-        // bytes memory atom = atoms[currentAtomIndex].atom;
-
         if (indexToStartMatch == 0 && stringInBytes.length == 1) {
             if (
                 uint8(stringInBytes[uint256(indexToStartMatch)]) == 10
@@ -2751,6 +2653,8 @@ contract Stringray {
         return (-1, -1);
     }
 
+    // Matches with ^(start) quantifier atom pattern
+    // returns match start index and match end index
     function matchCaretOrStart(
         AtomTrait[] memory atoms,
         uint256 currentAtomIndex,
@@ -2761,18 +2665,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        console2.log("---------------------------------matchCaretOrStart---------------------------------");
-        console2.log("nextAtom: ", string(atoms[currentAtomIndex].atom));
-        console2.log("atoms.length: ", atoms.length);
-        console2.log("currentAtomIndex: ", currentAtomIndex);
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("fromGroup: ", fromGroup);
-        console2.log("------------------------------------------------------------------");
-
         if (
             atoms.length == 1
                 || (atoms.length == 2
@@ -2782,8 +2674,6 @@ contract Stringray {
         ) {
             return (0, -1);
         }
-
-        console2.log("passing first check");
 
         if (atoms.length >= 2) {
             if (hasFlag(patternFlags, "m")) {
@@ -2814,13 +2704,10 @@ contract Stringray {
                 }
             }
         }
-        console2.log("passing second check");
 
         if (currentAtomIndex + 1 >= atoms.length) {
             return (-1, -1);
         }
-
-        console2.log("passing third check");
 
         AtomTrait[] memory singleAtom = new AtomTrait[](1);
         uint256 i;
@@ -2832,10 +2719,7 @@ contract Stringray {
 
         int256 matchEndIndex = -1;
 
-        console2.log("passing while loop");
-
         if (indexToStartMatch <= 0) {
-            console2.log("into if (indexToStartMatch <= 0) check");
             (, matchEndIndex) = matchPattern(
                 singleAtom,
                 stringInBytes,
@@ -2848,7 +2732,6 @@ contract Stringray {
             );
         } else {
             if (hasFlag(patternFlags, "m")) {
-                console2.log("i think this block in unreachable");
                 if (
                     uint8(stringInBytes[indexToStartMatch - 1]) == 10
                         || uint8(stringInBytes[indexToStartMatch - 1]) == 13
@@ -2884,8 +2767,6 @@ contract Stringray {
             }
         }
 
-        console2.log("matchEndIndex in start anchor func: ", matchEndIndex);
-
         if (matchEndIndex != int256(indexToStartMatch) && singleAtom[0].atomType != GROUP_ATOM) {
             return (-1, -1);
         }
@@ -2896,6 +2777,8 @@ contract Stringray {
         return (matchEndIndex, matchEndIndex);
     }
 
+    // Matches with Named back reference quantifier atom pattern
+    // returns match start index and match end index
     function matchNamedBackReferenceGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -2905,21 +2788,11 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        console2.log("--------------------matchNamedBackReferenceGroup--------------------");
-        console2.log("Atom: ", string(atom));
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("fromGroup: ", fromGroup);
-        console2.log("----------------------------------------");
         bytes memory refGroupName;
         if (atom.length > 3) {
             refGroupName = trimString(atom, 3, int256(atom.length) - 2);
         }
 
-        console2.log("refGroupName: ", string(refGroupName));
         uint256 i;
         for (; i < groupNames.length; i++) {
             if (keccak256(groupNames[i].groupName) == keccak256(refGroupName)) {
@@ -2939,11 +2812,15 @@ contract Stringray {
         return (-1, -1);
     }
 
+    // Helper function to get named back referenced sub atoms.
+    // returns atoms type
     function getNamedBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
         bytes memory groupMatchedString = abi.encodePacked(groupNames[i].matchedString);
         return generateGroupAtoms(groupMatchedString);
     }
 
+    // Matches with digit back reference(\9) (refers groups) quantifier atom pattern
+    // returns match start index and match end index
     function matchDigitBackReferenceGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -2953,16 +2830,6 @@ contract Stringray {
         bool fromCharacterClass,
         bool fromGroup
     ) private returns (int256, int256) {
-        console2.log("--------------------matchDigitBackReferenceGroup--------------------");
-        console2.log("Atom: ", string(atom));
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("fromCharacterClass: ", fromCharacterClass);
-        console2.log("fromGroup: ", fromGroup);
-        console2.log("----------------------------------------");
-
         bytes memory groupNumInString = trimString(atom, 1, -1);
         uint256 givenGroupNum = stringDigitToDecDigit(groupNumInString);
 
@@ -2984,11 +2851,15 @@ contract Stringray {
         return (-1, -1);
     }
 
+    // helper function to get back reference sub atoms
+    // returns atoms type
     function getDigitBackRefedAtoms(uint256 i) private returns (AtomTrait[] memory) {
         bytes memory groupMatchedString = abi.encodePacked(grpMatchedData[i].groupMatchedString);
         return generateGroupAtoms(groupMatchedString);
     }
 
+    // helper function to generate sub atoms
+    // returns atoms type
     function generateGroupAtoms(bytes memory groupMatchedString) private pure returns (AtomTrait[] memory) {
         uint256 groupMatchedStringLength = groupMatchedString.length;
 
@@ -3002,17 +2873,11 @@ contract Stringray {
         for (j; j < groupMatchedStringLength; j++) {
             numAtoms++;
             chunk = trimString(groupMatchedString, j, -1);
-            console2.log("reaching here");
             (flag, lastIdx) = isUnicodeLiteral(chunk, 0, true);
-            console2.log("unreachable");
             if (flag) {
                 j = lastIdx;
             }
         }
-
-        console2.log("-----------------------------------generateGroupAtoms-----------------------------------");
-        console2.log("numAtoms: ", numAtoms);
-        console2.log("----------------------------------------------------------------------");
         AtomTrait[] memory atoms = new AtomTrait[](numAtoms);
 
         for (j = 0; j < groupMatchedStringLength; j++) {
@@ -3065,6 +2930,8 @@ contract Stringray {
     bool isFirstTimenNegativeLookBehind = true;
     bytes[] private subAtoms;
 
+    // Matches with Groups quantifier atom pattern
+    // returns match start index, match end index and an look arounds indicator
     function matchGroup(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -3074,15 +2941,6 @@ contract Stringray {
         bool fromGroup,
         uint256 lastAlternationQueueIndex
     ) private returns (int256, int256, uint256) {
-        console2.log("--------------------matchGroup--------------------");
-        seelAllMatchedGroups();
-        console2.log("Atom: ", string(atom));
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("groupsCounter: ", groupsCounter);
-
         MatchGroupData memory matchGroupData;
         matchGroupData.isFirstMatch = isFirstMatch;
         matchGroupData.lastKnownIndexToStartMatch = indexToStartMatch;
@@ -3103,22 +2961,17 @@ contract Stringray {
                 matchGroupData.isNegativeLookBehind = true;
                 isFirstMatch = false;
                 if (indexToStartMatch == 0 && isFirstTimenNegativeLookBehind) {
-                    console2.log("isFirstTimenNegativeLookBehind: ", isFirstTimenNegativeLookBehind);
                     isFirstTimenNegativeLookBehind = false;
                     return (-4, -1, 0);
                 }
-                console2.log("negativeLookBehind: ", matchGroupData.isNegativeLookBehind);
             }
         }
 
         (atom, matchGroupData.groupName) = getAtomSlice(atom);
 
-        console2.log("ATOM: ", string(atom));
-
         (bool isCC,,) = isCharacterClass(atom, atom, 0, patternFlags, fromGroup);
 
         matchGroupData.lastAlternationOperatorIndex = -1;
-        // bytes memory matchGroupData.subAtom; // atoms
         matchGroupData.openParanthesisCount = 0;
         matchGroupData.closeParanthesisCount = 0;
         if (!isCC) {
@@ -3133,7 +2986,6 @@ contract Stringray {
                     uint8(atom[matchGroupData.j]) == VERTICAL_BAR
                         && matchGroupData.openParanthesisCount == matchGroupData.closeParanthesisCount
                 ) {
-                    console2.log("pipe found");
                     matchGroupData.subAtom = hex""; // atoms
                     if (matchGroupData.lastAlternationOperatorIndex <= -1) {
                         for (matchGroupData.k = 0; matchGroupData.k < matchGroupData.j; matchGroupData.k++) {
@@ -3180,10 +3032,6 @@ contract Stringray {
             }
         }
 
-        console2.log(
-            "-------------------------------------------------------------------------Alternation-------------------------------------------------------------------------"
-        );
-        console2.log("subAtoms.length: ", subAtoms.length);
         if (subAtoms.length > 1) {
             isFirstMatch = false;
         }
@@ -3192,25 +3040,6 @@ contract Stringray {
             metaSubAtoms[matchGroupData.i] = subAtoms[matchGroupData.i];
         }
 
-        console2.log(
-            "-------------------------------------------------refined sub atoms-------------------------------------------------"
-        );
-        for (matchGroupData.i = 0; matchGroupData.i < metaSubAtoms.length; matchGroupData.i++) {
-            console2.log("sub atom ", matchGroupData.i + 1, ": ", string(metaSubAtoms[matchGroupData.i]));
-        }
-        console2.log(
-            "-------------------------------------------------end-------------------------------------------------"
-        );
-
-        console2.log(
-            "lastAlternationCheckpoint.lastAlternationQueueIndex: ", lastAlternationCheckpoint.lastAlternationQueueIndex
-        );
-        console2.log(
-            "lastAlternationCheckpoint.lastAlternationPatternIndex: ",
-            lastAlternationCheckpoint.lastAlternationPatternIndex
-        );
-        console2.log("lastAlternationCheckpoint.trigger: ", lastAlternationCheckpoint.trigger);
-
         if (metaSubAtoms.length > 1) {
             for (matchGroupData.k = 0; matchGroupData.k < metaSubAtoms.length;) {
                 if (lastAlternationCheckpoint.lastAlternationQueueIndex == 1 && lastAlternationCheckpoint.trigger) {
@@ -3218,8 +3047,6 @@ contract Stringray {
                     lastAlternationCheckpoint.lastAlternationQueueIndex = 0;
                     lastAlternationCheckpoint.trigger = false;
                 }
-
-                console2.log("matchGroupData.k: ", matchGroupData.k);
 
                 if (lastAlternationQueueIndex == 2) {
                     lastAlternationQueueIndex = 0;
@@ -3251,7 +3078,6 @@ contract Stringray {
                             || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == OPEN_SQUARE_BRACKET
                             || uint8(metaSubAtoms[matchGroupData.k][matchGroupData.j]) == BACK_SLASH
                     ) {
-                        console2.log("breaking here, ..............................................................");
                         break;
                     }
 
@@ -3293,11 +3119,6 @@ contract Stringray {
                     break;
                 }
 
-                console2.log("matchGroupData.k: ", matchGroupData.k);
-                console2.log("metaSubAtoms.length: ", metaSubAtoms.length);
-                console2.log("matchGroupData.matchEndIndex: ", matchGroupData.matchEndIndex);
-                console2.log("indexToStartMatch: ", indexToStartMatch);
-
                 if (matchGroupData.matchStartIndex == -1) {
                     if (matchGroupData.isNegativeLookAhead || matchGroupData.isNegativeLookBehind) {
                         if (matchGroupData.k + 1 == metaSubAtoms.length) {
@@ -3331,8 +3152,6 @@ contract Stringray {
                     }
                 }
 
-                console2.log("going to break....");
-
                 if (matchGroupData.k + 1 == metaSubAtoms.length) break;
 
                 matchGroupData.k++;
@@ -3342,12 +3161,6 @@ contract Stringray {
                 atom, stringInBytes, indexToStartMatch, isFirstMatch, patternFlags, matchGroupData.groupNum
             );
         }
-
-        console2.log("-----------------last group data-----------------");
-        console2.log("lastAlternationQueueIndex: ", lastAlternationQueueIndex);
-        console2.log("matchGroupData.matchStartIndex: ", matchGroupData.matchStartIndex);
-        console2.log("matchGroupData.matchEndIndex: ", matchGroupData.matchEndIndex);
-        console2.log("----------------------------------");
 
         // matchGroupData.k = lastAlternationQueueIndex == metaSubAtoms.length ? 0 : lastAlternationQueueIndex;
         // console2.log("k: ", matchGroupData.k);
@@ -3424,20 +3237,11 @@ contract Stringray {
         //     matchGroupData.k++;
         // }
 
-        console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
-        console2.log("matchEndIndex  : ", matchGroupData.matchEndIndex);
-        console2.log("groupsCounter  : ", groupsCounter);
-        console2.log("groupNum       : ", matchGroupData.groupNum);
-        console2.log("isPositiveLookAhead       : ", matchGroupData.isPositiveLookAhead);
-        console2.log("isNegativeLookAhead       : ", matchGroupData.isNegativeLookAhead);
-        console2.log("isPositiveLookBehind      : ", matchGroupData.isPositiveLookBehind);
-        console2.log("isNegativeLookBehind      : ", matchGroupData.isNegativeLookBehind);
         // console2.log("lastAlternationQueueIndex : ", lastAlternationQueueIndex);
 
         if (matchGroupData.matchStartIndex == -1) {
             if (matchGroupData.isNegativeLookAhead) {
                 // console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
-                console2.log("matchGroupData.matchEndIndex not matched : ", matchGroupData.matchEndIndex);
                 // return (int256(matchGroupData.lastKnownIndexToStartMatch), -2, 0);
                 return (matchGroupData.matchStartIndex, -2, lastAlternationQueueIndex);
             }
@@ -3455,9 +3259,6 @@ contract Stringray {
 
             if (matchGroupData.isNegativeLookBehind) {
                 if (metaSubAtoms[matchGroupData.k].length > 0) {
-                    console2.log("returning from negativeLookBehind");
-                    console2.log("atom length: ", metaSubAtoms[matchGroupData.k].length);
-                    console2.log("indexToStartMatch: ", indexToStartMatch);
                     return (-3, int256(indexToStartMatch), lastAlternationQueueIndex);
                 } else {
                     return (-5, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
@@ -3467,9 +3268,7 @@ contract Stringray {
         }
 
         if (matchGroupData.isNegativeLookAhead) {
-            console2.log("returning right one");
             return (-1, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
-            console2.log("matchGroupData.matchEndIndex             : ", matchGroupData.matchEndIndex);
             // console2.log("matchGroupData.lastKnownIndexToStartMatch: ", matchGroupData.lastKnownIndexToStartMatch);
             // return (-1, int256(matchGroupData.lastKnownIndexToStartMatch + 1), 0);
         }
@@ -3483,7 +3282,6 @@ contract Stringray {
         }
 
         if (matchGroupData.isNegativeLookBehind) {
-            console2.log("returning from negativeLookBehind when atom matched");
             return (-1, matchGroupData.matchEndIndex + 1, lastAlternationQueueIndex);
         }
 
@@ -3560,17 +3358,9 @@ contract Stringray {
             }
         }
 
-        console2.log("matchGroupData.matchStartIndex: ", matchGroupData.matchStartIndex);
-        console2.log("matchGroupData.matchEndIndex  : ", matchGroupData.matchEndIndex);
-
         bytes memory matchedString =
             trimString(stringInBytes, uint256(matchGroupData.matchStartIndex), matchGroupData.matchEndIndex);
 
-        console2.log("matchGroupData.k: ", matchGroupData.k);
-
-        console2.log("pushing to group matched data...");
-        console2.log("atom: ", string(atom));
-        console2.log("atom: ", string(metaSubAtoms[matchGroupData.k]));
         grpMatchedData.push(
             GroupMatchedData({
                 groupPatternString: string(metaSubAtoms[matchGroupData.k]),
@@ -3594,12 +3384,11 @@ contract Stringray {
             groupNames.push(GroupNames({groupName: matchGroupData.groupName, matchedString: matchedString}));
         }
 
-        seelAllMatchedGroups();
-        console2.log("--------------------matchGroupEnd--------------------");
-
         return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex, lastAlternationQueueIndex);
     }
 
+    // Splits atoms from a given pattern (atom)
+    // returns sub atom(s) and the group name
     function getAtomSlice(bytes memory atom) private pure returns (bytes memory, bytes memory) {
         int256 groupNameTrimEndIndex = -1;
         bytes memory groupName;
@@ -3666,6 +3455,8 @@ contract Stringray {
         return (atom, groupName);
     }
 
+    // helper logger function
+    // sneak peek into atoms
     function seelAllMatchedGroups() private {
         console2.log("----------------------seelAllMatchedGroups----------------------");
         for (uint256 i; i < grpMatchedData.length; i++) {
@@ -3681,6 +3472,8 @@ contract Stringray {
         console2.log("--------------------------------------------");
     }
 
+    // Matches group atoms
+    // returns match start index and match end index
     function matchGroupsAtoms(
         bytes memory subAtoms,
         bytes memory stringInBytes,
@@ -3689,14 +3482,6 @@ contract Stringray {
         bytes memory patternFlags,
         uint256 currentGroupNum
     ) private returns (int256, int256) {
-        console2.log("----------------------matchGroupsAtoms----------------------");
-        console2.log("sub atoms: ", string(subAtoms));
-        console2.log("stringInBytes: ", string(stringInBytes));
-        console2.log("indexToStartMatch: ", indexToStartMatch);
-        console2.log("isFirstMatch: ", isFirstMatch);
-        console2.log("patternFlags: ", string(patternFlags));
-        console2.log("currentGroupNum: ", currentGroupNum);
-        console2.log("--------------------------------------------");
         MatchData memory matchGroupData;
         matchGroupData.matchStartIndex = -1;
         matchGroupData.matchEndIndex = -1;
@@ -3705,13 +3490,7 @@ contract Stringray {
         if (subAtoms.length == 0) return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
         matchGroupData.firstIndex = -1;
 
-        // alternation check
-
         for (matchGroupData.i; matchGroupData.i < subAtoms.length;) {
-            console2.log("subAtoms: ", string(subAtoms));
-            console2.log("current i: ", matchGroupData.i);
-            console2.log("last matchStartIndex: ", matchGroupData.matchStartIndex);
-            console2.log("last matchEndIndex: ", matchGroupData.matchEndIndex);
             if (matchGroupData.i > 0) {
                 isFirstMatch = false;
             } else {
@@ -3726,14 +3505,8 @@ contract Stringray {
 
             subAtom[0].atom = trimString(subAtoms, matchGroupData.i, subAtom[0].atomEndIdx);
 
-            console2.log("subAtom: ", string(subAtom[0].atom));
-
             (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex) =
                 matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, false, true, false);
-
-            console2.log("came back from matchPattern");
-            console2.log("matchStartIndex: ", matchGroupData.matchStartIndex);
-            console2.log("matchEndIndex: ", matchGroupData.matchEndIndex);
 
             if (matchGroupData.matchStartIndex == -1 && matchGroupData.matchEndIndex == -1) {
                 return (matchGroupData.matchStartIndex, matchGroupData.matchEndIndex);
@@ -3759,8 +3532,6 @@ contract Stringray {
                 matchGroupData.firstIndex = matchGroupData.matchStartIndex;
             }
 
-            // BUG🪱: incrementing 1 when indexToStartMatch is the last index breaks end enchor logic.
-            // Status: Fixed✅
             indexToStartMatch = matchGroupData.matchEndIndex > -1
                 ? uint256(matchGroupData.matchEndIndex) + 1
                 : uint256(matchGroupData.matchEndIndex);
@@ -3771,6 +3542,8 @@ contract Stringray {
         return (matchGroupData.firstIndex, matchGroupData.matchEndIndex);
     }
 
+    // Collects group's sub atoms and associated index
+    // returns sub atom(s) and associated index
     function collectGroupSubAtom(bytes memory subAtoms, uint256 currentIdx, bytes memory patternFlags)
         private
         returns (bytes32, int256)
@@ -3786,11 +3559,6 @@ contract Stringray {
             (, atomType, atomEndIdx) = isGroup(subAtoms, subAtoms, currentIdx, patternFlags, true, true);
         }
 
-        console2.log("----------------------------------collectGroupSubAtom----------------------------------");
-        printAtomType(atomType);
-        console2.log("atomEndIdx: ", atomEndIdx);
-        console2.log("--------------------------------------------------------------------");
-
         if (atomType == GROUP_SUB_ATOM) {
             atomType = GROUP_ATOM;
         }
@@ -3800,6 +3568,9 @@ contract Stringray {
         return (INVALID_ATOM, -1);
     }
 
+    // Set Theory part
+    // Finds which set operation to match with
+    // returns match start index and match end index
     function evaluateSetOperationMatch(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -3859,6 +3630,8 @@ contract Stringray {
         return (-1, matchEndIndex);
     }
 
+    // Converts UNICODE HEXADECIMALS TO UTF8 HEXADECIMALS
+    // Returns UTF8 HEXADECIMALS
     function convertUnicodeHexToUtf8Hex(bytes memory unicodeHex) private returns (bytes memory) {
         uint256 unicodeHexLength = unicodeHex.length;
         bytes memory unicodeString;
