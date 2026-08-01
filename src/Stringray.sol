@@ -3587,7 +3587,7 @@ contract Stringray {
         ccLiterals = new bytes[](poolSet.length);
 
         for (i; i < poolSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(poolSet[i]));
+            atom = trimExcessZerosFromByte(abi.encodePacked(poolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
             ccLiterals[i] = utf8Atom;
@@ -3609,7 +3609,7 @@ contract Stringray {
         }
 
         for (i = 0; i < negatedPoolSet.length; i++) {
-            atom = trimAccessZerosFromByte(abi.encodePacked(negatedPoolSet[i]));
+            atom = trimExcessZerosFromByte(abi.encodePacked(negatedPoolSet[i]));
             utf8Atom = convertUnicodeHexToUtf8Hex(atom);
 
             ccLiterals[i] = utf8Atom;
@@ -3678,6 +3678,8 @@ contract Stringray {
         return unicodeHexToUtf8Hex(abi.encodePacked("\\u{", unicodeString, "}"));
     }
 
+    // Convers unicode hex to unicode string
+    // returns string in form of bytes
     function convertUnicodeHexToUnicodeString(bytes1 unicodeHex) private pure returns (bytes memory) {
         bytes memory unicodeString;
 
@@ -3687,6 +3689,8 @@ contract Stringray {
         return unicodeString;
     }
 
+    // Converts a single byte into hex string
+    // returns hex string
     function singlNibbleToString(bytes1 singleNibble) private pure returns (string memory) {
         if (singleNibble == 0x00) {
             return "0";
@@ -3755,7 +3759,9 @@ contract Stringray {
         return "";
     }
 
-    function trimAccessZerosFromByte(bytes memory _bytesData) private pure returns (bytes memory) {
+    // Trims Zeros from bytes
+    // returns trimmed bytes
+    function trimExcessZerosFromByte(bytes memory _bytesData) private pure returns (bytes memory) {
         for (uint256 i = _bytesData.length - 1; i >= 0; i--) {
             if (_bytesData[i] == 0x00) {
                 return trimString(_bytesData, i + 1, -1);
@@ -3779,6 +3785,7 @@ contract Stringray {
         uint256 lLastParticleIndexCpy;
     }
 
+    // Matches character class pattern atoms
     function matchCCSetAtoms(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -4050,6 +4057,7 @@ contract Stringray {
     uint256[] private negatedPoolSet;
     uint256[] private clonerSet;
 
+    // Validates & Updates sets after sets organization
     function updateSets(uint8 operationTypeSymbol, bool isRightAtom) private {
         uint256 i;
         uint256 j;
@@ -4316,6 +4324,8 @@ contract Stringray {
         console2.log("----------------------------------------------------");
     }
 
+    // Matches character class range
+    // returns matched indices
     function matchCCRange(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -4342,6 +4352,8 @@ contract Stringray {
         );
     }
 
+    // Matches character class range at low level
+    // returns matched indices
     function matchRawCCRange(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -4434,6 +4446,8 @@ contract Stringray {
         return (-1, matchEndIndex);
     }
 
+    // Validate pattern atom  with variable length however at atomic level
+    // returns pattern chunk indices
     function validateAtomWithVariableLength(bytes memory stringInBytes, uint256 i) private returns (int256, uint256) {
         uint256 stringInBytesLength = stringInBytes.length;
         int256 atomLengthIncrementer = 0;
@@ -4457,6 +4471,8 @@ contract Stringray {
         return (matchStartIndex, i);
     }
 
+    // Validates character class range
+    // returns bool
     function validateCCRange(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
