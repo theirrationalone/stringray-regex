@@ -4492,9 +4492,10 @@ contract Stringray {
         return false;
     }
 
+    // Evaluates pure utf-8 decimal value
+    // returns utf8-hex and decimal equivalent
     function evaluateAtomDecValue(bytes memory atom) private pure returns (bytes memory, uint256) {
         uint256 atomLength = atom.length;
-        console2.log("atom length: ", atomLength);
 
         if (atomLength == 1) {
             return (atom, uint256(uint8(atom[0])));
@@ -4530,7 +4531,6 @@ contract Stringray {
                 return (unicodeHexToUtf8Hex(modAtom), hexToDec(hexString, 4, true));
             }
         } else {
-            console2.log("plain atom");
             return (atom, hexToDec(utf8HexToUnicodeHex(atom), 8, false));
         }
 
@@ -4550,6 +4550,8 @@ contract Stringray {
 
     AtomTrait[] ccIdAtoms;
 
+    // Matches character class pattern atoms
+    // returns match start and end indices
     function matchCharacterClass(
         bytes memory pattern,
         bytes memory stringInBytes,
@@ -4686,37 +4688,16 @@ contract Stringray {
 
             ccIdAtoms.push(subAtom);
 
-            // (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex) =
-            //     matchPattern(subAtom, stringInBytes, patternFlags, indexToStartMatch, isFirstMatch, true, fromGroup);
-
-            // if (matchCCLocalVars.matchStartIndex > -1 && matchCCLocalVars.matchEndIndex > -1) {
-            //     if (uint8(pattern[0]) != CARET_SIGN) {
-            //         return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
-            //     }
-            // } else {
-            //     if (uint8(pattern[0]) == CARET_SIGN) {
-            //         return (matchCCLocalVars.matchEndIndex, matchCCLocalVars.matchEndIndex);
-            //     }
-            // }
-
             matchCCLocalVars.i = matchCCLocalVars.lLastParticleIndex + 1;
         }
 
-        // if (uint8(pattern[0]) == CARET_SIGN && !fromCharacterClass || negation) {
-        //     return neutralizeAndMatchCCAtomsNegation(
-        //         stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms
-        //     );
-        // }
         return neutralizeAndMatchCCAtoms(
             stringInBytes, indexToStartMatch, isFirstMatch, fromGroup, patternFlags, ccIdAtoms, negation
         );
-
-        // console2.log("matchCCLocalVars.matchStartIndex: ", matchCCLocalVars.matchStartIndex);
-        // console2.log("matchCCLocalVars.matchEndIndex: ", matchCCLocalVars.matchEndIndex);
-
-        // return (matchCCLocalVars.matchStartIndex, matchCCLocalVars.matchEndIndex);
     }
 
+    // Neutralizes (split and tries to match at atomic lvl) and matches character class atoms in negation mode
+    // Returns match start and end indices
     function neutralizeAndMatchCCAtomsNegation(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -4778,34 +4759,6 @@ contract Stringray {
                         }
                     }
                 }
-
-                // if (ccIdAtoms[j].atomType == LITERAL_ATOM) {
-                //     if (stringInBytes.length - 1 >= i + ccIdAtoms[j].atom.length - 1) {
-                //         stringToMatchWith = trimString(stringInBytes, i, int256(i + ccIdAtoms[j].atom.length - 1));
-                //     }
-
-                //     if (confirmValidStringChunk(stringToMatchWith)) {
-                //         if (keccak256(stringToMatchWith) != keccak256(ccIdAtoms[j].atom)) {
-                //             matchStartIndex = int256(i);
-                //             matchEndIndex = int256(i + stringToMatchWith.length - 1);
-                //             continue;
-                //         } else {
-                //             matchStartIndex = -1;
-                //             matchEndIndex = int256(i + stringToMatchWith.length - 1);
-                //             break;
-                //         }
-                //     } else {
-                //         if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(ccIdAtoms[j].atom)) {
-                //             matchStartIndex = int256(i);
-                //             matchEndIndex = matchStartIndex;
-                //             continue;
-                //         } else {
-                //             matchStartIndex = -1;
-                //             matchEndIndex = int256(i);
-                //             break;
-                //         }
-                //     }
-                // }
 
                 if (ccIdAtoms[j].atomType == TAB) {
                     if (keccak256(abi.encodePacked(stringInBytes[i])) != keccak256(hex"09")) {
@@ -4956,6 +4909,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Neutralizes (split and tries to match at atomic lvl) and matches character class atoms
+    // Returns match start and end indices
     function neutralizeAndMatchCCAtoms(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -5302,34 +5257,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
-    // function onlyCCLiteralsAndSimilarCollection(uint256 lastIdx) private returns (uint256) {
-    //     uint256 i = lastIdx;
-    //     for (i; i < ccIdAtoms.length; i++) {
-    //         if (ccIdAtoms[i].atomType == LITERAL_ATOM) {
-    //             ccLiterals.push(ccIdAtoms[i].atom);
-    //         } else if (ccIdAtoms[i].atomType == TAB) {
-    //             ccLiterals.push(hex"09");
-    //         } else if (ccIdAtoms[i].atomType == NEWLINE) {
-    //             ccLiterals.push(hex"0a");
-    //         } else if (ccIdAtoms[i].atomType == VERTICAL_TAB) {
-    //             ccLiterals.push(hex"0b");
-    //         } else if (ccIdAtoms[i].atomType == FORMFEED) {
-    //             ccLiterals.push(hex"0c");
-    //         } else if (ccIdAtoms[i].atomType == CARRIAGE_RETURN) {
-    //             ccLiterals.push(hex"0d");
-    //         } else if (ccIdAtoms[i].atomType == ESCAPE_LITERAL_ATOM) {
-    //             ccLiterals.push(trimString(ccIdAtoms[i].atom, 1, int256(ccIdAtoms[i].atom.length - 1)));
-    //         } else if (ccIdAtoms[i].atomType == CONTROL_PREFIX) {
-    //             bytes memory targetHex = trimString(ccIdAtoms[i].atom, 2, -1);
-    //             ccLiterals.push(abi.encodePacked(uint8(targetHex[0]) % 32));
-    //         } else {
-    //             break;
-    //         }
-    //     }
-
-    //     return i;
-    // }
-
+    // Neutralizes character class atoms
+    // returns neutralized matched start and end indices
     function matchNeutralizedCCAtoms(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -5373,12 +5302,6 @@ contract Stringray {
                     console2.log("stringToMatchWith length: ", stringToMatchWith.length);
                     break;
                 }
-
-                // if (!isFirstMatch && !negation) {
-                //     matchStartIndex = -1;
-                //     matchEndIndex = int256(j + stringToMatchWith.length - 1);
-                //     break;
-                // }
             }
 
             if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
@@ -5395,35 +5318,8 @@ contract Stringray {
             if (!isFirstMatch) {
                 break;
             }
-
-            // j = stringToMatchWith.length == 0 ? j + 1 : j + stringToMatchWith.length;
         }
-        // } else {
-        //     for (uint256 i; i < ccLiterals.length; i++) {
-        //         stringToMatchWith = hex"";
-        //         if (stringInBytes.length - 1 >= indexToStartMatch + ccLiterals[i].length - 1) {
-        //             stringToMatchWith = trimString(
-        //                 stringInBytes, indexToStartMatch, int256(indexToStartMatch + ccLiterals[i].length - 1)
-        //             );
-        //         }
-
-        //         if (keccak256(abi.encodePacked(ccLiterals[i])) == keccak256(stringToMatchWith)) {
-        //             matchStartIndex = int256(indexToStartMatch);
-        //             matchEndIndex = int256(indexToStartMatch + stringToMatchWith.length - 1);
-        //             break;
-        //         }
-        //     }
-
-        //     if (matchStartIndex == -1 && matchEndIndex == -1 && negation) {
-        //         return (
-        //             int256(indexToStartMatch),
-        //             !confirmValidStringChunk(stringToMatchWith)
-        //                 ? int256(indexToStartMatch)
-        //                 : int256(indexToStartMatch + stringToMatchWith.length - 1)
-        //         );
-        //     }
-        // }
-
+    
         if (!negation && matchEndIndex == -1) {
             if (isFirstMatch) {
                 matchEndIndex = stringInBytes.length == 0 ? -1 : int256(stringInBytes.length - 1);
@@ -5444,6 +5340,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Checks whether a byte(s) chunk contains and forms a valid uft-8 character
+    // returns True or False
     function confirmValidStringChunk(bytes memory stringChunk) private pure returns (bool) {
         uint256 stringChunkLength = stringChunk.length;
 
@@ -5530,6 +5428,8 @@ contract Stringray {
         return false;
     }
 
+    // Isolates each and every atom a character class contains
+    // returns atom and end index
     function ccSubAtoms(
         bytes memory pattern,
         uint256 indexToStartWith,
