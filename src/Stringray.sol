@@ -5464,6 +5464,8 @@ contract Stringray {
         return (atomType, lastParticleIndex);
     }
 
+    // Matches back-slash u (\u) unicode escapes
+    // returns matched start and end indices
     function matchBackslashUUnicodeEscape(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -5483,6 +5485,8 @@ contract Stringray {
         return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
     }
 
+    // Matches back-slash x (\x) hexadecimal escapes
+    // returns matched start and end indices
     function matchBackslashXHexEscape(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -5503,6 +5507,8 @@ contract Stringray {
         return matchNeutralizedCCAtoms(stringInBytes, indexToStartMatch, isFirstMatch, ccLiterals, negation);
     }
 
+    // Matches back-slash w (\w) word escapes
+    // returns matched start and end indices
     function matchWord(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -5539,6 +5545,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Matches whitespace escapes
+    // returns matched start and end indices
     function matchWhitespace(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -5588,6 +5596,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Matches digit escapes
+    // returns matched start and end indices
     function matchDigit(
         bytes memory stringInBytes,
         uint256 indexToStartMatch,
@@ -5634,6 +5644,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Matches control prefix escapes
+    // returns matched start and end indices
     function matchControlPrefix(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -5646,6 +5658,8 @@ contract Stringray {
         return matchLiteral(extractedAtom, stringInBytes, indexToStartMatch, isFirstMatch);
     }
 
+    // Matches word boundary pattern atom
+    // returns matched start and end indices
     function boundaryCheck(int256 firstIndex, int256 matchEndIndex) private returns (int256, int256) {
         bool allBoundaries = true;
         for (uint256 i; i < allAtoms.length; i++) {
@@ -5673,6 +5687,8 @@ contract Stringray {
         return (firstIndex, matchEndIndex);
     }
 
+    // Matches word boundary
+    // returns matched start and end indices
     function matchWordBoundary(bytes memory stringInBytes, uint256 indexToStartMatch, bool isNotBoundary)
         private
         pure
@@ -5733,13 +5749,10 @@ contract Stringray {
                     return (int256(indexToStartMatch - 1), int256(indexToStartMatch - 1));
                 }
 
-                console2.log("inside boundary match...");
-
                 if (
                     indexToStartMatch + 1 == stringLength && isWord(stringInBytes[indexToStartMatch - 1], false)
                         && isWord(stringInBytes[indexToStartMatch], false)
                 ) {
-                    console2.log("returning index...");
                     return (int256(indexToStartMatch), int256(indexToStartMatch));
                 }
 
@@ -5764,6 +5777,8 @@ contract Stringray {
         return (-1, -1);
     }
 
+    // Matches escape literals
+    // Returns matched start and end indices
     function matchEscapeLiteral(
         bytes memory atom,
         bytes memory stringInBytes,
@@ -5778,6 +5793,8 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Matches literals
+    // returns matched start and end indices
     function matchLiteral(bytes memory atom, bytes memory stringInBytes, uint256 indexToStartMatch, bool isFirstMatch)
         private
         pure
@@ -5813,6 +5830,7 @@ contract Stringray {
         return (matchStartIndex, matchEndIndex);
     }
 
+    // Defuses pattern string into atoms
     function nuclearFission(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -5823,16 +5841,6 @@ contract Stringray {
         int256 atomEndIndex
     ) private {
         int256 patternLength = int256(_pattern.length);
-
-        // if (fromGroup && !isMatching) {
-        //     if (allAtoms.length > 0) {
-        //         if (allAtoms[allAtoms.length - 1].atomType == GROUP_ATOM) {
-        //             atomStartIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
-        //             atomEndIndex += allAtoms[allAtoms.length - 1].atomStartIdx;
-        //         }
-        //     }
-        //     allAtoms.push(AtomTrait(GROUP_ATOM, abi.encodePacked("(", _pattern, ")"), atomStartIndex, atomEndIndex));
-        // }
 
         for (int256 particleIdx = 0; particleIdx < patternLength;) {
             (bytes memory atom, bytes32 atomType, int256 atomEndIdx) =
@@ -5845,16 +5853,13 @@ contract Stringray {
                 allAtoms.push(AtomTrait(atomType, atom, particleIdx, atomEndIdx));
             }
 
-            // console2.log("---------------------ATOM_TYPE---------------------");
-            // console2.log("Atom: ", string(atom));
-            // printAtomType(atomType);
-            // console2.log("---------------------");
-
             if (atomType == INVALID_ATOM) break;
             particleIdx = atomEndIdx + 1;
         }
     }
 
+    // Classifies and organizes defused atoms
+    // Returns atom, atom type, atom last index
     function classifyAtom(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -5879,6 +5884,8 @@ contract Stringray {
         return (atom, atomType, int256(atomLastIdx));
     }
 
+    // Classifies atoms
+    // Returns atom, atom type, atom last index
     function atomIdClassifier(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -5968,6 +5975,8 @@ contract Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
+    // Identifies if atom is a literal atom
+    // Returns bool, atom identifier, last index
     function isLiteralAtom(
         bytes memory _pattern,
         bytes memory _orgPattern,
