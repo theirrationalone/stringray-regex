@@ -6109,6 +6109,8 @@ contract Stringray {
         return (flag, atomType, lastMatchedParticleIndex);
     }
 
+    // Indentifies nul, octal, or digit backreference
+    // returns bool, atom identifier, last index
     function nullOctalOrDigitBackReference(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6144,6 +6146,8 @@ contract Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
+    // Indentifies octal or null
+    // returns bool, atom indentifier, last index
     function isOctalOrNull(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6169,6 +6173,8 @@ contract Stringray {
         return (true, NULL_CHARACTER, _currentParticleIdx + 1);
     }
 
+    // Indentifies octal or digit backrefenrence
+    // returns bool, atom identifier, last index
     function isOctalOrDigitBackReference(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6214,6 +6220,8 @@ contract Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
+    // counts number of sub-atoms in a group pattern atom
+    // returns total number of sub-atoms
     function countGroupAtoms() private returns (uint256) {
         AtomTrait[] memory atoms = allAtoms;
         uint256 numGroups;
@@ -6244,11 +6252,11 @@ contract Stringray {
             }
         }
 
-        console2.log("numGroups: ", numGroups);
-
         return numGroups;
     }
 
+    // Detects duplicate capture group name
+    // returns bool
     function isDuplicateOrExistingCaptureGroupName(
         bytes memory _atom,
         bytes memory _orgPattern,
@@ -6338,6 +6346,8 @@ contract Stringray {
         return false;
     }
 
+    // Filters capture group name
+    // returns capture group name
     function getCaptureGroupName(bytes memory _atom) private pure returns (bytes memory) {
         bytes memory captureName;
         if (uint8(_atom[1]) == QUESTION_MARK && uint8(_atom[2]) == LESS_THAN_SIGN) {
@@ -6353,6 +6363,8 @@ contract Stringray {
         return captureName;
     }
 
+    // Validates digit escapes
+    // returns bool and last index
     function validateBackslash_digit(bytes memory _pattern, uint256 _indexToStartFrom)
         private
         pure
@@ -6377,6 +6389,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Detects whether the current escape is a common escape
+    // returns atom identifier
     function isCommonEscapes(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6503,6 +6517,8 @@ contract Stringray {
         return atomType;
     }
 
+    // Identifies a character class
+    // returns bool, atom identifier, last index
     function isCharacterClass(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6595,6 +6611,8 @@ contract Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
+    // Validates character class in v flag mode
+    // returns bool, last index
     function ccVMode(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6654,6 +6672,7 @@ contract Stringray {
         return (flag, lastMatchedParticleIndex);
     }
 
+    // Validates sets expression inside a character class
     function setExpressionValidationInsideCC(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -6822,6 +6841,8 @@ contract Stringray {
         }
     }
 
+    // Validates Eligible character class literal
+    // returns bool
     function isValidCharacterClassLiteral(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7058,6 +7079,7 @@ contract Stringray {
         return true;
     }
 
+    // validates character class range order
     function validateCharacterClassRangeOrder(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7102,6 +7124,7 @@ contract Stringray {
         }
     }
 
+    // Validates character class Range's left and right atoms
     function validateCharacterClassRangeLeftRightAtoms(
         bytes memory _orgPattern,
         bytes32 atomType,
@@ -7124,6 +7147,8 @@ contract Stringray {
         }
     }
 
+    // Converts special escapes into decimals
+    // returns converted decimals
     function atomsDecimalValues(
         bytes32 atomType,
         bytes memory _orgPattern,
