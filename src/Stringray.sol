@@ -7183,6 +7183,8 @@ contract Stringray {
         return decimal;
     }
 
+    // Converts unicode to its equivalent decimal
+    // returns the converted decimal
     function unicodeEquivalentDecimal(
         bytes memory _orgPattern,
         bytes memory _pattern,
@@ -7212,12 +7214,16 @@ contract Stringray {
         return decValue;
     }
 
+    // Converts hexadecimal unicode to its decimal equivalent
+    // returns the converted decimal
     function hexUnicodeEquivalentDecimal(bytes memory _pattern, uint256 lastIndex) private pure returns (uint256) {
         bytes memory unicodeHex = trimString(_pattern, lastIndex - 1, int256(lastIndex));
         uint256 decValue = hexToDec(unicodeHex, 4, true);
         return decValue;
     }
 
+    // Converts the control prefix codes to their decimal equivalent ones.
+    // returns converted decimals
     function controlPrefixEquivalentDecimal(uint8 unicodeLiteral) private pure returns (uint8) {
         uint8 decimal;
 
@@ -7232,6 +7238,8 @@ contract Stringray {
         return decimal;
     }
 
+    // Validates if the current atom is a valid group pattern atom.
+    // returns bools, atom identifier, last index
     function isGroup(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7298,6 +7306,8 @@ contract Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
+    // Validates the group atom
+    // returns bool, atom matched start and end indices
     function validateGroup(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7368,6 +7378,8 @@ contract Stringray {
         throwError(_orgPattern, "SyntaxError: Invalid regular expression: /", ": Unterminated group", _patternFlags);
     }
 
+    // Validates if current atom is a valid group character class
+    // returns last matched index
     function isValidGroupCC(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7384,6 +7396,8 @@ contract Stringray {
         return i;
     }
 
+    // Validates the group body i.e., literals, character classes, etc
+    // returns bool, starting strip index
     function validateGroupBody(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7461,6 +7475,8 @@ contract Stringray {
         return (true, stripFrom);
     }
 
+    // Identifies and validates whether atom is a dollar or caret anchor
+    // returns bool, atom identifier, last matched index
     function isDollarOrCaretAnchor(bytes memory _pattern, uint256 _currentParticleIndex, bool fromCharacterClass)
         private
         pure
@@ -7493,6 +7509,7 @@ contract Stringray {
         return (false, INVALID_ATOM, 0);
     }
 
+    // utility to print atoms types
     function printAtomType(bytes32 atomType) private pure {
         if (atomType == LITERAL_ATOM) {
             console2.log("Atom Type: LITERAL_ATOM");
@@ -7591,6 +7608,8 @@ contract Stringray {
         }
     }
 
+    // Identifies and validates lazy quantifiers
+    // returns bool, atom identifier, last matched index
     function isLazyQuantifierAtom(
         bytes memory _pattern,
         bytes32 _lastGreedyQuantifierAtomType,
@@ -7623,6 +7642,8 @@ contract Stringray {
         return (flag, lazyQuantifierAtomType, _currentParticleIdx);
     }
 
+    // Identifies and validates greedy quantifiers
+    // returns bool, atom identifier, last matched index
     function isGreedyQuantifierAtom(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7666,6 +7687,8 @@ contract Stringray {
         return (false, _lastAtomType, _currentParticleIdx);
     }
 
+    // Identifies and validates range quantifiers
+    // returns bool, atom identifier, last matched index
     function isValidRangeQuantifier(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -7728,6 +7751,8 @@ contract Stringray {
         return (false, bytes32(0), 0);
     }
 
+    // Validates Regex Pattern
+    // returns regex end index
     function validateRegex(string memory _pattern) private returns (int256) {
         bytes memory patternInBytes = bytes(_pattern);
         if (patternInBytes.length <= 2) {
