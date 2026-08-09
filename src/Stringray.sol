@@ -7813,18 +7813,6 @@ contract Stringray {
 
         hasDuplicateFlags(patternInBytes, uint256(slashPairIndex) + 1);
 
-        // if (
-        //     patternLastChar == FORWARD_SLASH
-        //         && (patternSecondLastChar == BACK_SLASH && patternThirdLastChar != BACK_SLASH)
-        // ) {
-        //     throwError(
-        //         patternInBytes,
-        //         "SyntaxError: Invalid regular expression: ",
-        //         string(abi.encodePacked(": missing ", FORWARD_SLASH, " , required: /valid_seq/")),
-        //         abi.encode("")
-        //     );
-        // }
-
         if (
             (patternLastChar == FORWARD_SLASH
                     && ((patternSecondLastChar == BACK_SLASH && patternThirdLastChar == BACK_SLASH)
@@ -7923,6 +7911,7 @@ contract Stringray {
         return slashPairIndex;
     }
 
+    // Checks and Validates if pattern has duplicate flags
     function hasDuplicateFlags(bytes memory patternInBytes, uint256 indexToStartFrom) private pure {
         uint256 num_d;
         uint256 num_i;
@@ -7978,6 +7967,7 @@ contract Stringray {
         }
     }
 
+    // Utility function for throwing errors and exceptions
     function throwError(
         bytes memory _pattern,
         string memory _errorLeft,
@@ -7994,24 +7984,32 @@ contract Stringray {
         revert(errorMsg);
     }
 
+    // Validates if character's a big alphabet
+    // returns bool
     function isBigAlphabet(bytes1 _targetChar) private pure returns (bool) {
         uint8 lowerBoundUnicode = 65;
         uint8 upperBoundUnicode = 90;
         return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
     }
 
+    // Validates if character's a small alphabet
+    // returns bool
     function isSmallAlphabet(bytes1 _targetChar) private pure returns (bool) {
         uint8 lowerBoundUnicode = 97;
         uint8 upperBoundUnicode = 122;
         return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, false);
     }
 
+    // Validates if character's a digit
+    // returns bool
     function isDigit(bytes1 _targetChar, bool _negation) private pure returns (bool) {
         uint8 lowerBoundUnicode = 48;
         uint8 upperBoundUnicode = 57;
         return findPatternStringInRangeBounds(lowerBoundUnicode, upperBoundUnicode, _targetChar, _negation);
     }
 
+    // Validates if character's a punctuation
+    // returns bool
     function isPunctuation(bytes1 _targetChar) private pure returns (bool) {
         uint8 lowerBoundUnicode = 0;
         uint8 upperBoundUnicode = 35;
@@ -8062,6 +8060,8 @@ contract Stringray {
         return flag;
     }
 
+    // Validates if character's a word (negation supported)
+    // returns bool
     function isWord(bytes1 _targetChar, bool _negation) private pure returns (bool) {
         if (
             isSmallAlphabet(_targetChar) || isBigAlphabet(_targetChar) || isDigit(_targetChar, false)
@@ -8073,6 +8073,8 @@ contract Stringray {
         }
     }
 
+    // Validates if pattern has a property modifier with having mark
+    // returns bool, last index
     function isPropertyModifierCombiningMark(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -8130,6 +8132,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to regional indicator
+    // returns bool, last index
     function isPropertyRegionalIndicator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -8158,6 +8162,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to prepended concatenation mark
+    // returns bool, last index
     function isPropertyPrependedConcatenationMark(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -8242,6 +8248,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to pattern whitespace
+    // returns bool, last index
     function isPropertyPatternWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -8287,6 +8295,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to variation selector
+    // returns bool, last index
     function isPropertyVariationSelector(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -8359,6 +8369,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to sentence terminal
+    // returns bool, last index
     function isPropertySentenceTerminal(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9168,6 +9180,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to ID Compat Math Start
+    // returns bool, last index
     function isPropertyIDCompatMathStart(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9265,6 +9279,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Id Compat Match Continue
+    // returns bool, last index
     function isPropertyIDCompatMathContinue(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9410,6 +9426,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to other ID Continue
+    // returns bool, last index
     function isPropertyOtherIDContinue(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9499,6 +9517,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other ID Start
+    // returns bool, last index
     function isPropertyOtherIDStart(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9550,6 +9570,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Logical Order Exception
+    // returns bool, last index
     function isPropertyLogicalOrderException(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9619,6 +9641,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to soft dotted
+    // returns bool, last index
     function isPropertySoftDotted(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -9930,6 +9954,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to deprecated
+    // returns bool, last index
     function isPropertyDeprecated(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10027,6 +10053,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other default ignorable codepoint
+    // returns bool, last index
     function isPropertyOtherDefaultIgnorableCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10180,6 +10208,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to unified Ideograph
+    // returns bool, last index
     function isPropertyUnifiedIdeograph(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10723,6 +10753,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Redical
+    // returns bool, last index
     function isPropertyRadical(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10801,6 +10833,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to IDS Unary Operator
+    // returns bool, last index
     function isPropertyIDSUnaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10823,6 +10857,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to IDS Trinary Operator
+    // returns bool, last index
     function isPropertyIDSTrinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10845,6 +10881,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to IDS Binary Operator
+    // returns bool, last index
     function isPropertyIDSBinaryOperator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -10884,6 +10922,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other Grapheme Extend
+    // returns bool, last index
     function isPropertyOtherGraphemeExtend(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -11317,6 +11357,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Noncharacter Codepoint
+    // returns bool, last index
     function isPropertyNoncharacterCodePoint(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -11622,6 +11664,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other uppercase
+    // returns bool, last index
     function isPropertyOtherUppercase(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -11717,6 +11761,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other Lowercase
+    // returns bool, last index
     function isPropertyOtherLowercase(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -11974,6 +12020,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Extender
+    // returns bool, last index
     function isPropertyExtender(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -12399,6 +12447,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Ideographic
+    // returns bool, last index
     function isPropertyIdeographic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -14752,6 +14802,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to ASCII Hex Digit
+    // returns bool, last index
     function isPropertyAsciiHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -14775,6 +14827,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Hex Digit
+    // returns bool, last index
     function isPropertyHexDigit(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -14826,6 +14880,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Pattern syntax
+    // returns bool, last index
     function isPropertyPatternSyntax(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -15578,6 +15634,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Diacritic
+    // returns bool, last index
     function isPropertyDiacritic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -17457,6 +17515,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other Alphabetic
+    // returns bool, last index
     function isPropertyOtherAlphabetic(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -19555,6 +19615,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Other Math
+    // returns bool, last index
     function isPropertyOtherMath(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -20345,6 +20407,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Terminal Punctuation
+    // returns bool, last index
     function isPropertyTerminalPunctuation(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21392,6 +21456,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Quotation Mark
+    // returns bool, last index
     function isPropertyQuotationMark(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21525,6 +21591,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Hyphen
+    // returns bool, last index
     function isPropertyHyphen(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21635,6 +21703,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Dash
+    // returns bool, last index
     function isPropertyDash(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // 0x 2d
         if (_pattern[_currentParticleIndex] == 0x2d) {
@@ -21831,6 +21901,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Join control
+    // returns bool, last index
     function isPropertyJoinControl(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21854,6 +21926,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Bidi Control
+    // returns bool, last index
     function isPropertyBidiControl(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21898,6 +21972,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Validates if property belongs to Whitespace
+    // returns bool, last index
     function isPropertyWhiteSpace(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -21911,6 +21987,8 @@ contract Stringray {
         return (flag, lastIndex);
     }
 
+    // Validates if pattern really has a whitespace
+    // returns bool, last index
     function isWhitespace(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation)
         private
         pure
@@ -21923,6 +22001,8 @@ contract Stringray {
         return (flag, lastIndex);
     }
 
+    // Validates if pattern has common whitespaces
+    // returns bool, last index
     function commonWhiteSpaces(bytes memory _pattern, uint256 _currentParticleIndex, bool _negation, bool isLegacy)
         private
         pure
@@ -22062,6 +22142,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Converts unicode hexadecimal to utf8 hexadecimal
+    // returns utf8 hexadecimal bytes
     function unicodeHexToUtf8Hex(bytes memory _unicodeHex) public pure returns (bytes memory) {
         (bool isValid,) = validateBackslash_u_UnicodeEscape(_unicodeHex, _unicodeHex, 0, abi.encode(""), false);
 
