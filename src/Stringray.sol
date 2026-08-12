@@ -22230,6 +22230,8 @@ contract Stringray {
         }
     }
 
+    // Converts binary to utf8 hexadecimals
+    // returns utf8 hex in bytes
     function binaryToUtf8Hex(bytes memory binary) private pure returns (bytes memory) {
         bytes memory utf8Hex;
 
@@ -22241,6 +22243,8 @@ contract Stringray {
         return utf8Hex;
     }
 
+    // Converts utf8 hexadecimals to unicode hexadecimals
+    // returns unicode hex in bytes
     function utf8HexToUnicodeHex(bytes memory _utf8Hex) public pure returns (bytes memory) {
         console2.log("unicode conv init");
         uint256 numBytes = _utf8Hex.length;
@@ -22265,16 +22269,22 @@ contract Stringray {
         return unicodeHex;
     }
 
+    // Converts one-byte utf8 hex
+    // returns utf8 hex in bytes
     function oneByteUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
         return _utf8Hex;
     }
 
+    // Converts two-bytes utf8 hex
+    // returns utf8 hex in bytes
     function twoBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
         bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 2, true);
         bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 2, false);
         return concatenate2BytesBinary(byte1Binary, byte2Binary);
     }
 
+    // Converts three-bytes utf8 hex
+    // returns utf8 hex in bytes
     function threeBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
         bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 3, true);
         bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 3, false);
@@ -22282,6 +22292,8 @@ contract Stringray {
         return concatenate3BytesBinary(byte1Binary, byte2Binary, byte3Binary);
     }
 
+    // Converts four-bytes utf8 hex
+    // returns utf8 hex in bytes
     function fourBytesUtf8HexDecode(bytes memory _utf8Hex) private pure returns (bytes memory) {
         bytes memory byte1Binary = stripPrefixCodes(uint8(_utf8Hex[0]), 4, true);
         bytes memory byte2Binary = stripPrefixCodes(uint8(_utf8Hex[1]), 4, false);
@@ -22290,6 +22302,8 @@ contract Stringray {
         return concatenate4BytesBinary(byte1Binary, byte2Binary, byte3Binary, byte4Binary);
     }
 
+    // Combines four-bytes binary
+    // returns bytes
     function concatenate4BytesBinary(
         bytes memory byte1Binary,
         bytes memory byte2Binary,
@@ -22299,6 +22313,8 @@ contract Stringray {
         return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary, byte3Binary, byte4Binary));
     }
 
+    // Combines three-bytes binary
+    // returns bytes
     function concatenate3BytesBinary(bytes memory byte1Binary, bytes memory byte2Binary, bytes memory byte3Binary)
         private
         pure
@@ -22307,6 +22323,8 @@ contract Stringray {
         return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary, byte3Binary));
     }
 
+    // Combines two-bytes binary
+    // returns bytes
     function concatenate2BytesBinary(bytes memory byte1Binary, bytes memory byte2Binary)
         private
         pure
@@ -22315,6 +22333,8 @@ contract Stringray {
         return concatenateBinaries(abi.encodePacked(byte1Binary, byte2Binary));
     }
 
+    // Combines binary
+    // returns bytes
     function concatenateBinaries(bytes memory fullBinary) private pure returns (bytes memory) {
         uint256 bl = fullBinary.length;
         fullBinary = abi.encodePacked(
@@ -22337,6 +22357,8 @@ contract Stringray {
         return decodedHex;
     }
 
+    // Convert binary to Hexadecimal
+    // returns bytes
     function binToHex(bytes memory _bin) private pure returns (bytes memory) {
         uint8 decEqv;
         bytes memory hexEqv;
@@ -22350,6 +22372,8 @@ contract Stringray {
         return hexEqv;
     }
 
+    // Trims prefix codes
+    // returns bytes
     function stripPrefixCodes(uint8 decimal, uint8 markerBytes, bool isLeadingByte)
         private
         pure
@@ -22365,6 +22389,8 @@ contract Stringray {
         return strippedBinary;
     }
 
+    // Checks if it's a unicode literal
+    // returns bool, last index
     function isUnicodeLiteral(bytes memory _pattern, uint256 _currentParticleIndex, bool fromGroup)
         private
         pure
@@ -22389,6 +22415,8 @@ contract Stringray {
         return (flag, lastMatchedIndex);
     }
 
+    // Checks if It's a f uniocde range
+    // returns bool, last index
     function fUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         bool flag;
         uint256 lastMatchedIndex;
@@ -22414,6 +22442,8 @@ contract Stringray {
         return (flag, lastMatchedIndex);
     }
 
+    // Checks if It's a f0 uniocde range
+    // returns bool, last index
     function f0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f0 90 80 80 - f0 bf bf bf
         if (_pattern[_currentParticleIndex] == 0xf0) {
@@ -22433,6 +22463,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a f1 uniocde range
+    // returns bool, last index
     function f1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f1 80 80 80 - f1 bf bf bf
         if (_pattern[_currentParticleIndex] == 0xf1) {
@@ -22452,6 +22484,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a f2 uniocde range
+    // returns bool, last index
     function f2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f2 80 80 80 - f2 bf bf bf
         if (_pattern[_currentParticleIndex] == 0xf2) {
@@ -22471,6 +22505,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a f3 uniocde range
+    // returns bool, last index
     function f3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f3 80 80 80 - f3 bf bf bf
         if (_pattern[_currentParticleIndex] == 0xf3) {
@@ -22490,6 +22526,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a f4 uniocde range
+    // returns bool, last index
     function f4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // f4 80 80 80 - f4 8f bf bf
         if (_pattern[_currentParticleIndex] == 0xf4) {
@@ -22509,6 +22547,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e uniocde range
+    // returns bool, last index
     function eUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         bool flag;
         uint256 lastMatchedIndex;
@@ -22578,6 +22618,8 @@ contract Stringray {
         return (flag, lastMatchedIndex);
     }
 
+    // Checks if It's a e0 uniocde range
+    // returns bool, last index
     function e0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e0 a0 80 - e0 bf bf
         if (_pattern[_currentParticleIndex] == 0xe0) {
@@ -22591,6 +22633,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e1 uniocde range
+    // returns bool, last index
     function e1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e1 80 80 - e1 bf bf
         if (_pattern[_currentParticleIndex] == 0xe1) {
@@ -22607,6 +22651,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e2 uniocde range
+    // returns bool, last index
     function e2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e2 80 80 - e2 bf bf
         if (_pattern[_currentParticleIndex] == 0xe2) {
@@ -22623,6 +22669,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e3 uniocde range
+    // returns bool, last index
     function e3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e3 80 80 - e3 bf bf
         if (_pattern[_currentParticleIndex] == 0xe3) {
@@ -22639,6 +22687,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e4 uniocde range
+    // returns bool, last index
     function e4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e4 80 80 - e4 bf bf
         if (_pattern[_currentParticleIndex] == 0xe4) {
@@ -22655,6 +22705,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e5 uniocde range
+    // returns bool, last index
     function e5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e5 80 80 - e5 bf bf
         if (_pattern[_currentParticleIndex] == 0xe5) {
@@ -22671,6 +22723,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e6 uniocde range
+    // returns bool, last index
     function e6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e6 80 80 - e6 bf bf
         if (_pattern[_currentParticleIndex] == 0xe6) {
@@ -22687,6 +22741,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e7 uniocde range
+    // returns bool, last index
     function e7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e7 80 80 - e7 bf bf
         if (_pattern[_currentParticleIndex] == 0xe7) {
@@ -22703,6 +22759,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e8 uniocde range
+    // returns bool, last index
     function e8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e8 80 80 - e8 bf bf
         if (_pattern[_currentParticleIndex] == 0xe8) {
@@ -22719,6 +22777,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a e9 uniocde range
+    // returns bool, last index
     function e9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // e9 80 80 - e9 bf bf
         if (_pattern[_currentParticleIndex] == 0xe9) {
@@ -22735,6 +22795,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ea uniocde range
+    // returns bool, last index
     function eaUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // ea 80 80 - ea bf bf
         if (_pattern[_currentParticleIndex] == 0xea) {
@@ -22751,6 +22813,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a eb uniocde range
+    // returns bool, last index
     function ebUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // eb 80 80 - eb bf bf
         if (_pattern[_currentParticleIndex] == 0xeb) {
@@ -22767,6 +22831,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ec uniocde range
+    // returns bool, last index
     function ecUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // ec 80 80 - ec bf bf
         if (_pattern[_currentParticleIndex] == 0xec) {
@@ -22783,6 +22849,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ed uniocde range
+    // returns bool, last index
     function edUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // ed 80 80 - ed 9f bf
         if (_pattern[_currentParticleIndex] == 0xed) {
@@ -22799,6 +22867,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ee uniocde range
+    // returns bool, last index
     function eeUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // ee 80 80 - ee bf bf
         if (_pattern[_currentParticleIndex] == 0xee) {
@@ -22815,6 +22885,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ef uniocde range
+    // returns bool, last index
     function efUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         // ef 80 80 - ef bf bf
         if (_pattern[_currentParticleIndex] == 0xef) {
@@ -22831,6 +22903,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d uniocde range
+    // returns bool, last index
     function dUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         bool flag;
         uint256 lastMatchedIndex;
@@ -22900,6 +22974,8 @@ contract Stringray {
         return (flag, lastMatchedIndex);
     }
 
+    // Checks if It's a d0 uniocde range
+    // returns bool, last index
     function d0UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd0) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22912,6 +22988,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d1 uniocde range
+    // returns bool, last index
     function d1UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd1) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22924,6 +23002,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d2 uniocde range
+    // returns bool, last index
     function d2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd2) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22936,6 +23016,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d3 uniocde range
+    // returns bool, last index
     function d3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd3) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22948,6 +23030,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d4 uniocde range
+    // returns bool, last index
     function d4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd4) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22960,6 +23044,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d5 uniocde range
+    // returns bool, last index
     function d5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd5) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22972,6 +23058,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d6 uniocde range
+    // returns bool, last index
     function d6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd6) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22984,6 +23072,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d7 uniocde range
+    // returns bool, last index
     function d7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd7) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -22996,6 +23086,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d8 uniocde range
+    // returns bool, last index
     function d8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd8) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23008,6 +23100,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a d9 uniocde range
+    // returns bool, last index
     function d9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xd9) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23020,6 +23114,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a da uniocde range
+    // returns bool, last index
     function daUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xda) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23032,6 +23128,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a db uniocde range
+    // returns bool, last index
     function dbUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xdb) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23044,6 +23142,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a dc uniocde range
+    // returns bool, last index
     function dcUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xdc) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23056,6 +23156,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a dd uniocde range
+    // returns bool, last index
     function ddUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xdd) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23068,6 +23170,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a de uniocde range
+    // returns bool, last index
     function deUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xde) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23080,6 +23184,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a df uniocde range
+    // returns bool, last index
     function dfUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xdf) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23092,6 +23198,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c uniocde range
+    // returns bool, last index
     function cUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         bool flag;
         uint256 lastMatchedIndex;
@@ -23153,6 +23261,8 @@ contract Stringray {
         return (flag, lastMatchedIndex);
     }
 
+    // Checks if It's a c2 uniocde range
+    // returns bool, last index
     function c2UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc2) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23165,6 +23275,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c3 uniocde range
+    // returns bool, last index
     function c3UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc3) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23177,6 +23289,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c4 uniocde range
+    // returns bool, last index
     function c4UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc4) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23189,6 +23303,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c5 uniocde range
+    // returns bool, last index
     function c5UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc5) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23201,6 +23317,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c6 uniocde range
+    // returns bool, last index
     function c6UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc6) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23213,6 +23331,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c7 uniocde range
+    // returns bool, last index
     function c7UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc7) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23225,6 +23345,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c8 uniocde range
+    // returns bool, last index
     function c8UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc8) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23237,6 +23359,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a c9 uniocde range
+    // returns bool, last index
     function c9UnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xc9) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23249,6 +23373,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ca uniocde range
+    // returns bool, last index
     function caUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xca) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23261,6 +23387,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a cb uniocde range
+    // returns bool, last index
     function cbUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xcb) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23273,6 +23401,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a cc uniocde range
+    // returns bool, last index
     function ccUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xcc) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23285,6 +23415,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a cd uniocde range
+    // returns bool, last index
     function cdUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xcd) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23297,6 +23429,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a ce uniocde range
+    // returns bool, last index
     function ceUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xce) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23309,6 +23443,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a cf uniocde range
+    // returns bool, last index
     function cfUnicodeRange(bytes memory _pattern, uint256 _currentParticleIndex) private pure returns (bool, uint256) {
         if (_pattern[_currentParticleIndex] == 0xcf) {
             (bool flag, uint256 lastMatchedParticleIndex) = lastByte80bfValidator(_pattern, _currentParticleIndex);
@@ -23321,6 +23457,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a 0xa0bf uniocde
+    // returns bool, last index
     function secondLastBytea0bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23337,6 +23475,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a 0x809f uniocde
+    // returns bool, last index
     function secondLastByte809fValidator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23353,6 +23493,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a 0x808f uniocde
+    // returns bool, last index
     function secondByte808fValidator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23369,6 +23511,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a 0x90bf uniocde
+    // returns bool, last index
     function secondByte90bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23385,6 +23529,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a 0x80bf uniocde
+    // returns bool, last index
     function lastByte80bfValidator(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23401,6 +23547,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a range literal
+    // returns bool, last index
     function isRangeLiteral(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23440,6 +23588,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's curly brace of range escape
+    // returns bool, last index
     function isCurlyBraceOfRangeEscape(bytes memory _pattern, uint256 _currentParticleIndex)
         private
         pure
@@ -23496,6 +23646,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a escape literal
+    // returns bool, last index
     function isEscapeLiteral(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23599,6 +23751,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a octal digit
+    // returns bool, last index
     function validateBackslash_octal_digit(bytes memory _pattern, uint256 _indexToStartFrom)
         private
         pure
@@ -23655,6 +23809,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a property name escape
+    // returns bool, last index
     function validateBackslash_p_propertyNameEscape(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23694,6 +23850,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a group escape
+    // returns bool, last index
     function validateBackslash_k_groupEscape(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23760,6 +23918,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a control escape
+    // returns bool, last index
     function validateBackslash_c_controlEscape(bytes memory _pattern, uint256 _indexToStartFrom)
         private
         pure
@@ -23775,6 +23935,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a hexadecimal escape
+    // returns bool, last index
     function validateBackslash_x_UnicodeEscape(bytes memory _pattern, uint256 _indexToStartFrom)
         private
         pure
@@ -23794,6 +23956,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a unicode escape
+    // returns bool, last index
     function validateBackslash_u_UnicodeEscape(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23896,6 +24060,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Checks if It's a valid property name and syntax
+    // returns bool, last index
     function validatePropertyNameAndSyntax(
         bytes memory _pattern,
         bytes memory _orgPattern,
@@ -23933,6 +24099,8 @@ contract Stringray {
         // return (false, 0);
     }
 
+    // Checks if It's a valid property name
+    // returns bool
     function validatePropertyName(bytes memory propertyName) private pure returns (bool) {
         int256 equalsToIndex = indexOf(string(propertyName), "=");
         bytes32 propertyValueHash;
@@ -23970,6 +24138,8 @@ contract Stringray {
         return true;
     }
 
+    // Checks if It's a valid general category value
+    // returns bool
     function isGeneralCategoryValue(bytes32 propertyValueHash) private pure returns (bool) {
         bool flag = isLetter(propertyValueHash);
 
@@ -24000,6 +24170,8 @@ contract Stringray {
         return flag;
     }
 
+    // Checks if It's script value
+    // returns bool
     function isScriptValue(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == Adlam || propertyValueHash == Caucasian_Albanian || propertyValueHash == Ahom
@@ -24127,6 +24299,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's binary value
+    // returns bool
     function isBinaryValue(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == Alphabetic || propertyValueHash == Alpha || propertyValueHash == ASCII_Hex_Digit
@@ -24184,6 +24358,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's letter
+    // returns bool
     function isLetter(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == LETTER || propertyValueHash == UPPERCASE_LETTER
@@ -24198,6 +24374,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's mark
+    // returns bool
     function isMark(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == MARK || propertyValueHash == NONSPACING_MARK || propertyValueHash == SPACING_MARK
@@ -24210,6 +24388,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's number
+    // returns bool
     function isNumber(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == NUMBER || propertyValueHash == DECIMAL_NUMBER || propertyValueHash == LETTER_NUMBER
@@ -24222,6 +24402,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's property escape punctuation
+    // returns bool
     function isPropertyEscapePunctuation(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == PUNCTUATION || propertyValueHash == CONNECTOR_PUNCTUATION
@@ -24238,6 +24420,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's a symbol
+    // returns bool
     function isSymbol(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == SYMBOL || propertyValueHash == MATH_SYMBOL || propertyValueHash == CURRENCY_SYMBOL
@@ -24251,6 +24435,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's a separator
+    // returns bool
     function isSeparator(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == SEPARATOR || propertyValueHash == SPACE_SEPARATOR
@@ -24263,6 +24449,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's Other 
+    // returns bool
     function isOther(bytes32 propertyValueHash) private pure returns (bool) {
         if (
             propertyValueHash == OTHER || propertyValueHash == CONTROL || propertyValueHash == FORMAT
@@ -24276,6 +24464,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if It's valid group name
+    // returns bool, last index
     function validateGroupName(bytes memory _pattern, uint256 _indexToStartFrom) private pure returns (bool, uint256) {
         if (uint8(_pattern[_indexToStartFrom]) == LESS_THAN_SIGN) {
             if (
@@ -24301,6 +24491,8 @@ contract Stringray {
         return (false, 0);
     }
 
+    // Converts string digit to decimal digit
+    // returns uint256
     function stringDigitToDecDigit(bytes memory _hexString) internal pure returns (uint256) {
         uint256 hexStringLastIndex = _hexString.length - 1;
         bytes memory hexFullBinary;
@@ -24314,6 +24506,8 @@ contract Stringray {
         return binToDecDigit(hexFullBinary);
     }
 
+    // Converts binary to decimal degit
+    // returns uint256
     function binToDecDigit(bytes memory binary) private pure returns (uint256) {
         uint256 binExp;
         uint256 decExp;
@@ -24342,6 +24536,8 @@ contract Stringray {
         return decimal;
     }
 
+    // Converts hexadecimal to decimal degit
+    // returns uint256
     function hexToDec(bytes memory _hexString, uint8 numBits, bool isInterpolated) internal pure returns (uint256) {
         console2.log("hex to dec init");
         console2.log("_hexStringLength: ", _hexString.length);
@@ -24359,6 +24555,8 @@ contract Stringray {
         return binToDec(hexFullBinary);
     }
 
+    // Converts binary to decimal degit
+    // returns uint256
     function binToDec(bytes memory binary) private pure returns (uint256) {
         console2.log("converted decimal init");
         uint256 exp;
@@ -24375,6 +24573,8 @@ contract Stringray {
         return decimal;
     }
 
+    // Converts hexadecimal to binary
+    // returns bytes
     function hexToBinary(bytes1 _hex, uint8 numBits, bool isInterpolated) private pure returns (bytes memory) {
         uint8 decimal;
         if (isInterpolated) {
@@ -24387,6 +24587,8 @@ contract Stringray {
         return binary;
     }
 
+    // Converts decimal to binary ascii
+    // returns bytes
     function decimalToBinaryAscii(uint8 decimal, uint8 numBits, bool isInterpolated)
         private
         pure
@@ -24424,6 +24626,8 @@ contract Stringray {
         return binary;
     }
 
+    // Converts ascii to decimal degit
+    // returns uint256
     function asciiToDigit(uint8 _asciiCode) private pure returns (uint256) {
         if (_asciiCode == uint8(abi.encodePacked("0")[0])) {
             return 0;
@@ -24476,6 +24680,8 @@ contract Stringray {
         return type(uint256).max;
     }
 
+    // Checks if it's a hexadecimal
+    // returns bool
     function isHexadecimal(uint8 _char) private pure returns (bool) {
         uint8 smallaASCIICode = uint8(abi.encodePacked("a")[0]);
         uint8 smallfASCIICode = uint8(abi.encodePacked("f")[0]);
@@ -24495,6 +24701,8 @@ contract Stringray {
         return false;
     }
 
+    // Checks if it's a pattern string in range bounds
+    // returns bool
     function findPatternStringInRangeBounds(
         uint8 lowerBoundUnicode,
         uint8 upperBoundUnicode,
@@ -24514,6 +24722,8 @@ contract Stringray {
         return false;
     }
 
+    // Trims given string
+    // returns bytes
     function trimString(bytes memory _string, uint256 _newStartIndex, int256 _newEndingIndex)
         private
         pure
@@ -24532,6 +24742,8 @@ contract Stringray {
         return _newString;
     }
 
+    // Checks if it's a given flag
+    // returns bool
     function hasFlag(bytes memory _flags, string memory _requiredFlagString) private pure returns (bool) {
         return includes(string(_flags), _requiredFlagString);
     }
