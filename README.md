@@ -430,8 +430,8 @@ Logs:
   ----------------
   ------------------returnedData------------------
   Pattern string         :  /\u{2029}./u
-  Original string        :   😀 nehal is aman's niece
-  Matched string         :   😀
+  Original string        :  😀nehal is aman's niece
+  Matched string         :  😀
   Match start index      :  0
   Match end index        :  6
   ------------------------------------
@@ -441,3 +441,144 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.70ms (1.12ms CPU
 Ran 1 test suite in 12.30ms (11.70ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
 
+
+## Acknowledgements
+
+
+This project was inspired by the simplicity and expressiveness of **JavaScript's string and byte manipulation APIs especially the regex**. The goal was to bring some of that familiar developer experience into Solidity while respecting the constraints and characteristics of the EVM.
+
+I would like to sincerely acknowledge the tools, platforms, documentation, and communities that contributed to the development of this project.
+
+Special thanks to **JavaScript** and **MDN Web Docs** for inspiring the API design and developer experience behind this library. The familiar and expressive nature of JavaScript's string and byte-related APIs strongly influenced the philosophy of this project.
+
+I would also like to acknowledge **OpenAI's ChatGPT**, which served as a development assistant, research companion, debugging partner, and sounding board throughout the development process. Beyond technical assistance, it was especially valuable during the more difficult moments of development—helping break down complex problems, explore alternative approaches, challenge assumptions, and keep the development process moving forward.
+
+I am also grateful to **DeepSeek, Phind, Claude, GitHub Copilot, and Brave Search** for providing additional perspectives, research assistance, code exploration, and development support throughout the project.
+
+These tools did not replace the underlying engineering, experimentation, testing, or decision-making involved in the project; rather, they served as assistants throughout the development journey.
+
+To everyone who builds and maintains the open-source ecosystem, documentation, programming languages, developer tools, and research resources that make projects like this possible:
+
+A special thanks to **MDN Web Docs** for its excellent documentation and clear explanations of JavaScript's `String`, `Array`, and related APIs. MDN served as an important reference for understanding and designing the API philosophy behind this tool.
+
+This project is an independent implementation for Solidity and is **not affiliated with, endorsed by, or derived from the source code of JavaScript or MDN Web Docs**.
+
+* **JavaScript** — inspiration for the API and developer experience.
+* **MDN Web Docs** — reference and documentation for JavaScript behavior and APIs.
+* **unicode org** - reference and documentation for property escapes.
+
+**Thank you.** ❤️
+
+## References
+
+The following resources were consulted throughout the design, research, implementation, testing, and documentation of this project.
+
+### Technical References
+
+* **JavaScript** — inspiration for string/byte manipulation APIs and developer ergonomics.
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+* **MDN Web Docs** — primary reference for JavaScript strings, arrays, typed arrays, encoding/decoding, and related APIs.
+  https://developer.mozilla.org/
+
+* **Unicode Consortium** — reference for Unicode standards, code points, character properties, encoding concepts, and Unicode terminology.
+  https://unicode.org/
+
+* **Solidity Documentation** — reference for Solidity language behavior, `string`, `bytes`, memory, calldata, ABI encoding, and related concepts.
+  https://docs.soliditylang.org/
+
+* **Ethereum Documentation** — reference for EVM concepts, execution, memory, calldata, and low-level Ethereum architecture.
+  https://ethereum.org/developers/docs/
+
+* **OpenZeppelin** — reference for Solidity development patterns, libraries, and established smart-contract engineering practices.
+  https://docs.openzeppelin.com/
+
+### Development & Research Assistance
+
+* **ChatGPT — OpenAI** — conceptual exploration, debugging assistance, API design discussions, research, code reasoning, and development support.
+  https://chatgpt.com/
+
+* **DeepSeek** — supplementary reasoning, research, and code exploration.
+  https://www.deepseek.com/
+
+* **Phind** — developer-focused technical research and exploration.
+  https://www.phind.com/
+
+* **Claude — Anthropic** — supplementary reasoning, code review, research, and alternative perspectives.
+  https://claude.ai/
+
+* **GitHub Copilot** — code completion and development assistance.
+  https://github.com/features/copilot
+
+* **Brave Search** — web research and technical resource discovery.
+  https://search.brave.com/
+
+> These resources were used for learning, research, inspiration, experimentation, debugging, and development assistance. They do not imply endorsement of this project by any of the organizations or services listed above.
+
+### Web3 & Educational Resources
+
+* **Alchemy** — blockchain infrastructure, developer tooling, and ecosystem resources.
+  https://www.alchemy.com/
+
+* **Alchemy University** — Web3 education, developer learning resources, and hands-on blockchain development opportunities.
+  https://www.alchemy.com/university
+
+* **Cyfrin** — Web3 security education, smart-contract development resources, auditing methodologies, and blockchain security tooling.
+  https://www.cyfrin.io/
+
+* **Cyfrin Updraft** — hands-on learning resources for smart-contract development and Web3 security.
+  https://updraft.cyfrin.io/
+
+## 🚀 Next Career Advancement: Boarding Into Web3 Security
+
+This project is not the destination. It is another step toward a much deeper goal: **building a career in Web3 security, with Solidity and EVM security at the core.**
+
+My next phase is focused on going deeper into the security side of blockchain development—moving beyond simply writing smart contracts toward understanding **how they can fail, how they can be attacked, and how they can be designed to resist those attacks.**
+
+The journey ahead includes:
+
+* 🔐 **Solidity Security** — deeply understanding Solidity semantics, compiler behavior, storage, memory, calldata, ABI encoding, inheritance, modifiers, upgradeability, and low-level execution.
+* ⚙️ **EVM Internals** — going beneath Solidity into opcodes, stack, memory, storage, gas, call frames, `delegatecall`, `CREATE/CREATE2`, returndata, revert mechanics, and execution flow.
+* 🕵️ **Smart Contract Auditing** — developing the ability to systematically review protocols, identify vulnerabilities, reason about attack paths, and distinguish real security issues from theoretical concerns.
+* 💥 **DeFi Security** — studying economic attacks, oracle manipulation, flash-loan attacks, accounting vulnerabilities, precision issues, liquidation mechanisms, governance attacks, MEV, and protocol-specific invariants.
+* 🧪 **Security Research & Testing** — building stronger skills with Foundry, fuzzing, invariant testing, symbolic reasoning, differential testing, and adversarial test design.
+* 🧠 **Protocol-Level Reasoning** — learning to understand an entire protocol's architecture, trust assumptions, invariants, state transitions, and economic model rather than analyzing isolated functions.
+* 🛠️ **Low-Level Solidity & Yul** — continuing deeper into assembly and EVM-level programming to understand what Solidity ultimately becomes.
+* 📚 **Security Research** — studying real-world exploits, audit reports, competitive audit findings, bug bounty disclosures, and post-mortems to develop practical vulnerability intuition.
+
+### The Direction
+
+> **Solidity Developer → Smart Contract Security Researcher → Web3 Security Researcher**
+
+The objective is not merely to become someone who can write Solidity.
+
+The objective is to understand Solidity **deeply enough to break it, reason about it, and ultimately secure it.**
+
+Every project I build from here is intended to contribute toward that direction—one contract, one vulnerability, one audit, and one layer deeper into the EVM at a time.
+
+I am also looking forward to exploring whether Alchemy offers a similar program for newcomers. For now, I have jumped into Cyfrin—thriving, struggling, breaking things, fixing them, and learning through every challenge along the way.
+
+**The next chapter begins here.** 🚀🔐
+
+## ❤️ A Final Thank You
+
+A special and heartfelt **thank you to Alchemy and Alchemy University**.
+
+Thank you for creating an opportunity that allowed me to step into Web3, learn, experiment, build, fail, rebuild, and keep going. What started as an opportunity to learn became a reason to challenge myself far beyond what I thought I could do.
+
+The journey has not always been easy. There have been moments of confusion, frustration, self-doubt, and countless things that simply refused to work. But there have also been those moments when something finally clicks—and those moments make the struggle worth it.
+
+I am deeply grateful for the opportunity to **learn, build, struggle, and thrive** within this ecosystem.
+
+This project is one small representation of that journey.
+
+**Thank you, Alchemy.
+Thank you, Alchemy University.**
+
+And now, onward to the next challenge. 🚀🔐
+
+Regards,
+theirrationalone
+aka Anil Kushwaha
+
+;`)
