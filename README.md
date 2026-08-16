@@ -4,6 +4,31 @@
 
 StringRay Regex is a regular expression engine designed for **Solidity**. The goal of this project is to bring a familiar and practical regex experience to smart contract development while remaining mindful of the constraints of the EVM.
 
+### 🐟 Why `stringray-regex`?
+
+The name **`stringray-regex`** comes from the idea behind the project itself.
+
+Solidity provides the fundamental building blocks for working with strings and bytes, but compared to higher-level languages, developers often have to work much closer to the raw representation of data.
+
+Just as Solidity's ecosystem provides specialized libraries for extending native arithmetic capabilities—such as libraries designed for **high-precision numerical calculations**—this project aims to provide a richer and more expressive toolkit for working with **strings and bytes** in Solidity.
+
+The **`stringray`** part represents the project's focus on Solidity string and byte manipulation.
+
+The **`regex`** part represents one of the project's core ambitions: bringing **pattern-matching and regular-expression-inspired capabilities** into the Solidity ecosystem, where developers traditionally have far fewer native tools for text processing.
+
+So:
+
+> **String + Ray + Regex = `stringray-regex`**
+
+It's a name inspired by the idea of taking something that is relatively limited at the language level and building a more powerful abstraction around it.
+
+The goal isn't to turn Solidity into JavaScript.
+
+The goal is to give Solidity developers **better tools for doing things that normally require significantly more manual byte-level manipulation.**
+
+And that's the philosophy behind `stringray-regex`. 🐟⚡
+
+
 ## Features
 
 - Full regular expression support for Solidity.
@@ -56,9 +81,9 @@ Explore `test/StringrayTest.t.sol/`
 - Match Characters:
 
 ```solidity
-function testRegexPatternMatchCase1() public {
-    string memory target = "thithing";
-    string memory pattern = unicode"/thin/";
+function testRegexPatternMatchCase183() public {
+    string memory target = "secResearch0@ACyfr!n";
+    string memory pattern = unicode"/arch\\u{0030}@/u";
 
     Stringray.ReturnData memory returnedData = stringray.regex(target, pattern);
     console2.log("------------------returnedData------------------");
@@ -74,13 +99,20 @@ function testRegexPatternMatchCase1() public {
 - Output:
 
 ```bash
+Ran 1 test for test/StringrayTest.t.sol:PlayStringTest
+[PASS] testRegexPatternMatchCase183() (gas: 775400)
+Logs:
   ------------------returnedData------------------
-  Pattern string   :  /thin/
-  Original string  :  thithing
-  Matched string   :  thin
-  Match start index:  3
-  Match end index  :  6
+  Pattern string   :  /arch\u{0030}@/u
+  Original string  :  secResearch0@ACyfr!n
+  Matched string   :  arch0@
+  Match start index:  7
+  Match end index  :  12
   ------------------------------------
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.52ms (614.24µs CPU time)
+
+Ran 1 test suite in 12.10ms (11.52ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
 ```
 
 - Match escapes:
@@ -577,8 +609,10 @@ Thank you, Alchemy University.**
 
 And now, onward to the next challenge. 🚀🔐
 
-Regards,
-theirrationalone
+<b>
+Regards, <br />
+theirrationalone <br />
 aka Anil Kushwaha
 
 ;`)
+</b>
